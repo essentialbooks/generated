@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="always">
+
+  <meta name="twitter:card" value="summary">
+  <meta name="twitter:site" content="@kjk">
+  <meta name="twitter:title" content="Garbage Collection">
+  
+  <meta name="twitter:description" content="Garbage Collection">
+  <meta name="twitter:creator" content="@kjk">
+  <meta name="twitter:image" content="/essential/python/covers/twitter/Python.png">
+  
+  <meta property="og:title" content="Garbage Collection">
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/essential/python/garbage-collection-7665b43f7b42437dadb9108709b70d11" />
+  
+  <meta property="og:description" content="Garbage Collection">
+  <meta property="og:image" content="/essential/python/covers/twitter/Python.png">
+
+  <title>Garbage Collection / Garbage Collection / Essential Python</title>
+  <meta name="description" content="Garbage Collection / Garbage Collection / Essential Python">
+
+  <link rel="icon" href="s/favicon-9dfe2f70.ico">
+
+  <link href="s/main-65ff0b86.css" rel="stylesheet">
+  <link href="s/bundle-83cf4538.css" rel="stylesheet">
+
+  
+  <script src="s/app-python-7ef81326.js" defer></script>
+  <script src="s/bundle-fd6a7ad6.js" defer></script>
+</head>
+
+<body class="page">
+  <script>
+  function onLoad() {
+    gBookTitle = "Essential Python";
+
+    httpsMaybeRedirect();
+
+    let opts = {
+      target: document.getElementById("toc"),
+      props: {
+        parentIdx: -1,
+        level: 0,
+      },
+    };
+    new app.toc(opts);
+
+    opts = {
+      target: document.getElementById("search-parent"),
+      props: {
+        bookTitle: gBookTitle,
+      },
+    };
+    new app.searchInput(opts);
+
+    opts = {
+      target: document.getElementById("page-toc"),
+    };
+    new app.pageToc(opts);
+
+    opts = {
+      target: document.getElementById("book-toc"),
+    };
+    new app.bookToc(opts);
+  }
+  document.addEventListener('DOMContentLoaded', onLoad);
+</script>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+  <symbol id="arrow-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M11 10H5.344L11 4.414V10z" />
+  </symbol>
+
+  <symbol id="arrow-not-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M6 4v8l4-4-4-4zm1 2.414L8.586 8 7 9.586V6.414z" />
+  </symbol>
+
+  <symbol id="icon-github" viewbox="0 0 496 512">
+    <path
+      d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+  </symbol>
+
+  <symbol id="icon-home" viewbox="0 0 576 512">
+    <path
+      d="M488 312.7V456c0 13.3-10.7 24-24 24H348c-6.6 0-12-5.4-12-12V356c0-6.6-5.4-12-12-12h-72c-6.6 0-12 5.4-12 12v112c0 6.6-5.4 12-12 12H112c-13.3 0-24-10.7-24-24V312.7c0-3.6 1.6-7 4.4-9.3l188-154.8c4.4-3.6 10.8-3.6 15.3 0l188 154.8c2.7 2.3 4.3 5.7 4.3 9.3zm83.6-60.9L488 182.9V44.4c0-6.6-5.4-12-12-12h-56c-6.6 0-12 5.4-12 12V117l-89.5-73.7c-17.7-14.6-43.3-14.6-61 0L4.4 251.8c-5.1 4.2-5.8 11.8-1.6 16.9l25.5 31c4.2 5.1 11.8 5.8 16.9 1.6l235.2-193.7c4.4-3.6 10.8-3.6 15.3 0l235.2 193.7c5.1 4.2 12.7 3.5 16.9-1.6l25.5-31c4.2-5.2 3.4-12.7-1.7-16.9z" />
+  </symbol>
+
+  <symbol id="icon-twitter" viewbox="0 0 512 512">
+    <path
+      d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
+  </symbol>
+
+  <symbol id="icon-edit" viewbox="0 0 576 512">
+    <path
+      d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" />
+  </symbol>
+
+  <symbol id="icon-star" viewbox="0 0 576 512">
+    <path
+      d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z" />
+  </symbol>
+</svg>
+  <header class="page__header">
+  <div class="page__header__left">
+    <a id="link-home" href="index.html">
+      <svg class="icon-home">
+        <use xlink:href="#icon-home"></use>
+      </svg>
+      &nbsp;Essential Python</a>
+  </div>
+  <div class="page__header__center" id="search-parent">
+  </div>
+  <div class="page__header__right">
+  </div>
+</header>
+
+  <div id="toc"></div>
+
+  <div class="content">
+    <div class="article">
+      
+
+<div style="display: flex; justify-content: space-between">
+  <h1 class="title">Garbage Collection</h1>
+  <a class="edit-link" style="font-size: 80%" href="https://notion.so/7665b43f7b42437dadb9108709b70d11" rel="nofollow"
+  target="_blank">suggest change</a>
+</div>
+
+
+      <h2 id="5b38b3e3-363c-4705-a39b-dfe9a7c8f583" class="">Remarks<a class="header-anchor" href="#5b38b3e3-363c-4705-a39b-dfe9a7c8f583" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>At its core, Python’s garbage collector (as of 3.5) is a simple reference counting implementation. Every time you make a reference to an object (for example, <code>a = myobject</code>) the reference count on that object (myobject) is incremented. Every time a reference gets removed, the reference count is decremented, and once the reference count reaches <code>0</code>, we know that nothing holds a reference to that object and we can deallocate it!</p><p>One common misunderstanding about how Python memory management works is that the <code>del</code> keyword frees objects memory. This is not true. What actually happens is that the <code>del</code> keyword merely decrements the objects refcount, meaning that if you call it enough times for the refcount to reach zero the object may be garbage collected (even if there are actually still references to the object available elsewhere in your code).</p><p>Python aggresively creates or cleans up objects the first time it needs them If I perform the assignment a = object(), the memory for object is allocated at that time (cpython will sometimes reuse certain types of object, eg. lists under the hood, but mostly it doesn’t keep a free object pool and will perform allocation when you need it). Similarly, as soon as the refcount is decremented to 0, GC cleans it up.</p><h2 id="fff9710e-9229-4661-a2fc-4ae53f573cfa" class="">Generational Garbage Collection<a class="header-anchor" href="#fff9710e-9229-4661-a2fc-4ae53f573cfa" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>In the 1960’s John McCarthy discovered a fatal flaw in refcounting garbage collection when he implemented the refcounting algorithm used by Lisp: What happens if two objects refer to each other in a cyclic reference? How can you ever garbage collect those two objects even if there are no external references to them if they will always refer to eachother? This problem also extends to any cyclic data structure, such as a ring buffers or any two consecutive entries in a doubly linked list. Python attempts to fix this problem using a slightly interesting twist on another garbage collection algorithm called <strong>Generational Garbage Collection</strong>.</p><p>In essence, any time you create an object in Python it adds it to the end of a doubly linked list. On occasion Python loops through this list, checks what objects the objects in the list refer too, and if they’re also in the list (we’ll see why they might not be in a moment), further decrements their refcounts. At this point (actually, there are some heuristics that determine when things get moved, but let’s assume it’s after a single collection to keep things simple) anything that still has a refcount greater than 0 gets promoted to another linked list called “Generation 1” (this is why all objects aren’t always in the generation 0 list) which has this loop applied to it less often. This is where the generational garbage collection comes in. There are 3 generations by default in Python (three linked lists of objects): The first list (generation 0) contains all new objects; if a GC cycle happens and the objects are not collected, they get moved to the second list (generation 1), and if a GC cycle happens on the second list and they are still not collected they get moved to the third list (generation 2). The third generation list (called “generation 2”, since we’re zero indexing) is garbage collected much less often than the first two, the idea being that if your object is long lived it’s not as likely to be GCed, and may never be GCed during the lifetime of your application so there’s no point in wasting time checking it on every single GC run. Furthermore, it’s observed that most objects are garbage collected relatively quickly. From now on, we’ll call these “good objects” since they die young. This is called the “weak generational hypothesis” and was also first observed in the 60s.</p><p>A quick aside: unlike the first two generations, the long lived third generation list is not garbage collected on a regular schedule. It is checked when the ratio of long lived pending objects (those that are in the third generation list, but haven’t actually had a GC cycle yet) to the total long lived objects in the list is greater than 25%. This is because the third list is unbounded (things are never moved off of it to another list, so they only go away when they’re actually garbage collected), meaning that for applications where you are creating lots of long lived objects, GC cycles on the third list can get quite long. By using a ratio we achieve “amortized linear performance in the total number of objects”; aka, the longer the list, the longer GC takes, but the less often we perform GC (here’s the <a href="https://mail.python.org/pipermail/python-dev/2008-June/080579.html">original 2008 proposal</a> for this heuristic by Martin von Löwis for futher reading). The act of performing a garbage collection on the third generation or “mature” list is called “full garbage collection”.</p><p>So the generational garbage collection speeds things up tremdously by not requiring that we scan over objects that aren’t likely to need GC all the time, but how does it help us break cyclic references? Probably not very well, it turns out. The function for actually breaking these reference cycles starts out <a href="https://github.com/python/cpython/blob/8f33d77/Modules/gcmodule.c#L847">like this</a>:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">/* Break reference cycles by clearing the containers involved.  This is
+ * tricky business as the lists can be changing and we don&#39;t know which
+ * objects may be freed.  It is possible I screwed something up here.
+ */
+static void
+delete_garbage(PyGC_Head *collectable, PyGC_Head *old)</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>The reason generational garbage collection helps with this is that we can keep the length of the list as a separate count; each time we add a new object to the generation we increment this count, and any time we move an object to another generation or dealloc it we decrement the count. Theoretically at the end of a GC cycle this count (for the first two generations anyways) should always be 0. If it’s not, anything in the list that’s left over is some form of circular reference and we can drop it. However, there’s one more problem here: What if the leftover objects have Python’s magic method <code>__del__</code> on them? <code>__del__</code> is called any time a Python object is destroyed. However, if two objects in a circular reference have <code>__del__</code> methods, we can’t be sure that destroying one won’t break the others <code>__del__</code> method. For a contrived example, imagine we wrote the following:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">class A(object):
+    def __init__(self, b=None):
+        self.b = b
+ 
+    def __del__(self):
+        print(&#34;We&#39;re deleting an instance of A containing:&#34;, self.b)
+     
+class B(object):
+    def __init__(self, a=None):
+        self.a = a
+ 
+    def __del__(self):
+        print(&#34;We&#39;re deleting an instance of B containing:&#34;, self.a)</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>and we set an instance of A and an instance of B to point to one another and then they end up in the same garbage collection cycle? Let’s say we pick one at random and dealloc our instance of A first; A’s <code>__del__</code> method will be called, it will print, then A will be freed. Next we come to B, we call its <code>__del__</code> method, and oops! Segfault! A no longer exists. We could fix this by calling everything that’s left over’s <code>__del__</code> methods first, then doing another pass to actually dealloc everything, however, this introduces another, issue: What if one objects <code>__del__</code> method saves a reference of the other object that’s about to be GCed and has a reference to us somewhere else? We still have a reference cycle, but now it’s not possible to actually GC either object, even if they’re no longer in use. Note that even if an object is not part of a circular data structure, it could revive itself in its own <code>__del__</code> method; Python does have a check for this and will stop GCing if an objects refcount has increased after its <code>__del__</code> method has been called.</p><p>CPython deals with this is by sticking those un-GC-able objects (anything with some form of circular reference and a <code>__del__</code> method) onto a global list of uncollectable garbage and then leaving it there for all eternity:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">/* list of uncollectable objects */
+static PyObject *garbage = NULL;</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div>
+
+      <div class="forum-link">
+  Found a mistake? Have a question or improvement idea?
+  <a href="#" onclick="showContact(); return false;">Let me know</a>.
+</div>
+
+      <form id="contact-form" action="https://formsubmit.co/kkowalczyk@gmail.com" method="POST">
+  <p>
+    <div class="contact-light">Feedback about page:</div>
+    <input type="text" name="page-url" id="contact-page-url" readonly />
+  </p>
+
+  <p>
+    <div class="contact-light">Feedback:</div>
+    <textarea name="message" id="msg-for-chris"></textarea>
+    <div class="contact-light">Optional: your email if you want me to get back to you: </div>
+    <input type="email" name="email" />
+    <input type="text" name="_honey" style="display:none">
+  </p>
+
+  <p>
+    <button type="submit" class="contact-btn">
+      Send Feedback
+    </button>
+
+    <button class="contact-btn" style="float: right;" onclick="hideContact(); return false;">
+      Cancel
+    </button>
+  </p>
+
+  <p>
+    <div data-netlify-recaptcha></div>
+  </p>
+</form>
+
+
+      <hr class="article-bottom-sep">
+    </div>
+
+    <div id="page-toc"></div>
+
+    <div id="chapter-toc-wrapper">
+      <hr />
+      <div class="hdr">Table Of Contents</div>
+      <div id="book-toc"></div>
+    </div>
+  </div>
+
+  <footer class="page__footer">
+  <div class="page__footer__left">
+    Maintained by
+    <a href="https://blog.kowalczyk.info" target="_blank">Krzysztof Kowalczyk</a>
+  </div>
+  <div class="share-me">
+    <a href="https://twitter.com/intent/tweet?text=%22Essential%20Python%22%20-%20a%20free%20programming%20book&url=%2fessential%2fpython%2f&via=kjk">Share
+      <b>Essential Python</b> on&nbsp;
+      <svg class="icon-twitter">
+        <use xlink:href="#icon-twitter"></use>
+      </svg>
+    </a>
+  </div>
+  <div class="page__footer__right">
+    
+  </div>
+</footer>
+
+  
+
+</body>
+
+</html>

@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="always">
+
+  <meta name="twitter:card" value="summary">
+  <meta name="twitter:site" content="@kjk">
+  <meta name="twitter:title" content="String interpolation">
+  
+  <meta name="twitter:description" content="String interpolation">
+  <meta name="twitter:creator" content="@kjk">
+  <meta name="twitter:image" content="/essential/csharp/covers/twitter/CSharp.png">
+  
+  <meta property="og:title" content="String interpolation">
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/essential/csharp/string-interpolation-31d6af20df1b44898c44b4dbe87a30a6" />
+  
+  <meta property="og:description" content="String interpolation">
+  <meta property="og:image" content="/essential/csharp/covers/twitter/CSharp.png">
+
+  <title>C# 6.0 Features / String interpolation / Essential C#</title>
+  <meta name="description" content="C# 6.0 Features / String interpolation / Essential C#">
+
+  <link rel="icon" href="s/favicon-9dfe2f70.ico">
+
+  <link href="s/main-65ff0b86.css" rel="stylesheet">
+  <link href="s/bundle-83cf4538.css" rel="stylesheet">
+
+  
+  <script src="s/app-csharp-5c4bfa00.js" defer></script>
+  <script src="s/bundle-fd6a7ad6.js" defer></script>
+</head>
+
+<body class="page">
+  <script>
+  function onLoad() {
+    gBookTitle = "Essential C#";
+
+    httpsMaybeRedirect();
+
+    let opts = {
+      target: document.getElementById("toc"),
+      props: {
+        parentIdx: -1,
+        level: 0,
+      },
+    };
+    new app.toc(opts);
+
+    opts = {
+      target: document.getElementById("search-parent"),
+      props: {
+        bookTitle: gBookTitle,
+      },
+    };
+    new app.searchInput(opts);
+
+    opts = {
+      target: document.getElementById("page-toc"),
+    };
+    new app.pageToc(opts);
+
+    opts = {
+      target: document.getElementById("book-toc"),
+    };
+    new app.bookToc(opts);
+  }
+  document.addEventListener('DOMContentLoaded', onLoad);
+</script>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+  <symbol id="arrow-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M11 10H5.344L11 4.414V10z" />
+  </symbol>
+
+  <symbol id="arrow-not-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M6 4v8l4-4-4-4zm1 2.414L8.586 8 7 9.586V6.414z" />
+  </symbol>
+
+  <symbol id="icon-github" viewbox="0 0 496 512">
+    <path
+      d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+  </symbol>
+
+  <symbol id="icon-home" viewbox="0 0 576 512">
+    <path
+      d="M488 312.7V456c0 13.3-10.7 24-24 24H348c-6.6 0-12-5.4-12-12V356c0-6.6-5.4-12-12-12h-72c-6.6 0-12 5.4-12 12v112c0 6.6-5.4 12-12 12H112c-13.3 0-24-10.7-24-24V312.7c0-3.6 1.6-7 4.4-9.3l188-154.8c4.4-3.6 10.8-3.6 15.3 0l188 154.8c2.7 2.3 4.3 5.7 4.3 9.3zm83.6-60.9L488 182.9V44.4c0-6.6-5.4-12-12-12h-56c-6.6 0-12 5.4-12 12V117l-89.5-73.7c-17.7-14.6-43.3-14.6-61 0L4.4 251.8c-5.1 4.2-5.8 11.8-1.6 16.9l25.5 31c4.2 5.1 11.8 5.8 16.9 1.6l235.2-193.7c4.4-3.6 10.8-3.6 15.3 0l235.2 193.7c5.1 4.2 12.7 3.5 16.9-1.6l25.5-31c4.2-5.2 3.4-12.7-1.7-16.9z" />
+  </symbol>
+
+  <symbol id="icon-twitter" viewbox="0 0 512 512">
+    <path
+      d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
+  </symbol>
+
+  <symbol id="icon-edit" viewbox="0 0 576 512">
+    <path
+      d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" />
+  </symbol>
+
+  <symbol id="icon-star" viewbox="0 0 576 512">
+    <path
+      d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z" />
+  </symbol>
+</svg>
+  <header class="page__header">
+  <div class="page__header__left">
+    <a id="link-home" href="index.html">
+      <svg class="icon-home">
+        <use xlink:href="#icon-home"></use>
+      </svg>
+      &nbsp;Essential C#</a>
+  </div>
+  <div class="page__header__center" id="search-parent">
+  </div>
+  <div class="page__header__right">
+  </div>
+</header>
+
+  <div id="toc"></div>
+
+  <div class="content">
+    <div class="article">
+      
+
+<div style="display: flex; justify-content: space-between">
+  <h1 class="title">String interpolation</h1>
+  <a class="edit-link" style="font-size: 80%" href="https://notion.so/31d6af20df1b44898c44b4dbe87a30a6" rel="nofollow"
+  target="_blank">suggest change</a>
+</div>
+
+
+      <p>String interpolation allows the developer to combine <code>variables</code> and text to form a string.</p><h1 id="d82aaf6b-e277-43cd-bf73-5225cc0f358d" class="">Basic Example<a class="header-anchor" href="#d82aaf6b-e277-43cd-bf73-5225cc0f358d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Two <code>int</code> variables are created: <code>foo</code> and <code>bar</code>.</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="kt">int</span> <span class="n">foo</span> <span class="p">=</span> <span class="m">34</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">bar</span> <span class="p">=</span> <span class="m">42</span><span class="p">;</span>
+
+<span class="kt">string</span> <span class="n">resultString</span> <span class="p">=</span> <span class="s">$&#34;The foo is {foo}, and the bar is {bar}.&#34;</span><span class="p">;</span>
+
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">resultString</span><span class="p">);</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><strong>Output</strong>:</p><blockquote id="ca6ed2f4-f38f-432a-be00-108dbf52d258" class="">The foo is 34, and the bar is 42.</blockquote><p><a href="https://ideone.com/bRFOaV">View Demo</a></p><p>Braces within strings can still be used, like this:</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="kt">var</span> <span class="n">foo</span> <span class="p">=</span> <span class="m">34</span><span class="p">;</span>
+<span class="kt">var</span> <span class="n">bar</span> <span class="p">=</span> <span class="m">42</span><span class="p">;</span>
+
+<span class="c1">// String interpolation notation (new style)
+</span><span class="c1"></span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;The foo is {{foo}}, and the bar is {{bar}}.&#34;</span><span class="p">);</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>This produces the following output:</p><blockquote id="cafa9369-e79b-47cc-a629-c092ff46fc19" class="">The foo is {foo}, and the bar is {bar}.</blockquote><hr id="bdfbd8af-4337-4605-8a23-6e3e644030fb"/><h1 id="379813c4-c76c-4073-b3a4-e433030c53c3" class="">Using interpolation with verbatim string literals<a class="header-anchor" href="#379813c4-c76c-4073-b3a4-e433030c53c3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Using <code>@</code> before the string will cause the string to be interpreted verbatim. So, e.g. Unicode characters or line breaks will stay exactly as they’ve been typed. However, this will not effect the expressions in an interpolated string as shown in the following example:Console.WriteLine($@“In case it wasn’t clear: \u00B9 The foo is {foo}, and the bar is {bar}.”); Output:</p><blockquote id="b8412cd0-1bcb-4183-a98d-c480173f9daf" class="">In case it wasn’t clear:</blockquote><p>\u00B9</p><p>The foo</p><p>is 34,</p><p>and the bar</p><p>is 42.</p><p><a href="https://dotnetfiddle.net/FLs4Ae">View Demo</a></p><hr id="111f1850-9533-46c5-affd-e70e08d1decc"/><h1 id="131abd65-f4f3-4a91-b855-0f588bf57d76" class="">Expressions<a class="header-anchor" href="#131abd65-f4f3-4a91-b855-0f588bf57d76" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>With string interpolation, <em>expressions</em> within curly braces <code>{}</code> can also be evaluated. The result will be inserted at the corresponding location within the string. For example, to calculate the maximum of <code>foo</code> and <code>bar</code> and insert it, use <code>Math.Max</code> within the curly braces:Console.WriteLine($“And the greater one is: { Math.Max(foo, bar) }”);</p><p>Output:</p><blockquote id="f2e963ba-7003-4501-9481-05b854b15104" class="">And the greater one is: 42</blockquote><p><em>Note: Any leading or trailing whitespace (including space, tab and CRLF/newline) between the curly brace and the expression is completely ignored and not included in the output</em></p><p><a href="https://ideone.com/qY1Y4B">View Demo</a></p><p>As another example, variables can be formatted as a currency:Console.WriteLine($“Foo formatted as a currency to 4 decimal places: {foo:c4}”);</p><p>Output:</p><blockquote id="eb490dd3-cc7e-4a73-9dc6-23bd0b6bbe7a" class="">Foo formatted as a currency to 4 decimal places: $34.0000</blockquote><p><a href="https://ideone.com/CPB8UJ">View Demo</a></p><p>Or they can be formatted as dates:Console.WriteLine($“Today is: {DateTime.Today:dddd, MMMM dd - yyyy}”);</p><p>Output:</p><blockquote id="bc20f392-cad2-4047-a66f-b4fb09bcd10a" class="">Today is: Monday, July, 20 - 2015</blockquote><p><a href="https://ideone.com/PkjA6k">View Demo</a></p><p>Statements with a <a href="https://msdn.microsoft.com/en-us/library/ty67wk28.aspx">Conditional (Ternary) Operator</a> can also be evaluated within the interpolation. However, these must be wrapped in parentheses, since the colon is otherwise used to indicate formatting as shown above:</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;{(foo &gt; bar ? &#34;</span><span class="n">Foo</span> <span class="k">is</span> <span class="n">larger</span> <span class="n">than</span> <span class="n">bar</span><span class="p">!</span><span class="s">&#34; : &#34;</span><span class="n">Bar</span> <span class="k">is</span> <span class="n">larger</span> <span class="n">than</span> <span class="n">foo</span><span class="p">!</span><span class="s">&#34;)}&#34;</span><span class="p">);</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Output:</p><blockquote id="f77b30e1-53c3-4aa9-9174-f094f7ee66c3" class="">Bar is larger than foo!</blockquote><p><a href="https://ideone.com/sX6tO3">View Demo</a></p><p>Conditional expressions and format specifiers can be mixed:</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;Environment: {(Environment.Is64BitProcess ? 64 : 32):00&#39;-bit&#39;} process&#34;</span><span class="p">);</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Output:</p><blockquote id="f6bcc9f1-642f-43fe-a1e6-f77d7ff7dced" class="">Environment: 32-bit process</blockquote><hr id="4fd8a574-62aa-4cd7-9a67-51f23ef297da"/><h1 id="09816e3e-0146-4408-b278-990d44971adb" class="">Escape sequences<a class="header-anchor" href="#09816e3e-0146-4408-b278-990d44971adb" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Escaping backslash (<code>\\</code>) and quote (<code>&quot;</code>) characters works exactly the same in interpolated strings as in non-interpolated strings, for both verbatim and non-verbatim string literals:</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;Foo is: {foo}. In a non-verbatim string, we need to escape \&#34;</span> <span class="n">and</span> <span class="err">\\</span> <span class="n">with</span> <span class="n">backslashes</span><span class="p">.</span><span class="s">&#34;);
+</span><span class="s"></span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$@&#34;Foo is: {foo}. In a verbatim string, we need to escape &#34;&#34; with an extra quote, but we don&#39;t need to escape \&#34;</span><span class="p">);</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Output:</p><blockquote id="e581d7d9-5e5d-410a-b6a9-e4e87554e37f" class="">Foo is 34. In a non-verbatim string, we need to escape “ and \ with backslashes.</blockquote><p>Foo is 34. In a verbatim string, we need to escape “ with an extra quote, but we don’t need to escape \</p><p>To include a curly brace <code>\{</code> or <code>\}</code> in an interpolated string, use two curly braces <code>{{</code> or <code>}}</code>:$”{{foo}} is: {foo}”</p><p>Output:</p><blockquote id="58f7b76d-de4c-42bc-8b6d-071cb65bce75" class="">{foo} is: 34</blockquote><p><a href="https://dotnetfiddle.net/BuudHP">View Demo</a></p><hr id="bf853ed6-c492-4279-8342-eec7238b7cb6"/><h1 id="f1a9b277-da36-4212-851f-77719c9a0dcf" class="">FormattableString type<a class="header-anchor" href="#f1a9b277-da36-4212-851f-77719c9a0dcf" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>The type of a <code>$&quot;...&quot;</code> string interpolation expression <a href="http://stackoverflow.com/questions/38119074">is not always</a> a simple string. The compiler decides which type to assign depending on the context:string s = $“hello, {name}”; System.FormattableString s = $“Hello, {name}”; System.IFormattable s = $“Hello, {name}”;</p><p>This is also the order of type preference when the compiler needs to choose which overloaded method is going to be called.</p><p>A <a href="https://msdn.microsoft.com/en-us/library/system.formattablestring(v=vs.110).aspx">new type</a>, <code>System.FormattableString</code>, represents a composite format string, along with the arguments to be formatted. Use this to write applications that handle the interpolation arguments specifically:</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="k">public</span> <span class="k">void</span> <span class="n">AddLogItem</span><span class="p">(</span><span class="n">FormattableString</span> <span class="n">formattableString</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">arg</span> <span class="k">in</span> <span class="n">formattableString</span><span class="p">.</span><span class="n">GetArguments</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="c1">// do something to interpolation argument &#39;arg&#39;
+</span><span class="c1"></span>    <span class="p">}</span>
+
+    <span class="c1">// use the standard interpolation and the current culture info
+</span><span class="c1"></span>    <span class="c1">// to get an ordinary String:
+</span><span class="c1"></span>    <span class="kt">var</span> <span class="n">formatted</span> <span class="p">=</span> <span class="n">formattableString</span><span class="p">.</span><span class="n">ToString</span><span class="p">();</span>
+
+    <span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p></p><p>Call the above method with:AddLogItem($“The foo is {foo}, and the bar is {bar}.”); For example, one could choose not to incur the performance cost of formatting the string if the logging level was already going to filter out the log item.</p><h1 id="36c0a54d-c66a-4cd3-82b4-f985ed66b1d9" class="">Implicit conversions<a class="header-anchor" href="#36c0a54d-c66a-4cd3-82b4-f985ed66b1d9" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>There are implicit type conversions from an interpolated string:var s = $“Foo: {foo}”; System.IFormattable s = $“Foo: {foo}”; You can also produce an <code>IFormattable</code> variable that allows you to convert the string with invariant context:var s = $“Bar: {bar}”; System.FormattableString s = $“Bar: {bar}”;</p><h1 id="46d3bf22-64f3-4207-8360-9c61fca2c3a5" class="">Current and Invariant Culture Methods<a class="header-anchor" href="#46d3bf22-64f3-4207-8360-9c61fca2c3a5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>If code analysis is turned on, interpolated strings will all produce warning <a href="https://msdn.microsoft.com/en-us/library/ms182190.aspx">CA1305</a> (Specify <code>IFormatProvider</code>). A static method may be used to apply current culture.</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">Culture</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="kt">string</span> <span class="n">Current</span><span class="p">(</span><span class="n">FormattableString</span> <span class="n">formattableString</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">formattableString</span><span class="p">?.</span><span class="n">ToString</span><span class="p">(</span><span class="n">CultureInfo</span><span class="p">.</span><span class="n">CurrentCulture</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="kt">string</span> <span class="n">Invariant</span><span class="p">(</span><span class="n">FormattableString</span> <span class="n">formattableString</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">formattableString</span><span class="p">?.</span><span class="n">ToString</span><span class="p">(</span><span class="n">CultureInfo</span><span class="p">.</span><span class="n">InvariantCulture</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Then, to produce a correct string for the current culture, just use the expression:Culture.Current($“interpolated {typeof(string).Name} string.”\) Culture.Invariant($“interpolated {typeof(string).Name} string.”) <strong>Note</strong>: <code>Current</code> and <code>Invariant</code> cannot be created as extension methods because, by default, the compiler assigns type <code>String</code> to <em>interpolated string expression</em> which causes the following code to fail to compile:</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="s">$&#34;interpolated {typeof(string).Name} string.&#34;</span><span class="p">.</span><span class="n">Current</span><span class="p">();</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><code>FormattableString</code> class already contains <code>Invariant()</code> method, so the simplest way of switching to invariant culture is by relying on <code>using static</code>:using static System.FormattableString;</p><p>string invariant = Invariant($“Now = {DateTime.Now}”); string current = $“Now = {DateTime.Now}”;</p><h1 id="03b5c79f-e0a7-4d31-a3d6-5578ad5a561c" class="">Behind the scenes<a class="header-anchor" href="#03b5c79f-e0a7-4d31-a3d6-5578ad5a561c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Interpolated strings are just a syntactic sugar for <code>String.Format()</code>. The compiler (<a href="https://github.com/dotnet/roslyn">Roslyn</a>) will turn it into a <code>String.Format</code> behind the scenes:</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="kt">var</span> <span class="n">text</span> <span class="p">=</span> <span class="s">$&#34;Hello {name + lastName}&#34;</span><span class="p">;</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>The above will be converted to something like this:</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="kt">string</span> <span class="n">text</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&#34;Hello {0}&#34;</span><span class="p">,</span> <span class="k">new</span> <span class="kt">object</span><span class="p">[]</span> <span class="p">{</span>
+    <span class="n">name</span> <span class="p">+</span> <span class="n">lastName</span>
+<span class="p">});</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><hr id="33842d1c-f996-4360-9799-e85dd3d4f22d"/><h1 id="33fec541-9d37-4227-8c41-ab761f672583" class="">String Interpolation and Linq<a class="header-anchor" href="#33fec541-9d37-4227-8c41-ab761f672583" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>It’s possible to use interpolated strings in Linq statements to increase readability further.</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="kt">var</span> <span class="n">fooBar</span> <span class="p">=</span> <span class="p">(</span><span class="k">from</span> <span class="n">DataRow</span> <span class="n">x</span> <span class="k">in</span> <span class="n">fooBarTable</span><span class="p">.</span><span class="n">Rows</span>
+          <span class="k">select</span> <span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&#34;{0}{1}&#34;</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="s">&#34;foo&#34;</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="s">&#34;bar&#34;</span><span class="p">])).</span><span class="n">ToList</span><span class="p">();</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Can be re-written as:</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="kt">var</span> <span class="n">fooBar</span> <span class="p">=</span> <span class="p">(</span><span class="k">from</span> <span class="n">DataRow</span> <span class="n">x</span> <span class="k">in</span> <span class="n">fooBarTable</span><span class="p">.</span><span class="n">Rows</span>
+          <span class="k">select</span> <span class="s">$&#34;{x[&#34;</span><span class="n">foo</span><span class="s">&#34;]}{x[&#34;</span><span class="n">bar</span><span class="s">&#34;]}&#34;</span><span class="p">).</span><span class="n">ToList</span><span class="p">();</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><h1 id="55fb6712-6942-4f11-9277-65cbbe8dfd9e" class="">Reusable Interpolated Strings<a class="header-anchor" href="#55fb6712-6942-4f11-9277-65cbbe8dfd9e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>With <code>string.Format</code>, you can create reusable format strings:</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="k">public</span> <span class="k">const</span> <span class="kt">string</span> <span class="n">ErrorFormat</span> <span class="p">=</span> <span class="s">&#34;Exception caught:\r\n{0}&#34;</span><span class="p">;</span>
+
+<span class="c1">// ...
+</span><span class="c1"></span>
+<span class="n">Logger</span><span class="p">.</span><span class="n">Log</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="n">ErrorFormat</span><span class="p">,</span> <span class="n">ex</span><span class="p">));</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Interpolated strings, however, will not compile with placeholders referring to non-existent variables. The following will not compile:</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="k">public</span> <span class="k">const</span> <span class="kt">string</span> <span class="n">ErrorFormat</span> <span class="p">=</span> <span class="s">$&#34;Exception caught:\r\n{error}&#34;</span><span class="p">;</span>
+<span class="c1">// CS0103: The name &#39;error&#39; does not exist in the current context
+</span></pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Instead, create a <code>Func&lt;&gt;</code> which consumes variables and returns a <code>String</code>:</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="k">public</span> <span class="k">static</span> <span class="n">Func</span><span class="p">&lt;</span><span class="n">Exception</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;</span> <span class="n">FormatError</span> <span class="p">=</span>
+    <span class="n">error</span> <span class="p">=&gt;</span> <span class="s">$&#34;Exception caught:\r\n{error}&#34;</span><span class="p">;</span>
+
+<span class="c1">// ...
+</span><span class="c1"></span>
+<span class="n">Logger</span><span class="p">.</span><span class="n">Log</span><span class="p">(</span><span class="n">FormatError</span><span class="p">(</span><span class="n">ex</span><span class="p">));</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><h1 id="d720effe-c74c-4331-b132-270d889243ca" class="">String interpolation and localization<a class="header-anchor" href="#d720effe-c74c-4331-b132-270d889243ca" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>If you’re localizing your application you may wonder if it is possible to use string interpolation along with localization. Indeed, it would be nice to have the possibility to store in resource files <code>String</code>s like:“My name is {name} {middlename} {surname}” instead of the much less readable:</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="s">&#34;My name is {0} {1} {2}&#34;</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><code>String</code> interpolation process occurs <em>at compile time</em>, unlike formatting string with <code>string.Format</code> which occurs <em>at runtime</em>. Expressions in an interpolated string must reference names in the current context and need to be stored in resource files. That means that if you want to use localization you have to do it like:</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="kt">var</span> <span class="n">FirstName</span> <span class="p">=</span> <span class="s">&#34;John&#34;</span><span class="p">;</span>
+  
+<span class="c1">// method using different resource file &#34;strings&#34;
+</span><span class="c1">// for French (&#34;strings.fr.resx&#34;), German (&#34;strings.de.resx&#34;), 
+</span><span class="c1">// and English (&#34;strings.en.resx&#34;)
+</span><span class="c1"></span><span class="k">void</span> <span class="n">ShowMyNameLocalized</span><span class="p">(</span><span class="kt">string</span> <span class="n">name</span><span class="p">,</span> <span class="kt">string</span> <span class="n">middlename</span> <span class="p">=</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="kt">string</span> <span class="n">surname</span> <span class="p">=</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// get localized string
+</span><span class="c1"></span>    <span class="kt">var</span> <span class="n">localizedMyNameIs</span> <span class="p">=</span> <span class="n">Properties</span><span class="p">.</span><span class="n">strings</span><span class="p">.</span><span class="n">Hello</span><span class="p">;</span>
+    <span class="c1">// insert spaces where necessary
+</span><span class="c1"></span>    <span class="n">name</span> <span class="p">=</span> <span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">IsNullOrWhiteSpace</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="p">?</span> <span class="s">&#34;&#34;</span> <span class="p">:</span> <span class="n">name</span> <span class="p">+</span> <span class="s">&#34; &#34;</span><span class="p">);</span>
+    <span class="n">middlename</span> <span class="p">=</span> <span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">IsNullOrWhiteSpace</span><span class="p">(</span><span class="n">middlename</span><span class="p">)</span> <span class="p">?</span> <span class="s">&#34;&#34;</span> <span class="p">:</span> <span class="n">middlename</span> <span class="p">+</span> <span class="s">&#34; &#34;</span><span class="p">);</span>
+    <span class="n">surname</span> <span class="p">=</span> <span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">IsNullOrWhiteSpace</span><span class="p">(</span><span class="n">surname</span><span class="p">)</span> <span class="p">?</span> <span class="s">&#34;&#34;</span> <span class="p">:</span> <span class="n">surname</span> <span class="p">+</span> <span class="s">&#34; &#34;</span><span class="p">);</span>
+    <span class="c1">// display it
+</span><span class="c1"></span>    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;{localizedMyNameIs} {name}{middlename}{surname}&#34;</span><span class="p">.</span><span class="n">Trim</span><span class="p">());</span>
+<span class="p">}</span>
+
+<span class="c1">// switch to French and greet John
+</span><span class="c1"></span><span class="n">Thread</span><span class="p">.</span><span class="n">CurrentThread</span><span class="p">.</span><span class="n">CurrentUICulture</span> <span class="p">=</span> <span class="n">CultureInfo</span><span class="p">.</span><span class="n">GetCultureInfo</span><span class="p">(</span><span class="s">&#34;fr-FR&#34;</span><span class="p">);</span>
+<span class="n">ShowMyNameLocalized</span><span class="p">(</span><span class="n">FirstName</span><span class="p">);</span>
+
+<span class="c1">// switch to German and greet John
+</span><span class="c1"></span><span class="n">Thread</span><span class="p">.</span><span class="n">CurrentThread</span><span class="p">.</span><span class="n">CurrentUICulture</span> <span class="p">=</span> <span class="n">CultureInfo</span><span class="p">.</span><span class="n">GetCultureInfo</span><span class="p">(</span><span class="s">&#34;de-DE&#34;</span><span class="p">);</span>
+<span class="n">ShowMyNameLocalized</span><span class="p">(</span><span class="n">FirstName</span><span class="p">);</span>
+
+<span class="c1">// switch to US English and greet John
+</span><span class="c1"></span><span class="n">Thread</span><span class="p">.</span><span class="n">CurrentThread</span><span class="p">.</span><span class="n">CurrentUICulture</span> <span class="p">=</span> <span class="n">CultureInfo</span><span class="p">.</span><span class="n">GetCultureInfo</span><span class="p">(</span><span class="s">&#34;en-US&#34;</span><span class="p">);</span>
+<span class="n">ShowMyNameLocalized</span><span class="p">(</span><span class="n">FirstName</span><span class="p">);</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>If the resource strings for the languages used above are correctly stored in the individual resource files, you should get the following output:</p><blockquote id="539ed15e-d5b3-4cd5-a75c-1dd07b4844f0" class="">Bonjour, mon nom est John Hallo, mein Name ist John Hello, my name is John</blockquote><p><strong>Note</strong> that this implies that the name follows the localized string in every language. If that is not the case, you need to add placeholders to the resource strings and modify the function above or you need to query the culture info in the function and provide a switch case statement containing the different cases. For more details about resource files, see <a href="https://stackoverflow.com/a/1142840/1016343">How to use localization in C#</a>.</p><p>It is a good practice to use a default fallback language most people will understand, in case a translation is not available. I suggest to use English as default fallback language.</p><h1 id="c9a1a334-daee-47ff-aa7c-d0660a32509b" class="">Recursive interpolation<a class="header-anchor" href="#c9a1a334-daee-47ff-aa7c-d0660a32509b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Although not very useful, it is allowed to use an interpolated <code>string</code> recursively inside another’s curly brackets:</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;String has {$&#34;</span><span class="n">My</span> <span class="k">class</span> <span class="nc">is</span> <span class="n">called</span> <span class="p">{</span><span class="n">nameof</span><span class="p">(</span><span class="n">MyClass</span><span class="p">)}.</span><span class="s">&#34;.Length} chars:&#34;</span><span class="p">);</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;My class is called {nameof(MyClass)}.&#34;</span><span class="p">);</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Output:</p><blockquote id="4b23b64b-0027-40e6-b5e1-86f692550dc3" class="">String has 27 chars:
+My class is called MyClass.</blockquote>
+
+      <div class="forum-link">
+  Found a mistake? Have a question or improvement idea?
+  <a href="#" onclick="showContact(); return false;">Let me know</a>.
+</div>
+
+      <form id="contact-form" action="https://formsubmit.co/kkowalczyk@gmail.com" method="POST">
+  <p>
+    <div class="contact-light">Feedback about page:</div>
+    <input type="text" name="page-url" id="contact-page-url" readonly />
+  </p>
+
+  <p>
+    <div class="contact-light">Feedback:</div>
+    <textarea name="message" id="msg-for-chris"></textarea>
+    <div class="contact-light">Optional: your email if you want me to get back to you: </div>
+    <input type="email" name="email" />
+    <input type="text" name="_honey" style="display:none">
+  </p>
+
+  <p>
+    <button type="submit" class="contact-btn">
+      Send Feedback
+    </button>
+
+    <button class="contact-btn" style="float: right;" onclick="hideContact(); return false;">
+      Cancel
+    </button>
+  </p>
+
+  <p>
+    <div data-netlify-recaptcha></div>
+  </p>
+</form>
+
+
+      <hr class="article-bottom-sep">
+    </div>
+
+    <div id="page-toc"></div>
+
+    <div id="chapter-toc-wrapper">
+      <hr />
+      <div class="hdr">Table Of Contents</div>
+      <div id="book-toc"></div>
+    </div>
+  </div>
+
+  <footer class="page__footer">
+  <div class="page__footer__left">
+    Maintained by
+    <a href="https://blog.kowalczyk.info" target="_blank">Krzysztof Kowalczyk</a>
+  </div>
+  <div class="share-me">
+    <a href="https://twitter.com/intent/tweet?text=%22Essential%20C%23%22%20-%20a%20free%20programming%20book&url=%2fessential%2fcsharp%2f&via=kjk">Share
+      <b>Essential C#</b> on&nbsp;
+      <svg class="icon-twitter">
+        <use xlink:href="#icon-twitter"></use>
+      </svg>
+    </a>
+  </div>
+  <div class="page__footer__right">
+    
+  </div>
+</footer>
+
+  
+
+</body>
+
+</html>

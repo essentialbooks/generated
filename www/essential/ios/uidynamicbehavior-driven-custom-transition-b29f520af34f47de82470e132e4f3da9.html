@@ -1,0 +1,824 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="always">
+
+  <meta name="twitter:card" value="summary">
+  <meta name="twitter:site" content="@kjk">
+  <meta name="twitter:title" content="UIDynamicBehavior Driven Custom Transition">
+  
+  <meta name="twitter:description" content="UIDynamicBehavior Driven Custom Transition">
+  <meta name="twitter:creator" content="@kjk">
+  <meta name="twitter:image" content="/essential/ios/covers/twitter/iOS.png">
+  
+  <meta property="og:title" content="UIDynamicBehavior Driven Custom Transition">
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/essential/ios/uidynamicbehavior-driven-custom-transition-b29f520af34f47de82470e132e4f3da9" />
+  
+  <meta property="og:description" content="UIDynamicBehavior Driven Custom Transition">
+  <meta property="og:image" content="/essential/ios/covers/twitter/iOS.png">
+
+  <title>UIKit Dynamics / UIDynamicBehavior Driven Custom Transition / Essential iOS</title>
+  <meta name="description" content="UIKit Dynamics / UIDynamicBehavior Driven Custom Transition / Essential iOS">
+
+  <link rel="icon" href="s/favicon-9dfe2f70.ico">
+
+  <link href="s/main-65ff0b86.css" rel="stylesheet">
+  <link href="s/bundle-83cf4538.css" rel="stylesheet">
+
+  
+  <script src="s/app-ios-c5e8824d.js" defer></script>
+  <script src="s/bundle-fd6a7ad6.js" defer></script>
+</head>
+
+<body class="page">
+  <script>
+  function onLoad() {
+    gBookTitle = "Essential iOS";
+
+    httpsMaybeRedirect();
+
+    let opts = {
+      target: document.getElementById("toc"),
+      props: {
+        parentIdx: -1,
+        level: 0,
+      },
+    };
+    new app.toc(opts);
+
+    opts = {
+      target: document.getElementById("search-parent"),
+      props: {
+        bookTitle: gBookTitle,
+      },
+    };
+    new app.searchInput(opts);
+
+    opts = {
+      target: document.getElementById("page-toc"),
+    };
+    new app.pageToc(opts);
+
+    opts = {
+      target: document.getElementById("book-toc"),
+    };
+    new app.bookToc(opts);
+  }
+  document.addEventListener('DOMContentLoaded', onLoad);
+</script>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+  <symbol id="arrow-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M11 10H5.344L11 4.414V10z" />
+  </symbol>
+
+  <symbol id="arrow-not-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M6 4v8l4-4-4-4zm1 2.414L8.586 8 7 9.586V6.414z" />
+  </symbol>
+
+  <symbol id="icon-github" viewbox="0 0 496 512">
+    <path
+      d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+  </symbol>
+
+  <symbol id="icon-home" viewbox="0 0 576 512">
+    <path
+      d="M488 312.7V456c0 13.3-10.7 24-24 24H348c-6.6 0-12-5.4-12-12V356c0-6.6-5.4-12-12-12h-72c-6.6 0-12 5.4-12 12v112c0 6.6-5.4 12-12 12H112c-13.3 0-24-10.7-24-24V312.7c0-3.6 1.6-7 4.4-9.3l188-154.8c4.4-3.6 10.8-3.6 15.3 0l188 154.8c2.7 2.3 4.3 5.7 4.3 9.3zm83.6-60.9L488 182.9V44.4c0-6.6-5.4-12-12-12h-56c-6.6 0-12 5.4-12 12V117l-89.5-73.7c-17.7-14.6-43.3-14.6-61 0L4.4 251.8c-5.1 4.2-5.8 11.8-1.6 16.9l25.5 31c4.2 5.1 11.8 5.8 16.9 1.6l235.2-193.7c4.4-3.6 10.8-3.6 15.3 0l235.2 193.7c5.1 4.2 12.7 3.5 16.9-1.6l25.5-31c4.2-5.2 3.4-12.7-1.7-16.9z" />
+  </symbol>
+
+  <symbol id="icon-twitter" viewbox="0 0 512 512">
+    <path
+      d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
+  </symbol>
+
+  <symbol id="icon-edit" viewbox="0 0 576 512">
+    <path
+      d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" />
+  </symbol>
+
+  <symbol id="icon-star" viewbox="0 0 576 512">
+    <path
+      d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z" />
+  </symbol>
+</svg>
+  <header class="page__header">
+  <div class="page__header__left">
+    <a id="link-home" href="index.html">
+      <svg class="icon-home">
+        <use xlink:href="#icon-home"></use>
+      </svg>
+      &nbsp;Essential iOS</a>
+  </div>
+  <div class="page__header__center" id="search-parent">
+  </div>
+  <div class="page__header__right">
+  </div>
+</header>
+
+  <div id="toc"></div>
+
+  <div class="content">
+    <div class="article">
+      
+
+<div style="display: flex; justify-content: space-between">
+  <h1 class="title">UIDynamicBehavior Driven Custom Transition</h1>
+  <a class="edit-link" style="font-size: 80%" href="https://notion.so/b29f520af34f47de82470e132e4f3da9" rel="nofollow"
+  target="_blank">suggest change</a>
+</div>
+
+
+      <img class="img" src="/img/ae183e866ef95ba29b31f93e009e39fb68de284f.gif"><p>This example shows how to create a custom presentation transition that is driven by a composite <code>UIDynamicBehavior</code>. We can start by creating a presenting view controller that will present a modal.</p><h2 id="62487ec5-1f56-4101-9cd4-c8697f87988b" class="">Swift<a class="header-anchor" href="#62487ec5-1f56-4101-9cd4-c8697f87988b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">class PresentingViewController: UIViewController
+{
+    lazy var button: UIButton =
+    {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(button)
+        button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive
+            = true
+        button.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        button.setTitle(&#34;Present&#34;, for: .normal)
+        button.setTextColor(UIColor.blue, for: .normal)
+        
+        return button
+    }()
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        button.addTarget(self, action: #selector(self.didPressPresent), for: .touchUpInside)
+    }
+    
+    func didPressPresent()
+    {
+        let modal = ModalViewController()
+        modal.view.frame = CGRect(x: 0.0, y: 0.0, width: 200.0, height: 200.0)
+        modal.modalPresentationStyle = .custom
+        modal.transitioningDelegate = modal
+        self.present(modal, animated: true)
+    }
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><h2 id="d858a55d-aa9c-478d-9a9e-4b8702717292" class="">Objective-C<a class="header-anchor" href="#d858a55d-aa9c-478d-9a9e-4b8702717292" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">@interface PresentingViewController ()
+@property (nonatomic, strong) UIButton *button;
+@end
+
+@implementation PresentingViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self.button addTarget:self action:@selector(didPressPresent) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)didPressPresent
+{
+    ModalViewController *modal = [[ModalViewController alloc] init];
+    modal.view.frame = CGRectMake(0.0, 0.0, 200.0, 200.0);
+    modal.modalPresentationStyle = UIModalPresentationCustom;
+    modal.transitioningDelegate = modal;
+    [self presentViewController:modal animated:YES completion:nil];
+}
+
+- (UIButton *)button
+{
+    if (!_button)
+    {
+        _button = [[UIButton alloc] init];
+        _button.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.view addSubview:_button];
+        [_button.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
+        [_button.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor].active = YES;
+        [_button setTitle:@&#34;Present&#34; forState:UIControlStateNormal];
+        [_button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    }
+    return _button;
+}
+
+@end</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>When the present button is tapped, we create a <code>ModalViewController</code> and set its presentation style to <code>.custom</code> and set its <code>transitionDelegate</code> to itself. This will allow us to vend an animator that will drive its modal transition. We also set <code>modal</code>‘s view’s frame so it will be smaller than the full screen.</p><p>Let’s now look at <code>ModalViewController</code>:</p><h2 id="0c658cbf-d94e-44e4-b2ea-12deeadb494c" class="">Swift<a class="header-anchor" href="#0c658cbf-d94e-44e4-b2ea-12deeadb494c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">class ModalViewController: UIViewController
+{
+    lazy var button: UIButton =
+    {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(button)
+        button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive
+         = true
+        button.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        button.setTitle(&#34;Dismiss&#34;, for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        
+        return button
+    }()
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        button.addTarget(self, action: #selector(self.didPressDismiss), for: .touchUpInside)
+        view.backgroundColor = .red
+        view.layer.cornerRadius = 15.0
+    }
+    
+    func didPressDismiss()
+    {
+        dismiss(animated: true)
+    }
+}
+
+extension ModalViewController: UIViewControllerTransitioningDelegate
+{
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -&gt; UIViewControllerAnimatedTransitioning?
+    {
+        return DropOutAnimator(duration: 1.5, isAppearing: true)
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -&gt; UIViewControllerAnimatedTransitioning?
+    {
+        return DropOutAnimator(duration: 4.0, isAppearing: false)
+    }
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><h2 id="78b56ea2-43a7-4ae2-9e9b-72668a7f51da" class="">Objective-C<a class="header-anchor" href="#78b56ea2-43a7-4ae2-9e9b-72668a7f51da" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">@interface ModalViewController () &lt;UIViewControllerTransitioningDelegate&gt;
+@property (nonatomic, strong) UIButton *button;
+@end
+
+@implementation ModalViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self.button addTarget:self action:@selector(didPressPresent) forControlEvents:UIControlEventTouchUpInside];
+    self.view.backgroundColor = [UIColor redColor];
+    self.view.layer.cornerRadius = 15.0f;
+}
+
+- (void)didPressPresent
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (UIButton *)button
+{
+    if (!_button)
+    {
+        _button = [[UIButton alloc] init];
+        _button.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.view addSubview:_button];
+        [_button.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
+        [_button.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor].active = YES;
+        [_button setTitle:@&#34;Dismiss&#34; forState:UIControlStateNormal];
+        [_button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    }
+    return _button;
+}
+
+- (id&lt;UIViewControllerAnimatedTransitioning&gt;)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
+{
+    return [[DropOutAnimator alloc]initWithDuration: 1.5 appearing:YES];
+}
+
+- (id&lt;UIViewControllerAnimatedTransitioning&gt;)animationControllerForDismissedController:(UIViewController *)dismissed
+{
+    return [[DropOutAnimator alloc] initWithDuration:4.0 appearing:NO];
+}
+
+@end</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Here we create the view controller that is presented. Also because <code>ModalViewController</code> is it’s own <code>transitioningDelegate</code> it is also responsible for vending an object that will manage its transition animation. For us that means passing on an instance of our composite <code>UIDynamicBehavior</code> subclass.</p><p>Our animator will have two different transitions: one for presenting and one for dismissing. For presenting, the presenting view controller’s view will drop in from above. And for dismissing, the view will seem to swing from a rope and then drop out. Because <code>DropOutAnimator</code> conforms to <code>UIViewControllerAnimatedTransitioning</code> most of this work will be done in its implementation of <code>func animateTransition(using transitionContext: UIViewControllerContextTransitioning)</code>.</p><h2 id="d2a15ec6-eb9e-48f7-bed8-d9faf01b05e9" class="">Swift<a class="header-anchor" href="#d2a15ec6-eb9e-48f7-bed8-d9faf01b05e9" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">class DropOutAnimator: UIDynamicBehavior
+{
+    let duration: TimeInterval
+    let isAppearing: Bool
+
+    var transitionContext: UIViewControllerContextTransitioning?
+    var hasElapsedTimeExceededDuration = false
+    var finishTime: TimeInterval = 0.0
+    var collisionBehavior: UICollisionBehavior?
+    var attachmentBehavior: UIAttachmentBehavior?
+    var animator: UIDynamicAnimator?
+
+    init(duration: TimeInterval = 1.0,  isAppearing: Bool)
+    {
+        self.duration = duration
+        self.isAppearing = isAppearing
+        super.init()
+    }
+}
+
+extension DropOutAnimator: UIViewControllerAnimatedTransitioning
+{
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning)
+    {
+        // Get relevant views and view controllers from transitionContext
+        guard let fromVC = transitionContext.viewController(forKey: .from),
+              let toVC = transitionContext.viewController(forKey: .to),
+              let fromView = fromVC.view,
+              let toView = toVC.view else { return }
+    
+        let containerView = transitionContext.containerView
+        let duration = self.transitionDuration(using: transitionContext)
+    
+        // Hold refrence to transitionContext to notify it of completion
+        self.transitionContext = transitionContext
+    
+        // Create dynamic animator
+        let animator = UIDynamicAnimator(referenceView: containerView)
+        animator.delegate = self
+        self.animator = animator
+    
+        // Presenting Animation
+        if self.isAppearing
+        {
+            fromView.isUserInteractionEnabled = false
+        
+            // Position toView  just off-screen
+            let fromViewInitialFrame = transitionContext.initialFrame(for: fromVC)
+            var toViewInitialFrame = toView.frame
+            toViewInitialFrame.origin.y -= toViewInitialFrame.height
+            toViewInitialFrame.origin.x = fromViewInitialFrame.width * 0.5 - toViewInitialFrame.width * 0.5
+            toView.frame = toViewInitialFrame
+        
+            containerView.addSubview(toView)
+        
+            // Prevent rotation and adjust bounce
+            let bodyBehavior = UIDynamicItemBehavior(items: [toView])
+            bodyBehavior.elasticity = 0.7
+            bodyBehavior.allowsRotation = false
+        
+            // Add gravity at exaggerated magnitude so animation doesn&#39;t seem slow
+            let gravityBehavior = UIGravityBehavior(items: [toView])
+            gravityBehavior.magnitude = 10.0
+        
+            // Set collision bounds to include off-screen view and have collision in center 
+            // where our final view should come to rest
+            let collisionBehavior = UICollisionBehavior(items: [toView])
+            let insets = UIEdgeInsets(top: toViewInitialFrame.minY, left: 0.0, bottom: fromViewInitialFrame.height * 0.5 - toViewInitialFrame.height * 0.5, right: 0.0)
+            collisionBehavior.setTranslatesReferenceBoundsIntoBoundary(with: insets)
+            self.collisionBehavior = collisionBehavior
+        
+            // Keep track of finish time in case we need to end the animator befor the animator pauses
+            self.finishTime = duration + (self.animator?.elapsedTime ?? 0.0)
+        
+            // Closure that is called after every &#34;tick&#34; of the animator
+            // Check if we exceed duration
+            self.action =
+            { [weak self] in
+                guard let strongSelf = self,
+                  (strongSelf.animator?.elapsedTime ?? 0.0) &gt;= strongSelf.finishTime else { return }
+                strongSelf.hasElapsedTimeExceededDuration = true
+                strongSelf.animator?.removeBehavior(strongSelf)
+            }
+        
+            // `DropOutAnimator` is a composit behavior, so add child behaviors to self
+            self.addChildBehavior(collisionBehavior)
+            self.addChildBehavior(bodyBehavior)
+            self.addChildBehavior(gravityBehavior)
+        
+            // Add self to dynamic animator
+            self.animator?.addBehavior(self)
+        }
+        // Dismissing Animation
+        else
+        {
+            // Create allow rotation and have a elastic item
+            let bodyBehavior = UIDynamicItemBehavior(items: [fromView])
+            bodyBehavior.elasticity = 0.8
+            bodyBehavior.angularResistance = 5.0
+            bodyBehavior.allowsRotation = true
+        
+            // Create gravity with exaggerated magnitude
+            let gravityBehavior = UIGravityBehavior(items: [fromView])
+            gravityBehavior.magnitude = 10.0
+        
+            // Collision boundary is set to have a floor just below the bottom of the screen
+            let collisionBehavior = UICollisionBehavior(items: [fromView])
+            let insets = UIEdgeInsets(top: 0.0, left: -1000, bottom: -225, right: -1000)
+            collisionBehavior.setTranslatesReferenceBoundsIntoBoundary(with: insets)
+            self.collisionBehavior = collisionBehavior
+        
+            // Attachment behavior so view will have effect of hanging from a rope
+            let offset = UIOffset(horizontal: 70.0, vertical: fromView.bounds.height * 0.5)
+            var anchorPoint = CGPoint(x: fromView.bounds.maxX - 40.0, y: fromView.bounds.minY)
+            anchorPoint = containerView.convert(anchorPoint, from: fromView)
+            let attachmentBehavior = UIAttachmentBehavior(item: fromView, offsetFromCenter: offset, attachedToAnchor: anchorPoint)
+            attachmentBehavior.frequency = 3.0
+            attachmentBehavior.damping = 3.0
+            self.attachmentBehavior = attachmentBehavior
+        
+            // `DropOutAnimator` is a composit behavior, so add child behaviors to self
+            self.addChildBehavior(collisionBehavior)
+            self.addChildBehavior(bodyBehavior)
+            self.addChildBehavior(gravityBehavior)
+            self.addChildBehavior(attachmentBehavior)
+        
+            // Add self to dynamic animator
+            self.animator?.addBehavior(self)
+        
+            // Animation has two parts part one is hanging from rope. 
+            // Part two is bouncying off-screen
+            // Divide duration in two
+            self.finishTime = (2.0 / 3.0) * duration + (self.animator?.elapsedTime ?? 0.0)
+        
+             // After every &#34;tick&#34; of animator check if past time limit
+            self.action =
+            { [weak self] in
+                guard let strongSelf = self,
+                  (strongSelf.animator?.elapsedTime ?? 0.0) &gt;= strongSelf.finishTime else { return }
+                strongSelf.hasElapsedTimeExceededDuration = true
+                strongSelf.animator?.removeBehavior(strongSelf)
+            }
+        }
+    
+    }
+
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -&gt; TimeInterval
+    {
+        // Return the duration of the animation
+        return self.duration
+    }
+}
+
+extension DropOutAnimator: UIDynamicAnimatorDelegate
+{
+    func dynamicAnimatorDidPause(_ animator: UIDynamicAnimator)
+    {
+      // Animator has reached stasis
+      if self.isAppearing
+      {
+            // Check if we are out of time
+            if self.hasElapsedTimeExceededDuration
+            {
+                // Move to final positions
+                let toView = self.transitionContext?.viewController(forKey: .to)?.view
+                let containerView = self.transitionContext?.containerView
+                toView?.center = containerView?.center ?? .zero
+                self.hasElapsedTimeExceededDuration = false
+            }
+            
+            // Clean up and call completion
+            self.transitionContext?.completeTransition(!(self.transitionContext?.transitionWasCancelled ?? false))
+            self.childBehaviors.forEach { self.removeChildBehavior($0) }
+            animator.removeAllBehaviors()
+            self.transitionContext = nil
+    }
+    else
+    {
+        if let attachmentBehavior = self.attachmentBehavior
+        {
+            // If we have an attachment, we are at the end of part one and start part two.
+            self.removeChildBehavior(attachmentBehavior)
+            self.attachmentBehavior = nil
+            animator.addBehavior(self)
+            let duration = self.transitionDuration(using: self.transitionContext)
+            self.finishTime = 1.0 / 3.0 * duration + animator.elapsedTime
+        }
+        else
+        {
+            // Clean up and call completion
+            let fromView = self.transitionContext?.viewController(forKey: .from)?.view
+            let toView = self.transitionContext?.viewController(forKey: .to)?.view
+            fromView?.removeFromSuperview()
+            toView?.isUserInteractionEnabled = true
+            self.transitionContext?.completeTransition(!(self.transitionContext?.transitionWasCancelled ?? false))
+            self.childBehaviors.forEach { self.removeChildBehavior($0) }
+            animator.removeAllBehaviors()
+            self.transitionContext = nil
+        }
+    }
+}
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><h2 id="1d5f21f4-4f45-4daa-a037-8b4189d270db" class="">Objective-C<a class="header-anchor" href="#1d5f21f4-4f45-4daa-a037-8b4189d270db" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">@interface ObjcDropOutAnimator() &lt;UIDynamicAnimatorDelegate, UIViewControllerAnimatedTransitioning&gt;
+@property (nonatomic, strong) id&lt;UIViewControllerContextTransitioning&gt; transitionContext;
+@property (nonatomic, strong) UIDynamicAnimator *animator;
+@property (nonatomic, assign) NSTimeInterval finishTime;
+@property (nonatomic, assign) BOOL elapsedTimeExceededDuration;
+@property (nonatomic, assign, getter=isAppearing) BOOL appearing;
+@property (nonatomic, assign) NSTimeInterval duration;
+@property (nonatomic, strong) UIAttachmentBehavior *attachBehavior;
+@property (nonatomic, strong) UICollisionBehavior * collisionBehavior;
+
+@end
+
+@implementation ObjcDropOutAnimator
+
+- (instancetype)initWithDuration:(NSTimeInterval)duration appearing:(BOOL)appearing
+{
+    self = [super init];
+    if (self)
+    {
+        _duration = duration;
+        _appearing = appearing;
+    }
+    return self;
+}
+
+- (void) animateTransition:(id&lt;UIViewControllerContextTransitioning&gt;)transitionContext
+{
+    // Get relevant views and view controllers from transitionContext
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIView *fromView = fromVC.view;
+    UIView *toView = toVC.view;
+    
+    UIView *containerView = transitionContext.containerView;
+    NSTimeInterval duration = [self transitionDuration:transitionContext];
+    
+    // Hold refrence to transitionContext to notify it of completion
+    self.transitionContext = transitionContext;
+    
+    // Create dynamic animator
+    UIDynamicAnimator *animator = [[UIDynamicAnimator alloc]initWithReferenceView:containerView];
+    animator.delegate = self;
+    self.animator = animator;
+    
+    // Presenting Animation
+    if (self.isAppearing)
+    {
+        fromView.userInteractionEnabled = NO;
+        
+        // Position toView  just above screen
+        CGRect fromViewInitialFrame = [transitionContext initialFrameForViewController:fromVC];
+        CGRect toViewInitialFrame = toView.frame;
+        toViewInitialFrame.origin.y -= CGRectGetHeight(toViewInitialFrame);
+        toViewInitialFrame.origin.x = CGRectGetWidth(fromViewInitialFrame) * 0.5 - CGRectGetWidth(toViewInitialFrame) * 0.5;
+        toView.frame = toViewInitialFrame;
+        
+        [containerView addSubview:toView];
+        
+        // Prevent rotation and adjust bounce
+        UIDynamicItemBehavior *bodyBehavior = [[UIDynamicItemBehavior alloc]initWithItems:@[toView]];
+        bodyBehavior.elasticity = 0.7;
+        bodyBehavior.allowsRotation = NO;
+        
+        // Add gravity at exaggerated magnitude so animation doesn&#39;t seem slow
+        UIGravityBehavior *gravityBehavior = [[UIGravityBehavior alloc]initWithItems:@[toView]];
+        gravityBehavior.magnitude = 10.0f;
+        
+        // Set collision bounds to include off-screen view and have collision floor in center
+        // where our final view should come to rest
+        UICollisionBehavior *collisionBehavior = [[UICollisionBehavior alloc]initWithItems:@[toView]];
+        UIEdgeInsets insets = UIEdgeInsetsMake(CGRectGetMinY(toViewInitialFrame), 0.0, CGRectGetHeight(fromViewInitialFrame) * 0.5 - CGRectGetHeight(toViewInitialFrame) * 0.5, 0.0);
+        [collisionBehavior setTranslatesReferenceBoundsIntoBoundaryWithInsets:insets];
+        self.collisionBehavior = collisionBehavior;
+        
+        // Keep track of finish time in case we need to end the animator befor the animator pauses
+        self.finishTime = duration + self.animator.elapsedTime;
+        
+        // Closure that is called after every &#34;tick&#34; of the animator
+        // Check if we exceed duration
+        __weak ObjcDropOutAnimator *weakSelf = self;
+        self.action = ^{
+            __strong ObjcDropOutAnimator *strongSelf = weakSelf;
+            if (strongSelf)
+            {
+                if (strongSelf.animator.elapsedTime &gt;= strongSelf.finishTime)
+                {
+                    strongSelf.elapsedTimeExceededDuration = YES;
+                    [strongSelf.animator removeBehavior:strongSelf];
+                }
+            }
+        };
+        
+        // `DropOutAnimator` is a composit behavior, so add child behaviors to self
+        [self addChildBehavior:collisionBehavior];
+        [self addChildBehavior:bodyBehavior];
+        [self addChildBehavior:gravityBehavior];
+        
+        // Add self to dynamic animator
+        [self.animator addBehavior:self];
+    }
+    // Dismissing Animation
+    else
+    {
+        // Allow rotation and have a elastic item
+        UIDynamicItemBehavior *bodyBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[fromView]];
+        bodyBehavior.elasticity = 0.8;
+        bodyBehavior.angularResistance = 5.0;
+        bodyBehavior.allowsRotation = YES;
+        
+        // Create gravity with exaggerated magnitude
+        UIGravityBehavior *gravityBehavior = [[UIGravityBehavior alloc] initWithItems:@[fromView]];
+        gravityBehavior.magnitude = 10.0f;
+        
+        // Collision boundary is set to have a floor just below the bottom of the screen
+        UICollisionBehavior *collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[fromView]];
+        UIEdgeInsets insets = UIEdgeInsetsMake(0, -1000, -225, -1000);
+        [collisionBehavior setTranslatesReferenceBoundsIntoBoundaryWithInsets:insets];
+        self.collisionBehavior = collisionBehavior;
+        
+        // Attachment behavior so view will have effect of hanging from a rope
+        UIOffset offset = UIOffsetMake(70, -(CGRectGetHeight(fromView.bounds) / 2.0));
+        
+        CGPoint anchorPoint = CGPointMake(CGRectGetMaxX(fromView.bounds) - 40,
+                                          CGRectGetMinY(fromView.bounds));
+        anchorPoint = [containerView convertPoint:anchorPoint fromView:fromView];
+        UIAttachmentBehavior *attachBehavior = [[UIAttachmentBehavior alloc] initWithItem:fromView offsetFromCenter:offset attachedToAnchor:anchorPoint];
+        attachBehavior.frequency = 3.0;
+        attachBehavior.damping = 0.3;
+        attachBehavior.length = 40;
+        self.attachBehavior = attachBehavior;
+        
+        // `DropOutAnimator` is a composit behavior, so add child behaviors to self
+        [self addChildBehavior:collisionBehavior];
+        [self addChildBehavior:bodyBehavior];
+        [self addChildBehavior:gravityBehavior];
+        [self addChildBehavior:attachBehavior];
+        
+        // Add self to dynamic animator
+        [self.animator addBehavior:self];
+        
+        // Animation has two parts part one is hanging from rope.
+        // Part two is bouncying off-screen
+        // Divide duration in two
+        self.finishTime = (2./3.) * duration + [self.animator elapsedTime];
+        
+        // After every &#34;tick&#34; of animator check if past time limit
+        __weak ObjcDropOutAnimator *weakSelf = self;
+        self.action = ^{
+            __strong ObjcDropOutAnimator *strongSelf = weakSelf;
+            if (strongSelf)
+            {
+                if ([strongSelf.animator elapsedTime] &gt;= strongSelf.finishTime)
+                {
+                    strongSelf.elapsedTimeExceededDuration = YES;
+                    [strongSelf.animator removeBehavior:strongSelf];
+                }
+            }
+        };
+    }
+}
+
+- (NSTimeInterval)transitionDuration:(id&lt;UIViewControllerContextTransitioning&gt;)transitionContext
+{
+    return self.duration;
+}
+
+- (void)dynamicAnimatorDidPause:(UIDynamicAnimator *)animator
+{
+    // Animator has reached stasis
+    if (self.isAppearing)
+    {
+        // Check if we are out of time
+        if (self.elapsedTimeExceededDuration)
+        {
+            // Move to final positions
+            UIView *toView = [self.transitionContext viewControllerForKey:UITransitionContextToViewControllerKey].view;
+            UIView *containerView = [self.transitionContext containerView];
+            toView.center = containerView.center;
+            self.elapsedTimeExceededDuration = NO;
+        }
+        
+        // Clean up and call completion
+        [self.transitionContext completeTransition:![self.transitionContext transitionWasCancelled]];
+        for (UIDynamicBehavior *behavior in self.childBehaviors)
+        {
+            [self removeChildBehavior:behavior];
+        }
+        [animator removeAllBehaviors];
+        self.transitionContext = nil;
+    }
+    // Dismissing
+    else
+    {
+        if (self.attachBehavior)
+        {
+            // If we have an attachment, we are at the end of part one and start part two.
+            [self removeChildBehavior:self.attachBehavior];
+            self.attachBehavior = nil;
+            [animator addBehavior:self];
+            NSTimeInterval duration = [self transitionDuration:self.transitionContext];
+            self.finishTime = 1./3. * duration + [animator elapsedTime];
+        }
+        else
+        {
+            // Clean up and call completion
+            UIView *fromView = [self.transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey].view;
+            UIView *toView = [self.transitionContext viewControllerForKey:UITransitionContextToViewControllerKey].view;
+            [fromView removeFromSuperview];
+            toView.userInteractionEnabled = YES;
+            
+            [self.transitionContext completeTransition:![self.transitionContext transitionWasCancelled]];
+            for (UIDynamicBehavior *behavior in self.childBehaviors)
+            {
+                [self removeChildBehavior:behavior];
+            }
+            [animator removeAllBehaviors];
+            self.transitionContext = nil;
+        }
+    }
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>As composite behavior, <code>DropOutAnimator</code>, can combine a number of different behaviors to perform its presenting and dismissing animations. <code>DropOutAnimator</code> also demonstrates how to use the <code>action</code> block of a behavior to inspect the locations of its items as well as the time elapsed a technique that can be used to remove views that move offscreen or truncate animations that have yet to reach stasis.</p><p>For more information <a href="https://developer.apple.com/videos/play/wwdc2013/221/">2013 WWDC Session “Advanced Techniques with UIKit Dynamics”</a> as well as <a href="https://github.com/soleares/SOLPresentingFun">SOLPresentingFun</a></p>
+
+      <div class="forum-link">
+  Found a mistake? Have a question or improvement idea?
+  <a href="#" onclick="showContact(); return false;">Let me know</a>.
+</div>
+
+      <form id="contact-form" action="https://formsubmit.co/kkowalczyk@gmail.com" method="POST">
+  <p>
+    <div class="contact-light">Feedback about page:</div>
+    <input type="text" name="page-url" id="contact-page-url" readonly />
+  </p>
+
+  <p>
+    <div class="contact-light">Feedback:</div>
+    <textarea name="message" id="msg-for-chris"></textarea>
+    <div class="contact-light">Optional: your email if you want me to get back to you: </div>
+    <input type="email" name="email" />
+    <input type="text" name="_honey" style="display:none">
+  </p>
+
+  <p>
+    <button type="submit" class="contact-btn">
+      Send Feedback
+    </button>
+
+    <button class="contact-btn" style="float: right;" onclick="hideContact(); return false;">
+      Cancel
+    </button>
+  </p>
+
+  <p>
+    <div data-netlify-recaptcha></div>
+  </p>
+</form>
+
+
+      <hr class="article-bottom-sep">
+    </div>
+
+    <div id="page-toc"></div>
+
+    <div id="chapter-toc-wrapper">
+      <hr />
+      <div class="hdr">Table Of Contents</div>
+      <div id="book-toc"></div>
+    </div>
+  </div>
+
+  <footer class="page__footer">
+  <div class="page__footer__left">
+    Maintained by
+    <a href="https://blog.kowalczyk.info" target="_blank">Krzysztof Kowalczyk</a>
+  </div>
+  <div class="share-me">
+    <a href="https://twitter.com/intent/tweet?text=%22Essential%20iOS%22%20-%20a%20free%20programming%20book&url=%2fessential%2fios%2f&via=kjk">Share
+      <b>Essential iOS</b> on&nbsp;
+      <svg class="icon-twitter">
+        <use xlink:href="#icon-twitter"></use>
+      </svg>
+    </a>
+  </div>
+  <div class="page__footer__right">
+    
+  </div>
+</footer>
+
+  
+
+</body>
+
+</html>

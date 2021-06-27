@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="always">
+
+  <meta name="twitter:card" value="summary">
+  <meta name="twitter:site" content="@kjk">
+  <meta name="twitter:title" content="Viewing bytecode with javap">
+  
+  <meta name="twitter:description" content="Viewing bytecode with javap">
+  <meta name="twitter:creator" content="@kjk">
+  <meta name="twitter:image" content="/essential/java/covers/twitter/Java.png">
+  
+  <meta property="og:title" content="Viewing bytecode with javap">
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/essential/java/viewing-bytecode-with-javap-af60dcb08dc34c69890774b3ad774adb" />
+  
+  <meta property="og:description" content="Viewing bytecode with javap">
+  <meta property="og:image" content="/essential/java/covers/twitter/Java.png">
+
+  <title>Disassembling and Decompling / Viewing bytecode with javap / Essential Java</title>
+  <meta name="description" content="Disassembling and Decompling / Viewing bytecode with javap / Essential Java">
+
+  <link rel="icon" href="s/favicon-9dfe2f70.ico">
+
+  <link href="s/main-65ff0b86.css" rel="stylesheet">
+  <link href="s/bundle-83cf4538.css" rel="stylesheet">
+
+  
+  <script src="s/app-java-493b1da5.js" defer></script>
+  <script src="s/bundle-fd6a7ad6.js" defer></script>
+</head>
+
+<body class="page">
+  <script>
+  function onLoad() {
+    gBookTitle = "Essential Java";
+
+    httpsMaybeRedirect();
+
+    let opts = {
+      target: document.getElementById("toc"),
+      props: {
+        parentIdx: -1,
+        level: 0,
+      },
+    };
+    new app.toc(opts);
+
+    opts = {
+      target: document.getElementById("search-parent"),
+      props: {
+        bookTitle: gBookTitle,
+      },
+    };
+    new app.searchInput(opts);
+
+    opts = {
+      target: document.getElementById("page-toc"),
+    };
+    new app.pageToc(opts);
+
+    opts = {
+      target: document.getElementById("book-toc"),
+    };
+    new app.bookToc(opts);
+  }
+  document.addEventListener('DOMContentLoaded', onLoad);
+</script>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+  <symbol id="arrow-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M11 10H5.344L11 4.414V10z" />
+  </symbol>
+
+  <symbol id="arrow-not-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M6 4v8l4-4-4-4zm1 2.414L8.586 8 7 9.586V6.414z" />
+  </symbol>
+
+  <symbol id="icon-github" viewbox="0 0 496 512">
+    <path
+      d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+  </symbol>
+
+  <symbol id="icon-home" viewbox="0 0 576 512">
+    <path
+      d="M488 312.7V456c0 13.3-10.7 24-24 24H348c-6.6 0-12-5.4-12-12V356c0-6.6-5.4-12-12-12h-72c-6.6 0-12 5.4-12 12v112c0 6.6-5.4 12-12 12H112c-13.3 0-24-10.7-24-24V312.7c0-3.6 1.6-7 4.4-9.3l188-154.8c4.4-3.6 10.8-3.6 15.3 0l188 154.8c2.7 2.3 4.3 5.7 4.3 9.3zm83.6-60.9L488 182.9V44.4c0-6.6-5.4-12-12-12h-56c-6.6 0-12 5.4-12 12V117l-89.5-73.7c-17.7-14.6-43.3-14.6-61 0L4.4 251.8c-5.1 4.2-5.8 11.8-1.6 16.9l25.5 31c4.2 5.1 11.8 5.8 16.9 1.6l235.2-193.7c4.4-3.6 10.8-3.6 15.3 0l235.2 193.7c5.1 4.2 12.7 3.5 16.9-1.6l25.5-31c4.2-5.2 3.4-12.7-1.7-16.9z" />
+  </symbol>
+
+  <symbol id="icon-twitter" viewbox="0 0 512 512">
+    <path
+      d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
+  </symbol>
+
+  <symbol id="icon-edit" viewbox="0 0 576 512">
+    <path
+      d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" />
+  </symbol>
+
+  <symbol id="icon-star" viewbox="0 0 576 512">
+    <path
+      d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z" />
+  </symbol>
+</svg>
+  <header class="page__header">
+  <div class="page__header__left">
+    <a id="link-home" href="index.html">
+      <svg class="icon-home">
+        <use xlink:href="#icon-home"></use>
+      </svg>
+      &nbsp;Essential Java</a>
+  </div>
+  <div class="page__header__center" id="search-parent">
+  </div>
+  <div class="page__header__right">
+  </div>
+</header>
+
+  <div id="toc"></div>
+
+  <div class="content">
+    <div class="article">
+      
+
+<div style="display: flex; justify-content: space-between">
+  <h1 class="title">Viewing bytecode with javap</h1>
+  <a class="edit-link" style="font-size: 80%" href="https://notion.so/af60dcb08dc34c69890774b3ad774adb" rel="nofollow"
+  target="_blank">suggest change</a>
+</div>
+
+
+      <p>If you want to see the generated bytecode for a Java program, you can use the provided <code>javap</code> command to view it.</p><p>Assuming that we have the following Java source file:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma"><span class="kn">package</span> <span class="nx">com</span><span class="p">.</span><span class="nx">stackoverflow</span><span class="p">.</span><span class="nx">documentation</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nx">org</span><span class="p">.</span><span class="nx">springframework</span><span class="p">.</span><span class="nx">stereotype</span><span class="p">.</span><span class="nx">Service</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nx">java</span><span class="p">.</span><span class="nx">io</span><span class="p">.</span><span class="nx">IOException</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nx">java</span><span class="p">.</span><span class="nx">io</span><span class="p">.</span><span class="nx">InputStream</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">List</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Service</span>
+<span class="nx">public</span> <span class="nx">class</span> <span class="nx">HelloWorldService</span> <span class="p">{</span>
+
+    <span class="nx">public</span> <span class="nx">void</span> <span class="nf">sayHello</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nb">println</span><span class="p">(</span><span class="s">&#34;Hello, World!&#34;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">private</span> <span class="nx">Object</span><span class="p">[]</span> <span class="nf">pvtMethod</span><span class="p">(</span><span class="nx">List</span><span class="p">&lt;</span><span class="nx">String</span><span class="p">&gt;</span> <span class="nx">strings</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">new</span> <span class="nx">Object</span><span class="p">[]{</span><span class="nx">strings</span><span class="p">};</span>
+    <span class="p">}</span>
+
+    <span class="nx">protected</span> <span class="nx">String</span> <span class="nf">tryCatchResources</span><span class="p">(</span><span class="nx">String</span> <span class="nx">filename</span><span class="p">)</span> <span class="nx">throws</span> <span class="nx">IOException</span> <span class="p">{</span>
+        <span class="nf">try</span> <span class="p">(</span><span class="nx">InputStream</span> <span class="nx">inputStream</span> <span class="p">=</span> <span class="nf">getClass</span><span class="p">().</span><span class="nf">getResourceAsStream</span><span class="p">(</span><span class="nx">filename</span><span class="p">))</span> <span class="p">{</span>
+            <span class="kt">byte</span><span class="p">[]</span> <span class="nx">bytes</span> <span class="p">=</span> <span class="nx">new</span> <span class="kt">byte</span><span class="p">[</span><span class="mi">8192</span><span class="p">];</span>
+            <span class="kt">int</span> <span class="nx">read</span> <span class="p">=</span> <span class="nx">inputStream</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="nx">bytes</span><span class="p">);</span>
+            <span class="k">return</span> <span class="nx">new</span> <span class="nf">String</span><span class="p">(</span><span class="nx">bytes</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">read</span><span class="p">);</span>
+        <span class="p">}</span> <span class="nf">catch</span> <span class="p">(</span><span class="nx">IOException</span> <span class="p">|</span> <span class="nx">RuntimeException</span> <span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">e</span><span class="p">.</span><span class="nf">printStackTrace</span><span class="p">();</span>
+            <span class="nx">throw</span> <span class="nx">e</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">void</span> <span class="nf">stuff</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nb">println</span><span class="p">(</span><span class="s">&#34;stuff&#34;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>After compiling the source file, the most simple usage is:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">cd &lt;directory containing classes&gt; (e.g. target/classes)
+javap com/stackoverflow/documentation/SpringExample</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Which produces the output</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">Compiled from &#34;HelloWorldService.java&#34;
+public class com.stackoverflow.documentation.HelloWorldService {
+  public com.stackoverflow.documentation.HelloWorldService();
+  public void sayHello();
+  protected java.lang.String tryCatchResources(java.lang.String) throws java.io.IOException;
+  void stuff();
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>This lists all non-private methods in the class, but that is not particularly useful for most purposes. The following command is a lot more useful:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">javap -p -c -s -constants -l -v com/stackoverflow/documentation/HelloWorldService</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Which produces the output:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">Classfile /Users/pivotal/IdeaProjects/stackoverflow-spring-docs/target/classes/com/stackoverflow/documentation/HelloWorldService.class
+  Last modified Jul 22, 2016; size 2167 bytes
+  MD5 checksum 6e33b5c292ead21701906353b7f06330
+  Compiled from &#34;HelloWorldService.java&#34;
+public class com.stackoverflow.documentation.HelloWorldService
+  minor version: 0
+  major version: 51
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+    #1 = Methodref          #5.#60        // java/lang/Object.&#34;&lt;init&gt;&#34;:()V
+    #2 = Fieldref           #61.#62       // java/lang/System.out:Ljava/io/PrintStream;
+    #3 = String             #63           // Hello, World!
+    #4 = Methodref          #64.#65       // java/io/PrintStream.println:(Ljava/lang/String;)V
+    #5 = Class              #66           // java/lang/Object
+    #6 = Methodref          #5.#67        // java/lang/Object.getClass:()Ljava/lang/Class;
+    #7 = Methodref          #68.#69       // java/lang/Class.getResourceAsStream:(Ljava/lang/String;)Ljava/io/InputStream;
+    #8 = Methodref          #70.#71       // java/io/InputStream.read:([B)I
+    #9 = Class              #72           // java/lang/String
+   #10 = Methodref          #9.#73        // java/lang/String.&#34;&lt;init&gt;&#34;:([BII)V
+   #11 = Methodref          #70.#74       // java/io/InputStream.close:()V
+   #12 = Class              #75           // java/lang/Throwable
+   #13 = Methodref          #12.#76       // java/lang/Throwable.addSuppressed:(Ljava/lang/Throwable;)V
+   #14 = Class              #77           // java/io/IOException
+   #15 = Class              #78           // java/lang/RuntimeException
+   #16 = Methodref          #79.#80       // java/lang/Exception.printStackTrace:()V
+   #17 = String             #55           // stuff
+   #18 = Class              #81           // com/stackoverflow/documentation/HelloWorldService
+   #19 = Utf8               &lt;init&gt;
+   #20 = Utf8               ()V
+   #21 = Utf8               Code
+   #22 = Utf8               LineNumberTable
+   #23 = Utf8               LocalVariableTable
+   #24 = Utf8               this
+   #25 = Utf8               Lcom/stackoverflow/documentation/HelloWorldService;
+   #26 = Utf8               sayHello
+   #27 = Utf8               pvtMethod
+   #28 = Utf8               (Ljava/util/List;)[Ljava/lang/Object;
+   #29 = Utf8               strings
+   #30 = Utf8               Ljava/util/List;
+   #31 = Utf8               LocalVariableTypeTable
+   #32 = Utf8               Ljava/util/List&lt;Ljava/lang/String;&gt;;
+   #33 = Utf8               Signature
+   #34 = Utf8               (Ljava/util/List&lt;Ljava/lang/String;&gt;;)[Ljava/lang/Object;
+   #35 = Utf8               tryCatchResources
+   #36 = Utf8               (Ljava/lang/String;)Ljava/lang/String;
+   #37 = Utf8               bytes
+   #38 = Utf8               [B
+   #39 = Utf8               read
+   #40 = Utf8               I
+   #41 = Utf8               inputStream
+   #42 = Utf8               Ljava/io/InputStream;
+   #43 = Utf8               e
+   #44 = Utf8               Ljava/lang/Exception;
+   #45 = Utf8               filename
+   #46 = Utf8               Ljava/lang/String;
+   #47 = Utf8               StackMapTable
+   #48 = Class              #81           // com/stackoverflow/documentation/HelloWorldService
+   #49 = Class              #72           // java/lang/String
+   #50 = Class              #82           // java/io/InputStream
+   #51 = Class              #75           // java/lang/Throwable
+   #52 = Class              #38           // &#34;[B&#34;
+   #53 = Class              #83           // java/lang/Exception
+   #54 = Utf8               Exceptions
+   #55 = Utf8               stuff
+   #56 = Utf8               SourceFile
+   #57 = Utf8               HelloWorldService.java
+   #58 = Utf8               RuntimeVisibleAnnotations
+   #59 = Utf8               Lorg/springframework/stereotype/Service;
+   #60 = NameAndType        #19:#20       // &#34;&lt;init&gt;&#34;:()V
+   #61 = Class              #84           // java/lang/System
+   #62 = NameAndType        #85:#86       // out:Ljava/io/PrintStream;
+   #63 = Utf8               Hello, World!
+   #64 = Class              #87           // java/io/PrintStream
+   #65 = NameAndType        #88:#89       // println:(Ljava/lang/String;)V
+   #66 = Utf8               java/lang/Object
+   #67 = NameAndType        #90:#91       // getClass:()Ljava/lang/Class;
+   #68 = Class              #92           // java/lang/Class
+   #69 = NameAndType        #93:#94       // getResourceAsStream:(Ljava/lang/String;)Ljava/io/InputStream;
+   #70 = Class              #82           // java/io/InputStream
+   #71 = NameAndType        #39:#95       // read:([B)I
+   #72 = Utf8               java/lang/String
+   #73 = NameAndType        #19:#96       // &#34;&lt;init&gt;&#34;:([BII)V
+   #74 = NameAndType        #97:#20       // close:()V
+   #75 = Utf8               java/lang/Throwable
+   #76 = NameAndType        #98:#99       // addSuppressed:(Ljava/lang/Throwable;)V
+   #77 = Utf8               java/io/IOException
+   #78 = Utf8               java/lang/RuntimeException
+   #79 = Class              #83           // java/lang/Exception
+   #80 = NameAndType        #100:#20      // printStackTrace:()V
+   #81 = Utf8               com/stackoverflow/documentation/HelloWorldService
+   #82 = Utf8               java/io/InputStream
+   #83 = Utf8               java/lang/Exception
+   #84 = Utf8               java/lang/System
+   #85 = Utf8               out
+   #86 = Utf8               Ljava/io/PrintStream;
+   #87 = Utf8               java/io/PrintStream
+   #88 = Utf8               println
+   #89 = Utf8               (Ljava/lang/String;)V
+   #90 = Utf8               getClass
+   #91 = Utf8               ()Ljava/lang/Class;
+   #92 = Utf8               java/lang/Class
+   #93 = Utf8               getResourceAsStream
+   #94 = Utf8               (Ljava/lang/String;)Ljava/io/InputStream;
+   #95 = Utf8               ([B)I
+   #96 = Utf8               ([BII)V
+   #97 = Utf8               close
+   #98 = Utf8               addSuppressed
+   #99 = Utf8               (Ljava/lang/Throwable;)V
+  #100 = Utf8               printStackTrace
+{
+  public com.stackoverflow.documentation.HelloWorldService();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object.&#34;&lt;init&gt;&#34;:()V
+         4: return
+      LineNumberTable:
+        line 10: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/stackoverflow/documentation/HelloWorldService;
+
+  public void sayHello();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;
+         3: ldc           #3                  // String Hello, World!
+         5: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+         8: return
+      LineNumberTable:
+        line 13: 0
+        line 14: 8
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       9     0  this   Lcom/stackoverflow/documentation/HelloWorldService;
+
+  private java.lang.Object[] pvtMethod(java.util.List&lt;java.lang.String&gt;);
+    descriptor: (Ljava/util/List;)[Ljava/lang/Object;
+    flags: ACC_PRIVATE
+    Code:
+      stack=4, locals=2, args_size=2
+         0: iconst_1
+         1: anewarray     #5                  // class java/lang/Object
+         4: dup
+         5: iconst_0
+         6: aload_1
+         7: aastore
+         8: areturn
+      LineNumberTable:
+        line 17: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       9     0  this   Lcom/stackoverflow/documentation/HelloWorldService;
+            0       9     1 strings   Ljava/util/List;
+      LocalVariableTypeTable:
+        Start  Length  Slot  Name   Signature
+            0       9     1 strings   Ljava/util/List&lt;Ljava/lang/String;&gt;;
+    Signature: #34                          // (Ljava/util/List&lt;Ljava/lang/String;&gt;;)[Ljava/lang/Object;
+
+  protected java.lang.String tryCatchResources(java.lang.String) throws java.io.IOException;
+    descriptor: (Ljava/lang/String;)Ljava/lang/String;
+    flags: ACC_PROTECTED
+    Code:
+      stack=5, locals=10, args_size=2
+         0: aload_0
+         1: invokevirtual #6                  // Method java/lang/Object.getClass:()Ljava/lang/Class;
+         4: aload_1
+         5: invokevirtual #7                  // Method java/lang/Class.getResourceAsStream:(Ljava/lang/String;)Ljava/io/InputStream;
+         8: astore_2
+         9: aconst_null
+        10: astore_3
+        11: sipush        8192
+        14: newarray       byte
+        16: astore        4
+        18: aload_2
+        19: aload         4
+        21: invokevirtual #8                  // Method java/io/InputStream.read:([B)I
+        24: istore        5
+        26: new           #9                  // class java/lang/String
+        29: dup
+        30: aload         4
+        32: iconst_0
+        33: iload         5
+        35: invokespecial #10                 // Method java/lang/String.&#34;&lt;init&gt;&#34;:([BII)V
+        38: astore        6
+        40: aload_2
+        41: ifnull        70
+        44: aload_3
+        45: ifnull        66
+        48: aload_2
+        49: invokevirtual #11                 // Method java/io/InputStream.close:()V
+        52: goto          70
+        55: astore        7
+        57: aload_3
+        58: aload         7
+        60: invokevirtual #13                 // Method java/lang/Throwable.addSuppressed:(Ljava/lang/Throwable;)V
+        63: goto          70
+        66: aload_2
+        67: invokevirtual #11                 // Method java/io/InputStream.close:()V
+        70: aload         6
+        72: areturn
+        73: astore        4
+        75: aload         4
+        77: astore_3
+        78: aload         4
+        80: athrow
+        81: astore        8
+        83: aload_2
+        84: ifnull        113
+        87: aload_3
+        88: ifnull        109
+        91: aload_2
+        92: invokevirtual #11                 // Method java/io/InputStream.close:()V
+        95: goto          113
+        98: astore        9
+       100: aload_3
+       101: aload         9
+       103: invokevirtual #13                 // Method java/lang/Throwable.addSuppressed:(Ljava/lang/Throwable;)V
+       106: goto          113
+       109: aload_2
+       110: invokevirtual #11                 // Method java/io/InputStream.close:()V
+       113: aload         8
+       115: athrow
+       116: astore_2
+       117: aload_2
+       118: invokevirtual #16                 // Method java/lang/Exception.printStackTrace:()V
+       121: aload_2
+       122: athrow
+      Exception table:
+         from    to  target type
+            48    52    55   Class java/lang/Throwable
+            11    40    73   Class java/lang/Throwable
+            11    40    81   any
+            91    95    98   Class java/lang/Throwable
+            73    83    81   any
+             0    70   116   Class java/io/IOException
+             0    70   116   Class java/lang/RuntimeException
+            73   116   116   Class java/io/IOException
+            73   116   116   Class java/lang/RuntimeException
+      LineNumberTable:
+        line 21: 0
+        line 22: 11
+        line 23: 18
+        line 24: 26
+        line 25: 40
+        line 21: 73
+        line 25: 81
+        line 26: 117
+        line 27: 121
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+           18      55     4 bytes   [B
+           26      47     5  read   I
+            9     107     2 inputStream   Ljava/io/InputStream;
+          117       6     2     e   Ljava/lang/Exception;
+            0     123     0  this   Lcom/stackoverflow/documentation/HelloWorldService;
+            0     123     1 filename   Ljava/lang/String;
+      StackMapTable: number_of_entries = 9
+        frame_type = 255 /* full_frame */
+          offset_delta = 55
+          locals = [ class com/stackoverflow/documentation/HelloWorldService, class java/lang/String, class java/io/InputStream, class java/lang/Throwable, class &#34;[B&#34;, int, class java/lang/String ]
+          stack = [ class java/lang/Throwable ]
+        frame_type = 10 /* same */
+        frame_type = 3 /* same */
+        frame_type = 255 /* full_frame */
+          offset_delta = 2
+          locals = [ class com/stackoverflow/documentation/HelloWorldService, class java/lang/String, class java/io/InputStream, class java/lang/Throwable ]
+          stack = [ class java/lang/Throwable ]
+        frame_type = 71 /* same_locals_1_stack_item */
+          stack = [ class java/lang/Throwable ]
+        frame_type = 255 /* full_frame */
+          offset_delta = 16
+          locals = [ class com/stackoverflow/documentation/HelloWorldService, class java/lang/String, class java/io/InputStream, class java/lang/Throwable, top, top, top, top, class java/lang/Throwable ]
+          stack = [ class java/lang/Throwable ]
+        frame_type = 10 /* same */
+        frame_type = 3 /* same */
+        frame_type = 255 /* full_frame */
+          offset_delta = 2
+          locals = [ class com/stackoverflow/documentation/HelloWorldService, class java/lang/String ]
+          stack = [ class java/lang/Exception ]
+    Exceptions:
+      throws java.io.IOException
+
+  void stuff();
+    descriptor: ()V
+    flags:
+    Code:
+      stack=2, locals=1, args_size=1
+         0: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;
+         3: ldc           #17                 // String stuff
+         5: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+         8: return
+      LineNumberTable:
+        line 32: 0
+        line 33: 8
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       9     0  this   Lcom/stackoverflow/documentation/HelloWorldService;
+}
+SourceFile: &#34;HelloWorldService.java&#34;
+RuntimeVisibleAnnotations:
+  0: #59()</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div>
+
+      <div class="forum-link">
+  Found a mistake? Have a question or improvement idea?
+  <a href="#" onclick="showContact(); return false;">Let me know</a>.
+</div>
+
+      <form id="contact-form" action="https://formsubmit.co/kkowalczyk@gmail.com" method="POST">
+  <p>
+    <div class="contact-light">Feedback about page:</div>
+    <input type="text" name="page-url" id="contact-page-url" readonly />
+  </p>
+
+  <p>
+    <div class="contact-light">Feedback:</div>
+    <textarea name="message" id="msg-for-chris"></textarea>
+    <div class="contact-light">Optional: your email if you want me to get back to you: </div>
+    <input type="email" name="email" />
+    <input type="text" name="_honey" style="display:none">
+  </p>
+
+  <p>
+    <button type="submit" class="contact-btn">
+      Send Feedback
+    </button>
+
+    <button class="contact-btn" style="float: right;" onclick="hideContact(); return false;">
+      Cancel
+    </button>
+  </p>
+
+  <p>
+    <div data-netlify-recaptcha></div>
+  </p>
+</form>
+
+
+      <hr class="article-bottom-sep">
+    </div>
+
+    <div id="page-toc"></div>
+
+    <div id="chapter-toc-wrapper">
+      <hr />
+      <div class="hdr">Table Of Contents</div>
+      <div id="book-toc"></div>
+    </div>
+  </div>
+
+  <footer class="page__footer">
+  <div class="page__footer__left">
+    Maintained by
+    <a href="https://blog.kowalczyk.info" target="_blank">Krzysztof Kowalczyk</a>
+  </div>
+  <div class="share-me">
+    <a href="https://twitter.com/intent/tweet?text=%22Essential%20Java%22%20-%20a%20free%20programming%20book&url=%2fessential%2fjava%2f&via=kjk">Share
+      <b>Essential Java</b> on&nbsp;
+      <svg class="icon-twitter">
+        <use xlink:href="#icon-twitter"></use>
+      </svg>
+    </a>
+  </div>
+  <div class="page__footer__right">
+    
+  </div>
+</footer>
+
+  
+
+</body>
+
+</html>

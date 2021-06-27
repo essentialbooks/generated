@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="always">
+
+  <meta name="twitter:card" value="summary">
+  <meta name="twitter:site" content="@kjk">
+  <meta name="twitter:title" content="Asynchronous Socket Client Server example.">
+  
+  <meta name="twitter:description" content="Asynchronous Socket Client Server example.">
+  <meta name="twitter:creator" content="@kjk">
+  <meta name="twitter:image" content="/essential/csharp/covers/twitter/CSharp.png">
+  
+  <meta property="og:title" content="Asynchronous Socket Client Server example.">
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/essential/csharp/asynchronous-socket-client-server-example-114147c527874d529ca9ca5ef683dc36" />
+  
+  <meta property="og:description" content="Asynchronous Socket Client Server example.">
+  <meta property="og:image" content="/essential/csharp/covers/twitter/CSharp.png">
+
+  <title>Asynchronous Socket / Asynchronous Socket Client Server example. / Essential C#</title>
+  <meta name="description" content="Asynchronous Socket / Asynchronous Socket Client Server example. / Essential C#">
+
+  <link rel="icon" href="s/favicon-9dfe2f70.ico">
+
+  <link href="s/main-65ff0b86.css" rel="stylesheet">
+  <link href="s/bundle-83cf4538.css" rel="stylesheet">
+
+  
+  <script src="s/app-csharp-5c4bfa00.js" defer></script>
+  <script src="s/bundle-fd6a7ad6.js" defer></script>
+</head>
+
+<body class="page">
+  <script>
+  function onLoad() {
+    gBookTitle = "Essential C#";
+
+    httpsMaybeRedirect();
+
+    let opts = {
+      target: document.getElementById("toc"),
+      props: {
+        parentIdx: -1,
+        level: 0,
+      },
+    };
+    new app.toc(opts);
+
+    opts = {
+      target: document.getElementById("search-parent"),
+      props: {
+        bookTitle: gBookTitle,
+      },
+    };
+    new app.searchInput(opts);
+
+    opts = {
+      target: document.getElementById("page-toc"),
+    };
+    new app.pageToc(opts);
+
+    opts = {
+      target: document.getElementById("book-toc"),
+    };
+    new app.bookToc(opts);
+  }
+  document.addEventListener('DOMContentLoaded', onLoad);
+</script>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+  <symbol id="arrow-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M11 10H5.344L11 4.414V10z" />
+  </symbol>
+
+  <symbol id="arrow-not-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M6 4v8l4-4-4-4zm1 2.414L8.586 8 7 9.586V6.414z" />
+  </symbol>
+
+  <symbol id="icon-github" viewbox="0 0 496 512">
+    <path
+      d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+  </symbol>
+
+  <symbol id="icon-home" viewbox="0 0 576 512">
+    <path
+      d="M488 312.7V456c0 13.3-10.7 24-24 24H348c-6.6 0-12-5.4-12-12V356c0-6.6-5.4-12-12-12h-72c-6.6 0-12 5.4-12 12v112c0 6.6-5.4 12-12 12H112c-13.3 0-24-10.7-24-24V312.7c0-3.6 1.6-7 4.4-9.3l188-154.8c4.4-3.6 10.8-3.6 15.3 0l188 154.8c2.7 2.3 4.3 5.7 4.3 9.3zm83.6-60.9L488 182.9V44.4c0-6.6-5.4-12-12-12h-56c-6.6 0-12 5.4-12 12V117l-89.5-73.7c-17.7-14.6-43.3-14.6-61 0L4.4 251.8c-5.1 4.2-5.8 11.8-1.6 16.9l25.5 31c4.2 5.1 11.8 5.8 16.9 1.6l235.2-193.7c4.4-3.6 10.8-3.6 15.3 0l235.2 193.7c5.1 4.2 12.7 3.5 16.9-1.6l25.5-31c4.2-5.2 3.4-12.7-1.7-16.9z" />
+  </symbol>
+
+  <symbol id="icon-twitter" viewbox="0 0 512 512">
+    <path
+      d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
+  </symbol>
+
+  <symbol id="icon-edit" viewbox="0 0 576 512">
+    <path
+      d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" />
+  </symbol>
+
+  <symbol id="icon-star" viewbox="0 0 576 512">
+    <path
+      d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z" />
+  </symbol>
+</svg>
+  <header class="page__header">
+  <div class="page__header__left">
+    <a id="link-home" href="index.html">
+      <svg class="icon-home">
+        <use xlink:href="#icon-home"></use>
+      </svg>
+      &nbsp;Essential C#</a>
+  </div>
+  <div class="page__header__center" id="search-parent">
+  </div>
+  <div class="page__header__right">
+  </div>
+</header>
+
+  <div id="toc"></div>
+
+  <div class="content">
+    <div class="article">
+      
+
+<div style="display: flex; justify-content: space-between">
+  <h1 class="title">Asynchronous Socket Client Server example.</h1>
+  <a class="edit-link" style="font-size: 80%" href="https://notion.so/114147c527874d529ca9ca5ef683dc36" rel="nofollow"
+  target="_blank">suggest change</a>
+</div>
+
+
+      <blockquote id="d6758c5d-415f-4812-a01b-99f1ca91761a" class="">Server Side example</blockquote><p><strong>Create Listener for server</strong></p><p>Start of with creating an server that will handle clients that connect, and requests that will be send. So create an Listener Class that will handle this.</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="k">class</span> <span class="nc">Listener</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">Socket</span> <span class="n">ListenerSocket</span><span class="p">;</span> <span class="c1">//This is the socket that will listen to any incoming connections
+</span><span class="c1"></span>    <span class="k">public</span> <span class="kt">short</span> <span class="n">Port</span> <span class="p">=</span> <span class="m">1234</span><span class="p">;</span> <span class="c1">// on this port we will listen
+</span><span class="c1"></span>
+    <span class="k">public</span> <span class="n">Listener</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">ListenerSocket</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Socket</span><span class="p">(</span><span class="n">AddressFamily</span><span class="p">.</span><span class="n">InterNetwork</span><span class="p">,</span> <span class="n">SocketType</span><span class="p">.</span><span class="n">Stream</span><span class="p">,</span> <span class="n">ProtocolType</span><span class="p">.</span><span class="n">Tcp</span><span class="p">);</span>
+    <span class="p">}</span>
+ <span class="p">}</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>First we need to initialize the Listener socket where we can listen on for any connections. We are going to use an Tcp Socket that is why we use SocketType.Stream. Also we specify to witch port the server should listen to</p><p>Then we start listening for any incoming connections.</p><p><strong>The tree methods we use here are:</strong></p><ol id="e312c3c9-7d15-4d3b-b21c-2e112ee1d984" class="numbered-list" start="1"><li><a href="https://msdn.microsoft.com/en-us/library/system.net.sockets.socket.bind(v=vs.110).aspx">ListenerSocket.Bind();</a></li></ol><p>This method binds the socket to an <a href="https://msdn.microsoft.com/en-us/library/system.net.ipendpoint(v=vs.110).aspx">IPEndPoint</a>. This class contains the host and local or remote port information needed by an application to connect to a service on a host.</p><ol id="1f39d7ba-173b-43b0-ae46-2f41fa967fad" class="numbered-list" start="1"><li><a href="https://msdn.microsoft.com/nl-nl/library/system.net.sockets.socket.listen(v=vs.110).aspx">ListenerSocket.Listen(10);</a></li></ol><p>The backlog parameter specifies the number of incoming connections that can be queued for acceptance.</p><ol id="4d258e40-6a55-4d50-98a4-6ec28a35c05a" class="numbered-list" start="1"><li><a href="https://msdn.microsoft.com/en-us/library/5bb431f9(v=vs.110).aspx">ListenerSocket.BeginAccept();</a></li></ol><p>The server will start listening for incoming connections and will go on with other logic. When there is an connection the server switches back to this method and will run the AcceptCallBack methodt</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">public void StartListening()
+    {
+        try
+        {                
+                MessageBox.Show($&#34;Listening started port:{Port} protocol type: {ProtocolType.Tcp}&#34;);                    
+                ListenerSocket.Bind(new IPEndPoint(IPAddress.Any, Port));
+                ListenerSocket.Listen(10);
+                ListenerSocket.BeginAccept(AcceptCallback, ListenerSocket);                
+        }
+        catch(Exception ex)
+        {
+            throw new Exception(&#34;listening error&#34; + ex);
+        }
+    }</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>So when a client connects we can accept them by this method:</p><p><strong>Three methods wee use here are:</strong></p><ol id="c80c5229-0183-4be6-80a1-69c527894e8c" class="numbered-list" start="1"><li><a href="https://msdn.microsoft.com/en-us/library/zdee4kd7(v=vs.110).aspx">ListenerSocket.EndAccept()</a></li></ol><p>We started the callback with <code>Listener.BeginAccept()</code> end now we have to end that call back. <code>The EndAccept()</code> method accepts an IAsyncResult parameter, this will store the state of the asynchronous method, From this state we can extract the socket where the incoming connection was coming from.</p><ol id="de2aa323-cc57-4bbf-b168-c3e3418b1c08" class="numbered-list" start="1"><li><code>ClientController.AddClient()</code></li></ol><p>With the socket we got from <code>EndAccept()</code> we create an Client with an own made method <em>(code ClientController below server example)</em>.</p><ol id="d3d936ee-bb33-47b3-9edb-9dd5627505ed" class="numbered-list" start="1"><li><a href="https://msdn.microsoft.com/en-us/library/5bb431f9(v=vs.110).aspx">ListenerSocket.BeginAccept()</a></li></ol><p>We need to start listening again when the socket is done with handling the new connection. Pass in the method who will catch this callback. And also pass int the Listener socket so we can reuse this socket for upcoming connections.</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="k">public</span> <span class="k">void</span> <span class="n">AcceptCallback</span><span class="p">(</span><span class="n">IAsyncResult</span> <span class="n">ar</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">try</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;Accept CallBack port:{Port} protocol type: {ProtocolType.Tcp}&#34;</span><span class="p">);</span>
+        <span class="n">Socket</span> <span class="n">acceptedSocket</span> <span class="p">=</span> <span class="n">ListenerSocket</span><span class="p">.</span><span class="n">EndAccept</span><span class="p">(</span><span class="n">ar</span><span class="p">);</span>               
+        <span class="n">ClientController</span><span class="p">.</span><span class="n">AddClient</span><span class="p">(</span><span class="n">acceptedSocket</span><span class="p">);</span>
+
+        <span class="n">ListenerSocket</span><span class="p">.</span><span class="n">BeginAccept</span><span class="p">(</span><span class="n">AcceptCallback</span><span class="p">,</span> <span class="n">ListenerSocket</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">Exception</span><span class="p">(</span><span class="s">&#34;Base Accept error&#34;</span><span class="p">+</span> <span class="n">ex</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Now we have an Listening Socket but how do we receive data send by the client that is what the next code is showing.</p><p><strong>Create Server Receiver for each client</strong></p><p>First of create a receive class with a constructor that takes in a Socket as parameter:</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">ReceivePacket</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="kt">byte</span><span class="p">[]</span> <span class="n">_buffer</span><span class="p">;</span>
+    <span class="k">private</span> <span class="n">Socket</span> <span class="n">_receiveSocket</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="n">ReceivePacket</span><span class="p">(</span><span class="n">Socket</span> <span class="n">receiveSocket</span><span class="p">)</span>
+    <span class="p">{</span>
+       <span class="n">_receiveSocket</span> <span class="p">=</span> <span class="n">receiveSocket</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>In the next method we first start off with giving the buffer a size of 4 bytes (Int32) or package contains to parts {lenght, actual data}. So the first 4 bytes we reserve for the lenght of the data the rest for the actual data.</p><p>Next we use <a href="https://msdn.microsoft.com/en-us/library/dxkwh6zw(v=vs.110).aspx">BeginReceive()</a> method. This method is used to start receiving from connected clients and when it will receive data it will run the <code>ReceiveCallback</code> function.</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="k">public</span> <span class="k">void</span> <span class="n">StartReceiving</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">try</span>
+    <span class="p">{</span>
+        <span class="n">_buffer</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="p">[</span><span class="m">4</span><span class="p">];</span>
+        <span class="n">_receiveSocket</span><span class="p">.</span><span class="n">BeginReceive</span><span class="p">(</span><span class="n">_buffer</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">_buffer</span><span class="p">.</span><span class="n">Length</span><span class="p">,</span> <span class="n">SocketFlags</span><span class="p">.</span><span class="n">None</span><span class="p">,</span> <span class="n">ReceiveCallback</span><span class="p">,</span> <span class="k">null</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">catch</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="k">private</span> <span class="k">void</span> <span class="n">ReceiveCallback</span><span class="p">(</span><span class="n">IAsyncResult</span> <span class="n">AR</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">try</span>
+    <span class="p">{</span>
+        <span class="c1">// if bytes are less than 1 takes place when a client disconnect from the server.
+</span><span class="c1"></span>        <span class="c1">// So we run the Disconnect function on the current client
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="n">_receiveSocket</span><span class="p">.</span><span class="n">EndReceive</span><span class="p">(</span><span class="n">AR</span><span class="p">)</span> <span class="p">&gt;</span> <span class="m">1</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// Convert the first 4 bytes (int 32) that we received and convert it to an Int32 (this is the size for the coming data).
+</span><span class="c1"></span>            <span class="n">_buffer</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="p">[</span><span class="n">BitConverter</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">_buffer</span><span class="p">,</span> <span class="m">0</span><span class="p">)];</span>  
+            <span class="c1">// Next receive this data into the buffer with size that we did receive before
+</span><span class="c1"></span>            <span class="n">_receiveSocket</span><span class="p">.</span><span class="n">Receive</span><span class="p">(</span><span class="n">_buffer</span><span class="p">,</span> <span class="n">_buffer</span><span class="p">.</span><span class="n">Length</span><span class="p">,</span> <span class="n">SocketFlags</span><span class="p">.</span><span class="n">None</span><span class="p">);</span> 
+            <span class="c1">// When we received everything its onto you to convert it into the data that you&#39;ve send.
+</span><span class="c1"></span>            <span class="c1">// For example string, int etc... in this example I only use the implementation for sending and receiving a string.
+</span><span class="c1"></span>
+            <span class="c1">// Convert the bytes to string and output it in a message box
+</span><span class="c1"></span>            <span class="kt">string</span> <span class="n">data</span> <span class="p">=</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">Default</span><span class="p">.</span><span class="n">GetString</span><span class="p">(</span><span class="n">_buffer</span><span class="p">);</span>
+            <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+            <span class="c1">// Now we have to start all over again with waiting for a data to come from the socket.
+</span><span class="c1"></span>            <span class="n">StartReceiving</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="n">Disconnect</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">catch</span>
+    <span class="p">{</span>
+        <span class="c1">// if exeption is throw check if socket is connected because than you can startreive again else Dissconect
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(!</span><span class="n">_receiveSocket</span><span class="p">.</span><span class="n">Connected</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">Disconnect</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="n">StartReceiving</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">private</span> <span class="k">void</span> <span class="n">Disconnect</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// Close connection
+</span><span class="c1"></span>    <span class="n">_receiveSocket</span><span class="p">.</span><span class="n">Disconnect</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+    <span class="c1">// Next line only apply for the server side receive
+</span><span class="c1"></span>    <span class="n">ClientController</span><span class="p">.</span><span class="n">RemoveClient</span><span class="p">(</span><span class="n">_clientId</span><span class="p">);</span>
+    <span class="c1">// Next line only apply on the Client Side receive
+</span><span class="c1"></span>    <span class="n">Here</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">run</span> <span class="n">the</span> <span class="n">method</span> <span class="n">TryToConnect</span><span class="p">()</span>
+<span class="p">}</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>So we’ve setup a server that can receive and listen for incoming connections. When a clients connect it will be added to a list of clients and every client has his own receive class. To make the server listen:</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="n">Listener</span> <span class="n">listener</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Listener</span><span class="p">();</span>
+<span class="n">listener</span><span class="p">.</span><span class="n">StartListening</span><span class="p">();</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><strong>Some Classes I use in this example</strong></p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="k">class</span> <span class="nc">Client</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">Socket</span> <span class="n">_socket</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="n">ReceivePacket</span> <span class="n">Receive</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">Id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="k">public</span> <span class="n">Client</span><span class="p">(</span><span class="n">Socket</span> <span class="n">socket</span><span class="p">,</span> <span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Receive</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ReceivePacket</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">id</span><span class="p">);</span>
+        <span class="n">Receive</span><span class="p">.</span><span class="n">StartReceiving</span><span class="p">();</span>
+        <span class="n">_socket</span> <span class="p">=</span> <span class="n">socket</span><span class="p">;</span>
+        <span class="n">Id</span> <span class="p">=</span> <span class="n">id</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+ <span class="k">static</span> <span class="k">class</span> <span class="nc">ClientController</span>
+ <span class="p">{</span>
+      <span class="k">public</span> <span class="k">static</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Client</span><span class="p">&gt;</span> <span class="n">Clients</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Client</span><span class="p">&gt;();</span>
+
+      <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="n">AddClient</span><span class="p">(</span><span class="n">Socket</span> <span class="n">socket</span><span class="p">)</span>
+      <span class="p">{</span>
+          <span class="n">Clients</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">Client</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="n">Clients</span><span class="p">.</span><span class="n">Count</span><span class="p">));</span>
+      <span class="p">}</span>
+
+      <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="n">RemoveClient</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
+      <span class="p">{</span>
+          <span class="n">Clients</span><span class="p">.</span><span class="n">RemoveAt</span><span class="p">(</span><span class="n">Clients</span><span class="p">.</span><span class="n">FindIndex</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">Id</span> <span class="p">==</span> <span class="n">id</span><span class="p">));</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><blockquote id="d552ea65-5f66-4713-8dfe-21fc82509ad6" class="">Client Side example</blockquote><p><strong>Connecting to server</strong></p><p>First of all we want to create a class what connects to the server te name we give it is: Connector:</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="k">class</span> <span class="nc">Connector</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="n">Socket</span> <span class="n">_connectingSocket</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Next Method for this class is TryToConnect()</p><p>This method goth a few interestin things:</p><ol id="d365521c-da96-4576-919a-b080f36d1cbf" class="numbered-list" start="1"><li>Create the socket;</li><li>Next I loop until the socket is connected</li><li>Every loop it is just holding the Thread for 1 second we don’t want to DOS the server XD</li><li>With <a href="https://msdn.microsoft.com/en-us/library/4xzx2d41(v=vs.110).aspx">Connect()</a> it will try to connect to the server. If it fails it will throw an exception but the wile will keep the program connecting to the server. You can use a <a href="https://msdn.microsoft.com/en-us/library/ms145129(v=vs.110).aspx">Connect CallBack</a> method for this, but I’ll just go for calling a method when the Socket is connected.</li><li>Notice the Client is now trying to connect to your local pc on port 1234.</li></ol>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="k">public</span> <span class="k">void</span> <span class="n">TryToConnect</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">_connectingSocket</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Socket</span><span class="p">(</span><span class="n">AddressFamily</span><span class="p">.</span><span class="n">InterNetwork</span><span class="p">,</span> <span class="n">SocketType</span><span class="p">.</span><span class="n">Stream</span><span class="p">,</span> <span class="n">ProtocolType</span><span class="p">.</span><span class="n">Tcp</span><span class="p">);</span>
+    
+     <span class="k">while</span> <span class="p">(!</span><span class="n">_connectingSocket</span><span class="p">.</span><span class="n">Connected</span><span class="p">)</span>
+     <span class="p">{</span>
+         <span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">1000</span><span class="p">);</span>
+
+         <span class="k">try</span>
+         <span class="p">{</span>
+             <span class="n">_connectingSocket</span><span class="p">.</span><span class="n">Connect</span><span class="p">(</span><span class="k">new</span> <span class="n">IPEndPoint</span><span class="p">(</span><span class="n">IPAddress</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="s">&#34;127.0.0.1&#34;</span><span class="p">),</span> <span class="m">1234</span><span class="p">));</span>
+         <span class="p">}</span>
+         <span class="k">catch</span> <span class="p">{</span> <span class="p">}</span>
+     <span class="p">}</span>
+     <span class="n">SetupForReceiveing</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">private</span> <span class="k">void</span> <span class="n">SetupForReceiveing</span><span class="p">()</span>
+<span class="p">{</span>
+   <span class="c1">// View Client Class bottom of Client Example
+</span><span class="c1"></span>    <span class="n">Client</span><span class="p">.</span><span class="n">SetClient</span><span class="p">(</span><span class="n">_connectingSocket</span><span class="p">);</span>
+    <span class="n">Client</span><span class="p">.</span><span class="n">StartReceiving</span><span class="p">();</span>
+<span class="p">}</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><strong>Sending a message to the server</strong></p><p>So now we have an almost finish or Socket application. The only thing that we don’t have jet is a Class for sending a message to the server.</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">SendPacket</span>
+<span class="p">{</span>
+  <span class="k">private</span> <span class="n">Socket</span> <span class="n">_sendSocked</span><span class="p">;</span>
+
+  <span class="k">public</span> <span class="n">SendPacket</span><span class="p">(</span><span class="n">Socket</span> <span class="n">sendSocket</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="n">_sendSocked</span> <span class="p">=</span> <span class="n">sendSocket</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">public</span> <span class="k">void</span> <span class="n">Send</span><span class="p">(</span><span class="kt">string</span> <span class="n">data</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="k">try</span>
+      <span class="p">{</span>         
+          <span class="cm">/* what hapends here:
+</span><span class="cm">               1. Create a list of bytes
+</span><span class="cm">               2. Add the length of the string to the list.
+</span><span class="cm">                  So if this message arrives at the server we can easily read the length of the coming message.
+</span><span class="cm">               3. Add the message(string) bytes
+</span><span class="cm">          */</span>
+
+          <span class="kt">var</span> <span class="n">fullPacket</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">byte</span><span class="p">&gt;();</span>
+          <span class="n">fullPacket</span><span class="p">.</span><span class="n">AddRange</span><span class="p">(</span><span class="n">BitConverter</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">Length</span><span class="p">));</span>
+          <span class="n">fullPacket</span><span class="p">.</span><span class="n">AddRange</span><span class="p">(</span><span class="n">Encoding</span><span class="p">.</span><span class="n">Default</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
+
+          <span class="cm">/* Send the message to the server we are currently connected to.
+</span><span class="cm">          Or package stucture is {length of data 4 bytes (int32), actual data}*/</span>
+          <span class="n">_sendSocked</span><span class="p">.</span><span class="n">Send</span><span class="p">(</span><span class="n">fullPacket</span><span class="p">.</span><span class="n">ToArray</span><span class="p">());</span>
+      <span class="p">}</span>
+      <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span>
+      <span class="p">{</span>
+          <span class="k">throw</span> <span class="k">new</span> <span class="n">Exception</span><span class="p">();</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Finaly crate two buttons one for connect and the other for sending a message:</p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="k">private</span> <span class="k">void</span> <span class="n">ConnectClick</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Connector</span> <span class="n">tpp</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Connector</span><span class="p">();</span>
+    <span class="n">tpp</span><span class="p">.</span><span class="n">TryToConnect</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">private</span> <span class="k">void</span> <span class="n">SendClick</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Client</span><span class="p">.</span><span class="n">SendString</span><span class="p">(</span><span class="s">&#34;Test data from client&#34;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><strong>The client class I used in this example</strong></p>
+<div class="code-box lang-C#">
+	<div>
+	<pre class="chroma"><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="n">SetClient</span><span class="p">(</span><span class="n">Socket</span> <span class="n">socket</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Id</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+        <span class="n">Socket</span> <span class="p">=</span> <span class="n">socket</span><span class="p">;</span>
+        <span class="n">Receive</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ReceivePacket</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">Id</span><span class="p">);</span>
+        <span class="n">SendPacket</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SendPacket</span><span class="p">(</span><span class="n">socket</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><strong>Notice</strong></p><p>The Receive Class from the server is the same as the receive class from the client.</p><blockquote id="78ecffd5-9ae9-45ab-9873-ac94e531eeaf" class="">Conclusion</blockquote><p>You now have a server and a client. You can work this basic example out. For example make it that the server also can receive files or other tings. Or send a message to the client. In the server you got a list of client so when you receive something you will know from with client it came from.</p><p><strong>Final result:</strong> </p><img class="img" src="/img/714414c9788b69f7455ac67fc96f804b60302583.png">
+
+      <div class="forum-link">
+  Found a mistake? Have a question or improvement idea?
+  <a href="#" onclick="showContact(); return false;">Let me know</a>.
+</div>
+
+      <form id="contact-form" action="https://formsubmit.co/kkowalczyk@gmail.com" method="POST">
+  <p>
+    <div class="contact-light">Feedback about page:</div>
+    <input type="text" name="page-url" id="contact-page-url" readonly />
+  </p>
+
+  <p>
+    <div class="contact-light">Feedback:</div>
+    <textarea name="message" id="msg-for-chris"></textarea>
+    <div class="contact-light">Optional: your email if you want me to get back to you: </div>
+    <input type="email" name="email" />
+    <input type="text" name="_honey" style="display:none">
+  </p>
+
+  <p>
+    <button type="submit" class="contact-btn">
+      Send Feedback
+    </button>
+
+    <button class="contact-btn" style="float: right;" onclick="hideContact(); return false;">
+      Cancel
+    </button>
+  </p>
+
+  <p>
+    <div data-netlify-recaptcha></div>
+  </p>
+</form>
+
+
+      <hr class="article-bottom-sep">
+    </div>
+
+    <div id="page-toc"></div>
+
+    <div id="chapter-toc-wrapper">
+      <hr />
+      <div class="hdr">Table Of Contents</div>
+      <div id="book-toc"></div>
+    </div>
+  </div>
+
+  <footer class="page__footer">
+  <div class="page__footer__left">
+    Maintained by
+    <a href="https://blog.kowalczyk.info" target="_blank">Krzysztof Kowalczyk</a>
+  </div>
+  <div class="share-me">
+    <a href="https://twitter.com/intent/tweet?text=%22Essential%20C%23%22%20-%20a%20free%20programming%20book&url=%2fessential%2fcsharp%2f&via=kjk">Share
+      <b>Essential C#</b> on&nbsp;
+      <svg class="icon-twitter">
+        <use xlink:href="#icon-twitter"></use>
+      </svg>
+    </a>
+  </div>
+  <div class="page__footer__right">
+    
+  </div>
+</footer>
+
+  
+
+</body>
+
+</html>

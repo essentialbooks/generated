@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="always">
+
+  <meta name="twitter:card" value="summary">
+  <meta name="twitter:site" content="@kjk">
+  <meta name="twitter:title" content="Introduction To Knuth-Morris-Pratt KMP Algorithm">
+  
+  <meta name="twitter:description" content="Introduction To Knuth-Morris-Pratt KMP Algorithm">
+  <meta name="twitter:creator" content="@kjk">
+  <meta name="twitter:image" content="/essential/algorithms/covers/twitter/Algorithms.png">
+  
+  <meta property="og:title" content="Introduction To Knuth-Morris-Pratt KMP Algorithm">
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/essential/algorithms/introduction-to-knuth-morris-pratt-kmp-algorithm-9e69da83fd1743dba31b4f119ca3155c" />
+  
+  <meta property="og:description" content="Introduction To Knuth-Morris-Pratt KMP Algorithm">
+  <meta property="og:image" content="/essential/algorithms/covers/twitter/Algorithms.png">
+
+  <title>Substring Search / Introduction To Knuth-Morris-Pratt KMP Algorithm / Essential Algorithms</title>
+  <meta name="description" content="Substring Search / Introduction To Knuth-Morris-Pratt KMP Algorithm / Essential Algorithms">
+
+  <link rel="icon" href="s/favicon-9dfe2f70.ico">
+
+  <link href="s/main-65ff0b86.css" rel="stylesheet">
+  <link href="s/bundle-83cf4538.css" rel="stylesheet">
+
+  
+  <script src="s/app-algorithms-a02ce0ea.js" defer></script>
+  <script src="s/bundle-fd6a7ad6.js" defer></script>
+</head>
+
+<body class="page">
+  <script>
+  function onLoad() {
+    gBookTitle = "Essential Algorithms";
+
+    httpsMaybeRedirect();
+
+    let opts = {
+      target: document.getElementById("toc"),
+      props: {
+        parentIdx: -1,
+        level: 0,
+      },
+    };
+    new app.toc(opts);
+
+    opts = {
+      target: document.getElementById("search-parent"),
+      props: {
+        bookTitle: gBookTitle,
+      },
+    };
+    new app.searchInput(opts);
+
+    opts = {
+      target: document.getElementById("page-toc"),
+    };
+    new app.pageToc(opts);
+
+    opts = {
+      target: document.getElementById("book-toc"),
+    };
+    new app.bookToc(opts);
+  }
+  document.addEventListener('DOMContentLoaded', onLoad);
+</script>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+  <symbol id="arrow-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M11 10H5.344L11 4.414V10z" />
+  </symbol>
+
+  <symbol id="arrow-not-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M6 4v8l4-4-4-4zm1 2.414L8.586 8 7 9.586V6.414z" />
+  </symbol>
+
+  <symbol id="icon-github" viewbox="0 0 496 512">
+    <path
+      d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+  </symbol>
+
+  <symbol id="icon-home" viewbox="0 0 576 512">
+    <path
+      d="M488 312.7V456c0 13.3-10.7 24-24 24H348c-6.6 0-12-5.4-12-12V356c0-6.6-5.4-12-12-12h-72c-6.6 0-12 5.4-12 12v112c0 6.6-5.4 12-12 12H112c-13.3 0-24-10.7-24-24V312.7c0-3.6 1.6-7 4.4-9.3l188-154.8c4.4-3.6 10.8-3.6 15.3 0l188 154.8c2.7 2.3 4.3 5.7 4.3 9.3zm83.6-60.9L488 182.9V44.4c0-6.6-5.4-12-12-12h-56c-6.6 0-12 5.4-12 12V117l-89.5-73.7c-17.7-14.6-43.3-14.6-61 0L4.4 251.8c-5.1 4.2-5.8 11.8-1.6 16.9l25.5 31c4.2 5.1 11.8 5.8 16.9 1.6l235.2-193.7c4.4-3.6 10.8-3.6 15.3 0l235.2 193.7c5.1 4.2 12.7 3.5 16.9-1.6l25.5-31c4.2-5.2 3.4-12.7-1.7-16.9z" />
+  </symbol>
+
+  <symbol id="icon-twitter" viewbox="0 0 512 512">
+    <path
+      d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
+  </symbol>
+
+  <symbol id="icon-edit" viewbox="0 0 576 512">
+    <path
+      d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" />
+  </symbol>
+
+  <symbol id="icon-star" viewbox="0 0 576 512">
+    <path
+      d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z" />
+  </symbol>
+</svg>
+  <header class="page__header">
+  <div class="page__header__left">
+    <a id="link-home" href="index.html">
+      <svg class="icon-home">
+        <use xlink:href="#icon-home"></use>
+      </svg>
+      &nbsp;Essential Algorithms</a>
+  </div>
+  <div class="page__header__center" id="search-parent">
+  </div>
+  <div class="page__header__right">
+  </div>
+</header>
+
+  <div id="toc"></div>
+
+  <div class="content">
+    <div class="article">
+      
+
+<div style="display: flex; justify-content: space-between">
+  <h1 class="title">Introduction To Knuth-Morris-Pratt KMP Algorithm</h1>
+  <a class="edit-link" style="font-size: 80%" href="https://notion.so/9e69da83fd1743dba31b4f119ca3155c" rel="nofollow"
+  target="_blank">suggest change</a>
+</div>
+
+
+      <p>Suppose that we have a <em>text</em> and a <em>pattern</em>. We need to determine if the pattern exists in the text or not. For example:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">+-------+---+---+---+---+---+---+---+---+
+| Index | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
++-------+---+---+---+---+---+---+---+---+
+|  Text | a | b | c | b | c | g | l | x |
++-------+---+---+---+---+---+---+---+---+
+
++---------+---+---+---+---+
+| Index   | 0 | 1 | 2 | 3 |
++---------+---+---+---+---+
+| Pattern | b | c | g | l |
++---------+---+---+---+---+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>This <em>pattern</em> does exist in the <em>text</em>. So our substring search should return <strong>3</strong>, the index of the position from which this <em>pattern</em> starts. So how does our brute force substring search procedure work?</p><p>What we usually do is: we start from the <strong>0th</strong> index of the <em>text</em> and the <strong>0th</strong> index of our *pattern and we compare <strong>Text[0]</strong> with <strong>Pattern[0]</strong>. Since they are not a match, we go to the next index of our <em>text</em> and we compare <strong>Text[1]</strong> with <strong>Pattern[0]</strong>. Since this is a match, we increment the index of our <em>pattern</em> and the index of the <em>Text</em> also. We compare <strong>Text[2]</strong> with <strong>Pattern[1]</strong>. They are also a match. Following the same procedure stated before, we now compare <strong>Text[3]</strong> with <strong>Pattern[2]</strong>. As they do not match, we start from the next position where we started finding the match. That is index <strong>2</strong> of the <em>Text</em>. We compare <strong>Text[2]</strong> with <strong>Pattern[0]</strong>. They don’t match. Then incrementing index of the <em>Text</em>, we compare <strong>Text[3]</strong> with <strong>Pattern[0]</strong>. They match. Again <strong>Text[4]</strong> and <strong>Pattern[1]</strong> match, <strong>Text[5]</strong> and <strong>Pattern[2]</strong> match and <strong>Text[6]</strong> and <strong>Pattern[3]</strong> match. Since we’ve reached the end of our <em>Pattern</em>, we now return the index from which our match started, that is <strong>3</strong>. If our <em>pattern</em> was: <code>bcgll</code>, that means if the <em>pattern</em> didn’t exist in our <em>text</em>, our search should return exception or <strong>-1</strong> or any other predefined value. We can clearly see that, in the worst case, this algorithm would take <code>O(mn)</code> time where <strong>m</strong> is the length of the <em>Text</em> and <strong>n</strong> is the length of the <em>Pattern</em>. How do we reduce this time complexity? This is where KMP Substring Search Algorithm comes into the picture.</p><p>The <a href="https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm">Knuth-Morris-Pratt String Searching Algorithm</a> or KMP Algorithm searches for occurrences of a “Pattern” within a main “Text” by employing the observation that when a mismatch occurs, the word itself embodies sufficient information to determine where the next match could begin, thus bypassing re-examination of previously matched characters. The algorithm was conceived in 1970 by <a href="https://en.wikipedia.org/wiki/Donald_Knuth">Donuld Knuth</a> and <a href="https://en.wikipedia.org/wiki/Vaughan_Pratt">Vaughan Pratt</a> and independently by <a href="https://en.wikipedia.org/wiki/James_H._Morris">James H. Morris</a>. The trio published it jointly in 1977.</p><p>Let’s extend our example <em>Text</em> and <em>Pattern</em> for better understanding:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">+-------+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+| Index |0 |1 |2 |3 |4 |5 |6 |7 |8 |9 |10|11|12|13|14|15|16|17|18|19|20|21|22|
++-------+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+|  Text |a |b |c |x |a |b |c |d |a |b |x |a |b |c |d |a |b |c |d |a |b |c |y |
++-------+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+
++---------+---+---+---+---+---+---+---+---+
+|  Index  | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
++---------+---+---+---+---+---+---+---+---+
+| Pattern | a | b | c | d | a | b | c | y |
++---------+---+---+---+---+---+---+---+---+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>At first, our <em>Text</em> and <em>Pattern</em> matches till index <strong>2</strong>. <strong>Text[3]</strong> and <strong>Pattern[3]</strong> doesn’t match. So our aim is to not go backwards in this <em>Text</em>, that is, in case of a mismatch, we don’t want our matching to begin again from the position that we started matching with. To achieve that, we’ll look for a <strong>suffix</strong> in our <em>Pattern</em> right before our mismatch occurred (substring <strong>abc</strong>), which is also a <strong>prefix</strong> of the substring of our <em>Pattern</em>. For our example, since all the characters are unique, there is no suffix, that is the prefix of our matched substring. So what that means is, our next comparison will start from index <strong>0</strong>. Hold on for a bit, you’ll understand why we did this. Next, we compare <strong>Text[3]</strong> with <strong>Pattern[0]</strong> and it doesn’t match. After that, for <em>Text</em> from index <strong>4</strong> to index <strong>9</strong> and for <em>Pattern</em> from index <strong>0</strong> to index <strong>5</strong>, we find a match. We find a mismatch in <strong>Text[10]</strong> and <strong>Pattern[6]</strong>. So we take the substring from <em>Pattern</em> right before the point where mismatch occurs (substring <strong>abcdabc</strong>), we check for a suffix, that is also a prefix of this substring. We can see here <strong>ab</strong> is both the suffix and prefix of this substring. What that means is, since we’ve matched until <strong>Text[10]</strong>, the characters right before the mismatch is <strong>ab</strong>. What we can infer from it is that since <strong>ab</strong> is also a prefix of the substring we took, we don’t have to check <strong>ab</strong> again and the next check can start from <strong>Text[10]</strong> and <strong>Pattern[2]</strong>. We didn’t have to look back to the whole <em>Text</em>, we can start directly from where our mismatch occurred. Now we check <strong>Text[10]</strong> and <strong>Pattern[2]</strong>, since it’s a mismatch, and the substring before mismatch (<strong>abc</strong>) doesn’t contain a suffix which is also a prefix, we check <strong>Text[10]</strong> and <strong>Pattern[0]</strong>, they don’t match. After that for <em>Text</em> from index <strong>11</strong> to index <strong>17</strong> and for <em>Pattern</em> from index <strong>0</strong> to index <strong>6</strong>. We find a mismatch in <strong>Text[18]</strong> and <strong>Pattern[7]</strong>. So again we check the substring before mismatch (substring <strong>abcdabc</strong>) and find <strong>abc</strong> is both the suffix and the prefix. So since we matched till <strong>Pattern[7]</strong>, <strong>abc</strong> must be before <strong>Text[18]</strong>. That means, we don’t need to compare until <strong>Text[17]</strong> and our comparison will start from <strong>Text[18]</strong> and <strong>Pattern[3]</strong>. Thus we will find a match and we’ll return <strong>15</strong> which is our starting index of the match. This is how our KMP Substring Search works using suffix and prefix information.</p><p>Now, how do we efficiently compute if suffix is same as prefix and at what point to start the check if there is a mismatch of character between <em>Text</em> and <em>Pattern</em>. Let’s take a look at an example:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">+---------+---+---+---+---+---+---+---+---+
+|  Index  | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
++---------+---+---+---+---+---+---+---+---+
+| Pattern | a | b | c | d | a | b | c | a |
++---------+---+---+---+---+---+---+---+---+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>We’ll generate an array containing the required information. Let’s call the array <strong>S</strong>. The size of the array will be same as the length of the pattern. Since the first letter of the <em>Pattern</em> can’t be the suffix of any prefix, we’ll put <strong>S[0]</strong> = <strong>0</strong>. We take <strong>i</strong> = <strong>1</strong> and <strong>j</strong> = <strong>0</strong> at first. At each step we compare <strong>Pattern[i]</strong> and <strong>Pattern[j]</strong> and increment <strong>i</strong>. If there is a match we put <strong>S[i]</strong> = <strong>j</strong> + <strong>1</strong> and increment <strong>j</strong>, if there is a mismatch, we check the previous value position of <strong>j</strong> (if available) and set <strong>j</strong> = <strong>S[j-1]</strong> (if <strong>j</strong> is not equal to <strong>0</strong>), we keep doing this until <strong>S[j]</strong> doesn’t match with <strong>S[i]</strong> or <strong>j</strong> doesn’t become <strong>0</strong>. For the later one, we put <strong>S[i]</strong> = <strong>0</strong>. For our example:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">j   i
++---------+---+---+---+---+---+---+---+---+
+|  Index  | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
++---------+---+---+---+---+---+---+---+---+
+| Pattern | a | b | c | d | a | b | c | a |
++---------+---+---+---+---+---+---+---+---+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><strong>Pattern[j]</strong> and <strong>Pattern[i]</strong> don’t match, so we increment <strong>i</strong> and since <strong>j</strong> is <strong>0</strong>, we don’t check the previous value and put <strong>Pattern[i]</strong> = <strong>0</strong>. If we keep incrementing <strong>i</strong>, for <strong>i</strong> = <strong>4</strong>, we’ll get a match, so we put <strong>S[i]</strong> = <strong>S[4]</strong> = <strong>j</strong> + <strong>1</strong> = <strong>0</strong> + <strong>1</strong> = <strong>1</strong> and increment <strong>j</strong> and <strong>i</strong>. Our array will look like:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">j               i
++---------+---+---+---+---+---+---+---+---+
+|  Index  | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
++---------+---+---+---+---+---+---+---+---+
+| Pattern | a | b | c | d | a | b | c | a |
++---------+---+---+---+---+---+---+---+---+
+|    S    | 0 | 0 | 0 | 0 | 1 |   |   |   |
++---------+---+---+---+---+---+---+---+---+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Since <strong>Pattern[1]</strong> and <strong>Pattern[5]</strong> is a match, we put <strong>S[i]</strong> = <strong>S[5]</strong> = <strong>j</strong> + <strong>1</strong> = <strong>1</strong> + <strong>1</strong> = <strong>2</strong>. If we continue, we’ll find a mismatch for <strong>j</strong> = <strong>3</strong> and <strong>i</strong> = <strong>7</strong>. Since <strong>j</strong> is not equal to <strong>0</strong>, we put <strong>j</strong> = <strong>S[j-1]</strong>. And we’ll compare the characters at <strong>i</strong> and <strong>j</strong> are same or not, since they are same, we’ll put <strong>S[i]</strong> = <strong>j</strong> + 1. Our completed array will look like:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">+---------+---+---+---+---+---+---+---+---+
+|    S    | 0 | 0 | 0 | 0 | 1 | 2 | 3 | 1 |
++---------+---+---+---+---+---+---+---+---+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>This is our required array. Here a nonzero-value of <strong>S[i]</strong> means there is a <strong>S[i]</strong> length suffix same as the prefix in that substring (substring from <strong>0</strong> to <strong>i</strong>) and the next comparison will start from <strong>S[i]</strong> + <strong>1</strong> position of the <em>Pattern</em>. Our algorithm to generate the array would look like:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">Procedure GenerateSuffixArray(Pattern):
+i := 1
+j := 0
+n := Pattern.length
+while i is less than n
+    if Pattern[i] is equal to Pattern[j]
+        S[i] := j + 1
+        j := j + 1
+        i := i + 1
+    else
+        if j is not equal to 0
+            j := S[j-1]
+        else
+            S[i] := 0
+            i := i + 1
+        end if
+    end if
+end while</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>The time complexity to build this array is <code>O(n)</code> and the space complexity is also <code>O(n)</code>. To make sure if you have completely understood the algorithm, try to generate an array for pattern <code>aabaabaa</code> and check if the result matches with <a href="https://i.stack.imgur.com/4aqZk.jpg">this</a> one.</p><p>Now let’s do a substring search using the following example:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">+---------+---+---+---+---+---+---+---+---+---+---+---+---+
+|  Index  | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |10 |11 |
++---------+---+---+---+---+---+---+---+---+---+---+---+---+
+|   Text  | a | b | x | a | b | c | a | b | c | a | b | y |
++---------+---+---+---+---+---+---+---+---+---+---+---+---+
+
++---------+---+---+---+---+---+---+
+|  Index  | 0 | 1 | 2 | 3 | 4 | 5 |
++---------+---+---+---+---+---+---+
+| Pattern | a | b | c | a | b | y |
++---------+---+---+---+---+---+---+
+|    S    | 0 | 0 | 0 | 1 | 2 | 0 |
++---------+---+---+---+---+---+---+</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>We have a <em>Text</em>, a <em>Pattern</em> and a pre-calculated array <em>S</em> using our logic defined before. We compare <strong>Text[0]</strong> and <strong>Pattern[0]</strong> and they are same. <strong>Text[1]</strong> and <strong>Pattern[1]</strong> are same. <strong>Text[2]</strong> and <strong>Pattern[2]</strong> are not same. We check the value at the position right before the mismatch. Since <strong>S[1]</strong> is <strong>0</strong>, there is no suffix that is same as the prefix in our substring and our comparison starts at position <strong>S[1]</strong>, which is <strong>0</strong>. So <strong>Pattern[0]</strong> is not same as <strong>Text[2]</strong>, so we move on. <strong>Text[3]</strong> is same as <strong>Pattern[0]</strong> and there is a match till <strong>Text[8]</strong> and <strong>Pattern[5]</strong>. We go one step back in the <strong>S</strong> array and find <strong>2</strong>. So this means there is a prefix of length <strong>2</strong> which is also the suffix of this substring (<strong>abcab)</strong> which is <strong>ab</strong>. That also means that there is an <strong>ab</strong> before <strong>Text[8]</strong>. So we can safely ignore <strong>Pattern[0]</strong> and <strong>Pattern[1]</strong> and start our next comparison from <strong>Pattern[2]</strong> and <strong>Text[8]</strong>. If we continue, we’ll find the <em>Pattern</em> in the <em>Text</em>. Our procedure will look like:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">Procedure KMP(Text, Pattern)
+GenerateSuffixArray(Pattern)
+m := Text.Length
+n := Pattern.Length
+i := 0
+j := 0
+while i is less than m
+    if Pattern[j] is equal to Text[i]
+        j := j + 1
+        i := i + 1
+    if j is equal to n
+        Return (j-i)
+    else if i &lt; m and Pattern[j] is not equal t Text[i]
+        if j is not equal to 0
+            j = S[j-1]
+        else
+            i := i + 1
+        end if
+    end if
+end while
+Return -1</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>The time complexity of this algorithm apart from the Suffix Array Calculation is <code>O(m)</code>. Since <em>GenerateSuffixArray</em> takes <code>O(n)</code>, the total time complexity of KMP Algorithm is: <code>O(m+n)</code>.</p><p>PS: If you want to find multiple occurrences of <em>Pattern</em> in the <em>Text</em>, instead of returning the value, print it/store it and set <code>j := S[j-1]</code>. Also keep a <code>flag</code> to track whether you have found any occurrence or not and handle it accordingly.</p>
+
+      <div class="forum-link">
+  Found a mistake? Have a question or improvement idea?
+  <a href="#" onclick="showContact(); return false;">Let me know</a>.
+</div>
+
+      <form id="contact-form" action="https://formsubmit.co/kkowalczyk@gmail.com" method="POST">
+  <p>
+    <div class="contact-light">Feedback about page:</div>
+    <input type="text" name="page-url" id="contact-page-url" readonly />
+  </p>
+
+  <p>
+    <div class="contact-light">Feedback:</div>
+    <textarea name="message" id="msg-for-chris"></textarea>
+    <div class="contact-light">Optional: your email if you want me to get back to you: </div>
+    <input type="email" name="email" />
+    <input type="text" name="_honey" style="display:none">
+  </p>
+
+  <p>
+    <button type="submit" class="contact-btn">
+      Send Feedback
+    </button>
+
+    <button class="contact-btn" style="float: right;" onclick="hideContact(); return false;">
+      Cancel
+    </button>
+  </p>
+
+  <p>
+    <div data-netlify-recaptcha></div>
+  </p>
+</form>
+
+
+      <hr class="article-bottom-sep">
+    </div>
+
+    <div id="page-toc"></div>
+
+    <div id="chapter-toc-wrapper">
+      <hr />
+      <div class="hdr">Table Of Contents</div>
+      <div id="book-toc"></div>
+    </div>
+  </div>
+
+  <footer class="page__footer">
+  <div class="page__footer__left">
+    Maintained by
+    <a href="https://blog.kowalczyk.info" target="_blank">Krzysztof Kowalczyk</a>
+  </div>
+  <div class="share-me">
+    <a href="https://twitter.com/intent/tweet?text=%22Essential%20Algorithms%22%20-%20a%20free%20programming%20book&url=%2fessential%2falgorithms%2f&via=kjk">Share
+      <b>Essential Algorithms</b> on&nbsp;
+      <svg class="icon-twitter">
+        <use xlink:href="#icon-twitter"></use>
+      </svg>
+    </a>
+  </div>
+  <div class="page__footer__right">
+    
+  </div>
+</footer>
+
+  
+
+</body>
+
+</html>

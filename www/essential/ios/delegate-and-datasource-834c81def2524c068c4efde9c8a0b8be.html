@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="always">
+
+  <meta name="twitter:card" value="summary">
+  <meta name="twitter:site" content="@kjk">
+  <meta name="twitter:title" content="Delegate and Datasource">
+  
+  <meta name="twitter:description" content="Delegate and Datasource">
+  <meta name="twitter:creator" content="@kjk">
+  <meta name="twitter:image" content="/essential/ios/covers/twitter/iOS.png">
+  
+  <meta property="og:title" content="Delegate and Datasource">
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/essential/ios/delegate-and-datasource-834c81def2524c068c4efde9c8a0b8be" />
+  
+  <meta property="og:description" content="Delegate and Datasource">
+  <meta property="og:image" content="/essential/ios/covers/twitter/iOS.png">
+
+  <title>UITableView / Delegate and Datasource / Essential iOS</title>
+  <meta name="description" content="UITableView / Delegate and Datasource / Essential iOS">
+
+  <link rel="icon" href="s/favicon-9dfe2f70.ico">
+
+  <link href="s/main-65ff0b86.css" rel="stylesheet">
+  <link href="s/bundle-83cf4538.css" rel="stylesheet">
+
+  
+  <script src="s/app-ios-c5e8824d.js" defer></script>
+  <script src="s/bundle-fd6a7ad6.js" defer></script>
+</head>
+
+<body class="page">
+  <script>
+  function onLoad() {
+    gBookTitle = "Essential iOS";
+
+    httpsMaybeRedirect();
+
+    let opts = {
+      target: document.getElementById("toc"),
+      props: {
+        parentIdx: -1,
+        level: 0,
+      },
+    };
+    new app.toc(opts);
+
+    opts = {
+      target: document.getElementById("search-parent"),
+      props: {
+        bookTitle: gBookTitle,
+      },
+    };
+    new app.searchInput(opts);
+
+    opts = {
+      target: document.getElementById("page-toc"),
+    };
+    new app.pageToc(opts);
+
+    opts = {
+      target: document.getElementById("book-toc"),
+    };
+    new app.bookToc(opts);
+  }
+  document.addEventListener('DOMContentLoaded', onLoad);
+</script>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+  <symbol id="arrow-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M11 10H5.344L11 4.414V10z" />
+  </symbol>
+
+  <symbol id="arrow-not-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M6 4v8l4-4-4-4zm1 2.414L8.586 8 7 9.586V6.414z" />
+  </symbol>
+
+  <symbol id="icon-github" viewbox="0 0 496 512">
+    <path
+      d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+  </symbol>
+
+  <symbol id="icon-home" viewbox="0 0 576 512">
+    <path
+      d="M488 312.7V456c0 13.3-10.7 24-24 24H348c-6.6 0-12-5.4-12-12V356c0-6.6-5.4-12-12-12h-72c-6.6 0-12 5.4-12 12v112c0 6.6-5.4 12-12 12H112c-13.3 0-24-10.7-24-24V312.7c0-3.6 1.6-7 4.4-9.3l188-154.8c4.4-3.6 10.8-3.6 15.3 0l188 154.8c2.7 2.3 4.3 5.7 4.3 9.3zm83.6-60.9L488 182.9V44.4c0-6.6-5.4-12-12-12h-56c-6.6 0-12 5.4-12 12V117l-89.5-73.7c-17.7-14.6-43.3-14.6-61 0L4.4 251.8c-5.1 4.2-5.8 11.8-1.6 16.9l25.5 31c4.2 5.1 11.8 5.8 16.9 1.6l235.2-193.7c4.4-3.6 10.8-3.6 15.3 0l235.2 193.7c5.1 4.2 12.7 3.5 16.9-1.6l25.5-31c4.2-5.2 3.4-12.7-1.7-16.9z" />
+  </symbol>
+
+  <symbol id="icon-twitter" viewbox="0 0 512 512">
+    <path
+      d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
+  </symbol>
+
+  <symbol id="icon-edit" viewbox="0 0 576 512">
+    <path
+      d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" />
+  </symbol>
+
+  <symbol id="icon-star" viewbox="0 0 576 512">
+    <path
+      d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z" />
+  </symbol>
+</svg>
+  <header class="page__header">
+  <div class="page__header__left">
+    <a id="link-home" href="index.html">
+      <svg class="icon-home">
+        <use xlink:href="#icon-home"></use>
+      </svg>
+      &nbsp;Essential iOS</a>
+  </div>
+  <div class="page__header__center" id="search-parent">
+  </div>
+  <div class="page__header__right">
+  </div>
+</header>
+
+  <div id="toc"></div>
+
+  <div class="content">
+    <div class="article">
+      
+
+<div style="display: flex; justify-content: space-between">
+  <h1 class="title">Delegate and Datasource</h1>
+  <a class="edit-link" style="font-size: 80%" href="https://notion.so/834c81def2524c068c4efde9c8a0b8be" rel="nofollow"
+  target="_blank">suggest change</a>
+</div>
+
+
+      <p>The <code>UITableViewDelegate</code> is used to control how the table is displayed, and <code>UITableViewDataSource</code> is used to define the <code>UITableView</code>’s data. There are two required methods and many optional ones which can be used to customize size, sections, headings, and cells in the <code>UITableView</code>.</p><hr id="d3114d51-94f7-47de-8929-0299d6254262"/><h2 id="2f9e1def-7864-4f40-b458-f01d37f3f447" class="">UITableViewDataSource<a class="header-anchor" href="#2f9e1def-7864-4f40-b458-f01d37f3f447" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><h2 id="b137ab95-e3d8-4ec6-8f79-d1c309fef087" class=""><strong>Required Methods</strong><a class="header-anchor" href="#b137ab95-e3d8-4ec6-8f79-d1c309fef087" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><blockquote id="76a0eb65-1e4c-4ca1-92c3-f191b001cba3" class="">numberOfRowsInSection: This method defines how many cells will be displayed in each section of the tableview.</blockquote><p><strong>Objective-C</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>// Return the number of rows for the table view. Usually populated from an array, // or can be statically defined. return self.myArray.count;</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><strong>Swift 3</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>// Return the number of rows for the table view. Usually populated from an array, // or can be statically defined. return self.myArray.count</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><blockquote id="a4c3b773-552e-42df-8071-e8cb81edd2b8" class="">cellForRowAtIndexPath: This method is where the UITableView’s cells are created and configured. Should return either a UITableViewCell or a custom subclass.</blockquote><p><strong>Note:</strong> Using <code>dequeueReusableCellWithIdentifier:forIndexPath:</code> requires that the class or nib has been registered for that identifier using the <code>UITableView</code>’s <code>registerClass:forCellReuseIdentifier:</code> or <code>registerNib:forCellReuseIdentifier:</code> methods. Usually, this will be done in the <code>UIViewController</code>’s <code>viewDidLoad</code> method.</p><p><strong>Objective-C</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>MyCustomCell *cell = [tableView dequeueReusableCellWithIdentifier:@“MyCustomCell” forIndexPath:indexPath];</p><p>// All additional customization goes here cell.titleLabel.text = [NSString stringWithFormat:@“Title Row %lu”, indexPath.row];</p><p>return cell;</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><strong>Swift 3</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>let cell = tableView.dequeueReusableCellWithIdentifier(“MyCustomCell”, forIndexPath:indexPath)</p><p>// All additional customization goes here cell.titleLabel.text = String(format:“Title Row %lu”, indexPath.row)</p><p>return cell</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><h2 id="be07f7db-faba-4cd9-80be-aa289fe48541" class=""><strong>Optional Methods</strong><a class="header-anchor" href="#be07f7db-faba-4cd9-80be-aa289fe48541" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><blockquote id="5876cdbd-0f5a-4323-a8cb-5d87ad2d5d55" class="">titleForHeaderInSection: Defines a string as the title for each section header in the table view. This method only allows for changing the title, further customization can be done by defining the view for the header.</blockquote><p><strong>Objective-C</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>switch(section) { case 0: return @“Title 1”; break;</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">case 1:
+    return @&#34;Title 2&#34;;
+    break;
+
+default:
+    return nil;
+    break;</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>}</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><strong>Swift 3</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -&gt; String? {</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>switch section { case 0: return “Title 1” case 1: return “Title 2” default: return nil }</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><blockquote id="695172f3-540b-4458-876d-d80d54d4a01c" class="">titleForFooterInSection: Defines a string as the title for each section header in the table view.</blockquote><p><strong>Objective-C</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    return @&#34;Footer text&#34;;
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><strong>Swift 3</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -&gt; String? {
+    return &#34;Footer text&#34;
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><blockquote id="aa837032-6186-408b-b77f-e3abd7c3b149" class="">canEditRowAtIndexPath: Used to determine if the editing UI should be displayed for the specified row. Should return YES if the specified row can be deleted or added.</blockquote><p><strong>Objective-C</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><strong>Swift 3</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">func tableView(_ tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -&gt; Bool {
+    return true
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><blockquote id="a937c7f5-3c6a-4729-88e9-2bfd96eebf7c" class="">commitEditingStyle:forRowAtIndexPath Should perform the work required to handle the addition or removal of the specified row. For example, remove the cell from the UITableView with animation, and remove the associated object from the table’s data model.</blockquote><p><strong>Objective-C</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>switch (editingStyle) { case UITableViewCellEditingStyleInsert: // Insert new data into the backing data model here [self insertNewDataIntoDataModel]; [tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic]; break; case UITableViewCellEditingStyleDelete: [self removeDataFromDataModelAtIndex:indexPath.row]; [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic]; break; default: // Nothing to perform if the editingStyle was neither Insert or Delete break;</p><p>}</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><strong>Swift 3</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">func tableView(_ tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>switch editingStyle { case .Insert: self.insertNewDataIntoDataModel() tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation:.Automatic) case .Delete: self.removeDataFromDataModelAtIndex(indexPath.row) tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation:.Automatic) default: // Nothing to perform if the editingStyle was neither Insert or Delete }</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><blockquote id="27e72b0a-708e-4489-9ce5-976fd416d6e9" class="">editActions:forRowAt Allows ability to add aditional actions or buttons to the edit mode of a row inside a UITableview. For example if you wanted two buttons, an edit and delete button when user swipes to edit the row, then you would use this method.</blockquote><p><strong>Swift 3</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -&gt; [UITableViewRowAction]? {</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>// In the handler you will get passed the action as well as the indexPath for // the row that is being edited let editAction = UITableViewRowAction(style: .normal, title: “Edit”, handler: { [unowned self] action, indexPath in // Do something when edit is tapped })</p><p>// Change the color of the edit action editAction.backgroundColor = UIColor.blue</p><p>let deleteAction = UITableViewRowAction(style: .destructive, title: “Delete”, handler: { [unowned self] action, indexPath in // Handel the delete event })</p><p>return [deleteAction, editAction]</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><hr id="c2dfa3d2-1781-4896-994b-4b92319ca173"/><h1 id="0213a68e-caa8-4953-83a6-c0d9cd104924" class="">UITableViewDelegate<a class="header-anchor" href="#0213a68e-caa8-4953-83a6-c0d9cd104924" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>All methods in <code>UITableViewDelegate</code> are optional, but a delegate that implements them will enable extra features for the <code>UITableView</code>.</p><blockquote id="5d0f33dd-d73b-435a-b4cc-45869dd3b040" class="">numberOfSectionsInTableView: By default this returns 1, but multiple section support is enabled by returning a different number of sections.</blockquote><p><strong>Objective-C</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.numSections;
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><strong>Swift 3</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">func numberOfSectionsInTableView(_ tableView: UITableView) -&gt; Int {
+    return self.numSections
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><blockquote id="ed94d667-8e9e-4dcd-980c-2b6ebf817022" class="">viewForHeaderInSection Allows the configuration of a custom view as the header for the section.</blockquote><p><strong>Objective-C</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), 22)]; view.backgroundColor = [UIColor groupTableViewBackgroundColor];</p><p>UILabel *label = [[UILabel alloc] init]; label.font = [UIFont systemFontOfSize:12]; label.textColor = [UIColor darkGrayColor];</p><p>switch (section) { case 1: { label.text = @“Title”; label.frame = labelFrame;</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">UIButton *more = [[UIButton alloc] initWithFrame:btnFrame];
+    [more setTitle:@&#34;See more&#34; forState:UIControlStateNormal];
+    [more.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    [view addSubview:more];
+}   break;
+    
+default:
+    label.frame = CGRectMake(0, 0, 0, 0);
+    break;</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>}</p><p>[view addSubview:label]; return view;</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><strong>Swift 3</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">func tableView(_ tableView: UITableView,  viewForHeaderInSection section: Int) -&gt; UIView? {</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 22)) view.backgroundColor = UIColor.groupTableViewBackgroundColor()</p><p>let label = UILabel() label.font = UIFont.systemFontOfSize(12) label.textColor = UIColor.darkGrayColor()</p><p>switch section { case 1: label.text = “Title” label.frame = labelFrame</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">let more = UIButton(frame: btnFrame)
+    more.setTitle(&#34;See more&#34;, forState:.Normal)
+    view.addSubview(more)
+    
+default:
+    label.frame = CGRect.zero</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>}</p><p>view.addSubview(label) return view;</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><blockquote id="b894f278-cac0-421a-bd2d-cad21939f596" class="">heightForRowAtIndexPath: Define the height of each cell in the table view.</blockquote><p><strong>Objective-C</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><strong>Swift 3</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -&gt; CGFloat {
+    return 44
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><blockquote id="715f155a-5497-4fd9-8c6f-7a2f27ed9e86" class="">heightForHeaderInSection: and heightForFooterInSection Define the height for the header and footer of each section in the table view</blockquote><p><strong>Objective-C</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 33;
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><strong>Swift 3</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -&gt; CGFloat {
+    return 33
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div>
+
+      <div class="forum-link">
+  Found a mistake? Have a question or improvement idea?
+  <a href="#" onclick="showContact(); return false;">Let me know</a>.
+</div>
+
+      <form id="contact-form" action="https://formsubmit.co/kkowalczyk@gmail.com" method="POST">
+  <p>
+    <div class="contact-light">Feedback about page:</div>
+    <input type="text" name="page-url" id="contact-page-url" readonly />
+  </p>
+
+  <p>
+    <div class="contact-light">Feedback:</div>
+    <textarea name="message" id="msg-for-chris"></textarea>
+    <div class="contact-light">Optional: your email if you want me to get back to you: </div>
+    <input type="email" name="email" />
+    <input type="text" name="_honey" style="display:none">
+  </p>
+
+  <p>
+    <button type="submit" class="contact-btn">
+      Send Feedback
+    </button>
+
+    <button class="contact-btn" style="float: right;" onclick="hideContact(); return false;">
+      Cancel
+    </button>
+  </p>
+
+  <p>
+    <div data-netlify-recaptcha></div>
+  </p>
+</form>
+
+
+      <hr class="article-bottom-sep">
+    </div>
+
+    <div id="page-toc"></div>
+
+    <div id="chapter-toc-wrapper">
+      <hr />
+      <div class="hdr">Table Of Contents</div>
+      <div id="book-toc"></div>
+    </div>
+  </div>
+
+  <footer class="page__footer">
+  <div class="page__footer__left">
+    Maintained by
+    <a href="https://blog.kowalczyk.info" target="_blank">Krzysztof Kowalczyk</a>
+  </div>
+  <div class="share-me">
+    <a href="https://twitter.com/intent/tweet?text=%22Essential%20iOS%22%20-%20a%20free%20programming%20book&url=%2fessential%2fios%2f&via=kjk">Share
+      <b>Essential iOS</b> on&nbsp;
+      <svg class="icon-twitter">
+        <use xlink:href="#icon-twitter"></use>
+      </svg>
+    </a>
+  </div>
+  <div class="page__footer__right">
+    
+  </div>
+</footer>
+
+  
+
+</body>
+
+</html>

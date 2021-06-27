@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="always">
+
+  <meta name="twitter:card" value="summary">
+  <meta name="twitter:site" content="@kjk">
+  <meta name="twitter:title" content="Comparing Strings">
+  
+  <meta name="twitter:description" content="Comparing Strings">
+  <meta name="twitter:creator" content="@kjk">
+  <meta name="twitter:image" content="/essential/java/covers/twitter/Java.png">
+  
+  <meta property="og:title" content="Comparing Strings">
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/essential/java/comparing-strings-9341e64868874ded9c16af3597d921ac" />
+  
+  <meta property="og:description" content="Comparing Strings">
+  <meta property="og:image" content="/essential/java/covers/twitter/Java.png">
+
+  <title>Strings / Comparing Strings / Essential Java</title>
+  <meta name="description" content="Strings / Comparing Strings / Essential Java">
+
+  <link rel="icon" href="s/favicon-9dfe2f70.ico">
+
+  <link href="s/main-65ff0b86.css" rel="stylesheet">
+  <link href="s/bundle-83cf4538.css" rel="stylesheet">
+
+  
+  <script src="s/app-java-493b1da5.js" defer></script>
+  <script src="s/bundle-fd6a7ad6.js" defer></script>
+</head>
+
+<body class="page">
+  <script>
+  function onLoad() {
+    gBookTitle = "Essential Java";
+
+    httpsMaybeRedirect();
+
+    let opts = {
+      target: document.getElementById("toc"),
+      props: {
+        parentIdx: -1,
+        level: 0,
+      },
+    };
+    new app.toc(opts);
+
+    opts = {
+      target: document.getElementById("search-parent"),
+      props: {
+        bookTitle: gBookTitle,
+      },
+    };
+    new app.searchInput(opts);
+
+    opts = {
+      target: document.getElementById("page-toc"),
+    };
+    new app.pageToc(opts);
+
+    opts = {
+      target: document.getElementById("book-toc"),
+    };
+    new app.bookToc(opts);
+  }
+  document.addEventListener('DOMContentLoaded', onLoad);
+</script>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+  <symbol id="arrow-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M11 10H5.344L11 4.414V10z" />
+  </symbol>
+
+  <symbol id="arrow-not-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M6 4v8l4-4-4-4zm1 2.414L8.586 8 7 9.586V6.414z" />
+  </symbol>
+
+  <symbol id="icon-github" viewbox="0 0 496 512">
+    <path
+      d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+  </symbol>
+
+  <symbol id="icon-home" viewbox="0 0 576 512">
+    <path
+      d="M488 312.7V456c0 13.3-10.7 24-24 24H348c-6.6 0-12-5.4-12-12V356c0-6.6-5.4-12-12-12h-72c-6.6 0-12 5.4-12 12v112c0 6.6-5.4 12-12 12H112c-13.3 0-24-10.7-24-24V312.7c0-3.6 1.6-7 4.4-9.3l188-154.8c4.4-3.6 10.8-3.6 15.3 0l188 154.8c2.7 2.3 4.3 5.7 4.3 9.3zm83.6-60.9L488 182.9V44.4c0-6.6-5.4-12-12-12h-56c-6.6 0-12 5.4-12 12V117l-89.5-73.7c-17.7-14.6-43.3-14.6-61 0L4.4 251.8c-5.1 4.2-5.8 11.8-1.6 16.9l25.5 31c4.2 5.1 11.8 5.8 16.9 1.6l235.2-193.7c4.4-3.6 10.8-3.6 15.3 0l235.2 193.7c5.1 4.2 12.7 3.5 16.9-1.6l25.5-31c4.2-5.2 3.4-12.7-1.7-16.9z" />
+  </symbol>
+
+  <symbol id="icon-twitter" viewbox="0 0 512 512">
+    <path
+      d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
+  </symbol>
+
+  <symbol id="icon-edit" viewbox="0 0 576 512">
+    <path
+      d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" />
+  </symbol>
+
+  <symbol id="icon-star" viewbox="0 0 576 512">
+    <path
+      d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z" />
+  </symbol>
+</svg>
+  <header class="page__header">
+  <div class="page__header__left">
+    <a id="link-home" href="index.html">
+      <svg class="icon-home">
+        <use xlink:href="#icon-home"></use>
+      </svg>
+      &nbsp;Essential Java</a>
+  </div>
+  <div class="page__header__center" id="search-parent">
+  </div>
+  <div class="page__header__right">
+  </div>
+</header>
+
+  <div id="toc"></div>
+
+  <div class="content">
+    <div class="article">
+      
+
+<div style="display: flex; justify-content: space-between">
+  <h1 class="title">Comparing Strings</h1>
+  <a class="edit-link" style="font-size: 80%" href="https://notion.so/9341e64868874ded9c16af3597d921ac" rel="nofollow"
+  target="_blank">suggest change</a>
+</div>
+
+
+      <p>In order to compare Strings for equality, you should use the String object’s <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#equals-java.lang.Object-"><code>equals</code></a> or <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#equalsIgnoreCase-java.lang.String-"><code>equalsIgnoreCase</code></a> methods.</p><p>For example, the following snippet will determine if the two instances of <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html"><code>String</code></a> are equal on all characters:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">String firstString = &#34;Test123&#34;;
+String secondString = &#34;Test&#34; + 123;
+
+if (firstString.equals(secondString)) {
+   // Both Strings have the same content.
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><a href="https://ideone.com/TjaYMR">Live demo</a></p><p>This example will compare them, independent of their case:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">String firstString = &#34;Test123&#34;;
+String secondString = &#34;TEST123&#34;;
+
+if (firstString.equalsIgnoreCase(secondString)) {
+    // Both Strings are equal, ignoring the case of the individual characters.
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><a href="https://ideone.com/XxKmM1">Live demo</a></p><p><strong>Note that</strong> <code>equalsIgnoreCase</code> does not let you specify a <code>Locale</code>. For instance, if you compare the two words <code>&quot;Taki&quot;</code> and <code>&quot;TAKI&quot;</code> in English they are equal; however, in Turkish they are different (in Turkish, the lowercase <code>I</code> is <code>ı</code>). For cases like this, converting both strings to lowercase (or uppercase) with <code>Locale</code> and then comparing with <code>equals</code> is the solution.</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">String firstString = &#34;Taki&#34;;
+String secondString = &#34;TAKI&#34;;
+
+System.out.println(firstString.equalsIgnoreCase(secondString)); //prints true
+
+Locale locale = Locale.forLanguageTag(&#34;tr-TR&#34;);
+
+System.out.println(firstString.toLowerCase(locale).equals(
+                   secondString.toLowerCase(locale))); //prints false</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><a href="https://ideone.com/uWc348">Live demo</a></p><hr id="fed05611-1581-443a-966e-6d4a4a14fea1"/><h1 id="d86a4861-5b74-4a89-8957-585ae871972b" class="">Do not use the == operator to compare Strings<a class="header-anchor" href="#d86a4861-5b74-4a89-8957-585ae871972b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Unless you can guarantee that all strings have been interned (see below), you <strong>should not</strong> use the <code>==</code> or <code>!=</code> operators to compare Strings. These operators actually test references, and since multiple <code>String</code> objects can represent the same String, this is liable to give the wrong answer.</p><p>Instead, use the <code>String.equals(Object)</code> method, which will compare the String objects based on their values. For a detailed explanation, please refer to http://stackoverflow.com/documentation/java/4388/java-pitfalls/16290/pitfall-using-to-compare-strings.</p><hr id="8cd9b108-6782-4c6d-a626-60a559f1aabb"/><h1 id="8c43422c-8bb6-43dd-96f4-fb8fcf1268ab" class="">Comparing Strings in a switch statement<a class="header-anchor" href="#8c43422c-8bb6-43dd-96f4-fb8fcf1268ab" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>As of Java 1.7, it is possible to compare a String variable to literals in a <code>switch</code> statement. Make sure that the String is not null, otherwise it will always throw a <a href="http://stackoverflow.com/documentation/java/1003/nullpointerexception#t=201608020755368222531"><code>NullPointerException</code></a>. Values are compared using <code>String.equals</code>, i.e. case sensitive.</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">String stringToSwitch = &#34;A&#34;;
+
+switch (stringToSwitch) {
+    case &#34;a&#34;:
+        System.out.println(&#34;a&#34;);
+        break;
+    case &#34;A&#34;:
+        System.out.println(&#34;A&#34;); //the code goes here
+        break;
+    case &#34;B&#34;:
+        System.out.println(&#34;B&#34;);
+        break;
+    default:
+        break;
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><a href="https://ideone.com/fbWBUR">Live demo</a></p><h1 id="5866ab08-97df-4ff3-b277-0ce098b3383c" class="">Comparing Strings with constant values<a class="header-anchor" href="#5866ab08-97df-4ff3-b277-0ce098b3383c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>When comparing a <code>String</code> to a constant value, you can put the constant value on the left side of <code>equals</code> to ensure that you won’t get a <code>NullPointerException</code> if the other String is <code>null</code>.</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">&#34;baz&#34;.equals(foo)</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>While <code>foo.equals(&quot;baz&quot;)</code> will throw a <code>NullPointerException</code> if <code>foo</code> is <code>null</code>, <code>&quot;baz&quot;.equals(foo)</code> will evaluate to <code>false</code>.</p><p>A more readable alternative is to use <code>Objects.equals()</code>, which does a null check on both parameters: <code>Objects.equals(foo, &quot;baz&quot;)</code>.</p><p>(<strong>Note:</strong> It is debatable as to whether it is better to avoid <code>NullPointerExceptions</code> in general, or let them happen and then fix the root cause; see <a href="http://stackoverflow.com/documentation/java/5680/java-pitfalls-nulls-and-nullpointerexception/20151/pitfall-making-good-unexpected-nulls">here</a> and <a href="http://stackoverflow.com/documentation/java/5680/java-pitfalls-nulls-and-nullpointerexception/23490/pitfall-using-yoda-conditions-to-avoid-nullpointerexception">here</a>. Certainly, calling the avoidance strategy “best practice” is not justifiable.)</p><h1 id="80c036a0-491b-4ec0-b95e-b785ea475f5b" class="">String orderings<a class="header-anchor" href="#80c036a0-491b-4ec0-b95e-b785ea475f5b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>The <code>String</code> class implements <code>Comparable&lt;String&gt;</code> with the <code>String.compareTo</code> method (as described at the start of this example). This makes the natural ordering of <code>String</code> objects case-sensitive order. The <code>String</code> class provide a <code>Comparator&lt;String&gt;</code> constant called <code>CASE_INSENSITIVE_ORDER</code> suitable for case-insensitive sorting.</p><h1 id="9ebdc82a-b331-4785-a25c-69e4802fff28" class="">Comparing with interned Strings<a class="header-anchor" href="#9ebdc82a-b331-4785-a25c-69e4802fff28" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>The Java Language Specification (<a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.10.5">JLS 3.10.6</a>) states the following:</p><blockquote id="48634ccc-00f6-47fc-a5f1-5ad11d30b79c" class="">“Moreover, a string literal always refers to the same instance of class String. This is because string literals - or, more generally, strings that are the values of constant expressions - are interned so as to share unique instances, using the method String.intern.”</blockquote><p>This means it is safe to compare references to two string <em>literals</em> using <code>==</code>. Moreover, the same is true for references to <code>String</code> objects that have been produced using the <code>String.intern()</code> method.</p><p>For example:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">String strObj = new String(&#34;Hello!&#34;);
+String str = &#34;Hello!&#34;;
+
+// The two string references point two strings that are equal
+if (strObj.equals(str)) {
+    System.out.println(&#34;The strings are equal&#34;);
+}
+
+// The two string references do not point to the same object
+if (strObj != str) {
+    System.out.println(&#34;The strings are not the same object&#34;);
+}
+
+// If we intern a string that is equal to a given literal, the result is
+// a string that has the same reference as the literal.
+String internedStr = strObj.intern();
+
+if (internedStr == str) {
+    System.out.println(&#34;The interned string and the literal are the same object&#34;);
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Behind the scenes, the interning mechanism maintains a hash table that contains all interned strings that are still <em>reachable</em>. When you call <code>intern()</code> on a <code>String</code>, the method looks up the object in the hash table:</p><ul id="d7b4e2ff-ef63-4766-8671-acfc9d7e03f4" class="bulleted-list"><li>If the string is found, then that value is returned as the interned string.</li><li>Otherwise, a copy of the string is added to the hash table and that string is returned as the interned string.</li></ul><p>It is possible to use interning to allow strings to be compared using <code>==</code>. However, there are significant problems with doing this; see http://stackoverflow.com/documentation/java/5455/java-pitfalls-performance-issues/23991/pitfall-interning-strings-so-that-you-can-use-is-a-bad-idea#t=201610101338294726756 for details. It is not recommended in most cases.</p>
+
+      <div class="forum-link">
+  Found a mistake? Have a question or improvement idea?
+  <a href="#" onclick="showContact(); return false;">Let me know</a>.
+</div>
+
+      <form id="contact-form" action="https://formsubmit.co/kkowalczyk@gmail.com" method="POST">
+  <p>
+    <div class="contact-light">Feedback about page:</div>
+    <input type="text" name="page-url" id="contact-page-url" readonly />
+  </p>
+
+  <p>
+    <div class="contact-light">Feedback:</div>
+    <textarea name="message" id="msg-for-chris"></textarea>
+    <div class="contact-light">Optional: your email if you want me to get back to you: </div>
+    <input type="email" name="email" />
+    <input type="text" name="_honey" style="display:none">
+  </p>
+
+  <p>
+    <button type="submit" class="contact-btn">
+      Send Feedback
+    </button>
+
+    <button class="contact-btn" style="float: right;" onclick="hideContact(); return false;">
+      Cancel
+    </button>
+  </p>
+
+  <p>
+    <div data-netlify-recaptcha></div>
+  </p>
+</form>
+
+
+      <hr class="article-bottom-sep">
+    </div>
+
+    <div id="page-toc"></div>
+
+    <div id="chapter-toc-wrapper">
+      <hr />
+      <div class="hdr">Table Of Contents</div>
+      <div id="book-toc"></div>
+    </div>
+  </div>
+
+  <footer class="page__footer">
+  <div class="page__footer__left">
+    Maintained by
+    <a href="https://blog.kowalczyk.info" target="_blank">Krzysztof Kowalczyk</a>
+  </div>
+  <div class="share-me">
+    <a href="https://twitter.com/intent/tweet?text=%22Essential%20Java%22%20-%20a%20free%20programming%20book&url=%2fessential%2fjava%2f&via=kjk">Share
+      <b>Essential Java</b> on&nbsp;
+      <svg class="icon-twitter">
+        <use xlink:href="#icon-twitter"></use>
+      </svg>
+    </a>
+  </div>
+  <div class="page__footer__right">
+    
+  </div>
+</footer>
+
+  
+
+</body>
+
+</html>

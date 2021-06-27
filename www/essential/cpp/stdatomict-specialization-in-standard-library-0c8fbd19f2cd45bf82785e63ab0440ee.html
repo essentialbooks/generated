@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="always">
+
+  <meta name="twitter:card" value="summary">
+  <meta name="twitter:site" content="@kjk">
+  <meta name="twitter:title" content="std::atomic&lt;T&gt; specialization in standard library">
+  
+  <meta name="twitter:description" content="std::atomic&lt;T&gt; specialization in standard library">
+  <meta name="twitter:creator" content="@kjk">
+  <meta name="twitter:image" content="/essential/cpp/covers/twitter/Cpp.png">
+  
+  <meta property="og:title" content="std::atomic&lt;T&gt; specialization in standard library">
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/essential/cpp/stdatomict-specialization-in-standard-library-0c8fbd19f2cd45bf82785e63ab0440ee" />
+  
+  <meta property="og:description" content="std::atomic&lt;T&gt; specialization in standard library">
+  <meta property="og:image" content="/essential/cpp/covers/twitter/Cpp.png">
+
+  <title>std::atomic&lt;T&gt; / std::atomic&lt;T&gt; specialization in standard library / Essential C&#43;&#43;</title>
+  <meta name="description" content="std::atomic&lt;T&gt; / std::atomic&lt;T&gt; specialization in standard library / Essential C&#43;&#43;">
+
+  <link rel="icon" href="s/favicon-9dfe2f70.ico">
+
+  <link href="s/main-65ff0b86.css" rel="stylesheet">
+  <link href="s/bundle-83cf4538.css" rel="stylesheet">
+
+  
+  <script src="s/app-cpp-1379c08e.js" defer></script>
+  <script src="s/bundle-fd6a7ad6.js" defer></script>
+</head>
+
+<body class="page">
+  <script>
+  function onLoad() {
+    gBookTitle = "Essential C\u002b\u002b";
+
+    httpsMaybeRedirect();
+
+    let opts = {
+      target: document.getElementById("toc"),
+      props: {
+        parentIdx: -1,
+        level: 0,
+      },
+    };
+    new app.toc(opts);
+
+    opts = {
+      target: document.getElementById("search-parent"),
+      props: {
+        bookTitle: gBookTitle,
+      },
+    };
+    new app.searchInput(opts);
+
+    opts = {
+      target: document.getElementById("page-toc"),
+    };
+    new app.pageToc(opts);
+
+    opts = {
+      target: document.getElementById("book-toc"),
+    };
+    new app.bookToc(opts);
+  }
+  document.addEventListener('DOMContentLoaded', onLoad);
+</script>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+  <symbol id="arrow-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M11 10H5.344L11 4.414V10z" />
+  </symbol>
+
+  <symbol id="arrow-not-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M6 4v8l4-4-4-4zm1 2.414L8.586 8 7 9.586V6.414z" />
+  </symbol>
+
+  <symbol id="icon-github" viewbox="0 0 496 512">
+    <path
+      d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+  </symbol>
+
+  <symbol id="icon-home" viewbox="0 0 576 512">
+    <path
+      d="M488 312.7V456c0 13.3-10.7 24-24 24H348c-6.6 0-12-5.4-12-12V356c0-6.6-5.4-12-12-12h-72c-6.6 0-12 5.4-12 12v112c0 6.6-5.4 12-12 12H112c-13.3 0-24-10.7-24-24V312.7c0-3.6 1.6-7 4.4-9.3l188-154.8c4.4-3.6 10.8-3.6 15.3 0l188 154.8c2.7 2.3 4.3 5.7 4.3 9.3zm83.6-60.9L488 182.9V44.4c0-6.6-5.4-12-12-12h-56c-6.6 0-12 5.4-12 12V117l-89.5-73.7c-17.7-14.6-43.3-14.6-61 0L4.4 251.8c-5.1 4.2-5.8 11.8-1.6 16.9l25.5 31c4.2 5.1 11.8 5.8 16.9 1.6l235.2-193.7c4.4-3.6 10.8-3.6 15.3 0l235.2 193.7c5.1 4.2 12.7 3.5 16.9-1.6l25.5-31c4.2-5.2 3.4-12.7-1.7-16.9z" />
+  </symbol>
+
+  <symbol id="icon-twitter" viewbox="0 0 512 512">
+    <path
+      d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
+  </symbol>
+
+  <symbol id="icon-edit" viewbox="0 0 576 512">
+    <path
+      d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" />
+  </symbol>
+
+  <symbol id="icon-star" viewbox="0 0 576 512">
+    <path
+      d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z" />
+  </symbol>
+</svg>
+  <header class="page__header">
+  <div class="page__header__left">
+    <a id="link-home" href="index.html">
+      <svg class="icon-home">
+        <use xlink:href="#icon-home"></use>
+      </svg>
+      &nbsp;Essential C&#43;&#43;</a>
+  </div>
+  <div class="page__header__center" id="search-parent">
+  </div>
+  <div class="page__header__right">
+  </div>
+</header>
+
+  <div id="toc"></div>
+
+  <div class="content">
+    <div class="article">
+      
+
+<div style="display: flex; justify-content: space-between">
+  <h1 class="title">std::atomic&lt;T&gt; specialization in standard library</h1>
+  <a class="edit-link" style="font-size: 80%" href="https://notion.so/0c8fbd19f2cd45bf82785e63ab0440ee" rel="nofollow"
+  target="_blank">suggest change</a>
+</div>
+
+
+      <p>Standard library defines specializations for most types:</p><div id="5b913568-5a19-4b08-a8e6-fd7c2531d6fd" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th width="0">Typedef name</th><th width="0">Full specialization</th></tr></thead><tbody><tr id="1ffebe2d-0992-4714-8364-020bf90ecdfb"><td class="cell-title col-type-title">std::atomic_bool</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;bool&gt;</td></tr>
+<tr id="6f8d5cc3-ceb8-41bb-a3e2-82a44a8309cc"><td class="cell-title col-type-title">std::atomic_char</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;char&gt;</td></tr>
+<tr id="f0fa300b-ba47-43b0-9ced-f7b2fe8be042"><td class="cell-title col-type-title">std::atomic_char</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;char&gt;</td></tr>
+<tr id="850880aa-3b38-4db6-84ed-54def8192f0c"><td class="cell-title col-type-title">std::atomic_schar</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;signed char&gt;</td></tr>
+<tr id="d6bb4136-bbb9-4af6-88bd-e792310def1f"><td class="cell-title col-type-title">std::atomic_uchar</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;unsigned char&gt;</td></tr>
+<tr id="f63350c5-3ead-4d50-bc4d-82488025743c"><td class="cell-title col-type-title">std::atomic_short</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;short&gt;</td></tr>
+<tr id="a4c32999-26f9-47a0-8a67-ea9ab306235d"><td class="cell-title col-type-title">std::atomic_ushort</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;unsigned short&gt;</td></tr>
+<tr id="cffc7770-7331-4c3f-9270-dac25921263e"><td class="cell-title col-type-title">std::atomic_int</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;int&gt;</td></tr>
+<tr id="20cf6d39-a821-440f-9abc-c9a48f6a8544"><td class="cell-title col-type-title">std::atomic_uint</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;unsigned int&gt;</td></tr>
+<tr id="c65e2037-8047-48cd-a377-91b286c7e236"><td class="cell-title col-type-title">std::atomic_long</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;long&gt;</td></tr>
+<tr id="ca186354-de40-4559-af56-690d647ac29b"><td class="cell-title col-type-title">std::atomic_ulong</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;unsigned long&gt;</td></tr>
+<tr id="36077685-8522-49f6-9156-c63b7bfc6313"><td class="cell-title col-type-title">std::atomic_llong</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;long long&gt;</td></tr>
+<tr id="57ad0203-98f5-41a4-8e08-70a42d761a66"><td class="cell-title col-type-title">std::atomic_ullong</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;unsigned long long&gt;</td></tr>
+<tr id="ace31ef4-c7f5-41b6-ba75-755da8071c36"><td class="cell-title col-type-title">std::atomic_char16_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;char16_t&gt;</td></tr>
+<tr id="f301c410-e265-4cb4-b537-9974d2b41217"><td class="cell-title col-type-title">std::atomic_char32_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;char32_t&gt;</td></tr>
+<tr id="161341eb-cd1e-4e00-81f6-28caed4c23ca"><td class="cell-title col-type-title">std::atomic_wchar_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;wchar_t&gt;</td></tr>
+<tr id="8aa740de-bc75-44e8-8a88-f20fcedf364a"><td class="cell-title col-type-title">std::atomic_int8_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::int8_t&gt;</td></tr>
+<tr id="82a84357-6ae0-443c-89b3-7df318495ed9"><td class="cell-title col-type-title">std::atomic_uint8_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::uint8_t&gt;</td></tr>
+<tr id="891b8167-938b-408f-9cf2-a2d195522fd2"><td class="cell-title col-type-title">std::atomic_int16_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::int16_t&gt;</td></tr>
+<tr id="688791eb-e477-407d-a21e-68f6ca164a37"><td class="cell-title col-type-title">std::atomic_uint16_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::uint16_t&gt;</td></tr>
+<tr id="babfdb2a-9780-4d35-9ed2-bb4994d4a619"><td class="cell-title col-type-title">std::atomic_int32_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::int32_t&gt;</td></tr>
+<tr id="82dbefaf-c9d9-4409-9cb1-53d852326e9f"><td class="cell-title col-type-title">std::atomic_uint32_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::uint32_t&gt;</td></tr>
+<tr id="a22e580b-9b31-45ed-b16b-6fcc1b77a1a9"><td class="cell-title col-type-title">std::atomic_int64_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::int64_t&gt;</td></tr>
+<tr id="bfa35a7d-a193-487a-8cfe-15f9319438a0"><td class="cell-title col-type-title">std::atomic_uint64_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::uint64_t&gt;</td></tr>
+<tr id="5d5b17a9-9fde-43dd-88d9-7a060506df70"><td class="cell-title col-type-title">std::atomic_int_least8_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::int_least8_t&gt;</td></tr>
+<tr id="5d48464b-f25b-4046-a2fb-a1d9c1d7a46d"><td class="cell-title col-type-title">std::atomic_uint_least8_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::uint_least8_t&gt;</td></tr>
+<tr id="b7a16c2c-f728-4cad-a0ed-4a80be63f30a"><td class="cell-title col-type-title">std::atomic_int_least16_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::int_least16_t&gt;</td></tr>
+<tr id="1bcc14b6-cc79-460a-913e-37443d991ea8"><td class="cell-title col-type-title">std::atomic_uint_least16_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::uint_least16_t&gt;</td></tr>
+<tr id="df3b4b9d-c241-4a7b-8b08-15dc28dfa259"><td class="cell-title col-type-title">std::atomic_int_least32_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::int_least32_t&gt;</td></tr>
+<tr id="4011f7c4-d8f8-4bc8-bdfd-cfcf1fe3a1ce"><td class="cell-title col-type-title">std::atomic_uint_least32_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::uint_least32_t&gt;</td></tr>
+<tr id="5492380d-5fb1-436e-a536-510ddce973c5"><td class="cell-title col-type-title">std::atomic_int_least64_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::int_least64_t&gt;</td></tr>
+<tr id="055cae8f-4863-4c61-8d7d-23ce502e06aa"><td class="cell-title col-type-title">std::atomic_uint_least64_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::uint_least64_t&gt;</td></tr>
+<tr id="b0ead63e-6599-45ce-8353-4a97e32892aa"><td class="cell-title col-type-title">std::atomic_int_fast8_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::int_fast8_t&gt;</td></tr>
+<tr id="19e8ca85-5e9c-43af-bfb4-03964ec197a6"><td class="cell-title col-type-title">std::atomic_uint_fast8_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::uint_fast8_t&gt;</td></tr>
+<tr id="329885e6-96d3-4784-8eb3-62f1963009fc"><td class="cell-title col-type-title">std::atomic_int_fast16_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::int_fast16_t&gt;</td></tr>
+<tr id="5c0678b9-3874-4fdb-984a-aacc7c81b7d4"><td class="cell-title col-type-title">std::atomic_uint_fast16_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::uint_fast16_t&gt;</td></tr>
+<tr id="7aa52088-cdec-4401-9d22-f42c94906427"><td class="cell-title col-type-title">std::atomic_int_fast32_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::int_fast32_t&gt;</td></tr>
+<tr id="66efe44c-ef21-4c08-b0e6-766430613430"><td class="cell-title col-type-title">std::atomic_uint_fast32_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::uint_fast32_t&gt;</td></tr>
+<tr id="6bd5b0b3-01fa-4b9d-9a4c-c3afc112ea6a"><td class="cell-title col-type-title">std::atomic_int_fast64_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::int_fast64_t&gt;</td></tr>
+<tr id="d06850ee-53e0-4078-93ef-09c961d8df89"><td class="cell-title col-type-title">std::atomic_uint_fast64_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::uint_fast64_t&gt;</td></tr>
+<tr id="c7a987df-1b6f-4858-a8ad-8f016d15025c"><td class="cell-title col-type-title">std::atomic_intptr_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::intptr_t&gt;</td></tr>
+<tr id="e7926116-5c22-45f1-a4ad-86676d00cbd3"><td class="cell-title col-type-title">std::atomic_uintptr_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::uintptr_t&gt;</td></tr>
+<tr id="3ff735f0-f633-46db-a476-4c6c5ebc0160"><td class="cell-title col-type-title">std::atomic_size_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::size_t&gt;</td></tr>
+<tr id="f408190b-8cad-4dba-b042-53d18c044e19"><td class="cell-title col-type-title">std::atomic_ptrdiff_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::ptrdiff_t&gt;</td></tr>
+<tr id="55528565-ad76-404e-a90d-f2cafbdcbb66"><td class="cell-title col-type-title">std::atomic_intmax_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::intmax_t&gt;</td></tr>
+<tr id="3a64218b-c2fa-4575-bf3f-ca4323fec8b1"><td class="cell-title col-type-title">std::atomic_uintmax_t</td><td class="cell-&amp;&lt;BN col-type-text">std::atomic&lt;std::uintmax_t&gt;</td></tr>
+</tbody></table></div>
+
+      <div class="forum-link">
+  Found a mistake? Have a question or improvement idea?
+  <a href="#" onclick="showContact(); return false;">Let me know</a>.
+</div>
+
+      <form id="contact-form" action="https://formsubmit.co/kkowalczyk@gmail.com" method="POST">
+  <p>
+    <div class="contact-light">Feedback about page:</div>
+    <input type="text" name="page-url" id="contact-page-url" readonly />
+  </p>
+
+  <p>
+    <div class="contact-light">Feedback:</div>
+    <textarea name="message" id="msg-for-chris"></textarea>
+    <div class="contact-light">Optional: your email if you want me to get back to you: </div>
+    <input type="email" name="email" />
+    <input type="text" name="_honey" style="display:none">
+  </p>
+
+  <p>
+    <button type="submit" class="contact-btn">
+      Send Feedback
+    </button>
+
+    <button class="contact-btn" style="float: right;" onclick="hideContact(); return false;">
+      Cancel
+    </button>
+  </p>
+
+  <p>
+    <div data-netlify-recaptcha></div>
+  </p>
+</form>
+
+
+      <hr class="article-bottom-sep">
+    </div>
+
+    <div id="page-toc"></div>
+
+    <div id="chapter-toc-wrapper">
+      <hr />
+      <div class="hdr">Table Of Contents</div>
+      <div id="book-toc"></div>
+    </div>
+  </div>
+
+  <footer class="page__footer">
+  <div class="page__footer__left">
+    Maintained by
+    <a href="https://blog.kowalczyk.info" target="_blank">Krzysztof Kowalczyk</a>
+  </div>
+  <div class="share-me">
+    <a href="https://twitter.com/intent/tweet?text=%22Essential%20C%2b%2b%22%20-%20a%20free%20programming%20book&url=%2fessential%2fcpp%2f&via=kjk">Share
+      <b>Essential C&#43;&#43;</b> on&nbsp;
+      <svg class="icon-twitter">
+        <use xlink:href="#icon-twitter"></use>
+      </svg>
+    </a>
+  </div>
+  <div class="page__footer__right">
+    
+  </div>
+</footer>
+
+  
+
+</body>
+
+</html>

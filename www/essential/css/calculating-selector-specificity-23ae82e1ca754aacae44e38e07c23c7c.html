@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="always">
+
+  <meta name="twitter:card" value="summary">
+  <meta name="twitter:site" content="@kjk">
+  <meta name="twitter:title" content="Calculating Selector Specificity">
+  
+  <meta name="twitter:description" content="Calculating Selector Specificity">
+  <meta name="twitter:creator" content="@kjk">
+  <meta name="twitter:image" content="/essential/css/covers/twitter/CSS.png">
+  
+  <meta property="og:title" content="Calculating Selector Specificity">
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/essential/css/calculating-selector-specificity-23ae82e1ca754aacae44e38e07c23c7c" />
+  
+  <meta property="og:description" content="Calculating Selector Specificity">
+  <meta property="og:image" content="/essential/css/covers/twitter/CSS.png">
+
+  <title>Cascading and specificity / Calculating Selector Specificity / Essential CSS</title>
+  <meta name="description" content="Cascading and specificity / Calculating Selector Specificity / Essential CSS">
+
+  <link rel="icon" href="s/favicon-9dfe2f70.ico">
+
+  <link href="s/main-65ff0b86.css" rel="stylesheet">
+  <link href="s/bundle-83cf4538.css" rel="stylesheet">
+
+  
+  <script src="s/app-css-8cccb726.js" defer></script>
+  <script src="s/bundle-fd6a7ad6.js" defer></script>
+</head>
+
+<body class="page">
+  <script>
+  function onLoad() {
+    gBookTitle = "Essential CSS";
+
+    httpsMaybeRedirect();
+
+    let opts = {
+      target: document.getElementById("toc"),
+      props: {
+        parentIdx: -1,
+        level: 0,
+      },
+    };
+    new app.toc(opts);
+
+    opts = {
+      target: document.getElementById("search-parent"),
+      props: {
+        bookTitle: gBookTitle,
+      },
+    };
+    new app.searchInput(opts);
+
+    opts = {
+      target: document.getElementById("page-toc"),
+    };
+    new app.pageToc(opts);
+
+    opts = {
+      target: document.getElementById("book-toc"),
+    };
+    new app.bookToc(opts);
+  }
+  document.addEventListener('DOMContentLoaded', onLoad);
+</script>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+  <symbol id="arrow-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M11 10H5.344L11 4.414V10z" />
+  </symbol>
+
+  <symbol id="arrow-not-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M6 4v8l4-4-4-4zm1 2.414L8.586 8 7 9.586V6.414z" />
+  </symbol>
+
+  <symbol id="icon-github" viewbox="0 0 496 512">
+    <path
+      d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+  </symbol>
+
+  <symbol id="icon-home" viewbox="0 0 576 512">
+    <path
+      d="M488 312.7V456c0 13.3-10.7 24-24 24H348c-6.6 0-12-5.4-12-12V356c0-6.6-5.4-12-12-12h-72c-6.6 0-12 5.4-12 12v112c0 6.6-5.4 12-12 12H112c-13.3 0-24-10.7-24-24V312.7c0-3.6 1.6-7 4.4-9.3l188-154.8c4.4-3.6 10.8-3.6 15.3 0l188 154.8c2.7 2.3 4.3 5.7 4.3 9.3zm83.6-60.9L488 182.9V44.4c0-6.6-5.4-12-12-12h-56c-6.6 0-12 5.4-12 12V117l-89.5-73.7c-17.7-14.6-43.3-14.6-61 0L4.4 251.8c-5.1 4.2-5.8 11.8-1.6 16.9l25.5 31c4.2 5.1 11.8 5.8 16.9 1.6l235.2-193.7c4.4-3.6 10.8-3.6 15.3 0l235.2 193.7c5.1 4.2 12.7 3.5 16.9-1.6l25.5-31c4.2-5.2 3.4-12.7-1.7-16.9z" />
+  </symbol>
+
+  <symbol id="icon-twitter" viewbox="0 0 512 512">
+    <path
+      d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
+  </symbol>
+
+  <symbol id="icon-edit" viewbox="0 0 576 512">
+    <path
+      d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" />
+  </symbol>
+
+  <symbol id="icon-star" viewbox="0 0 576 512">
+    <path
+      d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z" />
+  </symbol>
+</svg>
+  <header class="page__header">
+  <div class="page__header__left">
+    <a id="link-home" href="index.html">
+      <svg class="icon-home">
+        <use xlink:href="#icon-home"></use>
+      </svg>
+      &nbsp;Essential CSS</a>
+  </div>
+  <div class="page__header__center" id="search-parent">
+  </div>
+  <div class="page__header__right">
+  </div>
+</header>
+
+  <div id="toc"></div>
+
+  <div class="content">
+    <div class="article">
+      
+
+<div style="display: flex; justify-content: space-between">
+  <h1 class="title">Calculating Selector Specificity</h1>
+  <a class="edit-link" style="font-size: 80%" href="https://notion.so/23ae82e1ca754aacae44e38e07c23c7c" rel="nofollow"
+  target="_blank">suggest change</a>
+</div>
+
+
+      <p>Each individual CSS Selector has its own specificity value. Every selector in a sequence increases the sequence’s overall specificity. Selectors fall into one of three different specificity groups: <em>A</em>, <em>B</em> and <em>c</em>. When multiple selector sequences select a given element, the browser uses the styles applied by the sequence with the highest overall specificity.</p><p>Group | Comprised of | Examples |
+—— | –––––––––––––––––––– | ––––– |<em>A</em> | id selectors | <code>#foo</code> |<em>B</em> | class selectors attribute selectors pseudo-classes | <code>.bar</code> <code>[title]</code>, <code>[colspan=&quot;2&quot;]</code> <code>:hover</code>, <code>:nth-child(2)</code> |<em>c</em> | type selectors pseudo-elements | <code>div</code>, <code>li</code> <code>::before</code>, <code>::first-letter</code> |</p><p>Group <em>A</em> is the most specific, followed by Group <em>B</em>, then finally Group <em>c</em>.</p><p>The universal selector (<code>\*</code>) and combinators (like <code>\&gt;</code> and <code>~</code>) have no specificity.</p><h3 id="ced9296d-39b0-4fd0-a50f-911b8b6f4b5f" class="">Example 1: Specificity of various selector sequences<a class="header-anchor" href="#ced9296d-39b0-4fd0-a50f-911b8b6f4b5f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">#foo #baz {}      /* a=2, b=0, c=0 */
+
+#foo.bar {}       /* a=1, b=1, c=0 */
+
+#foo {}           /* a=1, b=0, c=0 */
+
+.bar:hover {}     /* a=0, b=2, c=0 */
+
+div.bar {}        /* a=0, b=1, c=1 */
+
+:hover {}         /* a=0, b=1, c=0 */
+
+[title] {}        /* a=0, b=1, c=0 */
+
+.bar {}           /* a=0, b=1, c=0 */
+
+div ul + li {}    /* a=0, b=0, c=3 */
+
+p::after {}       /* a=0, b=0, c=2 */
+
+*::before {}      /* a=0, b=0, c=1 */
+
+::before {}       /* a=0, b=0, c=1 */
+
+div {}            /* a=0, b=0, c=1 */
+
+* {}              /* a=0, b=0, c=0 */</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><h3 id="da8ba75d-1809-4a72-8e68-254f1b959817" class="">Example 2: How specificity is used by the browser<a class="header-anchor" href="#da8ba75d-1809-4a72-8e68-254f1b959817" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>Imagine the following CSS implementation:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">#foo {
+  color: blue;
+}
+
+.bar {
+  color: red;
+  background: black;
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Here we have an ID selector which declares <code>color</code> as <em>blue</em>, and a class selector which declares <code>color</code> as <em>red</em> and <code>background</code> as <em>black</em>.</p><p>An element with an ID of <code>#foo</code> and a class of <code>.bar</code> will be selected by both declarations. ID selectors have a Group <em>A</em> specificity and class selectors have a Group <em>B</em> specificity. An ID selector outweighs any number of class selectors. Because of this, <code>color:blue;</code> from the <code>#foo</code> selector and the <code>background:black;</code> from the <code>.bar</code> selector will be applied to the element. The higher specificity of the ID selector will cause the browser to ignore the <code>.bar</code> selector’s <code>color</code> declaration.</p><p>Now imagine a different CSS implementation:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">.bar {
+  color: red;
+  background: black;
+}
+
+.baz {
+  background: white;
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Here we have two class selectors; one of which declares <code>color</code> as <em>red</em> and <code>background</code> as <em>black</em>, and the other declares <code>background</code> as <em>white</em>.</p><p>An element with both the <code>.bar</code> and <code>.baz</code> classes will be affected by both of these declarations, however the problem we have now is that both <code>.bar</code> and <code>.baz</code> have an identical Group <em>B</em> specificity. The cascading nature of CSS resolves this for us: as <code>.baz</code> is defined <em>after</em> <code>.bar</code>, our element ends up with the <em>red</em> <code>color</code> from <code>.bar</code> but the <em>white</em> <code>background</code> from <code>.baz</code>.</p><h3 id="c4e26df4-45fe-46d0-9ecc-449dd3d5bb24" class="">Example 3: How to manipulate specificity<a class="header-anchor" href="#c4e26df4-45fe-46d0-9ecc-449dd3d5bb24" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>The last snippet from Example 2 above can be manipulated to ensure our <code>.bar</code> class selector’s <code>color</code> declaration is used instead of that of the <code>.baz</code> class selector.</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">.bar {}        /* a=0, b=1, c=0 */
+.baz {}        /* a=0, b=1, c=0 */</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>The most common way to achieve this would be to find out what other selectors can be applied to the <code>.bar</code> selector sequence. For example, if the <code>.bar</code> class was only ever applied to <code>span</code> elements, we could modify the <code>.bar</code> selector to <code>span.bar</code>. This would give it a new Group <em>C</em> specificity, which would override the <code>.baz</code> selector’s lack thereof:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">span.bar {}    /* a=0, b=1, c=1 */
+.baz {}        /* a=0, b=1, c=0 */</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>However it may not always possible to find another common selector which is shared between any element which uses the <code>.bar</code> class. Because of this, CSS allows us to duplicate selectors to increase specificity. Instead of just <code>.bar</code>, we can use <code>.bar.bar</code> instead (See <a href="https://www.w3.org/TR/css3-selectors/#grammar">The grammar of Selectors, W3C Recommendation</a>). This still selects any element with a class of <code>.bar</code>, but now has double the Group <em>B</em> specificity:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">.bar.bar {}    /* a=0, b=2, c=0 */
+.baz {}        /* a=0, b=1, c=0 */</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><h3 id="9fe607d6-c9e1-472b-9a86-e3c51c919efa" class=""><code>!important</code> and inline style declarations<a class="header-anchor" href="#9fe607d6-c9e1-472b-9a86-e3c51c919efa" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>The <code>!important</code> flag on a style declaration and styles declared by the HTML <code>style</code> attribute are considered to have a greater specificity than any selector. If these exist, the style declaration they affect will overrule other declarations regardless of their specificity. That is, unless you have more than one declaration that contains an <code>!important</code> flag for the same property that apply to the same element. Then, normal specificity rules will apply to those properties in reference to each other.</p><p>Because they completely override specificity, the use of <code>!important</code> is frowned upon in most use cases. One should use it as little as possible. To keep CSS code efficient and maintainable in the long run, it’s almost always better to increase the specificity of the surrounding selector than to use <code>!important</code>.</p><p>One of those rare exceptions where <code>!important</code> is not frowned upon, is when implementing generic helper classes like a <code>.hidden</code> or <code>.background-yellow</code> class that are supposed to always override one or more properties wherever they are encountered. And even then, you need to know what you’re doing. The last thing you want, when writing maintainable CSS, is to have <code>!important</code> flags throughout your CSS.</p><h3 id="c7d4a13e-2d8d-4a87-83ac-782ddbd16664" class="">A final note<a class="header-anchor" href="#c7d4a13e-2d8d-4a87-83ac-782ddbd16664" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>A common misconception about CSS specificity is that the Group <em>A</em>, <em>B</em> and <em>c</em> values should be combined with each other (<code>a=1, b=5, c=1</code> =&gt; 151). This is <strong>not</strong> the case. If this were the case, having 20 of a Group <em>B</em> or <em>c</em> selector would be enough to override a single Group <em>A</em> or <em>B</em> selector respectively. The three groups should be regarded as individual levels of specificity. Specificity cannot be represented by a single value.</p><p>When creating your CSS style sheet, you should maintain the lowest specificity as possible. If you need to make the specificity a little higher to overwrite another method, make it higher but as low as possible to make it higher. You shouldn’t need to have a selector like this:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">body.page header.container nav div#main-nav li a {}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>This makes future changes harder and pollutes that css page.</p><hr id="c318489a-6ca5-4bc7-8ddb-6e27e172e6f4"/><p>You can calculate the specificity of your selector <a href="http://specificity.keegan.st/">here</a></p>
+
+      <div class="forum-link">
+  Found a mistake? Have a question or improvement idea?
+  <a href="#" onclick="showContact(); return false;">Let me know</a>.
+</div>
+
+      <form id="contact-form" action="https://formsubmit.co/kkowalczyk@gmail.com" method="POST">
+  <p>
+    <div class="contact-light">Feedback about page:</div>
+    <input type="text" name="page-url" id="contact-page-url" readonly />
+  </p>
+
+  <p>
+    <div class="contact-light">Feedback:</div>
+    <textarea name="message" id="msg-for-chris"></textarea>
+    <div class="contact-light">Optional: your email if you want me to get back to you: </div>
+    <input type="email" name="email" />
+    <input type="text" name="_honey" style="display:none">
+  </p>
+
+  <p>
+    <button type="submit" class="contact-btn">
+      Send Feedback
+    </button>
+
+    <button class="contact-btn" style="float: right;" onclick="hideContact(); return false;">
+      Cancel
+    </button>
+  </p>
+
+  <p>
+    <div data-netlify-recaptcha></div>
+  </p>
+</form>
+
+
+      <hr class="article-bottom-sep">
+    </div>
+
+    <div id="page-toc"></div>
+
+    <div id="chapter-toc-wrapper">
+      <hr />
+      <div class="hdr">Table Of Contents</div>
+      <div id="book-toc"></div>
+    </div>
+  </div>
+
+  <footer class="page__footer">
+  <div class="page__footer__left">
+    Maintained by
+    <a href="https://blog.kowalczyk.info" target="_blank">Krzysztof Kowalczyk</a>
+  </div>
+  <div class="share-me">
+    <a href="https://twitter.com/intent/tweet?text=%22Essential%20CSS%22%20-%20a%20free%20programming%20book&url=%2fessential%2fcss%2f&via=kjk">Share
+      <b>Essential CSS</b> on&nbsp;
+      <svg class="icon-twitter">
+        <use xlink:href="#icon-twitter"></use>
+      </svg>
+    </a>
+  </div>
+  <div class="page__footer__right">
+    
+  </div>
+</footer>
+
+  
+
+</body>
+
+</html>

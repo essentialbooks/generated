@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="always">
+
+  <meta name="twitter:card" value="summary">
+  <meta name="twitter:site" content="@kjk">
+  <meta name="twitter:title" content="Format time like strftime">
+  
+  <meta name="twitter:description" content="Format time like strftime">
+  <meta name="twitter:creator" content="@kjk">
+  <meta name="twitter:image" content="/essential/go/covers/twitter/Go.png">
+  
+  <meta property="og:title" content="Format time like strftime">
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/essential/go/format-time-like-strftime-2c7392d399404940b8f7881ae23a6889" />
+  
+  <meta property="og:description" content="Format time like strftime">
+  <meta property="og:image" content="/essential/go/covers/twitter/Go.png">
+
+  <title>Time and date / Format time like strftime / Essential Go</title>
+  <meta name="description" content="Time and date / Format time like strftime / Essential Go">
+
+  <link rel="icon" href="s/favicon-9dfe2f70.ico">
+
+  <link href="s/main-65ff0b86.css" rel="stylesheet">
+  <link href="s/bundle-83cf4538.css" rel="stylesheet">
+
+  
+  <script src="s/app-go-2bf0be62.js" defer></script>
+  <script src="s/bundle-fd6a7ad6.js" defer></script>
+</head>
+
+<body class="page">
+  <script>
+  function onLoad() {
+    gBookTitle = "Essential Go";
+
+    httpsMaybeRedirect();
+
+    let opts = {
+      target: document.getElementById("toc"),
+      props: {
+        parentIdx: -1,
+        level: 0,
+      },
+    };
+    new app.toc(opts);
+
+    opts = {
+      target: document.getElementById("search-parent"),
+      props: {
+        bookTitle: gBookTitle,
+      },
+    };
+    new app.searchInput(opts);
+
+    opts = {
+      target: document.getElementById("page-toc"),
+    };
+    new app.pageToc(opts);
+
+    opts = {
+      target: document.getElementById("book-toc"),
+    };
+    new app.bookToc(opts);
+  }
+  document.addEventListener('DOMContentLoaded', onLoad);
+</script>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+  <symbol id="arrow-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M11 10H5.344L11 4.414V10z" />
+  </symbol>
+
+  <symbol id="arrow-not-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M6 4v8l4-4-4-4zm1 2.414L8.586 8 7 9.586V6.414z" />
+  </symbol>
+
+  <symbol id="icon-github" viewbox="0 0 496 512">
+    <path
+      d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+  </symbol>
+
+  <symbol id="icon-home" viewbox="0 0 576 512">
+    <path
+      d="M488 312.7V456c0 13.3-10.7 24-24 24H348c-6.6 0-12-5.4-12-12V356c0-6.6-5.4-12-12-12h-72c-6.6 0-12 5.4-12 12v112c0 6.6-5.4 12-12 12H112c-13.3 0-24-10.7-24-24V312.7c0-3.6 1.6-7 4.4-9.3l188-154.8c4.4-3.6 10.8-3.6 15.3 0l188 154.8c2.7 2.3 4.3 5.7 4.3 9.3zm83.6-60.9L488 182.9V44.4c0-6.6-5.4-12-12-12h-56c-6.6 0-12 5.4-12 12V117l-89.5-73.7c-17.7-14.6-43.3-14.6-61 0L4.4 251.8c-5.1 4.2-5.8 11.8-1.6 16.9l25.5 31c4.2 5.1 11.8 5.8 16.9 1.6l235.2-193.7c4.4-3.6 10.8-3.6 15.3 0l235.2 193.7c5.1 4.2 12.7 3.5 16.9-1.6l25.5-31c4.2-5.2 3.4-12.7-1.7-16.9z" />
+  </symbol>
+
+  <symbol id="icon-twitter" viewbox="0 0 512 512">
+    <path
+      d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
+  </symbol>
+
+  <symbol id="icon-edit" viewbox="0 0 576 512">
+    <path
+      d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" />
+  </symbol>
+
+  <symbol id="icon-star" viewbox="0 0 576 512">
+    <path
+      d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z" />
+  </symbol>
+</svg>
+  <header class="page__header">
+  <div class="page__header__left">
+    <a id="link-home" href="index.html">
+      <svg class="icon-home">
+        <use xlink:href="#icon-home"></use>
+      </svg>
+      &nbsp;Essential Go</a>
+  </div>
+  <div class="page__header__center" id="search-parent">
+  </div>
+  <div class="page__header__right">
+  </div>
+</header>
+
+  <div id="toc"></div>
+
+  <div class="content">
+    <div class="article">
+      
+
+<div style="display: flex; justify-content: space-between">
+  <h1 class="title">Format time like strftime</h1>
+  <a class="edit-link" style="font-size: 80%" href="https://notion.so/2c7392d399404940b8f7881ae23a6889" rel="nofollow"
+  target="_blank">suggest change</a>
+</div>
+
+
+      <p>If you prefer <code>strftime</code> style of formatting time values (as used in Python or Ruby) or porting code that uses that style, you can use one of <a href="https://godoc.org/?q=strftime">several libraries</a>.</p><p>Here’s an example using <code>github.com/jehiah/go-strftime</code> package:</p>
+<div class="code-box lang-Go">
+	<div>
+	<pre class="chroma"><span class="nx">t</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">strftime</span><span class="p">.</span><span class="nf">Format</span><span class="p">(</span><span class="s">&#34;%Y-%m-%d %H:%M:%S&#34;</span><span class="p">,</span> <span class="nx">t</span><span class="p">))</span></pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><blockquote id="b10c6f7c-6ef4-4010-83a2-ac63d0732d7f" class="">Side note on package naming: since the package name is strftime, the import path / repository path should be github.com/jehiah/strftime. It’s bad style to add go or go- to repository path.</blockquote><p>Unfortunately, when it comes to parsing things are not as good. There are two packages: </p><ul id="d21cd44b-643f-416e-8ae9-b25a473e715c" class="bulleted-list"><li><a href="https://godoc.org/github.com/jeffjen/datefmt">https://godoc.org/github.com/jeffjen/datefmt</a></li><li><a href="https://godoc.org/github.com/knz/strtime">https://godoc.org/github.com/knz/strtime</a></li></ul><p>but they both are cgo-wrappers around C libraries, which makes them more finicky to build, especially on Windows.</p><h2 id="f1620504-93ae-4582-a2d7-64a094c330e9" class="">List of <code>strftime</code> directives<a class="header-anchor" href="#f1620504-93ae-4582-a2d7-64a094c330e9" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><div id="2bf47343-c237-4f8b-b0f6-9bebe81f3e76" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th width="276">Code</th><th width="307">Meaning</th><th width="247">Example</th></tr></thead><tbody><tr id="e004f507-b9f2-4528-877f-3f9f44ddfe70"><td class="cell-title col-type-title">%a</td><td class="cell-*r=Z col-type-text">Weekday as locale’s abbreviated name.</td><td class="cell-m}P; col-type-text">Mon</td></tr>
+<tr id="e7b7a200-e497-41e8-941c-74104c262456"><td class="cell-title col-type-title">%A</td><td class="cell-*r=Z col-type-text">Weekday as locale’s full name.</td><td class="cell-m}P; col-type-text">Monday</td></tr>
+<tr id="6ccb4fad-edbb-4f1d-a4f5-9d545a9f07b8"><td class="cell-title col-type-title">%b</td><td class="cell-*r=Z col-type-text">The abbreviated month name</td><td class="cell-m}P; col-type-text">Jan</td></tr>
+<tr id="0146de3a-30f0-4f12-b912-b78000138ec2"><td class="cell-title col-type-title">%B</td><td class="cell-*r=Z col-type-text">The full month name</td><td class="cell-m}P; col-type-text">January</td></tr>
+<tr id="9c01b9fc-aa5b-4f70-804c-15cd040a3e61"><td class="cell-title col-type-title">%d</td><td class="cell-*r=Z col-type-text">Day of the month</td><td class="cell-m}P; col-type-text">01..31</td></tr>
+<tr id="44bbc572-274d-4738-a479-44744f3956aa"><td class="cell-title col-type-title">%e</td><td class="cell-*r=Z col-type-text">Day of the month without a leading zero</td><td class="cell-m}P; col-type-text">1..31</td></tr>
+<tr id="f40840d4-aec0-4b80-b02e-b2e1e24534f5"><td class="cell-title col-type-title">%j</td><td class="cell-*r=Z col-type-text">Day of the year</td><td class="cell-m}P; col-type-text">001..366</td></tr>
+<tr id="cbc5169d-0dff-42e3-98bf-be99b10393a7"><td class="cell-title col-type-title">%m</td><td class="cell-*r=Z col-type-text">Month of the year</td><td class="cell-m}P; col-type-text">01..12</td></tr>
+<tr id="2c070fa2-145f-42c6-aa0c-0da51c99bfe0"><td class="cell-title col-type-title">%U</td><td class="cell-*r=Z col-type-text">Week number of the current year, starting with the first Sunday as the first day of the first week</td><td class="cell-m}P; col-type-text">00..53</td></tr>
+<tr id="cfd31cf6-2801-450c-9735-0c1d23e31eab"><td class="cell-title col-type-title">%W</td><td class="cell-*r=Z col-type-text">Week number of the current year, starting with the first Monday as the first day of the first week</td><td class="cell-m}P; col-type-text">00..53</td></tr>
+<tr id="14046c01-1d48-4e32-aca1-096441fdbba7"><td class="cell-title col-type-title">%w</td><td class="cell-*r=Z col-type-text">Day of the week (Sunday is 0)</td><td class="cell-m}P; col-type-text">0..6</td></tr>
+<tr id="a66b074d-213f-419c-9f15-14f7ba2ecd66"><td class="cell-title col-type-title">%x</td><td class="cell-*r=Z col-type-text">Preferred representation for the date alone, no time</td><td class="cell-m}P; col-type-text">&nbsp;</td></tr>
+<tr id="2440cdc6-42be-4a4e-ade9-3841de4bc3fb"><td class="cell-title col-type-title">%y</td><td class="cell-*r=Z col-type-text">Year without a century</td><td class="cell-m}P; col-type-text">00..99</td></tr>
+<tr id="e03e37bf-42cb-4016-bfd5-c1731338cdad"><td class="cell-title col-type-title">%Y</td><td class="cell-*r=Z col-type-text">Year with century</td><td class="cell-m}P; col-type-text">&nbsp;</td></tr>
+<tr id="27a7c062-eec3-4ac8-bba1-656db8dbc5b6"><td class="cell-title col-type-title">&nbsp;</td><td class="cell-*r=Z col-type-text">&nbsp;</td><td class="cell-m}P; col-type-text">&nbsp;</td></tr>
+<tr id="a5afc2d4-933c-4f4d-91fe-3e3bbef86a23"><td class="cell-title col-type-title">%H</td><td class="cell-*r=Z col-type-text">Hour of the day, 24-hour clock</td><td class="cell-m}P; col-type-text">00..23</td></tr>
+<tr id="e8deef6f-b80d-411c-9285-69b824e6c1f8"><td class="cell-title col-type-title">%I</td><td class="cell-*r=Z col-type-text">Hour of the day, 12-hour clock</td><td class="cell-m}P; col-type-text">01..12</td></tr>
+<tr id="6a9682aa-f418-4338-abf7-328279d2f819"><td class="cell-title col-type-title">%l</td><td class="cell-*r=Z col-type-text">Hour of the day, 12-hour clock without a leading zero</td><td class="cell-m}P; col-type-text">1..12</td></tr>
+<tr id="e6503253-12ed-41ea-bbf4-a5fac36242fd"><td class="cell-title col-type-title">%M</td><td class="cell-*r=Z col-type-text">Minute of the hour</td><td class="cell-m}P; col-type-text">00..59</td></tr>
+<tr id="c3924233-f51b-4370-bfb2-b2b53a2f1720"><td class="cell-title col-type-title">%P</td><td class="cell-*r=Z col-type-text">Meridian indicator (&quot;am&quot; or &quot;pm&quot;)</td><td class="cell-m}P; col-type-text">am</td></tr>
+<tr id="754be3c1-4d8c-46d6-b09f-bc07d36638c7"><td class="cell-title col-type-title">%p</td><td class="cell-*r=Z col-type-text">Meridian indicator (&quot;AM&quot; or &quot;PM&quot;)</td><td class="cell-m}P; col-type-text">PM</td></tr>
+<tr id="404b572e-1569-4456-8413-18dd16f03c51"><td class="cell-title col-type-title">%S</td><td class="cell-*r=Z col-type-text">Second of the minute</td><td class="cell-m}P; col-type-text">00..60</td></tr>
+<tr id="2503f346-e392-4c90-a3a9-5ffe96fc4684"><td class="cell-title col-type-title">%X</td><td class="cell-*r=Z col-type-text">Preferred representation for the time alone, no date</td><td class="cell-m}P; col-type-text">&nbsp;</td></tr>
+<tr id="0d60d914-7ae1-41df-b61f-0b8676867338"><td class="cell-title col-type-title">%Z</td><td class="cell-*r=Z col-type-text">Time zone name</td><td class="cell-m}P; col-type-text">&nbsp;</td></tr>
+<tr id="606cf826-971f-4878-9a5c-7f29d9914d92"><td class="cell-title col-type-title">&nbsp;</td><td class="cell-*r=Z col-type-text">&nbsp;</td><td class="cell-m}P; col-type-text">&nbsp;</td></tr>
+<tr id="b236bf1e-f495-4049-aff6-ac5460050dbf"><td class="cell-title col-type-title">%c</td><td class="cell-*r=Z col-type-text">The preferred local date and time representation</td><td class="cell-m}P; col-type-text">&nbsp;</td></tr>
+<tr id="ccf899dc-c165-40ef-a5e5-066249f74690"><td class="cell-title col-type-title">%%</td><td class="cell-*r=Z col-type-text">Literal &quot;%&quot; character</td><td class="cell-m}P; col-type-text">&nbsp;</td></tr>
+</tbody></table></div><p>You can also use <a href="http://www.strfti.me/">http://www.strfti.me/</a> service to help you build <code>strftime</code> formatting strings.</p>
+
+      <div class="forum-link">
+  Found a mistake? Have a question or improvement idea?
+  <a href="#" onclick="showContact(); return false;">Let me know</a>.
+</div>
+
+      <form id="contact-form" action="https://formsubmit.co/kkowalczyk@gmail.com" method="POST">
+  <p>
+    <div class="contact-light">Feedback about page:</div>
+    <input type="text" name="page-url" id="contact-page-url" readonly />
+  </p>
+
+  <p>
+    <div class="contact-light">Feedback:</div>
+    <textarea name="message" id="msg-for-chris"></textarea>
+    <div class="contact-light">Optional: your email if you want me to get back to you: </div>
+    <input type="email" name="email" />
+    <input type="text" name="_honey" style="display:none">
+  </p>
+
+  <p>
+    <button type="submit" class="contact-btn">
+      Send Feedback
+    </button>
+
+    <button class="contact-btn" style="float: right;" onclick="hideContact(); return false;">
+      Cancel
+    </button>
+  </p>
+
+  <p>
+    <div data-netlify-recaptcha></div>
+  </p>
+</form>
+
+
+      <hr class="article-bottom-sep">
+    </div>
+
+    <div id="page-toc"></div>
+
+    <div id="chapter-toc-wrapper">
+      <hr />
+      <div class="hdr">Table Of Contents</div>
+      <div id="book-toc"></div>
+    </div>
+  </div>
+
+  <footer class="page__footer">
+  <div class="page__footer__left">
+    Maintained by
+    <a href="https://blog.kowalczyk.info" target="_blank">Krzysztof Kowalczyk</a>
+  </div>
+  <div class="share-me">
+    <a href="https://twitter.com/intent/tweet?text=%22Essential%20Go%22%20-%20a%20free%20programming%20book&url=%2fessential%2fgo%2f&via=kjk">Share
+      <b>Essential Go</b> on&nbsp;
+      <svg class="icon-twitter">
+        <use xlink:href="#icon-twitter"></use>
+      </svg>
+    </a>
+  </div>
+  <div class="page__footer__right">
+    
+  </div>
+</footer>
+
+  
+
+</body>
+
+</html>

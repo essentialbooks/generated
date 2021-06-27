@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="always">
+
+  <meta name="twitter:card" value="summary">
+  <meta name="twitter:site" content="@kjk">
+  <meta name="twitter:title" content="Compiling with Visual C Command Line">
+  
+  <meta name="twitter:description" content="Compiling with Visual C Command Line">
+  <meta name="twitter:creator" content="@kjk">
+  <meta name="twitter:image" content="/essential/cpp/covers/twitter/Cpp.png">
+  
+  <meta property="og:title" content="Compiling with Visual C Command Line">
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/essential/cpp/compiling-with-visual-c-command-line-836062beea4941d4b7c2e23fe82a4f71" />
+  
+  <meta property="og:description" content="Compiling with Visual C Command Line">
+  <meta property="og:image" content="/essential/cpp/covers/twitter/Cpp.png">
+
+  <title>Compiling and building / Compiling with Visual C Command Line / Essential C&#43;&#43;</title>
+  <meta name="description" content="Compiling and building / Compiling with Visual C Command Line / Essential C&#43;&#43;">
+
+  <link rel="icon" href="s/favicon-9dfe2f70.ico">
+
+  <link href="s/main-65ff0b86.css" rel="stylesheet">
+  <link href="s/bundle-83cf4538.css" rel="stylesheet">
+
+  
+  <script src="s/app-cpp-1379c08e.js" defer></script>
+  <script src="s/bundle-fd6a7ad6.js" defer></script>
+</head>
+
+<body class="page">
+  <script>
+  function onLoad() {
+    gBookTitle = "Essential C\u002b\u002b";
+
+    httpsMaybeRedirect();
+
+    let opts = {
+      target: document.getElementById("toc"),
+      props: {
+        parentIdx: -1,
+        level: 0,
+      },
+    };
+    new app.toc(opts);
+
+    opts = {
+      target: document.getElementById("search-parent"),
+      props: {
+        bookTitle: gBookTitle,
+      },
+    };
+    new app.searchInput(opts);
+
+    opts = {
+      target: document.getElementById("page-toc"),
+    };
+    new app.pageToc(opts);
+
+    opts = {
+      target: document.getElementById("book-toc"),
+    };
+    new app.bookToc(opts);
+  }
+  document.addEventListener('DOMContentLoaded', onLoad);
+</script>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+  <symbol id="arrow-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M11 10H5.344L11 4.414V10z" />
+  </symbol>
+
+  <symbol id="arrow-not-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M6 4v8l4-4-4-4zm1 2.414L8.586 8 7 9.586V6.414z" />
+  </symbol>
+
+  <symbol id="icon-github" viewbox="0 0 496 512">
+    <path
+      d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+  </symbol>
+
+  <symbol id="icon-home" viewbox="0 0 576 512">
+    <path
+      d="M488 312.7V456c0 13.3-10.7 24-24 24H348c-6.6 0-12-5.4-12-12V356c0-6.6-5.4-12-12-12h-72c-6.6 0-12 5.4-12 12v112c0 6.6-5.4 12-12 12H112c-13.3 0-24-10.7-24-24V312.7c0-3.6 1.6-7 4.4-9.3l188-154.8c4.4-3.6 10.8-3.6 15.3 0l188 154.8c2.7 2.3 4.3 5.7 4.3 9.3zm83.6-60.9L488 182.9V44.4c0-6.6-5.4-12-12-12h-56c-6.6 0-12 5.4-12 12V117l-89.5-73.7c-17.7-14.6-43.3-14.6-61 0L4.4 251.8c-5.1 4.2-5.8 11.8-1.6 16.9l25.5 31c4.2 5.1 11.8 5.8 16.9 1.6l235.2-193.7c4.4-3.6 10.8-3.6 15.3 0l235.2 193.7c5.1 4.2 12.7 3.5 16.9-1.6l25.5-31c4.2-5.2 3.4-12.7-1.7-16.9z" />
+  </symbol>
+
+  <symbol id="icon-twitter" viewbox="0 0 512 512">
+    <path
+      d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
+  </symbol>
+
+  <symbol id="icon-edit" viewbox="0 0 576 512">
+    <path
+      d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" />
+  </symbol>
+
+  <symbol id="icon-star" viewbox="0 0 576 512">
+    <path
+      d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z" />
+  </symbol>
+</svg>
+  <header class="page__header">
+  <div class="page__header__left">
+    <a id="link-home" href="index.html">
+      <svg class="icon-home">
+        <use xlink:href="#icon-home"></use>
+      </svg>
+      &nbsp;Essential C&#43;&#43;</a>
+  </div>
+  <div class="page__header__center" id="search-parent">
+  </div>
+  <div class="page__header__right">
+  </div>
+</header>
+
+  <div id="toc"></div>
+
+  <div class="content">
+    <div class="article">
+      
+
+<div style="display: flex; justify-content: space-between">
+  <h1 class="title">Compiling with Visual C Command Line</h1>
+  <a class="edit-link" style="font-size: 80%" href="https://notion.so/836062beea4941d4b7c2e23fe82a4f71" rel="nofollow"
+  target="_blank">suggest change</a>
+</div>
+
+
+      <p>For programmers coming from GCC or Clang to Visual Studio, or programmers more comfortable with the command line in general, you can use the Visual C++ compiler from the command line as well as the IDE.</p><p>If you desire to compile your code from the command line in Visual Studio, you first need to set up the command line environment. This can be done either by opening the <a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0"><code>Visual Studio Command Prompt</code></a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0">/</a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0"><code>Developer Command Prompt</code></a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0">/</a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0"><code>x86 Native Tools Command Prompt</code></a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0">/</a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0"><code>x64 Native Tools Command Prompt</code></a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0"> or similar</a> (as provided by your version of Visual Studio), or at the command prompt, by navigating to the <code>VC</code> subdirectory of the compiler’s install directory (typically <code>\Program Files (x86)\Microsoft Visual Studio x\VC</code>, where <code>x</code> is the version number (such as <code>10.0</code> for 2010, or <code>14.0</code> for 2015) and running the <code>VCVARSALL</code> batch file with a command-line parameter specified <a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_1">here</a>.</p><p>Note that unlike GCC, Visual Studio doesn’t provide a front-end for the linker (<code>link.exe</code>) via the compiler (<code>cl.exe</code>), but instead provides the linker as a separate program, which the compiler calls as it exits. <code>cl.exe</code> and <code>link.exe</code> can be used separately with different files and options, or <code>cl</code> can be told to pass files and options to <code>link</code> if both tasks are done together. Any linking options specified to <code>cl</code> will be translated into options for <code>link</code>, and any files not processed by <code>cl</code> will be passed directly to <code>link</code>. As this is mainly a simple guide to compiling with the Visual Studio command line, arguments for <code>link</code> will not be described at this time; if you need a list, see <a href="https://msdn.microsoft.com/en-us/library/y0zzbyt4.aspx">here</a>.</p><p>Note that arguments to <code>cl</code> are case-sensitive, while arguments to <code>link</code> are not.</p><p>[Be advised that some of the following examples use the Windows shell “current directory” variable, <code>%cd%</code>, when specifying absolute path names. For anyone unfamiliar with this variable, it expands to the current working directory. From the command line, it will be the directory you were in when you ran <code>cl</code>, and is specified in the command prompt by default (if your command prompt is <code>C:\src&gt;</code>, for example, then <code>%cd%</code> is <code>C:\src\</code>).]</p><hr id="2556f0a1-3d6e-439f-9748-29c724608967"/><p>Assuming a single source file named <code>main.cpp</code> in the current folder, the command to compile and link an unoptimised executable (useful for initial development and debugging) is (use either of the following):</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">cl main.cpp
+// Generates object file &#34;main.obj&#34;.
+// Performs linking with &#34;main.obj&#34;.
+// Generates executable &#34;main.exe&#34;.
+
+cl /Od main.cpp
+// Same as above.
+// &#34;/Od&#34; is the &#34;Optimisation: disabled&#34; option, and is the default when no /O is specified.</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Assuming an additional source file “niam.cpp” in the same directory, use the following:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">cl main.cpp niam.cpp
+// Generates object files &#34;main.obj&#34; and &#34;niam.obj&#34;.
+// Performs linking with &#34;main.obj&#34; and &#34;niam.obj&#34;.
+// Generates executable &#34;main.exe&#34;.</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>You can also use wildcards, as one would expect:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">cl main.cpp src\*.cpp
+// Generates object file &#34;main.obj&#34;, plus one object file for each &#34;.cpp&#34; file in folder
+//  &#34;%cd%\src&#34;.
+// Performs linking with &#34;main.obj&#34;, and every additional object file generated.
+// All object files will be in the current folder.
+// Generates executable &#34;main.exe&#34;.</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>To rename or relocate the executable, use one of the following:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">cl /o name main.cpp
+// Generates executable named &#34;name.exe&#34;.
+
+cl /o folder\ main.cpp
+// Generates executable named &#34;main.exe&#34;, in folder &#34;%cd%\folder&#34;.
+
+cl /o folder\name main.cpp
+// Generates executable named &#34;name.exe&#34;, in folder &#34;%cd%\folder&#34;.
+
+cl /Fename main.cpp
+// Same as &#34;/o name&#34;.
+
+cl /Fefolder\ main.cpp
+// Same as &#34;/o folder\&#34;.
+
+cl /Fefolder\name main.cpp
+// Same as &#34;/o folder\name&#34;.</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Both <code>/o</code> and <code>/Fe</code> pass their parameter (let’s call it <code>o-param</code>) to <code>link</code> as <code>/OUT:o-param</code>, appending the appropriate extension (generally <code>.exe</code> or <code>.dll</code>) to “name” <code>o-param</code>s as necessary. While both <code>/o</code> and <code>/Fe</code> are to my knowledge identical in functionality, the latter is preferred for Visual Studio. <code>/o</code> is marked as deprecated, and appears to mainly be provided for programmers more familiar with GCC or Clang.</p><p>Note that while the space between <code>/o</code> and the specified folder and/or name is optional, there <em>cannot</em> be a space between <code>/Fe</code> and the specified folder and/or name.</p><hr id="4aaf5c16-0b7e-468b-bf0f-485f344fccf6"/><p>Similarly, to produce an optimised executable (for use in production), use:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">cl /O1 main.cpp
+// Optimise for executable size.  Produces small programs, at the possible expense of slower
+//  execution.
+
+cl /O2 main.cpp
+// Optimise for execution speed.  Produces fast programs, at the possible expense of larger
+//  file size.
+
+cl /GL main.cpp other.cpp
+// Generates special object files used for whole-program optimisation, which allows CL to
+//  take every module (translation unit) into consideration during optimisation.
+// Passes the option &#34;/LTCG&#34; (Link-Time Code Generation) to LINK, telling it to call CL during
+//  the linking phase to perform additional optimisations.  If linking is not performed at this
+//  time, the generated object files should be linked with &#34;/LTCG&#34;.
+// Can be used with other CL optimisation options.</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><hr id="1b929ed7-457a-46cc-8829-9963caae652e"/><p>Finally, to produce a platform-specific optimized executable (for use in production on the machine with the specified architecture), choose the appropriate command prompt or <a href="https://msdn.microsoft.com/en-us/library/x4d2c09s.aspx"><code>VCVARSALL</code></a><a href="https://msdn.microsoft.com/en-us/library/x4d2c09s.aspx"> parameter</a> for the target platform. <code>link</code> should detect the desired platform from the object files; if not, use the <a href="https://msdn.microsoft.com/en-us/library/5wy54dk2.aspx"><code>/MACHINE</code></a><a href="https://msdn.microsoft.com/en-us/library/5wy54dk2.aspx"> option</a> to explicitly specify the target platform.</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">// If compiling for x64, and LINK doesn&#39;t automatically detect target platform:
+cl main.cpp /link /machine:X64</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Any of the above will produce an executable with the name specified by <code>/o</code> or <code>/Fe</code>, or if neither is provided, with a name identical to the first source or object file specified to the compiler.</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">cl a.cpp b.cpp c.cpp
+// Generates &#34;a.exe&#34;.
+
+cl d.obj a.cpp q.cpp
+// Generates &#34;d.exe&#34;.
+
+cl y.lib n.cpp o.obj
+// Generates &#34;n.exe&#34;.
+
+cl /o yo zp.obj pz.cpp
+// Generates &#34;yo.exe&#34;.</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><hr id="404d723f-01b4-4103-9bf8-69a13539a03c"/><p>To compile a file(s) without linking, use:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">cl /c main.cpp
+// Generates object file &#34;main.obj&#34;.</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>This tells <code>cl</code> to exit without calling <code>link</code>, and produces an object file, which can later be linked with other files to produce a binary.</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">cl main.obj niam.cpp
+// Generates object file &#34;niam.obj&#34;.
+// Performs linking with &#34;main.obj&#34; and &#34;niam.obj&#34;.
+// Generates executable &#34;main.exe&#34;.
+
+link main.obj niam.obj
+// Performs linking with &#34;main.obj&#34; and &#34;niam.obj&#34;.
+// Generates executable &#34;main.exe&#34;.</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><hr id="14a6d549-c335-4f18-9b99-67f34866acb1"/><p>There are other valuable command line parameters as well, which it would be very useful for users to know:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">cl /EHsc main.cpp
+// &#34;/EHsc&#34; specifies that only standard C++ (&#34;synchronous&#34;) exceptions will be caught,
+//  and `extern &#34;C&#34;` functions will not throw exceptions.
+// This is recommended when writing portable, platform-independent code.
+
+cl /clr main.cpp
+// &#34;/clr&#34; specifies that the code should be compiled to use the common language runtime,
+//  the .NET Framework&#39;s virtual machine.
+// Enables the use of Microsoft&#39;s C++/CLI language in addition to standard (&#34;native&#34;) C++,
+//  and creates an executable that requires .NET to run.
+
+cl /Za main.cpp
+// &#34;/Za&#34; specifies that Microsoft extensions should be disabled, and code should be
+//  compiled strictly according to ISO C++ specifications.
+// This is recommended for guaranteeing portability.
+
+cl /Zi main.cpp
+// &#34;/Zi&#34; generates a program database (PDB) file for use when debugging a program, without
+//  affecting optimisation specifications, and passes the option &#34;/DEBUG&#34; to LINK.
+
+cl /LD dll.cpp
+// &#34;/LD&#34; tells CL to configure LINK to generate a DLL instead of an executable.
+// LINK will output a DLL, in addition to an LIB and EXP file for use when linking.
+// To use the DLL in other programs, pass its associated LIB to CL or LINK when compiling those
+//  programs.
+
+cl main.cpp /link /LINKER_OPTION
+// &#34;/link&#34; passes everything following it directly to LINK, without parsing it in any way.
+// Replace &#34;/LINKER_OPTION&#34; with any desired LINK option(s).</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><hr id="0aa30cd9-c1c7-4f1d-9efa-d5575cdfef4f"/><p>For anyone more familiar with *nix systems and/or GCC/Clang, <code>cl</code>, <code>link</code>, and other Visual Studio command line tools can accept parameters specified with a hyphen (such as <code>-c</code>) instead of a slash (such as <code>/c</code>). Additionally, Windows recognises either a slash or a backslash as a valid path separator, so *nix-style paths can be used as well. This makes it easy to convert simple compiler command lines from <code>g++</code> or <code>clang++</code> to <code>cl</code>, or vice versa, with minimal changes.</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">g++ -o app src/main.cpp
+cl  -o app src/main.cpp</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Of course, when porting command lines that use more complex <code>g++</code> or <code>clang++</code> options, you need to look up equivalent commands in the applicable compiler documentations and/or on resource sites, but this makes it easier to get things started with minimal time spent learning about new compilers.</p><p>In case you need specific language features for your code, a specific release of MSVC was required. From <a href="https://blogs.msdn.microsoft.com/vcblog/2016/06/07/standards-version-switches-in-the-compiler/">Visual C++ 2015 Update 3</a> on it is possible to choose the version of the standard to compile with via the <code>/std</code> flag. Possible values are <code>/std:c++14</code> and <code>/std:c++latest</code> (<code>/std:c++17</code> will follow soon).</p><p>Note: In older versions of this compiler, specific feature flags were available however this was mostly used for previews of new features.</p>
+
+      <div class="forum-link">
+  Found a mistake? Have a question or improvement idea?
+  <a href="#" onclick="showContact(); return false;">Let me know</a>.
+</div>
+
+      <form id="contact-form" action="https://formsubmit.co/kkowalczyk@gmail.com" method="POST">
+  <p>
+    <div class="contact-light">Feedback about page:</div>
+    <input type="text" name="page-url" id="contact-page-url" readonly />
+  </p>
+
+  <p>
+    <div class="contact-light">Feedback:</div>
+    <textarea name="message" id="msg-for-chris"></textarea>
+    <div class="contact-light">Optional: your email if you want me to get back to you: </div>
+    <input type="email" name="email" />
+    <input type="text" name="_honey" style="display:none">
+  </p>
+
+  <p>
+    <button type="submit" class="contact-btn">
+      Send Feedback
+    </button>
+
+    <button class="contact-btn" style="float: right;" onclick="hideContact(); return false;">
+      Cancel
+    </button>
+  </p>
+
+  <p>
+    <div data-netlify-recaptcha></div>
+  </p>
+</form>
+
+
+      <hr class="article-bottom-sep">
+    </div>
+
+    <div id="page-toc"></div>
+
+    <div id="chapter-toc-wrapper">
+      <hr />
+      <div class="hdr">Table Of Contents</div>
+      <div id="book-toc"></div>
+    </div>
+  </div>
+
+  <footer class="page__footer">
+  <div class="page__footer__left">
+    Maintained by
+    <a href="https://blog.kowalczyk.info" target="_blank">Krzysztof Kowalczyk</a>
+  </div>
+  <div class="share-me">
+    <a href="https://twitter.com/intent/tweet?text=%22Essential%20C%2b%2b%22%20-%20a%20free%20programming%20book&url=%2fessential%2fcpp%2f&via=kjk">Share
+      <b>Essential C&#43;&#43;</b> on&nbsp;
+      <svg class="icon-twitter">
+        <use xlink:href="#icon-twitter"></use>
+      </svg>
+    </a>
+  </div>
+  <div class="page__footer__right">
+    
+  </div>
+</footer>
+
+  
+
+</body>
+
+</html>

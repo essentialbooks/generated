@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="always">
+
+  <meta name="twitter:card" value="summary">
+  <meta name="twitter:site" content="@kjk">
+  <meta name="twitter:title" content="Suberglobals explained">
+  
+  <meta name="twitter:description" content="Suberglobals explained">
+  <meta name="twitter:creator" content="@kjk">
+  <meta name="twitter:image" content="/essential/php/covers/twitter/PHP.png">
+  
+  <meta property="og:title" content="Suberglobals explained">
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/essential/php/suberglobals-explained-8439a430dcf146629d33b65592b2dbfb" />
+  
+  <meta property="og:description" content="Suberglobals explained">
+  <meta property="og:image" content="/essential/php/covers/twitter/PHP.png">
+
+  <title>Superglobal variables / Suberglobals explained / Essential PHP</title>
+  <meta name="description" content="Superglobal variables / Suberglobals explained / Essential PHP">
+
+  <link rel="icon" href="s/favicon-9dfe2f70.ico">
+
+  <link href="s/main-65ff0b86.css" rel="stylesheet">
+  <link href="s/bundle-83cf4538.css" rel="stylesheet">
+
+  
+  <script src="s/app-php-3942f5e2.js" defer></script>
+  <script src="s/bundle-fd6a7ad6.js" defer></script>
+</head>
+
+<body class="page">
+  <script>
+  function onLoad() {
+    gBookTitle = "Essential PHP";
+
+    httpsMaybeRedirect();
+
+    let opts = {
+      target: document.getElementById("toc"),
+      props: {
+        parentIdx: -1,
+        level: 0,
+      },
+    };
+    new app.toc(opts);
+
+    opts = {
+      target: document.getElementById("search-parent"),
+      props: {
+        bookTitle: gBookTitle,
+      },
+    };
+    new app.searchInput(opts);
+
+    opts = {
+      target: document.getElementById("page-toc"),
+    };
+    new app.pageToc(opts);
+
+    opts = {
+      target: document.getElementById("book-toc"),
+    };
+    new app.bookToc(opts);
+  }
+  document.addEventListener('DOMContentLoaded', onLoad);
+</script>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+  <symbol id="arrow-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M11 10H5.344L11 4.414V10z" />
+  </symbol>
+
+  <symbol id="arrow-not-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M6 4v8l4-4-4-4zm1 2.414L8.586 8 7 9.586V6.414z" />
+  </symbol>
+
+  <symbol id="icon-github" viewbox="0 0 496 512">
+    <path
+      d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+  </symbol>
+
+  <symbol id="icon-home" viewbox="0 0 576 512">
+    <path
+      d="M488 312.7V456c0 13.3-10.7 24-24 24H348c-6.6 0-12-5.4-12-12V356c0-6.6-5.4-12-12-12h-72c-6.6 0-12 5.4-12 12v112c0 6.6-5.4 12-12 12H112c-13.3 0-24-10.7-24-24V312.7c0-3.6 1.6-7 4.4-9.3l188-154.8c4.4-3.6 10.8-3.6 15.3 0l188 154.8c2.7 2.3 4.3 5.7 4.3 9.3zm83.6-60.9L488 182.9V44.4c0-6.6-5.4-12-12-12h-56c-6.6 0-12 5.4-12 12V117l-89.5-73.7c-17.7-14.6-43.3-14.6-61 0L4.4 251.8c-5.1 4.2-5.8 11.8-1.6 16.9l25.5 31c4.2 5.1 11.8 5.8 16.9 1.6l235.2-193.7c4.4-3.6 10.8-3.6 15.3 0l235.2 193.7c5.1 4.2 12.7 3.5 16.9-1.6l25.5-31c4.2-5.2 3.4-12.7-1.7-16.9z" />
+  </symbol>
+
+  <symbol id="icon-twitter" viewbox="0 0 512 512">
+    <path
+      d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
+  </symbol>
+
+  <symbol id="icon-edit" viewbox="0 0 576 512">
+    <path
+      d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" />
+  </symbol>
+
+  <symbol id="icon-star" viewbox="0 0 576 512">
+    <path
+      d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z" />
+  </symbol>
+</svg>
+  <header class="page__header">
+  <div class="page__header__left">
+    <a id="link-home" href="index.html">
+      <svg class="icon-home">
+        <use xlink:href="#icon-home"></use>
+      </svg>
+      &nbsp;Essential PHP</a>
+  </div>
+  <div class="page__header__center" id="search-parent">
+  </div>
+  <div class="page__header__right">
+  </div>
+</header>
+
+  <div id="toc"></div>
+
+  <div class="content">
+    <div class="article">
+      
+
+<div style="display: flex; justify-content: space-between">
+  <h1 class="title">Suberglobals explained</h1>
+  <a class="edit-link" style="font-size: 80%" href="https://notion.so/8439a430dcf146629d33b65592b2dbfb" rel="nofollow"
+  target="_blank">suggest change</a>
+</div>
+
+
+      <h1 id="8a3932c4-4408-4e40-a7a5-0e766dc72bcf" class="">Introduction<a class="header-anchor" href="#8a3932c4-4408-4e40-a7a5-0e766dc72bcf" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Put simply, these are variables that are available in <em>all</em> scope in your scripts.</p><p>This means that there is no need to pass them as parameters in your functions, or store them outside a block of code to have them available in different scopes.</p><h2 id="5cb98e1d-27a3-42de-9165-e067241d997a" class="">What’s a superglobal??<a class="header-anchor" href="#5cb98e1d-27a3-42de-9165-e067241d997a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>If you’re thinking that these are like superheroes - they’re not.</p><p>As of PHP version 7.1.3 there are 9 superglobal variables. They are as follows:</p><ul id="f724bd1d-f2a2-447b-83b6-be424f7810a2" class="bulleted-list"><li><code>$GLOBALS</code> - References all variables available in global scope</li><li><code>$_SERVER</code> - Server and execution environment information</li><li><code>$_GET</code> - HTTP GET variables</li><li><code>$_POST</code> - HTTP POST variables</li><li><code>$_FILES</code> - HTTP File Upload variables</li><li><code>$_COOKIE</code> - HTTP Cookies</li><li><code>$_SESSION</code> - Session variables</li><li><code>$_REQUEST</code> - HTTP Request variables</li><li><code>$_ENV</code> - Environment variables</li></ul><p>See the <a href="http://php.net/manual/en/language.variables.superglobals.php">documentation</a>.</p><h1 id="bf4bb0c2-0b7a-4c71-ac2d-f1883c25403f" class="">Tell me more, tell me more<a class="header-anchor" href="#bf4bb0c2-0b7a-4c71-ac2d-f1883c25403f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>I’m sorry for the Grease reference! <a href="https://www.youtube.com/watch?v=ZW0DfsCzfq4">Link</a></p><p>Time for some explanation on these superheroesglobals.</p><h2 id="3691ed4b-f1b5-4430-9242-eba4ec59df44" class=""><code>$GLOBALS</code><a class="header-anchor" href="#3691ed4b-f1b5-4430-9242-eba4ec59df44" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><blockquote id="c4a89047-ec48-4056-a440-7422145bae3c" class="">An associative array containing references to all variables which are currently defined in the global scope of the script. The variable names are the keys of the array.</blockquote><p>Code</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">$myGlobal = &#34;global&#34;; // declare variable outside of scope
+
+function test()
+{
+    $myLocal = &#34;local&#34;; // declare variable inside of scope
+    // both variables are printed
+    var_dump($myLocal);
+    var_dump($GLOBALS[&#34;myGlobal&#34;]);
+}
+
+test(); // run function
+// only $myGlobal is printed since $myLocal is not globally scoped
+var_dump($myLocal);
+var_dump($myGlobal);</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Output</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">string &#39;local&#39; (length=5)
+string &#39;global&#39; (length=6)
+null
+string &#39;global&#39; (length=6)</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>In the above example <code>$myLocal</code> is not displayed the second time because it is declared inside the <code>test()</code> function and then destroyed after the function is closed.</p><h3 id="d6426e28-11c6-4578-8cdb-b6f6bd61a0e8" class="">Becoming global<a class="header-anchor" href="#d6426e28-11c6-4578-8cdb-b6f6bd61a0e8" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>To remedy this there are two options.</p><p>Option one: <code><strong>global</strong></code><strong> keyword</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">function test()
+{
+    global $myLocal;
+    $myLocal = &#34;local&#34;;
+    var_dump($myLocal);
+    var_dump($GLOBALS[&#34;myGlobal&#34;]);
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>The <code>global</code> keyword is a prefix on a variable that forces it to be part of the global scope.</p><p>Note that you cannot assign a value to a variable in the same statement as the global keyword. Hence, why I had to assign a value underneath. (It is possible if you remove new lines and spaces but I don’t think it is neat. <code>global $myLocal; $myLocal = &quot;local&quot;</code>).</p><p>Option two: <code><strong>$GLOBALS</strong></code><strong> array</strong></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">function test()
+{
+    $GLOBALS[&#34;myLocal&#34;] = &#34;local&#34;;
+    $myLocal = $GLOBALS[&#34;myLocal&#34;];
+    var_dump($myLocal);
+    var_dump($GLOBALS[&#34;myGlobal&#34;]);
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>In this example I reassigned <code>$myLocal</code> the value of <code>$GLOBAL[&quot;myLocal&quot;]</code> since I find it easier writing a variable name rather than the associative array.</p><h2 id="fd619c34-7807-44e6-9450-29b3bf180f15" class=""><code>$_SERVER</code><a class="header-anchor" href="#fd619c34-7807-44e6-9450-29b3bf180f15" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><blockquote id="ff0bf12e-2b73-4759-9339-8e070a900066" class="">$_SERVER is an array containing information such as headers, paths, and script locations. The entries in this array are created by the web server. There is no guarantee that every web server will provide any of these; servers may omit some, or provide others not listed here. That said, a large number of these variables are accounted for in the CGI/1.1 specification, so you should be able to expect those.</blockquote><p>An example output of this might be as follows (run on my Windows PC using WAMP)</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">C:\wamp64\www\test.php:2:
+array (size=36)
+    &#39;HTTP_HOST&#39; =&gt; string &#39;localhost&#39; (length=9)
+    &#39;HTTP_CONNECTION&#39; =&gt; string &#39;keep-alive&#39; (length=10)
+    &#39;HTTP_CACHE_CONTROL&#39; =&gt; string &#39;max-age=0&#39; (length=9)
+    &#39;HTTP_UPGRADE_INSECURE_REQUESTS&#39; =&gt; string &#39;1&#39; (length=1)
+    &#39;HTTP_USER_AGENT&#39; =&gt; string &#39;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36&#39; (length=110)
+    &#39;HTTP_ACCEPT&#39; =&gt; string &#39;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#39; (length=74)
+    &#39;HTTP_ACCEPT_ENCODING&#39; =&gt; string &#39;gzip, deflate, sdch, br&#39; (length=23)
+    &#39;HTTP_ACCEPT_LANGUAGE&#39; =&gt; string &#39;en-US,en;q=0.8,en-GB;q=0.6&#39; (length=26)
+    &#39;HTTP_COOKIE&#39; =&gt; string &#39;PHPSESSID=0gslnvgsci371ete9hg7k9ivc6&#39; (length=36)
+    &#39;PATH&#39; =&gt; string &#39;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;E:\Program Files\ATI Technologies\ATI.ACE\Core-Static;E:\Program Files\AMD\ATI.ACE\Core-Static;C:\Program Files (x86)\AMD\ATI.ACE\Core-Static;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files\Intel\Intel(R) Managemen&#39;... (length=1169)
+    &#39;SystemRoot&#39; =&gt; string &#39;C:\WINDOWS&#39; (length=10)
+    &#39;COMSPEC&#39; =&gt; string &#39;C:\WINDOWS\system32\cmd.exe&#39; (length=27)
+    &#39;PATHEXT&#39; =&gt; string &#39;.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY&#39; (length=57)
+    &#39;WINDIR&#39; =&gt; string &#39;C:\WINDOWS&#39; (length=10)
+    &#39;SERVER_SIGNATURE&#39; =&gt; string &#39;&lt;address&gt;Apache/2.4.23 (Win64) PHP/7.0.10 Server at localhost Port 80&lt;/address&gt;&#39; (length=80)
+    &#39;SERVER_SOFTWARE&#39; =&gt; string &#39;Apache/2.4.23 (Win64) PHP/7.0.10&#39; (length=32)
+    &#39;SERVER_NAME&#39; =&gt; string &#39;localhost&#39; (length=9)
+    &#39;SERVER_ADDR&#39; =&gt; string &#39;::1&#39; (length=3)
+    &#39;SERVER_PORT&#39; =&gt; string &#39;80&#39; (length=2)
+    &#39;REMOTE_ADDR&#39; =&gt; string &#39;::1&#39; (length=3)
+    &#39;DOCUMENT_ROOT&#39; =&gt; string &#39;C:/wamp64/www&#39; (length=13)
+    &#39;REQUEST_SCHEME&#39; =&gt; string &#39;http&#39; (length=4)
+    &#39;CONTEXT_PREFIX&#39; =&gt; string &#39;&#39; (length=0)
+    &#39;CONTEXT_DOCUMENT_ROOT&#39; =&gt; string &#39;C:/wamp64/www&#39; (length=13)
+    &#39;SERVER_ADMIN&#39; =&gt; string &#39;wampserver@wampserver.invalid&#39; (length=29)
+    &#39;SCRIPT_FILENAME&#39; =&gt; string &#39;C:/wamp64/www/test.php&#39; (length=26)
+    &#39;REMOTE_PORT&#39; =&gt; string &#39;5359&#39; (length=4)
+    &#39;GATEWAY_INTERFACE&#39; =&gt; string &#39;CGI/1.1&#39; (length=7)
+    &#39;SERVER_PROTOCOL&#39; =&gt; string &#39;HTTP/1.1&#39; (length=8)
+    &#39;REQUEST_METHOD&#39; =&gt; string &#39;GET&#39; (length=3)
+    &#39;QUERY_STRING&#39; =&gt; string &#39;&#39; (length=0)
+    &#39;REQUEST_URI&#39; =&gt; string &#39;/test.php&#39; (length=13)
+    &#39;SCRIPT_NAME&#39; =&gt; string &#39;/test.php&#39; (length=13)
+    &#39;PHP_SELF&#39; =&gt; string &#39;/test.php&#39; (length=13)
+    &#39;REQUEST_TIME_FLOAT&#39; =&gt; float 1491068771.413
+    &#39;REQUEST_TIME&#39; =&gt; int 1491068771</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>There is a lot to take in there so I will pick out some important ones below. If you wish to read about them all then consult the <a href="http://php.net/manual/en/reserved.variables.server.php#refsect1-reserved.variables.server-indices">indices section</a> of the documentation.</p><p>I might add them all below one day. Or someone can edit and add a <em><strong>good</strong></em> explanation of them below? <em>Hint, hint</em>;)</p><p>For all explanations below, assume the URL is http://www.example.com/index.php</p><ul id="a576f303-3a97-496a-a87d-82efe604e7dd" class="bulleted-list"><li><code>HTTP_HOST</code> - The host address.</li></ul><p>This would return <code>www.example.com</code></p><ul id="f74f6ddd-20bf-4ed4-a57f-6701220c848a" class="bulleted-list"><li><code>HTTP_USER_AGENT</code> - Contents of the user agent. This is a string which contains all the information about the client’s browser, including operating system.</li><li><code>HTTP_COOKIE</code> - All cookies in a concatenated string, with a semi-colon delimiter.</li><li><code>SERVER_ADDR</code> - The IP address of the server, of which the current script is running.</li></ul><p>This would return <code>93.184.216.34</code></p><ul id="6ecd1966-4c5d-4d09-a695-ed38c15d7d61" class="bulleted-list"><li><code>PHP_SELF</code> - The file name of the currently executed script, relative to document root.</li></ul><p>This would return <code>/index.php</code></p><ul id="5a783df3-3411-4a9c-8bb2-8fe88d0a7b8b" class="bulleted-list"><li><code>REQUEST_TIME_FLOAT</code> - The timestamp of the start of the request, with microsecond precision. Available since PHP 5.4.0.</li><li><code>REQUEST_TIME</code> - The timestamp of the start of the request. Available since PHP 5.1.0.</li></ul><h2 id="0de92171-4403-468a-82db-aa42d1b5fc5f" class=""><code>$_GET</code><a class="header-anchor" href="#0de92171-4403-468a-82db-aa42d1b5fc5f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><blockquote id="f69d96e8-9579-468e-a8ef-08efc2b50aca" class="">An associative array of variables passed to the current script via the URL parameters.</blockquote><p><code>$_GET</code> is an array that contains all the URL parameters; these are the whatever is after the ? in the URL.</p><p>Using http://www.example.com/index.php?myVar=myVal as an example. This information from this URL can be obtained by accessing in this format <code>$_GET[&quot;myVar&quot;]</code> and the result of this will be <code>myVal</code>.</p><p>Using some code for those that don’t like reading.</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">// URL = http://www.example.com/index.php?myVar=myVal
+echo $_GET[&#34;myVar&#34;] == &#34;myVal&#34; ? &#34;true&#34; : &#34;false&#34;; // returns &#34;true&#34;</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>The above example makes use of the <a href="http://stackoverflow.com/documentation/php/1687/operators/7608/ternary-operator#t=201704011912247393013">ternary operator</a>.</p><p>This shows how you can access the value from the URL using the <code>$_GET</code> superglobal.</p><p>Now another example! <em>gasp</em></p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">// URL = http://www.example.com/index.php?myVar=myVal&amp;myVar2=myVal2
+echo $_GET[&#34;myVar&#34;]; // returns &#34;myVal&#34;
+echo $_GET[&#34;myVar2&#34;]; // returns &#34;myVal2&#34;</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>It is possible to send multiple variables through the URL by separating them with an ampersand (<code>&amp;</code>) character.</p><p><strong>Security risk</strong></p><p>It is very important not to send any sensitive information via the URL as it will stay in history of the computer and will be visible to anyone that can access that browser.</p><h2 id="1a4e9b22-dda0-4475-aeea-b8c18d2a0e93" class=""><code>$_POST</code><a class="header-anchor" href="#1a4e9b22-dda0-4475-aeea-b8c18d2a0e93" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><blockquote id="b163049f-5881-4c54-8012-21733d9be67c" class="">An associative array of variables passed to the current script via the HTTP POST method when using application/x-www-form-urlencoded or multipart/form-data as the HTTP Content-Type in the request.</blockquote><p>Very similar to <code>$_GET</code> in that data is sent from one place to another.</p><p>I’ll start by going straight into an example. (I have omitted the action attribute as this will send the information to the page that the form is in).</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">&lt;form method=&#34;POST&#34;&gt;
+    &lt;input type=&#34;text&#34; name=&#34;myVar&#34; value=&#34;myVal&#34; /&gt;
+    &lt;input type=&#34;submit&#34; name=&#34;submit&#34; value=&#34;Submit&#34; /&gt;
+&lt;/form&gt;</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Above is a basic form for which data can be sent. In an real environment the <code>value</code> attribute would not be set meaning the form would be blank. This would then send whatever information is entered by the user.</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">echo $_POST[&#34;myVar&#34;]); // returns &#34;myVal&#34;</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p><strong>Security risk</strong></p><p>Sending data via POST is also not secure. Using HTTPS will ensure that data is kept more secure.</p><h2 id="7bfdaf9e-3328-47ec-95c8-a49fec0bd8dc" class=""><code>$_FILES</code><a class="header-anchor" href="#7bfdaf9e-3328-47ec-95c8-a49fec0bd8dc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><blockquote id="f08d9582-6b09-4214-afb2-c1d08b7d1482" class="">An associative array of items uploaded to the current script via the HTTP POST method. The structure of this array is outlined in the POST method uploads section.</blockquote><p>Let’s start with a basic form.</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">&lt;form method=&#34;POST&#34; enctype=&#34;multipart/form-data&#34;&gt;
+    &lt;input type=&#34;file&#34; name=&#34;myVar&#34; /&gt;
+    &lt;input type=&#34;submit&#34; name=&#34;Submit&#34; /&gt;
+&lt;/form&gt;</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Note that I omitted the <code>action</code> attribute (again!). Also, I added <code>enctype=&quot;multipart/form-data&quot;</code>, this is important to any form that will be dealing with file uploads.</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">// ensure there isn&#39;t an error
+if ($_FILES[&#34;myVar&#34;][&#34;error&#34;] == UPLOAD_ERR_OK)
+{
+    $folderLocation = &#34;myFiles&#34;; // a relative path. (could be &#34;path/to/file&#34; for example)
+    
+    // if the folder doesn&#39;t exist then make it
+    if (!file_exists($folderLocation)) mkdir($folderLocation);
+
+    // move the file into the folder
+    move_uploaded_file($_FILES[&#34;myVar&#34;][&#34;tmp_name&#34;], &#34;$folderLocation/&#34; . basename($_FILES[&#34;myVar&#34;][&#34;name&#34;]));
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>This is used to upload one file. Sometimes you may wish to upload more than one file. An attribute exists for that, it’s called <code>multiple</code>.</p><p>There’s an attribute for just about <em>anything</em>. <a href="https://www.youtube.com/watch?v=szrsfeyLzyg">I’m sorry</a></p><p>Below is an example of a form submitting multiple files.</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">&lt;form method=&#34;POST&#34; enctype=&#34;multipart/form-data&#34;&gt;
+    &lt;input type=&#34;file&#34; name=&#34;myVar[]&#34; multiple=&#34;multiple&#34; /&gt;
+    &lt;input type=&#34;submit&#34; name=&#34;Submit&#34; /&gt;
+&lt;/form&gt;</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Note the changes made here; there are only a few.</p><ul id="d2a5ac60-4caf-40b4-99bc-7a671fe07edc" class="bulleted-list"><li>The <code>input</code> name has square brackets. This is because it is now an array of files and so we are telling the form to make an array of the files selected. Omitting the square brackets will result in the latter most file being set to <code>$_FILES[&quot;myVar&quot;]</code>.</li><li>The <code>multiple=&quot;multiple&quot;</code> attribute. This just tells the browser that users can select more than one file.</li></ul>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">$total = isset($_FILES[&#34;myVar&#34;]) ? count($_FILES[&#34;myVar&#34;][&#34;name&#34;]) : 0; // count how many files were sent
+// iterate over each of the files
+for ($i = 0; $i &lt; $total; $i++)
+{
+    // there isn&#39;t an error
+    if ($_FILES[&#34;myVar&#34;][&#34;error&#34;][$i] == UPLOAD_ERR_OK)
+    {
+        $folderLocation = &#34;myFiles&#34;; // a relative path. (could be &#34;path/to/file&#34; for example)
+        
+        // if the folder doesn&#39;t exist then make it
+        if (!file_exists($folderLocation)) mkdir($folderLocation);
+
+        // move the file into the folder
+        move_uploaded_file($_FILES[&#34;myVar&#34;][&#34;tmp_name&#34;][$i], &#34;$folderLocation/&#34; . basename($_FILES[&#34;myVar&#34;][&#34;name&#34;][$i]));
+    }
+    // else report the error
+    else switch ($_FILES[&#34;myVar&#34;][&#34;error&#34;][$i])
+    {
+        case UPLOAD_ERR_INI_SIZE:
+            echo &#34;Value: 1; The uploaded file exceeds the upload_max_filesize directive in php.ini.&#34;;
+            break;
+        case UPLOAD_ERR_FORM_SIZE:
+            echo &#34;Value: 2; The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.&#34;;
+            break;
+        case UPLOAD_ERR_PARTIAL:
+            echo &#34;Value: 3; The uploaded file was only partially uploaded.&#34;;
+            break;
+        case UPLOAD_ERR_NO_FILE:
+            echo &#34;Value: 4; No file was uploaded.&#34;;
+            break;
+        case UPLOAD_ERR_NO_TMP_DIR:
+            echo &#34;Value: 6; Missing a temporary folder. Introduced in PHP 5.0.3.&#34;;
+            break;
+        case UPLOAD_ERR_CANT_WRITE:
+            echo &#34;Value: 7; Failed to write file to disk. Introduced in PHP 5.1.0.&#34;;
+            break;
+        case UPLOAD_ERR_EXTENSION:
+            echo &#34;Value: 8; A PHP extension stopped the file upload. PHP does not provide a way to ascertain which extension caused the file upload to stop; examining the list of loaded extensions with phpinfo() may help. Introduced in PHP 5.2.0.&#34;;
+            break;
+        
+        default:
+            echo &#34;An unknown error has occured.&#34;;
+            break;
+    }
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>This is a very simple example and doesn’t handle problems such as file extensions that aren’t allowed or files named with PHP code (like a PHP equivalent of an SQL injection). See the <a href="http://stackoverflow.com/documentation/php/2781/security/29134/uploading-files">documentation</a>.</p><p>The first process is checking if there are any files, and if so, set the total number of them to <code>$total</code>.</p><p>Using the for loop allows an iteration of the <code>$_FILES</code> array and accessing each item one at a time. If that file doesn’t encounter a problem then the if statement is true and the code from the single file upload is run.</p><p>If an problem is encountered the switch block is executed and an error is presented in accordance with the error for that particular upload.</p><h2 id="044e7488-049e-420a-a201-2484d1192ecb" class=""><code>$_COOKIE</code><a class="header-anchor" href="#044e7488-049e-420a-a201-2484d1192ecb" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><blockquote id="1f2b058c-42bd-4025-a36a-5aa148e55d64" class="">An associative array of variables passed to the current script via HTTP Cookies.</blockquote><p>Cookies are variables that contain data and are stored on the client’s computer.</p><p>Unlike the aforementioned superglobals, cookies must be created with a function (and not be assigning a value). The convention is below.</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">setcookie(&#34;myVar&#34;, &#34;myVal&#34;, time() + 3600);</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>In this example a name is specified for the cookie (in this example it is “myVar”), a value is given (in this example it is “myVal”, but a variable can be passed to assign its value to the cookie), and then an expiration time is given (in this example it is one hour since 3600 seconds is a minute).</p><p>Despite the convention for creating a cookie being different, it is accessed in the same way as the others.</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">echo $_COOKIE[&#34;myVar&#34;]; // returns &#34;myVal&#34;</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>To destroy a cookie, <code>setcookie</code> must be called again, but the expiration time is set to <em>any</em> time in the past. See below.</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">setcookie(&#34;myVar&#34;, &#34;&#34;, time() - 1);
+var_dump($_COOKIE[&#34;myVar&#34;]); // returns null</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>This will unset the cookies and remove it from the clients computer.</p><h2 id="331a548e-c50f-4d91-bdf4-a515ad289326" class=""><code>$_SESSION</code><a class="header-anchor" href="#331a548e-c50f-4d91-bdf4-a515ad289326" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><blockquote id="c7e67895-a37f-495f-8b35-352e8f893ae0" class="">An associative array containing session variables available to the current script. See the Session functions documentation for more information on how this is used.</blockquote><p>Sessions are much like cookies except they are server side.</p><p>To use sessions you must include <code>session_start()</code> at the top of your scripts to allow sessions to be utilised.</p><p>Setting a session variable is the same as setting any other variable. See example below.</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">$_SESSION[&#34;myVar&#34;] = &#34;myVal&#34;;</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>When starting a session a random ID is set as a cookie and called “PHPSESSID” and will contain the session ID for that current session. This can be accessed by calling the <code>session_id()</code> function.</p><p>It is possible to destroy session variables using the <code>unset</code> function (such that <code>unset($_SESSION[&quot;myVar&quot;])</code> would destroy that variable).</p><p>The alternative is to call <code>session_destory()</code>. This will destroy the entire session meaning that <strong>all</strong> session variables will no longer exist.</p><h2 id="0a46b56b-2c7e-4226-90f7-04ea61630409" class=""><code>$_REQUEST</code><a class="header-anchor" href="#0a46b56b-2c7e-4226-90f7-04ea61630409" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><blockquote id="626ddab2-6446-46b3-98b6-01b3eab4e130" class="">An associative array that by default contains the contents of $_GET, $_POST and $_COOKIE.</blockquote><p>As the PHP documentation states, this is just a collation of <code>$_GET</code>, <code>$_POST</code>, and <code>$_COOKIE</code> all in one variable.</p><p>Since it is possible for all three of those arrays to have an index with the same name, there is a setting in the <code>php.ini</code> file called <code>request_order</code> which can specify which of the three has precedence.</p><p>For instance, if it was set to <code>&quot;GPC&quot;</code>, then the value of <code>$_COOKIE</code> will be used, as it is read from left to right meaning the <code>$_REQUEST</code> will set its value to <code>$_GET</code>, then <code>$_POST</code>, and then <code>$_COOKIE</code> and since <code>$_COOKIE</code> is last that is the value that is in <code>$_REQUEST</code>.</p><p>See <a href="http://stackoverflow.com/questions/43157933/what-is-the-request-precedence">this question</a>.</p><h2 id="672198a9-da71-42ca-8a2e-218350aa48a7" class=""><code>$_ENV</code><a class="header-anchor" href="#672198a9-da71-42ca-8a2e-218350aa48a7" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><blockquote id="729f9938-74ee-4aa4-ade2-a5681bcbeb9f" class="">An associative array of variables passed to the current script via the environment method.</blockquote><p>These variables are imported into PHP’s global namespace from the environment under which the PHP parser is running. Many are provided by the shell under which PHP is running and different systems are likely running different kinds of shells, a definitive list is impossible. Please see your shell’s documentation for a list of defined environment variables.</p><p>Other environment variables include the CGI variables, placed there regardless of whether PHP is running as a server module or CGI processor.</p><p>Anything stored within <code>$_ENV</code> is from the environment from which PHP is running in.</p><p><code>$_ENV</code> is only populated if <code>php.ini</code> allows it.</p><p>See <a href="http://stackoverflow.com/questions/3780866/why-is-my-env-empty/27077452#27077452">this answer</a> for more information on why <code>$_ENV</code> is not populated.</p>
+
+      <div class="forum-link">
+  Found a mistake? Have a question or improvement idea?
+  <a href="#" onclick="showContact(); return false;">Let me know</a>.
+</div>
+
+      <form id="contact-form" action="https://formsubmit.co/kkowalczyk@gmail.com" method="POST">
+  <p>
+    <div class="contact-light">Feedback about page:</div>
+    <input type="text" name="page-url" id="contact-page-url" readonly />
+  </p>
+
+  <p>
+    <div class="contact-light">Feedback:</div>
+    <textarea name="message" id="msg-for-chris"></textarea>
+    <div class="contact-light">Optional: your email if you want me to get back to you: </div>
+    <input type="email" name="email" />
+    <input type="text" name="_honey" style="display:none">
+  </p>
+
+  <p>
+    <button type="submit" class="contact-btn">
+      Send Feedback
+    </button>
+
+    <button class="contact-btn" style="float: right;" onclick="hideContact(); return false;">
+      Cancel
+    </button>
+  </p>
+
+  <p>
+    <div data-netlify-recaptcha></div>
+  </p>
+</form>
+
+
+      <hr class="article-bottom-sep">
+    </div>
+
+    <div id="page-toc"></div>
+
+    <div id="chapter-toc-wrapper">
+      <hr />
+      <div class="hdr">Table Of Contents</div>
+      <div id="book-toc"></div>
+    </div>
+  </div>
+
+  <footer class="page__footer">
+  <div class="page__footer__left">
+    Maintained by
+    <a href="https://blog.kowalczyk.info" target="_blank">Krzysztof Kowalczyk</a>
+  </div>
+  <div class="share-me">
+    <a href="https://twitter.com/intent/tweet?text=%22Essential%20PHP%22%20-%20a%20free%20programming%20book&url=%2fessential%2fphp%2f&via=kjk">Share
+      <b>Essential PHP</b> on&nbsp;
+      <svg class="icon-twitter">
+        <use xlink:href="#icon-twitter"></use>
+      </svg>
+    </a>
+  </div>
+  <div class="page__footer__right">
+    
+  </div>
+</footer>
+
+  
+
+</body>
+
+</html>

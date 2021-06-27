@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="always">
+
+  <meta name="twitter:card" value="summary">
+  <meta name="twitter:site" content="@kjk">
+  <meta name="twitter:title" content="Using JSONb operators">
+  
+  <meta name="twitter:description" content="Using JSONb operators">
+  <meta name="twitter:creator" content="@kjk">
+  <meta name="twitter:image" content="/essential/postgresql/covers/twitter/PostgreSQL.png">
+  
+  <meta property="og:title" content="Using JSONb operators">
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/essential/postgresql/using-jsonb-operators-c8c6f915c37743d6889135ec117c5077" />
+  
+  <meta property="og:description" content="Using JSONb operators">
+  <meta property="og:image" content="/essential/postgresql/covers/twitter/PostgreSQL.png">
+
+  <title>JSON Support / Using JSONb operators / Essential PostgreSQL</title>
+  <meta name="description" content="JSON Support / Using JSONb operators / Essential PostgreSQL">
+
+  <link rel="icon" href="s/favicon-9dfe2f70.ico">
+
+  <link href="s/main-65ff0b86.css" rel="stylesheet">
+  <link href="s/bundle-83cf4538.css" rel="stylesheet">
+
+  
+  <script src="s/app-postgresql-0bd65236.js" defer></script>
+  <script src="s/bundle-fd6a7ad6.js" defer></script>
+</head>
+
+<body class="page">
+  <script>
+  function onLoad() {
+    gBookTitle = "Essential PostgreSQL";
+
+    httpsMaybeRedirect();
+
+    let opts = {
+      target: document.getElementById("toc"),
+      props: {
+        parentIdx: -1,
+        level: 0,
+      },
+    };
+    new app.toc(opts);
+
+    opts = {
+      target: document.getElementById("search-parent"),
+      props: {
+        bookTitle: gBookTitle,
+      },
+    };
+    new app.searchInput(opts);
+
+    opts = {
+      target: document.getElementById("page-toc"),
+    };
+    new app.pageToc(opts);
+
+    opts = {
+      target: document.getElementById("book-toc"),
+    };
+    new app.bookToc(opts);
+  }
+  document.addEventListener('DOMContentLoaded', onLoad);
+</script>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+  <symbol id="arrow-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M11 10H5.344L11 4.414V10z" />
+  </symbol>
+
+  <symbol id="arrow-not-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M6 4v8l4-4-4-4zm1 2.414L8.586 8 7 9.586V6.414z" />
+  </symbol>
+
+  <symbol id="icon-github" viewbox="0 0 496 512">
+    <path
+      d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+  </symbol>
+
+  <symbol id="icon-home" viewbox="0 0 576 512">
+    <path
+      d="M488 312.7V456c0 13.3-10.7 24-24 24H348c-6.6 0-12-5.4-12-12V356c0-6.6-5.4-12-12-12h-72c-6.6 0-12 5.4-12 12v112c0 6.6-5.4 12-12 12H112c-13.3 0-24-10.7-24-24V312.7c0-3.6 1.6-7 4.4-9.3l188-154.8c4.4-3.6 10.8-3.6 15.3 0l188 154.8c2.7 2.3 4.3 5.7 4.3 9.3zm83.6-60.9L488 182.9V44.4c0-6.6-5.4-12-12-12h-56c-6.6 0-12 5.4-12 12V117l-89.5-73.7c-17.7-14.6-43.3-14.6-61 0L4.4 251.8c-5.1 4.2-5.8 11.8-1.6 16.9l25.5 31c4.2 5.1 11.8 5.8 16.9 1.6l235.2-193.7c4.4-3.6 10.8-3.6 15.3 0l235.2 193.7c5.1 4.2 12.7 3.5 16.9-1.6l25.5-31c4.2-5.2 3.4-12.7-1.7-16.9z" />
+  </symbol>
+
+  <symbol id="icon-twitter" viewbox="0 0 512 512">
+    <path
+      d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
+  </symbol>
+
+  <symbol id="icon-edit" viewbox="0 0 576 512">
+    <path
+      d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" />
+  </symbol>
+
+  <symbol id="icon-star" viewbox="0 0 576 512">
+    <path
+      d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z" />
+  </symbol>
+</svg>
+  <header class="page__header">
+  <div class="page__header__left">
+    <a id="link-home" href="index.html">
+      <svg class="icon-home">
+        <use xlink:href="#icon-home"></use>
+      </svg>
+      &nbsp;Essential PostgreSQL</a>
+  </div>
+  <div class="page__header__center" id="search-parent">
+  </div>
+  <div class="page__header__right">
+  </div>
+</header>
+
+  <div id="toc"></div>
+
+  <div class="content">
+    <div class="article">
+      
+
+<div style="display: flex; justify-content: space-between">
+  <h1 class="title">Using JSONb operators</h1>
+  <a class="edit-link" style="font-size: 80%" href="https://notion.so/c8c6f915c37743d6889135ec117c5077" rel="nofollow"
+  target="_blank">suggest change</a>
+</div>
+
+
+      <h1 id="87fb2908-2025-40d3-83c0-823ac8084f9a" class="">Creating a DB and a Table<a class="header-anchor" href="#87fb2908-2025-40d3-83c0-823ac8084f9a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1>
+<div class="code-box lang-SQL">
+	<div>
+	<pre class="chroma"><span class="k">DROP</span> <span class="k">DATABASE</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">books_db</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="n">books_db</span> <span class="k">WITH</span> <span class="k">ENCODING</span><span class="o">=</span><span class="s1">&#39;UTF8&#39;</span> <span class="k">TEMPLATE</span> <span class="n">template0</span><span class="p">;</span>
+
+<span class="k">DROP</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">books</span><span class="p">;</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">books</span> <span class="p">(</span>
+  <span class="n">id</span> <span class="nb">SERIAL</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+  <span class="n">client</span> <span class="nb">TEXT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="k">data</span> <span class="n">JSONb</span> <span class="k">NOT</span> <span class="k">NULL</span>
+<span class="p">);</span></pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><h1 id="fe0afde6-1e04-4a78-900b-fe04d42aea50" class="">Populating the DB<a class="header-anchor" href="#fe0afde6-1e04-4a78-900b-fe04d42aea50" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1>
+<div class="code-box lang-SQL">
+	<div>
+	<pre class="chroma"><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">books</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="k">data</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span>
+    <span class="s1">&#39;Joe&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;{ &#34;title&#34;: &#34;Siddhartha&#34;, &#34;author&#34;: { &#34;first_name&#34;: &#34;Herman&#34;, &#34;last_name&#34;: &#34;Hesse&#34; } }&#39;</span>
+<span class="p">),(</span>
+    <span class="s1">&#39;Jenny&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;{ &#34;title&#34;: &#34;Dharma Bums&#34;, &#34;author&#34;: { &#34;first_name&#34;: &#34;Jack&#34;, &#34;last_name&#34;: &#34;Kerouac&#34; } }&#39;</span>
+<span class="p">),(</span>
+    <span class="s1">&#39;Jenny&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;{ &#34;title&#34;: &#34;100 años de soledad&#34;, &#34;author&#34;: { &#34;first_name&#34;: &#34;Gabo&#34;, &#34;last_name&#34;: &#34;Marquéz&#34; } }&#39;</span>
+<span class="p">);</span></pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Lets see everything inside the table books:</p>
+<div class="code-box lang-SQL">
+	<div>
+	<pre class="chroma"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">books</span><span class="p">;</span></pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Output:</p><img class="img" src="/img/4c5325a11ae2ae4038ea32ab6e23e261298bca6d.png"><h1 id="97f5b21f-08bb-4212-91fd-0fd432e45958" class=""><code>-&gt;</code> operator returns values out of JSON columns<a class="header-anchor" href="#97f5b21f-08bb-4212-91fd-0fd432e45958" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Selecting 1 column:</p>
+<div class="code-box lang-SQL">
+	<div>
+	<pre class="chroma"><span class="k">SELECT</span> <span class="n">client</span><span class="p">,</span> 
+    <span class="k">data</span><span class="o">-&gt;</span><span class="s1">&#39;title&#39;</span> <span class="k">AS</span> <span class="n">title</span>
+    <span class="k">FROM</span> <span class="n">books</span><span class="p">;</span></pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Output:</p><img class="img" src="/img/a304b50fc7d2c737620ea72a71be253513d5179d.png"><p>enter image description here</p><p>Selecting 2 columns:</p>
+<div class="code-box lang-SQL">
+	<div>
+	<pre class="chroma"><span class="k">SELECT</span> <span class="n">client</span><span class="p">,</span> 
+   <span class="k">data</span><span class="o">-&gt;</span><span class="s1">&#39;title&#39;</span> <span class="k">AS</span> <span class="n">title</span><span class="p">,</span> <span class="k">data</span><span class="o">-&gt;</span><span class="s1">&#39;author&#39;</span> <span class="k">AS</span> <span class="n">author</span>
+   <span class="k">FROM</span> <span class="n">books</span><span class="p">;</span></pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Output:</p><img class="img" src="/img/6086bc44e3773c3afc0010cc1463ce006599a6cd.png"><p>enter image description here</p><h1 id="7180cbd9-652b-4c0c-a192-93ce8c12d5f9" class=""><code>-&gt;</code> vs <code>-&gt;&gt;</code><a class="header-anchor" href="#7180cbd9-652b-4c0c-a192-93ce8c12d5f9" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>The <code>-&gt;</code> operator returns the original JSON type (which might be an object), whereas <code>-&gt;&gt;</code> returns text.</p><h1 id="d7e5162c-39d8-43bc-ae88-c0c12f9d6407" class="">Return NESTED objects<a class="header-anchor" href="#d7e5162c-39d8-43bc-ae88-c0c12f9d6407" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>You can use the <code>-&gt;</code> to return a nested object and thus chain the operators:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">SELECT client, 
+   data-&gt;&#39;author&#39;-&gt;&#39;last_name&#39; AS author
+   FROM books;</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Output:</p><img class="img" src="/img/3b96319b82322ebfdda033a73a8e9980c0a5ddd3.png"><p>enter image description here</p><h1 id="f514620c-b6c7-46c8-b13a-7b9a607e1d30" class="">Filtering<a class="header-anchor" href="#f514620c-b6c7-46c8-b13a-7b9a607e1d30" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Select rows based on a value inside your JSON:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">SELECT 
+client,
+data-&gt;&#39;title&#39; AS title
+FROM books
+ WHERE data-&gt;&#39;title&#39; = &#39;&#34;Dharma Bums&#34;&#39;;</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Notice WHERE uses <code>-&gt;</code> so we must compare to JSON <code>&#x27;&quot;Dharma Bums&quot;&#x27;</code></p><p>Or we could use <code>-&gt;&gt;</code> and compare to <code>&#x27;Dharma Bums&#x27;</code></p><p>Output:</p><img class="img" src="/img/b0cfa5d5242b98b115d5baef3bb36980f0ac91ec.png"><p>enter image description here</p><h1 id="20dc2844-cb4e-41eb-97fa-60944e1e6a92" class="">Nested filtering<a class="header-anchor" href="#20dc2844-cb4e-41eb-97fa-60944e1e6a92" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Find rows based on the value of a nested JSON object:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">SELECT 
+ client,
+ data-&gt;&#39;title&#39; AS title
+ FROM books
+  WHERE data-&gt;&#39;author&#39;-&gt;&gt;&#39;last_name&#39; = &#39;Kerouac&#39;;</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Output:</p><img class="img" src="/img/32ae8b87a04c20f312cf0085fff71d0bb8736fc7.png"><p>enter image description here</p><h1 id="37efb224-d34b-4a63-9f56-10bf6e49028e" class="">A real world example<a class="header-anchor" href="#37efb224-d34b-4a63-9f56-10bf6e49028e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">CREATE TABLE events (
+  name varchar(200),
+  visitor_id varchar(200),
+  properties json,
+  browser json
+);</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>We’re going to store events in this table, like pageviews. Each event has properties, which could be anything (e.g. current page) and also sends information about the browser (like OS, screen resolution, etc). Both of these are completely free form and could change over time (as we think of extra stuff to track).</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">INSERT INTO events (name, visitor_id, properties, browser) VALUES
+(
+  &#39;pageview&#39;, &#39;1&#39;,
+  &#39;{ &#34;page&#34;: &#34;/&#34; }&#39;,
+  &#39;{ &#34;name&#34;: &#34;Chrome&#34;, &#34;os&#34;: &#34;Mac&#34;, &#34;resolution&#34;: { &#34;x&#34;: 1440, &#34;y&#34;: 900 } }&#39;
+),(
+  &#39;pageview&#39;, &#39;2&#39;,
+  &#39;{ &#34;page&#34;: &#34;/&#34; }&#39;,
+  &#39;{ &#34;name&#34;: &#34;Firefox&#34;, &#34;os&#34;: &#34;Windows&#34;, &#34;resolution&#34;: { &#34;x&#34;: 1920, &#34;y&#34;: 1200 } }&#39;
+),(
+  &#39;pageview&#39;, &#39;1&#39;,
+  &#39;{ &#34;page&#34;: &#34;/account&#34; }&#39;,
+  &#39;{ &#34;name&#34;: &#34;Chrome&#34;, &#34;os&#34;: &#34;Mac&#34;, &#34;resolution&#34;: { &#34;x&#34;: 1440, &#34;y&#34;: 900 } }&#39;
+),(
+  &#39;purchase&#39;, &#39;5&#39;,
+  &#39;{ &#34;amount&#34;: 10 }&#39;,
+  &#39;{ &#34;name&#34;: &#34;Firefox&#34;, &#34;os&#34;: &#34;Windows&#34;, &#34;resolution&#34;: { &#34;x&#34;: 1024, &#34;y&#34;: 768 } }&#39;
+),(
+  &#39;purchase&#39;, &#39;15&#39;,
+  &#39;{ &#34;amount&#34;: 200 }&#39;,
+  &#39;{ &#34;name&#34;: &#34;Firefox&#34;, &#34;os&#34;: &#34;Windows&#34;, &#34;resolution&#34;: { &#34;x&#34;: 1280, &#34;y&#34;: 800 } }&#39;
+),(
+  &#39;purchase&#39;, &#39;15&#39;,
+  &#39;{ &#34;amount&#34;: 500 }&#39;,
+  &#39;{ &#34;name&#34;: &#34;Firefox&#34;, &#34;os&#34;: &#34;Windows&#34;, &#34;resolution&#34;: { &#34;x&#34;: 1280, &#34;y&#34;: 800 } }&#39;
+);</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Now lets select everything:</p>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">SELECT * FROM events;</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Output:</p><img class="img" src="/img/e6166a63f622c1ca76df467b5ea23ba07392e072.png"><p>enter image description here</p><h1 id="8f686a82-6395-4fb2-83c3-5e8356604f13" class="">JSON operators + PostgreSQL aggregate functions<a class="header-anchor" href="#8f686a82-6395-4fb2-83c3-5e8356604f13" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Using the JSON operators, combined with traditional PostgreSQL aggregate functions, we can pull out whatever we want. You have the full might of an RDBMS at your disposal.</p><ul id="31fc3df2-c856-4eb5-a16f-bde9782ac6a5" class="bulleted-list"><li>Lets see browser usage:</li></ul>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">SELECT browser-&gt;&gt;&#39;name&#39; AS browser, 
+  count(browser)
+  FROM events
+  GROUP BY browser-&gt;&gt;&#39;name&#39;;</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Output:</p><img class="img" src="/img/a8e331aff075354ad70ddfd47d547133bdc39ad9.png"><p>enter image description here</p><ul id="e76039d6-8267-4633-bf1a-700e9134e2f5" class="bulleted-list"><li>Total revenue per visitor:</li></ul>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">SELECT visitor_id, SUM(CAST(properties-&gt;&gt;&#39;amount&#39; AS integer)) AS total
+    FROM events
+    WHERE CAST(properties-&gt;&gt;&#39;amount&#39; AS integer) &gt; 0
+    GROUP BY visitor_id;</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Output:</p><img class="img" src="/img/153df2f435898dd4bde73abf256d5134b5dd5572.png"><p>enter image description here</p><ul id="1384f714-5408-49b1-966e-fa15519d26be" class="bulleted-list"><li>Average screen resolution</li></ul>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">SELECT AVG(CAST(browser-&gt;&#39;resolution&#39;-&gt;&gt;&#39;x&#39; AS integer)) AS width,
+  AVG(CAST(browser-&gt;&#39;resolution&#39;-&gt;&gt;&#39;y&#39; AS integer)) AS height
+FROM events;</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Output:</p><img class="img" src="/img/67c9100467ec5c4e638a93f30d64f7f0241fe53c.png"><p>enter image description here</p><p>More examples and documentation <a href="http://schinckel.net/2014/05/25/querying-json-in-postgres/">here</a> and <a href="http://clarkdave.net/2013/06/what-can-you-do-with-postgresql-and-json/">here</a>.</p>
+
+      <div class="forum-link">
+  Found a mistake? Have a question or improvement idea?
+  <a href="#" onclick="showContact(); return false;">Let me know</a>.
+</div>
+
+      <form id="contact-form" action="https://formsubmit.co/kkowalczyk@gmail.com" method="POST">
+  <p>
+    <div class="contact-light">Feedback about page:</div>
+    <input type="text" name="page-url" id="contact-page-url" readonly />
+  </p>
+
+  <p>
+    <div class="contact-light">Feedback:</div>
+    <textarea name="message" id="msg-for-chris"></textarea>
+    <div class="contact-light">Optional: your email if you want me to get back to you: </div>
+    <input type="email" name="email" />
+    <input type="text" name="_honey" style="display:none">
+  </p>
+
+  <p>
+    <button type="submit" class="contact-btn">
+      Send Feedback
+    </button>
+
+    <button class="contact-btn" style="float: right;" onclick="hideContact(); return false;">
+      Cancel
+    </button>
+  </p>
+
+  <p>
+    <div data-netlify-recaptcha></div>
+  </p>
+</form>
+
+
+      <hr class="article-bottom-sep">
+    </div>
+
+    <div id="page-toc"></div>
+
+    <div id="chapter-toc-wrapper">
+      <hr />
+      <div class="hdr">Table Of Contents</div>
+      <div id="book-toc"></div>
+    </div>
+  </div>
+
+  <footer class="page__footer">
+  <div class="page__footer__left">
+    Maintained by
+    <a href="https://blog.kowalczyk.info" target="_blank">Krzysztof Kowalczyk</a>
+  </div>
+  <div class="share-me">
+    <a href="https://twitter.com/intent/tweet?text=%22Essential%20PostgreSQL%22%20-%20a%20free%20programming%20book&url=%2fessential%2fpostgresql%2f&via=kjk">Share
+      <b>Essential PostgreSQL</b> on&nbsp;
+      <svg class="icon-twitter">
+        <use xlink:href="#icon-twitter"></use>
+      </svg>
+    </a>
+  </div>
+  <div class="page__footer__right">
+    
+  </div>
+</footer>
+
+  
+
+</body>
+
+</html>

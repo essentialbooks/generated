@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="always">
+
+  <meta name="twitter:card" value="summary">
+  <meta name="twitter:site" content="@kjk">
+  <meta name="twitter:title" content="Creating a Custom Dragging Behavior with UIDynamicAnimator">
+  
+  <meta name="twitter:description" content="Creating a Custom Dragging Behavior with UIDynamicAnimator">
+  <meta name="twitter:creator" content="@kjk">
+  <meta name="twitter:image" content="/essential/ios/covers/twitter/iOS.png">
+  
+  <meta property="og:title" content="Creating a Custom Dragging Behavior with UIDynamicAnimator">
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/essential/ios/creating-a-custom-dragging-behavior-with-uidynamicanimator-f8374e536d994a40bac91bd872d8eb60" />
+  
+  <meta property="og:description" content="Creating a Custom Dragging Behavior with UIDynamicAnimator">
+  <meta property="og:image" content="/essential/ios/covers/twitter/iOS.png">
+
+  <title>UIKit Dynamics with UICollectionView / Creating a Custom Dragging Behavior with UIDynamicAnimator / Essential iOS</title>
+  <meta name="description" content="UIKit Dynamics with UICollectionView / Creating a Custom Dragging Behavior with UIDynamicAnimator / Essential iOS">
+
+  <link rel="icon" href="s/favicon-9dfe2f70.ico">
+
+  <link href="s/main-65ff0b86.css" rel="stylesheet">
+  <link href="s/bundle-83cf4538.css" rel="stylesheet">
+
+  
+  <script src="s/app-ios-c5e8824d.js" defer></script>
+  <script src="s/bundle-fd6a7ad6.js" defer></script>
+</head>
+
+<body class="page">
+  <script>
+  function onLoad() {
+    gBookTitle = "Essential iOS";
+
+    httpsMaybeRedirect();
+
+    let opts = {
+      target: document.getElementById("toc"),
+      props: {
+        parentIdx: -1,
+        level: 0,
+      },
+    };
+    new app.toc(opts);
+
+    opts = {
+      target: document.getElementById("search-parent"),
+      props: {
+        bookTitle: gBookTitle,
+      },
+    };
+    new app.searchInput(opts);
+
+    opts = {
+      target: document.getElementById("page-toc"),
+    };
+    new app.pageToc(opts);
+
+    opts = {
+      target: document.getElementById("book-toc"),
+    };
+    new app.bookToc(opts);
+  }
+  document.addEventListener('DOMContentLoaded', onLoad);
+</script>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+  <symbol id="arrow-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M11 10H5.344L11 4.414V10z" />
+  </symbol>
+
+  <symbol id="arrow-not-expanded" viewbox="0 0 16 16">
+    <path fill="%23646465" d="M6 4v8l4-4-4-4zm1 2.414L8.586 8 7 9.586V6.414z" />
+  </symbol>
+
+  <symbol id="icon-github" viewbox="0 0 496 512">
+    <path
+      d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+  </symbol>
+
+  <symbol id="icon-home" viewbox="0 0 576 512">
+    <path
+      d="M488 312.7V456c0 13.3-10.7 24-24 24H348c-6.6 0-12-5.4-12-12V356c0-6.6-5.4-12-12-12h-72c-6.6 0-12 5.4-12 12v112c0 6.6-5.4 12-12 12H112c-13.3 0-24-10.7-24-24V312.7c0-3.6 1.6-7 4.4-9.3l188-154.8c4.4-3.6 10.8-3.6 15.3 0l188 154.8c2.7 2.3 4.3 5.7 4.3 9.3zm83.6-60.9L488 182.9V44.4c0-6.6-5.4-12-12-12h-56c-6.6 0-12 5.4-12 12V117l-89.5-73.7c-17.7-14.6-43.3-14.6-61 0L4.4 251.8c-5.1 4.2-5.8 11.8-1.6 16.9l25.5 31c4.2 5.1 11.8 5.8 16.9 1.6l235.2-193.7c4.4-3.6 10.8-3.6 15.3 0l235.2 193.7c5.1 4.2 12.7 3.5 16.9-1.6l25.5-31c4.2-5.2 3.4-12.7-1.7-16.9z" />
+  </symbol>
+
+  <symbol id="icon-twitter" viewbox="0 0 512 512">
+    <path
+      d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
+  </symbol>
+
+  <symbol id="icon-edit" viewbox="0 0 576 512">
+    <path
+      d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" />
+  </symbol>
+
+  <symbol id="icon-star" viewbox="0 0 576 512">
+    <path
+      d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z" />
+  </symbol>
+</svg>
+  <header class="page__header">
+  <div class="page__header__left">
+    <a id="link-home" href="index.html">
+      <svg class="icon-home">
+        <use xlink:href="#icon-home"></use>
+      </svg>
+      &nbsp;Essential iOS</a>
+  </div>
+  <div class="page__header__center" id="search-parent">
+  </div>
+  <div class="page__header__right">
+  </div>
+</header>
+
+  <div id="toc"></div>
+
+  <div class="content">
+    <div class="article">
+      
+
+<div style="display: flex; justify-content: space-between">
+  <h1 class="title">Creating a Custom Dragging Behavior with UIDynamicAnimator</h1>
+  <a class="edit-link" style="font-size: 80%" href="https://notion.so/f8374e536d994a40bac91bd872d8eb60" rel="nofollow"
+  target="_blank">suggest change</a>
+</div>
+
+
+      <p>This example shows how to create a custom dragging behavior by Subclassing <code>UIDynamicBehavior</code> and subclassing <code>UICollectionViewFlowLayout</code>. In the example, we have <code>UICollectionView</code> that allows for the selection of multiple items. Then with a long press gesture those items can be dragged in an elastic, “springy” animation driven by a <code>UIDynamicAnimator</code>.</p><img class="img" src="/img/6b49f01134a78259e519a22adff429f8ec6b7153.gif"><p>The dragging behavior is produced by combining a low-level behavior that adds a <code>UIAttachmentBehavior</code> to the for corners of a <code>UIDynamicItem</code> and a high-level behavior that manages the low-level behavior for a number of <code>UIDynamicItems</code>.</p><p>We can begin by creating this low-level behavior, we’ll call <code>RectangleAttachmentBehavior</code></p><h2 id="1018f3ef-bcba-4f64-a8e5-358a154568f0" class="">Swift<a class="header-anchor" href="#1018f3ef-bcba-4f64-a8e5-358a154568f0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">final class RectangleAttachmentBehavior: UIDynamicBehavior
+{
+    init(item: UIDynamicItem, point: CGPoint)
+    {
+        // Higher frequency more &#34;ridged&#34; formation
+        let frequency: CGFloat = 8.0
+        
+        // Lower damping longer animation takes to come to rest
+        let damping: CGFloat = 0.6
+        
+        super.init()
+        
+        // Attachment points are four corners of item
+        let points = self.attachmentPoints(for: point)
+        
+        let attachmentBehaviors: [UIAttachmentBehavior] = points.map
+        {
+            let attachmentBehavior = UIAttachmentBehavior(item: item, attachedToAnchor: $0)
+            attachmentBehavior.frequency = frequency
+            attachmentBehavior.damping = damping
+            return attachmentBehavior
+        }
+        
+        attachmentBehaviors.forEach
+        {
+            addChildBehavior($0)
+        }
+    }
+    
+    func updateAttachmentLocation(with point: CGPoint)
+    {
+        // Update anchor points to new attachment points
+        let points = self.attachmentPoints(for: point)
+        let attachments = self.childBehaviors.flatMap { $0 as? UIAttachmentBehavior }
+        let pairs = zip(points, attachments)
+        pairs.forEach { $0.1.anchorPoint = $0.0 }
+    }
+    
+    func attachmentPoints(for point: CGPoint) -&gt; [CGPoint]
+    {
+        // Width and height should be close to the width and height of the item
+        let width: CGFloat = 40.0
+        let height: CGFloat = 40.0
+        
+        let topLeft = CGPoint(x: point.x - width * 0.5, y: point.y - height * 0.5)
+        let topRight = CGPoint(x: point.x + width * 0.5, y: point.y - height * 0.5)
+        let bottomLeft = CGPoint(x: point.x - width * 0.5, y: point.y + height * 0.5)
+        let bottomRight = CGPoint(x: point.x + width * 0.5, y: point.y + height * 0.5)
+        let points = [topLeft, topRight, bottomLeft, bottomRight]
+        return points
+    }
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><h2 id="e387d5b1-44a7-49c3-a872-64995ba94e3e" class="">Objective-C<a class="header-anchor" href="#e387d5b1-44a7-49c3-a872-64995ba94e3e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">@implementation RectangleAttachmentBehavior
+
+- (instancetype)initWithItem:(id&lt;UIDynamicItem&gt;)item point:(CGPoint)point
+{
+    CGFloat frequency = 8.0f;
+    CGFloat damping = 0.6f;
+    self = [super init];
+    if (self)
+    {
+        NSArray &lt;NSValue *&gt; *pointValues = [self attachmentPointValuesForPoint:point];
+        for (NSValue *value in pointValues)
+        {
+            UIAttachmentBehavior *attachment = [[UIAttachmentBehavior alloc]initWithItem:item attachedToAnchor:[value CGPointValue]];
+            attachment.frequency = frequency;
+            attachment.damping = damping;
+            [self addChildBehavior:attachment];
+        }
+    }
+    return self;
+}
+
+- (void)updateAttachmentLocationWithPoint:(CGPoint)point
+{
+    NSArray &lt;NSValue *&gt; *pointValues = [self attachmentPointValuesForPoint:point];
+    for (NSInteger i = 0; i &lt; pointValues.count; i++)
+    {
+        NSValue *pointValue = pointValues[i];
+        UIAttachmentBehavior *attachment = self.childBehaviors[i];
+        attachment.anchorPoint = [pointValue CGPointValue];
+    }
+}
+
+- (NSArray &lt;NSValue *&gt; *)attachmentPointValuesForPoint:(CGPoint)point
+{
+    CGFloat width = 40.0f;
+    CGFloat height = 40.0f;
+    
+    CGPoint topLeft = CGPointMake(point.x - width * 0.5, point.y - height * 0.5);
+    CGPoint topRight = CGPointMake(point.x + width * 0.5, point.y - height * 0.5);
+    CGPoint bottomLeft = CGPointMake(point.x - width * 0.5, point.y + height * 0.5);
+    CGPoint bottomRight = CGPointMake(point.x + width * 0.5, point.y + height * 0.5);
+    
+    NSArray &lt;NSValue *&gt; *pointValues = @[[NSValue valueWithCGPoint:topLeft], [NSValue valueWithCGPoint:topRight], [NSValue valueWithCGPoint:bottomLeft], [NSValue valueWithCGPoint:bottomRight]];
+    return pointValues;
+}
+
+@end</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Next we can create the high-level behavior that will combine a number of <code>RectangleAttachmentBehavior</code>.</p><h2 id="9ee4bdb5-f840-4579-a063-93dbc8e05177" class="">Swift<a class="header-anchor" href="#9ee4bdb5-f840-4579-a063-93dbc8e05177" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">final class DragBehavior: UIDynamicBehavior
+{
+    init(items: [UIDynamicItem], point: CGPoint)
+    {
+        super.init()
+        items.forEach
+        {
+            let rectAttachment = RectangleAttachmentBehavior(item: $0, point: point)
+            self.addChildBehavior(rectAttachment)
+        }
+    }
+    
+    func updateDragLocation(with point: CGPoint)
+    {
+        // Tell low-level behaviors location has changed
+        self.childBehaviors.flatMap { $0 as? RectangleAttachmentBehavior }.forEach { $0.updateAttachmentLocation(with: point) }
+    }
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><h2 id="b59ace52-dbb0-424e-840e-8c76f7fffc92" class="">Objective-C<a class="header-anchor" href="#b59ace52-dbb0-424e-840e-8c76f7fffc92" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">@implementation DragBehavior
+
+- (instancetype)initWithItems:(NSArray &lt;id&lt;UIDynamicItem&gt;&gt; *)items point: (CGPoint)point
+{
+    self = [super init];
+    if (self)
+    {
+        for (id&lt;UIDynamicItem&gt; item in items)
+        {
+            RectangleAttachmentBehavior *rectAttachment = [[RectangleAttachmentBehavior alloc]initWithItem:item point:point];
+            [self addChildBehavior:rectAttachment];
+        }
+    }
+    return self;
+}
+
+- (void)updateDragLocationWithPoint:(CGPoint)point
+{
+    for (RectangleAttachmentBehavior *rectAttachment in self.childBehaviors)
+    {
+        [rectAttachment updateAttachmentLocationWithPoint:point];
+    }
+}
+
+@end</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Now with our behaviors in place, the next step is to add them to our collection view when. Because normally we want a standard grid layout we can subclass <code>UICollectionViewFlowLayout</code> and only change attributes when dragging. We do this mainly through overriding <code>layoutAttributesForElementsInRect</code> and using the <code>UIDynamicAnimator&#x27;s</code> convenience method <code>itemsInRect</code>.</p><h2 id="0cb6552a-f94c-4b6c-98b6-e54c7d8622f2" class="">Swift<a class="header-anchor" href="#0cb6552a-f94c-4b6c-98b6-e54c7d8622f2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">final class DraggableLayout: UICollectionViewFlowLayout
+{
+    // Array that holds dragged index paths
+    var indexPathsForDraggingElements: [IndexPath]?
+    
+    // The dynamic animator that will animate drag behavior
+    var animator: UIDynamicAnimator?
+    
+    // Custom high-level behavior that dictates drag animation
+    var dragBehavior: DragBehavior?
+    
+    // Where dragging starts so can return there once dragging ends
+    var startDragPoint = CGPoint.zero
+    
+    // Bool to keep track if dragging has ended
+    var isFinishedDragging = false
+    
+    
+    // Method to inform layout that dragging has started
+    func startDragging(indexPaths selectedIndexPaths: [IndexPath], from point: CGPoint)
+    {
+        indexPathsForDraggingElements = selectedIndexPaths
+        animator = UIDynamicAnimator(collectionViewLayout: self)
+        animator?.delegate = self
+        
+        // Get all of the draggable attributes but change zIndex so above other cells
+        let draggableAttributes: [UICollectionViewLayoutAttributes] = selectedIndexPaths.flatMap {
+            let attribute = super.layoutAttributesForItem(at: $0)
+            attribute?.zIndex = 1
+            return attribute
+        }
+        
+        startDragPoint = point
+        
+        // Add them to high-level behavior
+        dragBehavior = DragBehavior(items: draggableAttributes, point: point)
+        
+        // Add high-level behavior to animator
+        animator?.addBehavior(dragBehavior!)
+    }
+    
+    func updateDragLocation(_ point: CGPoint)
+    {
+        // Tell high-level behavior that point has updated
+        dragBehavior?.updateDragLocation(with: point)
+    }
+    
+    func endDragging()
+    {
+        isFinishedDragging = true
+        
+        // Return high-level behavior to starting point
+        dragBehavior?.updateDragLocation(with: startDragPoint)
+    }
+    
+    func clearDraggedIndexPaths()
+    {
+        // Reset state for next drag event
+        animator = nil
+        indexPathsForDraggingElements = nil
+        isFinishedDragging = false
+    }
+    
+    override func layoutAttributesForElements(in rect: CGRect) -&gt; [UICollectionViewLayoutAttributes]?
+    {
+        let existingAttributes: [UICollectionViewLayoutAttributes] = super.layoutAttributesForElements(in: rect) ?? []
+        var allAttributes = [UICollectionViewLayoutAttributes]()
+        
+        // Get normal flow layout attributes for non-drag items
+        for attributes in existingAttributes
+        {
+            if (indexPathsForDraggingElements?.contains(attributes.indexPath) ?? false) == false
+            {
+                allAttributes.append(attributes)
+            }
+        }
+        
+        // Add dragged item attributes by asking animator for them
+        if let animator = self.animator
+        {
+            let animatorAttributes: [UICollectionViewLayoutAttributes] = animator.items(in: rect).flatMap { $0 as? UICollectionViewLayoutAttributes }
+            allAttributes.append(contentsOf: animatorAttributes)
+        }
+        return allAttributes
+    }
+}
+extension DraggableLayout: UIDynamicAnimatorDelegate
+{
+    func dynamicAnimatorDidPause(_ animator: UIDynamicAnimator)
+    {
+        // Animator has paused and done dragging; reset state
+        guard isFinishedDragging else { return }
+        clearDraggedIndexPaths()
+    }
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><h2 id="e1f399d1-7435-4fff-b467-bc3747f766b5" class="">Objective-C<a class="header-anchor" href="#e1f399d1-7435-4fff-b467-bc3747f766b5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">@interface DraggableLayout () &lt;UIDynamicAnimatorDelegate&gt;
+@property (nonatomic, strong) NSArray &lt;NSIndexPath *&gt; *indexPathsForDraggingElements;
+@property (nonatomic, strong) UIDynamicAnimator *animator;
+@property (nonatomic, assign) CGPoint startDragPoint;
+@property (nonatomic, assign) BOOL finishedDragging;
+@property (nonatomic, strong) DragBehavior *dragBehavior;
+@end
+
+@implementation DraggableLayout
+
+- (void)startDraggingWithIndexPaths:(NSArray &lt;NSIndexPath *&gt; *)selectedIndexPaths fromPoint:(CGPoint)point
+{
+    self.indexPathsForDraggingElements = selectedIndexPaths;
+    self.animator = [[UIDynamicAnimator alloc]initWithCollectionViewLayout:self];
+    self.animator.delegate = self;
+    NSMutableArray *draggableAttributes = [[NSMutableArray alloc]initWithCapacity:selectedIndexPaths.count];
+    for (NSIndexPath *indexPath in selectedIndexPaths)
+    {
+        UICollectionViewLayoutAttributes *attributes = [super layoutAttributesForItemAtIndexPath:indexPath];
+        attributes.zIndex = 1;
+        [draggableAttributes addObject:attributes];
+    }
+    self.startDragPoint = point;
+    self.dragBehavior = [[DragBehavior alloc]initWithItems:draggableAttributes point:point];
+    [self.animator addBehavior:self.dragBehavior];
+}
+
+- (void)updateDragLoactionWithPoint:(CGPoint)point
+{
+    [self.dragBehavior updateDragLocationWithPoint:point];
+}
+
+- (void)endDragging
+{
+    self.finishedDragging = YES;
+    [self.dragBehavior updateDragLocationWithPoint:self.startDragPoint];
+}
+
+- (void)clearDraggedIndexPath
+{
+    self.animator = nil;
+    self.indexPathsForDraggingElements = nil;
+    self.finishedDragging = NO;
+}
+
+- (void)dynamicAnimatorDidPause:(UIDynamicAnimator *)animator
+{
+    if (self.finishedDragging)
+    {
+        [self clearDraggedIndexPath];
+    }
+}
+
+- (NSArray&lt;UICollectionViewLayoutAttributes *&gt; *)layoutAttributesForElementsInRect:(CGRect)rect
+{
+    NSArray *existingAttributes = [super layoutAttributesForElementsInRect:rect];
+    NSMutableArray *allAttributes = [[NSMutableArray alloc]initWithCapacity:existingAttributes.count];
+    for (UICollectionViewLayoutAttributes *attributes in existingAttributes)
+    {
+        if (![self.indexPathsForDraggingElements containsObject:attributes.indexPath])
+        {
+            [allAttributes addObject:attributes];
+        }
+    }
+    [allAttributes addObjectsFromArray:[self.animator itemsInRect:rect]];
+    return allAttributes;
+}
+
+@end</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>Finally, we’ll create a view controller that will create our <code>UICollectionView</code> and handle our long press gesture.</p><h2 id="fbff58b6-9b06-4a9f-9e4b-f11c33ae3bde" class="">Swift<a class="header-anchor" href="#fbff58b6-9b06-4a9f-9e4b-f11c33ae3bde" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">final class ViewController: UIViewController
+{
+    // Collection view that displays cells
+    lazy var collectionView: UICollectionView =
+    {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: DraggableLayout())
+        collectionView.backgroundColor = .white
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(collectionView)
+        collectionView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor).isActive = true
+        
+        return collectionView
+    }()
+    
+    // Gesture that drives dragging
+    lazy var longPress: UILongPressGestureRecognizer =
+    {
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(sender:)))
+        return longPress
+    }()
+    
+    // Array that holds selected index paths
+    var selectedIndexPaths = [IndexPath]()
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: &#34;Cell&#34;)
+        collectionView.addGestureRecognizer(longPress)
+    }
+    
+    func handleLongPress(sender: UILongPressGestureRecognizer)
+    {
+        guard let draggableLayout = collectionView.collectionViewLayout as? DraggableLayout else { return }
+        let location = sender.location(in: collectionView)
+        switch sender.state
+        {
+        case .began:
+            draggableLayout.startDragging(indexPaths: selectedIndexPaths, from: location)
+        case .changed:
+            draggableLayout.updateDragLocation(location)
+        case .ended, .failed, .cancelled:
+            draggableLayout.endDragging()
+        case .possible:
+            break
+        }
+    }
+}
+extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource
+{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -&gt; Int
+    {
+        return 1000
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -&gt; UICollectionViewCell
+    {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: &#34;Cell&#34;, for: indexPath)
+        cell.backgroundColor = .gray
+        if selectedIndexPaths.contains(indexPath) == true
+        {
+            cell.backgroundColor = .red
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
+        // Bool that determines if cell is being selected or unselected
+        let isSelected = !selectedIndexPaths.contains(indexPath)
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.backgroundColor = isSelected ? .red : .gray
+        if isSelected
+        {
+            selectedIndexPaths.append(indexPath)
+        }
+        else
+        {
+            selectedIndexPaths.remove(at: selectedIndexPaths.index(of: indexPath)!)
+        }
+    }
+}</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><h2 id="36626e62-c177-4a37-961c-29a9b37082d0" class="">Objective-C<a class="header-anchor" href="#36626e62-c177-4a37-961c-29a9b37082d0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+<div class="code-box lang-Plain Text">
+	<div>
+	<pre class="chroma">@interface ViewController () &lt;UICollectionViewDelegate, UICollectionViewDataSource&gt;
+@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPress;
+@property (nonatomic, strong) NSMutableArray &lt;NSIndexPath *&gt; *selectedIndexPaths;
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@&#34;Cell&#34;];
+    [self.collectionView addGestureRecognizer:self.longPress];
+    self.selectedIndexPaths = [[NSMutableArray alloc]init];
+}
+
+- (UICollectionView *)collectionView
+{
+    if (!_collectionView)
+    {
+        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:[[DraggableLayout alloc]init]];
+        _collectionView.backgroundColor = [UIColor whiteColor];
+        _collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.view addSubview:_collectionView];
+        [_collectionView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor].active = YES;
+        [_collectionView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+        [_collectionView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
+        [_collectionView.bottomAnchor constraintEqualToAnchor:self.bottomLayoutGuide.topAnchor].active = YES;
+    }
+    return _collectionView;
+}
+
+- (UILongPressGestureRecognizer *)longPress
+{
+    if (!_longPress)
+    {
+        _longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress:)];
+    }
+    return _longPress;
+}
+
+- (void)handleLongPress:(UILongPressGestureRecognizer *)sender
+{
+    DraggableLayout *draggableLayout = (DraggableLayout *)self.collectionView.collectionViewLayout;
+    CGPoint location = [sender locationInView:self.collectionView];
+    if (sender.state == UIGestureRecognizerStateBegan)
+    {
+        [draggableLayout startDraggingWithIndexPaths:self.selectedIndexPaths fromPoint:location];
+    }
+    else if(sender.state == UIGestureRecognizerStateChanged)
+    {
+        [draggableLayout updateDragLoactionWithPoint:location];
+    }
+    else if(sender.state == UIGestureRecognizerStateEnded ||  sender.state == UIGestureRecognizerStateCancelled || sender.state == UIGestureRecognizerStateFailed)
+    {
+        [draggableLayout endDragging];
+    }
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 1000;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@&#34;Cell&#34; forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor grayColor];
+    if ([self.selectedIndexPaths containsObject:indexPath])
+    {
+        cell.backgroundColor = [UIColor redColor];
+    }
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    BOOL isSelected = ![self.selectedIndexPaths containsObject:indexPath];
+    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    if (isSelected)
+    {
+        cell.backgroundColor = [UIColor redColor];
+        [self.selectedIndexPaths addObject:indexPath];
+    }
+    else
+    {
+        cell.backgroundColor = [UIColor grayColor];
+        [self.selectedIndexPaths removeObject:indexPath];
+    }
+}
+
+@end</pre>
+	</div>
+	<div class="code-box-nav">
+		
+	</div>
+</div><p>For more information <a href="https://developer.apple.com/videos/play/wwdc2013/221/">2013 WWDC Session “Advanced Techniques with UIKit Dynamics”</a></p>
+
+      <div class="forum-link">
+  Found a mistake? Have a question or improvement idea?
+  <a href="#" onclick="showContact(); return false;">Let me know</a>.
+</div>
+
+      <form id="contact-form" action="https://formsubmit.co/kkowalczyk@gmail.com" method="POST">
+  <p>
+    <div class="contact-light">Feedback about page:</div>
+    <input type="text" name="page-url" id="contact-page-url" readonly />
+  </p>
+
+  <p>
+    <div class="contact-light">Feedback:</div>
+    <textarea name="message" id="msg-for-chris"></textarea>
+    <div class="contact-light">Optional: your email if you want me to get back to you: </div>
+    <input type="email" name="email" />
+    <input type="text" name="_honey" style="display:none">
+  </p>
+
+  <p>
+    <button type="submit" class="contact-btn">
+      Send Feedback
+    </button>
+
+    <button class="contact-btn" style="float: right;" onclick="hideContact(); return false;">
+      Cancel
+    </button>
+  </p>
+
+  <p>
+    <div data-netlify-recaptcha></div>
+  </p>
+</form>
+
+
+      <hr class="article-bottom-sep">
+    </div>
+
+    <div id="page-toc"></div>
+
+    <div id="chapter-toc-wrapper">
+      <hr />
+      <div class="hdr">Table Of Contents</div>
+      <div id="book-toc"></div>
+    </div>
+  </div>
+
+  <footer class="page__footer">
+  <div class="page__footer__left">
+    Maintained by
+    <a href="https://blog.kowalczyk.info" target="_blank">Krzysztof Kowalczyk</a>
+  </div>
+  <div class="share-me">
+    <a href="https://twitter.com/intent/tweet?text=%22Essential%20iOS%22%20-%20a%20free%20programming%20book&url=%2fessential%2fios%2f&via=kjk">Share
+      <b>Essential iOS</b> on&nbsp;
+      <svg class="icon-twitter">
+        <use xlink:href="#icon-twitter"></use>
+      </svg>
+    </a>
+  </div>
+  <div class="page__footer__right">
+    
+  </div>
+</footer>
+
+  
+
+</body>
+
+</html>
