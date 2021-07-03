@@ -3100,181 +3100,126 @@ gTocItems = [
     ""
   ],
   [
-    "os-signals-48f2d17d3a7644daafbaf0ca9c8b61ad",
-    -1,
-    488,
-    "OS Signals"
-  ],
-  [
-    "os-signals-48f2d17d3a7644daafbaf0ca9c8b61ad#04cb7643-3970-4824-a454-6c080d97675d",
-    487,
-    -1,
-    "Syntax - func Notify(c chan\u003c- os.Signal, sig …os.Signal)"
-  ],
-  [
-    "os-signals-48f2d17d3a7644daafbaf0ca9c8b61ad#1ffdad96-20a5-438b-b1f8-14fbd6007e8f",
-    487,
-    -1,
-    "Parameters"
-  ],
-  [
-    "assigning-signals-to-a-channel-1b8ad3f9dffe48d495eb39b67cbd4463",
-    487,
-    -1,
-    "Assigning signals to a channel",
-    ""
-  ],
-  [
     "testing-b55ab9b1d6e5499ea3014ba7e85d3efd",
     -1,
-    492,
+    488,
     "Testing"
   ],
   [
     "basic-test-c38b379e4a1145ea844469f37eb58f60",
-    491,
+    487,
     -1,
     "Basic Test",
     ""
   ],
   [
     "table-driven-unit-tests-e018f0ba4b244999bb275f6cd092eed3",
-    491,
+    487,
     -1,
     "Table-driven unit tests",
     ""
   ],
   [
     "testing-using-setup-and-teardown-function-27eb2961e6964ea4bea5f71c3a662540",
-    491,
+    487,
     -1,
     "Testing using setUp and tearDown function",
     ""
   ],
   [
     "benchmarks-46a94c1dbb58405b930fa83d3e6e0d89",
-    491,
+    487,
     -1,
     "Benchmarks",
     ""
   ],
   [
     "example-tests-self-documenting-tests-9565bb562345459b8035f92f0ab3290b",
-    491,
+    487,
     -1,
     "Example tests (self documenting tests)",
     ""
   ],
   [
     "testing-http-requests-61cffdad6908482cbb53200ad6f38105",
-    491,
+    487,
     -1,
     "Testing HTTP requests",
     ""
   ],
   [
     "setreset-mock-function-in-tests-43b824671cf9468898746168b1bd8c23",
-    491,
+    487,
     -1,
     "Set/Reset mock function in tests",
     ""
   ],
   [
     "view-code-coverage-in-html-format-9cb0942ab9e54f48848ee92d0d171b50",
-    491,
+    487,
     -1,
     "View code coverage in HTML format",
     ""
   ],
   [
-    "sending-emails-e9a9644511c447f9880819e7cd837540",
-    -1,
-    501,
-    "Sending emails"
-  ],
-  [
-    "sending-emails-e9a9644511c447f9880819e7cd837540#9016dee7-1f27-4a6e-b687-f18dff16e628",
-    500,
-    -1,
-    "Sending via smtp server using net/smtp"
-  ],
-  [
-    "sending-emails-e9a9644511c447f9880819e7cd837540#64e096e1-f55a-4b71-9cdd-2445b927ef80",
-    500,
-    -1,
-    "Sending via gmail"
-  ],
-  [
-    "sending-emails-e9a9644511c447f9880819e7cd837540#5172a123-98c7-4c1b-abbe-6a1129334ce1",
-    500,
-    -1,
-    "Sending via Fastmail"
-  ],
-  [
-    "sending-emails-e9a9644511c447f9880819e7cd837540#af3b1988-268a-4bbc-9542-8d2e704ae95c",
-    500,
-    -1,
-    "Using email package"
-  ],
-  [
     "calling-c-from-go-with-cgo-d3b0419346904e0bbf6dc28b69fc93c6",
     -1,
-    506,
+    497,
     "Calling C from GO with cgo"
   ],
   [
     "cgo-first-steps-tutorial-ed4cda13d7984045b85328a8d76211e5",
-    505,
-    507,
+    496,
+    498,
     "Cgo: First steps tutorial",
     ""
   ],
   [
     "cgo-first-steps-tutorial-ed4cda13d7984045b85328a8d76211e5#c57f4917-60e7-464c-98ce-5b34198a181c",
-    506,
+    497,
     -1,
     "What"
   ],
   [
     "cgo-first-steps-tutorial-ed4cda13d7984045b85328a8d76211e5#caf7c013-067d-4606-8ebb-e9e5ad12e44c",
-    506,
+    497,
     -1,
     "How"
   ],
   [
     "cgo-first-steps-tutorial-ed4cda13d7984045b85328a8d76211e5#7e8ed544-412e-4054-947c-d0eab6f29fca",
-    506,
+    497,
     -1,
     "The example"
   ],
   [
     "cgo-first-steps-tutorial-ed4cda13d7984045b85328a8d76211e5#257f0358-2074-488b-8cc0-ad36e2a9a470",
-    506,
+    497,
     -1,
     "Hello World!"
   ],
   [
     "cgo-first-steps-tutorial-ed4cda13d7984045b85328a8d76211e5#af597708-717f-4a01-9126-fef1df56fdc7",
-    506,
+    497,
     -1,
     "Sum of ints"
   ],
   [
     "cgo-first-steps-tutorial-ed4cda13d7984045b85328a8d76211e5#99729a0c-cf35-4327-a029-2138bfbb1778",
-    506,
+    497,
     -1,
     "Generating a binary"
   ],
   [
     "calling-c-function-from-go-74f0dafe207141b2a55febea87808d07",
-    505,
+    496,
     -1,
     "Calling C Function From Go",
     ""
   ],
   [
     "wire-c-and-go-code-in-all-directions-8d79b5922813415eb476b895ef16a469",
-    505,
+    496,
     -1,
     "Wire C and Go code in all directions",
     ""
@@ -3282,172 +3227,133 @@ gTocItems = [
   [
     "profiling-using-go-tool-pprof-83dc1f9b6ec04d25a2d2e7357b6bebba",
     -1,
-    516,
+    507,
     "Profiling using go tool pprof"
   ],
   [
     "basic-cpu-and-memory-profiling-07297cd72ed74f8aaa4ff89103022e43",
-    515,
+    506,
     -1,
     "Basic cpu and memory profiling",
     ""
   ],
   [
     "using-benchmarks-to-create-profile-18b5adddea9747878170a8de1ad485ac",
-    515,
+    506,
     -1,
     "Using Benchmarks to Create Profile",
     ""
   ],
   [
     "basic-memory-profiling-f1a9777182694f47824aa4c89e03a04b",
-    515,
+    506,
     -1,
     "Basic memory profiling",
     ""
   ],
   [
     "set-cpublock-profile-rate-56226f2526724fca8e20d077003ac0cc",
-    515,
+    506,
     -1,
     "Set CPU/Block profile rate",
     ""
   ],
   [
     "accessing-profile-file-27a1de144c7c4b249a1d70d433a70926",
-    515,
+    506,
     -1,
     "Accessing Profile File",
     ""
   ],
   [
-    "developing-for-multiple-platforms-with-conditional-compiling-46593e7f95ef4e47bfa60b882cb71c93",
-    -1,
-    522,
-    "Developing for Multiple Platforms with Conditional Compiling"
-  ],
-  [
-    "developing-for-multiple-platforms-with-conditional-compiling-46593e7f95ef4e47bfa60b882cb71c93#5fe509bb-505b-4468-a22e-ae882f7d0f9f",
-    521,
-    -1,
-    "Syntax"
-  ],
-  [
-    "developing-for-multiple-platforms-with-conditional-compiling-46593e7f95ef4e47bfa60b882cb71c93#5873c557-4bed-492e-b176-499d87e72fc8",
-    521,
-    -1,
-    "Remarks"
-  ],
-  [
-    "build-tags-fa82b41854754966a554708b38e38311",
-    521,
-    -1,
-    "Build tags",
-    ""
-  ],
-  [
-    "file-suffix-2daca7f70f3b4ee2ab5507253ce7851f",
-    521,
-    -1,
-    "File suffix",
-    ""
-  ],
-  [
-    "defining-separate-behaviors-in-different-platforms-d0976f3c277e4a6da8a33a066c1a6410",
-    521,
-    -1,
-    "Defining separate behaviors in different platforms",
-    ""
-  ],
-  [
     "cross-compilation-41fdbdecca7b42c3b4b98e5ec0a96e13",
     -1,
-    528,
+    513,
     "Cross compilation"
   ],
   [
     "cross-compilation-41fdbdecca7b42c3b4b98e5ec0a96e13#5b80a126-7da8-45c9-9c47-9d3dea078eca",
-    527,
+    512,
     -1,
     "Introduction"
   ],
   [
     "cross-compilation-41fdbdecca7b42c3b4b98e5ec0a96e13#2ebc22e2-c01c-4960-95a6-eeaa520dfbde",
-    527,
+    512,
     -1,
     "Basics of cross-compilation"
   ],
   [
     "cross-compilation-41fdbdecca7b42c3b4b98e5ec0a96e13#47e8de6e-8978-4eaf-a6a8-6914e92f4822",
-    527,
+    512,
     -1,
     "Example cross-compilation from Linux or Mac"
   ],
   [
     "cross-compilation-41fdbdecca7b42c3b4b98e5ec0a96e13#30c957ce-a4e6-485a-962b-6ed73706faac",
-    527,
+    512,
     -1,
     "Example cross-compilation from Windows"
   ],
   [
     "cross-compilation-41fdbdecca7b42c3b4b98e5ec0a96e13#feda1259-425a-4060-9550-2eae24656391",
-    527,
+    512,
     -1,
     "Cross-compiling with gox"
   ],
   [
     "conditional-compilation-with-build-tags-d1980344374d45c082c914c2aafa50cf",
     -1,
-    534,
+    519,
     "Conditional compilation with build tags"
   ],
   [
     "conditional-compilation-with-build-tags-d1980344374d45c082c914c2aafa50cf#3dd6350b-e644-40c6-baa8-497b89a26b4c",
-    533,
+    518,
     -1,
     "Specifying multiple tags"
   ],
   [
     "conditional-compilation-with-build-tags-d1980344374d45c082c914c2aafa50cf#5232d827-9e74-4d2c-bc5a-c09b21613241",
-    533,
+    518,
     -1,
     "Ignoring files (excluding from compilation)"
   ],
   [
     "conditional-compilation-with-build-tags-d1980344374d45c082c914c2aafa50cf#a5792475-8be7-4cf8-a3c7-e02713bb2ce3",
-    533,
+    518,
     -1,
     "Predefined build tags"
   ],
   [
     "conditional-compilation-with-build-tags-d1980344374d45c082c914c2aafa50cf#b7ec96ef-49f7-45d1-988f-fcc0a181a719",
-    533,
+    518,
     -1,
     "Using file name in place of a build tag"
   ],
   [
     "conditional-compilation-with-build-tags-d1980344374d45c082c914c2aafa50cf#14e05f2d-ec9f-4f4b-b33b-9c5b808cffb5",
-    533,
+    518,
     -1,
     "Pitfalls"
   ],
   [
     "separate-integration-tests-e87a5c85871841818bdb00f2bcdb7c94",
-    533,
+    518,
     -1,
     "Separate integration tests",
     ""
   ],
   [
     "optimized-implementations-for-specific-architectures-11b418b38f3d4b98be1ce87a3cc5188b",
-    533,
+    518,
     -1,
     "Optimized implementations for specific architectures",
     ""
   ],
   [
     "dev-vs-production-builds-dea3a5f72c65452d989fefb2a2980d38",
-    533,
+    518,
     -1,
     "Dev vs. production builds",
     ""
@@ -3455,24 +3361,24 @@ gTocItems = [
   [
     "inlining-functions-c2af72789a074a3aacf8d308f898f32c",
     -1,
-    543,
+    528,
     "Inlining functions"
   ],
   [
     "inlining-functions-c2af72789a074a3aacf8d308f898f32c#b27b506f-47b7-4df6-9963-5b0d553505a4",
-    542,
+    527,
     -1,
     "Checking if a function was inlined"
   ],
   [
     "inlining-functions-c2af72789a074a3aacf8d308f898f32c#94974b44-e45d-4579-89ea-21abc6437e65",
-    542,
+    527,
     -1,
     "Rewriting functions to improve inlining"
   ],
   [
     "inlining-functions-c2af72789a074a3aacf8d308f898f32c#548c0ae7-d87a-4fdc-b72b-878e31d989f9",
-    542,
+    527,
     -1,
     "Disabling inline expansion"
   ],
@@ -3485,104 +3391,42 @@ gTocItems = [
   [
     "gob-a09f2d8c9bba44e0acd0a9206e8f733f",
     -1,
-    548,
+    533,
     "gob"
   ],
   [
     "gob-a09f2d8c9bba44e0acd0a9206e8f733f#e36bda19-af74-45bd-b64f-648b76ed66bf",
-    547,
+    532,
     -1,
     "Encode data to file and decode from file"
   ],
   [
     "gob-a09f2d8c9bba44e0acd0a9206e8f733f#92a11cd1-d920-48da-8b6f-497dab1289a2",
-    547,
+    532,
     -1,
     "Encode an interface"
   ],
   [
     "gob-a09f2d8c9bba44e0acd0a9206e8f733f#fd7efce1-9b9e-4227-a84f-bc47d0aff15f",
-    547,
+    532,
     -1,
     "Decode an interface"
   ],
   [
-    "object-oriented-programming-7ccfe1697c3149c383b68894ede37d84",
-    -1,
-    552,
-    "Object oriented programming"
-  ],
-  [
-    "object-oriented-programming-7ccfe1697c3149c383b68894ede37d84#fe8da1c3-4565-46b4-a789-2d09c5f656ae",
-    551,
-    -1,
-    "Methods encapsulate logic"
-  ],
-  [
-    "object-oriented-programming-7ccfe1697c3149c383b68894ede37d84#f3f8e026-e7ca-4485-8a8e-e6f0961b5871",
-    551,
-    -1,
-    "Embedding "
-  ],
-  [
-    "object-oriented-programming-7ccfe1697c3149c383b68894ede37d84#e8adfb2a-3a96-4c96-b0c1-6bdd7bb1193c",
-    551,
-    -1,
-    "Pointer vs. value receiver"
-  ],
-  [
-    "object-oriented-programming-7ccfe1697c3149c383b68894ede37d84#b423b113-5fe3-43d6-b36a-ad285953a505",
-    551,
-    -1,
-    "Embedding is not inheritance or polymorphism"
-  ],
-  [
-    "object-oriented-programming-7ccfe1697c3149c383b68894ede37d84#78e313f7-b2d4-4de3-a80f-d48118003ccd",
-    551,
-    -1,
-    "Interface for polymorhism"
-  ],
-  [
-    "interface-polymorphism-698adf30b5e54d2d8e282053c556682a",
-    551,
-    -1,
-    "Interface \u0026 polymorphism",
-    ""
-  ],
-  [
-    "vendoring-f607080237994969b4effb498179d5be",
-    -1,
-    559,
-    "Vendoring"
-  ],
-  [
-    "use-golangdep-5e49b6abed294b9f84018196aa44c259",
-    558,
-    560,
-    "Use golang/dep",
-    ""
-  ],
-  [
-    "use-golangdep-5e49b6abed294b9f84018196aa44c259#050a4ecc-5fcf-49e5-b7d2-ffc55107128e",
-    559,
-    -1,
-    "Usage"
-  ],
-  [
     "plugin-9f2c4121df7e4b3f818131c49676387b",
     -1,
-    562,
+    537,
     "Plugin"
   ],
   [
     "plugin-9f2c4121df7e4b3f818131c49676387b#aa55d71b-a2aa-4e5f-aafa-805dca043769",
-    561,
+    536,
     -1,
     "Introduction"
   ],
   [
     "defining-and-using-a-plugin-40da6aa65709423fb43c3a8f30d24735",
-    561,
+    536,
     -1,
     "Defining and using a plugin",
     ""
@@ -3590,52 +3434,52 @@ gTocItems = [
   [
     "http-server-middleware-d8b9c9c2a49e4ba8a04cf7ff6ee2db0f",
     -1,
-    565,
+    540,
     "HTTP server middleware"
   ],
   [
     "http-server-middleware-d8b9c9c2a49e4ba8a04cf7ff6ee2db0f#4041525e-e38f-4ec7-b722-1aa783d674cd",
-    564,
+    539,
     -1,
     "Introduction"
   ],
   [
     "http-server-middleware-d8b9c9c2a49e4ba8a04cf7ff6ee2db0f#ef0b43a8-44df-446f-9c6a-aa9b762857a3",
-    564,
+    539,
     -1,
     "Remarks"
   ],
   [
     "normal-handler-function-27035434c281439c975355f038d2f005",
-    564,
+    539,
     -1,
     "Normal Handler Function",
     ""
   ],
   [
     "middleware-calculate-time-required-for-handlerfunc-to-execute-f98df9157cba406da5b5252d130dbee0",
-    564,
+    539,
     -1,
     "Middleware Calculate time required for handlerFunc to execute",
     ""
   ],
   [
     "cors-middleware-8e1ae5467a784808a0cfc586728e61c1",
-    564,
+    539,
     -1,
     "CORS Middleware",
     ""
   ],
   [
     "auth-middleware-9c246a87cf6d45b8a9b85b6b18083eeb",
-    564,
+    539,
     -1,
     "Auth Middleware",
     ""
   ],
   [
     "recovery-handler-to-prevent-server-from-crashing-438d8232b65e4659a6667c9c68e67bf9",
-    564,
+    539,
     -1,
     "Recovery Handler to prevent server from crashing",
     ""
@@ -3643,24 +3487,24 @@ gTocItems = [
   [
     "protobuf-in-go-b5c70cd2244f48a0b89aebc75ef45ad0",
     -1,
-    573,
+    548,
     "Protobuf in Go"
   ],
   [
     "protobuf-in-go-b5c70cd2244f48a0b89aebc75ef45ad0#fdd2121c-a000-4b78-b30c-6ed8bd01fe4e",
-    572,
+    547,
     -1,
     "Introduction"
   ],
   [
     "protobuf-in-go-b5c70cd2244f48a0b89aebc75ef45ad0#22a268c2-f5a7-4d0e-88ed-1cc72004cccf",
-    572,
+    547,
     -1,
     "Remarks"
   ],
   [
     "using-protobuf-with-go-768c82b852f0435ab969f6a76eb1b0a2",
-    572,
+    547,
     -1,
     "Using Protobuf with Go",
     ""
@@ -3668,173 +3512,119 @@ gTocItems = [
   [
     "console-io-ddc28bcf51794ae5b021b8c0d9423497",
     -1,
-    577,
+    552,
     "Console I/O"
   ],
   [
     "console-io-ddc28bcf51794ae5b021b8c0d9423497#e5157392-ea74-425d-acc6-8c8ae6880b43",
-    576,
+    551,
     -1,
     "fmt.Scanf to read from stdio"
   ],
   [
     "console-io-ddc28bcf51794ae5b021b8c0d9423497#51e15af4-0230-4a06-a918-ba25ec7b47a7",
-    576,
+    551,
     -1,
     "fmt.Scanln to read a line from stdin"
   ],
   [
     "console-io-ddc28bcf51794ae5b021b8c0d9423497#7669dab6-c1ed-433e-bc2f-9aaa04779eae",
-    576,
+    551,
     -1,
     "bufio.Reader to read a line from stdin"
   ],
   [
     "console-io-ddc28bcf51794ae5b021b8c0d9423497#b024c22d-efe0-4728-b314-d9cb75cdfaca",
-    576,
+    551,
     -1,
     "bufio.Scanner to read a line from stdin"
   ],
   [
     "cryptography-301bb328156d420694ebf5489d2cb744",
     -1,
-    582,
+    557,
     "Cryptography"
   ],
   [
     "cryptography-301bb328156d420694ebf5489d2cb744#2a65dc46-b891-4ec0-8385-fd4f35d6f0f1",
-    581,
+    556,
     -1,
     "Introduction"
   ],
   [
     "encryption-and-decryption-with-aes-gcm-474ffe54eb92473b908b5ef162789cad",
-    581,
+    556,
     -1,
     "Encryption and decryption with AES GCM",
     ""
   ],
   [
-    "jwt-authorization-307fa1e611a148199b56b002fddddb27",
-    -1,
-    585,
-    "JWT Authorization"
-  ],
-  [
-    "jwt-authorization-307fa1e611a148199b56b002fddddb27#96d60654-80a5-41f8-9b95-3f91c2e99a8b",
-    584,
-    -1,
-    "Remarks"
-  ],
-  [
-    "parsing-and-validating-a-token-using-the-hmac-signing-method-3b6d219760cb479cae65bfc7f185c1b7",
-    584,
-    -1,
-    "Parsing and validating a token using the HMAC signing method",
-    ""
-  ],
-  [
-    "creating-a-token-using-a-custom-claims-type-5a5cc8a08ed047028224b65b25a8f5b9",
-    584,
-    -1,
-    "Creating a token using a custom claims type",
-    ""
-  ],
-  [
-    "creating-signing-and-encoding-a-jwt-token-using-the-hmac-signing-method-fac419d3bbb8462489de35b0321d9c4e",
-    584,
-    -1,
-    "Creating, signing, and encoding a JWT token using the HMAC signing method",
-    ""
-  ],
-  [
-    "parsing-the-error-types-using-bitfield-checks-deb6f6f3d96448ff98a5bbbf8daa4689",
-    584,
-    -1,
-    "Parsing the error types using bitfield checks",
-    ""
-  ],
-  [
-    "getting-token-from-http-authorization-header-bfb8f73b6fd24333b5a0de5631d7c38e",
-    584,
-    -1,
-    "Getting token from HTTP Authorization header",
-    ""
-  ],
-  [
-    "using-the-standardclaims-type-by-itself-to-parse-a-token-f52d53e241054dec84b8de637734fea7",
-    584,
-    -1,
-    "Using the StandardClaims type by itself to parse a token",
-    ""
-  ],
-  [
     "images-png-jpeg-bmp-tiff-webp-vp8-gif-c84a45304ec3498081c67aa1ea0d9c49",
     -1,
-    593,
+    560,
     "Images (PNG, JPEG, BMP, TIFF, WEBP, VP8, GIF)"
   ],
   [
     "basic-concepts-6b5c9d8be67143778d83c99b9fbc3864",
-    592,
-    594,
+    559,
+    561,
     "Basic concepts",
     ""
   ],
   [
     "basic-concepts-6b5c9d8be67143778d83c99b9fbc3864#ca93b963-6c8f-4ed6-8e6e-27e54697b7d1",
-    593,
+    560,
     -1,
     "Image related type"
   ],
   [
     "basic-concepts-6b5c9d8be67143778d83c99b9fbc3864#12f3c4e8-1c30-45b1-816f-9b1055e84595",
-    593,
+    560,
     -1,
     "Accessing image dimension and pixel"
   ],
   [
     "loading-and-saving-image-0d267f6d589a4d689212c5e4718590c3",
-    592,
-    597,
+    559,
+    564,
     "Loading and saving image",
     ""
   ],
   [
     "loading-and-saving-image-0d267f6d589a4d689212c5e4718590c3#a4770d27-97cc-448b-9327-6bb5a32f64ca",
-    596,
+    563,
     -1,
     "Save to PNG"
   ],
   [
     "loading-and-saving-image-0d267f6d589a4d689212c5e4718590c3#501d6070-019a-480c-bf43-02c74c305b9a",
-    596,
+    563,
     -1,
     "Save to JPEG"
   ],
   [
     "loading-and-saving-image-0d267f6d589a4d689212c5e4718590c3#6422a43d-701c-4622-b81b-3751386c9cb9",
-    596,
+    563,
     -1,
     "Save to GIF"
   ],
   [
     "cropping-image-9294fd2a3da04b2d97628aa8c49e0b53",
-    592,
+    559,
     -1,
     "Cropping image",
     ""
   ],
   [
     "convert-color-image-to-grayscale-deec25d33ac24a3f9137e974a1d7c100",
-    592,
+    559,
     -1,
     "Convert color image to grayscale",
     ""
   ],
   [
     "resizing-images-37c5b377b3694fb58495114c58824c80",
-    592,
+    559,
     -1,
     "Resizing images",
     ""
@@ -3842,177 +3632,171 @@ gTocItems = [
   [
     "the-go-command-f2028ab74a354cf2ba6a86acfb813356",
     -1,
-    604,
+    571,
     "The Go Command"
   ],
   [
     "go-fmt-df89df4a22e74a63abddd40326d58e8b",
-    603,
+    570,
     -1,
     "go fmt",
     ""
   ],
   [
     "go-run-9539e49f085b441cb84a30306f8442b1",
-    603,
-    606,
+    570,
+    573,
     "go run",
     ""
   ],
   [
     "go-run-9539e49f085b441cb84a30306f8442b1#084432db-3e0b-43d0-b4e7-e2a139cab1f6",
-    605,
+    572,
     -1,
     "Run multiple files in package"
   ],
   [
     "go-build-efce7a0e6a5d449887010bfd88ab6f94",
-    603,
-    608,
+    570,
+    575,
     "go build",
     ""
   ],
   [
     "go-build-efce7a0e6a5d449887010bfd88ab6f94#b835570c-371f-47f9-8573-e519f8668e70",
-    607,
+    574,
     -1,
     "Specify OS or Architecture in build:"
   ],
   [
     "go-build-efce7a0e6a5d449887010bfd88ab6f94#6a014d68-1609-4d6d-bd75-24dd5775724d",
-    607,
+    574,
     -1,
     "Build multiple files"
   ],
   [
     "go-build-efce7a0e6a5d449887010bfd88ab6f94#2e1e1049-c655-43fd-a43e-8da2d248b0f7",
-    607,
+    574,
     -1,
     "Building a package"
   ],
   [
     "go-clean-4407620a0a6a44de8fe42c1f783132e1",
-    603,
+    570,
     -1,
     "go clean",
     ""
   ],
   [
     "go-get-5ab3b56329c44058b5b24d3f364183ce",
-    603,
+    570,
     -1,
     "go get",
     ""
   ],
   [
     "go-env-9eb92fc69cb14ba1b15fde885aee3832",
-    603,
+    570,
     -1,
     "go env",
     ""
   ],
   [
     "go-test-2d972d9d063b4b51ae36728a041649ee",
-    603,
+    570,
     -1,
     "go test",
     ""
   ],
   [
-    "pretty-printing-structures-e6b89f7a1cc04b89a1fa6bb1aeda381f",
-    -1,
-    -1,
-    "Pretty printing structures"
-  ],
-  [
     "testing-code-with-ci-services-0ada5cfc7c4a4217af2e62d01df777de",
     -1,
-    617,
+    583,
     "Testing code with CI services"
   ],
   [
     "test-go-code-with-github-actions-0b10d70dc6f34c97a461a5bf29875b72",
-    616,
-    618,
+    582,
+    584,
     "Test Go code with GitHub actions",
     ""
   ],
   [
     "test-go-code-with-github-actions-0b10d70dc6f34c97a461a5bf29875b72#0d64d8d3-8ca7-4168-bb36-0f0494b4f7f5",
-    617,
+    583,
     -1,
     "Workflow"
   ],
   [
     "test-go-code-with-github-actions-0b10d70dc6f34c97a461a5bf29875b72#a18d0cf3-6ee7-401a-b79b-4aebdfef0b91",
-    617,
+    583,
     -1,
     "Action"
   ],
   [
     "windows-gui-programming-944154630ac54def857caa8b50dd1b59",
     -1,
-    621,
+    587,
     "Windows GUI programming"
   ],
   [
     "a-first-window-app-e87631a7f8a94e8f92f9114e8e6baf0a",
-    620,
-    622,
+    586,
+    588,
     "A first window app",
     ""
   ],
   [
     "a-first-window-app-e87631a7f8a94e8f92f9114e8e6baf0a#5566d847-0fef-42af-856d-b87d8a0c9648",
-    621,
+    587,
     -1,
     "Defining window layout"
   ],
   [
     "a-first-window-app-e87631a7f8a94e8f92f9114e8e6baf0a#512b882c-184e-487a-a3ae-51898a5a8518",
-    621,
+    587,
     -1,
     "Creating a window"
   ],
   [
     "a-first-window-app-e87631a7f8a94e8f92f9114e8e6baf0a#6bed5e72-f511-43e0-9a39-adc0a58510c2",
-    621,
+    587,
     -1,
     "Running event loop"
   ],
   [
     "a-first-window-app-e87631a7f8a94e8f92f9114e8e6baf0a#d3b4b1db-9eb8-401c-b176-f2218bc6b3f7",
-    621,
+    587,
     -1,
     "Thread-safe access to widget via synchronization"
   ],
   [
     "a-first-window-app-e87631a7f8a94e8f92f9114e8e6baf0a#3aef20e2-e640-4d47-bd8b-8f60f9e730e0",
-    621,
+    587,
     -1,
     "Handling events"
   ],
   [
     "a-first-window-app-e87631a7f8a94e8f92f9114e8e6baf0a#b85ea631-1592-43d5-a118-d8c35d9e2626",
-    621,
+    587,
     -1,
     "Setting the content of a label"
   ],
   [
     "a-first-window-app-e87631a7f8a94e8f92f9114e8e6baf0a#a312ad58-6125-463d-8bc4-36236b4b549a",
-    621,
+    587,
     -1,
     "Setting the content of ListBox"
   ],
   [
     "a-first-window-app-e87631a7f8a94e8f92f9114e8e6baf0a#55278934-3af7-4064-9ff1-025d622c456a",
-    621,
+    587,
     -1,
     "Application logic"
   ],
   [
     "a-first-window-app-e87631a7f8a94e8f92f9114e8e6baf0a#ddb74856-cec0-4cba-8742-14c50b95dd1d",
-    621,
+    587,
     -1,
     "Compiling as a windows application"
   ],

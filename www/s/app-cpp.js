@@ -7188,54 +7188,34 @@ gTocItems = [
     "const Function Parameters:"
   ],
   [
-    "data-structures-e105eeaae8c44f5cb41290c65bdf217a",
-    -1,
-    1084,
-    "Data structures"
-  ],
-  [
-    "data-structures-in-c-20ee9ca7e5384068a741a88bca3564e8",
-    1083,
-    -1,
-    "Data Structures in C",
-    ""
-  ],
-  [
-    "linked-list-implementation-in-c-0940369760f543759c85697ee0e032be",
-    1083,
-    -1,
-    "Linked List implementation in C",
-    ""
-  ],
-  [
     "refactoring-techniques-d5db2d0f24c44bf6a1d3fc170bfb1b75",
     -1,
-    1087,
+    1084,
     "Refactoring techniques"
   ],
   [
     "refactoring-techniques-0c3dd75853e64843b6dda0597143160f",
-    1086,
-    1088,
+    1083,
+    1085,
     "Refactoring Techniques",
     ""
   ],
   [
     "refactoring-techniques-0c3dd75853e64843b6dda0597143160f#cceb4cd2-2f02-44d7-9a21-884136b9f148",
-    1087,
+    1084,
     -1,
     "Introduction"
   ],
   [
     "goto-cleanup-485e779d1e5b49f7811d34d5aa233799",
-    1086,
+    1083,
     -1,
     "Goto Cleanup",
     ""
   ],
   [
     "refactoring-walk-through-1b43083350134eb381dfbf8c3a050aa3",
-    1086,
+    1083,
     -1,
     "Refactoring walk through",
     ""
@@ -7243,32 +7223,32 @@ gTocItems = [
   [
     "parameter-packs-b4ae7d5c1d5646c7a0d99af16a5bad5f",
     -1,
-    1092,
+    1089,
     "Parameter packs"
   ],
   [
     "parameter-packs-a56c59fdcbc741e583905150195082f9",
-    1091,
-    1093,
+    1088,
+    1090,
     "Parameter packs",
     ""
   ],
   [
     "parameter-packs-a56c59fdcbc741e583905150195082f9#61161f9d-be91-4273-9abb-cdd932d19118",
-    1092,
+    1089,
     -1,
     "Versions"
   ],
   [
     "a-template-with-a-parameter-pack-dc4cc65fae1c429e8101ba2093b10d92",
-    1091,
+    1088,
     -1,
     "A template with a parameter pack",
     ""
   ],
   [
     "expansion-of-a-parameter-pack-e1cffb2bb6a34d1e8150276b4994e76d",
-    1091,
+    1088,
     -1,
     "Expansion of a parameter pack",
     ""
@@ -7276,54 +7256,54 @@ gTocItems = [
   [
     "iteration-13e1fda6ad154061a10ed4a621970eb7",
     -1,
-    1097,
+    1094,
     "Iteration"
   ],
   [
     "iteration-d77927d8be0c4f798fee6b03a2e7d35d",
-    1096,
+    1093,
     -1,
     "Iteration",
     ""
   ],
   [
     "break-e4026f4206af4bc58504b0657cbc4cf7",
-    1096,
+    1093,
     -1,
     "break",
     ""
   ],
   [
     "continue-8c4ae9b5945845238e220e2798c0bfc9",
-    1096,
+    1093,
     -1,
     "continue",
     ""
   ],
   [
     "do-cad8481e177543c79b7be2f6d94cac63",
-    1096,
+    1093,
     -1,
     "do",
     ""
   ],
   [
     "for-be0598153b6640109fd6b3965bb43677",
-    1096,
+    1093,
     -1,
     "for",
     ""
   ],
   [
     "while-ad16aa2a3dfe41f985535db1453dcbee",
-    1096,
+    1093,
     -1,
     "while",
     ""
   ],
   [
     "range-based-for-loop-097c76811d014163888bb744ef9e8ac3",
-    1096,
+    1093,
     -1,
     "range-based for loop",
     ""
@@ -7331,39 +7311,39 @@ gTocItems = [
   [
     "type-deduction-29483c03d3f3426cbd916dba06c1c86f",
     -1,
-    1105,
+    1102,
     "type deduction"
   ],
   [
     "type-deduction-f7b9bf5e6b34469bbcdba666fa418ca3",
-    1104,
-    1106,
+    1101,
+    1103,
     "type deduction",
     ""
   ],
   [
     "type-deduction-f7b9bf5e6b34469bbcdba666fa418ca3#2e7dc0c9-31ae-481d-90b6-fca79d7b5b86",
-    1105,
+    1102,
     -1,
     "Remarks"
   ],
   [
     "template-parameter-deduction-for-constructors-c74f9da16e87445f923866af661c7e43",
-    1104,
+    1101,
     -1,
     "Template parameter deduction for constructors",
     ""
   ],
   [
     "auto-type-deduction-1eb1f64e201348f69578ac64ca433d83",
-    1104,
+    1101,
     -1,
     "Auto Type Deduction",
     ""
   ],
   [
     "template-type-deduction-c717632b31ac494fafabd1c32106bae2",
-    1104,
+    1101,
     -1,
     "Template Type Deduction",
     ""
@@ -7371,74 +7351,74 @@ gTocItems = [
   [
     "c-11-memory-model-5731e795bc6e4f67a20fe1ea328ebb4e",
     -1,
-    1111,
+    1108,
     "C++ 11 memory model"
   ],
   [
     "c-11-memory-model-e29d934b41c14a3b8e37b2cbb26b4201",
-    1110,
-    1112,
+    1107,
+    1109,
     "C 11 Memory Model",
     ""
   ],
   [
     "c-11-memory-model-e29d934b41c14a3b8e37b2cbb26b4201#e1bc06d5-a4bc-4063-953d-c234a75ec17d",
-    1111,
+    1108,
     -1,
     "Versions"
   ],
   [
     "c-11-memory-model-e29d934b41c14a3b8e37b2cbb26b4201#b4db6b4b-40e3-4e10-9e96-aa538e2f897e",
-    1111,
+    1108,
     -1,
     "Remarks"
   ],
   [
     "c-11-memory-model-e29d934b41c14a3b8e37b2cbb26b4201#d54bfc40-2fd7-41e7-b7fc-cd625507d573",
-    1111,
+    1108,
     -1,
     "Atomic Operations"
   ],
   [
     "c-11-memory-model-e29d934b41c14a3b8e37b2cbb26b4201#d370782d-4adc-4125-abbf-d07daa8ccbcd",
-    1111,
+    1108,
     -1,
     "Sequential Consistency"
   ],
   [
     "c-11-memory-model-e29d934b41c14a3b8e37b2cbb26b4201#86ab1053-4073-476e-9692-e389aabc8e9a",
-    1111,
+    1108,
     -1,
     "Relaxed Ordering"
   ],
   [
     "c-11-memory-model-e29d934b41c14a3b8e37b2cbb26b4201#8f4f9b79-0da7-49f2-9466-82ca9798de98",
-    1111,
+    1108,
     -1,
     "Release-Acquire Ordering"
   ],
   [
     "c-11-memory-model-e29d934b41c14a3b8e37b2cbb26b4201#47874d04-4640-4631-a0df-90227e2b08a7",
-    1111,
+    1108,
     -1,
     "Release-Consume Ordering"
   ],
   [
     "c-11-memory-model-e29d934b41c14a3b8e37b2cbb26b4201#89e0c40d-1c6e-4ffc-b130-39319bed51f1",
-    1111,
+    1108,
     -1,
     "Fences"
   ],
   [
     "need-for-memory-model-7c8c771528bf418a92af0f455add0ba6",
-    1110,
+    1107,
     -1,
     "Need for Memory Model",
     ""
   ],
   [
     "fence-example-6b4b3b9c705f469399cbdcaa0d86c8ff",
-    1110,
+    1107,
     -1,
     "Fence example",
     ""
@@ -7446,167 +7426,167 @@ gTocItems = [
   [
     "build-systems-ffc91cd7ce2e43bd83f9dd500633c0a2",
     -1,
-    1123,
+    1120,
     "Build systems"
   ],
   [
     "build-systems-9d700286a7b44e81add7e4d26fbe1770",
-    1122,
-    1124,
+    1119,
+    1121,
     "Build Systems",
     ""
   ],
   [
     "build-systems-9d700286a7b44e81add7e4d26fbe1770#fd27ab1f-a4ba-44ac-b28f-62fc6a755001",
-    1123,
+    1120,
     -1,
     "Introduction"
   ],
   [
     "build-systems-9d700286a7b44e81add7e4d26fbe1770#84537d61-ab51-47b5-a94a-c8a7e9bead8c",
-    1123,
+    1120,
     -1,
     "Remarks"
   ],
   [
     "generating-build-environment-with-cmake-b4a91f2994514741a0ddef2eca76bee2",
-    1122,
+    1119,
     -1,
     "Generating Build Environment with CMake",
     ""
   ],
   [
     "compiling-with-gnu-make-979a7486119f492faca41e0cf2f68cc0",
-    1122,
-    1128,
+    1119,
+    1125,
     "Compiling with GNU make",
     ""
   ],
   [
     "compiling-with-gnu-make-979a7486119f492faca41e0cf2f68cc0#31dcb302-6bd8-470d-b96f-0c67e7624435",
-    1127,
+    1124,
     -1,
     "Introduction"
   ],
   [
     "compiling-with-gnu-make-979a7486119f492faca41e0cf2f68cc0#3284cad5-6100-4237-8a74-e983fa3aa30e",
-    1127,
+    1124,
     -1,
     "Basic rules"
   ],
   [
     "compiling-with-gnu-make-979a7486119f492faca41e0cf2f68cc0#c1a645bb-dd85-4e10-bd91-34db12da3fe6",
-    1127,
+    1124,
     -1,
     "Incremental builds"
   ],
   [
     "compiling-with-gnu-make-979a7486119f492faca41e0cf2f68cc0#044e1658-f794-448f-bcc0-a1b97b7a80bf",
-    1127,
+    1124,
     -1,
     "Documentation"
   ],
   [
     "building-with-scons-9b11bba349b3471e899b45a08574547c",
-    1122,
+    1119,
     -1,
     "Building with SCons",
     ""
   ],
   [
     "autotools-gnu-4d97de50f8c64c64a9bbdb1e733e371c",
-    1122,
-    1134,
+    1119,
+    1131,
     "Autotools GNU",
     ""
   ],
   [
     "autotools-gnu-4d97de50f8c64c64a9bbdb1e733e371c#de62b56b-5cbc-41e0-aa46-0e792abba121",
-    1133,
+    1130,
     -1,
     "Introduction"
   ],
   [
     "ninja-01f273ddbfd04f9b9e5fbdba971dfe17",
-    1122,
-    1136,
+    1119,
+    1133,
     "Ninja",
     ""
   ],
   [
     "ninja-01f273ddbfd04f9b9e5fbdba971dfe17#f7998863-3eea-46e8-81cb-3f126ae614fe",
-    1135,
+    1132,
     -1,
     "Introduction"
   ],
   [
     "nmake-microsoft-program-maintenance-utility-06e401f006fb47fc94021318c347d676",
-    1122,
-    1138,
+    1119,
+    1135,
     "NMAKE Microsoft Program Maintenance Utility",
     ""
   ],
   [
     "nmake-microsoft-program-maintenance-utility-06e401f006fb47fc94021318c347d676#8533b65f-c07a-4fa6-8302-af0a20f04df9",
-    1137,
+    1134,
     -1,
     "Introduction"
   ],
   [
     "concurrency-with-openmp-50856007ed7d41fb8551374ecae3e24b",
     -1,
-    1140,
+    1137,
     "Concurrency with OpenMP"
   ],
   [
     "concurrency-with-openmp-b6641b45605841b2b5d03e3a39bae0aa",
-    1139,
-    1141,
+    1136,
+    1138,
     "Concurrency With OpenMP",
     ""
   ],
   [
     "concurrency-with-openmp-b6641b45605841b2b5d03e3a39bae0aa#ba49d93e-3d50-4435-8654-4dfb7c6b64a2",
-    1140,
+    1137,
     -1,
     "Versions"
   ],
   [
     "concurrency-with-openmp-b6641b45605841b2b5d03e3a39bae0aa#df19db5f-f8f0-4670-8cd6-dcfa9c4cfc55",
-    1140,
+    1137,
     -1,
     "Introduction"
   ],
   [
     "concurrency-with-openmp-b6641b45605841b2b5d03e3a39bae0aa#a3bad713-1f66-478e-a278-5217e060ca9a",
-    1140,
+    1137,
     -1,
     "Remarks"
   ],
   [
     "openmp-parallel-sections-78688ec6100c42a0ac7ffd2982f34239",
-    1139,
+    1136,
     -1,
     "OpenMP Parallel Sections",
     ""
   ],
   [
     "openmp-parallel-sections-c4516b95af0142b29ae3f7701e845f0a",
-    1139,
+    1136,
     -1,
     "OpenMP Parallel Sections",
     ""
   ],
   [
     "openmp-parallel-for-loop-384da8cef3e148a4b00e6597a201e114",
-    1139,
+    1136,
     -1,
     "OpenMP Parallel For Loop",
     ""
   ],
   [
     "openmp-parallel-gathering-reduction-fb79f6b600d1429995115c41efe8a9d2",
-    1139,
+    1136,
     -1,
     "OpenMP Parallel Gathering Reduction",
     ""
@@ -7614,51 +7594,51 @@ gTocItems = [
   [
     "type-inference-69b8fd2cca444dcb84cc49ed820592d4",
     -1,
-    1149,
+    1146,
     "Type inference"
   ],
   [
     "type-inference-18d1ea1401d54b29b2c44f67b92da55e",
-    1148,
-    1150,
+    1145,
+    1147,
     "Type Inference",
     ""
   ],
   [
     "type-inference-18d1ea1401d54b29b2c44f67b92da55e#04a612e7-c42f-45f2-abbb-df6453d6a84e",
-    1149,
+    1146,
     -1,
     "Versions"
   ],
   [
     "type-inference-18d1ea1401d54b29b2c44f67b92da55e#5a03648a-ce7b-4e85-a8e7-f396411b4aa1",
-    1149,
+    1146,
     -1,
     "Introduction"
   ],
   [
     "type-inference-18d1ea1401d54b29b2c44f67b92da55e#02575fad-b8da-4e76-a5ed-563038712b59",
-    1149,
+    1146,
     -1,
     "Remarks"
   ],
   [
     "data-type-auto-8143cd0a25f24575a4d30f0c600e833c",
-    1148,
+    1145,
     -1,
     "Data Type Auto",
     ""
   ],
   [
     "lambda-auto-9fc75370061046aa89e0c421b661a7b2",
-    1148,
+    1145,
     -1,
     "Lambda auto",
     ""
   ],
   [
     "loops-and-auto-5b2abebf34304366a3d9393f4016647d",
-    1148,
+    1145,
     -1,
     "Loops and auto",
     ""
@@ -7666,32 +7646,32 @@ gTocItems = [
   [
     "resource-management-cbbee582eb1d4f69a297e10ba2cd83ab",
     -1,
-    1157,
+    1154,
     "Resource management"
   ],
   [
     "resource-management-f0d774b92fdc4245a3612b5688cc8959",
-    1156,
-    1158,
+    1153,
+    1155,
     "Resource Management",
     ""
   ],
   [
     "resource-management-f0d774b92fdc4245a3612b5688cc8959#fe281917-f918-4095-b5f4-af597443e488",
-    1157,
+    1154,
     -1,
     "Introduction"
   ],
   [
     "resource-acquisition-is-initialization-4f3096b12f454136ad920a9323b01052",
-    1156,
+    1153,
     -1,
     "Resource Acquisition Is Initialization",
     ""
   ],
   [
     "mutexes-thread-safety-0722586ae1ce43ca9493a0d14f413776",
-    1156,
+    1153,
     -1,
     "Mutexes Thread Safety",
     ""
@@ -7699,59 +7679,59 @@ gTocItems = [
   [
     "storage-class-specifiers-e3f3218764e14609b29474d479b50a70",
     -1,
-    1162,
+    1159,
     "Storage class specifiers"
   ],
   [
     "storage-class-specifiers-7e6e4a8b34a445049c24612edce564b1",
-    1161,
-    1163,
+    1158,
+    1160,
     "Storage class specifiers",
     ""
   ],
   [
     "storage-class-specifiers-7e6e4a8b34a445049c24612edce564b1#6eba1716-a843-44a4-bb57-8d9ab433288f",
-    1162,
+    1159,
     -1,
     "Introduction"
   ],
   [
     "storage-class-specifiers-7e6e4a8b34a445049c24612edce564b1#0e94e188-9600-4bf1-bd8a-cadf29c031c0",
-    1162,
+    1159,
     -1,
     "Remarks"
   ],
   [
     "register-098449694fa04bf6a3715da7d4fb3818",
-    1161,
+    1158,
     -1,
     "register",
     ""
   ],
   [
     "extern-b5962908db0b45a79cb55b2edad90b13",
-    1161,
+    1158,
     -1,
     "extern",
     ""
   ],
   [
     "static-fd30b6c83fdc4f60b288421349e19ed5",
-    1161,
+    1158,
     -1,
     "static",
     ""
   ],
   [
     "mutable-55854238a2b9499689c6a71d87219dc4",
-    1161,
+    1158,
     -1,
     "mutable",
     ""
   ],
   [
     "auto-0c235abffe1d4687955e96f7ab084497",
-    1161,
+    1158,
     -1,
     "auto",
     ""
@@ -7759,38 +7739,38 @@ gTocItems = [
   [
     "alignment-dadb2eed69394a7d9afa46a0514a66be",
     -1,
-    1171,
+    1168,
     "Alignment"
   ],
   [
     "alignment-bacd118eab234e109164e21d6946331d",
-    1170,
-    1172,
+    1167,
+    1169,
     "Alignment",
     ""
   ],
   [
     "alignment-bacd118eab234e109164e21d6946331d#88cb01a4-b8d4-4125-b039-471d11c0c2db",
-    1171,
+    1168,
     -1,
     "Introduction"
   ],
   [
     "alignment-bacd118eab234e109164e21d6946331d#910b0618-46eb-4e15-9bf3-0c10b4e84668",
-    1171,
+    1168,
     -1,
     "Remarks"
   ],
   [
     "controlling-alignment-dda226e6bcaa456795851ff73b975cc0",
-    1170,
+    1167,
     -1,
     "Controlling alignment",
     ""
   ],
   [
     "querying-the-alignment-of-a-type-93c3ab450c884908840b3010f7b011ed",
-    1170,
+    1167,
     -1,
     "Querying the alignment of a type",
     ""
@@ -7798,31 +7778,31 @@ gTocItems = [
   [
     "inline-variables-7933074e41234c04823524ded3b719ed",
     -1,
-    1177,
+    1174,
     "Inline variables"
   ],
   [
     "inline-variables-2fad6be25e9640268ca08f07370ab89d",
-    1176,
-    1178,
+    1173,
+    1175,
     "Inline variables",
     ""
   ],
   [
     "inline-variables-2fad6be25e9640268ca08f07370ab89d#1633e116-8520-4a02-b3e0-c6da04577d9b",
-    1177,
+    1174,
     -1,
     "Versions"
   ],
   [
     "inline-variables-2fad6be25e9640268ca08f07370ab89d#1a6a6265-74ef-4608-99f2-6e1b5faa8663",
-    1177,
+    1174,
     -1,
     "Introduction"
   ],
   [
     "defining-a-static-data-member-in-the-class-definition-15fe1b6e4cdb4ea9aab2ead6f9dd4247",
-    1176,
+    1173,
     -1,
     "Defining a static data member in the class definition",
     ""
@@ -7830,44 +7810,44 @@ gTocItems = [
   [
     "linkage-specifications-3e5157194b1e4dc7995545485e25e7d3",
     -1,
-    1182,
+    1179,
     "Linkage specifications"
   ],
   [
     "linkage-specifications-fc599865396b4565af9732d14c3ad639",
-    1181,
-    1183,
+    1178,
+    1180,
     "Linkage specifications",
     ""
   ],
   [
     "linkage-specifications-fc599865396b4565af9732d14c3ad639#88c23ef7-0c6a-4176-b719-95c0fcf7b531",
-    1182,
+    1179,
     -1,
     "Introduction"
   ],
   [
     "linkage-specifications-fc599865396b4565af9732d14c3ad639#8fa60ccb-2521-47eb-97fb-8f4224c4301d",
-    1182,
+    1179,
     -1,
     "Syntax"
   ],
   [
     "linkage-specifications-fc599865396b4565af9732d14c3ad639#dbc55ada-a168-46e3-aa5f-fe7baff052e0",
-    1182,
+    1179,
     -1,
     "Remarks"
   ],
   [
     "signal-handler-for-unix-like-operating-system-99dda115118d47a3a85da0c999311241",
-    1181,
+    1178,
     -1,
     "Signal handler for Unix-like operating system",
     ""
   ],
   [
     "making-a-c-library-header-compatible-with-c-53e2f9d54de64a4eb8a380a0f31fca3d",
-    1181,
+    1178,
     -1,
     "Making a C library header compatible with C",
     ""
@@ -7875,32 +7855,32 @@ gTocItems = [
   [
     "curiusly-recurring-template-pattern-c793f95dc3c94e23a753d7b7871c3bbf",
     -1,
-    1189,
+    1186,
     "Curiusly recurring template pattern"
   ],
   [
     "curiously-recurring-template-pattern-crtp-491e66587b4841d7ba9d47549769254f",
-    1188,
-    1190,
+    1185,
+    1187,
     "Curiously Recurring Template Pattern CRTP",
     ""
   ],
   [
     "curiously-recurring-template-pattern-crtp-491e66587b4841d7ba9d47549769254f#218020ff-28e1-4612-8a89-4d0b39a8b6db",
-    1189,
+    1186,
     -1,
     "Introduction"
   ],
   [
     "the-curiously-recurring-template-pattern-crtp-f54d351765484f0a8437292a08a4fc3e",
-    1188,
+    1185,
     -1,
     "The Curiously Recurring Template Pattern CRTP",
     ""
   ],
   [
     "crtp-to-avoid-code-duplication-51492896b0aa435b86359c2b89f58901",
-    1188,
+    1185,
     -1,
     "CRTP to avoid code duplication",
     ""
@@ -7908,51 +7888,51 @@ gTocItems = [
   [
     "using-declaration-f0479f5d620b453ab4764c9e9418b846",
     -1,
-    1194,
+    1191,
     "Using declaration"
   ],
   [
     "using-declaration-52e5cc94ff1645019adc862d0cf97b01",
-    1193,
-    1195,
+    1190,
+    1192,
     "Using declaration",
     ""
   ],
   [
     "using-declaration-52e5cc94ff1645019adc862d0cf97b01#e4c061d4-7bc3-4ef6-9cf1-05b5a9b01ae1",
-    1194,
+    1191,
     -1,
     "Introduction"
   ],
   [
     "using-declaration-52e5cc94ff1645019adc862d0cf97b01#b61babc5-d715-422e-aab9-ae0b9aa6cba2",
-    1194,
+    1191,
     -1,
     "Syntax"
   ],
   [
     "using-declaration-52e5cc94ff1645019adc862d0cf97b01#f814ceb1-c5ee-4768-93b8-6710fe1aa280",
-    1194,
+    1191,
     -1,
     "Remarks"
   ],
   [
     "importing-names-individually-from-a-namespace-28304e79a6cd40238d5f0df91293b694",
-    1193,
+    1190,
     -1,
     "Importing names individually from a namespace",
     ""
   ],
   [
     "redeclaring-members-from-a-base-class-to-avoid-name-hiding-ae724b3137c949f598fa027555f8387e",
-    1193,
+    1190,
     -1,
     "Redeclaring members from a base class to avoid name hiding",
     ""
   ],
   [
     "inheriting-constructors-7ece3cd4a60c44ddb85541202c80b789",
-    1193,
+    1190,
     -1,
     "Inheriting constructors",
     ""
@@ -7960,52 +7940,52 @@ gTocItems = [
   [
     "typedef-and-type-aliases-020f0e910de04617bb97e4863949153d",
     -1,
-    1202,
+    1199,
     "Typedef and type aliases"
   ],
   [
     "typedef-and-type-aliases-80f8c5319a564b0cb6b6431ca98e5151",
-    1201,
-    1203,
+    1198,
+    1200,
     "Typedef and type aliases",
     ""
   ],
   [
     "typedef-and-type-aliases-80f8c5319a564b0cb6b6431ca98e5151#f892108f-d8ce-4dfc-b626-ec1b5d9c6b53",
-    1202,
+    1199,
     -1,
     "Introduction"
   ],
   [
     "typedef-and-type-aliases-80f8c5319a564b0cb6b6431ca98e5151#71d3939d-9fdf-41ba-aded-63aac6b94872",
-    1202,
+    1199,
     -1,
     "Syntax"
   ],
   [
     "basic-typedef-syntax-3ab8c37c5a2b44fab9f7debb5d5afdf5",
-    1201,
+    1198,
     -1,
     "Basic typedef syntax",
     ""
   ],
   [
     "more-complex-uses-of-typedef-db977fa6743e41efb32a58b1b380609d",
-    1201,
+    1198,
     -1,
     "More complex uses of typedef",
     ""
   ],
   [
     "declaring-multiple-types-with-typedef-ca2553a6017641d384d6e38d9c578023",
-    1201,
+    1198,
     -1,
     "Declaring multiple types with typedef",
     ""
   ],
   [
     "alias-declaration-with-using-f8fa506a12934f88b9fe908abbd95d03",
-    1201,
+    1198,
     -1,
     "Alias declaration with using",
     ""
@@ -8013,57 +7993,57 @@ gTocItems = [
   [
     "layout-of-object-types-6dc44543880c4829bd86818b80f5aac6",
     -1,
-    1210,
+    1207,
     "Layout of object types"
   ],
   [
     "layout-of-object-types-0e71b5cc4d68410db19f98d2752164c3",
-    1209,
-    1211,
+    1206,
+    1208,
     "Layout of object types",
     ""
   ],
   [
     "layout-of-object-types-0e71b5cc4d68410db19f98d2752164c3#9a96bb76-c675-4243-ab26-e6bf6e6ee212",
-    1210,
+    1207,
     -1,
     "Remarks"
   ],
   [
     "class-types-dd8faa41453d4e828ea48d854bd89d4d",
-    1209,
+    1206,
     -1,
     "Class types",
     ""
   ],
   [
     "arithmetic-types-0f9f293d517f446d84e8e6fdb7003f9c",
-    1209,
-    1214,
+    1206,
+    1211,
     "Arithmetic types",
     ""
   ],
   [
     "arithmetic-types-0f9f293d517f446d84e8e6fdb7003f9c#d09e9b07-6200-4f48-8666-783606527780",
-    1213,
+    1210,
     -1,
     "Narrow character types"
   ],
   [
     "arithmetic-types-0f9f293d517f446d84e8e6fdb7003f9c#740a9bf7-3a20-425b-bf6d-6e05dead12a9",
-    1213,
+    1210,
     -1,
     "Integer types"
   ],
   [
     "arithmetic-types-0f9f293d517f446d84e8e6fdb7003f9c#038ad71a-9d88-4dc5-b3f3-e1478a27155e",
-    1213,
+    1210,
     -1,
     "Floating point types"
   ],
   [
     "arrays-d970c0b829da4e5788c147a72727161f",
-    1209,
+    1206,
     -1,
     "Arrays",
     ""
@@ -8071,56 +8051,56 @@ gTocItems = [
   [
     "c-incompatibilities-0cb787c779fb4e4ca8f2c95bfa483953",
     -1,
-    1219,
+    1216,
     "C incompatibilities"
   ],
   [
     "c-incompatibilities-0cb787c779fb4e4ca8f2c95bfa483953#4e99f146-2b6f-4d37-aee2-f84f4d473e52",
-    1218,
+    1215,
     -1,
     "Reserved Keywords"
   ],
   [
     "c-incompatibilities-0cb787c779fb4e4ca8f2c95bfa483953#74a52295-520d-4b18-92ce-a5e10c703cd2",
-    1218,
+    1215,
     -1,
     "Weakly typed pointers"
   ],
   [
     "c-incompatibilities-0cb787c779fb4e4ca8f2c95bfa483953#370ff09b-3323-4ec5-bbd2-7ff034fcc2b3",
-    1218,
+    1215,
     -1,
     "goto or switch"
   ],
   [
     "optimization-4e04587c419b4bb3bcb4efe6a43e35e9",
     -1,
-    1223,
+    1220,
     "Optimization"
   ],
   [
     "optimization-ea41ce253e3e47dea2f04d079bff67de",
-    1222,
-    1224,
+    1219,
+    1221,
     "Optimization",
     ""
   ],
   [
     "optimization-ea41ce253e3e47dea2f04d079bff67de#ca60501a-8787-407f-8c12-7b51a6774390",
-    1223,
+    1220,
     -1,
     "Introduction"
   ],
   [
     "inline-expansioninlining-74e906043ef441f9805e1debafbc436e",
-    1222,
+    1219,
     -1,
     "Inline ExpansionInlining",
     ""
   ],
   [
     "empty-base-optimization-13900b6f95f443c8bb6c1aeb2f4bc2ce",
-    1222,
+    1219,
     -1,
     "Empty base optimization",
     ""
@@ -8128,38 +8108,38 @@ gTocItems = [
   [
     "semaphore-46b28c54a7e142869bdc69ae87c3bad3",
     -1,
-    1228,
+    1225,
     "Semaphore"
   ],
   [
     "semaphore-b1889be62ca64af0af0d99ecee90997f",
-    1227,
-    1229,
+    1224,
+    1226,
     "Semaphore",
     ""
   ],
   [
     "semaphore-b1889be62ca64af0af0d99ecee90997f#5bf706c7-8afb-43b5-a714-9f5c3063634b",
-    1228,
+    1225,
     -1,
     "Versions"
   ],
   [
     "semaphore-b1889be62ca64af0af0d99ecee90997f#99a88a0c-515f-4461-a4d2-68e349060823",
-    1228,
+    1225,
     -1,
     "Introduction"
   ],
   [
     "semaphore-c-11-5a72b941dc424fbd8414ea46f60379b5",
-    1227,
+    1224,
     -1,
     "Semaphore C 11",
     ""
   ],
   [
     "semaphore-class-in-action-d8fc0081c7e1437d8bdc5b0bf2044a39",
-    1227,
+    1224,
     -1,
     "Semaphore class in action",
     ""
@@ -8167,60 +8147,60 @@ gTocItems = [
   [
     "thread-synchronization-5e61d3515c674222b553e5a42137412d",
     -1,
-    1234,
+    1231,
     "Thread synchronization"
   ],
   [
     "thread-synchronization-structures-d39c3271929c4a53bc8bb011429f18f3",
-    1233,
-    1235,
+    1230,
+    1232,
     "Thread synchronization structures",
     ""
   ],
   [
     "thread-synchronization-structures-d39c3271929c4a53bc8bb011429f18f3#25d1ae10-ed3a-49fe-8a40-4d565930f99d",
-    1234,
+    1231,
     -1,
     "Introduction"
   ],
   [
     "std-unique-lock-std-shared-lock-std-lock-guard-34deb594aace4ddfbba83e7a7ae1fd93",
-    1233,
+    1230,
     -1,
     "std unique lock std shared lock std lock guard",
     ""
   ],
   [
     "std-shared-lock-f1cacab7cd7d4a5eac821b2f326b4f87",
-    1233,
+    1230,
     -1,
     "std shared lock",
     ""
   ],
   [
     "std-call-once-std-once-flag-03488a209107498388d00a88b44ec9bf",
-    1233,
+    1230,
     -1,
     "std call once std once flag",
     ""
   ],
   [
     "object-locking-for-efficient-access-b8e056167d6e4903876d8a44d5e23c77",
-    1233,
+    1230,
     -1,
     "Object locking for efficient access.",
     ""
   ],
   [
     "strategies-for-lock-classes-std-try-to-lock-std-adopt-lock-std-defer-lock-f0aa304fe584491787b3cb6a08257830",
-    1233,
+    1230,
     -1,
     "Strategies for lock classes std try to lock std adopt lock std defer lock",
     ""
   ],
   [
     "std-condition-variable-any-std-cv-status-21c1e24bd43347708f47f36ec39e42ab",
-    1233,
+    1230,
     -1,
     "std condition variable any std cv status",
     ""
@@ -8228,131 +8208,131 @@ gTocItems = [
   [
     "debugging-e819fb9f77e3490d9b3b288189045e39",
     -1,
-    1243,
+    1240,
     "Debugging"
   ],
   [
     "c-debugging-and-debug-prevention-tools-techniques-c9a5f50a12a14e908300bff8273a34a7",
-    1242,
-    1244,
+    1239,
+    1241,
     "C Debugging and Debug-prevention Tools Techniques",
     ""
   ],
   [
     "c-debugging-and-debug-prevention-tools-techniques-c9a5f50a12a14e908300bff8273a34a7#1f0fffe4-27c7-4a6d-b6dc-b325a8616f7d",
-    1243,
+    1240,
     -1,
     "Introduction"
   ],
   [
     "c-debugging-and-debug-prevention-tools-techniques-c9a5f50a12a14e908300bff8273a34a7#45fd09c4-ae08-4df3-8511-316f31d5965b",
-    1243,
+    1240,
     -1,
     "Remarks"
   ],
   [
     "static-analysis-a613f644d72e4418b3afb15eaeb2dd48",
-    1242,
-    1247,
+    1239,
+    1244,
     "Static analysis",
     ""
   ],
   [
     "static-analysis-a613f644d72e4418b3afb15eaeb2dd48#4694368a-3eeb-41b8-834b-228161c62fdd",
-    1246,
+    1243,
     -1,
     "Compiler warnings"
   ],
   [
     "static-analysis-a613f644d72e4418b3afb15eaeb2dd48#3d1cb8c6-5fb6-48ea-90a3-3c0ac58d2f6e",
-    1246,
+    1243,
     -1,
     "External tools"
   ],
   [
     "static-analysis-a613f644d72e4418b3afb15eaeb2dd48#b3410609-c87b-4462-a642-99877e14c199",
-    1246,
+    1243,
     -1,
     "Other tools"
   ],
   [
     "static-analysis-a613f644d72e4418b3afb15eaeb2dd48#ee3a694d-9985-4077-8bb1-84edb4891e34",
-    1246,
+    1243,
     -1,
     "Conclusion"
   ],
   [
     "segfault-analysis-with-gdb-acb6953866dc4f079ffc6e7339e8878b",
-    1242,
+    1239,
     -1,
     "Segfault analysis with GDB",
     ""
   ],
   [
     "clean-code-b6e19d160c4842aba560259c587b3546",
-    1242,
-    1253,
+    1239,
+    1250,
     "Clean code",
     ""
   ],
   [
     "clean-code-b6e19d160c4842aba560259c587b3546#59df943c-b0e2-4c76-bc6f-54b909515e69",
-    1252,
+    1249,
     -1,
     "The use of separate functions for separate actions"
   ],
   [
     "clean-code-b6e19d160c4842aba560259c587b3546#dd185c94-525b-4678-a901-1cba6c46c527",
-    1252,
+    1249,
     -1,
     "Using consistent formatting/constructions"
   ],
   [
     "clean-code-b6e19d160c4842aba560259c587b3546#c8e98281-3923-4ce2-a0a4-0905d89b05fc",
-    1252,
+    1249,
     -1,
     "Point attention to the important parts of your code."
   ],
   [
     "clean-code-b6e19d160c4842aba560259c587b3546#a14b5b74-f732-43ae-887f-e5090df17b5b",
-    1252,
+    1249,
     -1,
     "Conclusion"
   ],
   [
     "safe-stack-stack-corruptions-4db2da38fb494b5481786aeeaba2ac64",
-    1242,
-    1258,
+    1239,
+    1255,
     "Safe-stack Stack corruptions",
     ""
   ],
   [
     "safe-stack-stack-corruptions-4db2da38fb494b5481786aeeaba2ac64#a435ed30-23a4-4ff5-a337-04a3940abbf8",
-    1257,
+    1254,
     -1,
     "Which parts of the stack get moved?"
   ],
   [
     "safe-stack-stack-corruptions-4db2da38fb494b5481786aeeaba2ac64#0eb6445b-f912-4576-bbe0-44e634d0f18a",
-    1257,
+    1254,
     -1,
     "What is it actually used for?"
   ],
   [
     "safe-stack-stack-corruptions-4db2da38fb494b5481786aeeaba2ac64#5aacbcf8-70ce-4caa-a733-f442b4e6a321",
-    1257,
+    1254,
     -1,
     "How to enable it?"
   ],
   [
     "safe-stack-stack-corruptions-4db2da38fb494b5481786aeeaba2ac64#07e805a8-f705-423a-9737-f907deef46b8",
-    1257,
+    1254,
     -1,
     "Conclusion"
   ],
   [
     "my-c-program-ends-with-segfault-valgrind-ce658b50cf9749d4aa8966d5d397cc22",
-    1242,
+    1239,
     -1,
     "My C program ends with segfault - valgrind",
     ""
@@ -8360,66 +8340,66 @@ gTocItems = [
   [
     "futures-and-promises-b1cbbef766d349c3aafff598af5cdf47",
     -1,
-    1264,
+    1261,
     "Futures and promises"
   ],
   [
     "futures-and-promises-1000e586aa3f43eea07170b9f201e6f1",
-    1263,
-    1265,
+    1260,
+    1262,
     "Futures and Promises",
     ""
   ],
   [
     "futures-and-promises-1000e586aa3f43eea07170b9f201e6f1#1f6bbfbe-ef1a-424b-bb5f-22256253cce2",
-    1264,
+    1261,
     -1,
     "Versions"
   ],
   [
     "futures-and-promises-1000e586aa3f43eea07170b9f201e6f1#4721c613-9a46-4d9c-8014-ebbacabc387f",
-    1264,
+    1261,
     -1,
     "Introduction"
   ],
   [
     "async-operation-classes-9c2c14f94aa8470ba421f0dc1e9aef62",
-    1263,
+    1260,
     -1,
     "Async operation classes",
     ""
   ],
   [
     "std-future-and-std-promise-4937370b70e0436f8b4f53e9b8c5edde",
-    1263,
+    1260,
     -1,
     "std future and std promise",
     ""
   ],
   [
     "deferred-async-example-e4854680559d469eb90eff9adb2c2998",
-    1263,
+    1260,
     -1,
     "Deferred async example",
     ""
   ],
   [
     "std-packaged-task-and-std-future-4eeac4e66eb743d78169bf1ecb25f425",
-    1263,
+    1260,
     -1,
     "std packaged task and std future",
     ""
   ],
   [
     "std-future-error-and-std-future-errc-1f327c9656c74fa7a2714abd988d36e0",
-    1263,
+    1260,
     -1,
     "std future error and std future errc",
     ""
   ],
   [
     "std-future-and-std-async-8f0b3b16edd54f9fb658bb0d1b560414",
-    1263,
+    1260,
     -1,
     "std future and std async",
     ""
@@ -8427,25 +8407,25 @@ gTocItems = [
   [
     "more-undefined-behaviors-05715f550a2a4c158aa1b8c1e8aa98a4",
     -1,
-    1274,
+    1271,
     "More undefined behaviors"
   ],
   [
     "more-undefined-behaviors-in-c-09b93f64b252402693338c29c55e1571",
-    1273,
-    1275,
+    1270,
+    1272,
     "More undefined behaviors in C",
     ""
   ],
   [
     "more-undefined-behaviors-in-c-09b93f64b252402693338c29c55e1571#c8332acd-4eee-4cf4-80f6-4e6fd13a0f69",
-    1274,
+    1271,
     -1,
     "Introduction"
   ],
   [
     "referring-to-non-static-members-in-initializer-lists-1a0ab001b6c3443f8d675443d253b453",
-    1273,
+    1270,
     -1,
     "Referring to non-static members in initializer lists",
     ""
@@ -8453,47 +8433,47 @@ gTocItems = [
   [
     "mutexes-f0a4483b95d94c828e4115c96d864674",
     -1,
-    1278,
+    1275,
     "Mutexes"
   ],
   [
     "stdmutex-8968eddda19d48348264e27eb0690bf5",
-    1277,
+    1274,
     -1,
     "std::mutex",
     ""
   ],
   [
     "stdrecursive-mutex-24ab0a9d08584d80a9d630497c60bbbd",
-    1277,
+    1274,
     -1,
     "std::recursive mutex",
     ""
   ],
   [
     "stdscoped-lock-c-17-75672fb064214079bc308395dc04e68b",
-    1277,
+    1274,
     -1,
     "std::scoped_lock (C ++17)",
     ""
   ],
   [
     "stdunique-lock-stdshared-lock-stdlock-guard-a71f2c9d26c2400cbfeb040da789fabe",
-    1277,
+    1274,
     -1,
     "std::unique_lock, std::shared_lock, std::lock_guard",
     ""
   ],
   [
     "strategies-for-lock-classes-stdtry-to-lock-stdadopt-lock-stddefer-lock-db76346729df4b4aa287b4672143b0a3",
-    1277,
+    1274,
     -1,
     "Strategies for lock classes std::try_to_lock,  std::adopt_lock, std::defer_lock",
     ""
   ],
   [
     "stdlock-847ba6f91ef040b9930602a87fb1c56d",
-    1277,
+    1274,
     -1,
     "std::lock",
     ""
@@ -8501,25 +8481,25 @@ gTocItems = [
   [
     "recursive-mutex-2dfdecd0c2284dc2941d0a4e53390d1c",
     -1,
-    1285,
+    1282,
     "Recursive mutex"
   ],
   [
     "recursive-mutex-da929eb5fef34c20b95238c7236acb85",
-    1284,
-    1286,
+    1281,
+    1283,
     "Recursive Mutex",
     ""
   ],
   [
     "recursive-mutex-da929eb5fef34c20b95238c7236acb85#908d7b9a-2ab5-4a6c-bf8d-3abc09f221b2",
-    1285,
+    1282,
     -1,
     "Versions"
   ],
   [
     "std-recursive-mutex-d9266f4026a84a02858caf445699d0d9",
-    1284,
+    1281,
     -1,
     "std recursive mutex",
     ""
@@ -8527,38 +8507,38 @@ gTocItems = [
   [
     "unit-testing-2172f3636ba34c7db75a95189cc14546",
     -1,
-    1289,
+    1286,
     "Unit testing"
   ],
   [
     "unit-testing-in-c-41343ba22c7c4a93b84dc4525b90e418",
-    1288,
-    1290,
+    1285,
+    1287,
     "Unit Testing in C",
     ""
   ],
   [
     "unit-testing-in-c-41343ba22c7c4a93b84dc4525b90e418#78b02bee-ea32-4316-ab08-c6c1655e7b66",
-    1289,
+    1286,
     -1,
     "Introduction"
   ],
   [
     "google-test-f7b59cf0801649df918c4dd5fea65298",
-    1288,
-    1292,
+    1285,
+    1289,
     "Google Test",
     ""
   ],
   [
     "google-test-f7b59cf0801649df918c4dd5fea65298#34ef220d-eff0-4f83-837a-adfe7b216bc0",
-    1291,
+    1288,
     -1,
     "Minimal Example"
   ],
   [
     "catch-a060e4ef55644cd7a494b4abddaaa6d8",
-    1288,
+    1285,
     -1,
     "Catch",
     ""
@@ -8566,38 +8546,38 @@ gTocItems = [
   [
     "decltype-6f1bdf3d14744baa98bdf39758d46389",
     -1,
-    1295,
+    1292,
     "decltype"
   ],
   [
     "decltype-d97276c558464cfeb0fa552a7bac9e6b",
-    1294,
-    1296,
+    1291,
+    1293,
     "decltype",
     ""
   ],
   [
     "decltype-d97276c558464cfeb0fa552a7bac9e6b#8412ff35-27d4-44c6-8e6a-d351bc9b1f0c",
-    1295,
+    1292,
     -1,
     "Versions"
   ],
   [
     "decltype-d97276c558464cfeb0fa552a7bac9e6b#1e47123d-864e-4855-a92d-f375041a8e3c",
-    1295,
+    1292,
     -1,
     "Introduction"
   ],
   [
     "basic-example-898eb67af0484eff9fa346b3f46db6cc",
-    1294,
+    1291,
     -1,
     "Basic Example",
     ""
   ],
   [
     "another-example-40fa02a53e374d95adcd7075d88e3135",
-    1294,
+    1291,
     -1,
     "Another example",
     ""
@@ -8605,25 +8585,25 @@ gTocItems = [
   [
     "digit-separators-03d0218f3acf4c0989026b09a4f35be4",
     -1,
-    1301,
+    1298,
     "Digit separators"
   ],
   [
     "digit-separators-58b01738ddb84b249cd2138df62bf217",
-    1300,
-    1302,
+    1297,
+    1299,
     "Digit separators",
     ""
   ],
   [
     "digit-separators-58b01738ddb84b249cd2138df62bf217#841d3d8d-158d-4505-8230-24f6207718ba",
-    1301,
+    1298,
     -1,
     "Versions"
   ],
   [
     "digit-separator-a311c74a8cea4136a010c3afc0c06edb",
-    1300,
+    1297,
     -1,
     "Digit Separator",
     ""
@@ -8631,25 +8611,25 @@ gTocItems = [
   [
     "c-containers-5291840b1ac044739bc3691467a51c05",
     -1,
-    1305,
+    1302,
     "C++ Containers"
   ],
   [
     "c-containers-b57ad2d9187942bd8e0fbb372ab7efe6",
-    1304,
-    1306,
+    1301,
+    1303,
     "C Containers",
     ""
   ],
   [
     "c-containers-b57ad2d9187942bd8e0fbb372ab7efe6#7de7e67a-ecb7-40e3-b6ac-a079ac8af5df",
-    1305,
+    1302,
     -1,
     "Introduction"
   ],
   [
     "c-containers-flowchart-b2f13f90aa0641e2af390b1e65541ff2",
-    1304,
+    1301,
     -1,
     "C Containers Flowchart",
     ""
@@ -8657,31 +8637,31 @@ gTocItems = [
   [
     "arithmetic-meta-programming-83d53c9bbf1442a28fb8238a2fcb905a",
     -1,
-    1309,
+    1306,
     "Arithmetic meta-programming"
   ],
   [
     "arithmitic-metaprogramming-fe56062d9c694576971450255a859886",
-    1308,
-    1310,
+    1305,
+    1307,
     "Arithmitic Metaprogramming",
     ""
   ],
   [
     "arithmitic-metaprogramming-fe56062d9c694576971450255a859886#bcce9751-1263-475d-9fef-618c555101c7",
-    1309,
+    1306,
     -1,
     "Versions"
   ],
   [
     "arithmitic-metaprogramming-fe56062d9c694576971450255a859886#0e85fce9-c0bc-4401-a599-61e6d539b999",
-    1309,
+    1306,
     -1,
     "Introduction"
   ],
   [
     "calculating-power-in-olog-n-b5c7486bfc10428aa72ef834b5ecb340",
-    1308,
+    1305,
     -1,
     "Calculating power in Olog n",
     ""

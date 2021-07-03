@@ -13909,102 +13909,70 @@ gTocItems = [
     ""
   ],
   [
-    "appdynamics-14bf6856b37f4f068025ba31710eff39",
-    -1,
-    2135,
-    "AppDynamics"
-  ],
-  [
-    "appdynamics-and-tibco-businessworks-instrumentation-for-easy-integration-02683812826343f6915dc13f02787aea",
-    2134,
-    2136,
-    "AppDynamics and TIBCO BusinessWorks Instrumentation for Easy Integration",
-    ""
-  ],
-  [
-    "appdynamics-and-tibco-businessworks-instrumentation-for-easy-integration-02683812826343f6915dc13f02787aea#59e5b091-3e80-4496-9f72-c061a7051e06",
-    2135,
-    -1,
-    "Introduction"
-  ],
-  [
-    "example-of-instrumentation-of-all-bw-applications-in-a-single-step-for-appdynamics-64d2cf884ed34f3590daf1f9c514e056",
-    2134,
-    2138,
-    "Example of Instrumentation of all BW Applications in a Single Step for Appdynamics",
-    ""
-  ],
-  [
-    "example-of-instrumentation-of-all-bw-applications-in-a-single-step-for-appdynamics-64d2cf884ed34f3590daf1f9c514e056#ba9434e4-01ad-4d3e-842c-4770f4456c21",
-    2137,
-    -1,
-    "*** Common variables. Modify these only. ***"
-  ],
-  [
     "readers-and-writers-dbf4e4e32aac4b7d8895bf065000b725",
     -1,
-    2140,
+    2135,
     "Readers and writers"
   ],
   [
     "readers-and-writers-584403b618464d7484a27d77d809106b",
-    2139,
-    2141,
+    2134,
+    2136,
     "Readers and Writers",
     ""
   ],
   [
     "readers-and-writers-584403b618464d7484a27d77d809106b#37ffc9b7-5b3f-41af-9e20-f307fe23962c",
-    2140,
+    2135,
     -1,
     "Versions"
   ],
   [
     "readers-and-writers-584403b618464d7484a27d77d809106b#b637a3b8-0bd8-4ff3-a28a-1216ce887fa4",
-    2140,
+    2135,
     -1,
     "Introduction"
   ],
   [
     "bufferedreader-76cedcc90d4444cf8f3fe94a84b055c6",
+    2134,
     2139,
-    2144,
     "BufferedReader",
     ""
   ],
   [
     "bufferedreader-76cedcc90d4444cf8f3fe94a84b055c6#4e537150-d5f6-4c64-b99a-fdb50d54cd1e",
-    2143,
+    2138,
     -1,
     "Introduction"
   ],
   [
     "bufferedreader-76cedcc90d4444cf8f3fe94a84b055c6#376f8080-6d06-4ea1-ad80-5643e305e49b",
-    2143,
+    2138,
     -1,
     "Basics of using a BufferedReader"
   ],
   [
     "bufferedreader-76cedcc90d4444cf8f3fe94a84b055c6#cf0058d3-e6b0-42e9-873a-26da095ed396",
-    2143,
+    2138,
     -1,
     "The BufferedReader buffer size"
   ],
   [
     "bufferedreader-76cedcc90d4444cf8f3fe94a84b055c6#4ab115bf-67fb-4d82-a8a9-e43112e16b61",
-    2143,
+    2138,
     -1,
     "The BufferedReader.readLine() method"
   ],
   [
     "bufferedreader-76cedcc90d4444cf8f3fe94a84b055c6#0406ed90-9f37-456d-b433-c3c15b2d892b",
-    2143,
+    2138,
     -1,
     "Example: reading all lines of a File into a List"
   ],
   [
     "stringwriter-example-be72683435ce49158465ae02fe2a148b",
-    2139,
+    2134,
     -1,
     "StringWriter Example",
     ""
@@ -14012,25 +13980,25 @@ gTocItems = [
   [
     "hashtable-e6438eb6fd8d45c78c948ce9ab2bc7de",
     -1,
-    2151,
+    2146,
     "Hashtable"
   ],
   [
     "hashtable-738cfb1ba40f49398ce764d2a10d4306",
-    2150,
-    2152,
+    2145,
+    2147,
     "Hashtable",
     ""
   ],
   [
     "hashtable-738cfb1ba40f49398ce764d2a10d4306#ccddcdd6-eb2d-4c98-a664-3aecccd6d036",
-    2151,
+    2146,
     -1,
     "Introduction"
   ],
   [
     "hashtable-bc999a9a2edd4fd1b04c8b6cf2b6454d",
-    2150,
+    2145,
     -1,
     "Hashtable",
     ""
@@ -14038,25 +14006,25 @@ gTocItems = [
   [
     "enum-starting-with-a-number-417c4ce2c69c498797848b1ac4455a96",
     -1,
-    2155,
+    2150,
     "Enum starting with a number"
   ],
   [
     "enum-starting-with-number-e14ebde4dbb94616a6dc91551a86ece9",
-    2154,
-    2156,
+    2149,
+    2151,
     "Enum starting with number",
     ""
   ],
   [
     "enum-starting-with-number-e14ebde4dbb94616a6dc91551a86ece9#20729bde-ed0a-456f-ae86-70acba2c714b",
-    2155,
+    2150,
     -1,
     "Introduction"
   ],
   [
     "enum-with-name-at-begining-73d1cbd7d4ce4c13a1bff42c6318a6bd",
-    2154,
+    2149,
     -1,
     "Enum with name at begining",
     ""
@@ -14064,25 +14032,25 @@ gTocItems = [
   [
     "sortedmap-8fa5583754c343d9855229e613cda437",
     -1,
-    2159,
+    2154,
     "SortedMap"
   ],
   [
     "sortedmap-07503e80e839469cadccf6e8bc0a855b",
-    2158,
-    2160,
+    2153,
+    2155,
     "SortedMap",
     ""
   ],
   [
     "sortedmap-07503e80e839469cadccf6e8bc0a855b#1ac3de2f-5db1-4a0b-a148-a892906b6fa3",
-    2159,
+    2154,
     -1,
     "Introduction"
   ],
   [
     "introduction-to-sorted-map-4b21396703a548b594ce499fbd15a18a",
-    2158,
+    2153,
     -1,
     "Introduction to sorted Map.",
     ""
@@ -14090,25 +14058,25 @@ gTocItems = [
   [
     "weakhashmap-d371d7796e424c25a4b89cdf9d2e4286",
     -1,
-    2163,
+    2158,
     "WeakHashMap"
   ],
   [
     "weakhashmap-629a66108b2f4558a02b58605a67a0fc",
-    2162,
-    2164,
+    2157,
+    2159,
     "WeakHashMap",
     ""
   ],
   [
     "weakhashmap-629a66108b2f4558a02b58605a67a0fc#c3327300-2058-4a38-9ca1-b2b7c01dff2a",
-    2163,
+    2158,
     -1,
     "Introduction"
   ],
   [
     "concepts-of-weakhashmap-b520feb50879492093e39d738e376e37",
-    2162,
+    2157,
     -1,
     "Concepts of WeakHashmap",
     ""
@@ -14116,31 +14084,31 @@ gTocItems = [
   [
     "linkedhashmap-a50bb9b3be2e41e5bec98e1c47e2e528",
     -1,
-    2167,
+    2162,
     "LinkedHashMap"
   ],
   [
     "linkedhashmap-0005eeb0dcc54bbcbf1eda2aeb72d343",
-    2166,
-    2168,
+    2161,
+    2163,
     "LinkedHashMap",
     ""
   ],
   [
     "linkedhashmap-0005eeb0dcc54bbcbf1eda2aeb72d343#1c81bdb1-0976-48a3-9f1a-09eaf9ab2704",
-    2167,
+    2162,
     -1,
     "Versions"
   ],
   [
     "linkedhashmap-0005eeb0dcc54bbcbf1eda2aeb72d343#c3801794-bbf1-4f31-86f8-aa8cd05521b2",
-    2167,
+    2162,
     -1,
     "Introduction"
   ],
   [
     "java-linkedhashmap-class-24ca6503a3c145bf8c72c2732ea5e282",
-    2166,
+    2161,
     -1,
     "Java LinkedHashMap class",
     ""
@@ -14148,25 +14116,25 @@ gTocItems = [
   [
     "stringbuffer-ce0795b345e74968be7b7b5eebf6255f",
     -1,
-    2172,
+    2167,
     "StringBuffer"
   ],
   [
     "stringbuffer-8ed6219ebf5542b295126ab89f474d70",
-    2171,
-    2173,
+    2166,
+    2168,
     "StringBuffer",
     ""
   ],
   [
     "stringbuffer-8ed6219ebf5542b295126ab89f474d70#4a399d3d-8038-4156-ba16-81e9c29780f4",
-    2172,
+    2167,
     -1,
     "Introduction"
   ],
   [
     "string-buffer-class-864efc8ff39047b68d669610d17d2186",
-    2171,
+    2166,
     -1,
     "String Buffer class",
     ""
@@ -14174,25 +14142,25 @@ gTocItems = [
   [
     "choosing-collections-73b465570e7c496cb2d70932330e4087",
     -1,
-    2176,
+    2171,
     "Choosing Collections"
   ],
   [
     "choosing-collections-39e1c311468f442ab97409404e7fb42b",
-    2175,
-    2177,
+    2170,
+    2172,
     "Choosing Collections",
     ""
   ],
   [
     "choosing-collections-39e1c311468f442ab97409404e7fb42b#06eee0e1-302e-49e0-9f69-b40617248c3d",
-    2176,
+    2171,
     -1,
     "Introduction"
   ],
   [
     "java-collections-flowchart-7469e408c8ee4961b169459fb8dc88d9",
-    2175,
+    2170,
     -1,
     "Java Collections Flowchart",
     ""
@@ -14200,387 +14168,387 @@ gTocItems = [
   [
     "c-comparison-bd3a4b6bfab147c781e16a0e68ffc84f",
     -1,
-    2180,
+    2175,
     "C++ Comparison"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720",
-    2179,
-    2181,
+    2174,
+    2176,
     "C++ Comparison",
     ""
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#67b8a600-c702-4983-832c-aa4bc36ddc24",
-    2180,
+    2175,
     -1,
     "Introduction"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#e051dc37-f488-4399-b43d-bd70177cdb8f",
-    2180,
+    2175,
     -1,
     "Remarks"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#0c32984e-2101-4df4-8844-cf7fda8d303b",
-    2180,
+    2175,
     -1,
     "Classes Defined within Other Constructs"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#007d0074-c982-4fad-a1e2-e05443cc1520",
-    2180,
+    2175,
     -1,
     "Defined within Another Class"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#d4fd1638-0986-4470-8141-cac9c5836046",
-    2180,
+    2175,
     -1,
     "C++"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#bb8f39de-a02d-4cb6-93e6-010c1afe8b25",
-    2180,
+    2175,
     -1,
     "Java"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#1c892145-7cdd-4ba9-9102-3037692ad4d7",
-    2180,
+    2175,
     -1,
     "Statically Defined within Another Class"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#be16746d-b0ac-4c68-ab06-d9044acbae0e",
-    2180,
+    2175,
     -1,
     "C++"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#aa3cd72f-fe20-4457-9920-a57250491e7e",
-    2180,
+    2175,
     -1,
     "Java"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#70176720-323a-4f3c-936f-cc31a58b0af7",
-    2180,
+    2175,
     -1,
     "Defined within a Method"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#3c6e3dd3-b52a-4b4d-80f8-ac7db1eed3cb",
-    2180,
+    2175,
     -1,
     "C++"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#263568e1-3e6a-49e3-a9b2-a58a4faf5250",
-    2180,
+    2175,
     -1,
     "Java"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#d9d26d95-820d-4afd-8b0b-c4f1effe79c3",
-    2180,
+    2175,
     -1,
     "Overriding vs Overloading"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#895ef2ee-cd65-4f62-ad61-3638c61d5777",
-    2180,
+    2175,
     -1,
     "Polymorphism"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#2c8fb9e9-b742-4d4c-b8f7-d330add8f643",
-    2180,
+    2175,
     -1,
     "Order of Construction/Destruction"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#768951f3-817d-43db-8121-68e7835d7647",
-    2180,
+    2175,
     -1,
     "Object Cleanup"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#45951594-a819-4890-9539-01aa96fbc44f",
-    2180,
+    2175,
     -1,
     "Abstract Methods \u0026 Classes"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#977c503f-b46c-4da0-94d0-53b9819a9305",
-    2180,
+    2175,
     -1,
     "Accessibility Modifiers"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#740b1c8f-0bfd-484c-bc48-2550c8e259ad",
-    2180,
+    2175,
     -1,
     "C++ Friend Example"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#e73ecf93-291b-44b0-8471-0df8140e9dee",
-    2180,
+    2175,
     -1,
     "The Dreaded Diamond Problem"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#668f362c-2d75-4a56-a38c-41d929c13bcd",
-    2180,
+    2175,
     -1,
     "java.lang.Object Class"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#8682bdac-8a96-4f74-9578-3a4806c10e19",
-    2180,
+    2175,
     -1,
     "Java Collections \u0026 C++ Containers"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#c941d43d-6fa9-44a5-9369-fa7d375dcca7",
-    2180,
+    2175,
     -1,
     "Java Collections Flowchart"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#d0bd6a1a-e70b-4f18-acb7-0b699e278404",
-    2180,
+    2175,
     -1,
     "C++ Containers Flowchart"
   ],
   [
     "c-comparison-b8ca304f90e64c61a7f4bfb57eb98720#9b17d6c3-0e0d-46ef-b0c1-2924e0945d43",
-    2180,
+    2175,
     -1,
     "Integer Types"
   ],
   [
     "static-class-members-a93fbb9a3fe8445882fb37b2226960a6",
-    2179,
-    2207,
+    2174,
+    2202,
     "Static Class Members",
     ""
   ],
   [
     "static-class-members-a93fbb9a3fe8445882fb37b2226960a6#1d40ad14-3d32-4dd9-accf-ccd23f8afbd9",
-    2206,
+    2201,
     -1,
     "C++ Example"
   ],
   [
     "static-class-members-a93fbb9a3fe8445882fb37b2226960a6#8f8222bb-c6af-4b93-9a96-8cfecacc2bbb",
-    2206,
+    2201,
     -1,
     "Java Example"
   ],
   [
     "classes-defined-within-other-constructs-a98cbe3490c745f6bc3e1e607d13847b",
-    2179,
-    2210,
+    2174,
+    2205,
     "Classes Defined within Other Constructs",
     ""
   ],
   [
     "classes-defined-within-other-constructs-a98cbe3490c745f6bc3e1e607d13847b#06f4ebc6-f45a-4eaa-b9f8-b7bf391e7cad",
-    2209,
+    2204,
     -1,
     "Defined within Another Class"
   ],
   [
     "classes-defined-within-other-constructs-a98cbe3490c745f6bc3e1e607d13847b#722d46c8-3da8-4fd5-9000-be8ce4908303",
-    2209,
+    2204,
     -1,
     "C++"
   ],
   [
     "classes-defined-within-other-constructs-a98cbe3490c745f6bc3e1e607d13847b#161275b8-dc4a-4176-9021-4f6f4b4a33a2",
-    2209,
+    2204,
     -1,
     "Java"
   ],
   [
     "classes-defined-within-other-constructs-a98cbe3490c745f6bc3e1e607d13847b#e1b20572-d914-43f6-8f9d-45be32079b24",
-    2209,
+    2204,
     -1,
     "Statically Defined within Another Class"
   ],
   [
     "classes-defined-within-other-constructs-a98cbe3490c745f6bc3e1e607d13847b#53e182ef-6fea-4a83-a168-1e82cedd0983",
-    2209,
+    2204,
     -1,
     "C++"
   ],
   [
     "classes-defined-within-other-constructs-a98cbe3490c745f6bc3e1e607d13847b#cbb820e4-cb9b-4c93-8fb1-2910fba474e3",
-    2209,
+    2204,
     -1,
     "Java"
   ],
   [
     "classes-defined-within-other-constructs-a98cbe3490c745f6bc3e1e607d13847b#5cf2bbad-12a8-4268-a298-3572147d04d2",
-    2209,
+    2204,
     -1,
     "Defined within a Method"
   ],
   [
     "classes-defined-within-other-constructs-a98cbe3490c745f6bc3e1e607d13847b#38421153-8ec1-46ae-8758-a494c5f44347",
-    2209,
+    2204,
     -1,
     "C++"
   ],
   [
     "classes-defined-within-other-constructs-a98cbe3490c745f6bc3e1e607d13847b#908cc179-77ec-427d-b4b6-90242c9e3f80",
-    2209,
+    2204,
     -1,
     "Java"
   ],
   [
     "pass-by-value-pass-by-reference-99f4b16e0b32457db0f2fa2feebac9e4",
-    2179,
-    2220,
+    2174,
+    2215,
     "Pass-by-value Pass-by-reference",
     ""
   ],
   [
     "pass-by-value-pass-by-reference-99f4b16e0b32457db0f2fa2feebac9e4#e676e4f3-5f5c-436f-ba90-d32ffb279619",
-    2219,
+    2214,
     -1,
     "C++ Example (complete code)"
   ],
   [
     "pass-by-value-pass-by-reference-99f4b16e0b32457db0f2fa2feebac9e4#0db6f099-8baf-496f-b4d2-f7b7fd74a1ad",
-    2219,
+    2214,
     -1,
     "Java Example (complete code)"
   ],
   [
     "inheritance-vs-composition-19439f6cadcb4f88816666f14652df0a",
-    2179,
+    2174,
     -1,
     "Inheritance vs Composition",
     ""
   ],
   [
     "outcast-downcasting-432bfb65928b4380af9be9507d859636",
-    2179,
-    2224,
+    2174,
+    2219,
     "Outcast Downcasting",
     ""
   ],
   [
     "outcast-downcasting-432bfb65928b4380af9be9507d859636#c956625d-aaa6-45ca-9872-e512eed17fde",
-    2223,
+    2218,
     -1,
     "C++ Example"
   ],
   [
     "outcast-downcasting-432bfb65928b4380af9be9507d859636#7eb1a75c-64b1-4f4a-b343-4b601292cea2",
-    2223,
+    2218,
     -1,
     "Java Example"
   ],
   [
     "abstract-methods-classes-91811688556e4757926080582b5039bf",
-    2179,
-    2227,
+    2174,
+    2222,
     "Abstract Methods Classes",
     ""
   ],
   [
     "abstract-methods-classes-91811688556e4757926080582b5039bf#c4ca8fa1-fff6-4ee3-9c10-29e6fe78115a",
-    2226,
+    2221,
     -1,
     "Abstract Method"
   ],
   [
     "abstract-methods-classes-91811688556e4757926080582b5039bf#638a5b73-14a5-425d-b30c-a35b54912c79",
-    2226,
+    2221,
     -1,
     "C++"
   ],
   [
     "abstract-methods-classes-91811688556e4757926080582b5039bf#ca54c48a-0d6c-4f25-8ec1-2606d7b16a07",
-    2226,
+    2221,
     -1,
     "Java"
   ],
   [
     "abstract-methods-classes-91811688556e4757926080582b5039bf#2a12b2b5-6843-4bc2-9f99-6d0fadb40241",
-    2226,
+    2221,
     -1,
     "Abstract Class"
   ],
   [
     "abstract-methods-classes-91811688556e4757926080582b5039bf#6045daef-1c15-4c4b-8091-68fb8a56d3c4",
-    2226,
+    2221,
     -1,
     "C++"
   ],
   [
     "abstract-methods-classes-91811688556e4757926080582b5039bf#4af0b294-b592-43a7-95ef-82a804347c05",
-    2226,
+    2221,
     -1,
     "Java"
   ],
   [
     "abstract-methods-classes-91811688556e4757926080582b5039bf#356251af-853c-42f7-942f-e3082adc16dd",
-    2226,
+    2221,
     -1,
     "Interface"
   ],
   [
     "abstract-methods-classes-91811688556e4757926080582b5039bf#c63296d1-b77c-441c-a139-b3ffec6c5b25",
-    2226,
+    2221,
     -1,
     "C++"
   ],
   [
     "abstract-methods-classes-91811688556e4757926080582b5039bf#db6cdded-339a-4c87-b0ea-44878baede53",
-    2226,
+    2221,
     -1,
     "Java"
   ],
   [
     "completablefuture-4eea65f1af604838a058ed411be8c530",
     -1,
-    2237,
+    2232,
     "CompletableFuture"
   ],
   [
     "completablefuture-0fb448069edf4adf94236a45fa664230",
-    2236,
-    2238,
+    2231,
+    2233,
     "CompletableFuture",
     ""
   ],
   [
     "completablefuture-0fb448069edf4adf94236a45fa664230#15fc0235-5d53-4e7a-8fab-83a7fe908e91",
-    2237,
+    2232,
     -1,
     "Versions"
   ],
   [
     "completablefuture-0fb448069edf4adf94236a45fa664230#4d4a873d-5837-4ffe-a1d6-92ea0d3cd7fb",
-    2237,
+    2232,
     -1,
     "Introduction"
   ],
   [
     "simple-example-of-completablefuture-0f7f05ffa20b42249c1fa6e89eaedbcf",
-    2236,
+    2231,
     -1,
     "Simple Example of CompletableFuture",
     ""
   ],
   [
     "convert-blocking-method-to-asynchonous-bb9526028d4b4bcc8a41c0652a705e56",
-    2236,
+    2231,
     -1,
     "Convert blocking method to asynchonous",
     ""

@@ -2540,33 +2540,21 @@ gTocItems = [
     ""
   ],
   [
-    "clustering-4e857ca623cb4e45bf2e60873f5c2b40",
-    -1,
-    385,
-    "Clustering"
-  ],
-  [
-    "clustering-4e857ca623cb4e45bf2e60873f5c2b40#12c806a3-da35-4e95-b865-902146085ffc",
-    384,
-    -1,
-    "Disambiguation"
-  ],
-  [
     "security-via-grants-b6261c6ac5d6447a94a06868e6461771",
     -1,
-    387,
+    385,
     "Security via GRANTs"
   ],
   [
     "best-practice-42ac77145ab44bc0b1e2f9e1d537c2c0",
-    386,
+    384,
     -1,
     "Best Practice",
     ""
   ],
   [
     "host-of-userhost-c8d34a97cfb74ac69afe27a051f98f9b",
-    386,
+    384,
     -1,
     "Host of userhost",
     ""
@@ -2574,78 +2562,78 @@ gTocItems = [
   [
     "backticks-043cdc0a6ffc4ed192d5e0a268681fc6",
     -1,
-    390,
+    388,
     "Backticks"
   ],
   [
     "backticks-043cdc0a6ffc4ed192d5e0a268681fc6#5820ded5-185b-4aeb-b978-cdb56535cb1d",
-    389,
+    387,
     -1,
     "Backticks usage"
   ],
   [
     "mysqlimport-595fc4287d2e40b09396a1a9d47d6cd1",
     -1,
-    392,
+    390,
     "mysqlimport"
   ],
   [
     "mysqlimport-f33db61d06e544839a2b62d4f69949c6",
+    389,
     391,
-    393,
     "mysqlimport",
     ""
   ],
   [
     "mysqlimport-f33db61d06e544839a2b62d4f69949c6#8d1fade5-9a27-487a-80f1-530d6639c011",
-    392,
+    390,
     -1,
     "Parameters"
   ],
   [
     "mysqlimport-f33db61d06e544839a2b62d4f69949c6#6785c646-2a9b-474a-826c-17117f483d20",
-    392,
+    390,
     -1,
     "Remarks"
   ],
   [
     "basic-usage-d778638d02a442db8515da69c8b6e621",
-    391,
+    389,
     -1,
     "Basic usage",
     ""
   ],
   [
     "using-a-custom-field-delimiter-e8cbc83631344ee8a6f802d36d9d3d2f",
-    391,
+    389,
     -1,
     "Using a custom field-delimiter",
     ""
   ],
   [
     "using-a-custom-row-delimiter-4cb6b05f174d45fca0507dbe7826f6af",
-    391,
+    389,
     -1,
     "Using a custom row-delimiter",
     ""
   ],
   [
     "handling-duplicate-keys-5daaf1f6c98a4cfb9b1be861d0ca6037",
-    391,
+    389,
     -1,
     "Handling duplicate keys",
     ""
   ],
   [
     "conditional-import-df32b9c8d86c4eb08142b7b6b884fc3a",
-    391,
+    389,
     -1,
     "Conditional import",
     ""
   ],
   [
     "import-a-standard-csv-ceefa25dee394078818b9e6de536fd3a",
-    391,
+    389,
     -1,
     "Import a standard csv",
     ""
@@ -2653,38 +2641,38 @@ gTocItems = [
   [
     "mysql-lock-table-015d0c61e7d74648a98bad0175a5813d",
     -1,
-    402,
+    400,
     "MySQL LOCK TABLE"
   ],
   [
     "mysql-lock-table-12557e8857974f88894a30cb7d0d37c5",
+    399,
     401,
-    403,
     "MySQL LOCK TABLE",
     ""
   ],
   [
     "mysql-lock-table-12557e8857974f88894a30cb7d0d37c5#12aaa282-2df8-4eb4-85fe-6618ff75e9a0",
-    402,
+    400,
     -1,
     "Syntax"
   ],
   [
     "mysql-lock-table-12557e8857974f88894a30cb7d0d37c5#8967d608-15c1-4d13-8784-3b0cd2976223",
-    402,
+    400,
     -1,
     "Remarks"
   ],
   [
     "mysql-locks-60061249443744eeb0f76702b81c1dd8",
-    401,
+    399,
     -1,
     "Mysql Locks",
     ""
   ],
   [
     "row-level-locking-ff5b7db9632d4536b46cdb589ecfd96a",
-    401,
+    399,
     -1,
     "Row Level Locking",
     ""
@@ -2692,45 +2680,45 @@ gTocItems = [
   [
     "mysql-unions-8edb469f71c54589bfc323f155af0544",
     -1,
-    408,
+    406,
     "MySQL Unions"
   ],
   [
     "mysql-unions-ac0d69feaa1c46048cf6ee275d9d3588",
+    405,
     407,
-    409,
     "MySQL Unions",
     ""
   ],
   [
     "mysql-unions-ac0d69feaa1c46048cf6ee275d9d3588#aa282902-19be-4c12-8d25-64b5cae7122b",
-    408,
+    406,
     -1,
     "Syntax"
   ],
   [
     "mysql-unions-ac0d69feaa1c46048cf6ee275d9d3588#299b7451-23ce-4d3a-8326-0ee98d3e72ec",
-    408,
+    406,
     -1,
     "Remarks"
   ],
   [
     "union-operator-b7ad46875d704f30a95bfe9f51e47187",
-    407,
+    405,
     -1,
     "Union operator",
     ""
   ],
   [
     "union-all-af01c4351c6946a0a5da6f7aef633b77",
-    407,
+    405,
     -1,
     "Union ALL",
     ""
   ],
   [
     "union-all-with-where-b0546f433a7647399032fcbbf669da52",
-    407,
+    405,
     -1,
     "UNION ALL With WHERE",
     ""
@@ -2738,33 +2726,33 @@ gTocItems = [
   [
     "order-by-e60647b482e1404e8c98f806fb177282",
     -1,
-    415,
+    413,
     "ORDER BY"
   ],
   [
     "contexts-d6c64ece4afc42a6b17f1f09db8730cb",
-    414,
+    412,
     -1,
     "Contexts",
     ""
   ],
   [
     "basic-ced6b5e1db0d4030b578ec475574d0f8",
-    414,
+    412,
     -1,
     "Basic",
     ""
   ],
   [
     "ascending-descending-be95bdaed9c043b2b55992f2fefa9623",
-    414,
+    412,
     -1,
     "ASCending DESCending",
     ""
   ],
   [
     "some-tricks-a2417184e699448b85497fdc86e0c675",
-    414,
+    412,
     -1,
     "Some tricks",
     ""
@@ -2772,83 +2760,83 @@ gTocItems = [
   [
     "mysql-client-93d5655638f9455493aba2960eb74c48",
     -1,
-    420,
+    418,
     "MySQL client"
   ],
   [
     "mysql-client-49660a448f994edd8bef540e11b459a0",
+    417,
     419,
-    421,
     "MySQL client",
     ""
   ],
   [
     "mysql-client-49660a448f994edd8bef540e11b459a0#624c5c01-23f1-47fe-b507-1b23b7abf826",
-    420,
+    418,
     -1,
     "Syntax"
   ],
   [
     "mysql-client-49660a448f994edd8bef540e11b459a0#5f6e04ae-ad56-4f74-81a9-cb43ebd8444d",
-    420,
+    418,
     -1,
     "Parameters"
   ],
   [
     "base-login-49b4030b2c3b47258140093472faff13",
-    419,
+    417,
     -1,
     "Base login",
     ""
   ],
   [
     "execute-commands-6192d20f2e544264aee2a7bcd4c8976c",
-    419,
-    425,
+    417,
+    423,
     "Execute commands",
     ""
   ],
   [
     "execute-commands-6192d20f2e544264aee2a7bcd4c8976c#bb098ded-81bd-49cf-ad36-ea6b04f3f018",
-    424,
+    422,
     -1,
     "Execute command from a string"
   ],
   [
     "execute-commands-6192d20f2e544264aee2a7bcd4c8976c#cc763f12-1c07-474b-bd35-55a377fde4a1",
-    424,
+    422,
     -1,
     "Execute from script file:"
   ],
   [
     "execute-commands-6192d20f2e544264aee2a7bcd4c8976c#369baef3-b78f-48f0-86ba-7d6130c7af3d",
-    424,
+    422,
     -1,
     "Write the output on a file"
   ],
   [
     "mysql-performance-tips-a14c3674c8f342a7bde06fe36822313f",
     -1,
-    429,
+    427,
     "MySQL Performance Tips"
   ],
   [
     "optimizing-storage-layout-for-innodb-tables-a3f807d9e62e40ed835ed7ba150c5106",
-    428,
+    426,
     -1,
     "Optimizing Storage Layout for InnoDB Tables",
     ""
   ],
   [
     "building-a-composite-index-ec12a2f84d234e41b777f8b3e4827ca5",
-    428,
+    426,
     -1,
     "Building a composite index",
     ""
   ],
   [
     "select-statement-optimization-6f1d65df1d674920af2fd75817cdbee2",
-    428,
+    426,
     -1,
     "Select Statement Optimization",
     ""
@@ -2856,19 +2844,19 @@ gTocItems = [
   [
     "temporary-tables-16372fe8f6c0416e98106e397303296a",
     -1,
-    433,
+    431,
     "Temporary Tables"
   ],
   [
     "create-temporary-table-4106311d8dd24d31bf45befb73a47995",
-    432,
+    430,
     -1,
     "Create Temporary Table",
     ""
   ],
   [
     "drop-temporary-table-3e63edc023e840f4b4bb8d1568a1a2ad",
-    432,
+    430,
     -1,
     "Drop Temporary Table",
     ""
@@ -2876,26 +2864,26 @@ gTocItems = [
   [
     "transaction-0c2493793ee34a2d92d3c1a4759c1ff3",
     -1,
-    436,
+    434,
     "Transaction"
   ],
   [
     "start-transaction-43e72d1064124d079bac233857e7bd7c",
-    435,
+    433,
     -1,
     "Start Transaction",
     ""
   ],
   [
     "commit-rollback-and-autocommit-9d61313b8bb047e887e8ed7cb4cece49",
-    435,
+    433,
     -1,
     "COMMIT ROLLBACK and AUTOCOMMIT",
     ""
   ],
   [
     "transaction-using-jdbc-driver-bc27012b4cd0452c92a1b85a68f155e1",
-    435,
+    433,
     -1,
     "Transaction using JDBC Driver",
     ""
@@ -2903,19 +2891,19 @@ gTocItems = [
   [
     "customize-ps1-4705933d22cd4df2a2b65c6a93aa18c6",
     -1,
-    440,
+    438,
     "Customize PS1"
   ],
   [
     "customize-the-mysql-ps1-with-current-database-4cdc5992a42c4bce8099dffa6bc37f40",
-    439,
+    437,
     -1,
     "Customize the MySQL PS1 with current database",
     ""
   ],
   [
     "custom-ps1-via-mysql-configuration-file-f89ba5bc1df94b6896c20a22e65008ab",
-    439,
+    437,
     -1,
     "Custom PS1 via MySQL configuration file",
     ""
@@ -2923,12 +2911,12 @@ gTocItems = [
   [
     "dealing-with-sparse-or-missing-data-e360c96cbb8545308877f40ef62a45ab",
     -1,
-    443,
+    441,
     "Dealing with sparse or missing data"
   ],
   [
     "working-with-columns-containg-null-values-7a089fe1f0f540289946513e1ba570a7",
-    442,
+    440,
     -1,
     "Working with columns containg NULL values",
     ""
@@ -2936,12 +2924,12 @@ gTocItems = [
   [
     "dynamic-un-pivot-table-using-prepared-statement-52f7847c61a04bd2a3119830661e289c",
     -1,
-    445,
+    443,
     "Dynamic Un-Pivot Table using Prepared Statement"
   ],
   [
     "un-pivot-a-dynamic-set-of-columns-based-on-condition-3df4838faa1e42dba78fdc6f28f548eb",
-    444,
+    442,
     -1,
     "Un-pivot a dynamic set of columns based on condition",
     ""
@@ -2949,19 +2937,19 @@ gTocItems = [
   [
     "null-37652373ad364dfd944bd9b063f4d009",
     -1,
-    447,
+    445,
     "NULL"
   ],
   [
     "uses-for-null-4b305868ee4044b3a3993786328d419c",
-    446,
+    444,
     -1,
     "Uses for NULL",
     ""
   ],
   [
     "testing-nulls-0b023c9ee9424086bf07049d405c0c8d",
-    446,
+    444,
     -1,
     "Testing NULLs",
     ""
@@ -2969,32 +2957,32 @@ gTocItems = [
   [
     "replication-8b8406157d6943c4a955fa5e25657ef7",
     -1,
-    450,
+    448,
     "Replication"
   ],
   [
     "replication-5985b674e90d440c963a69cf3f871ffe",
+    447,
     449,
-    451,
     "Replication",
     ""
   ],
   [
     "replication-5985b674e90d440c963a69cf3f871ffe#4e3fe5c0-a6e4-4b10-8b4d-8e708be66793",
-    450,
+    448,
     -1,
     "Remarks"
   ],
   [
     "master-slave-replication-setup-24cc78387325410e878e9560385da214",
-    449,
+    447,
     -1,
     "Master - Slave Replication Setup",
     ""
   ],
   [
     "replication-errors-9b1747f0d3df4e43b5b6e78630307b59",
-    449,
+    447,
     -1,
     "Replication Errors",
     ""
@@ -3002,19 +2990,19 @@ gTocItems = [
   [
     "connecting-with-utf-8-7f8f5bb98330470782d25565aa66767a",
     -1,
-    455,
+    453,
     "Connecting with UTF-8"
   ],
   [
     "python-667f91636e1640f084b72f6a6372423f",
-    454,
+    452,
     -1,
     "Python",
     ""
   ],
   [
     "php-e93b1c97f315439a9863142fb39510f8",
-    454,
+    452,
     -1,
     "PHP",
     ""
@@ -3022,133 +3010,133 @@ gTocItems = [
   [
     "ssl-connection-setup-47ee148c2fa34addbca242f5749df850",
     -1,
-    458,
+    456,
     "SSL Connection Setup"
   ],
   [
     "setup-for-debian-based-systems-ecde3565a1a94198b3483b9f48534dd9",
+    455,
     457,
-    459,
     "Setup for Debian-based systems",
     ""
   ],
   [
     "setup-for-debian-based-systems-ecde3565a1a94198b3483b9f48534dd9#abbb6ae3-f3b7-4973-928f-b586a8988b7f",
-    458,
+    456,
     -1,
     "Generating a CA and SSL keys"
   ],
   [
     "setup-for-debian-based-systems-ecde3565a1a94198b3483b9f48534dd9#541a142a-be84-4537-af00-20c77941feac",
-    458,
+    456,
     -1,
     "Adding the keys to MySQL"
   ],
   [
     "setup-for-debian-based-systems-ecde3565a1a94198b3483b9f48534dd9#2ebf23c8-0b88-4d52-b0df-af22675f5892",
-    458,
+    456,
     -1,
     "Test the SSL connection"
   ],
   [
     "setup-for-debian-based-systems-ecde3565a1a94198b3483b9f48534dd9#4b9f4f28-b698-47e4-8d53-6f179830b3f3",
-    458,
+    456,
     -1,
     "Enforcing SSL"
   ],
   [
     "setup-for-debian-based-systems-ecde3565a1a94198b3483b9f48534dd9#ca66586e-d83a-4904-b805-8d3889ac338f",
-    458,
+    456,
     -1,
     "References and further reading:"
   ],
   [
     "setup-for-centos7-rhel7-add963fe9f4948bba636740cb249baaa",
-    457,
-    465,
+    455,
+    463,
     "Setup for CentOS7 RHEL7",
     ""
   ],
   [
     "setup-for-centos7-rhel7-add963fe9f4948bba636740cb249baaa#15109b91-b0f4-4204-9a8b-7cb7c6c2c905",
-    464,
+    462,
     -1,
     "First, log on to dbserver"
   ],
   [
     "setup-for-centos7-rhel7-add963fe9f4948bba636740cb249baaa#85c67f46-3bbd-4d5a-9b0d-f6f26f864ee7",
-    464,
+    462,
     -1,
     "END OF SERVER SIDE WORK FOR NOW."
   ],
   [
     "setup-for-centos7-rhel7-add963fe9f4948bba636740cb249baaa#4db4fca9-cea7-4518-a184-bf3f73fde659",
-    464,
+    462,
     -1,
     "still on the client here"
   ],
   [
     "setup-for-centos7-rhel7-add963fe9f4948bba636740cb249baaa#a2ecfb2e-dbbf-41d8-b294-40fd7b2b64d1",
-    464,
+    462,
     -1,
     "NOW WE ARE READY TO TEST THE SECURE CONNECTION"
   ],
   [
     "setup-for-centos7-rhel7-add963fe9f4948bba636740cb249baaa#14b9d886-ffda-4543-8be7-7bcb22d97040",
-    464,
+    462,
     -1,
     "We’re still on appclient here"
   ],
   [
     "handling-time-zones-a92a060c1ffd4353a6c6d542d3bbf514",
     -1,
-    471,
+    469,
     "Handling Time Zones"
   ],
   [
     "00handling-time-zones-990cf5fd956749ebab4f9bf1b5995c68",
+    468,
     470,
-    472,
     "00Handling Time Zones",
     ""
   ],
   [
     "00handling-time-zones-990cf5fd956749ebab4f9bf1b5995c68#89b9591e-7dc1-4fb5-a181-63b91eb5ac0a",
-    471,
+    469,
     -1,
     "Remarks"
   ],
   [
     "retrieve-the-current-date-and-time-in-a-particular-time-zone-4430c8194f2249439005b573143b2013",
-    470,
+    468,
     -1,
     "Retrieve the current date and time in a particular time zone",
     ""
   ],
   [
     "convert-a-stored-date-or-datetime-value-to-another-time-zone-60bd25afb8a342f1a42a1af89c0fc810",
-    470,
+    468,
     -1,
     "Convert a stored DATE or DATETIME value to another time zone",
     ""
   ],
   [
     "retrieve-stored-timestamp-values-in-a-particular-time-zone-b09648cae11045c8be898e8e57f6ba97",
-    470,
+    468,
     -1,
     "Retrieve stored TIMESTAMP values in a particular time zone",
     ""
   ],
   [
     "what-is-my-servers-local-time-zone-setting-7e4d27d47668486888915cdf66d863e9",
-    470,
+    468,
     -1,
     "What is my servers local time zone setting",
     ""
   ],
   [
     "what-time-zone-values-are-available-in-my-server-07bca088bf4d46eda8ad0e4fa84f3211",
-    470,
+    468,
     -1,
     "What time zone values are available in my server",
     ""
@@ -3156,53 +3144,53 @@ gTocItems = [
   [
     "time-with-subsecond-precision-32080415b71d4b6e9e23aff2e8d908bb",
     -1,
-    479,
+    477,
     "Time with subsecond precision"
   ],
   [
     "time-with-subsecond-precision-f76ddc14d2d54b5089c55c1b5b96a88a",
+    476,
     478,
-    480,
     "Time with subsecond precision",
     ""
   ],
   [
     "time-with-subsecond-precision-f76ddc14d2d54b5089c55c1b5b96a88a#315b54dc-a506-4e57-9975-9b1ec1f844fd",
-    479,
+    477,
     -1,
     "Remarks"
   ],
   [
     "get-the-current-time-with-millisecond-precision-a46cfe955f5544cca3359f3585ca1a49",
-    478,
+    476,
     -1,
     "Get the current time with millisecond precision",
     ""
   ],
   [
     "get-the-current-time-in-a-form-that-looks-like-a-javascript-timestamp-b70664d3206c4532af00e79ce2eec382",
-    478,
+    476,
     -1,
     "Get the current time in a form that looks like a Javascript timestamp.",
     ""
   ],
   [
     "create-a-table-with-columns-to-store-sub-second-time-8a17ccded45b4583ba87eed5539c2f92",
-    478,
+    476,
     -1,
     "Create a table with columns to store sub-second time",
     ""
   ],
   [
     "convert-a-millisecond-precision-date-time-value-to-text-5f00953ecd274d7784438ec1ba54e610",
-    478,
+    476,
     -1,
     "Convert a millisecond-precision date time value to text",
     ""
   ],
   [
     "store-a-javascript-timestamp-into-a-timestamp-column-6ff89fcb6a6744e5b4c3c967b0275991",
-    478,
+    476,
     -1,
     "Store a Javascript timestamp into a TIMESTAMP column",
     ""
@@ -3210,52 +3198,52 @@ gTocItems = [
   [
     "error-1055-only-full-group-by-f396a67b37724b0eaf59b16f2eba71a6",
     -1,
-    487,
+    485,
     "Error 1055 ONLY FULL GROUP BY"
   ],
   [
     "error-1055-only-full-group-by-something-is-not-in-group-by-clause-0f5287766f5b48db947f68b72f946ca4",
+    484,
     486,
-    488,
     "Error 1055 ONLY FULL GROUP BY something is not in GROUP BY clause ...",
     ""
   ],
   [
     "error-1055-only-full-group-by-something-is-not-in-group-by-clause-0f5287766f5b48db947f68b72f946ca4#30992216-e50c-433e-8e9f-c8283c4fe39f",
-    487,
+    485,
     -1,
     "Introduction"
   ],
   [
     "error-1055-only-full-group-by-something-is-not-in-group-by-clause-0f5287766f5b48db947f68b72f946ca4#d82a9821-cb10-429e-b9f2-a114c0dc19df",
-    487,
+    485,
     -1,
     "Remarks"
   ],
   [
     "misusing-group-by-to-return-unpredictable-results-murphys-law-86010fa549f14535b1bb48ce529521fe",
-    486,
+    484,
     -1,
     "Misusing GROUP BY to return unpredictable results Murphys Law",
     ""
   ],
   [
     "misusing-group-by-with-select-and-how-to-fix-it-b71dc6eadad94516bd9308d54fef0540",
-    486,
+    484,
     -1,
     "Misusing GROUP BY with SELECT and how to fix it",
     ""
   ],
   [
     "using-and-misusing-group-by-c1212f9e27104be68287d59a4e09c77d",
-    486,
+    484,
     -1,
     "Using and misusing GROUP BY",
     ""
   ],
   [
     "any-value-f201ce7a029c46bc8015220e7569eb7b",
-    486,
+    484,
     -1,
     "ANY VALUE",
     ""
@@ -3263,45 +3251,45 @@ gTocItems = [
   [
     "full-text-search-3e13ef24307e40d7b1d1f6665ac35a14",
     -1,
-    495,
+    493,
     "Full-Text search"
   ],
   [
     "full-text-search-235208b0489247f5bb398c5df4c87256",
+    492,
     494,
-    496,
     "Full-Text search",
     ""
   ],
   [
     "full-text-search-235208b0489247f5bb398c5df4c87256#cea3dfa5-01b6-4f9b-b941-332dc7a009e1",
-    495,
+    493,
     -1,
     "Introduction"
   ],
   [
     "full-text-search-235208b0489247f5bb398c5df4c87256#56d08aee-6e88-4ea5-b49f-b098b708df48",
-    495,
+    493,
     -1,
     "Remarks"
   ],
   [
     "simple-fulltext-search-3767bb7e100d4ddb83b985134804e4fd",
-    494,
+    492,
     -1,
     "Simple FULLTEXT search",
     ""
   ],
   [
     "simple-boolean-search-b4e82affe4f84c778f5d967e1b1b5444",
-    494,
+    492,
     -1,
     "Simple BOOLEAN search",
     ""
   ],
   [
     "multi-column-fulltext-search-79c47cb0b9954e2aaff57fdee4db19b5",
-    494,
+    492,
     -1,
     "Multi-column FULLTEXT search",
     ""
@@ -3309,50 +3297,50 @@ gTocItems = [
   [
     "extract-values-from-json-type-78907ef4512f456b90d6bf47f19fa4d1",
     -1,
-    502,
+    500,
     "Extract values from JSON type"
   ],
   [
     "extract-values-from-json-type-9cf2a8026ce945e59b2892788de3dd14",
+    499,
     501,
-    503,
     "Extract values from JSON type",
     ""
   ],
   [
     "extract-values-from-json-type-9cf2a8026ce945e59b2892788de3dd14#dfc03caa-0248-4fe2-97f2-8b2902af7ef9",
-    502,
+    500,
     -1,
     "Introduction"
   ],
   [
     "extract-values-from-json-type-9cf2a8026ce945e59b2892788de3dd14#6f52210d-c3bd-410e-aece-4ebb3f24faea",
-    502,
+    500,
     -1,
     "Syntax"
   ],
   [
     "extract-values-from-json-type-9cf2a8026ce945e59b2892788de3dd14#f2e37a0e-92fc-490a-b5f5-192bd129b378",
-    502,
+    500,
     -1,
     "Parameters"
   ],
   [
     "extract-values-from-json-type-9cf2a8026ce945e59b2892788de3dd14#ac08a958-e2d1-41d9-93ba-5592f83a3300",
-    502,
+    500,
     -1,
     "Remarks"
   ],
   [
     "read-json-array-value-02c8a411ba8743c5b760d2ee7af32ea5",
-    501,
+    499,
     -1,
     "Read JSON Array value",
     ""
   ],
   [
     "json-extract-operators-3ce7d557b46a4705949b0b3442c7bc03",
-    501,
+    499,
     -1,
     "JSON Extract Operators",
     ""
@@ -3360,113 +3348,113 @@ gTocItems = [
   [
     "regular-expressions-7d64394fa0b54b13a19e08f9141408ff",
     -1,
-    510,
+    508,
     "Regular Expressions"
   ],
   [
     "regular-expressions-5d5bbde4672e4a1caae15daa26946c59",
+    507,
     509,
-    511,
     "Regular Expressions",
     ""
   ],
   [
     "regular-expressions-5d5bbde4672e4a1caae15daa26946c59#25ae1285-28d3-49a6-8ae7-b5cb7a01acf4",
-    510,
+    508,
     -1,
     "Introduction"
   ],
   [
     "regexp-rlike-16af475370e44584bb796c767e68a6db",
-    509,
-    513,
+    507,
+    511,
     "REGEXP RLIKE",
     ""
   ],
   [
     "regexp-rlike-16af475370e44584bb796c767e68a6db#531a3563-02f5-4790-8f39-c9259762a440",
-    512,
+    510,
     -1,
     "Pattern ^"
   ],
   [
     "regexp-rlike-16af475370e44584bb796c767e68a6db#23a0f262-a24b-4c35-9123-82f50ea0f37c",
-    512,
+    510,
     -1,
     "Pattern $**"
   ],
   [
     "regexp-rlike-16af475370e44584bb796c767e68a6db#ec73ebbf-6e0f-4a59-8517-88d28d2974de",
-    512,
+    510,
     -1,
     "NOT REGEXP"
   ],
   [
     "regexp-rlike-16af475370e44584bb796c767e68a6db#4d6a959f-16a8-41b8-81b5-547fefbd20ea",
-    512,
+    510,
     -1,
     "Regex Contain"
   ],
   [
     "regexp-rlike-16af475370e44584bb796c767e68a6db#10ed92b2-990f-4e42-b06b-bae5a2df5525",
-    512,
+    510,
     -1,
     "Any character between"
   ],
   [
     "regexp-rlike-16af475370e44584bb796c767e68a6db#e0ada373-c63b-492f-9d6e-1f909cf04d95",
-    512,
+    510,
     -1,
     "Pattern or |"
   ],
   [
     "regexp-rlike-16af475370e44584bb796c767e68a6db#47824e39-9428-4866-825b-2ef815e527a5",
-    512,
+    510,
     -1,
     "Counting regular expression matches"
   ],
   [
     "recover-and-reset-default-root-password-6f381ab257eb427882068c544ab46e8e",
     -1,
-    521,
+    519,
     "Recover and reset default root password"
   ],
   [
     "recover-and-reset-the-default-root-password-for-mysql-5-7-80b47a9e843d42059b214c87ba1ce219",
+    518,
     520,
-    522,
     "Recover and reset the default root password for MySQL 5.7",
     ""
   ],
   [
     "recover-and-reset-the-default-root-password-for-mysql-5-7-80b47a9e843d42059b214c87ba1ce219#90fdb2ac-42ba-4b3c-8475-196122565cc9",
-    521,
+    519,
     -1,
     "Introduction"
   ],
   [
     "recover-and-reset-the-default-root-password-for-mysql-5-7-80b47a9e843d42059b214c87ba1ce219#8816cf65-b0ea-43f9-99df-3e9115215562",
-    521,
+    519,
     -1,
     "Remarks"
   ],
   [
     "what-happens-when-the-initial-start-up-of-the-server-9004842618b346d58af8c92ecde64969",
-    520,
+    518,
     -1,
     "What happens when the initial start up of the server",
     ""
   ],
   [
     "how-to-change-the-root-password-by-using-the-default-password-c8c1d7e5bea54e6e8bb231b778f68a18",
-    520,
+    518,
     -1,
     "How to change the root password by using the default password",
     ""
   ],
   [
     "reset-root-password-when-varrunmysqld-for-unix-socket-file-dont-exists-434024a1d988458b97b6672d29fa1b36",
-    520,
+    518,
     -1,
     "reset root password when varrunmysqld for UNIX socket file dont exists",
     ""
@@ -3474,45 +3462,45 @@ gTocItems = [
   [
     "one-to-many-20d08160defc4a9aa9df11cdd9ecbf68",
     -1,
-    528,
+    526,
     "One to Many"
   ],
   [
     "one-to-many-9e72383ba2a74646bdb16e729637cc8d",
+    525,
     527,
-    529,
     "One to Many",
     ""
   ],
   [
     "one-to-many-9e72383ba2a74646bdb16e729637cc8d#392ee168-d19c-4712-b2ed-4264b4df5061",
-    528,
+    526,
     -1,
     "Introduction"
   ],
   [
     "one-to-many-9e72383ba2a74646bdb16e729637cc8d#e7cf62e6-8b14-420e-acfa-b8641a8a0601",
-    528,
+    526,
     -1,
     "Remarks"
   ],
   [
     "example-company-tables-e13766e29b7b48a486a05ce67d9546f0",
-    527,
+    525,
     -1,
     "Example Company Tables",
     ""
   ],
   [
     "get-the-employees-managed-by-a-single-manager-f003a7705d55417ba88cbbe6e8e8c349",
-    527,
+    525,
     -1,
     "Get the Employees Managed by a Single Manager",
     ""
   ],
   [
     "get-the-manager-for-a-single-employee-2bf01133860041efb0a43e47900faa3a",
-    527,
+    525,
     -1,
     "Get the Manager for a Single Employee",
     ""
@@ -3520,12 +3508,12 @@ gTocItems = [
   [
     "joins-join-3-tables-d7c33f986aaf44d3aec488ba01863f63",
     -1,
-    535,
+    533,
     "JOINS Join 3 tables"
   ],
   [
     "join-3-tables-on-a-column-with-the-same-name-18a470b285ce431abc97f72f5220fccc",
-    534,
+    532,
     -1,
     "Join 3 tables on a column with the same name",
     ""
@@ -3533,32 +3521,32 @@ gTocItems = [
   [
     "server-information-bed1a394702744ed90c31c6b9457ab29",
     -1,
-    537,
+    535,
     "Server Information"
   ],
   [
     "server-information-b77da56b20d344c3a528a5ce3482e565",
+    534,
     536,
-    538,
     "Server Information",
     ""
   ],
   [
     "server-information-b77da56b20d344c3a528a5ce3482e565#788abf7d-bf53-43ee-84ff-513cfb1bc2a3",
-    537,
+    535,
     -1,
     "Parameters"
   ],
   [
     "show-variables-example-45b4dea5259c4208b5688f69ac97d4e9",
-    536,
+    534,
     -1,
     "SHOW VARIABLES example",
     ""
   ],
   [
     "show-status-example-418137a6a66844c592b8d104a0394c33",
-    536,
+    534,
     -1,
     "SHOW STATUS example",
     ""
@@ -3566,12 +3554,12 @@ gTocItems = [
   [
     "recover-from-lost-root-password-5926416cafa04187992b26d580e8c93e",
     -1,
-    542,
+    540,
     "Recover from lost root password"
   ],
   [
     "set-root-password-enable-root-user-for-socket-and-http-access-e090a169132c4daabbb2690a9ae5b85d",
-    541,
+    539,
     -1,
     "Set root password enable root user for socket and http access",
     ""

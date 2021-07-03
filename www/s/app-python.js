@@ -9751,60 +9751,40 @@ gTocItems = [
     ""
   ],
   [
-    "pillow-eb073ef9daa74761914bdf41e5ac8f9c",
-    -1,
-    1485,
-    "Pillow"
-  ],
-  [
-    "read-image-file-e3e8298da8aa49578fb6c2ccbc85f44d",
-    1484,
-    -1,
-    "Read Image File",
-    ""
-  ],
-  [
-    "convert-files-to-jpeg-b2f6447b005645d2af254f44f9dbcb3c",
-    1484,
-    -1,
-    "Convert files to JPEG",
-    ""
-  ],
-  [
     "pass-statement-4af994c0f79e413f862b75aef3091427",
     -1,
-    1488,
+    1485,
     "pass statement"
   ],
   [
     "the-pass-statement-6caab1f9524748498af5b93193cf6171",
-    1487,
-    1489,
+    1484,
+    1486,
     "The pass statement",
     ""
   ],
   [
     "the-pass-statement-6caab1f9524748498af5b93193cf6171#46310216-add6-4ae5-af1d-5ca99dbcef88",
-    1488,
+    1485,
     -1,
     "Syntax"
   ],
   [
     "the-pass-statement-6caab1f9524748498af5b93193cf6171#ffd1e0b6-b9a4-4f52-a550-94b3f10aee2e",
-    1488,
+    1485,
     -1,
     "Remarks"
   ],
   [
     "ignore-an-exception-4c18619f4aa14976bcfa9a7ee567c2a7",
-    1487,
+    1484,
     -1,
     "Ignore an exception",
     ""
   ],
   [
     "create-a-new-exception-that-can-be-caught-8b1f26ef64b8416c9a722f97b45e2c24",
-    1487,
+    1484,
     -1,
     "Create a new Exception that can be caught",
     ""
@@ -9812,56 +9792,56 @@ gTocItems = [
   [
     "testing-with-py-test-832edc59a1814ff4b2b38d46d7010cea",
     -1,
-    1494,
+    1491,
     "Testing with py.test"
   ],
   [
     "setting-up-py-test-13b2a26200a440b08054f1f28bdbf803",
-    1493,
-    1495,
+    1490,
+    1492,
     "Setting up py.test",
     ""
   ],
   [
     "setting-up-py-test-13b2a26200a440b08054f1f28bdbf803#908e5b59-a95b-4d14-8a94-c6cae0f97eef",
-    1494,
+    1491,
     -1,
     "The Code to Test"
   ],
   [
     "setting-up-py-test-13b2a26200a440b08054f1f28bdbf803#08dfccac-32ad-419e-b86d-d8b590e016ab",
-    1494,
+    1491,
     -1,
     "The Testing Code"
   ],
   [
     "setting-up-py-test-13b2a26200a440b08054f1f28bdbf803#102dfff9-8763-4c2f-8250-ff9d6975d70e",
-    1494,
+    1491,
     -1,
     "Running The Test"
   ],
   [
     "intro-to-test-fixtures-7e8456de6abc4d16b15205f74e53200f",
-    1493,
-    1499,
+    1490,
+    1496,
     "Intro to Test Fixtures",
     ""
   ],
   [
     "intro-to-test-fixtures-7e8456de6abc4d16b15205f74e53200f#a4cc3c42-194e-4638-8ac7-6ac4920521a0",
-    1498,
+    1495,
     -1,
     "py.test fixtures to the rescue!"
   ],
   [
     "intro-to-test-fixtures-7e8456de6abc4d16b15205f74e53200f#4f94bc72-ab08-487e-9c4a-a5649a59749a",
-    1498,
+    1495,
     -1,
     "Cleaning up after the tests are done."
   ],
   [
     "failing-tests-2967872ab3f140e1a312cbbe5d6777ab",
-    1493,
+    1490,
     -1,
     "Failing Tests",
     ""
@@ -9869,26 +9849,26 @@ gTocItems = [
   [
     "date-formatting-823f463326ba47d49fc316d5a0be9ddd",
     -1,
-    1503,
+    1500,
     "Date Formatting"
   ],
   [
     "time-between-two-date-times-88962b6b201e4b60b0844f6350e5595d",
-    1502,
+    1499,
     -1,
     "Time between two date-times",
     ""
   ],
   [
     "outputting-datetime-object-to-string-81901075a66d45f7b1680e25cd8edbad",
-    1502,
+    1499,
     -1,
     "Outputting datetime object to string",
     ""
   ],
   [
     "parsing-string-to-datetime-object-1744b43ae3cc4956aaa41810012fafbe",
-    1502,
+    1499,
     -1,
     "Parsing string to datetime object",
     ""
@@ -9896,19 +9876,19 @@ gTocItems = [
   [
     "heapq-f113a62e8bf048cd8849516dc9c9142d",
     -1,
-    1507,
+    1504,
     "heapq"
   ],
   [
     "largest-and-smallest-items-in-a-collection-a2eaea8848274410a701094358652890",
-    1506,
+    1503,
     -1,
     "Largest and smallest items in a collection",
     ""
   ],
   [
     "smallest-item-in-a-collection-5c4c7f38405544e39a0c8c941f4d9006",
-    1506,
+    1503,
     -1,
     "Smallest item in a collection",
     ""
@@ -9916,56 +9896,56 @@ gTocItems = [
   [
     "tkinter-37612f35daec487488cbf47a1ff0fff0",
     -1,
-    1510,
+    1507,
     "tkinter"
   ],
   [
     "tkinter-75179c966e4b47938444dac3a1e2fa1f",
-    1509,
-    1511,
+    1506,
+    1508,
     "tkinter",
     ""
   ],
   [
     "tkinter-75179c966e4b47938444dac3a1e2fa1f#18611dc9-35a6-4217-ac90-ce8ca5c5885b",
-    1510,
+    1507,
     -1,
     "Introduction"
   ],
   [
     "tkinter-75179c966e4b47938444dac3a1e2fa1f#35710e40-8827-459d-b379-6901f4b309c4",
-    1510,
+    1507,
     -1,
     "Remarks"
   ],
   [
     "geometry-managers-5d4a71471e4e4b96abb04f73016487b5",
-    1509,
-    1514,
+    1506,
+    1511,
     "Geometry Managers",
     ""
   ],
   [
     "geometry-managers-5d4a71471e4e4b96abb04f73016487b5#f9b35b6d-1411-4185-9660-10243d08d247",
-    1513,
+    1510,
     -1,
     "Place"
   ],
   [
     "geometry-managers-5d4a71471e4e4b96abb04f73016487b5#410e8356-c92b-4f7e-ad00-c002b1c2254d",
-    1513,
+    1510,
     -1,
     "Pack"
   ],
   [
     "geometry-managers-5d4a71471e4e4b96abb04f73016487b5#4e3e47e7-4b67-4eac-9cdd-7b52c0119223",
-    1513,
+    1510,
     -1,
     "Grid"
   ],
   [
     "a-minimal-tkinter-application-e83de76cf7694bd28a9e3cde559aa596",
-    1509,
+    1506,
     -1,
     "A minimal tkinter Application",
     ""
@@ -9973,45 +9953,45 @@ gTocItems = [
   [
     "cli-subcommands-2b7d35096e7a4433bf2b39b4b72907ed",
     -1,
-    1519,
+    1516,
     "CLI subcommands"
   ],
   [
     "cli-subcommands-with-precise-help-output-7a31e97626df4852a3d653f2c5d389d9",
-    1518,
-    1520,
+    1515,
+    1517,
     "CLI subcommands with precise help output",
     ""
   ],
   [
     "cli-subcommands-with-precise-help-output-7a31e97626df4852a3d653f2c5d389d9#36c90056-3e52-4a26-99c7-99bed9c2fdad",
-    1519,
+    1516,
     -1,
     "Introduction"
   ],
   [
     "cli-subcommands-with-precise-help-output-7a31e97626df4852a3d653f2c5d389d9#dc5da546-1d1f-4d69-84e9-54ebcb610080",
-    1519,
+    1516,
     -1,
     "Remarks"
   ],
   [
     "native-way-no-libraries-595b426ca980484ca5868892df6279b2",
-    1518,
+    1515,
     -1,
     "Native way no libraries",
     ""
   ],
   [
     "argparse-default-help-formatter-f483ad5e954641868812be4fcbcdfd06",
-    1518,
+    1515,
     -1,
     "argparse default help formatter",
     ""
   ],
   [
     "argparse-custom-help-formatter-ce3638bf1d3a4a279af42291ae5c02af",
-    1518,
+    1515,
     -1,
     "argparse custom help formatter",
     ""
@@ -10025,19 +10005,19 @@ gTocItems = [
   [
     "sqlite3-module-021cf1ebbae24a949ca5ca3f97013c4b",
     -1,
-    1527,
+    1524,
     "SQLite3 module"
   ],
   [
     "sqlite3-not-require-separate-server-process-19d1a3af45704bccbeee17d07b42c46f",
-    1526,
+    1523,
     -1,
     "Sqlite3 - Not require separate server process.",
     ""
   ],
   [
     "getting-the-values-from-the-database-and-error-handling-68cc73e5ca4b48389bb41478a06350e0",
-    1526,
+    1523,
     -1,
     "Getting the values from the database and Error handling",
     ""
@@ -10045,128 +10025,115 @@ gTocItems = [
   [
     "persistence-with-pickle-b93a3b1f470e40af81beb68615dc6cbc",
     -1,
-    1530,
+    1527,
     "Persistence with pickle"
   ],
   [
     "python-persistence-aa06f1c5fbee4f2ab19b4a6781579f52",
-    1529,
-    1531,
+    1526,
+    1528,
     "Python Persistence",
     ""
   ],
   [
     "python-persistence-aa06f1c5fbee4f2ab19b4a6781579f52#46d1208b-1eee-4993-be48-abed00ddfd93",
-    1530,
+    1527,
     -1,
     "Syntax"
   ],
   [
     "python-persistence-aa06f1c5fbee4f2ab19b4a6781579f52#14fab7f7-b7b0-4f95-bd13-e4fdec7551ba",
-    1530,
+    1527,
     -1,
     "Parameters"
   ],
   [
     "python-persistence-f560cebc5da34cfda68824695ade7605",
-    1529,
+    1526,
     -1,
     "Python Persistence",
     ""
   ],
   [
     "function-utility-for-save-and-load-4a1cb73030054df3ace5c57634dcc091",
-    1529,
+    1526,
     -1,
     "Function utility for save and load",
     ""
   ],
   [
-    "turtle-graphics-99b97665f73b431d8712604d0d293cdc",
-    -1,
-    1536,
-    "Turtle Graphics"
-  ],
-  [
-    "ninja-twist-turtle-graphics-ea5681fb4f6749a8ac428b511a7215fa",
-    1535,
-    -1,
-    "Ninja Twist Turtle Graphics",
-    ""
-  ],
-  [
     "connecting-to-sql-server-beba4a21fb22444683802bfb813087fb",
     -1,
-    1538,
+    1533,
     "Connecting to SQL Server"
   ],
   [
     "connecting-to-sql-server-beba4a21fb22444683802bfb813087fb#57c4ef5f-6e3e-4ca5-a940-484503ac93c8",
-    1537,
+    1532,
     -1,
     "if you pass as_dict=True to cursor"
   ],
   [
     "connecting-to-sql-server-beba4a21fb22444683802bfb813087fb#7dfc2a7c-ccf6-419b-bd86-cb866e0e4db4",
-    1537,
+    1532,
     -1,
     "print(row[“message”])"
   ],
   [
     "design-patterns-b488e901dd9d4c2998883b6571294f72",
     -1,
-    1541,
+    1536,
     "Design Patterns"
   ],
   [
     "introduction-to-design-patterns-and-singleton-pattern-69b1dfd1bb2b4a75859613d5a95dc807",
-    1540,
+    1535,
     -1,
     "Introduction to design patterns and Singleton Pattern",
     ""
   ],
   [
     "strategy-pattern-30de055d658d415bbc43344915b799d8",
-    1540,
+    1535,
     -1,
     "Strategy Pattern",
     ""
   ],
   [
     "proxy-733b4e6504bb41d683c142194a24002f",
-    1540,
-    1544,
+    1535,
+    1539,
     "Proxy",
     ""
   ],
   [
     "proxy-733b4e6504bb41d683c142194a24002f#ce944d19-6fee-437e-a3c5-d0b4a59e24ec",
-    1543,
+    1538,
     -1,
     "BENEFITS"
   ],
   [
     "proxy-733b4e6504bb41d683c142194a24002f#9d31e24d-9e2b-47b4-9482-b988aa41ffe4",
-    1543,
+    1538,
     -1,
     "CAVEATS"
   ],
   [
     "multidimensional-arrays-31b6443c81384d48b42c32d0ad2c35b3",
     -1,
-    1547,
+    1542,
     "Multidimensional arrays"
   ],
   [
     "lists-in-lists-eddafbde8cb046ef9ce9d934c2712799",
-    1546,
+    1541,
     -1,
     "Lists in lists",
     ""
   ],
   [
     "lists-in-lists-in-lists-in-7802aad5b8044c94a0514b6c5d1f00ca",
-    1546,
+    1541,
     -1,
     "Lists in lists in lists in...",
     ""
@@ -10174,45 +10141,45 @@ gTocItems = [
   [
     "audio-bb7ade0c7dde4bcba99e55b8e7ad129b",
     -1,
-    1550,
+    1545,
     "Audio"
   ],
   [
     "working-with-wav-files-3d0fc26d1fbe440ca1e95a48ad982f4e",
-    1549,
-    1551,
+    1544,
+    1546,
     "Working with WAV files",
     ""
   ],
   [
     "working-with-wav-files-3d0fc26d1fbe440ca1e95a48ad982f4e#813ff86a-ef47-4d4b-b806-ce72907e44c9",
-    1550,
+    1545,
     -1,
     "winsound"
   ],
   [
     "working-with-wav-files-3d0fc26d1fbe440ca1e95a48ad982f4e#1946e1f6-d8d8-4f43-9f28-c0cc23a418c8",
-    1550,
+    1545,
     -1,
     "wave"
   ],
   [
     "convert-any-soundfile-with-python-and-ffmpeg-94cd64358541478399d17823e21b6038",
-    1549,
+    1544,
     -1,
     "Convert any soundfile with python and ffmpeg",
     ""
   ],
   [
     "playing-windows-beeps-4a9e77c41e7c4e348f1e9c4b1e2f7560",
-    1549,
+    1544,
     -1,
     "Playing Windows beeps",
     ""
   ],
   [
     "audio-with-pyglet-9b54978e2f9a4488ba8593565282d562",
-    1549,
+    1544,
     -1,
     "Audio With Pyglet",
     ""
@@ -10220,40 +10187,40 @@ gTocItems = [
   [
     "pyglet-f06187e33b7740f0998eac238a51d70e",
     -1,
-    1557,
+    1552,
     "pyglet"
   ],
   [
     "installation-of-pyglet-afb40bbc645448e38eda7baa06345f54",
-    1556,
+    1551,
     -1,
     "Installation of Pyglet",
     ""
   ],
   [
     "hello-world-in-pyglet-2a93266b8fae461c9e267b21ad8ea4a5",
-    1556,
+    1551,
     -1,
     "Hello World in Pyglet",
     ""
   ],
   [
     "playing-sound-in-pyglet-8e08e8522dd542bab8a7e97046f87bac",
-    1556,
+    1551,
     -1,
     "Playing Sound in Pyglet",
     ""
   ],
   [
     "using-pyglet-for-opengl-9f5531a721cf4d64bbead22cb7309f38",
-    1556,
+    1551,
     -1,
     "Using Pyglet for OpenGL",
     ""
   ],
   [
     "drawing-points-using-pyglet-and-opengl-4d1fdf35b11f4016b90f308b38d0d04c",
-    1556,
+    1551,
     -1,
     "Drawing Points Using Pyglet and OpenGL",
     ""
@@ -10261,12 +10228,12 @@ gTocItems = [
   [
     "queue-module-940db4006eb3414bbbc3e323fb10c228",
     -1,
-    1563,
+    1558,
     "queue module"
   ],
   [
     "simple-example-4edddd624b504670b4605b8d318a65df",
-    1562,
+    1557,
     -1,
     "Simple example",
     ""
@@ -10274,12 +10241,12 @@ gTocItems = [
   [
     "ijson-352e747807774eeda7dc6c5cfda8c228",
     -1,
-    1565,
+    1560,
     "ijson"
   ],
   [
     "simple-example-e0177ecb90aa4323960b13615360d4f2",
-    1564,
+    1559,
     -1,
     "Simple Example",
     ""
@@ -10287,50 +10254,50 @@ gTocItems = [
   [
     "webbrowser-module-cbc041792f7541aaa735d8f89d777a98",
     -1,
-    1567,
+    1562,
     "webbrowser module"
   ],
   [
     "webbrowser-module-61513cd52119430491f6f4bd5afdeaf1",
-    1566,
-    1568,
+    1561,
+    1563,
     "Webbrowser Module",
     ""
   ],
   [
     "webbrowser-module-61513cd52119430491f6f4bd5afdeaf1#a3f00bfe-730a-4e85-ae3e-58c91fc4d34f",
-    1567,
+    1562,
     -1,
     "Introduction"
   ],
   [
     "webbrowser-module-61513cd52119430491f6f4bd5afdeaf1#6b4bfa8c-309c-4963-bcac-fc6725b95a32",
-    1567,
+    1562,
     -1,
     "Syntax"
   ],
   [
     "webbrowser-module-61513cd52119430491f6f4bd5afdeaf1#6b67c8fa-d61a-445e-8e08-046016a3bff5",
-    1567,
+    1562,
     -1,
     "Parameters"
   ],
   [
     "webbrowser-module-61513cd52119430491f6f4bd5afdeaf1#4bf18ccf-4038-4158-a8ce-d3c3a9236e3c",
-    1567,
+    1562,
     -1,
     "Remarks"
   ],
   [
     "opening-a-url-with-default-browser-e35344cd7eb743f285cef819db25c3cb",
-    1566,
+    1561,
     -1,
     "Opening a URL with Default Browser",
     ""
   ],
   [
     "opening-a-url-with-different-browsers-39bb784bb88a4d469663a9a19211284c",
-    1566,
+    1561,
     -1,
     "Opening a URL with Different Browsers",
     ""
@@ -10338,185 +10305,185 @@ gTocItems = [
   [
     "base64-module-b7ab1cfbd43a4580afef57329559b8ee",
     -1,
-    1575,
+    1570,
     "base64 module"
   ],
   [
     "base64-module-b7ab1cfbd43a4580afef57329559b8ee#69301976-99e3-4750-ba87-83719a2c02a2",
-    1574,
+    1569,
     -1,
     "Encoding and Decoding Base64"
   ],
   [
     "base64-module-b7ab1cfbd43a4580afef57329559b8ee#235dabb0-14a4-4f6b-99c2-1cc8c6aa3b23",
-    1574,
+    1569,
     -1,
     "Encoding and Decoding Base32"
   ],
   [
     "base64-module-b7ab1cfbd43a4580afef57329559b8ee#f7558ec0-bd02-4ed8-b1c6-e983b48b89df",
-    1574,
+    1569,
     -1,
     "Encoding and Decoding Base16"
   ],
   [
     "base64-module-b7ab1cfbd43a4580afef57329559b8ee#d8307775-df43-4fe5-8e21-6c2954090cdc",
-    1574,
+    1569,
     -1,
     "Encoding and Decoding ASCII85"
   ],
   [
     "base64-module-b7ab1cfbd43a4580afef57329559b8ee#37048057-7282-4e91-8e14-6cd71babea73",
-    1574,
+    1569,
     -1,
     "Encoding and Decoding Base85"
   ],
   [
     "flask-c6b2440e58454855b9a76e71fa475380",
     -1,
-    1581,
+    1576,
     "Flask"
   ],
   [
     "flask-87e7a2ae742e472083ef0cfc60c0b297",
-    1580,
-    1582,
+    1575,
+    1577,
     "Flask",
     ""
   ],
   [
     "flask-87e7a2ae742e472083ef0cfc60c0b297#32d1665e-b5f7-402c-996b-a9e1fb5f51f5",
-    1581,
+    1576,
     -1,
     "Introduction"
   ],
   [
     "flask-87e7a2ae742e472083ef0cfc60c0b297#6452c271-346f-4e16-9066-662c4a7ecc04",
-    1581,
+    1576,
     -1,
     "Syntax"
   ],
   [
     "files-and-templates-570f255eb309485a9cecfad5a45b0eff",
-    1580,
+    1575,
     -1,
     "Files and Templates",
     ""
   ],
   [
     "the-basics-703fb1f442cd407eba96d1e94bcce685",
-    1580,
+    1575,
     -1,
     "The basics",
     ""
   ],
   [
     "routing-urls-5b47f3e3559d48daa16fc17ac7574d6b",
-    1580,
+    1575,
     -1,
     "Routing URLs",
     ""
   ],
   [
     "http-methods-463caf4231504deb907ef95bba275ce1",
-    1580,
+    1575,
     -1,
     "HTTP Methods",
     ""
   ],
   [
     "jinja-templating-5f30f1782fbd4ccea9ce4329487eec81",
-    1580,
+    1575,
     -1,
     "Jinja Templating",
     ""
   ],
   [
     "the-request-object-ec4c9dfa079540698123f13a69a5eded",
-    1580,
-    1590,
+    1575,
+    1585,
     "The Request Object",
     ""
   ],
   [
     "the-request-object-ec4c9dfa079540698123f13a69a5eded#976e07ae-aa2d-4eb1-a698-6355aa390a3e",
-    1589,
+    1584,
     -1,
     "URL Parameters"
   ],
   [
     "the-request-object-ec4c9dfa079540698123f13a69a5eded#871f37f7-5998-4283-b24d-391ef4ba17d8",
-    1589,
+    1584,
     -1,
     "File Uploads"
   ],
   [
     "the-request-object-ec4c9dfa079540698123f13a69a5eded#9a8f0dcd-11f1-440a-b481-9d42f8735ac2",
-    1589,
+    1584,
     -1,
     "Cookies"
   ],
   [
     "groupby-6dd1311248b045e596f59dac91ba9add",
     -1,
-    1594,
+    1589,
     "Groupby"
   ],
   [
     "groupby-cd1ac8e98b1049e2b8a699d3523f6d49",
-    1593,
-    1595,
+    1588,
+    1590,
     "groupby",
     ""
   ],
   [
     "groupby-cd1ac8e98b1049e2b8a699d3523f6d49#ce77eec5-4d7b-49a5-aa03-0719cc01cf7f",
-    1594,
+    1589,
     -1,
     "Introduction"
   ],
   [
     "groupby-cd1ac8e98b1049e2b8a699d3523f6d49#763150e2-2d50-4e77-a394-e3627e93db39",
-    1594,
+    1589,
     -1,
     "Syntax"
   ],
   [
     "groupby-cd1ac8e98b1049e2b8a699d3523f6d49#ac093b2f-269f-4885-b9f4-9c9748a30776",
-    1594,
+    1589,
     -1,
     "Parameters"
   ],
   [
     "groupby-cd1ac8e98b1049e2b8a699d3523f6d49#20f1f561-a265-4990-9508-21ffd88d344f",
-    1594,
+    1589,
     -1,
     "Remarks"
   ],
   [
     "example-4-e8dd6022c8854d71bae3ad4e64a17593",
-    1593,
+    1588,
     -1,
     "Example 4",
     ""
   ],
   [
     "example-2-33076ba4961a4912a2e7b772104bb1d7",
-    1593,
+    1588,
     -1,
     "Example 2",
     ""
   ],
   [
     "example-3-c664702bdd214e54bd87879dd01e44f9",
-    1593,
+    1588,
     -1,
     "Example 3",
     ""
   ],
   [
     "example-1-9ff90c5d40794825819324a81862a8ef",
-    1593,
+    1588,
     -1,
     "Example 1",
     ""
@@ -10524,38 +10491,38 @@ gTocItems = [
   [
     "sockets-and-message-encryption-decryption-e7935abec4534cbf8d125413dca4ff3d",
     -1,
-    1604,
+    1599,
     "Sockets and Message Encryption / Decryption"
   ],
   [
     "sockets-and-message-encryptiondecryption-between-client-and-server-a7dc3a1c17e04ba1909cd57f7b0e3842",
-    1603,
-    1605,
+    1598,
+    1600,
     "Sockets And Message EncryptionDecryption Between Client and Server",
     ""
   ],
   [
     "sockets-and-message-encryptiondecryption-between-client-and-server-a7dc3a1c17e04ba1909cd57f7b0e3842#aa15efcd-e486-4cc5-a18e-b1c3c73652f4",
-    1604,
+    1599,
     -1,
     "Introduction"
   ],
   [
     "sockets-and-message-encryptiondecryption-between-client-and-server-a7dc3a1c17e04ba1909cd57f7b0e3842#e9130daf-38ca-483d-b490-02d3b4f66ce8",
-    1604,
+    1599,
     -1,
     "Remarks"
   ],
   [
     "server-side-implementation-97775bc8134c403c862890bd72dccc88",
-    1603,
+    1598,
     -1,
     "Server side Implementation",
     ""
   ],
   [
     "client-side-implementation-24de1f29a422491d8ec58db08bc98556",
-    1603,
+    1598,
     -1,
     "Client side Implementation",
     ""
@@ -10563,62 +10530,62 @@ gTocItems = [
   [
     "pygame-bf96a1a73539471681b76a29f26bc4a3",
     -1,
-    1610,
+    1605,
     "pygame"
   ],
   [
     "pygame-9cf47f6bf7694ef5bef41d3777bc415d",
-    1609,
-    1611,
+    1604,
+    1606,
     "pygame",
     ""
   ],
   [
     "pygame-9cf47f6bf7694ef5bef41d3777bc415d#56904149-461c-4056-bd53-ad5ec10c7510",
-    1610,
+    1605,
     -1,
     "Introduction"
   ],
   [
     "pygame-9cf47f6bf7694ef5bef41d3777bc415d#f1ee4c86-f027-4561-bd05-031eeef5ed0d",
-    1610,
+    1605,
     -1,
     "Syntax"
   ],
   [
     "pygame-9cf47f6bf7694ef5bef41d3777bc415d#528ef93c-b7b6-485b-b8ac-3133dbe5345f",
-    1610,
+    1605,
     -1,
     "Parameters"
   ],
   [
     "pygames-mixer-module-3901a41e2a174c7fac6e177a736ee0b9",
-    1609,
-    1615,
+    1604,
+    1610,
     "Pygames mixer module",
     ""
   ],
   [
     "pygames-mixer-module-3901a41e2a174c7fac6e177a736ee0b9#a51cc776-bd4a-4975-a270-b0235995c75d",
-    1614,
+    1609,
     -1,
     "Initializing"
   ],
   [
     "pygames-mixer-module-3901a41e2a174c7fac6e177a736ee0b9#a4f60267-02c8-4b04-b12d-b90d747b464b",
-    1614,
+    1609,
     -1,
     "Possible Actions"
   ],
   [
     "pygames-mixer-module-3901a41e2a174c7fac6e177a736ee0b9#5f2310cc-b606-4890-b38e-168ec512998c",
-    1614,
+    1609,
     -1,
     "Channels"
   ],
   [
     "installing-pygame-15619fe0d3f5478e89aeef28698e6571",
-    1609,
+    1604,
     -1,
     "Installing pygame",
     ""
@@ -10626,25 +10593,25 @@ gTocItems = [
   [
     "input-subset-and-output-external-data-files-using-pandas-c742053f24054922b77b415630b20ec0",
     -1,
-    1620,
+    1615,
     "Input Subset and Output External Data Files using Pandas"
   ],
   [
     "input-subset-and-output-external-data-files-using-pandas-c1a07987b4af4470a98bf2aeaecd2f8d",
-    1619,
-    1621,
+    1614,
+    1616,
     "Input Subset and Output External Data Files using Pandas",
     ""
   ],
   [
     "input-subset-and-output-external-data-files-using-pandas-c1a07987b4af4470a98bf2aeaecd2f8d#76e15c3d-72a5-47b3-b55e-412385dd3dc9",
-    1620,
+    1615,
     -1,
     "Introduction"
   ],
   [
     "basic-code-to-import-subset-and-write-external-data-files-using-pandas-93b154f93cb94cafa5a757a87d89d651",
-    1619,
+    1614,
     -1,
     "Basic Code to Import Subset and Write External Data Files Using Pandas",
     ""
@@ -10652,19 +10619,19 @@ gTocItems = [
   [
     "hashlib-553252d700dc456d87d004505400b5ea",
     -1,
-    1624,
+    1619,
     "hashlib"
   ],
   [
     "md5-hash-of-a-string-62fe615cd81c4f8780d5666e7b683557",
-    1623,
+    1618,
     -1,
     "MD5 hash of a string",
     ""
   ],
   [
     "algorithm-provided-by-openssl-131b6f8421b24fedbb770a7b91a3e1be",
-    1623,
+    1618,
     -1,
     "algorithm provided by OpenSSL",
     ""
@@ -10672,90 +10639,77 @@ gTocItems = [
   [
     "gzip-39449295b064437095d7222daf5301cb",
     -1,
-    1627,
+    1622,
     "Gzip"
   ],
   [
     "gzip-39449295b064437095d7222daf5301cb#c01fefb6-a95b-46b9-80bf-46531257055d",
-    1626,
+    1621,
     -1,
     "Introduction"
   ],
   [
     "gzip-39449295b064437095d7222daf5301cb#1f821389-c325-47cf-a612-827912fc116c",
-    1626,
+    1621,
     -1,
     "Read and write GNU zip files"
   ],
   [
-    "django-e5aff37c1f584f588ff7d640f6d9085a",
-    -1,
-    1630,
-    "Django"
-  ],
-  [
-    "hello-world-with-django-33742e5aaee64e0487e5b6eb0f2b9015",
-    1629,
-    -1,
-    "Hello World with Django",
-    ""
-  ],
-  [
     "ctypes-e0ba4ef1e15c4c909f33a87e69b01ebc",
     -1,
-    1632,
+    1625,
     "ctypes"
   ],
   [
     "ctypes-arrays-a1783c3db5f64eeaaf1497e482f56dfd",
-    1631,
+    1624,
     -1,
     "ctypes arrays",
     ""
   ],
   [
     "wrapping-functions-for-ctypes-71c9e461f8d34787958b94b44c9d2a76",
-    1631,
+    1624,
     -1,
     "Wrapping functions for ctypes",
     ""
   ],
   [
     "basic-usage-f5a05b872ee1441ab44aa2b100222c12",
-    1631,
+    1624,
     -1,
     "Basic usage",
     ""
   ],
   [
     "common-pitfalls-80a7bf4b14a241acaae9cd3fee7df54a",
-    1631,
-    1636,
+    1624,
+    1629,
     "Common pitfalls",
     ""
   ],
   [
     "common-pitfalls-80a7bf4b14a241acaae9cd3fee7df54a#aedcb2fc-b12f-48a7-b6e0-6311adab8bb1",
-    1635,
+    1628,
     -1,
     "Failing to load a file"
   ],
   [
     "common-pitfalls-80a7bf4b14a241acaae9cd3fee7df54a#55c6d977-723e-4cc7-b896-c1f4c8607422",
-    1635,
+    1628,
     -1,
     "Failing to access a function"
   ],
   [
     "basic-ctypes-object-1c67fe7793b2478ab1fde8df545dfc51",
-    1631,
+    1624,
     -1,
     "Basic ctypes object",
     ""
   ],
   [
     "complex-usage-969cb437676e4e8a8753ab19f3ba571b",
-    1631,
+    1624,
     -1,
     "Complex usage",
     ""
@@ -10763,369 +10717,296 @@ gTocItems = [
   [
     "creating-a-windows-service-4bc3ba382f91455b91467b9ec3c23c41",
     -1,
-    1641,
+    1634,
     "Creating a Windows Service"
   ],
   [
     "a-python-script-that-can-be-run-as-a-service-81a02f06a35141a1bc12d24f2f0f6243",
-    1640,
+    1633,
     -1,
     "A Python script that can be run as a service",
     ""
   ],
   [
     "running-a-flask-web-application-as-a-service-9f9e77cb52124cd5b5df3b5603749b15",
-    1640,
+    1633,
     -1,
     "Running a Flask web application as a service",
     ""
   ],
   [
-    "python-server-sent-events-37d7e8bb3276415a8b975c22afc9b343",
-    -1,
-    1644,
-    "Python Server Sent Events"
-  ],
-  [
-    "flask-sse-6161dc84ddfe4cc0933e92db8503a003",
-    1643,
-    -1,
-    "Flask SSE",
-    ""
-  ],
-  [
-    "asyncio-sse-063cee8bf6e841f58c8784fb0e481b80",
-    1643,
-    -1,
-    "Asyncio SSE",
-    ""
-  ],
-  [
     "mutable-vs-immutable-bca69887c59f48b3b7e38c5f47ba0299",
     -1,
-    1647,
+    1637,
     "Mutable vs. Immutable"
   ],
   [
     "mutable-vs-immutable-6f563aab8f3c4f38b77abde3265e08b8",
-    1646,
-    1648,
+    1636,
+    1638,
     "Mutable vs Immutable",
     ""
   ],
   [
     "mutable-vs-immutable-6f563aab8f3c4f38b77abde3265e08b8#56e09ae2-1414-4836-83be-410e6e75e990",
-    1647,
+    1637,
     -1,
     "Immutables"
   ],
   [
     "mutable-vs-immutable-6f563aab8f3c4f38b77abde3265e08b8#9b067584-8c30-4c89-8e5e-3157bf2ceba4",
-    1647,
+    1637,
     -1,
     "Exercise"
   ],
   [
     "mutable-vs-immutable-6f563aab8f3c4f38b77abde3265e08b8#5b9b0de4-dd7b-4f29-9965-f11f1fd31959",
-    1647,
+    1637,
     -1,
     "Mutables"
   ],
   [
     "mutable-vs-immutable-6f563aab8f3c4f38b77abde3265e08b8#f4a19f4c-a837-436e-9b48-a73b88ec524d",
-    1647,
+    1637,
     -1,
     "Exercise"
   ],
   [
     "mutable-and-immutable-as-arguments-0ece8fceb0e6411e9b120a58ed9a4915",
-    1646,
-    1653,
+    1636,
+    1643,
     "Mutable and Immutable as Arguments",
     ""
   ],
   [
     "mutable-and-immutable-as-arguments-0ece8fceb0e6411e9b120a58ed9a4915#c528d8dd-5930-4411-9091-289a58f6d812",
-    1652,
+    1642,
     -1,
     "Exercise"
   ],
   [
-    "python-speed-of-a-program-fc100f7143db4563adaa317499f09cab",
-    -1,
-    1655,
-    "Python speed of a program"
-  ],
-  [
-    "deque-operations-3d840a6d21a440d1b08208af81e66f89",
-    1654,
-    -1,
-    "Deque operations",
-    ""
-  ],
-  [
-    "algorithmic-notations-dce40fd9e45e47e4983d92b993b2978c",
-    1654,
-    -1,
-    "Algorithmic Notations...",
-    ""
-  ],
-  [
-    "notation-58260a4c7324464c8a2e0814cd6cc468",
-    1654,
-    -1,
-    "Notation",
-    ""
-  ],
-  [
-    "list-operations-2b7a41d2ea1749a2a5f2bacb9d13d4a3",
-    1654,
-    -1,
-    "List operations",
-    ""
-  ],
-  [
-    "set-operations-055ef60d1a9c4a66813e6e8a451c29f3",
-    1654,
-    -1,
-    "Set operations",
-    ""
-  ],
-  [
     "configparser-588fa72e56724fb4b59be280d96c75c0",
     -1,
-    1661,
+    1645,
     "configparser"
   ],
   [
     "configparser-588fa72e56724fb4b59be280d96c75c0#8c8a1972-03d1-4df0-a7b9-e31f1a9dc0e5",
-    1660,
+    1644,
     -1,
     "Syntax"
   ],
   [
     "configparser-588fa72e56724fb4b59be280d96c75c0#66943e3c-03e2-486e-91df-8c46de3d1c64",
-    1660,
+    1644,
     -1,
     "Remarks"
   ],
   [
     "configparser-588fa72e56724fb4b59be280d96c75c0#d33848f4-9b62-4218-a307-8d82daa46a76",
-    1660,
+    1644,
     -1,
     "Creating configuration file programmatically"
   ],
   [
     "configparser-588fa72e56724fb4b59be280d96c75c0#1ca650c4-eeca-4f2d-9bcf-6eb621239870",
-    1660,
+    1644,
     -1,
     "Basic usage"
   ],
   [
-    "linked-lists-3271cae54c4e4a3a8d775b75883fc73b",
-    -1,
-    1666,
-    "Linked lists"
-  ],
-  [
-    "linked-lists-3271cae54c4e4a3a8d775b75883fc73b#8cb3ffea-ccf4-4af7-92ca-85bbd401156c",
-    1665,
-    -1,
-    "Single linked list example"
-  ],
-  [
     "common-exceptions-e3d3b26b78cf43c3b162dce28c8daa76",
     -1,
-    1668,
+    1650,
     "Common Exceptions"
   ],
   [
     "other-errors-16fa577430bb4f5794a1ede44cb807fa",
-    1667,
-    1669,
+    1649,
+    1651,
     "Other Errors",
     ""
   ],
   [
     "other-errors-16fa577430bb4f5794a1ede44cb807fa#646f6939-070e-4c61-a2e6-117cd618b4d5",
-    1668,
+    1650,
     -1,
     "AssertError"
   ],
   [
     "other-errors-16fa577430bb4f5794a1ede44cb807fa#e15e49a6-8e1a-4138-a1f9-4b3a195bf1c1",
-    1668,
+    1650,
     -1,
     "KeyboardInterrupt"
   ],
   [
     "other-errors-16fa577430bb4f5794a1ede44cb807fa#efcce749-0eda-49ae-a5ad-8facd7f6f231",
-    1668,
+    1650,
     -1,
     "ZeroDivisionError"
   ],
   [
     "typeerrors-440b05f9c4ac4c879fb33fc86e342f04",
-    1667,
-    1673,
+    1649,
+    1655,
     "TypeErrors",
     ""
   ],
   [
     "typeerrors-440b05f9c4ac4c879fb33fc86e342f04#f4706703-a58f-4563-9a68-cf814beef0cc",
-    1672,
+    1654,
     -1,
     "TypeError: [definition/method] takes ? positional arguments but ? was given"
   ],
   [
     "typeerrors-440b05f9c4ac4c879fb33fc86e342f04#12068bce-5023-4bc5-bdcd-08125df11694",
-    1672,
+    1654,
     -1,
     "Example"
   ],
   [
     "typeerrors-440b05f9c4ac4c879fb33fc86e342f04#c81ea9c8-f44d-407e-b1ae-3bb27f0202c7",
-    1672,
+    1654,
     -1,
     "TypeError: unsupported operand type(s) for [operand]: ‘???’ and ‘???’"
   ],
   [
     "typeerrors-440b05f9c4ac4c879fb33fc86e342f04#33d22918-13cd-4675-9fdc-22d558f5235e",
-    1672,
+    1654,
     -1,
     "Example"
   ],
   [
     "typeerrors-440b05f9c4ac4c879fb33fc86e342f04#f685d4cd-879f-43b1-bf1b-1f2cd0d6b89e",
-    1672,
+    1654,
     -1,
     "TypeError: ‘???’ object is not iterable/subscriptable:"
   ],
   [
     "typeerrors-440b05f9c4ac4c879fb33fc86e342f04#1f2f8172-a68f-4e01-b5e9-f0cf0f05a4fc",
-    1672,
+    1654,
     -1,
     "Example"
   ],
   [
     "typeerrors-440b05f9c4ac4c879fb33fc86e342f04#09d2d584-4595-460f-8cb0-86ba3522c8f4",
-    1672,
+    1654,
     -1,
     "TypeError: ‘???’ object is not callable"
   ],
   [
     "typeerrors-440b05f9c4ac4c879fb33fc86e342f04#c246fe68-396b-4704-82ec-daf089fc3ca2",
-    1672,
+    1654,
     -1,
     "Example"
   ],
   [
     "nameerror-name-is-not-defined-a45e808c8342498c974386599df0109e",
-    1667,
-    1682,
+    1649,
+    1664,
     "NameError name is not defined",
     ""
   ],
   [
     "nameerror-name-is-not-defined-a45e808c8342498c974386599df0109e#c9db732b-ba46-4df6-b6f1-fc0ef8ff510b",
-    1681,
+    1663,
     -1,
     "It’s simply not defined nowhere in the code"
   ],
   [
     "nameerror-name-is-not-defined-a45e808c8342498c974386599df0109e#45e9d310-3ffa-447d-ac96-14c55933b919",
-    1681,
+    1663,
     -1,
     "Maybe it’s defined later:"
   ],
   [
     "nameerror-name-is-not-defined-a45e808c8342498c974386599df0109e#ed24843c-a09e-473a-a268-19bdfc609ff8",
-    1681,
+    1663,
     -1,
     "Or it wasn’t imported:"
   ],
   [
     "nameerror-name-is-not-defined-a45e808c8342498c974386599df0109e#711d141f-06f0-429d-85da-58d23017c5e3",
-    1681,
+    1663,
     -1,
     "Python scopes and the LEGB Rule:"
   ],
   [
     "indentationerrors-or-indentation-syntaxerrors-58a0af4618b74d32a4954a4aa173158b",
-    1667,
-    1687,
+    1649,
+    1669,
     "IndentationErrors or indentation SyntaxErrors",
     ""
   ],
   [
     "indentationerrors-or-indentation-syntaxerrors-58a0af4618b74d32a4954a4aa173158b#d594e030-c644-4fba-bc83-8ce55927363e",
-    1686,
+    1668,
     -1,
     "IndentationError/SyntaxError: unexpected indent"
   ],
   [
     "indentationerrors-or-indentation-syntaxerrors-58a0af4618b74d32a4954a4aa173158b#15867c67-05bb-4625-a762-195c9b39e636",
-    1686,
+    1668,
     -1,
     "Example"
   ],
   [
     "indentationerrors-or-indentation-syntaxerrors-58a0af4618b74d32a4954a4aa173158b#f910ba4a-6186-4c95-a1b5-a1a13d417336",
-    1686,
+    1668,
     -1,
     ""
   ],
   [
     "indentationerrors-or-indentation-syntaxerrors-58a0af4618b74d32a4954a4aa173158b#e0a69622-35c9-438f-be85-d5c123f4bfdc",
-    1686,
+    1668,
     -1,
     "IndentationError/SyntaxError: unindent does not match any outer indentation level"
   ],
   [
     "indentationerrors-or-indentation-syntaxerrors-58a0af4618b74d32a4954a4aa173158b#1a34882c-963c-43a1-939f-f9e555f14688",
-    1686,
+    1668,
     -1,
     "Example"
   ],
   [
     "indentationerrors-or-indentation-syntaxerrors-58a0af4618b74d32a4954a4aa173158b#5dac49a4-39df-45ab-b5dc-4786ece3e5ea",
-    1686,
+    1668,
     -1,
     ""
   ],
   [
     "indentationerrors-or-indentation-syntaxerrors-58a0af4618b74d32a4954a4aa173158b#5c04639e-5832-48ba-9fb1-bec6e70f1993",
-    1686,
+    1668,
     -1,
     "IndentationError: expected an indented block"
   ],
   [
     "indentationerrors-or-indentation-syntaxerrors-58a0af4618b74d32a4954a4aa173158b#d61f3127-a9b3-4810-aed0-cf80936f68b4",
-    1686,
+    1668,
     -1,
     "Example"
   ],
   [
     "indentationerrors-or-indentation-syntaxerrors-58a0af4618b74d32a4954a4aa173158b#77475d33-19dc-4935-a972-515af88df576",
-    1686,
+    1668,
     -1,
     "IndentationError: inconsistent use of tabs and spaces in indentation"
   ],
   [
     "indentationerrors-or-indentation-syntaxerrors-58a0af4618b74d32a4954a4aa173158b#4526c8a0-5848-467a-b99c-14ba8f8ef35b",
-    1686,
+    1668,
     -1,
     "Example"
   ],
   [
     "indentationerrors-or-indentation-syntaxerrors-58a0af4618b74d32a4954a4aa173158b#7952368f-a70e-4428-8e13-eba48d478f70",
-    1686,
+    1668,
     -1,
     "How to avoid this error"
   ],
   [
     "syntax-error-on-good-code-3e92db934d604bb2ae0995f0848437b7",
-    1667,
+    1649,
     -1,
     "Syntax Error on good code",
     ""
@@ -11133,65 +11014,65 @@ gTocItems = [
   [
     "optical-character-recognition-ocr-54a59120a30d42cdb0f4c32a2ad7588f",
     -1,
-    1700,
+    1682,
     "Optical Character Recognition OCR"
   ],
   [
     "optical-character-recognition-ocr-54a59120a30d42cdb0f4c32a2ad7588f#3805b4d5-313d-4a50-9864-b229e5aa766c",
-    1699,
+    1681,
     -1,
     "PyTesseract"
   ],
   [
     "optical-character-recognition-ocr-54a59120a30d42cdb0f4c32a2ad7588f#623227bb-0046-4a44-a7dc-6e9d4a70d065",
-    1699,
+    1681,
     -1,
     "PyOCR"
   ],
   [
     "python-data-types-2cdd2beda4b440cfb5d73fb625da5ee0",
     -1,
-    1703,
+    1685,
     "Python Data Types"
   ],
   [
     "string-data-type-2931ed7a3a5a4d54adbd10c1f9b92158",
-    1702,
+    1684,
     -1,
     "String Data Type",
     ""
   ],
   [
     "numbers-data-type-f38d8fa98417453c95bca9af0675dc22",
-    1702,
+    1684,
     -1,
     "Numbers data type",
     ""
   ],
   [
     "list-data-type-4b70bfb03d5c4e9bb09c27bceac18638",
-    1702,
+    1684,
     -1,
     "List Data Type",
     ""
   ],
   [
     "dictionary-data-type-ad80e43a6e6543b991f84cd47746ae6c",
-    1702,
+    1684,
     -1,
     "Dictionary Data Type",
     ""
   ],
   [
     "set-data-types-34af0411435b4e7891f0f99bcb295e18",
-    1702,
+    1684,
     -1,
     "Set Data Types",
     ""
   ],
   [
     "tuple-data-type-4c8ff17819e54514a71bc99a6b6288a4",
-    1702,
+    1684,
     -1,
     "Tuple Data Type",
     ""
@@ -11199,128 +11080,101 @@ gTocItems = [
   [
     "partial-functions-fc45418d1be64e189a2724e6e11d79c5",
     -1,
-    1710,
+    1692,
     "Partial functions"
   ],
   [
     "partial-functions-51308773e80b4156b39e4f3762199a5c",
-    1709,
-    1711,
+    1691,
+    1693,
     "Partial functions",
     ""
   ],
   [
     "partial-functions-51308773e80b4156b39e4f3762199a5c#488ddb2b-85f3-4f0c-b925-78b6029d0d19",
-    1710,
+    1692,
     -1,
     "Introduction"
   ],
   [
     "partial-functions-51308773e80b4156b39e4f3762199a5c#8ba9d17e-0122-4dab-9356-5ea80f0d33df",
-    1710,
+    1692,
     -1,
     "Syntax"
   ],
   [
     "partial-functions-51308773e80b4156b39e4f3762199a5c#c6955b65-31d0-4a8a-b9dd-f3d29c01aca8",
-    1710,
+    1692,
     -1,
     "Parameters"
   ],
   [
     "partial-functions-51308773e80b4156b39e4f3762199a5c#7167e7d3-beae-43ed-8dac-0943b0e07e2f",
-    1710,
+    1692,
     -1,
     "Remarks"
   ],
   [
     "raise-the-power-d663be74f3344c308b32dd2d407f75b8",
-    1709,
+    1691,
     -1,
     "Raise the power",
     ""
   ],
   [
-    "pyautogui-module-683952d7a1ec424e8f203a013af52765",
-    -1,
-    1717,
-    "pyautogui module"
-  ],
-  [
-    "mouse-functions-0b379b55a23a45cc81c6a59472169765",
-    1716,
-    -1,
-    "Mouse Functions",
-    ""
-  ],
-  [
-    "keyboard-functions-769ad3e202b34e228e00be4e33a7bd2f",
-    1716,
-    -1,
-    "Keyboard Functions",
-    ""
-  ],
-  [
-    "screenshot-and-image-recognition-864b6953a9e341108ed14e6a736965af",
-    1716,
-    -1,
-    "ScreenShot And Image Recognition",
-    ""
-  ],
-  [
     "generating-graphs-f626e7c5fff942f1a67669541e32b76c",
     -1,
-    1721,
+    1699,
     "Generating graphs"
   ],
   [
     "pydotplus-10060746034d4bf9b0eaa8cbc53c1392",
-    1720,
-    1722,
+    1698,
+    1700,
     "PyDotPlus",
     ""
   ],
   [
     "pydotplus-10060746034d4bf9b0eaa8cbc53c1392#d7518a84-2f6a-420b-b812-7d95949807ef",
-    1721,
+    1699,
     -1,
     "Installation"
   ],
   [
     "pydotplus-10060746034d4bf9b0eaa8cbc53c1392#e0ffe3aa-98d4-4af0-8a9c-d34eed2d74aa",
-    1721,
+    1699,
     -1,
     "Load graph as defined by a DOT file"
   ],
   [
     "pygraphviz-973d7f637be040d19fb3bed1d9d3c6ba",
-    1720,
-    1725,
+    1698,
+    1703,
     "PyGraphviz",
     ""
   ],
   [
     "pygraphviz-973d7f637be040d19fb3bed1d9d3c6ba#22e1348b-67a4-4834-b323-6c5e881ac3bd",
-    1724,
+    1702,
     -1,
     "Load graph as defined by a DOT file"
   ],
   [
     "unzipping-files-37b428aafab049969a5703ceebfc4b72",
     -1,
-    1727,
+    1705,
     "Unzipping Files"
   ],
   [
     "using-python-zipfile-extractall-to-decompress-a-zip-file-12791654bd824356904980b21dda6ffa",
-    1726,
+    1704,
     -1,
     "Using Python ZipFile.extractall to decompress a ZIP file",
     ""
   ],
   [
     "using-python-tarfile-extractall-to-decompress-a-tarball-7f5a7d8bde5142fd8bc977e2eec55d4d",
-    1726,
+    1704,
     -1,
     "Using Python TarFile.extractall to decompress a tarball",
     ""
@@ -11328,76 +11182,76 @@ gTocItems = [
   [
     "functional-programming-1b6bda3f47f947a6b6d5cd0237482cdc",
     -1,
-    1730,
+    1708,
     "Functional Programming"
   ],
   [
     "functional-programming-1b6bda3f47f947a6b6d5cd0237482cdc#050e350a-25de-4ae7-a2bc-e697e81285ce",
-    1729,
+    1707,
     -1,
     "Lambda Function"
   ],
   [
     "functional-programming-1b6bda3f47f947a6b6d5cd0237482cdc#721aeca9-629f-4e6c-90b1-10da2552c8f3",
-    1729,
+    1707,
     -1,
     "Map Function"
   ],
   [
     "functional-programming-1b6bda3f47f947a6b6d5cd0237482cdc#a1e70beb-e025-4cc5-a7d3-59a79e30b31c",
-    1729,
+    1707,
     -1,
     "Reduce Function"
   ],
   [
     "functional-programming-1b6bda3f47f947a6b6d5cd0237482cdc#8202e257-f128-4bb3-8b19-b3799ba3666c",
-    1729,
+    1707,
     -1,
     "Filter Function"
   ],
   [
     "python-virtual-environment-virtualenv-37fb371c61ec457e9cd541c7ee24b388",
     -1,
-    1735,
+    1713,
     "Python Virtual Environment - virtualenv"
   ],
   [
     "python-virtual-environment-virtualenv-b987caa6b8f64f019517fb01c4cb8016",
-    1734,
-    1736,
+    1712,
+    1714,
     "Python Virtual Environment - virtualenv",
     ""
   ],
   [
     "python-virtual-environment-virtualenv-b987caa6b8f64f019517fb01c4cb8016#14ac589f-d972-46a9-ad42-f449b2f4edbd",
-    1735,
+    1713,
     -1,
     "Introduction"
   ],
   [
     "installation-7a041a59a87d467487cf3a5217ddc779",
-    1734,
+    1712,
     -1,
     "Installation",
     ""
   ],
   [
     "usage-73aa6952593e4ae49134c029d1d939fa",
-    1734,
+    1712,
     -1,
     "Usage",
     ""
   ],
   [
     "install-a-package-in-your-virtualenv-0872b6c085ad454083da6ac210e478d6",
-    1734,
+    1712,
     -1,
     "Install a package in your Virtualenv",
     ""
   ],
   [
     "other-useful-virtualenv-commands-77f36a95d18544eca3da1824392a695f",
-    1734,
+    1712,
     -1,
     "Other useful virtualenv commands",
     ""
@@ -11405,58 +11259,58 @@ gTocItems = [
   [
     "sys-module-b4555977cdf441faa2364580d30cf4f7",
     -1,
-    1742,
+    1720,
     "sys module"
   ],
   [
     "sys-024f942ca8f84ac5a000c9957b9bc37f",
-    1741,
-    1743,
+    1719,
+    1721,
     "sys",
     ""
   ],
   [
     "sys-024f942ca8f84ac5a000c9957b9bc37f#fc9bc5a7-a587-497b-9828-58450f75a05d",
-    1742,
+    1720,
     -1,
     "Introduction"
   ],
   [
     "sys-024f942ca8f84ac5a000c9957b9bc37f#ff594d3e-a1f0-48b9-9f2f-4d12aa2a5a0a",
-    1742,
+    1720,
     -1,
     "Syntax"
   ],
   [
     "sys-024f942ca8f84ac5a000c9957b9bc37f#01750dd7-3d00-40eb-90fd-d217e6b9dbb0",
-    1742,
+    1720,
     -1,
     "Remarks"
   ],
   [
     "command-line-arguments-040f87ec672c42b8ba807090f35033df",
-    1741,
+    1719,
     -1,
     "Command line arguments",
     ""
   ],
   [
     "script-name-6012120ccd2547d1a4502eb6b7583958",
-    1741,
+    1719,
     -1,
     "Script name",
     ""
   ],
   [
     "standard-error-stream-623ac52a4f84470ba8b4a653e3cb9dc9",
-    1741,
+    1719,
     -1,
     "Standard error stream",
     ""
   ],
   [
     "ending-the-process-prematurely-and-returning-an-exit-code-0a18743c19184621a39b029b917e7002",
-    1741,
+    1719,
     -1,
     "Ending the process prematurely and returning an exit code",
     ""
@@ -11464,25 +11318,25 @@ gTocItems = [
   [
     "virtual-environment-with-virtualenvwrapper-6f6206ab6bb54d46bbb121eeeb808940",
     -1,
-    1751,
+    1729,
     "virtual environment with virtualenvwrapper"
   ],
   [
     "virtual-environment-with-virtualenvwrapper-628d5afd342b4fea83f6a1cbb8c8c02c",
-    1750,
-    1752,
+    1728,
+    1730,
     "virtual environment with virtualenvwrapper",
     ""
   ],
   [
     "virtual-environment-with-virtualenvwrapper-628d5afd342b4fea83f6a1cbb8c8c02c#bcaac62b-2332-425f-a54d-735eb8149555",
-    1751,
+    1729,
     -1,
     "Introduction"
   ],
   [
     "create-virtual-environment-with-virtualenvwrapper-322f867595744947a6c3910554f585ce",
-    1750,
+    1728,
     -1,
     "Create virtual environment with virtualenvwrapper",
     ""
@@ -11496,47 +11350,47 @@ gTocItems = [
   [
     "python-requests-post-3efa0cfc4e464489836e7016854363b9",
     -1,
-    1756,
+    1734,
     "Python Requests Post"
   ],
   [
     "simple-post-8ba98bae637d4208ab359b34fd39033c",
-    1755,
+    1733,
     -1,
     "Simple Post",
     ""
   ],
   [
     "form-encoded-data-82612665c38945798474a38284204de9",
-    1755,
+    1733,
     -1,
     "Form Encoded Data",
     ""
   ],
   [
     "file-upload-38ad99b0b9494a2ea907fee2c60557ea",
-    1755,
+    1733,
     -1,
     "File Upload",
     ""
   ],
   [
     "responses-358d07cfb6d44275a09559d1f3113904",
-    1755,
+    1733,
     -1,
     "Responses",
     ""
   ],
   [
     "authentication-aa02378a83da4ae88ca76939cebc608f",
-    1755,
+    1733,
     -1,
     "Authentication",
     ""
   ],
   [
     "proxies-fccfd23cea90413e9a4c13d6f7a99a76",
-    1755,
+    1733,
     -1,
     "Proxies",
     ""
@@ -11544,47 +11398,47 @@ gTocItems = [
   [
     "plotting-with-matplotlib-0ceaa16016404a18b7ac67eb3f6c07f3",
     -1,
-    1763,
+    1741,
     "Plotting with Matplotlib"
   ],
   [
     "a-simple-plot-in-matplotlib-a6dfa073c9994a8b8db3f199cd3cb626",
-    1762,
+    1740,
     -1,
     "A Simple Plot in Matplotlib",
     ""
   ],
   [
     "adding-more-features-to-a-simple-plot-axis-labels-title-axis-ticks-grid-and-legend-5bbca77424684ca2be0f4e75d1cbfd96",
-    1762,
+    1740,
     -1,
     "Adding more features to a simple plot axis labels title axis ticks grid and legend",
     ""
   ],
   [
     "making-multiple-plots-in-the-same-figure-by-superimposition-similar-to-matlab-f6a2abc5a6cd434cb9e678b75ba051df",
-    1762,
+    1740,
     -1,
     "Making multiple plots in the same figure by superimposition similar to MATLAB",
     ""
   ],
   [
     "making-multiple-plots-in-the-same-figure-using-plot-superimposition-with-separate-plot-commands-f613aca7e813471eb314c6a22f104cbd",
-    1762,
+    1740,
     -1,
     "Making multiple Plots in the same figure using plot superimposition with separate plot commands",
     ""
   ],
   [
     "plots-with-common-x-axis-but-different-y-axis-using-twinx-055d6eedb0c34e58873049847211c931",
-    1762,
+    1740,
     -1,
     "Plots with Common X-axis but different Y-axis Using twinx",
     ""
   ],
   [
     "plots-with-common-y-axis-and-different-x-axis-using-twiny-10d6895407ad4ad2b58cecfc977a5ddf",
-    1762,
+    1740,
     -1,
     "Plots with common Y-axis and different X-axis using twiny",
     ""
@@ -11592,157 +11446,109 @@ gTocItems = [
   [
     "python-lex-yacc-8178616ca0f24a0893be0454eaeffb70",
     -1,
-    1770,
+    1748,
     "Python Lex-Yacc"
   ],
   [
     "python-lex-yacc-e2b8d242534249aaa768fe900acfa763",
-    1769,
-    1771,
+    1747,
+    1749,
     "Python Lex-Yacc",
     ""
   ],
   [
     "python-lex-yacc-e2b8d242534249aaa768fe900acfa763#9e41e7d8-be42-47ea-8d17-6721108d0861",
-    1770,
+    1748,
     -1,
     "Introduction"
   ],
   [
     "python-lex-yacc-e2b8d242534249aaa768fe900acfa763#dd382864-f70c-4aa0-9e0e-7f6c270d7ee8",
-    1770,
+    1748,
     -1,
     "Remarks"
   ],
   [
     "getting-started-with-ply-f632d5eb6d3440e6960067eea3752500",
-    1769,
+    1747,
     -1,
     "Getting Started with PLY",
     ""
   ],
   [
     "the-hello-world-of-ply-a-simple-calculator-c4f33e6a96b244f0a6b7654f49de1606",
-    1769,
+    1747,
     -1,
     "The Hello World of PLY - A Simple Calculator",
     ""
   ],
   [
     "part-1-tokenizing-input-with-lex-4ebeb41c575b4496a31a40e62860bf7b",
-    1769,
-    1776,
+    1747,
+    1754,
     "Part 1 Tokenizing Input with Lex",
     ""
   ],
   [
     "part-1-tokenizing-input-with-lex-4ebeb41c575b4496a31a40e62860bf7b#30fdad2b-8a44-4887-9aed-fa2e00500592",
-    1775,
+    1753,
     -1,
     "Breakdown"
   ],
   [
     "part-2-parsing-tokenized-input-with-yacc-e118ba4db89e41cb82debf7355406325",
-    1769,
-    1778,
+    1747,
+    1756,
     "Part 2 Parsing Tokenized Input with Yacc",
     ""
   ],
   [
     "part-2-parsing-tokenized-input-with-yacc-e118ba4db89e41cb82debf7355406325#edd3369b-a569-425e-8507-4c80412351ab",
-    1777,
+    1755,
     -1,
     "Breakdown"
   ],
   [
     "part-2-parsing-tokenized-input-with-yacc-e118ba4db89e41cb82debf7355406325#bd4d7bc5-aa43-43c0-b352-c9521434efdb",
-    1777,
+    1755,
     -1,
-    ""
-  ],
-  [
-    "chempy-4feeec83751745bfbe00827d7b0cc408",
-    -1,
-    1781,
-    "ChemPy"
-  ],
-  [
-    "parsing-formulae-7aea0a66727f495eb53c4184606c484b",
-    1780,
-    -1,
-    "Parsing formulae",
-    ""
-  ],
-  [
-    "balancing-stoichiometry-of-a-chemical-reaction-681a4cf3863c462494c9294d90851838",
-    1780,
-    -1,
-    "Balancing stoichiometry of a chemical reaction",
-    ""
-  ],
-  [
-    "balancing-reactions-861049079e904640a8be96b4889fedac",
-    1780,
-    -1,
-    "Balancing reactions",
-    ""
-  ],
-  [
-    "chemical-equilibria-fa654b3bb30146df87e875b543aff1ae",
-    1780,
-    -1,
-    "Chemical equilibria",
-    ""
-  ],
-  [
-    "ionic-strength-f4460972da5c4b2abd5348ae9d09de55",
-    1780,
-    -1,
-    "Ionic strength",
-    ""
-  ],
-  [
-    "chemical-kinetics-system-of-ordinary-differential-equations-6ab91c0bb5014d83949f6a7c66b8c326",
-    1780,
-    -1,
-    "Chemical kinetics system of ordinary differential equations",
     ""
   ],
   [
     "pyaudio-071421a0386d4ff3917ec9fec4f2e56e",
     -1,
-    1788,
+    1759,
     "pyaudio"
   ],
   [
     "pyaudio-10758870302b45e594ef295d59c35730",
-    1787,
-    1789,
+    1758,
+    1760,
     "pyaudio",
     ""
   ],
   [
     "pyaudio-10758870302b45e594ef295d59c35730#46c8550c-e619-44ab-8d82-5db3b874ddea",
-    1788,
+    1759,
     -1,
     "Introduction"
   ],
   [
     "pyaudio-10758870302b45e594ef295d59c35730#2630d2cb-5c48-48e6-871b-2dd38fd04f3d",
-    1788,
+    1759,
     -1,
     "Remarks"
   ],
   [
     "callback-mode-audio-io-23bad34461e54beea579d798ea7248a8",
-    1787,
+    1758,
     -1,
     "Callback Mode Audio IO",
     ""
   ],
   [
     "blocking-mode-audio-io-27b2c7d11e43495698de09605c36d82a",
-    1787,
+    1758,
     -1,
     "Blocking Mode Audio IO",
     ""
@@ -11750,64 +11556,64 @@ gTocItems = [
   [
     "shelve-0c3e026c52324aceb58a709c31d3def1",
     -1,
-    1794,
+    1765,
     "shelve"
   ],
   [
     "shelve-29f67f457b8a45dcb4a63e598e9b4a87",
-    1793,
-    1795,
+    1764,
+    1766,
     "shelve",
     ""
   ],
   [
     "shelve-29f67f457b8a45dcb4a63e598e9b4a87#a3ab1b34-dc2b-441b-a220-c58e66981d92",
-    1794,
+    1765,
     -1,
     "Introduction"
   ],
   [
     "shelve-29f67f457b8a45dcb4a63e598e9b4a87#c512e87e-bcad-4f45-b191-01bf96d4458b",
-    1794,
+    1765,
     -1,
     "Remarks"
   ],
   [
     "shelve-29f67f457b8a45dcb4a63e598e9b4a87#c5e66b87-ff34-40ce-b7d7-dc5474ca82d2",
-    1794,
+    1765,
     -1,
     "Warning:"
   ],
   [
     "shelve-29f67f457b8a45dcb4a63e598e9b4a87#507b8943-dc94-4d97-8c56-1b8be86c709d",
-    1794,
+    1765,
     -1,
     "Restrictions"
   ],
   [
     "creating-a-new-shelf-c0c1f735febb4b6d9ddff8a81adc1ea5",
-    1793,
+    1764,
     -1,
     "Creating a new Shelf",
     ""
   ],
   [
     "sample-code-for-shelve-44ee7315639c4128953b0207fe6f806b",
-    1793,
+    1764,
     -1,
     "Sample code for shelve",
     ""
   ],
   [
     "to-summarize-the-interface-key-is-a-string-data-is-an-arbitrary-object-a39c8ec334cb443b9c54020dc64adaab",
-    1793,
+    1764,
     -1,
     "To summarize the interface key is a string data is an arbitrary object",
     ""
   ],
   [
     "write-back-65ec041316434673bc0532f4a7f5e76b",
-    1793,
+    1764,
     -1,
     "Write-back",
     ""
@@ -11815,192 +11621,90 @@ gTocItems = [
   [
     "pip-and-pypi-package-manager-8df338c90989456f9c897e7d8181508f",
     -1,
-    1804,
+    1775,
     "pip and PyPI Package Manager"
   ],
   [
     "usage-of-pip-module-pypi-package-manager-c87ab93657c64ad297728682bd616b7f",
-    1803,
-    1805,
+    1774,
+    1776,
     "Usage of pip module PyPI Package Manager",
     ""
   ],
   [
     "usage-of-pip-module-pypi-package-manager-c87ab93657c64ad297728682bd616b7f#cdfdcd32-1335-4e5b-8eef-f4ece95ba601",
-    1804,
+    1775,
     -1,
     "Introduction"
   ],
   [
     "usage-of-pip-module-pypi-package-manager-c87ab93657c64ad297728682bd616b7f#cc03ae89-7f0d-4410-b403-873053adaed6",
-    1804,
+    1775,
     -1,
     "Syntax"
   ],
   [
     "example-use-of-commands-3c4384b23d4348efbf1b29ec3eb0589e",
-    1803,
+    1774,
     -1,
     "Example use of commands",
     ""
   ],
   [
     "handling-importerror-exception-d28b5a7700f14129b72a82357ab1f3dd",
-    1803,
+    1774,
     -1,
     "Handling ImportError Exception",
     ""
   ],
   [
     "force-install-4b9e0f2ffcb145b9bc483a1fab92b751",
-    1803,
+    1774,
     -1,
     "Force install",
     ""
   ],
   [
-    "iot-programming-on-raspberry-pi-198107a691fb470c9532d585ee573ef8",
-    -1,
-    -1,
-    "IoT programming on Raspberry PI"
-  ],
-  [
-    "code-blocks-execution-frames-and-namespaces-688e0643fc4a4089aec983a1e1160397",
-    -1,
-    1812,
-    "Code blocks execution frames and namespaces"
-  ],
-  [
-    "code-blocks-execution-frames-and-namespaces-688e0643fc4a4089aec983a1e1160397#6dff6c15-55b6-4f36-abb1-8a4b9c72c30a",
-    1811,
-    -1,
-    "Code block namespaces"
-  ],
-  [
-    "kivy-1234269683f54d3d9ab5b962ab2c61cb",
-    -1,
-    1814,
-    "kivy"
-  ],
-  [
-    "kivy-1234269683f54d3d9ab5b962ab2c61cb#031d2307-c23c-417c-b2fa-3b87e78baf1e",
-    1813,
-    -1,
-    "Introduction"
-  ],
-  [
-    "first-app-00e53fc705fd4a0fa42de841b3130e4a",
-    1813,
-    -1,
-    "First App",
-    ""
-  ],
-  [
-    "call-python-from-c-c3660f2975e9432cb5a704be1cb80540",
-    -1,
-    1817,
-    "Call Python from C#"
-  ],
-  [
-    "call-python-from-c-ee1805cef7af45b6a6a65e4a94f0dac3",
-    1816,
-    1818,
-    "Call Python from C#",
-    ""
-  ],
-  [
-    "call-python-from-c-ee1805cef7af45b6a6a65e4a94f0dac3#2d117031-0f77-42af-915d-39d744232e81",
-    1817,
-    -1,
-    "Introduction"
-  ],
-  [
-    "call-python-from-c-ee1805cef7af45b6a6a65e4a94f0dac3#66cf5c96-7fbc-4551-a32b-64ae20aa8fd4",
-    1817,
-    -1,
-    "Remarks"
-  ],
-  [
-    "python-script-to-be-called-by-c-application-4d649dd117b14b8ca2a02d2eb0416992",
-    1816,
-    -1,
-    "Python script to be called by C# application",
-    ""
-  ],
-  [
-    "c-code-calling-python-script-04c6e34c772f429bbb3708e8266e0f81",
-    1816,
-    -1,
-    "C# code calling Python script",
-    ""
-  ],
-  [
-    "python-vs-javascript-91b30b9a16324feab027aad50145f929",
-    -1,
-    1823,
-    "Python vs. JavaScript"
-  ],
-  [
-    "similarities-in-syntax-differences-in-meaning-python-vs-javascript-ec9b23bef1bf49579e6b2ae8ae151653",
-    1822,
-    1824,
-    "Similarities in syntax Differences in meaning Python vs. JavaScript",
-    ""
-  ],
-  [
-    "similarities-in-syntax-differences-in-meaning-python-vs-javascript-ec9b23bef1bf49579e6b2ae8ae151653#76e5fe01-0f25-493d-bf6c-cffaa4bef716",
-    1823,
-    -1,
-    "Introduction"
-  ],
-  [
-    "in-with-lists-c82f550dd4064bdeb153330e42fa77c4",
-    1822,
-    -1,
-    "in with lists",
-    ""
-  ],
-  [
     "writing-to-csv-from-string-or-list-4c60cfca62214f7aa8963b3a6401374c",
     -1,
-    1827,
+    1782,
     "Writing to CSV from String or List"
   ],
   [
     "writing-to-csv-from-string-or-list-86dfd4d233bd4bf98a187bca5694a5bc",
-    1826,
-    1828,
+    1781,
+    1783,
     "Writing to CSV from String or List",
     ""
   ],
   [
     "writing-to-csv-from-string-or-list-86dfd4d233bd4bf98a187bca5694a5bc#bb592743-9103-4620-bfe5-c37305af5563",
-    1827,
+    1782,
     -1,
     "Introduction"
   ],
   [
     "writing-to-csv-from-string-or-list-86dfd4d233bd4bf98a187bca5694a5bc#5441d875-d733-4221-99fb-3ea1fe1002cf",
-    1827,
+    1782,
     -1,
     "Parameters"
   ],
   [
     "writing-to-csv-from-string-or-list-86dfd4d233bd4bf98a187bca5694a5bc#5cc38d94-4081-4948-bc98-f356dbd1757c",
-    1827,
+    1782,
     -1,
     "Remarks"
   ],
   [
     "basic-write-example-fbf2662059804cf0a648b5ab912bec6d",
-    1826,
+    1781,
     -1,
     "Basic Write Example",
     ""
   ],
   [
     "appending-a-string-as-a-newline-in-a-csv-file-11ec4b9103574a528f8fa175b201b767",
-    1826,
+    1781,
     -1,
     "Appending a String as a newline in a CSV file",
     ""
@@ -12008,18 +11712,18 @@ gTocItems = [
   [
     "raise-custom-errors-exceptions-cfe93318a8a0463ea3d7a6f82855014e",
     -1,
-    1834,
+    1789,
     "Raise Custom Errors Exceptions"
   ],
   [
     "raise-custom-errors-exceptions-cfe93318a8a0463ea3d7a6f82855014e#9e07917c-e7d0-428c-9e47-4d79b34f6097",
-    1833,
+    1788,
     -1,
     "Custom Exception"
   ],
   [
     "raise-custom-errors-exceptions-cfe93318a8a0463ea3d7a6f82855014e#53523490-7f13-4285-a883-59baac18e2d5",
-    1833,
+    1788,
     -1,
     "Catch custom Exception"
   ],
@@ -12028,32 +11732,6 @@ gTocItems = [
     -1,
     -1,
     "Using loops within functions"
-  ],
-  [
-    "pandas-f9cef861fa11469e968807cce105be5c",
-    -1,
-    1838,
-    "Pandas"
-  ],
-  [
-    "simple-transform-5fd1a617348142c1b924db682b93b1a9",
-    1837,
-    -1,
-    "Simple transform",
-    ""
-  ],
-  [
-    "multiple-results-per-group-098bf952aca54d7c83621c36ff951240",
-    1837,
-    1840,
-    "Multiple results per group",
-    ""
-  ],
-  [
-    "multiple-results-per-group-098bf952aca54d7c83621c36ff951240#2b697a2d-ac8e-41eb-afc6-97da63bcac32",
-    1839,
-    -1,
-    "Using transform functions that return sub-calculations per group"
   ],
   [
     "contributors-abf8b5bd5ca54f579ed78cf45afc823f",

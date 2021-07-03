@@ -3495,530 +3495,499 @@ gTocItems = [
     ""
   ],
   [
-    "xmpp-6322ab3ec9a349a081463403ca605342",
-    -1,
-    545,
-    "XMPP"
-  ],
-  [
-    "ios-xmpp-robbie-hanson-example-with-openfire-cc99a3fee1f04bd382da1e0a23540591",
-    544,
-    546,
-    "iOS XMPP Robbie Hanson Example with Openfire",
-    ""
-  ],
-  [
-    "ios-xmpp-robbie-hanson-example-with-openfire-cc99a3fee1f04bd382da1e0a23540591#9e5f66d7-b746-427b-bfb5-c219e73b4620",
-    545,
-    -1,
-    "SRXMPPDemo"
-  ],
-  [
-    "ios-xmpp-robbie-hanson-example-with-openfire-cc99a3fee1f04bd382da1e0a23540591#3db85343-50fa-4514-8b2a-5b1d41a3c128",
-    545,
-    -1,
-    "Download the example and all the classes here - https://github.com/SahebRoy92/SRXMPPDemo"
-  ],
-  [
-    "ios-xmpp-robbie-hanson-example-with-openfire-cc99a3fee1f04bd382da1e0a23540591#e2ecf9f6-3647-4bbd-85b0-ea72cbece6ca",
-    545,
-    -1,
-    "Steps to follow"
-  ],
-  [
     "swift-and-objective-c-interoperability-b0d929fa86c742fabe4210d70a6eecc3",
     -1,
-    550,
+    545,
     "Swift and Objective-C interoperability"
   ],
   [
     "using-objective-c-classes-in-swift-d29c65537cfc42529613875bf980df48",
-    549,
-    551,
+    544,
+    546,
     "Using Objective-C Classes in Swift",
     ""
   ],
   [
     "using-objective-c-classes-in-swift-d29c65537cfc42529613875bf980df48#ae77fbdd-b064-4261-8772-cc735f28025e",
-    550,
+    545,
     -1,
     "Step 1: Add Objective-C Implementation – .m"
   ],
   [
     "using-objective-c-classes-in-swift-d29c65537cfc42529613875bf980df48#9db2d230-a1da-41f1-9fc5-164f71501236",
-    550,
+    545,
     -1,
     "Step 2: Add Bridging Header"
   ],
   [
     "using-objective-c-classes-in-swift-d29c65537cfc42529613875bf980df48#6b622aca-ea71-43be-8dcd-c0bbdd0f58f9",
-    550,
+    545,
     -1,
     "Step 3: Add Objective-C Header – .h"
   ],
   [
     "using-objective-c-classes-in-swift-d29c65537cfc42529613875bf980df48#4ce1faaa-b5ae-4f75-85be-a33aafc6b8eb",
-    550,
+    545,
     -1,
     "Step 4: Build your Objective-C Class"
   ],
   [
     "using-objective-c-classes-in-swift-d29c65537cfc42529613875bf980df48#0db20760-a4d9-4f88-b954-ee420d260011",
-    550,
+    545,
     -1,
     "Step 5: Add Class to Bridging-Header"
   ],
   [
     "using-objective-c-classes-in-swift-d29c65537cfc42529613875bf980df48#b879e89b-642b-4b4c-b271-d00b9dd5179a",
-    550,
+    545,
     -1,
     "Step 6: Use your Object"
   ],
   [
     "using-swift-classes-in-objective-c-c8ef4cd3c29443ceb6b43a8cf24ede9c",
-    549,
-    558,
+    544,
+    553,
     "Using Swift Classes in Objective-C",
     ""
   ],
   [
     "using-swift-classes-in-objective-c-c8ef4cd3c29443ceb6b43a8cf24ede9c#1aa4f18f-73e6-43e0-ab2e-9fed26a94ffa",
-    557,
+    552,
     -1,
     "Step 1: Create New Swift Class"
   ],
   [
     "using-swift-classes-in-objective-c-c8ef4cd3c29443ceb6b43a8cf24ede9c#265777e1-ec9d-4891-8409-dac26a209e94",
-    557,
+    552,
     -1,
     "Step 2: Import Swift Files to ObjC Class"
   ],
   [
     "using-swift-classes-in-objective-c-c8ef4cd3c29443ceb6b43a8cf24ede9c#07fbd883-454b-4f7e-812e-12f13902a155",
-    557,
+    552,
     -1,
     "Step 3: Use your class"
   ],
   [
     "using-swift-classes-in-objective-c-c8ef4cd3c29443ceb6b43a8cf24ede9c#ba857fe2-37c0-4817-a7b8-c90a0cfa65df",
-    557,
+    552,
     -1,
     "Note:"
   ],
   [
     "nsdate-ef263014bda340f6bf71d92405ecc883",
     -1,
-    563,
+    558,
     "NSDate"
   ],
   [
     "nsdate-64adc003e3fb45c087e2bedbad3a85f5",
-    562,
-    564,
+    557,
+    559,
     "NSDate",
     ""
   ],
   [
     "nsdate-64adc003e3fb45c087e2bedbad3a85f5#aea6cf83-182a-4f86-8cb4-0c2ddae8a0ea",
-    563,
+    558,
     -1,
     "Syntax"
   ],
   [
     "nsdate-64adc003e3fb45c087e2bedbad3a85f5#73d74382-1ea5-4e6d-b9dc-b223010f1217",
-    563,
+    558,
     -1,
     "Remarks"
   ],
   [
     "nsdateformatter-3eac84a73f124e78a0db036073f86fc1",
+    557,
     562,
-    567,
     "NSDateFormatter",
     ""
   ],
   [
     "nsdateformatter-3eac84a73f124e78a0db036073f86fc1#6d8676d1-72b2-458f-9071-caf61c8997a5",
-    566,
+    561,
     -1,
     "1. Create an NSDateFormatter object"
   ],
   [
     "nsdateformatter-3eac84a73f124e78a0db036073f86fc1#874bad3e-1ab9-4cb8-9fc1-9db4d20fc0ef",
-    566,
+    561,
     -1,
     "Swift"
   ],
   [
     "nsdateformatter-3eac84a73f124e78a0db036073f86fc1#842ecae2-52b6-4d36-9b4e-1a978ad384d9",
-    566,
+    561,
     -1,
     "Swift 3"
   ],
   [
     "nsdateformatter-3eac84a73f124e78a0db036073f86fc1#e8d28812-e87e-4dd0-bf7b-1104a343dcc0",
-    566,
+    561,
     -1,
     "Objective-C"
   ],
   [
     "nsdateformatter-3eac84a73f124e78a0db036073f86fc1#6e987021-3c7c-4be0-bfef-a554b8215722",
-    566,
+    561,
     -1,
     "2. Set the date format in which you want your string"
   ],
   [
     "nsdateformatter-3eac84a73f124e78a0db036073f86fc1#1c553e6f-b743-4591-8a21-29be091d2150",
-    566,
+    561,
     -1,
     "Swift"
   ],
   [
     "nsdateformatter-3eac84a73f124e78a0db036073f86fc1#89c224c1-01a9-46ee-8784-05ff0aea3b3f",
-    566,
+    561,
     -1,
     "Objective-C"
   ],
   [
     "nsdateformatter-3eac84a73f124e78a0db036073f86fc1#bb4d7e94-501a-4e5f-80ee-293d4faf5bbc",
-    566,
+    561,
     -1,
     "3. Get the formatted string"
   ],
   [
     "nsdateformatter-3eac84a73f124e78a0db036073f86fc1#031bcc83-8d2a-4412-99bb-bc6ff14b2f7c",
-    566,
+    561,
     -1,
     "Swift"
   ],
   [
     "nsdateformatter-3eac84a73f124e78a0db036073f86fc1#4d49753b-ee47-4e04-83a5-87b8ab70fe10",
-    566,
+    561,
     -1,
     "Swift 3"
   ],
   [
     "nsdateformatter-3eac84a73f124e78a0db036073f86fc1#4552d4a3-f81e-4529-812c-cdd1a42d04b7",
-    566,
+    561,
     -1,
     "Objective-C"
   ],
   [
     "nsdateformatter-3eac84a73f124e78a0db036073f86fc1#56dc651a-0294-41ad-886c-07de547c375f",
-    566,
+    561,
     -1,
     "Note"
   ],
   [
     "nsdateformatter-3eac84a73f124e78a0db036073f86fc1#2ffcd30a-7bc3-45c7-869f-e62569cfd03c",
-    566,
+    561,
     -1,
     "Useful extension for converting date to string."
   ],
   [
     "date-comparison-f92ec9cfad744844b52fd2d096002310",
-    562,
-    581,
+    557,
+    576,
     "Date Comparison",
     ""
   ],
   [
     "date-comparison-f92ec9cfad744844b52fd2d096002310#39d6d024-58cd-48e1-af3f-45bd0b6dc258",
-    580,
+    575,
     -1,
     "Swift"
   ],
   [
     "date-comparison-f92ec9cfad744844b52fd2d096002310#9ecfba4a-4864-4f4c-bc9f-918069fd50d4",
-    580,
+    575,
     -1,
     "Objective-C"
   ],
   [
     "date-comparison-f92ec9cfad744844b52fd2d096002310#09bdc059-a76f-46a0-a29a-523cf73ffbc3",
-    580,
+    575,
     -1,
     "Swift"
   ],
   [
     "date-comparison-f92ec9cfad744844b52fd2d096002310#325fe566-9bb7-4857-8f00-21b13b2abf5c",
-    580,
+    575,
     -1,
     "Objective-C"
   ],
   [
     "date-comparison-f92ec9cfad744844b52fd2d096002310#3586df83-de5b-4518-aa27-9bb1c8f2f9a5",
-    580,
+    575,
     -1,
     "Swift"
   ],
   [
     "date-comparison-f92ec9cfad744844b52fd2d096002310#08dfd982-35db-461e-8e0c-751d46b2e69a",
-    580,
+    575,
     -1,
     "Objective-C"
   ],
   [
     "date-comparison-f92ec9cfad744844b52fd2d096002310#726b33fe-c98f-4d3f-9f1b-aebf50f26727",
-    580,
+    575,
     -1,
     "Swift 3"
   ],
   [
     "get-historic-time-from-nsdate-eg-5s-ago-2m-ago-3h-ago-3c18dc4f38a246a39b3e351eb7afb72b",
-    562,
-    589,
+    557,
+    584,
     "Get Historic Time from NSDate eg 5s ago 2m ago 3h ago",
     ""
   ],
   [
     "get-historic-time-from-nsdate-eg-5s-ago-2m-ago-3h-ago-3c18dc4f38a246a39b3e351eb7afb72b#cc4eab58-6c38-4ca0-87c9-018c8a5934eb",
-    588,
+    583,
     -1,
     "Objective-C"
   ],
   [
     "get-unix-epoch-time-5ed5db834b854a2b8be788fb0a3c16ce",
-    562,
-    591,
+    557,
+    586,
     "Get Unix Epoch time",
     ""
   ],
   [
     "get-unix-epoch-time-5ed5db834b854a2b8be788fb0a3c16ce#e46c7493-ee52-45e9-8634-19a736ba285c",
-    590,
+    585,
     -1,
     "Swift"
   ],
   [
     "get-unix-epoch-time-5ed5db834b854a2b8be788fb0a3c16ce#df545579-e741-4663-8915-56631fa82ca7",
-    590,
+    585,
     -1,
     "Objective-C"
   ],
   [
     "get-time-cycle-type-12-hour-or-24-hour-2a924577f0ad4df5b3869d3cda6c6ec7",
-    562,
-    594,
+    557,
+    589,
     "Get time cycle type 12-hour or 24-hour",
     ""
   ],
   [
     "get-time-cycle-type-12-hour-or-24-hour-2a924577f0ad4df5b3869d3cda6c6ec7#a9699662-b393-4fa0-b68d-2867e0d82f31",
-    593,
+    588,
     -1,
     "Checking whether the current date contains the symbol for AM or PM"
   ],
   [
     "get-time-cycle-type-12-hour-or-24-hour-2a924577f0ad4df5b3869d3cda6c6ec7#8aed48a5-9857-4765-ab01-d4feb5c36bab",
-    593,
+    588,
     -1,
     "Objective-C"
   ],
   [
     "get-time-cycle-type-12-hour-or-24-hour-2a924577f0ad4df5b3869d3cda6c6ec7#5c36661e-7704-4e3e-96b0-0a24ac276042",
-    593,
+    588,
     -1,
     "Requesting the time cycle type from NSDateFormatter"
   ],
   [
     "get-time-cycle-type-12-hour-or-24-hour-2a924577f0ad4df5b3869d3cda6c6ec7#de99a597-ee5f-4813-a6bc-9a85f176bdad",
-    593,
+    588,
     -1,
     "Objective-C"
   ],
   [
     "get-time-cycle-type-12-hour-or-24-hour-2a924577f0ad4df5b3869d3cda6c6ec7#71d3d73b-b480-4c43-a76b-d516f00e72a4",
-    593,
+    588,
     -1,
     "Reference"
   ],
   [
     "get-nsdate-from-json-date-format-date1268123281843-5be5bce6ef7d4a31a363d73af8e1cf7f",
-    562,
-    600,
+    557,
+    595,
     "Get NSDate from JSON Date format Date1268123281843",
     ""
   ],
   [
     "get-nsdate-from-json-date-format-date1268123281843-5be5bce6ef7d4a31a363d73af8e1cf7f#fadee966-3e61-4302-b521-9138bc958c8b",
-    599,
+    594,
     -1,
     "Objective-C"
   ],
   [
     "get-current-date-4fdae78dd2ae483e8da8e55ea1be9133",
-    562,
-    602,
+    557,
+    597,
     "Get Current Date",
     ""
   ],
   [
     "get-current-date-4fdae78dd2ae483e8da8e55ea1be9133#6ac2c3ad-a607-4c4a-afab-85e48ff9aa7d",
-    601,
+    596,
     -1,
     "Swift"
   ],
   [
     "get-current-date-4fdae78dd2ae483e8da8e55ea1be9133#17ec0504-c56b-43b4-9d54-679313b9e4dc",
-    601,
+    596,
     -1,
     "Swift 3"
   ],
   [
     "get-current-date-4fdae78dd2ae483e8da8e55ea1be9133#e5a8ae45-c01f-459b-b1f6-491632e699e9",
-    601,
+    596,
     -1,
     "Objective-C"
   ],
   [
     "08convert-nsdate-that-is-composed-from-hour-and-minute-only-to-a-full-nsdate-fd2cdbfa6ffe46b6a6227e1e59d57e98",
-    562,
-    606,
+    557,
+    601,
     "08Convert NSDate that is composed from hour and minute only to a full NSDate",
     ""
   ],
   [
     "08convert-nsdate-that-is-composed-from-hour-and-minute-only-to-a-full-nsdate-fd2cdbfa6ffe46b6a6227e1e59d57e98#e3e27966-5758-43ff-94cd-f8939db48842",
-    605,
+    600,
     -1,
     "Objective-C"
   ],
   [
     "time-offset-from-nsdate-with-timezone-6ed977bb44054636ac5e25c57001046f",
-    562,
+    557,
     -1,
     "Time offset from NSDate with TimeZone",
     ""
   ],
   [
     "get-nsdate-object-n-seconds-from-current-date-b69664c46d9b4a9d9df662d8472934c1",
-    562,
-    609,
+    557,
+    604,
     "Get NSDate Object N seconds from current date",
     ""
   ],
   [
     "get-nsdate-object-n-seconds-from-current-date-b69664c46d9b4a9d9df662d8472934c1#d0168f74-9724-4b91-8253-ebb1cbe63a05",
-    608,
+    603,
     -1,
     "Swift"
   ],
   [
     "get-nsdate-object-n-seconds-from-current-date-b69664c46d9b4a9d9df662d8472934c1#8f46f1eb-cc77-4b91-bee4-d2f4dcc90467",
-    608,
+    603,
     -1,
     "Swift 3"
   ],
   [
     "get-nsdate-object-n-seconds-from-current-date-b69664c46d9b4a9d9df662d8472934c1#c912b7e6-661d-4427-bad4-246eafea9e4b",
-    608,
+    603,
     -1,
     "Objective-C"
   ],
   [
     "custom-fonts-72b9755c2fb040e9bbe19e1dc991a815",
     -1,
-    613,
+    608,
     "Custom Fonts"
   ],
   [
     "embedding-custom-fonts-bd97acd58c964527ae7396da3c68b364",
-    612,
+    607,
     -1,
     "Embedding custom fonts",
     ""
   ],
   [
     "custom-fonts-with-storyboard-99748b87bb104f15a4d0c4879f883bb8",
-    612,
-    615,
+    607,
+    610,
     "Custom Fonts with Storyboard",
     ""
   ],
   [
     "custom-fonts-with-storyboard-99748b87bb104f15a4d0c4879f883bb8#9fc067b0-e230-44d2-a4cb-e68e01cb84cf",
-    614,
+    609,
     -1,
     "UIKit+IBExtensions.h"
   ],
   [
     "custom-fonts-with-storyboard-99748b87bb104f15a4d0c4879f883bb8#dce57953-b6cd-484e-936d-ac356847a291",
-    614,
+    609,
     -1,
     "UIKit+IBExtensions.m"
   ],
   [
     "applying-custom-fonts-to-controls-within-a-storyboard-f93c52f1e1074ee7aab2f45be4b29b98",
-    612,
-    618,
+    607,
+    613,
     "Applying custom fonts to controls within a Storyboard",
     ""
   ],
   [
     "applying-custom-fonts-to-controls-within-a-storyboard-f93c52f1e1074ee7aab2f45be4b29b98#390ae002-c067-4d0f-ba07-7be8009be1c4",
-    617,
+    612,
     -1,
     "Notes (Caveats)"
   ],
   [
     "applying-custom-fonts-to-controls-within-a-storyboard-f93c52f1e1074ee7aab2f45be4b29b98#bf3d2d1b-0f9e-42b7-9f74-d7942f252071",
-    617,
+    612,
     -1,
     "Gotchas (deux)"
   ],
   [
     "applying-custom-fonts-to-controls-within-a-storyboard-f93c52f1e1074ee7aab2f45be4b29b98#e685d9d8-7abc-4049-b836-ea070ce68edf",
-    617,
+    612,
     -1,
     "Result"
   ],
   [
     "applying-custom-fonts-to-controls-within-a-storyboard-f93c52f1e1074ee7aab2f45be4b29b98#b5b80f98-eb6b-4283-b99f-4612eb57aa1c",
-    617,
+    612,
     -1,
     "Samples"
   ],
   [
     "applying-custom-fonts-to-controls-within-a-storyboard-f93c52f1e1074ee7aab2f45be4b29b98#68135fe7-1cf5-410d-9d11-1fa33c43bb90",
-    617,
+    612,
     -1,
     "Handling Custom Fonts"
   ],
   [
     "applying-custom-fonts-to-controls-within-a-storyboard-f93c52f1e1074ee7aab2f45be4b29b98#a7dd367c-bd5d-4f0a-9741-d282596dbb44",
-    617,
+    612,
     -1,
     "Custom Font Workaround"
   ],
   [
     "avspeechsynthesizer-c05487c788544aec862517129611e0b3",
     -1,
-    625,
+    620,
     "AVSpeechSynthesizer"
   ],
   [
     "avspeechsynthesizer-4f1289b782044c6392ec34c25d4966cd",
-    624,
-    626,
+    619,
+    621,
     "AVSpeechSynthesizer",
     ""
   ],
   [
     "avspeechsynthesizer-4f1289b782044c6392ec34c25d4966cd#cc2d25e8-11fe-45fe-8be2-f1b4325c9391",
-    625,
+    620,
     -1,
     "Syntax"
   ],
   [
     "avspeechsynthesizer-4f1289b782044c6392ec34c25d4966cd#e0593e55-874e-4ce0-8fba-655150a1fe7e",
-    625,
+    620,
     -1,
     "Parameters"
   ],
   [
     "creating-a-basic-text-to-speech-208e7545ba464fb4a336ec93a6d48adc",
-    624,
+    619,
     -1,
     "Creating a basic text to speech",
     ""
@@ -4026,75 +3995,75 @@ gTocItems = [
   [
     "uibarbuttonitem-4bb5da492abd458ea75228b6f09f8259",
     -1,
-    630,
+    625,
     "UIBarButtonItem"
   ],
   [
     "uibarbuttonitem-2800423be1b84a82bfc43ac1316f11e6",
-    629,
-    631,
+    624,
+    626,
     "UIBarButtonItem",
     ""
   ],
   [
     "uibarbuttonitem-2800423be1b84a82bfc43ac1316f11e6#b0562b74-05c0-4e06-8ad1-018963b8bcad",
-    630,
+    625,
     -1,
     "Parameters"
   ],
   [
     "uibarbuttonitem-2800423be1b84a82bfc43ac1316f11e6#95dddb1c-703d-4895-a1a8-784fba5e5f95",
-    630,
+    625,
     -1,
     "Remarks"
   ],
   [
     "creating-a-uibarbuttonitem-f132020905284f628645dcadc8704608",
-    629,
+    624,
     -1,
     "Creating a UIBarButtonItem",
     ""
   ],
   [
     "creating-a-uibarbuttonitem-in-the-interface-builder-b2755352d7394fb6841a246d792d9dcc",
-    629,
-    635,
+    624,
+    630,
     "Creating a UIBarButtonItem in the Interface Builder",
     ""
   ],
   [
     "creating-a-uibarbuttonitem-in-the-interface-builder-b2755352d7394fb6841a246d792d9dcc#13711042-6119-4583-a273-6248c93c4814",
-    634,
+    629,
     -1,
     "Add a Navigation Controller to your Storyboard"
   ],
   [
     "creating-a-uibarbuttonitem-in-the-interface-builder-b2755352d7394fb6841a246d792d9dcc#067416be-e097-4a96-8dcf-ca7d583478d5",
-    634,
+    629,
     -1,
     "Add a Bar Button Item"
   ],
   [
     "creating-a-uibarbuttonitem-in-the-interface-builder-b2755352d7394fb6841a246d792d9dcc#c9ddda06-f3f2-4032-84d4-316c4bdae854",
-    634,
+    629,
     -1,
     "Set the Attributes"
   ],
   [
     "creating-a-uibarbuttonitem-in-the-interface-builder-b2755352d7394fb6841a246d792d9dcc#1f690075-9a29-4c9e-b38d-2f7f78c90d5f",
-    634,
+    629,
     -1,
     "Add an IB Action"
   ],
   [
     "creating-a-uibarbuttonitem-in-the-interface-builder-b2755352d7394fb6841a246d792d9dcc#f07cb248-4847-496a-a4e2-93ec86f80487",
-    634,
+    629,
     -1,
     "Notes"
   ],
   [
     "bar-button-item-original-image-with-no-tint-color-8c13aeea3efc448fa448d03a1e67123e",
-    629,
+    624,
     -1,
     "Bar Button Item Original Image with no Tint Color",
     ""
@@ -4102,109 +4071,109 @@ gTocItems = [
   [
     "uiscrollview-773b6f96ffaf43519c90f5ce8c465bf3",
     -1,
-    642,
+    637,
     "UIScrollView"
   ],
   [
     "scrolling-content-with-auto-layout-enabled-5841223bbaa14d1dafce69e60bedf0b2",
-    641,
-    643,
+    636,
+    638,
     "Scrolling content with Auto Layout enabled",
     ""
   ],
   [
     "scrolling-content-with-auto-layout-enabled-5841223bbaa14d1dafce69e60bedf0b2#f3e4321e-b0ab-4b64-b1c6-23fd8a02686b",
-    642,
+    637,
     -1,
     "Key concepts"
   ],
   [
     "scrolling-content-with-auto-layout-enabled-5841223bbaa14d1dafce69e60bedf0b2#73963651-0431-4a7c-a05a-0dd367312558",
-    642,
+    637,
     -1,
     "Start a new project"
   ],
   [
     "scrolling-content-with-auto-layout-enabled-5841223bbaa14d1dafce69e60bedf0b2#1e09c0c1-09e6-43d4-b2f8-b2853199a309",
-    642,
+    637,
     -1,
     "Storyboard"
   ],
   [
     "scrolling-content-with-auto-layout-enabled-5841223bbaa14d1dafce69e60bedf0b2#afdfb2f9-8890-4aff-9a72-438ad8d6c8b7",
-    642,
+    637,
     -1,
     "Finished"
   ],
   [
     "scrolling-content-with-auto-layout-enabled-5841223bbaa14d1dafce69e60bedf0b2#f646503a-4daf-4634-abd3-3fc53493e847",
-    642,
+    637,
     -1,
     "Further Study"
   ],
   [
     "create-a-uiscrollview-aa1cd2a201154f88b4809ea6bf3a71bb",
-    641,
+    636,
     -1,
     "Create a UIScrollView",
     ""
   ],
   [
     "scrollview-with-autolayout-9e7319a96c3e4b258365cc0e4013cacd",
-    641,
+    636,
     -1,
     "ScrollView with AutoLayout",
     ""
   ],
   [
     "scroll-view-content-size-4affdd890d6a42e5b7b2637973f5ea09",
-    641,
+    636,
     -1,
     "Scroll View Content Size",
     ""
   ],
   [
     "enabledisable-scrolling-27169e85753446a08b5912e789cf8bc4",
-    641,
+    636,
     -1,
     "EnableDisable Scrolling",
     ""
   ],
   [
     "zoom-inout-uiimageview-82ec178564644955b85ffe0648a5b9ef",
-    641,
-    653,
+    636,
+    648,
     "Zoom InOut UIImageView",
     ""
   ],
   [
     "zoom-inout-uiimageview-82ec178564644955b85ffe0648a5b9ef#0aeb8896-b6f8-421c-ae33-1b74ab498fe5",
-    652,
+    647,
     -1,
     "Now create UIImageView instance"
   ],
   [
     "detecting-when-uiscrollview-finished-scrolling-with-delegate-methods-e8bf1543e96a40f69f6129a23cc184c4",
-    641,
-    655,
+    636,
+    650,
     "Detecting when UIScrollView finished scrolling with delegate methods",
     ""
   ],
   [
     "detecting-when-uiscrollview-finished-scrolling-with-delegate-methods-e8bf1543e96a40f69f6129a23cc184c4#39f75d18-31eb-4834-8556-f928066a1b85",
-    654,
+    649,
     -1,
     "Objective C:"
   ],
   [
     "detecting-when-uiscrollview-finished-scrolling-with-delegate-methods-e8bf1543e96a40f69f6129a23cc184c4#b403be34-f207-4175-8834-cdb4a0a6b5b6",
-    654,
+    649,
     -1,
     "Swift:"
   ],
   [
     "restrict-scrolling-direction-1e79362af3b34c5799e4d5ee515df2e0",
-    641,
+    636,
     -1,
     "Restrict scrolling direction",
     ""
@@ -4212,25 +4181,25 @@ gTocItems = [
   [
     "localization-0ff3c3adebbf49a89738406cae0aa48f",
     -1,
-    659,
+    654,
     "Localization"
   ],
   [
     "localization-f21cb144ec8043b89ad8afd1de103e86",
-    658,
-    660,
+    653,
+    655,
     "Localization",
     ""
   ],
   [
     "localization-f21cb144ec8043b89ad8afd1de103e86#3d6b243c-eec4-435e-9b59-17af8828b3cf",
-    659,
+    654,
     -1,
     "Introduction"
   ],
   [
     "localization-in-ios-12a3fa9963c44a0890b53c1ac4a0478b",
-    658,
+    653,
     -1,
     "Localization in iOS",
     ""
@@ -4238,145 +4207,145 @@ gTocItems = [
   [
     "nsnotificationcenter-376a847e7f0c468c9e790f0948997637",
     -1,
-    663,
+    658,
     "NSNotificationCenter"
   ],
   [
     "nsnotificationcenter-328170c55c7145b38203488ade46ebdb",
-    662,
-    664,
+    657,
+    659,
     "NSNotificationCenter",
     ""
   ],
   [
     "nsnotificationcenter-328170c55c7145b38203488ade46ebdb#1202a5fa-58ad-47bf-a859-989d9181d86c",
-    663,
+    658,
     -1,
     "Introduction"
   ],
   [
     "nsnotificationcenter-328170c55c7145b38203488ade46ebdb#eb790d3a-c74f-4d23-89fe-fe77c2e84cb9",
-    663,
+    658,
     -1,
     "Parameters"
   ],
   [
     "nsnotificationcenter-328170c55c7145b38203488ade46ebdb#a77f41ab-6783-40b8-923d-45c45b80c12e",
-    663,
+    658,
     -1,
     "Remarks"
   ],
   [
     "removing-observers-b06f95afbe6a466ea5ed0d7a88434426",
-    662,
-    668,
+    657,
+    663,
     "Removing Observers",
     ""
   ],
   [
     "removing-observers-b06f95afbe6a466ea5ed0d7a88434426#a8da6d76-cd51-4520-974a-66f033f2d562",
-    667,
+    662,
     -1,
     "Swift 3"
   ],
   [
     "removing-observers-b06f95afbe6a466ea5ed0d7a88434426#83ad544c-0e46-4660-92b6-ca85443b2b1d",
-    667,
+    662,
     -1,
     "Objective-C"
   ],
   [
     "adding-an-observer-b2d74ad65a7b42b3b039c5967e499d7b",
-    662,
-    671,
+    657,
+    666,
     "Adding an Observer",
     ""
   ],
   [
     "adding-an-observer-b2d74ad65a7b42b3b039c5967e499d7b#8c97795c-4c93-405b-92ad-06b80d3d3401",
-    670,
+    665,
     -1,
     "Naming Convention"
   ],
   [
     "adding-an-observer-b2d74ad65a7b42b3b039c5967e499d7b#1973d040-15f3-480b-9628-96447eb6c657",
-    670,
+    665,
     -1,
     "Swift 3"
   ],
   [
     "adding-an-observer-b2d74ad65a7b42b3b039c5967e499d7b#c717af36-10b1-4c66-bf37-58c43e2ef5d6",
-    670,
+    665,
     -1,
     "Objective-C"
   ],
   [
     "posting-a-notification-with-data-666e58fdb67641fe8c2aa9cdcb0d0bf6",
-    662,
-    675,
+    657,
+    670,
     "Posting a Notification with Data",
     ""
   ],
   [
     "posting-a-notification-with-data-666e58fdb67641fe8c2aa9cdcb0d0bf6#9deb4600-dea1-477b-b887-2d35800fdc95",
-    674,
+    669,
     -1,
     "Swift"
   ],
   [
     "posting-a-notification-with-data-666e58fdb67641fe8c2aa9cdcb0d0bf6#f185ad30-51ea-49f5-aec7-651d7c4ee3e7",
-    674,
+    669,
     -1,
     "Objective-C"
   ],
   [
     "add-and-remove-observer-for-name-01b7b173a44b442ab28fd2a751d9f417",
-    662,
+    657,
     -1,
     "Add and remove observer for name",
     ""
   ],
   [
     "posting-a-notification-b1cda82044154882b82f6f5ac9a676f2",
-    662,
-    679,
+    657,
+    674,
     "Posting a Notification",
     ""
   ],
   [
     "posting-a-notification-b1cda82044154882b82f6f5ac9a676f2#fbddcfa3-b7fb-4baa-8965-0d526fe105dc",
-    678,
+    673,
     -1,
     "Swift"
   ],
   [
     "posting-a-notification-b1cda82044154882b82f6f5ac9a676f2#77158144-ba5c-4d8b-9383-00c744faa92f",
-    678,
+    673,
     -1,
     "Objective-C"
   ],
   [
     "observing-a-notification-82b3ee55ef3c4b498ea7b8bb828364dc",
-    662,
-    682,
+    657,
+    677,
     "Observing a Notification",
     ""
   ],
   [
     "observing-a-notification-82b3ee55ef3c4b498ea7b8bb828364dc#b3cee5fd-3c60-4ff4-8fb3-3b10f286b1e3",
-    681,
+    676,
     -1,
     "Swift"
   ],
   [
     "observing-a-notification-82b3ee55ef3c4b498ea7b8bb828364dc#1feacb24-6c5e-413d-9ec9-ac4e8283fdad",
-    681,
+    676,
     -1,
     "Objective-C"
   ],
   [
     "addingremoving-an-observer-with-a-block-f2af039168b24532b874e6cfdbc6dcfa",
-    662,
+    657,
     -1,
     "AddingRemoving an Observer with a Block",
     ""
@@ -4384,339 +4353,339 @@ gTocItems = [
   [
     "uitextfield-bd6930c569f641e697fdc9dd073c68ba",
     -1,
-    686,
+    681,
     "UITextField"
   ],
   [
     "uitextfield-1661c747099b4f5eb4125b7748cefe5a",
-    685,
-    687,
+    680,
+    682,
     "UITextField",
     ""
   ],
   [
     "uitextfield-1661c747099b4f5eb4125b7748cefe5a#006d8b7a-d1b3-4b51-a126-5930772c6226",
-    686,
+    681,
     -1,
     "Introduction"
   ],
   [
     "uitextfield-1661c747099b4f5eb4125b7748cefe5a#275d257f-ae47-48c7-b552-78083b8af9fb",
-    686,
+    681,
     -1,
     "Syntax"
   ],
   [
     "get-keyboard-focus-and-hide-keyboard-ceacc663150a4891824f947fb4e1c321",
+    680,
     685,
-    690,
     "Get Keyboard Focus and Hide Keyboard",
     ""
   ],
   [
     "get-keyboard-focus-and-hide-keyboard-ceacc663150a4891824f947fb4e1c321#1f3edced-3311-4867-8f03-fc3ec4f21ab4",
-    689,
+    684,
     -1,
     "Swift"
   ],
   [
     "get-keyboard-focus-and-hide-keyboard-ceacc663150a4891824f947fb4e1c321#35958c2d-bfc3-4b77-b741-d68405ad6455",
-    689,
+    684,
     -1,
     "Objective-C"
   ],
   [
     "get-keyboard-focus-and-hide-keyboard-ceacc663150a4891824f947fb4e1c321#84f2b254-b286-4c32-a855-95044459284c",
-    689,
+    684,
     -1,
     "Swift"
   ],
   [
     "get-keyboard-focus-and-hide-keyboard-ceacc663150a4891824f947fb4e1c321#c62c120c-dac4-4245-af92-108ce8e8815b",
-    689,
+    684,
     -1,
     "Objective-C"
   ],
   [
     "input-accessory-view-toolbar-a539e9828b154d11b4643b82f1e101ac",
-    685,
-    695,
+    680,
+    690,
     "Input accessory view toolbar",
     ""
   ],
   [
     "input-accessory-view-toolbar-a539e9828b154d11b4643b82f1e101ac#f38e1b39-8887-4d07-a774-cebc45699e71",
-    694,
+    689,
     -1,
     "Swift"
   ],
   [
     "input-accessory-view-toolbar-a539e9828b154d11b4643b82f1e101ac#e86f38a5-56ed-4500-8b38-37367b621874",
-    694,
+    689,
     -1,
     "Objective-C"
   ],
   [
     "hide-blinking-caret-098ff4f7d2f74cf5882e394bafb7313f",
-    685,
-    698,
+    680,
+    693,
     "Hide blinking caret",
     ""
   ],
   [
     "hide-blinking-caret-098ff4f7d2f74cf5882e394bafb7313f#75377a00-4c0b-4213-8d7f-d55f4c067d97",
-    697,
+    692,
     -1,
     "Swift 3"
   ],
   [
     "hide-blinking-caret-098ff4f7d2f74cf5882e394bafb7313f#d9efa8ab-5180-4b47-b381-df85db0ecaaf",
-    697,
+    692,
     -1,
     "Objective-C"
   ],
   [
     "dismiss-keyboard-when-user-pushes-the-return-button-6a3194198d2b414eb3aa9aba2be15a20",
-    685,
+    680,
     -1,
     "Dismiss keyboard when user pushes the return button",
     ""
   ],
   [
     "initialize-text-field-fbaf6b21a0db4a0fbcaec52e38bffff2",
-    685,
-    702,
+    680,
+    697,
     "Initialize text field",
     ""
   ],
   [
     "initialize-text-field-fbaf6b21a0db4a0fbcaec52e38bffff2#ea7c9026-640f-4cbd-a3a2-48d127004d87",
-    701,
+    696,
     -1,
     "Swift"
   ],
   [
     "initialize-text-field-fbaf6b21a0db4a0fbcaec52e38bffff2#45b0b443-63e3-4472-87fb-5b16c31a428e",
-    701,
+    696,
     -1,
     "Objective-C"
   ],
   [
     "initialize-text-field-fbaf6b21a0db4a0fbcaec52e38bffff2#8db73c81-411c-419a-b18d-390c57ac9247",
-    701,
+    696,
     -1,
     "Interface Builder"
   ],
   [
     "keyboardtype-b4ea8189df154c978853d1b1922f7ece",
-    685,
+    680,
     -1,
     "KeyboardType",
     ""
   ],
   [
     "moving-scroll-when-uitextview-becomes-first-responder-90bb67568d854d3b890876a819f07ed0",
-    685,
+    680,
     -1,
     "Moving scroll when UITextView becomes first responder",
     ""
   ],
   [
     "set-alignment-e9ce9b7836f04ca6b94afbab42053c1a",
-    685,
-    708,
+    680,
+    703,
     "Set Alignment",
     ""
   ],
   [
     "set-alignment-e9ce9b7836f04ca6b94afbab42053c1a#53ad7e59-51cc-4c91-b7a0-8e98a0171cb9",
-    707,
+    702,
     -1,
     "Swift"
   ],
   [
     "set-alignment-e9ce9b7836f04ca6b94afbab42053c1a#ff6c2794-b750-46a5-b6bd-7d18c03e71d6",
-    707,
+    702,
     -1,
     "Objective-C"
   ],
   [
     "replace-keyboard-with-uipickerview-0760fc92ade64c0a80fa9a9c209ac8cb",
-    685,
+    680,
     -1,
     "Replace keyboard with UIPickerView",
     ""
   ],
   [
     "dismiss-keyboard-5f3b634d529a4a3984f19c16ec1a905d",
-    685,
-    712,
+    680,
+    707,
     "Dismiss Keyboard",
     ""
   ],
   [
     "dismiss-keyboard-5f3b634d529a4a3984f19c16ec1a905d#afe680bd-71ea-4f49-a63d-2eb2e47bee0d",
-    711,
+    706,
     -1,
     "Swift"
   ],
   [
     "dismiss-keyboard-5f3b634d529a4a3984f19c16ec1a905d#a10c229d-58a9-460c-bc5d-8f7b68626b68",
-    711,
+    706,
     -1,
     "Objective-C"
   ],
   [
     "getting-and-setting-the-cursor-position-7729477acddf4aaa8539261a52c5d5ff",
-    685,
-    715,
+    680,
+    710,
     "Getting and Setting the Cursor Position",
     ""
   ],
   [
     "getting-and-setting-the-cursor-position-7729477acddf4aaa8539261a52c5d5ff#991e8861-f1db-413d-bbd9-6591f3f52933",
-    714,
+    709,
     -1,
     "Useful information"
   ],
   [
     "getting-and-setting-the-cursor-position-7729477acddf4aaa8539261a52c5d5ff#78a8aaa0-94ae-4e12-a8ec-e5f9b3b12144",
-    714,
+    709,
     -1,
     "Get cursor position"
   ],
   [
     "getting-and-setting-the-cursor-position-7729477acddf4aaa8539261a52c5d5ff#2fbd8912-9cba-4666-b1a2-6422911ebd86",
-    714,
+    709,
     -1,
     "Set cursor position"
   ],
   [
     "getting-and-setting-the-cursor-position-7729477acddf4aaa8539261a52c5d5ff#12708879-058e-401a-af6a-34c3e178118e",
-    714,
+    709,
     -1,
     "Related"
   ],
   [
     "getting-and-setting-the-cursor-position-7729477acddf4aaa8539261a52c5d5ff#37781954-8286-4c7c-80f9-3f3558aed4f9",
-    714,
+    709,
     -1,
     "Notes"
   ],
   [
     "getting-and-setting-the-cursor-position-7729477acddf4aaa8539261a52c5d5ff#7a53bf18-42a5-4513-bfcb-dbd2f14aa747",
-    714,
+    709,
     -1,
     "Related"
   ],
   [
     "autocapitalization-ac029ca41fb54a53b36766138cbc4f1e",
-    685,
-    722,
+    680,
+    717,
     "Autocapitalization",
     ""
   ],
   [
     "autocapitalization-ac029ca41fb54a53b36766138cbc4f1e#03df6864-fdbe-451c-ad90-fbfc8a589eb7",
-    721,
+    716,
     -1,
     "Swift"
   ],
   [
     "autocapitalization-ac029ca41fb54a53b36766138cbc4f1e#536bf227-e587-4056-9c4a-fa53f0327b08",
-    721,
+    716,
     -1,
     "Objective-C"
   ],
   [
     "change-placeholder-color-and-font-1af90e2722b048c3b8124f18c644b132",
-    685,
+    680,
     -1,
     "Change placeholder color and font",
     ""
   ],
   [
     "create-a-uitextfield-752cf40a6bfe4695a550aed9a9f95515",
-    685,
-    726,
+    680,
+    721,
     "Create a UITextField",
     ""
   ],
   [
     "create-a-uitextfield-752cf40a6bfe4695a550aed9a9f95515#2f819659-2536-4cf5-a728-a090fdca8790",
-    725,
+    720,
     -1,
     "Swift"
   ],
   [
     "create-a-uitextfield-752cf40a6bfe4695a550aed9a9f95515#bea1d93b-9696-4aea-9765-cb8d61b870a5",
-    725,
+    720,
     -1,
     "Objective-C"
   ],
   [
     "networking-with-alamofire-a7f937f436c042f58ab8c9d208148af4",
     -1,
-    729,
+    724,
     "Networking with Alamofire"
   ],
   [
     "alamofire-5159efb458e14e008ac46f0ace55407d",
-    728,
-    730,
+    723,
+    725,
     "Alamofire",
     ""
   ],
   [
     "alamofire-5159efb458e14e008ac46f0ace55407d#a849bde5-ea10-403b-9eac-5c1ec41f0ef8",
-    729,
+    724,
     -1,
     "Syntax"
   ],
   [
     "alamofire-5159efb458e14e008ac46f0ace55407d#cf446c08-f6e6-450a-80c1-bf4361ca61c6",
-    729,
+    724,
     -1,
     "Parameters"
   ],
   [
     "manual-validation-856ac04e231b4a128762229e4e9dfda7",
-    728,
+    723,
     -1,
     "Manual Validation",
     ""
   ],
   [
     "automatic-validation-ba396a7e196a4b2a9130e39656ea2d7e",
-    728,
+    723,
     -1,
     "Automatic Validation",
     ""
   ],
   [
     "chained-response-handlers-1a2988dfdf28418ea27722bafedf27ec",
-    728,
+    723,
     -1,
     "Chained Response Handlers",
     ""
   ],
   [
     "making-a-request-a1c4b431e20442e294a49a4db98f890b",
-    728,
+    723,
     -1,
     "Making a Request",
     ""
   ],
   [
     "response-handling-c8bc6d070d804e08b06200f62d59ac69",
-    728,
+    723,
     -1,
     "Response Handling",
     ""
   ],
   [
     "response-handler-3b879eeb73d64c6ba84a7a89c5815550",
-    728,
+    723,
     -1,
     "Response Handler",
     ""
@@ -4724,47 +4693,47 @@ gTocItems = [
   [
     "uiviewcontroller-f201afaeb5394ceea0e4ee8405dcf919",
     -1,
-    739,
+    734,
     "UIViewController"
   ],
   [
     "access-the-container-view-controller-87ebeca385de410f92d237d3d91b1fea",
-    738,
+    733,
     -1,
     "Access the container view controller",
     ""
   ],
   [
     "subclassing-1b1c7c94a61b4d4898b7e13a79163c34",
-    738,
+    733,
     -1,
     "Subclassing",
     ""
   ],
   [
     "create-an-instance-1c0fa8aaf44d41b6a54db1edbb9e7746",
-    738,
+    733,
     -1,
     "Create an instance",
     ""
   ],
   [
     "set-the-view-programmatically-ca54d3387876414c9b8d3034c639b029",
-    738,
+    733,
     -1,
     "Set the view programmatically",
     ""
   ],
   [
     "instantiate-from-a-storyboard-a659620fada14c40950422b5c8043943",
-    738,
+    733,
     -1,
     "Instantiate from a Storyboard",
     ""
   ],
   [
     "addingremoving-a-child-view-controller-2649628d17db4cd780ca43f729ac4665",
-    738,
+    733,
     -1,
     "Addingremoving a child view controller",
     ""
@@ -4772,45 +4741,45 @@ gTocItems = [
   [
     "ibeacon-09f0e27251ac432fa4855f272ce058d6",
     -1,
-    746,
+    741,
     "iBeacon"
   ],
   [
     "ibeacon-52e9e60676b645aeb291d10660d23f10",
-    745,
-    747,
+    740,
+    742,
     "iBeacon",
     ""
   ],
   [
     "ibeacon-52e9e60676b645aeb291d10660d23f10#f213c212-f8c6-49e9-8d86-367cc4c244b5",
-    746,
+    741,
     -1,
     "Parameters"
   ],
   [
     "ibeacon-52e9e60676b645aeb291d10660d23f10#bcad488a-377d-4ede-8bd4-9ea2a6d67e22",
-    746,
+    741,
     -1,
     "Remarks"
   ],
   [
     "ibeacon-basic-operation-c790f682a6e5458e87cd6834e024fd7f",
-    745,
+    740,
     -1,
     "iBeacon Basic Operation",
     ""
   ],
   [
     "scanning-specific-beacons-0eb36c0912f848faba8cebee9ba34942",
-    745,
+    740,
     -1,
     "Scanning specific Beacons",
     ""
   ],
   [
     "ranging-ibeacons-23cb157e117741f595fb88d972e887ad",
-    745,
+    740,
     -1,
     "Ranging iBeacons",
     ""
@@ -4818,19 +4787,19 @@ gTocItems = [
   [
     "cllocation-943929e103144523a623310918ccc622",
     -1,
-    753,
+    748,
     "CLLocation"
   ],
   [
     "distance-filter-using-123ef715edba4ba1a846a2b4d7cf8612",
-    752,
+    747,
     -1,
     "Distance Filter using",
     ""
   ],
   [
     "get-user-location-using-cllocationmanager-53ba1e994ea148da83874e4f9e1c35e4",
-    752,
+    747,
     -1,
     "Get User Location Using CLLocationManager",
     ""
@@ -4838,46 +4807,46 @@ gTocItems = [
   [
     "nsurlsession-2ea198f9ccd048dc8c00885293d6cd73",
     -1,
-    756,
+    751,
     "NSURLSession"
   ],
   [
     "nsurlsession-a27e5fbbc61e41b79d0376a58fed45eb",
-    755,
-    757,
+    750,
+    752,
     "NSURLSession",
     ""
   ],
   [
     "nsurlsession-a27e5fbbc61e41b79d0376a58fed45eb#32ab1fb0-920c-412a-bd69-ac86e05a710c",
-    756,
+    751,
     -1,
     "Remarks"
   ],
   [
     "objective-c-create-a-session-and-data-task-49fa55b67adf4892a20d8e813befd64e",
-    755,
+    750,
     -1,
     "Objective-C Create a Session And Data Task",
     ""
   ],
   [
     "setting-up-background-configuration-71f1cdf3ba6e40e98273e4e7bd94e04c",
-    755,
+    750,
     -1,
     "Setting up background configuration",
     ""
   ],
   [
     "simple-get-request-ddd4225275734c9896b562f26142eb81",
-    755,
+    750,
     -1,
     "Simple GET request",
     ""
   ],
   [
     "sending-a-post-request-with-arguments-using-nsurlsession-in-objective-c-af859f3146784a92bcdae73c9d3fcd67",
-    755,
+    750,
     -1,
     "Sending a POST Request with arguments using NSURLSession in Objective-C",
     ""
@@ -4885,64 +4854,64 @@ gTocItems = [
   [
     "uiswitch-8ec08eefb3bf4ed2831ef121a18abf8b",
     -1,
-    763,
+    758,
     "UISwitch"
   ],
   [
     "uiswitch-e5e541ac48224304acd7a683af9abefa",
-    762,
-    764,
+    757,
+    759,
     "UISwitch",
     ""
   ],
   [
     "uiswitch-e5e541ac48224304acd7a683af9abefa#96fa83a5-9c65-466f-b3aa-031b08f48581",
-    763,
+    758,
     -1,
     "Syntax"
   ],
   [
     "uiswitch-e5e541ac48224304acd7a683af9abefa#50d9649f-0247-4805-b3de-20c16ce4f81b",
-    763,
+    758,
     -1,
     "Remarks"
   ],
   [
     "uiswitch-e5e541ac48224304acd7a683af9abefa#2eb17e77-a409-4fb3-bbde-2fc5083ba708",
-    763,
+    758,
     -1,
     "UISwitch Reference : [Apple Documentation][1]"
   ],
   [
     "uiswitch-e5e541ac48224304acd7a683af9abefa#a8ad0026-404a-4e78-8e5a-d0437abd5f51",
-    763,
+    758,
     -1,
     "Another Reference given by : [Enoch Huang][3]"
   ],
   [
     "set-on-off-207986bb93fc4dca90914934e7780704",
-    762,
+    757,
     -1,
     "Set On Off",
     ""
   ],
   [
     "set-image-for-onoff-state-9790d50dd1844e1bb7ba2d7444c83f0d",
-    762,
+    757,
     -1,
     "Set Image for OnOff state",
     ""
   ],
   [
     "set-background-color-985d48be106c47b6a9db8c7541040411",
-    762,
+    757,
     -1,
     "Set Background Color",
     ""
   ],
   [
     "set-tint-color-05dd4b16897a47d98e38a2e65d9f418c",
-    762,
+    757,
     -1,
     "Set Tint Color",
     ""
@@ -4950,232 +4919,232 @@ gTocItems = [
   [
     "checking-ios-version-154495b9532b4074985f059c30a6ff25",
     -1,
-    773,
+    768,
     "Checking iOS version"
   ],
   [
     "ios-8-and-later-d6a8233dc40a4781bbdbfdab3bbb2266",
-    772,
+    767,
     -1,
     "iOS 8 and later",
     ""
   ],
   [
     "device-ios-version-053d24abf5fa421fb2c3877e351c7a3c",
-    772,
-    775,
+    767,
+    770,
     "Device iOS Version",
     ""
   ],
   [
     "device-ios-version-053d24abf5fa421fb2c3877e351c7a3c#94502007-24d1-4851-8071-cede093f2382",
-    774,
+    769,
     -1,
     "Objective-C"
   ],
   [
     "device-ios-version-053d24abf5fa421fb2c3877e351c7a3c#ed33862a-c3a9-4de2-9ca3-efad68723708",
-    774,
+    769,
     -1,
     "Swift"
   ],
   [
     "device-ios-version-053d24abf5fa421fb2c3877e351c7a3c#b9931894-03b4-4dac-bbf9-1c289e1cabb8",
-    774,
+    769,
     -1,
     "Swift 3"
   ],
   [
     "swift-2-0-and-later-3bc1a95621754d909d2f789930d4eac0",
-    772,
+    767,
     -1,
     "Swift 2.0 and later",
     ""
   ],
   [
     "compare-versions-83a3a414c3434c36bd96d0e667a4a243",
-    772,
-    780,
+    767,
+    775,
     "Compare versions",
     ""
   ],
   [
     "compare-versions-83a3a414c3434c36bd96d0e667a4a243#f7d482d8-ec1c-48ef-96d5-417ed7ee545a",
-    779,
+    774,
     -1,
     "Objective-C"
   ],
   [
     "universal-links-cd6e656a09984859bcf6635137b30854",
     -1,
-    782,
+    777,
     "Universal Links"
   ],
   [
     "universal-links-e14ff4686d8c4ecaad2a7839a26acc08",
-    781,
-    783,
+    776,
+    778,
     "Universal Links",
     ""
   ],
   [
     "universal-links-e14ff4686d8c4ecaad2a7839a26acc08#d8df32f1-e42b-4a3d-b266-54a66a5140cd",
-    782,
+    777,
     -1,
     "Remarks"
   ],
   [
     "setup-ios-application-enabling-universal-links-13252786c60b4c1d9a0cb0a26d639cd0",
-    781,
-    785,
+    776,
+    780,
     "Setup iOS Application Enabling Universal Links",
     ""
   ],
   [
     "setup-ios-application-enabling-universal-links-13252786c60b4c1d9a0cb0a26d639cd0#1d3835fe-8960-4439-8d16-461d39dbeff5",
-    784,
+    779,
     -1,
     "Objective-C"
   ],
   [
     "setup-ios-application-enabling-universal-links-13252786c60b4c1d9a0cb0a26d639cd0#ecbf2b89-2b46-415f-9c51-aa7e3dfa4d0b",
-    784,
+    779,
     -1,
     "Swift :"
   ],
   [
     "setup-ios-application-enabling-universal-links-13252786c60b4c1d9a0cb0a26d639cd0#89aefe39-05e4-42b4-8e46-01b4df04cf4b",
-    784,
+    779,
     -1,
     "iOS Application Code"
   ],
   [
     "supporting-multiple-domains-d5f1d820de0a49d08556023b205ffb34",
-    781,
+    776,
     -1,
     "Supporting Multiple Domains",
     ""
   ],
   [
     "signing-the-app-site-association-file-55b6cd51d40246e0a5e0e4fd5b7014e1",
-    781,
+    776,
     -1,
     "Signing the App-Site-Association File",
     ""
   ],
   [
     "setup-server-992389d72ecb47298825efde8443ee49",
-    781,
-    791,
+    776,
+    786,
     "Setup Server",
     ""
   ],
   [
     "setup-server-992389d72ecb47298825efde8443ee49#552822ed-ff3b-45b7-84e2-e1fb547a7a9c",
-    790,
+    785,
     -1,
     "Website Code"
   ],
   [
     "uicollectionview-5a2590eba5eb4d4d9bb8734f29f98b62",
     -1,
-    793,
+    788,
     "UICollectionView"
   ],
   [
     "create-a-uicollectionview-70069080d272440db17610bdad23a520",
-    792,
+    787,
     -1,
     "Create a UICollectionView",
     ""
   ],
   [
     "uicollectionview-datasource-f82b748687a74cef8e697a13bd80e559",
-    792,
+    787,
     -1,
     "UICollectionView - Datasource",
     ""
   ],
   [
     "basic-swift-example-of-a-collection-view-172bba748077409da4cb93c59022ae5d",
-    792,
-    796,
+    787,
+    791,
     "Basic Swift example of a Collection View",
     ""
   ],
   [
     "basic-swift-example-of-a-collection-view-172bba748077409da4cb93c59022ae5d#ffaae105-1878-4371-914d-871a0bf0c9ad",
-    795,
+    790,
     -1,
     "Create a new project"
   ],
   [
     "basic-swift-example-of-a-collection-view-172bba748077409da4cb93c59022ae5d#1dc18059-0e71-41cc-b235-b07bf0cf79e4",
-    795,
+    790,
     -1,
     "Add the code"
   ],
   [
     "basic-swift-example-of-a-collection-view-172bba748077409da4cb93c59022ae5d#4c4704dc-d787-4f88-a67a-e1e657c3815a",
-    795,
+    790,
     -1,
     "Setup the storyboard"
   ],
   [
     "basic-swift-example-of-a-collection-view-172bba748077409da4cb93c59022ae5d#a3c70735-7b89-456e-8ce4-b0bf42cb1af3",
-    795,
+    790,
     -1,
     "Hook up the outlets"
   ],
   [
     "basic-swift-example-of-a-collection-view-172bba748077409da4cb93c59022ae5d#b610eba3-9dd9-4301-a8df-b505d97ffe55",
-    795,
+    790,
     -1,
     "Finished"
   ],
   [
     "basic-swift-example-of-a-collection-view-172bba748077409da4cb93c59022ae5d#bfc777cb-c664-4c38-b5ab-0774d446d84a",
-    795,
+    790,
     -1,
     "Making Improvements"
   ],
   [
     "basic-swift-example-of-a-collection-view-172bba748077409da4cb93c59022ae5d#1157fb78-b7b5-4a2c-8089-7ebb9af50577",
-    795,
+    790,
     -1,
     "Further study"
   ],
   [
     "uicollectionviewdelegate-setup-and-item-selection-c150c79761304198ade5330ee14e471e",
-    792,
+    787,
     -1,
     "UICollectionViewDelegate setup and item selection",
     ""
   ],
   [
     "manage-multiple-collection-view-with-datasource-and-flowlayout-f458c8d1370d4a99ac1c3660b7e98bd7",
-    792,
+    787,
     -1,
     "Manage Multiple Collection view with DataSource and Flowlayout",
     ""
   ],
   [
     "create-a-collection-view-programmatically-bfbbe0d0c32d4a8c830e7f284b3abb5c",
-    792,
+    787,
     -1,
     "Create a Collection View Programmatically",
     ""
   ],
   [
     "swift-uicollectionviewdelegateflowlayout-e5b96a219b41416ab7f5ce23fc7840b0",
-    792,
+    787,
     -1,
     "Swift - UICollectionViewDelegateFlowLayout",
     ""
   ],
   [
     "performing-batch-updates-54927d8edd774e85b5e48b7701b66fdf",
-    792,
+    787,
     -1,
     "Performing batch updates",
     ""
@@ -5183,33 +5152,33 @@ gTocItems = [
   [
     "pdf-creation-b3127aad383747cb96f5ea111e47a2a6",
     -1,
-    809,
+    804,
     "PDF Creation"
   ],
   [
     "create-pdf-e8e051433be14449bdf6f1c9822c9d6b",
-    808,
+    803,
     -1,
     "Create PDF",
     ""
   ],
   [
     "show-pdf-37ff624c7a0d4312a0788122e04d6c43",
-    808,
+    803,
     -1,
     "Show PDF",
     ""
   ],
   [
     "multiple-page-pdf-a2f69367bacf4c8f884a92b615a731ff",
-    808,
+    803,
     -1,
     "Multiple page PDF",
     ""
   ],
   [
     "create-pdf-from-any-microsoft-document-loaded-in-uiwebview-9ac540af8eba40f29bd872cefc29683c",
-    808,
+    803,
     -1,
     "Create PDF from any Microsoft Document loaded in UIWebview",
     ""
@@ -5217,26 +5186,26 @@ gTocItems = [
   [
     "in-app-purchase-464e82a49e054202a5c514dceff8619b",
     -1,
-    814,
+    809,
     "In-App Purchase"
   ],
   [
     "single-iap-in-swift-2-44d1e1a563d248abb20ac4354bb68c7b",
-    813,
+    808,
     -1,
     "Single IAP in Swift 2",
     ""
   ],
   [
     "set-up-in-itunesconnect-22a7faf5114a47caa60bfbf33d6a9983",
-    813,
+    808,
     -1,
     "Set Up in iTunesConnect",
     ""
   ],
   [
     "most-basic-steps-for-purchasingsubscribing-a-user-to-an-iap-48746827902f4da5a9ebee9c03149581",
-    813,
+    808,
     -1,
     "Most basic steps for purchasingsubscribing a user to an IAP",
     ""
@@ -5244,71 +5213,71 @@ gTocItems = [
   [
     "nstimer-b0ed0a5d7d4346c4998d37710c86435c",
     -1,
-    818,
+    813,
     "NSTimer"
   ],
   [
     "nstimer-6aaf69a101f7479cad21a680fff41f12",
-    817,
-    819,
+    812,
+    814,
     "NSTimer",
     ""
   ],
   [
     "nstimer-6aaf69a101f7479cad21a680fff41f12#0d01c451-e8fa-4410-bad0-581503fe5992",
-    818,
+    813,
     -1,
     "Parameters"
   ],
   [
     "nstimer-6aaf69a101f7479cad21a680fff41f12#31e9fa51-5bfc-4928-9ac3-9e2b520650bf",
-    818,
+    813,
     -1,
     "Remarks"
   ],
   [
     "creating-a-timer-bdb44750e3ba450b96a1c26a80f33311",
-    817,
+    812,
     -1,
     "Creating a Timer",
     ""
   ],
   [
     "manually-firing-a-timer-d99f327c35eb4ca9aec91b41821c4e45",
-    817,
+    812,
     -1,
     "Manually firing a timer",
     ""
   ],
   [
     "timer-frequency-options-950024100ec14faa89ba635623bcb3b6",
-    817,
-    824,
+    812,
+    819,
     "Timer frequency options",
     ""
   ],
   [
     "timer-frequency-options-950024100ec14faa89ba635623bcb3b6#71756a41-4725-4cc4-9c04-a76f90e478ff",
-    823,
+    818,
     -1,
     "Repeated Timer event"
   ],
   [
     "timer-frequency-options-950024100ec14faa89ba635623bcb3b6#b3692c6a-63b9-44a7-ae1c-e50e11b29f37",
-    823,
+    818,
     -1,
     "Non-repeated delayed Timer event"
   ],
   [
     "invalidating-a-timer-6dc9602534ab4b3f800765de901cbc73",
-    817,
+    812,
     -1,
     "Invalidating a timer",
     ""
   ],
   [
     "passing-of-data-using-timer-c3ce8cf4ea994e59b06ba5d1359652d3",
-    817,
+    812,
     -1,
     "Passing of data using Timer",
     ""
@@ -5316,32 +5285,32 @@ gTocItems = [
   [
     "cgcontext-bb3b567ebf4c4f1ab3c8bbaeb5935cfd",
     -1,
-    829,
+    824,
     "CGContext"
   ],
   [
     "00cgcontext-reference-adca27795f3f4eb68162879813f6ddab",
-    828,
-    830,
+    823,
+    825,
     "00CGContext Reference",
     ""
   ],
   [
     "00cgcontext-reference-adca27795f3f4eb68162879813f6ddab#598b2478-58a8-456b-a7b8-6a1e5e1eff0a",
-    829,
+    824,
     -1,
     "Remarks"
   ],
   [
     "draw-line-d33c3beb564243ae9fd2476f878ea94f",
-    828,
+    823,
     -1,
     "Draw line",
     ""
   ],
   [
     "draw-text-03901922f2e6432baee8107135dbf29b",
-    828,
+    823,
     -1,
     "Draw Text",
     ""
@@ -5349,71 +5318,71 @@ gTocItems = [
   [
     "uitabbarcontroller-a7c90006fcd84f9c912907957fc6d7b8",
     -1,
-    834,
+    829,
     "UITabBarController"
   ],
   [
     "create-an-instance-f2b6bf32b3fb480985c10f55b3c236b9",
-    833,
+    828,
     -1,
     "Create an instance",
     ""
   ],
   [
     "navigation-controller-with-tabbar-68615df09f2c48dcb9a946531f20fb8f",
-    833,
+    828,
     -1,
     "Navigation Controller with TabBar",
     ""
   ],
   [
     "changing-tab-bar-item-title-and-icon-37796e0e884b479c991fdb5464131838",
-    833,
-    837,
+    828,
+    832,
     "Changing Tab Bar Item Title and Icon",
     ""
   ],
   [
     "changing-tab-bar-item-title-and-icon-37796e0e884b479c991fdb5464131838#f5710cab-2b09-4f07-828f-e5bdde8f30c2",
-    836,
+    831,
     -1,
     "Objective-C:"
   ],
   [
     "changing-tab-bar-item-title-and-icon-37796e0e884b479c991fdb5464131838#9607f62c-5042-42f4-8c24-aa5e5ed252a3",
-    836,
+    831,
     -1,
     "Swift:"
   ],
   [
     "tab-bar-color-customizing-73022e9c8a344511ba8bf86caa0033de",
-    833,
+    828,
     -1,
     "Tab Bar color customizing",
     ""
   ],
   [
     "uitabbarcontroller-with-custom-color-selection-33644f87c3914338b25d28f0dca0ccfb",
-    833,
-    841,
+    828,
+    836,
     "UITabBarController with custom color selection",
     ""
   ],
   [
     "uitabbarcontroller-with-custom-color-selection-33644f87c3914338b25d28f0dca0ccfb#bba684c4-3392-4812-baf6-5e3de7dc0aa5",
-    840,
+    835,
     -1,
     "Choosing image for tab bar and set the tab title here"
   ],
   [
     "uitabbarcontroller-with-custom-color-selection-33644f87c3914338b25d28f0dca0ccfb#6fa69e58-bf29-4c90-8eaa-7fcef8b22129",
-    840,
+    835,
     -1,
     "Selection another tab"
   ],
   [
     "create-tab-bar-controller-programmatically-without-storyboard-3598913bd6c440a2a28d4d9f4c91a420",
-    833,
+    828,
     -1,
     "Create Tab Bar controller programmatically without Storyboard",
     ""
@@ -5421,58 +5390,58 @@ gTocItems = [
   [
     "uisearchcontroller-364d948ab32a4a45b1e32e149eca790f",
     -1,
-    845,
+    840,
     "UISearchController"
   ],
   [
     "uisearchcontroller-cb5df7c7772b491da62b722131263e2c",
-    844,
-    846,
+    839,
+    841,
     "UISearchController",
     ""
   ],
   [
     "uisearchcontroller-cb5df7c7772b491da62b722131263e2c#a54fffb6-c341-43ae-aed2-af53c7fb48f9",
-    845,
+    840,
     -1,
     "Syntax"
   ],
   [
     "uisearchcontroller-cb5df7c7772b491da62b722131263e2c#62ff2ad5-f3ea-49d5-92cf-e8fc60df191b",
-    845,
+    840,
     -1,
     "Parameters"
   ],
   [
     "uisearchcontroller-cb5df7c7772b491da62b722131263e2c#09d4319f-de81-4255-8a78-2bec6d7a4d73",
-    845,
+    840,
     -1,
     "Remarks"
   ],
   [
     "search-bar-in-navigation-bar-title-3aa778242434464690003708520ed292",
-    844,
+    839,
     -1,
     "Search Bar in Navigation Bar Title",
     ""
   ],
   [
     "search-bar-in-table-view-header-632a5330da664b7e9b7d835c45225d18",
-    844,
+    839,
     -1,
     "Search Bar in Table View Header",
     ""
   ],
   [
     "implementation-bce3ec2e2e1443be8dbdca93882cf1a5",
-    844,
+    839,
     -1,
     "Implementation",
     ""
   ],
   [
     "uiserachcontroller-in-objective-c-5ae30b34c1404228a4a62d9e440b2134",
-    844,
+    839,
     -1,
     "UISerachController in Objective-C",
     ""
@@ -5480,108 +5449,108 @@ gTocItems = [
   [
     "uiactivityviewcontroller-1de88999582e454fbf00b62aa1e8c6c7",
     -1,
-    854,
+    849,
     "UIActivityViewController"
   ],
   [
     "uiactivityviewcontroller-4c9f70948f6c44f8b49c31a8f9cecd34",
-    853,
-    855,
+    848,
+    850,
     "UIActivityViewController",
     ""
   ],
   [
     "uiactivityviewcontroller-4c9f70948f6c44f8b49c31a8f9cecd34#b6da2a3f-0dc6-4e02-b90b-b3a4ddefd087",
-    854,
+    849,
     -1,
     "Parameters"
   ],
   [
     "initializing-the-activity-view-controller-85883d7f18a84cc18247cfb48ad4b360",
-    853,
-    857,
+    848,
+    852,
     "Initializing the Activity View Controller",
     ""
   ],
   [
     "initializing-the-activity-view-controller-85883d7f18a84cc18247cfb48ad4b360#66fb6518-fed4-44a3-b7b4-a8ded306225a",
-    856,
+    851,
     -1,
     "Objective-C"
   ],
   [
     "initializing-the-activity-view-controller-85883d7f18a84cc18247cfb48ad4b360#92b25928-126f-42ef-bb5e-a45038317585",
-    856,
+    851,
     -1,
     "Swift"
   ],
   [
     "core-location-756f49db23fe4784bc16345d72334010",
     -1,
-    860,
+    855,
     "Core Location"
   ],
   [
     "core-location-029fab7f06cd41bba9f80d30bc1d6cb3",
-    859,
-    861,
+    854,
+    856,
     "Core Location",
     ""
   ],
   [
     "core-location-029fab7f06cd41bba9f80d30bc1d6cb3#fad014be-73b9-43e4-96db-96f3a9ffabee",
-    860,
+    855,
     -1,
     "Syntax"
   ],
   [
     "core-location-029fab7f06cd41bba9f80d30bc1d6cb3#0fd58d5b-a840-472c-ab1a-254105ec2000",
-    860,
+    855,
     -1,
     "Remarks"
   ],
   [
     "core-location-029fab7f06cd41bba9f80d30bc1d6cb3#0129eefb-d129-4525-bd1d-dcbf8c220544",
-    860,
+    855,
     -1,
     "Simulate a Location at Runtime"
   ],
   [
     "request-permission-to-use-location-services-82d550f5399d41db85d25470a5a65818",
-    859,
-    865,
+    854,
+    860,
     "Request Permission to Use Location Services",
     ""
   ],
   [
     "request-permission-to-use-location-services-82d550f5399d41db85d25470a5a65818#98ab7448-cdee-498a-bcfc-beda85b839ef",
-    864,
+    859,
     -1,
     "Getting Location Service Permission While App is in Use"
   ],
   [
     "request-permission-to-use-location-services-82d550f5399d41db85d25470a5a65818#f1c20667-8ede-40c3-8927-87e0b6585bc3",
-    864,
+    859,
     -1,
     "Getting Location Service Permission Always"
   ],
   [
     "link-corelocation-framework-30942cba841d44b6a7a96ed0b9404da7",
-    859,
+    854,
     -1,
     "Link CoreLocation Framework",
     ""
   ],
   [
     "add-own-custom-location-using-gpx-file-f5da1af0ee7f4c549722fab40c9cd8cd",
-    859,
+    854,
     -1,
     "Add own custom location using GPX file",
     ""
   ],
   [
     "location-services-in-the-background-40a4512edf824e71b68ba7245fcd4ccf",
-    859,
+    854,
     -1,
     "Location Services in the Background",
     ""
@@ -5589,26 +5558,26 @@ gTocItems = [
   [
     "facebooksdk-fbb0fcc52edc4a7f9db98f721d1d618e",
     -1,
-    871,
+    866,
     "FacebookSDK"
   ],
   [
     "creating-your-own-custom-sign-in-with-facebook-button-f527b183e7e54c66b0fcc04957d6ee82",
-    870,
+    865,
     -1,
     "Creating your own custom Sign In With Facebook button",
     ""
   ],
   [
     "facebooksdk-integration-8097d0365ad441f19d84e241a56081bc",
-    870,
+    865,
     -1,
     "FacebookSDK Integration",
     ""
   ],
   [
     "fetching-the-facebook-user-data-149cff1f709647b9a5667dae1b8192f1",
-    870,
+    865,
     -1,
     "Fetching the facebook user data",
     ""
@@ -5616,12 +5585,12 @@ gTocItems = [
   [
     "afnetworking-3e9fd345ede24221ab2902a29f71d19c",
     -1,
-    875,
+    870,
     "AFNetworking"
   ],
   [
     "dispatching-completion-block-on-a-custom-thread-b759ea0a1c8641d184a818f646eb2558",
-    874,
+    869,
     -1,
     "Dispatching completion block on a custom thread",
     ""
@@ -5629,19 +5598,19 @@ gTocItems = [
   [
     "ctcallcenter-621d7607116147a2a2e285dd4b437d1d",
     -1,
-    877,
+    872,
     "CTCallCenter"
   ],
   [
     "intercepting-calls-from-your-app-even-from-the-background-14e619ae6c5342f09307e3aa2caa2636",
-    876,
+    871,
     -1,
     "Intercepting calls from your app even from the background",
     ""
   ],
   [
     "callkit-ios-10-9acac4cf88024ebe9a7b15e49bce6492",
-    876,
+    871,
     -1,
     "CallKit - ios 10",
     ""
@@ -5649,25 +5618,25 @@ gTocItems = [
   [
     "uiimagepickercontroller-e78f1ff3aef34dbeb3870d3349d5456e",
     -1,
-    880,
+    875,
     "UIImagePickerController"
   ],
   [
     "uiimagepickercontroller-938b49638bbb4dce91541eea6c4751ec",
-    879,
-    881,
+    874,
+    876,
     "UIImagePickerController",
     ""
   ],
   [
     "uiimagepickercontroller-938b49638bbb4dce91541eea6c4751ec#4ac31572-4351-41f0-93a5-d81cb539fef7",
-    880,
+    875,
     -1,
     "Introduction"
   ],
   [
     "generic-usage-of-uiimagepickercontroller-6c7c1cc1e21344b19796ee323b6d110a",
-    879,
+    874,
     -1,
     "Generic usage of UIImagePickerController",
     ""
@@ -5675,187 +5644,187 @@ gTocItems = [
   [
     "nsuserdefaults-bc18d38167f84027ae9b966c7d186f67",
     -1,
-    884,
+    879,
     "NSUserDefaults"
   ],
   [
     "nsuserdefaults-0bfc0d19507848918d924459db85a4ad",
-    883,
-    885,
+    878,
+    880,
     "NSUserDefaults",
     ""
   ],
   [
     "nsuserdefaults-0bfc0d19507848918d924459db85a4ad#36c8c139-5c68-4026-bde1-2baf8d7be370",
-    884,
+    879,
     -1,
     "Syntax"
   ],
   [
     "nsuserdefaults-0bfc0d19507848918d924459db85a4ad#01741628-0452-449f-96b0-aacd79c58858",
-    884,
+    879,
     -1,
     "Remarks"
   ],
   [
     "setting-values-fd3f5a11d36e4679bb81b671f28eb88a",
+    878,
     883,
-    888,
     "Setting values",
     ""
   ],
   [
     "setting-values-fd3f5a11d36e4679bb81b671f28eb88a#f2b8590d-d31b-4893-86e6-538ab5543733",
-    887,
+    882,
     -1,
     "Swift 3"
   ],
   [
     "setting-values-fd3f5a11d36e4679bb81b671f28eb88a#eec85ee7-b578-4e1e-a258-21c4d22bb35d",
-    887,
+    882,
     -1,
     "Objective-C"
   ],
   [
     "setting-values-fd3f5a11d36e4679bb81b671f28eb88a#7ab98a57-3c3b-489b-bbca-9736f98706ae",
-    887,
+    882,
     -1,
     "Swift 3"
   ],
   [
     "setting-values-fd3f5a11d36e4679bb81b671f28eb88a#affe8ae5-f8f5-487a-9d85-975c1580e8ee",
-    887,
+    882,
     -1,
     "Objective-C"
   ],
   [
     "setting-values-fd3f5a11d36e4679bb81b671f28eb88a#f1cdfe8b-1972-4ed6-9e2a-0313e057e3b1",
-    887,
+    882,
     -1,
     "Custom objects"
   ],
   [
     "setting-values-fd3f5a11d36e4679bb81b671f28eb88a#c19517f6-5745-41e4-ba48-ad94e0b6ae04",
-    887,
+    882,
     -1,
     "Swift"
   ],
   [
     "setting-values-fd3f5a11d36e4679bb81b671f28eb88a#d20c7480-aa7f-48c5-8a26-abcb212883c3",
-    887,
+    882,
     -1,
     "Objective-C"
   ],
   [
     "use-managers-to-save-and-read-data-d026d102dfdb437b8f5102305b4d847b",
-    883,
-    896,
+    878,
+    891,
     "Use Managers to Save and Read Data",
     ""
   ],
   [
     "use-managers-to-save-and-read-data-d026d102dfdb437b8f5102305b4d847b#d8a9f721-96b9-433c-ba99-5c8b1ca3e4d4",
-    895,
+    890,
     -1,
     "Swift"
   ],
   [
     "use-managers-to-save-and-read-data-d026d102dfdb437b8f5102305b4d847b#0594d937-1bcc-4a10-8128-586157291c66",
-    895,
+    890,
     -1,
     "Objective-C"
   ],
   [
     "use-managers-to-save-and-read-data-d026d102dfdb437b8f5102305b4d847b#24df2e17-275e-424d-bf1a-ba540639076a",
-    895,
+    890,
     -1,
     "Note"
   ],
   [
     "userdefaults-uses-in-swift-3-f490ff3ae957469f886564e26db8a19d",
-    883,
+    878,
     -1,
     "UserDefaults uses in Swift 3",
     ""
   ],
   [
     "getting-default-values-d4c7064ba72348f1a4a75a3a8b08655c",
-    883,
-    901,
+    878,
+    896,
     "Getting Default Values",
     ""
   ],
   [
     "getting-default-values-d4c7064ba72348f1a4a75a3a8b08655c#1cc8a0bf-0dd7-42e3-bfe7-c9d07f5ca8d2",
-    900,
+    895,
     -1,
     "Swift"
   ],
   [
     "getting-default-values-d4c7064ba72348f1a4a75a3a8b08655c#7c18e074-f105-4c75-93cf-1f76b78c6c33",
-    900,
+    895,
     -1,
     "Objective-C"
   ],
   [
     "getting-default-values-d4c7064ba72348f1a4a75a3a8b08655c#fb7974c2-77c5-428c-8532-09efcf53e29b",
-    900,
+    895,
     -1,
     "Swift"
   ],
   [
     "getting-default-values-d4c7064ba72348f1a4a75a3a8b08655c#87e9001f-ed56-4eb2-a0bc-d62d7e9e840f",
-    900,
+    895,
     -1,
     "Objective-C"
   ],
   [
     "saving-values-2572deca41c54f9e82a0006e3a1c1f05",
-    883,
-    906,
+    878,
+    901,
     "Saving Values",
     ""
   ],
   [
     "saving-values-2572deca41c54f9e82a0006e3a1c1f05#93067f40-82a0-45d8-9e06-25c2784fb960",
-    905,
+    900,
     -1,
     "Swift"
   ],
   [
     "saving-values-2572deca41c54f9e82a0006e3a1c1f05#2a56d9e6-8515-4da2-bae7-fdf57a9ce91b",
-    905,
+    900,
     -1,
     "Objective-C"
   ],
   [
     "clearing-nsuserdefaults-d741abab22ce451ca43dbff19e477fba",
-    883,
-    909,
+    878,
+    904,
     "Clearing NSUserDefaults",
     ""
   ],
   [
     "clearing-nsuserdefaults-d741abab22ce451ca43dbff19e477fba#ee1b8c6b-101b-4b0e-b54f-6f531174e012",
-    908,
+    903,
     -1,
     "Swift"
   ],
   [
     "clearing-nsuserdefaults-d741abab22ce451ca43dbff19e477fba#512dc92a-6f5b-42ee-91e0-4cc030149832",
-    908,
+    903,
     -1,
     "Objective-C"
   ],
   [
     "uicontrol-event-handling-with-blocks-9ba8f818f42f4eb2a68e67377a9543ce",
     -1,
-    912,
+    907,
     "UIControl - Event Handling with Blocks"
   ],
   [
     "introduction-356d3d6b49074940a004589ea4112d1a",
-    911,
+    906,
     -1,
     "Introduction",
     ""
@@ -5863,89 +5832,89 @@ gTocItems = [
   [
     "uibezierpath-bdd611c5cbce47859d84d23018d63eab",
     -1,
-    914,
+    909,
     "UIBezierPath"
   ],
   [
     "designing-and-drawing-a-bezier-path-bc85840ccc42483f8fa4fe3e2a78c27c",
-    913,
-    915,
+    908,
+    910,
     "Designing and drawing a Bezier Path",
     ""
   ],
   [
     "designing-and-drawing-a-bezier-path-bc85840ccc42483f8fa4fe3e2a78c27c#52e7f249-1b5a-47a3-a390-b6c46b884985",
-    914,
+    909,
     -1,
     "How to draw a Bézier path in a custom view"
   ],
   [
     "designing-and-drawing-a-bezier-path-bc85840ccc42483f8fa4fe3e2a78c27c#eea6a441-0f02-4dae-b490-04e2424c65bb",
-    914,
+    909,
     -1,
     "Design shape outline"
   ],
   [
     "designing-and-drawing-a-bezier-path-bc85840ccc42483f8fa4fe3e2a78c27c#e4f95e9b-dabd-4e19-9be0-91939b45244f",
-    914,
+    909,
     -1,
     "Divide the path into segments"
   ],
   [
     "designing-and-drawing-a-bezier-path-bc85840ccc42483f8fa4fe3e2a78c27c#8538eb83-076e-4c8e-b2af-d25787b5916a",
-    914,
+    909,
     -1,
     "Build the path programmatically"
   ],
   [
     "designing-and-drawing-a-bezier-path-bc85840ccc42483f8fa4fe3e2a78c27c#d274782a-e77a-4518-ac63-59febe991312",
-    914,
+    909,
     -1,
     "Draw the path"
   ],
   [
     "designing-and-drawing-a-bezier-path-bc85840ccc42483f8fa4fe3e2a78c27c#e2a068c6-2ff4-4a72-bfb1-d40c983956f3",
-    914,
+    909,
     -1,
     "Further study"
   ],
   [
     "designing-and-drawing-a-bezier-path-bc85840ccc42483f8fa4fe3e2a78c27c#3fe357ba-baa8-4bfd-b6f0-1a6d78083911",
-    914,
+    909,
     -1,
     "Notes"
   ],
   [
     "how-to-apply-corner-radius-to-rectangles-drawn-by-uibezierpath-1667f38150034ec6a6521f6cb383e5ff",
-    913,
+    908,
     -1,
     "How to apply corner radius to rectangles drawn by UIBezierPath",
     ""
   ],
   [
     "how-to-apply-shadows-to-uibezierpath-9fbed1399cd04fb6a190329260b7a21e",
-    913,
+    908,
     -1,
     "How to apply shadows to UIBezierPath",
     ""
   ],
   [
     "how-to-create-a-simple-shapes-using-uibezierpath-fc43f1b190c540cba2c0236d04c2156e",
-    913,
+    908,
     -1,
     "How to create a simple shapes using UIBezierPath",
     ""
   ],
   [
     "uibezierpath-autolayout-59f3f779b12342e0ba5432dec3e83dc9",
-    913,
+    908,
     -1,
     "UIBezierPath AutoLayout",
     ""
   ],
   [
     "pie-view-column-view-with-uibezierpath-a2655aa653d3490692ec511c81dbd3f1",
-    913,
+    908,
     -1,
     "pie view column view with UIBezierPath",
     ""
@@ -5953,44 +5922,44 @@ gTocItems = [
   [
     "uipageviewcontroller-e0be90a3a70f45c49fcfe95f41050a71",
     -1,
-    928,
+    923,
     "UIPageViewController"
   ],
   [
     "uipageviewcontroller-406e9951fdd0466b84ca8289cf900b67",
-    927,
-    929,
+    922,
+    924,
     "UIPageViewController",
     ""
   ],
   [
     "uipageviewcontroller-406e9951fdd0466b84ca8289cf900b67#75976b6f-610a-4422-9807-f3f20ae31c4d",
-    928,
+    923,
     -1,
     "Introduction"
   ],
   [
     "uipageviewcontroller-406e9951fdd0466b84ca8289cf900b67#7b500b7e-abc2-4635-84e1-a3861a955c83",
-    928,
+    923,
     -1,
     "Syntax"
   ],
   [
     "uipageviewcontroller-406e9951fdd0466b84ca8289cf900b67#7e64a535-db5d-4efe-9187-38c7ebd48ec6",
-    928,
+    923,
     -1,
     "Remarks"
   ],
   [
     "create-a-horizontal-paging-uipageviewcontroller-programatically-80d451c3073e4689b6cf6245f589225e",
-    927,
+    922,
     -1,
     "Create a horizontal paging UIPageViewController programatically",
     ""
   ],
   [
     "0a-simple-way-to-create-horizontal-page-view-controllers-infinite-pages-be30ac0d30c54dc68b92b371dd8ff3c1",
-    927,
+    922,
     -1,
     "0A simple way to create horizontal page view controllers infinite pages",
     ""
@@ -5998,19 +5967,19 @@ gTocItems = [
   [
     "uiappearance-9cb08a2a428d4197956966e693d603d8",
     -1,
-    935,
+    930,
     "UIAppearance"
   ],
   [
     "set-appearance-of-all-instances-of-the-class-3dd87aa01a3743eab42339646a6ed08e",
-    934,
+    929,
     -1,
     "Set appearance of all instances of the class",
     ""
   ],
   [
     "appearance-for-class-when-contained-in-container-class-c70331305d0342c48b4b3fcb910c9f8f",
-    934,
+    929,
     -1,
     "Appearance for class when contained in container class",
     ""
@@ -6018,177 +5987,177 @@ gTocItems = [
   [
     "push-notifications-31ec28e447644c709411216e1e5b70dc",
     -1,
-    938,
+    933,
     "Push Notifications"
   ],
   [
     "push-notifications-5c1012622f14455db3ed0ff75134c802",
-    937,
-    939,
+    932,
+    934,
     "Push Notifications",
     ""
   ],
   [
     "push-notifications-5c1012622f14455db3ed0ff75134c802#70493367-37e3-44f5-8403-d0d01b525da1",
-    938,
+    933,
     -1,
     "Syntax"
   ],
   [
     "push-notifications-5c1012622f14455db3ed0ff75134c802#63754853-c41f-4c64-aaf6-07fdb3cd341d",
-    938,
+    933,
     -1,
     "Parameters"
   ],
   [
     "registering-device-for-push-notifications-4f77ecca564941f8ac6594cb3be5c3a2",
+    932,
     937,
-    942,
     "Registering device for Push Notifications",
     ""
   ],
   [
     "registering-device-for-push-notifications-4f77ecca564941f8ac6594cb3be5c3a2#4100036d-f228-48d7-8619-95ea6569b30d",
-    941,
+    936,
     -1,
     "Swift"
   ],
   [
     "registering-device-for-push-notifications-4f77ecca564941f8ac6594cb3be5c3a2#787298ee-8c79-4b67-b267-060466cedc40",
-    941,
+    936,
     -1,
     "Objective-C"
   ],
   [
     "registering-device-for-push-notifications-4f77ecca564941f8ac6594cb3be5c3a2#3c314af1-ce46-42e4-8161-471a0a027d93",
-    941,
+    936,
     -1,
     "Swift"
   ],
   [
     "registering-device-for-push-notifications-4f77ecca564941f8ac6594cb3be5c3a2#3b1cc889-3b07-45c5-90e3-71a353457fa8",
-    941,
+    936,
     -1,
     "Objective-C"
   ],
   [
     "registering-device-for-push-notifications-4f77ecca564941f8ac6594cb3be5c3a2#aee4ff0e-8aa3-47d1-932b-ea7b78c14a7b",
-    941,
+    936,
     -1,
     "Swift"
   ],
   [
     "registering-device-for-push-notifications-4f77ecca564941f8ac6594cb3be5c3a2#f78c49c1-42e8-4e09-8fd9-8cf8f2769aad",
-    941,
+    936,
     -1,
     "Objective-C"
   ],
   [
     "registering-device-for-push-notifications-4f77ecca564941f8ac6594cb3be5c3a2#85ce88ae-05df-4ff7-af52-c4f27c43b13c",
-    941,
+    936,
     -1,
     "Swift"
   ],
   [
     "registering-device-for-push-notifications-4f77ecca564941f8ac6594cb3be5c3a2#e48521bf-aae3-4eeb-a516-32ea2a8ed67e",
-    941,
+    936,
     -1,
     "Objective-C"
   ],
   [
     "registering-device-for-push-notifications-4f77ecca564941f8ac6594cb3be5c3a2#16e41432-b902-44f1-a29b-3a7278849b1e",
-    941,
+    936,
     -1,
     "Note"
   ],
   [
     "registering-app-id-for-use-with-push-notifications-6f3045ee127d4821a934e14cbbd2bb35",
-    937,
-    952,
+    932,
+    947,
     "Registering App ID for use with Push Notifications",
     ""
   ],
   [
     "registering-app-id-for-use-with-push-notifications-6f3045ee127d4821a934e14cbbd2bb35#399f70e1-7255-46e2-84f3-a19331d47eba",
-    951,
+    946,
     -1,
     "Things you need"
   ],
   [
     "registering-app-id-for-use-with-push-notifications-6f3045ee127d4821a934e14cbbd2bb35#a9f4944c-ef55-4f2a-a1d9-4c4f2672f977",
-    951,
+    946,
     -1,
     "Enabling the APNs access for App ID in Apple Developer Center"
   ],
   [
     "registering-app-id-for-use-with-push-notifications-6f3045ee127d4821a934e14cbbd2bb35#35456376-1491-4157-915a-f71bfe66b85a",
-    951,
+    946,
     -1,
     "Enabling the APNs access in Xcode"
   ],
   [
     "testing-push-notifications-49bfca1c56d146a1a1e3e8e3231e1a76",
-    937,
+    932,
     -1,
     "Testing push notifications",
     ""
   ],
   [
     "checking-if-your-app-is-already-registered-for-push-notification-dafe8d6e94e64d83a2b55352c797ff72",
-    937,
-    957,
+    932,
+    952,
     "Checking if your app is already registered for Push Notification",
     ""
   ],
   [
     "checking-if-your-app-is-already-registered-for-push-notification-dafe8d6e94e64d83a2b55352c797ff72#57d2f868-541f-4102-b809-8536d3a3d910",
-    956,
+    951,
     -1,
     "Swift"
   ],
   [
     "generating-a-pem-certificate-from-your-cer-file-to-pass-on-to-the-server-developer-c2b0822b34674ae0ae3fa4e9f0a7e255",
-    937,
+    932,
     -1,
     "Generating a .pem certificate from your .cer file to pass on to the server developer",
     ""
   ],
   [
     "unregistering-from-push-notifications-6956b4455e744690b4f3f4656f3c345b",
-    937,
-    960,
+    932,
+    955,
     "Unregistering From Push Notifications",
     ""
   ],
   [
     "unregistering-from-push-notifications-6956b4455e744690b4f3f4656f3c345b#6d66268e-88b5-42ba-bab2-0e2f1eacb9ef",
-    959,
+    954,
     -1,
     "Objective-C"
   ],
   [
     "unregistering-from-push-notifications-6956b4455e744690b4f3f4656f3c345b#5ae27a51-5d8f-455e-b26f-bdea9f0ea294",
-    959,
+    954,
     -1,
     "Swift"
   ],
   [
     "setting-the-application-icon-badge-number-ec9a8650ec394c4cbb47c03be4cb950b",
-    937,
+    932,
     -1,
     "Setting the application icon badge number",
     ""
   ],
   [
     "registering-for-non-interactive-push-notification-35d91759ef05417ba035f212a8f32674",
-    937,
+    932,
     -1,
     "Registering for Non Interactive Push Notification",
     ""
   ],
   [
     "handling-push-notification-a3137e234c02488ea5b3e20c6221bc5e",
-    937,
+    932,
     -1,
     "Handling Push Notification",
     ""
@@ -6196,32 +6165,32 @@ gTocItems = [
   [
     "key-value-coding-c908142eb1bd4464854344a43929be0f",
     -1,
-    966,
+    961,
     "Key Value Coding"
   ],
   [
     "key-value-coding-key-value-observation-225e9db4a987410ebb2c658f3b2410b4",
-    965,
-    967,
+    960,
+    962,
     "Key Value Coding-Key Value Observation",
     ""
   ],
   [
     "key-value-coding-key-value-observation-225e9db4a987410ebb2c658f3b2410b4#c9f0b7f6-c595-4121-ac96-7290719e6c51",
-    966,
+    961,
     -1,
     "Remarks"
   ],
   [
     "observing-a-property-of-a-nsobject-subclass-d30972130b6c4fc1a23ecc788a07a8a3",
-    965,
+    960,
     -1,
     "Observing a property of a NSObject subclass",
     ""
   ],
   [
     "use-of-context-for-kvo-observation-e4da22e111d44993bae501adabfac80b",
-    965,
+    960,
     -1,
     "Use of context for KVO Observation",
     ""
@@ -6229,47 +6198,47 @@ gTocItems = [
   [
     "initialization-idioms-daadaa427b594a17b3af0310c254d2e5",
     -1,
-    971,
+    966,
     "Initialization idioms"
   ],
   [
     "set-to-tuples-to-avoid-code-repetition-20babbff6b754ffa8fad2d3f36fce536",
-    970,
+    965,
     -1,
     "Set to tuples to avoid code repetition",
     ""
   ],
   [
     "initialize-with-positional-constants-f74e9959907649ad9bb40d8cb1271d06",
-    970,
+    965,
     -1,
     "Initialize with positional constants",
     ""
   ],
   [
     "initialize-attributes-in-didset-ec1eb9747c354f3987dff767441b447e",
-    970,
+    965,
     -1,
     "Initialize attributes in didSet",
     ""
   ],
   [
     "group-outlets-in-a-custom-nsobject-5c69b98184e94b519d59db8e7e16452d",
-    970,
+    965,
     -1,
     "Group outlets in a custom NSObject",
     ""
   ],
   [
     "initialize-with-then-ca6ba93ce1dd4eab94b4f3ce98472209",
-    970,
+    965,
     -1,
     "Initialize with then",
     ""
   ],
   [
     "factory-method-with-block-f3d19b2dff82437aaa7775aa1902d97e",
-    970,
+    965,
     -1,
     "Factory method with block",
     ""
@@ -6277,39 +6246,39 @@ gTocItems = [
   [
     "storyboard-0ec28f7490224ac78d84a19a3494f947",
     -1,
-    978,
+    973,
     "Storyboard"
   ],
   [
     "storyboard-3858c2bcb8f14821b0f3ba7cc0877b7f",
-    977,
-    979,
+    972,
+    974,
     "Storyboard",
     ""
   ],
   [
     "storyboard-3858c2bcb8f14821b0f3ba7cc0877b7f#13ecfbdf-5833-451e-b00e-c9e4914303dd",
-    978,
+    973,
     -1,
     "Introduction"
   ],
   [
     "initialize-d59a7dfb9bc542f49d1af48bb0f7be97",
-    977,
+    972,
     -1,
     "Initialize",
     ""
   ],
   [
     "fetch-initial-viewcontroller-afdb172dd9284b0788c09e9dce0e6f49",
-    977,
+    972,
     -1,
     "Fetch Initial ViewController",
     ""
   ],
   [
     "fetch-viewcontroller-473bd709e8a1458284d1820f63a730f3",
-    977,
+    972,
     -1,
     "Fetch ViewController",
     ""
@@ -6317,12 +6286,12 @@ gTocItems = [
   [
     "background-modes-and-events-f4e0fc1e07d34cbd8e65bcefd0031b76",
     -1,
-    984,
+    979,
     "Background Modes and Events"
   ],
   [
     "play-audio-in-background-8ed2362ffd494483aec9ee8aff6a3e01",
-    983,
+    978,
     -1,
     "Play Audio in Background",
     ""
@@ -6330,89 +6299,89 @@ gTocItems = [
   [
     "fastlane-d7cd40eec8db49e1a0827f44bb1a37bb",
     -1,
-    986,
+    981,
     "Fastlane"
   ],
   [
     "fastlane-tools-d11aa2703e304ddfa4f6bd328d5e8f2b",
-    985,
-    987,
+    980,
+    982,
     "fastlane tools",
     ""
   ],
   [
     "fastlane-tools-d11aa2703e304ddfa4f6bd328d5e8f2b#6406c861-f7d5-42cf-a8c5-cf3c84bf3845",
-    986,
+    981,
     -1,
     "Install fastlane"
   ],
   [
     "fastlane-tools-d11aa2703e304ddfa4f6bd328d5e8f2b#4be62c08-f648-486a-b377-e665cee3bfb4",
-    986,
+    981,
     -1,
     "iOS Tools"
   ],
   [
     "fastlane-tools-d11aa2703e304ddfa4f6bd328d5e8f2b#d2c6fd24-5870-43d8-9c20-53d93cf52c79",
-    986,
+    981,
     -1,
     "iOS TestFlight Tools"
   ],
   [
     "fastlane-tools-d11aa2703e304ddfa4f6bd328d5e8f2b#4d3170d3-c987-4671-867d-c502bd065417",
-    986,
+    981,
     -1,
     "Android Tools"
   ],
   [
     "cashapelayer-1a26d681ef1346e2aeb0df99b8a48186",
     -1,
-    992,
+    987,
     "CAShapeLayer"
   ],
   [
     "cashapelayer-d41c446a0d1a47d9aff85fbab0254570",
-    991,
-    993,
+    986,
+    988,
     "CAShapeLayer",
     ""
   ],
   [
     "cashapelayer-d41c446a0d1a47d9aff85fbab0254570#576bc83e-671d-4d84-a3c6-02c9ce11ed1f",
-    992,
+    987,
     -1,
     "Syntax"
   ],
   [
     "cashapelayer-d41c446a0d1a47d9aff85fbab0254570#79c5cbed-9591-422a-b7b6-913e035abc13",
-    992,
+    987,
     -1,
     "Remarks"
   ],
   [
     "draw-rectangle-2bd5b4fe14b346c98cc6a171c06a1584",
-    991,
+    986,
     -1,
     "Draw Rectangle",
     ""
   ],
   [
     "02draw-circle-757f3dc515a14ec3844fb1c8cfe8c7f1",
-    991,
+    986,
     -1,
     "02Draw Circle",
     ""
   ],
   [
     "cashapelayer-animation-916f5eb243404b369d5c65f1384222c4",
-    991,
+    986,
     -1,
     "CAShapeLayer Animation",
     ""
   ],
   [
     "basic-cashapelayer-operation-15646042453a4259b6fef4f3dc00cd6b",
-    991,
+    986,
     -1,
     "Basic CAShapeLayer Operation",
     ""
@@ -6420,39 +6389,39 @@ gTocItems = [
   [
     "wkwebview-ec3b4c9d97ac484cb2055fe729490cae",
     -1,
-    1000,
+    995,
     "WKWebView"
   ],
   [
     "wkwebview-0049961c8fe240fbbe421258010348ec",
-    999,
-    1001,
+    994,
+    996,
     "WKWebView",
     ""
   ],
   [
     "wkwebview-0049961c8fe240fbbe421258010348ec#fef2c8cf-b0c2-4831-a1a4-3a3e517c8af0",
-    1000,
+    995,
     -1,
     "Introduction"
   ],
   [
     "creating-a-simple-webbrowser-b4a2bc7b66114020a627e3b00e3c97e5",
-    999,
+    994,
     -1,
     "Creating a Simple WebBrowser",
     ""
   ],
   [
     "adding-custom-user-script-loaded-from-app-bundle-5f47cbecdf974112b49ae594c797ba85",
-    999,
+    994,
     -1,
     "Adding custom user script loaded from app bundle",
     ""
   ],
   [
     "send-messages-from-javascript-and-handle-them-on-the-native-side-9bba48b0534645d5b5a2803af09e4f23",
-    999,
+    994,
     -1,
     "Send messages from JavaScript and Handle them on the native side",
     ""
@@ -6460,108 +6429,108 @@ gTocItems = [
   [
     "uuid-universally-unique-identifier-30bf9ef14efd4efbaf054da373b3c272",
     -1,
-    1006,
+    1001,
     "UUID Universally Unique Identifier"
   ],
   [
     "uuid-universally-unique-identifier-0fbc8d9369a6421c89369609c7e019d8",
-    1005,
-    1007,
+    1000,
+    1002,
     "UUID Universally Unique Identifier",
     ""
   ],
   [
     "uuid-universally-unique-identifier-0fbc8d9369a6421c89369609c7e019d8#fd5b13ac-6f7b-4964-93c9-feeca80cbb5d",
-    1006,
+    1001,
     -1,
     "Remarks"
   ],
   [
     "apples-ifa-vs-ifv-apple-identifier-for-advertisers-vs-identifier-for-vendors-3d6879ff790344aaaab95265fdbce3ef",
-    1005,
+    1000,
     -1,
     "Apples IFA vs. IFV Apple Identifier for Advertisers vs. Identifier for Vendors",
     ""
   ],
   [
     "generating-uuid-4b8b546fc866437a8352e271d5e84ada",
+    1000,
     1005,
-    1010,
     "Generating UUID",
     ""
   ],
   [
     "generating-uuid-4b8b546fc866437a8352e271d5e84ada#20aa15e2-30cb-4875-af83-c0938dea9151",
-    1009,
+    1004,
     -1,
     "Random UUID"
   ],
   [
     "generating-uuid-4b8b546fc866437a8352e271d5e84ada#2bfb4d82-6717-4779-8ab3-a745e3f3f0ee",
-    1009,
+    1004,
     -1,
     "Swift"
   ],
   [
     "generating-uuid-4b8b546fc866437a8352e271d5e84ada#b2e1ddaf-66b3-43d7-b44d-617e5f4140c8",
-    1009,
+    1004,
     -1,
     "Objective-C"
   ],
   [
     "identifier-for-vendor-d86a4d583f1e4733a7c7c5f47d857220",
-    1005,
-    1014,
+    1000,
+    1009,
     "Identifier for vendor",
     ""
   ],
   [
     "identifier-for-vendor-d86a4d583f1e4733a7c7c5f47d857220#95479787-8633-4bbb-9dd7-d38854790157",
-    1013,
+    1008,
     -1,
     "Swift"
   ],
   [
     "identifier-for-vendor-d86a4d583f1e4733a7c7c5f47d857220#f715fb9f-1a8a-45f3-9442-0cf74756c9b2",
-    1013,
+    1008,
     -1,
     "Objective-C"
   ],
   [
     "create-uuid-string-for-ios-devices-75797497f78a4efaa560561ea4bd14c1",
-    1005,
-    1017,
+    1000,
+    1012,
     "Create UUID String for iOS devices",
     ""
   ],
   [
     "create-uuid-string-for-ios-devices-75797497f78a4efaa560561ea4bd14c1#fa03b2da-ee97-48ff-b494-2d56113c2250",
-    1016,
+    1011,
     -1,
     "Swift 3.0"
   ],
   [
     "categories-e8d0a3b930c04b30b014fea6a3f1c1c1",
     -1,
-    1019,
+    1014,
     "Categories"
   ],
   [
     "categories-74fe3e67613f49bf89cf1b7b1132c442",
-    1018,
-    1020,
+    1013,
+    1015,
     "Categories",
     ""
   ],
   [
     "categories-74fe3e67613f49bf89cf1b7b1132c442#42c28f9b-f93f-4732-9484-b1a5fe3e659a",
-    1019,
+    1014,
     -1,
     "Remarks"
   ],
   [
     "create-a-category-54a40182c0ae430d83cc7a4842ad6938",
-    1018,
+    1013,
     -1,
     "Create a Category",
     ""
@@ -6569,56 +6538,56 @@ gTocItems = [
   [
     "handling-url-schemes-9594d4030ff242cca0e46075d4f869e1",
     -1,
-    1023,
+    1018,
     "Handling URL Schemes"
   ],
   [
     "handling-url-schemes-0a87284f138046c09ffb08f1c8fc62c3",
-    1022,
-    1024,
+    1017,
+    1019,
     "Handling URL Schemes",
     ""
   ],
   [
     "handling-url-schemes-0a87284f138046c09ffb08f1c8fc62c3#bc2badae-ee73-47e3-b4fa-dff0e3455c5b",
-    1023,
+    1018,
     -1,
     "Syntax"
   ],
   [
     "handling-url-schemes-0a87284f138046c09ffb08f1c8fc62c3#4ad0901b-7f70-4c76-ad13-b6811c0078db",
-    1023,
+    1018,
     -1,
     "Parameters"
   ],
   [
     "handling-url-schemes-0a87284f138046c09ffb08f1c8fc62c3#e3f40443-813a-48ce-a813-968d03d88149",
-    1023,
+    1018,
     -1,
     "Remarks"
   ],
   [
     "using-built-in-url-scheme-to-open-mail-app-20b4e31378934f72b311ce8ffc035911",
-    1022,
-    1028,
+    1017,
+    1023,
     "Using built-in URL scheme to open Mail app",
     ""
   ],
   [
     "using-built-in-url-scheme-to-open-mail-app-20b4e31378934f72b311ce8ffc035911#9e3c60ec-d1b0-49b6-b91d-d36ff68fa948",
-    1027,
+    1022,
     -1,
     "Swift:"
   ],
   [
     "using-built-in-url-scheme-to-open-mail-app-20b4e31378934f72b311ce8ffc035911#6f83bbc0-572e-4527-937f-d4f3d023f851",
-    1027,
+    1022,
     -1,
     "Objective-C:"
   ],
   [
     "0apple-url-schemes-7177fbaac65f42b68d9ff6c348b63ae6",
-    1022,
+    1017,
     -1,
     "0Apple URL Schemes",
     ""
@@ -6626,25 +6595,25 @@ gTocItems = [
   [
     "realm-database-a4789cd8edb84ea9a21742a296586739",
     -1,
-    1032,
+    1027,
     "Realm database"
   ],
   [
     "realm-290e0aa80db34dcea6231236abfb5ee4",
-    1031,
-    1033,
+    1026,
+    1028,
     "Realm",
     ""
   ],
   [
     "realm-290e0aa80db34dcea6231236abfb5ee4#dd9a3c17-eab7-4d32-b172-a501ff18c85d",
-    1032,
+    1027,
     -1,
     "Remarks"
   ],
   [
     "rlmobject-base-model-class-with-primary-key-objective-c-1272e2038b20470aa2854f46f143a3a9",
-    1031,
+    1026,
     -1,
     "RLMObject Base Model Class with Primary Key - Objective-C",
     ""
@@ -6652,12 +6621,12 @@ gTocItems = [
   [
     "arc-automatic-reference-counting-4a1fef4b2ac94300bf4b425a6b82f9a7",
     -1,
-    1036,
+    1031,
     "ARC Automatic Reference Counting"
   ],
   [
     "enabledisable-arc-on-a-file-a413f1248e34421f85d9538ac7e40fbd",
-    1035,
+    1030,
     -1,
     "EnableDisable ARC on a file",
     ""
@@ -6665,31 +6634,31 @@ gTocItems = [
   [
     "uipickerview-f3d87c1a40a64b95859290eaaaa9db6e",
     -1,
-    1038,
+    1033,
     "UIPickerView"
   ],
   [
     "basic-example-4814c3a4c941433b8f6a12eba1318318",
-    1037,
-    1039,
+    1032,
+    1034,
     "Basic example",
     ""
   ],
   [
     "basic-example-4814c3a4c941433b8f6a12eba1318318#7fa464ec-74d9-48aa-be47-eb926589d33d",
-    1038,
+    1033,
     -1,
     "Swift"
   ],
   [
     "basic-example-4814c3a4c941433b8f6a12eba1318318#cf118c39-4185-4620-90e3-85fd104fb823",
-    1038,
+    1033,
     -1,
     "Objective-C"
   ],
   [
     "changing-pickerview-background-color-and-text-color-c24997dd762c411fa10669f14b1ab7bc",
-    1037,
+    1032,
     -1,
     "Changing pickerView Background Color and text color",
     ""
@@ -6697,102 +6666,102 @@ gTocItems = [
   [
     "dynamic-type-9b7effe33c9247b3890a34980fc6c2ba",
     -1,
-    1043,
+    1038,
     "Dynamic Type"
   ],
   [
     "dynamic-type-19b05497ceb7477c9262110d73b42b24",
-    1042,
-    1044,
+    1037,
+    1039,
     "Dynamic Type",
     ""
   ],
   [
     "dynamic-type-19b05497ceb7477c9262110d73b42b24#beaa67f5-b69c-45f1-96d8-7b2b63bb45b3",
-    1043,
+    1038,
     -1,
     "Remarks"
   ],
   [
     "get-the-current-content-size-8f502927cc9c4452b7b277b9e2d18dcc",
-    1042,
-    1046,
+    1037,
+    1041,
     "Get the Current Content Size",
     ""
   ],
   [
     "get-the-current-content-size-8f502927cc9c4452b7b277b9e2d18dcc#2ae34061-be0e-46ad-a0e4-5ac2f4db4cc1",
-    1045,
+    1040,
     -1,
     "Swift"
   ],
   [
     "get-the-current-content-size-8f502927cc9c4452b7b277b9e2d18dcc#f9e52839-7088-4407-a196-c273daca499e",
-    1045,
+    1040,
     -1,
     "Objective-C"
   ],
   [
     "matching-dynamic-type-font-size-in-wkwebview-32e142c0d71a482fbc5214edd53220a7",
-    1042,
-    1049,
+    1037,
+    1044,
     "Matching Dynamic Type Font Size in WKWebView",
     ""
   ],
   [
     "matching-dynamic-type-font-size-in-wkwebview-32e142c0d71a482fbc5214edd53220a7#ec290533-95e5-434b-9260-74656d9b2f87",
-    1048,
+    1043,
     -1,
     "Swift"
   ],
   [
     "text-size-change-notification-b8df1cfcf7b24fd49fed4d2ca65714ca",
-    1042,
-    1051,
+    1037,
+    1046,
     "Text Size Change Notification",
     ""
   ],
   [
     "text-size-change-notification-b8df1cfcf7b24fd49fed4d2ca65714ca#4d9a6e37-b04c-4b68-85dc-ba40c12045cc",
-    1050,
+    1045,
     -1,
     "Swift"
   ],
   [
     "text-size-change-notification-b8df1cfcf7b24fd49fed4d2ca65714ca#5111805e-100d-4f52-bdcc-e1b1d0f0af2b",
-    1050,
+    1045,
     -1,
     "Objective-C"
   ],
   [
     "handling-preferred-text-size-change-without-notifications-on-ios-10-b2c5ff33312545299a2915b647c90dd2",
-    1042,
-    1054,
+    1037,
+    1049,
     "Handling Preferred Text Size Change Without Notifications on iOS 10",
     ""
   ],
   [
     "handling-preferred-text-size-change-without-notifications-on-ios-10-b2c5ff33312545299a2915b647c90dd2#20e20c90-6c03-4e7f-8765-8d4e4168cc85",
-    1053,
+    1048,
     -1,
     "Swift"
   ],
   [
     "nsurl-c446ba32f0644a2c865afe679afd24f2",
     -1,
-    1056,
+    1051,
     "NSURL"
   ],
   [
     "how-to-get-last-string-component-from-nsurl-string-f6ad615fde844b02b7dab69036681ac3",
-    1055,
+    1050,
     -1,
     "How to get last string component from NSURL String.",
     ""
   ],
   [
     "02how-to-get-last-string-component-from-url-nsurl-in-swift-529cfda42fc84235973e22061a7b9c76",
-    1055,
+    1050,
     -1,
     "02How to get last string component from URL NSURL in Swift",
     ""
@@ -6800,25 +6769,25 @@ gTocItems = [
   [
     "swrevealviewcontroller-de060d2a5edd4d74aa939a10f5108cbb",
     -1,
-    1059,
+    1054,
     "SWRevealViewController"
   ],
   [
     "swrevealviewcontroller-fb6cd496aef44daca6949ec65b8c7e93",
-    1058,
-    1060,
+    1053,
+    1055,
     "SWRevealViewController",
     ""
   ],
   [
     "swrevealviewcontroller-fb6cd496aef44daca6949ec65b8c7e93#9ea5f3f1-8d7b-41f0-a51a-0db76bc9453e",
-    1059,
+    1054,
     -1,
     "Remarks"
   ],
   [
     "setting-up-a-basic-app-with-swrevealviewcontroller-57ad09ca34cf4e20b241498927b389f9",
-    1058,
+    1053,
     -1,
     "Setting up a basic app with SWRevealViewController",
     ""
@@ -6826,19 +6795,19 @@ gTocItems = [
   [
     "snapshot-of-uiview-429a9b475f46400ab2c84915d2928b9b",
     -1,
-    1063,
+    1058,
     "Snapshot of UIView"
   ],
   [
     "getting-the-snapshot-bad73c4ee8984f36970bb0edf2dacf8f",
-    1062,
+    1057,
     -1,
     "Getting the Snapshot",
     ""
   ],
   [
     "snapshot-with-subview-with-other-markup-and-text-3bdf96f80dfa42b08efbcffd1c12570a",
-    1062,
+    1057,
     -1,
     "Snapshot with subview with other markup and text",
     ""
@@ -6846,25 +6815,25 @@ gTocItems = [
   [
     "dispatchgroup-37452658309f4211997eba7770e870b5",
     -1,
-    1066,
+    1061,
     "DispatchGroup"
   ],
   [
     "dispatchgroup-a2d573119b6943229ad8e101f82e30e1",
-    1065,
-    1067,
+    1060,
+    1062,
     "DispatchGroup",
     ""
   ],
   [
     "dispatchgroup-a2d573119b6943229ad8e101f82e30e1#e94fdb34-a562-4684-ae80-0c98b0604851",
-    1066,
+    1061,
     -1,
     "Introduction"
   ],
   [
     "introduction-2e91d6818f8f494dbdaba673b95df312",
-    1065,
+    1060,
     -1,
     "Introduction",
     ""
@@ -6872,53 +6841,53 @@ gTocItems = [
   [
     "gcd-grand-central-dispatch-7f229db564ee45dea6ab0d61f675f6ff",
     -1,
-    1070,
+    1065,
     "GCD Grand Central Dispatch"
   ],
   [
     "gcd-grand-central-dispatch-535a24fcd3d34d40b44ad8bfd69b9406",
-    1069,
-    1071,
+    1064,
+    1066,
     "GCD Grand Central Dispatch",
     ""
   ],
   [
     "gcd-grand-central-dispatch-535a24fcd3d34d40b44ad8bfd69b9406#78a2ea83-efa7-40e4-b033-6b38cedeb568",
-    1070,
+    1065,
     -1,
     "Introduction"
   ],
   [
     "dispatch-semaphore-0b5c7b7eb28e4b9698c688a5268b758d",
-    1069,
+    1064,
     -1,
     "Dispatch Semaphore",
     ""
   ],
   [
     "dispatch-group-65ec4fb901764a7cae266c859171d8b1",
-    1069,
+    1064,
     -1,
     "Dispatch Group",
     ""
   ],
   [
     "create-a-dispatch-queue-029f46c4a852444f80db3cd92e0887cc",
-    1069,
+    1064,
     -1,
     "Create a dispatch queue",
     ""
   ],
   [
     "getting-the-main-queue-b26878635c1e407991e62b007b0e38dc",
-    1069,
+    1064,
     -1,
     "Getting the Main Queue",
     ""
   ],
   [
     "serial-vs-concurrent-dispatch-queues-5011434927974e65ad75a658b8d0817d",
-    1069,
+    1064,
     -1,
     "Serial vs Concurrent Dispatch Queues",
     ""
@@ -6926,39 +6895,39 @@ gTocItems = [
   [
     "size-classes-and-adaptivity-2c5439937ee240359f63ddd4de543fde",
     -1,
-    1078,
+    1073,
     "Size Classes and Adaptivity"
   ],
   [
     "size-classes-and-adaptivity-a325c303f6dc4680b12a8867be50abd8",
-    1077,
-    1079,
+    1072,
+    1074,
     "Size Classes and Adaptivity",
     ""
   ],
   [
     "size-classes-and-adaptivity-a325c303f6dc4680b12a8867be50abd8#e0473ee6-d83c-460e-a970-f0fa7f0b81b7",
-    1078,
+    1073,
     -1,
     "Remarks"
   ],
   [
     "trait-collections-7e1fd2ec177b4d1ea590688c0218acc8",
-    1077,
+    1072,
     -1,
     "Trait Collections",
     ""
   ],
   [
     "updating-auto-layout-with-trait-collection-changes-ed02b98b860a4c5290ead457f3dc6b67",
-    1077,
+    1072,
     -1,
     "Updating Auto Layout with Trait Collection Changes",
     ""
   ],
   [
     "supporting-ios-multitasking-on-ipad-8da76f46168c4a8abb6720ef67a53932",
-    1077,
+    1072,
     -1,
     "Supporting iOS Multitasking on iPad",
     ""
@@ -6966,19 +6935,19 @@ gTocItems = [
   [
     "uiscrollview-autolayout-25182a982d6642988b3971e23ab1ece4",
     -1,
-    1084,
+    1079,
     "UIScrollView, AutoLayout"
   ],
   [
     "scrollablecontroller-a2d8da68fb274ab08bd75046c42f2b2a",
-    1083,
+    1078,
     -1,
     "ScrollableController",
     ""
   ],
   [
     "uiscrollview-dynamic-content-size-through-storyboard-55d705ea544c450ca73c6b4a27fd5903",
-    1083,
+    1078,
     -1,
     "UIScrollView dynamic content size through Storyboard",
     ""
@@ -6986,25 +6955,25 @@ gTocItems = [
   [
     "iboutlets-5265ac0399db4793939c1f4527e3dddc",
     -1,
-    1087,
+    1082,
     "IBOutlets"
   ],
   [
     "iboutlets-b512c9218fae4fd79c4d2ab550997a0f",
-    1086,
-    1088,
+    1081,
+    1083,
     "IBOutlets",
     ""
   ],
   [
     "iboutlets-b512c9218fae4fd79c4d2ab550997a0f#f7cc0656-e97e-4e59-8a8a-e7663e093ca0",
-    1087,
+    1082,
     -1,
     "Remarks"
   ],
   [
     "using-an-iboutlet-in-a-ui-element-ca6e2dc44a4845e58060fa4b9a9d1aa7",
-    1086,
+    1081,
     -1,
     "Using an IBOutlet in a UI Element",
     ""
@@ -7012,12 +6981,12 @@ gTocItems = [
   [
     "aws-sdk-652de3ae3b9e4364b4dff861bab62742",
     -1,
-    1091,
+    1086,
     "AWS SDK"
   ],
   [
     "upload-an-image-or-a-video-to-s3-using-aws-sdk-792a54e4a4304c228ebdc5291f071def",
-    1090,
+    1085,
     -1,
     "Upload an image or a video to S3 using AWS SDK",
     ""
@@ -7025,44 +6994,44 @@ gTocItems = [
   [
     "debugging-crashes-903fb5dda3124f4e80d7612320135a0f",
     -1,
-    1093,
+    1088,
     "Debugging Crashes"
   ],
   [
     "debugging-exc-bad-access-26f8b5c6b1da4004aff335fee858dbfb",
-    1092,
+    1087,
     -1,
     "Debugging EXC BAD ACCESS",
     ""
   ],
   [
     "finding-information-about-a-crash-52c3c3d99ebf4b61820ab0c000109fbe",
-    1092,
-    1095,
+    1087,
+    1090,
     "Finding information about a crash",
     ""
   ],
   [
     "finding-information-about-a-crash-52c3c3d99ebf4b61820ab0c000109fbe#fefdbabe-1ce6-4fa2-a1c7-ef1c7ca7e7a7",
-    1094,
+    1089,
     -1,
     "The red arrow"
   ],
   [
     "finding-information-about-a-crash-52c3c3d99ebf4b61820ab0c000109fbe#4f1c1288-570e-4e02-8f84-e5396769c082",
-    1094,
+    1089,
     -1,
     "The debugger console"
   ],
   [
     "finding-information-about-a-crash-52c3c3d99ebf4b61820ab0c000109fbe#85f16d9b-496c-4aec-ae70-450969d7e131",
-    1094,
+    1089,
     -1,
     "The stack trace"
   ],
   [
     "debugging-sigabrt-and-exc-bad-instruction-crashes-3b6feb9ed161486989ad348d35e42831",
-    1092,
+    1087,
     -1,
     "Debugging SIGABRT and EXC BAD INSTRUCTION crashes",
     ""
@@ -7070,25 +7039,25 @@ gTocItems = [
   [
     "uisplitviewcontroller-f1c74aaa2f084bc4851901d4ca0bb7d5",
     -1,
-    1100,
+    1095,
     "UISplitViewController"
   ],
   [
     "uisplitviewcontroller-3b15d4cfe5354ecca94d1d164c0d91e5",
-    1099,
-    1101,
+    1094,
+    1096,
     "UISplitViewController",
     ""
   ],
   [
     "uisplitviewcontroller-3b15d4cfe5354ecca94d1d164c0d91e5#ab497826-d5c4-4af8-be16-88b88b9ddb38",
-    1100,
+    1095,
     -1,
     "Remarks"
   ],
   [
     "master-and-detail-view-interaction-using-delegates-in-objective-c-272cfe5a85734ae59434a0ee22baa880",
-    1099,
+    1094,
     -1,
     "Master and Detail View interaction using Delegates in Objective C",
     ""
@@ -7096,25 +7065,25 @@ gTocItems = [
   [
     "uisplitviewcontroller-fd4852d910a3457e87aa9be417584c87",
     -1,
-    1104,
+    1099,
     "UISplitViewController"
   ],
   [
     "uisplitviewcontroller-fae802d375644966ae6ff1a0db6b9b53",
-    1103,
-    1105,
+    1098,
+    1100,
     "UISplitViewController",
     ""
   ],
   [
     "uisplitviewcontroller-fae802d375644966ae6ff1a0db6b9b53#13b88309-a9ac-448e-acdd-dce3b46765ca",
-    1104,
+    1099,
     -1,
     "Remarks"
   ],
   [
     "interacting-between-master-and-detail-view-using-delegates-in-objective-c-8696782551644722a499963731d6afd1",
-    1103,
+    1098,
     -1,
     "Interacting Between Master and Detail View using Delegates in Objective C",
     ""
@@ -7122,73 +7091,73 @@ gTocItems = [
   [
     "uidevice-cd18571800e1405582db654c8985c5a6",
     -1,
-    1108,
+    1103,
     "UIDevice"
   ],
   [
     "uidevice-d09f435647e045c5ab237eee7a3dfb07",
-    1107,
-    1109,
+    1102,
+    1104,
     "UIDevice",
     ""
   ],
   [
     "uidevice-d09f435647e045c5ab237eee7a3dfb07#f95ffad7-1b8f-4d63-8110-2edfcfae9cbc",
-    1108,
+    1103,
     -1,
     "Parameters"
   ],
   [
     "uidevice-d09f435647e045c5ab237eee7a3dfb07#3e434306-338a-4dfd-b70b-39dd1eed1688",
-    1108,
+    1103,
     -1,
     "Remarks"
   ],
   [
     "get-ios-device-model-name-1cca5cc5d70c4de5912328cff767dab8",
-    1107,
+    1102,
     -1,
     "Get iOS device model name",
     ""
   ],
   [
     "apples-ifa-vs-ifv-apple-identifier-for-advertisers-vs-identifier-for-vendors-2d3308ecb8354e1b89018a1c751d4c30",
-    1107,
+    1102,
     -1,
     "Apples IFA vs. IFV Apple Identifier for Advertisers vs. Identifier for Vendors",
     ""
   ],
   [
     "getting-battery-status-and-battery-level-7b0496131f514f9380dca7ef4c8d15b7",
-    1107,
+    1102,
     -1,
     "Getting Battery Status and Battery Level",
     ""
   ],
   [
     "identifying-the-device-and-operating-b15177791ab141c488efcc8ac826ece5",
-    1107,
+    1102,
     -1,
     "Identifying the Device and Operating",
     ""
   ],
   [
     "getting-the-device-orientation-40312355c381402b9f3dbd8b4ef121d4",
-    1107,
+    1102,
     -1,
     "Getting the Device Orientation",
     ""
   ],
   [
     "getting-the-device-battery-state-af94d3d9a9fe4086b1f9868d46c8f4f5",
-    1107,
+    1102,
     -1,
     "Getting the Device Battery State",
     ""
   ],
   [
     "using-the-proximity-sensor-b577e18fc0174978982eb2d4687fffb4",
-    1107,
+    1102,
     -1,
     "Using the Proximity Sensor",
     ""
@@ -7196,271 +7165,271 @@ gTocItems = [
   [
     "cloudkit-0e3a98fa380444ccbd1b1f55a9eae49d",
     -1,
-    1119,
+    1114,
     "CloudKit"
   ],
   [
     "cloudkit-06089f2395d0425183e84f3ffd02f854",
-    1118,
-    1120,
+    1113,
+    1115,
     "CloudKit",
     ""
   ],
   [
     "cloudkit-06089f2395d0425183e84f3ffd02f854#d90227bb-de33-469b-8270-37c667b0eac9",
-    1119,
+    1114,
     -1,
     "Remarks"
   ],
   [
     "cloudkit-06089f2395d0425183e84f3ffd02f854#348bf398-7c5b-4ca0-bdcf-caa25f0bedc7",
-    1119,
+    1114,
     -1,
     "Supported Types"
   ],
   [
     "registering-app-for-use-with-cloudkit-6101d71c5b854d64a5c9d936a593ff99",
-    1118,
+    1113,
     -1,
     "Registering app for use with CloudKit",
     ""
   ],
   [
     "using-cloudkit-dashboard-ee8fdb1158b340eab3a141e39dda6b0b",
-    1118,
-    1124,
+    1113,
+    1119,
     "Using CloudKit Dashboard",
     ""
   ],
   [
     "using-cloudkit-dashboard-ee8fdb1158b340eab3a141e39dda6b0b#d1a90260-2e39-44ac-8aad-f640430f851f",
-    1123,
+    1118,
     -1,
     "Record Types"
   ],
   [
     "saving-data-to-cloudkit-f05dec722e244d4eb928d77e3d4a992f",
-    1118,
-    1126,
+    1113,
+    1121,
     "Saving data to CloudKit",
     ""
   ],
   [
     "saving-data-to-cloudkit-f05dec722e244d4eb928d77e3d4a992f#7ccf6515-21bc-4171-8311-39d1c5631e9b",
-    1125,
+    1120,
     -1,
     "Making a record key"
   ],
   [
     "saving-data-to-cloudkit-f05dec722e244d4eb928d77e3d4a992f#632b57a7-ba73-45ac-afdf-5796addb3957",
-    1125,
+    1120,
     -1,
     "Swift"
   ],
   [
     "saving-data-to-cloudkit-f05dec722e244d4eb928d77e3d4a992f#86b99e84-740c-4758-af4f-cc6aa9738819",
-    1125,
+    1120,
     -1,
     "Making the record"
   ],
   [
     "saving-data-to-cloudkit-f05dec722e244d4eb928d77e3d4a992f#94ad890a-ee35-4021-9c89-2a4edcf516e8",
-    1125,
+    1120,
     -1,
     "Swift"
   ],
   [
     "saving-data-to-cloudkit-f05dec722e244d4eb928d77e3d4a992f#15f910dd-c137-47fe-84cf-5dd5328ab6ee",
-    1125,
+    1120,
     -1,
     "Objective-C"
   ],
   [
     "saving-data-to-cloudkit-f05dec722e244d4eb928d77e3d4a992f#297a99ca-3390-493f-a787-96f1238bcf49",
-    1125,
+    1120,
     -1,
     "Note"
   ],
   [
     "saving-data-to-cloudkit-f05dec722e244d4eb928d77e3d4a992f#419a45ce-d98b-4299-bffe-ab2b1c819c66",
-    1125,
+    1120,
     -1,
     "Accessing the container"
   ],
   [
     "saving-data-to-cloudkit-f05dec722e244d4eb928d77e3d4a992f#24d0ae1d-e613-4c54-b577-b5c5a11e2d6f",
-    1125,
+    1120,
     -1,
     "Swift"
   ],
   [
     "saving-data-to-cloudkit-f05dec722e244d4eb928d77e3d4a992f#ef2b6719-0125-4a26-a245-009d55a8dc35",
-    1125,
+    1120,
     -1,
     "Saving the records to CloudKit database"
   ],
   [
     "saving-data-to-cloudkit-f05dec722e244d4eb928d77e3d4a992f#4a0d9570-768a-4e17-9eb3-7fc5674f2780",
-    1125,
+    1120,
     -1,
     "Swift"
   ],
   [
     "gameplaykit-0a0f8fe3ca064e0cbf391e7c20e930d7",
     -1,
-    1137,
+    1132,
     "GameplayKit"
   ],
   [
     "0generating-random-numbers-51e7f341e533400094b4842a246afc2e",
-    1136,
-    1138,
+    1131,
+    1133,
     "0Generating random numbers",
     ""
   ],
   [
     "0generating-random-numbers-51e7f341e533400094b4842a246afc2e#195fb512-ef14-452a-8580-8baba195dcb4",
-    1137,
+    1132,
     -1,
     "Generation"
   ],
   [
     "0generating-random-numbers-51e7f341e533400094b4842a246afc2e#5589b5ad-e3e3-4b3f-9237-53b6290f347b",
-    1137,
+    1132,
     -1,
     "Swift"
   ],
   [
     "0generating-random-numbers-51e7f341e533400094b4842a246afc2e#54996ae6-994b-488a-9942-76ac13d662fe",
-    1137,
+    1132,
     -1,
     "Objective-C"
   ],
   [
     "0generating-random-numbers-51e7f341e533400094b4842a246afc2e#e2254c5a-9116-421c-bf74-6843c8403c45",
-    1137,
+    1132,
     -1,
     "Swift"
   ],
   [
     "0generating-random-numbers-51e7f341e533400094b4842a246afc2e#f267c9d0-96ee-46ff-90a7-60eb1001d4a0",
-    1137,
+    1132,
     -1,
     "Objective-C"
   ],
   [
     "0generating-random-numbers-51e7f341e533400094b4842a246afc2e#25e08c5d-2f40-4811-b323-3943547f11b4",
-    1137,
+    1132,
     -1,
     "Note"
   ],
   [
     "0generating-random-numbers-51e7f341e533400094b4842a246afc2e#1719d6d4-8ab6-4b56-9326-9e90e6e310bd",
-    1137,
+    1132,
     -1,
     "Generating a number from 0 to n"
   ],
   [
     "0generating-random-numbers-51e7f341e533400094b4842a246afc2e#8ff271ff-9765-4c74-a5d3-80d861d8dcfd",
-    1137,
+    1132,
     -1,
     "Swift"
   ],
   [
     "0generating-random-numbers-51e7f341e533400094b4842a246afc2e#db98f50a-19a4-4c00-945d-d7b064ecbb28",
-    1137,
+    1132,
     -1,
     "Objective-C"
   ],
   [
     "0generating-random-numbers-51e7f341e533400094b4842a246afc2e#464db560-562d-4db0-bf47-7f9e718de75c",
-    1137,
+    1132,
     -1,
     "Generating a number from m to n"
   ],
   [
     "0generating-random-numbers-51e7f341e533400094b4842a246afc2e#440f1949-0318-42e8-86bc-ab9306cbd135",
-    1137,
+    1132,
     -1,
     "Swift"
   ],
   [
     "0generating-random-numbers-51e7f341e533400094b4842a246afc2e#94b59335-9a05-46f1-a3be-9d005e15f170",
-    1137,
+    1132,
     -1,
     "Objective-C outdated"
   ],
   [
     "0generating-random-numbers-51e7f341e533400094b4842a246afc2e#3cf50a80-8940-4193-9b25-0834741c30c2",
-    1137,
+    1132,
     -1,
     "Swift"
   ],
   [
     "0generating-random-numbers-51e7f341e533400094b4842a246afc2e#d6b8e2dd-8770-43b8-ab7c-1c55f9502d83",
-    1137,
+    1132,
     -1,
     "Objective-C outdated"
   ],
   [
     "gkentity-and-gkcomponent-45b64056af91478e9dd66e412b651e9d",
-    1136,
-    1153,
+    1131,
+    1148,
     "GKEntity and GKComponent",
     ""
   ],
   [
     "gkentity-and-gkcomponent-45b64056af91478e9dd66e412b651e9d#e2d45cfb-efe3-4bcd-b2e4-a618260f9567",
-    1152,
+    1147,
     -1,
     "GKEntity"
   ],
   [
     "gkentity-and-gkcomponent-45b64056af91478e9dd66e412b651e9d#d3800019-e01d-4cf8-bd64-5685e1c198b9",
-    1152,
+    1147,
     -1,
     "GKComponent"
   ],
   [
     "gkentity-and-gkcomponent-45b64056af91478e9dd66e412b651e9d#3abf6764-28a7-43c6-9f5e-d3b31c4b912d",
-    1152,
+    1147,
     -1,
     "GKComponentSystem"
   ],
   [
     "xcode-build-archive-from-command-line-cdea920cea3f4c82a7c054b300b11844",
     -1,
-    1157,
+    1152,
     "XCode Build Archive From Command Line"
   ],
   [
     "xcode-build-archive-from-command-line-6339e7a9c3744b1c9b880cfa97293348",
-    1156,
-    1158,
+    1151,
+    1153,
     "Xcode Build Archive From Command Line",
     ""
   ],
   [
     "xcode-build-archive-from-command-line-6339e7a9c3744b1c9b880cfa97293348#4ea95f51-e786-4965-84ae-a1b026bada72",
-    1157,
+    1152,
     -1,
     "Syntax"
   ],
   [
     "xcode-build-archive-from-command-line-6339e7a9c3744b1c9b880cfa97293348#1a3aef2f-7dd0-49b0-a7dd-a6158ccaeaa5",
-    1157,
+    1152,
     -1,
     "Parameters"
   ],
   [
     "xcode-build-archive-from-command-line-6339e7a9c3744b1c9b880cfa97293348#32d0b625-5e1c-4299-a783-0d6cf86c085a",
-    1157,
+    1152,
     -1,
     "Remarks"
   ],
   [
     "build-archive-e32cb575f1124a39a36a47215ce3171d",
-    1156,
+    1151,
     -1,
     "Build Archive",
     ""
@@ -7468,392 +7437,392 @@ gTocItems = [
   [
     "unit-testing-with-xctest-a611ae196fe241db84b2aaf3937f742a",
     -1,
-    1163,
+    1158,
     "Unit Testing with XCTest"
   ],
   [
     "01adding-test-files-to-xcode-project-2f90b86b7f7a413f9202871276404e15",
-    1162,
-    1164,
+    1157,
+    1159,
     "01Adding Test Files to Xcode Project",
     ""
   ],
   [
     "01adding-test-files-to-xcode-project-2f90b86b7f7a413f9202871276404e15#50b08752-7762-47be-89a8-7ab9d8f575be",
-    1163,
+    1158,
     -1,
     "When creating the project"
   ],
   [
     "01adding-test-files-to-xcode-project-2f90b86b7f7a413f9202871276404e15#1218d84d-99b5-4bf1-8124-347f58142ee5",
-    1163,
+    1158,
     -1,
     "After creating the project"
   ],
   [
     "01adding-test-files-to-xcode-project-2f90b86b7f7a413f9202871276404e15#c1178719-ea8e-4968-ac23-55bb5e8320bd",
-    1163,
+    1158,
     -1,
     "Swift"
   ],
   [
     "01adding-test-files-to-xcode-project-2f90b86b7f7a413f9202871276404e15#9109bbdc-723c-4e38-9de9-3c7ec39b8567",
-    1163,
+    1158,
     -1,
     "Objective-C"
   ],
   [
     "adding-test-methods-ed2bdb249e3446169ec5388303df4e49",
-    1162,
-    1169,
+    1157,
+    1164,
     "Adding test methods",
     ""
   ],
   [
     "adding-test-methods-ed2bdb249e3446169ec5388303df4e49#fffba37b-e22f-4362-8afc-206fdf9fda12",
-    1168,
+    1163,
     -1,
     "Test Methods"
   ],
   [
     "adding-test-methods-ed2bdb249e3446169ec5388303df4e49#b45aaab8-66e8-4260-9ef9-6d0f8177d9f1",
-    1168,
+    1163,
     -1,
     "Swift"
   ],
   [
     "adding-test-methods-ed2bdb249e3446169ec5388303df4e49#5fac6d88-26aa-4799-8e6c-529c5d77171a",
-    1168,
+    1163,
     -1,
     "Objective-C"
   ],
   [
     "adding-test-methods-ed2bdb249e3446169ec5388303df4e49#ced3d2d5-2cfb-4d43-9251-6bcacca5bd9f",
-    1168,
+    1163,
     -1,
     "Swift"
   ],
   [
     "adding-test-methods-ed2bdb249e3446169ec5388303df4e49#84a397a6-27d6-49b0-9044-8cf118d3fc23",
-    1168,
+    1163,
     -1,
     "Objective-C"
   ],
   [
     "adding-test-methods-ed2bdb249e3446169ec5388303df4e49#487c763c-b36b-4310-ad25-be79ff9f724b",
-    1168,
+    1163,
     -1,
     "Note"
   ],
   [
     "writing-a-test-class-28b140a7537340adb706d57719ca74be",
-    1162,
+    1157,
     -1,
     "Writing a test class",
     ""
   ],
   [
     "adding-storyboard-and-view-controller-as-instances-to-test-file-4fefa9b7d7a64d4c9ac091c589fac30b",
-    1162,
-    1177,
+    1157,
+    1172,
     "Adding Storyboard and View Controller as instances to test file",
     ""
   ],
   [
     "adding-storyboard-and-view-controller-as-instances-to-test-file-4fefa9b7d7a64d4c9ac091c589fac30b#7d87b8b0-73f0-4af8-9593-df9d911b0cb9",
-    1176,
+    1171,
     -1,
     "Defining the View Controller"
   ],
   [
     "adding-storyboard-and-view-controller-as-instances-to-test-file-4fefa9b7d7a64d4c9ac091c589fac30b#be52cc9e-536a-4901-80f0-79eea9abea6e",
-    1176,
+    1171,
     -1,
     "Swift"
   ],
   [
     "adding-storyboard-and-view-controller-as-instances-to-test-file-4fefa9b7d7a64d4c9ac091c589fac30b#9a80a464-8759-4b93-9f9a-83f1df05275b",
-    1176,
+    1171,
     -1,
     "Introducing the Storyboard and initializing the View Controller"
   ],
   [
     "adding-storyboard-and-view-controller-as-instances-to-test-file-4fefa9b7d7a64d4c9ac091c589fac30b#80c5c4c4-411e-459c-822f-1b339bb7a9be",
-    1176,
+    1171,
     -1,
     "Swift"
   ],
   [
     "adding-storyboard-and-view-controller-as-instances-to-test-file-4fefa9b7d7a64d4c9ac091c589fac30b#0f8c7ff6-c427-48db-a560-4f436efdc7d8",
-    1176,
+    1171,
     -1,
     "Objective-C"
   ],
   [
     "start-testing-a68d97b29d804d288f8b55ced74486a9",
-    1162,
-    1183,
+    1157,
+    1178,
     "Start Testing",
     ""
   ],
   [
     "start-testing-a68d97b29d804d288f8b55ced74486a9#69fbe375-4311-457c-a5bb-fde323c288fc",
-    1182,
+    1177,
     -1,
     "Testing a specific method"
   ],
   [
     "start-testing-a68d97b29d804d288f8b55ced74486a9#c3b5c909-7bfb-4c0c-a299-c25185bb7020",
-    1182,
+    1177,
     -1,
     "Testing all methods"
   ],
   [
     "start-testing-a68d97b29d804d288f8b55ced74486a9#6d60439f-ba55-4855-95de-6f656d183871",
-    1182,
+    1177,
     -1,
     "See the testing result"
   ],
   [
     "start-testing-a68d97b29d804d288f8b55ced74486a9#538072c4-bff1-412a-a7a5-8d7d94259956",
-    1182,
+    1177,
     -1,
     "Running all tests"
   ],
   [
     "import-a-module-that-it-can-be-tested-c9640a39a85644249e69ad90ad79eb40",
-    1162,
+    1157,
     -1,
     "Import a module that it can be tested",
     ""
   ],
   [
     "trigger-view-loading-and-appearance-2fbcdcf4b5ca421b9ac2cbef397216ca",
-    1162,
-    1189,
+    1157,
+    1184,
     "Trigger view loading and appearance",
     ""
   ],
   [
     "trigger-view-loading-and-appearance-2fbcdcf4b5ca421b9ac2cbef397216ca#02b5bd1e-5116-41e0-abde-2a1db9b44d75",
-    1188,
+    1183,
     -1,
     "View loading"
   ],
   [
     "trigger-view-loading-and-appearance-2fbcdcf4b5ca421b9ac2cbef397216ca#16f54a7d-033b-4ff8-bf0a-1062a0297a9a",
-    1188,
+    1183,
     -1,
     "View appearance"
   ],
   [
     "nsdata-59964cbb2130467caea481a2e963277d",
     -1,
-    1192,
+    1187,
     "NSData"
   ],
   [
     "nsdata-9e0ef4ea10d94ba5808920a1bbd8b5a1",
-    1191,
-    1193,
+    1186,
+    1188,
     "NSData",
     ""
   ],
   [
     "nsdata-9e0ef4ea10d94ba5808920a1bbd8b5a1#60c75be1-64fa-46c4-8ce8-0d881b0423b0",
-    1192,
+    1187,
     -1,
     "Remarks"
   ],
   [
     "nsdata-9e0ef4ea10d94ba5808920a1bbd8b5a1#148d3fd9-08db-479b-9af8-09c5a1effea3",
-    1192,
+    1187,
     -1,
     "Useful Resources"
   ],
   [
     "converting-nsdata-to-hex-string-09ec369520134035865771e54a4d94be",
+    1186,
     1191,
-    1196,
     "Converting NSData to HEX string",
     ""
   ],
   [
     "converting-nsdata-to-hex-string-09ec369520134035865771e54a4d94be#2da76329-bcb3-4b18-ab4c-13beae15e617",
-    1195,
+    1190,
     -1,
     "Swift"
   ],
   [
     "converting-nsdata-to-hex-string-09ec369520134035865771e54a4d94be#15b38db5-8af2-4395-9168-993f0855413e",
-    1195,
+    1190,
     -1,
     "Objective-C"
   ],
   [
     "creating-nsdata-objects-d96b3b7d2090494791e720977c79aa3b",
-    1191,
-    1199,
+    1186,
+    1194,
     "Creating NSData objects",
     ""
   ],
   [
     "creating-nsdata-objects-d96b3b7d2090494791e720977c79aa3b#faab86be-a1b2-42b9-8943-1d7b89a728dc",
-    1198,
+    1193,
     -1,
     "Using a file"
   ],
   [
     "creating-nsdata-objects-d96b3b7d2090494791e720977c79aa3b#376c6914-0ae3-482d-8a0b-373e94cb5be3",
-    1198,
+    1193,
     -1,
     "Swift"
   ],
   [
     "creating-nsdata-objects-d96b3b7d2090494791e720977c79aa3b#117537ee-83fb-48ae-9f82-ff3d0be827be",
-    1198,
+    1193,
     -1,
     "Objective-C"
   ],
   [
     "creating-nsdata-objects-d96b3b7d2090494791e720977c79aa3b#549ba7c7-f02f-40f4-98b6-609f1aac39db",
-    1198,
+    1193,
     -1,
     "Using a String object"
   ],
   [
     "creating-nsdata-objects-d96b3b7d2090494791e720977c79aa3b#af312bbc-6aa6-4d30-b88c-6bb1c4b6591c",
-    1198,
+    1193,
     -1,
     "Swift"
   ],
   [
     "creating-nsdata-objects-d96b3b7d2090494791e720977c79aa3b#0109a026-8568-4633-8fd2-c0935182f80a",
-    1198,
+    1193,
     -1,
     "Objective-C"
   ],
   [
     "converting-nsdata-to-other-types-73ad490caf054842a8d23949aadcaf79",
-    1191,
-    1206,
+    1186,
+    1201,
     "Converting NSData to other types",
     ""
   ],
   [
     "converting-nsdata-to-other-types-73ad490caf054842a8d23949aadcaf79#f3e4f0bd-6011-430e-b522-0ba443e73b7f",
-    1205,
+    1200,
     -1,
     "To String"
   ],
   [
     "converting-nsdata-to-other-types-73ad490caf054842a8d23949aadcaf79#5d300873-13b5-4a31-8e1a-62b4491893b2",
-    1205,
+    1200,
     -1,
     "Swift"
   ],
   [
     "converting-nsdata-to-other-types-73ad490caf054842a8d23949aadcaf79#7a06d094-9265-4f00-a5d0-35f8f0419fc1",
-    1205,
+    1200,
     -1,
     "Objective-C"
   ],
   [
     "converting-nsdata-to-other-types-73ad490caf054842a8d23949aadcaf79#39cec797-afe5-44a5-9c20-643869a41236",
-    1205,
+    1200,
     -1,
     "To Array"
   ],
   [
     "converting-nsdata-to-other-types-73ad490caf054842a8d23949aadcaf79#b0eb7aff-5a83-4c37-828b-dd1904c01c25",
-    1205,
+    1200,
     -1,
     "Swift"
   ],
   [
     "converting-nsdata-to-other-types-73ad490caf054842a8d23949aadcaf79#7ed80681-5fb6-4c9c-a45f-e294d263ffb0",
-    1205,
+    1200,
     -1,
     "Objective-C"
   ],
   [
     "converting-nsdata-to-other-types-73ad490caf054842a8d23949aadcaf79#14846940-c249-4c29-afbf-1e1fce594cbf",
-    1205,
+    1200,
     -1,
     "To Bytes Array"
   ],
   [
     "converting-nsdata-to-other-types-73ad490caf054842a8d23949aadcaf79#69cb8d2c-5c46-419a-ac0e-ef72b7f83d99",
-    1205,
+    1200,
     -1,
     "Swift"
   ],
   [
     "converting-nsdata-to-other-types-73ad490caf054842a8d23949aadcaf79#62bfa65c-e821-4cb2-b794-22d1ceb77584",
-    1205,
+    1200,
     -1,
     "Objective-C"
   ],
   [
     "avplayer-and-avplayerviewcontroller-356a18eec88b4763be3f36bfe1fbdf1a",
     -1,
-    1216,
+    1211,
     "AVPlayer and AVPlayerViewController"
   ],
   [
     "avplayer-and-avplayerviewcontroller-8d57ed3c71a04cd69212fefe1ee87e81",
-    1215,
-    1217,
+    1210,
+    1212,
     "AVPlayer and AVPlayerViewController",
     ""
   ],
   [
     "avplayer-and-avplayerviewcontroller-8d57ed3c71a04cd69212fefe1ee87e81#7d97f97c-7c69-477a-876d-4ebafe517ede",
-    1216,
+    1211,
     -1,
     "Remarks"
   ],
   [
     "playing-media-using-avplayerviewcontroller-3d72bb020b8e4a3b8d48a570f8960468",
-    1215,
-    1219,
+    1210,
+    1214,
     "Playing Media Using AVPlayerViewController",
     ""
   ],
   [
     "playing-media-using-avplayerviewcontroller-3d72bb020b8e4a3b8d48a570f8960468#3d3d00a3-294d-4e27-82db-a04faa5cef19",
-    1218,
+    1213,
     -1,
     "Objective-C"
   ],
   [
     "playing-media-using-avplayerviewcontroller-3d72bb020b8e4a3b8d48a570f8960468#3f8e66ca-1c6c-4bc9-8908-d43790d5fb8f",
-    1218,
+    1213,
     -1,
     "Swift"
   ],
   [
     "playing-media-using-avplayer-and-avplayerlayer-e5b79a325d814cd482b58722ae7f6ec5",
-    1215,
-    1222,
+    1210,
+    1217,
     "Playing Media using AVPlayer and AVPlayerLayer",
     ""
   ],
   [
     "playing-media-using-avplayer-and-avplayerlayer-e5b79a325d814cd482b58722ae7f6ec5#b9bb67f4-eddf-494c-bcd9-dbb68816d9c1",
-    1221,
+    1216,
     -1,
     "Objective C"
   ],
   [
     "playing-media-using-avplayer-and-avplayerlayer-e5b79a325d814cd482b58722ae7f6ec5#53b53afb-7e50-411c-8260-35f1a29b69bb",
-    1221,
+    1216,
     -1,
     "Swift"
   ],
   [
     "avplayer-example-c576c313f836447886aa8e23ff155436",
-    1215,
+    1210,
     -1,
     "AVPlayer Example",
     ""
@@ -7861,64 +7830,64 @@ gTocItems = [
   [
     "deep-linking-ac1527ac26d843209652d9d201b17026",
     -1,
-    1226,
+    1221,
     "Deep Linking"
   ],
   [
     "deep-linking-in-ios-e592f17b848d42cd8619c182b0e37b7f",
-    1225,
-    1227,
+    1220,
+    1222,
     "Deep Linking in iOS",
     ""
   ],
   [
     "deep-linking-in-ios-e592f17b848d42cd8619c182b0e37b7f#404368f9-53f0-4b30-af7b-f06c33a7dec2",
-    1226,
+    1221,
     -1,
     "Remarks"
   ],
   [
     "apple-url-schemes-0942499f378a4b5f9f31532e89336563",
-    1225,
+    1220,
     -1,
     "Apple URL Schemes",
     ""
   ],
   [
     "adding-a-url-scheme-to-your-own-app-2a9ab89d8a0e4da5b5eeb5a3c80b2ce1",
+    1220,
     1225,
-    1230,
     "Adding a URL scheme to your own app",
     ""
   ],
   [
     "adding-a-url-scheme-to-your-own-app-2a9ab89d8a0e4da5b5eeb5a3c80b2ce1#f72a526b-be4d-49e6-901f-0ff60afe42fc",
-    1229,
+    1224,
     -1,
     "Step One: Register a URL scheme in Info.plist:"
   ],
   [
     "adding-a-url-scheme-to-your-own-app-2a9ab89d8a0e4da5b5eeb5a3c80b2ce1#8b1439b8-e8f8-4088-9179-e567ce99bd4f",
-    1229,
+    1224,
     -1,
     "Step Two: Handle the URL in the UIApplicationDelegate"
   ],
   [
     "adding-a-url-scheme-to-your-own-app-2a9ab89d8a0e4da5b5eeb5a3c80b2ce1#eeebe3c3-6d9e-4fed-8c96-e1cb5ccc1937",
-    1229,
+    1224,
     -1,
     "Step Three: Perform a task depending on the URL."
   ],
   [
     "opening-an-app-based-on-its-url-scheme-4fd0b00e1c5f408fb553cd17b1f59be1",
-    1225,
+    1220,
     -1,
     "Opening an app based on its URL scheme",
     ""
   ],
   [
     "setting-up-deeplink-for-your-app-2f2c24bd53e04ffa8375a739a08a1d6e",
-    1225,
+    1220,
     -1,
     "Setting up deeplink for your app",
     ""
@@ -7926,45 +7895,45 @@ gTocItems = [
   [
     "app-transport-security-ats-4ea4fd2d3ed94da9bbdc00d277b59da1",
     -1,
-    1236,
+    1231,
     "App Transport Security (ATS)"
   ],
   [
     "app-transport-security-ats-cc4a9ef5237b4b6c817ef13560e62637",
-    1235,
-    1237,
+    1230,
+    1232,
     "App Transport Security ATS",
     ""
   ],
   [
     "app-transport-security-ats-cc4a9ef5237b4b6c817ef13560e62637#ba3abd0c-7a9d-4e6a-8239-47a99ac138d9",
-    1236,
+    1231,
     -1,
     "Parameters"
   ],
   [
     "app-transport-security-ats-cc4a9ef5237b4b6c817ef13560e62637#3c70776e-301e-4488-823b-0c83679211c5",
-    1236,
+    1231,
     -1,
     "Remarks"
   ],
   [
     "load-all-http-content-11327a7ecdcf47e1a47b4a983771ba27",
-    1235,
+    1230,
     -1,
     "Load all HTTP content",
     ""
   ],
   [
     "selectively-load-http-content-7138b24d340347d088dae6f8e1c06a05",
-    1235,
+    1230,
     -1,
     "Selectively load HTTP content",
     ""
   ],
   [
     "endpoints-require-ssl-16e0a507d6804a9190a47a9a7cff4b48",
-    1235,
+    1230,
     -1,
     "Endpoints require SSL",
     ""
@@ -7972,228 +7941,228 @@ gTocItems = [
   [
     "core-graphics-4c28c4b44b5c4beea36e0943b23b8fdc",
     -1,
-    1243,
+    1238,
     "Core Graphics"
   ],
   [
     "creating-a-core-graphics-context-e8f0990d13ec462b8da8253aa86971a6",
-    1242,
-    1244,
+    1237,
+    1239,
     "Creating a Core Graphics Context",
     ""
   ],
   [
     "creating-a-core-graphics-context-e8f0990d13ec462b8da8253aa86971a6#70610151-2a7e-4260-bfdd-7d7b585fc709",
-    1243,
+    1238,
     -1,
     "Core Graphics context"
   ],
   [
     "creating-a-core-graphics-context-e8f0990d13ec462b8da8253aa86971a6#867c811e-a49f-4c7b-b308-d9ec5d292cfe",
-    1243,
+    1238,
     -1,
     "Making a context"
   ],
   [
     "creating-a-core-graphics-context-e8f0990d13ec462b8da8253aa86971a6#b7de7feb-b30e-44d3-97ee-96ea00626fca",
-    1243,
+    1238,
     -1,
     "Swift"
   ],
   [
     "creating-a-core-graphics-context-e8f0990d13ec462b8da8253aa86971a6#b2a4c445-9eff-4f7a-a5c5-9a6d36122835",
-    1243,
+    1238,
     -1,
     "Objective-C"
   ],
   [
     "presenting-the-drawn-canvas-to-user-e1939675f64848b7a4d52ddf834de894",
-    1242,
-    1249,
+    1237,
+    1244,
     "Presenting the Drawn Canvas to User",
     ""
   ],
   [
     "presenting-the-drawn-canvas-to-user-e1939675f64848b7a4d52ddf834de894#d6d48369-d415-40b1-91be-9c7550fca2ab",
-    1248,
+    1243,
     -1,
     "Swift"
   ],
   [
     "presenting-the-drawn-canvas-to-user-e1939675f64848b7a4d52ddf834de894#43223c4e-4343-4db7-86be-778bc73c5ac4",
-    1248,
+    1243,
     -1,
     "Objective-C"
   ],
   [
     "segues-d5c372a95d4c45f8987ca4f4c3727526",
     -1,
-    1252,
+    1247,
     "Segues"
   ],
   [
     "using-segues-to-navigate-backwards-in-the-navigation-stack-577e9bce5bc94145b325394dfc5fa488",
-    1251,
+    1246,
     -1,
     "Using Segues to navigate backwards in the navigation stack",
     ""
   ],
   [
     "an-overview-cd15d428bae84880a76e1f4a06c84838",
-    1251,
+    1246,
     -1,
     "An Overview",
     ""
   ],
   [
     "preparing-your-view-controller-before-a-triggering-a-segue-96beba909e634ac387c385cb90ec730d",
-    1251,
-    1255,
+    1246,
+    1250,
     "Preparing your view controller before a triggering a Segue",
     ""
   ],
   [
     "preparing-your-view-controller-before-a-triggering-a-segue-96beba909e634ac387c385cb90ec730d#8ec8f9e0-a03a-4051-b97d-8f7b1ecc54c4",
-    1254,
+    1249,
     -1,
     "PrepareForSegue:"
   ],
   [
     "preparing-your-view-controller-before-a-triggering-a-segue-96beba909e634ac387c385cb90ec730d#38539a74-5a4e-4e87-ab77-1096ce2a86f2",
-    1254,
+    1249,
     -1,
     "Parameters"
   ],
   [
     "preparing-your-view-controller-before-a-triggering-a-segue-96beba909e634ac387c385cb90ec730d#3f2e245f-9c63-480c-b307-a6d5310067a4",
-    1254,
+    1249,
     -1,
     "Example in Swift"
   ],
   [
     "deciding-if-an-invoked-segue-should-be-performed-4a74fee804784a71b67fa73d4fbc6aee",
-    1251,
-    1259,
+    1246,
+    1254,
     "Deciding if an invoked Segue should be performed.",
     ""
   ],
   [
     "deciding-if-an-invoked-segue-should-be-performed-4a74fee804784a71b67fa73d4fbc6aee#69f3171c-b031-47f7-b3a7-1a70ca347b35",
-    1258,
+    1253,
     -1,
     "ShouldPerformSegueWithIdentifier:"
   ],
   [
     "deciding-if-an-invoked-segue-should-be-performed-4a74fee804784a71b67fa73d4fbc6aee#9836ca46-3c43-4e27-b03a-15d520c7f3d1",
-    1258,
+    1253,
     -1,
     "Parameters"
   ],
   [
     "deciding-if-an-invoked-segue-should-be-performed-4a74fee804784a71b67fa73d4fbc6aee#a3bf20c3-f0ac-4178-a85b-159c55089a98",
-    1258,
+    1253,
     -1,
     "Example in Swift"
   ],
   [
     "trigger-segue-programmatically-cb89a4894f0c4d56b4dfc384315c027d",
-    1251,
-    1263,
+    1246,
+    1258,
     "Trigger Segue Programmatically",
     ""
   ],
   [
     "trigger-segue-programmatically-cb89a4894f0c4d56b4dfc384315c027d#a1121c95-cf66-4766-bac5-15f8a0fd9b52",
-    1262,
+    1257,
     -1,
     "PerformSegueWithIdentifier:"
   ],
   [
     "trigger-segue-programmatically-cb89a4894f0c4d56b4dfc384315c027d#847568aa-62ae-41c7-9a71-158e92b5ee56",
-    1262,
+    1257,
     -1,
     "Parameters"
   ],
   [
     "trigger-segue-programmatically-cb89a4894f0c4d56b4dfc384315c027d#72268f78-fd0a-4bef-8958-8a0678c21c67",
-    1262,
+    1257,
     -1,
     "Example in Swift"
   ],
   [
     "uidatepicker-c1d49004211343e5bec7521bc6eda162",
     -1,
-    1267,
+    1262,
     "UIDatePicker"
   ],
   [
     "uidatepicker-7ef401d8cf3a41908aa59add0645852b",
-    1266,
-    1268,
+    1261,
+    1263,
     "UIDatePicker",
     ""
   ],
   [
     "uidatepicker-7ef401d8cf3a41908aa59add0645852b#c2a9f721-03da-4f91-a41b-185563db1033",
-    1267,
+    1262,
     -1,
     "Remarks"
   ],
   [
     "create-a-date-picker-3bcd37150d9c43fda02db8f4a1fcd376",
-    1266,
-    1270,
+    1261,
+    1265,
     "Create a Date Picker",
     ""
   ],
   [
     "create-a-date-picker-3bcd37150d9c43fda02db8f4a1fcd376#13b6ff11-1281-4920-aac3-2bcdf3d8e85f",
-    1269,
+    1264,
     -1,
     "Swift"
   ],
   [
     "create-a-date-picker-3bcd37150d9c43fda02db8f4a1fcd376#be760f6b-63cf-4158-9e67-75755b30ae0f",
-    1269,
+    1264,
     -1,
     "Objective-C"
   ],
   [
     "setting-minimum-maximum-date-80674e4a9cb44fe18a92d953d22874ed",
-    1266,
-    1273,
+    1261,
+    1268,
     "Setting Minimum-Maximum Date",
     ""
   ],
   [
     "setting-minimum-maximum-date-80674e4a9cb44fe18a92d953d22874ed#49178ee4-9df3-4c54-be7e-060f553723df",
-    1272,
+    1267,
     -1,
     "Minimum date"
   ],
   [
     "setting-minimum-maximum-date-80674e4a9cb44fe18a92d953d22874ed#0f22027a-8d1f-4e0e-b14d-41ac0e54d39c",
-    1272,
+    1267,
     -1,
     "Maximum date"
   ],
   [
     "modes-88b770675993401fae5c0ab100026fb5",
-    1266,
+    1261,
     -1,
     "Modes",
     ""
   ],
   [
     "setting-minute-interval-ad5c0fbd251b429996804dc3ca091b80",
-    1266,
+    1261,
     -1,
     "Setting minute interval",
     ""
   ],
   [
     "count-down-duration-996da8e68e3040359352212a0c82a19f",
-    1266,
+    1261,
     -1,
     "Count Down Duration",
     ""
@@ -8201,329 +8170,329 @@ gTocItems = [
   [
     "nspredicate-e097ad8305f24ba8bac471c4d0b9dae8",
     -1,
-    1279,
+    1274,
     "NSPredicate"
   ],
   [
     "nspredicate-10806230d2e84b9ca0708d3431fe635b",
-    1278,
-    1280,
+    1273,
+    1275,
     "NSPredicate",
     ""
   ],
   [
     "nspredicate-10806230d2e84b9ca0708d3431fe635b#e9ed897a-874e-4423-8508-c168c7d62487",
-    1279,
+    1274,
     -1,
     "Syntax"
   ],
   [
     "form-validation-using-nspredicate-7978c6168bf34dc1b5b4c443970a6b63",
-    1278,
+    1273,
     -1,
     "Form validation using NSPredicate",
     ""
   ],
   [
     "creating-an-nspredicate-using-predicatewithblock-a397ed7d25a44537a0e1b1ad2492e206",
+    1273,
     1278,
-    1283,
     "Creating an NSPredicate Using predicateWithBlock",
     ""
   ],
   [
     "creating-an-nspredicate-using-predicatewithblock-a397ed7d25a44537a0e1b1ad2492e206#219515af-6af8-4d9d-8d1b-fc569e88eca3",
-    1282,
+    1277,
     -1,
     "Objective-C"
   ],
   [
     "creating-an-nspredicate-using-predicatewithblock-a397ed7d25a44537a0e1b1ad2492e206#1cc2025e-9626-4bf3-9ba5-b33025cdd6a7",
-    1282,
+    1277,
     -1,
     "Swift"
   ],
   [
     "creating-an-nspredicate-using-predicatewithformat-cfd491784c1242709b29cf31545f0ee2",
-    1278,
-    1286,
+    1273,
+    1281,
     "Creating an NSPredicate Using predicateWithFormat",
     ""
   ],
   [
     "creating-an-nspredicate-using-predicatewithformat-cfd491784c1242709b29cf31545f0ee2#866e011d-e2a6-4d56-8d0c-6b435abdf71a",
-    1285,
+    1280,
     -1,
     "Objective-C"
   ],
   [
     "creating-an-nspredicate-using-predicatewithformat-cfd491784c1242709b29cf31545f0ee2#f9217164-3e79-4711-9519-41ea78c53397",
-    1285,
+    1280,
     -1,
     "Swift"
   ],
   [
     "creating-an-nspredicate-with-substitution-variables-a81803123ed24755bf12109909f72851",
-    1278,
-    1289,
+    1273,
+    1284,
     "Creating an NSPredicate with Substitution Variables",
     ""
   ],
   [
     "creating-an-nspredicate-with-substitution-variables-a81803123ed24755bf12109909f72851#4aabfe2d-38eb-41d8-af27-85d7453b45e5",
-    1288,
+    1283,
     -1,
     "Objective-C"
   ],
   [
     "creating-an-nspredicate-with-substitution-variables-a81803123ed24755bf12109909f72851#a7b3ec0b-62ca-4e0a-97b2-2d005c333112",
-    1288,
+    1283,
     -1,
     "Swift"
   ],
   [
     "using-nspredicate-to-filter-an-array-052b9390debd4e438e8839136c75c9ae",
-    1278,
-    1292,
+    1273,
+    1287,
     "Using NSPredicate to Filter an Array",
     ""
   ],
   [
     "using-nspredicate-to-filter-an-array-052b9390debd4e438e8839136c75c9ae#9f3fb966-153b-457d-a1f3-ae65371b43b3",
-    1291,
+    1286,
     -1,
     "Swift"
   ],
   [
     "nspredicate-with-and-or-and-not-condition-301e630344c74df9b88ee9f9bde866c5",
-    1278,
-    1294,
+    1273,
+    1289,
     "NSPredicate with AND OR and NOT condition",
     ""
   ],
   [
     "nspredicate-with-and-or-and-not-condition-301e630344c74df9b88ee9f9bde866c5#ca11270b-8d84-43e9-a522-43e5b1cbc83a",
-    1293,
+    1288,
     -1,
     "Objective-c"
   ],
   [
     "nspredicate-with-and-or-and-not-condition-301e630344c74df9b88ee9f9bde866c5#6074971a-7619-4416-b80d-db8a130a972f",
-    1293,
+    1288,
     -1,
     "AND - Condition"
   ],
   [
     "nspredicate-with-and-or-and-not-condition-301e630344c74df9b88ee9f9bde866c5#b0cff295-d2b7-4363-93dc-01a62eb35ab6",
-    1293,
+    1288,
     -1,
     "OR - Condition"
   ],
   [
     "nspredicate-with-and-or-and-not-condition-301e630344c74df9b88ee9f9bde866c5#100063ab-f0e6-4983-b40e-68811b44aece",
-    1293,
+    1288,
     -1,
     "NOT - Condition"
   ],
   [
     "eventkit-e145631ca5c5420aa66a8644c1a84d6c",
     -1,
-    1299,
+    1294,
     "EventKit"
   ],
   [
     "accessing-different-types-of-calendars-675e6c5a6643496d8f50dd7501ebdbc6",
-    1298,
-    1300,
+    1293,
+    1295,
     "Accessing different types of calendars",
     ""
   ],
   [
     "accessing-different-types-of-calendars-675e6c5a6643496d8f50dd7501ebdbc6#c6bc4053-98d7-49b5-8f0a-40e2fa8da5b5",
-    1299,
+    1294,
     -1,
     "Accessing the array of calendars"
   ],
   [
     "accessing-different-types-of-calendars-675e6c5a6643496d8f50dd7501ebdbc6#66fc8baf-cb83-4f69-abb7-5dedf4ce5161",
-    1299,
+    1294,
     -1,
     "Swift"
   ],
   [
     "accessing-different-types-of-calendars-675e6c5a6643496d8f50dd7501ebdbc6#55b95737-3b7a-47f6-9a91-933cfa89e033",
-    1299,
+    1294,
     -1,
     "Iterating through calendars"
   ],
   [
     "accessing-different-types-of-calendars-675e6c5a6643496d8f50dd7501ebdbc6#398ab06c-4187-4915-adb1-d1adcd0dbff9",
-    1299,
+    1294,
     -1,
     "Swift"
   ],
   [
     "accessing-different-types-of-calendars-675e6c5a6643496d8f50dd7501ebdbc6#d817ad6e-c3af-453a-8d57-688869cc1642",
-    1299,
+    1294,
     -1,
     "Accessing the calendar title and color"
   ],
   [
     "accessing-different-types-of-calendars-675e6c5a6643496d8f50dd7501ebdbc6#a77e7b25-2a20-43fa-806f-76edc0ad7ef9",
-    1299,
+    1294,
     -1,
     "Swift"
   ],
   [
     "accessing-different-types-of-calendars-675e6c5a6643496d8f50dd7501ebdbc6#cda37b58-f76e-4147-b5c3-744ac15c446a",
-    1299,
+    1294,
     -1,
     "Objective-C"
   ],
   [
     "requesting-permission-e7782d9aae63458891b275a461ca8541",
-    1298,
-    1308,
+    1293,
+    1303,
     "Requesting Permission",
     ""
   ],
   [
     "requesting-permission-e7782d9aae63458891b275a461ca8541#3092b3cf-2c53-42da-b364-70e7457db3ab",
-    1307,
+    1302,
     -1,
     "Swift"
   ],
   [
     "requesting-permission-e7782d9aae63458891b275a461ca8541#5662a199-f751-4a82-8469-3d5cecfe4d34",
-    1307,
+    1302,
     -1,
     "Objective-C"
   ],
   [
     "requesting-permission-e7782d9aae63458891b275a461ca8541#1323001d-5626-4812-b6ef-539bb9535b0e",
-    1307,
+    1302,
     -1,
     "Making an EKEventStore"
   ],
   [
     "requesting-permission-e7782d9aae63458891b275a461ca8541#fa8e4bc2-8850-40b4-85af-3850cb8bb4e9",
-    1307,
+    1302,
     -1,
     "Swift"
   ],
   [
     "requesting-permission-e7782d9aae63458891b275a461ca8541#3a1f7990-13ad-413e-a96d-78e3a8f6a8ba",
-    1307,
+    1302,
     -1,
     "Objective-C"
   ],
   [
     "requesting-permission-e7782d9aae63458891b275a461ca8541#2bbd18c4-df95-450e-98ff-609c45974ceb",
-    1307,
+    1302,
     -1,
     "Note"
   ],
   [
     "requesting-permission-e7782d9aae63458891b275a461ca8541#b79c7fcc-c096-4ab5-b1a8-696ec2788c8d",
-    1307,
+    1302,
     -1,
     "Checking Availability"
   ],
   [
     "requesting-permission-e7782d9aae63458891b275a461ca8541#865bf248-df70-42fb-93d6-4963edffcbc5",
-    1307,
+    1302,
     -1,
     "Swift"
   ],
   [
     "requesting-permission-e7782d9aae63458891b275a461ca8541#7669fb9b-bdc2-45ba-b54b-f2d278c44387",
-    1307,
+    1302,
     -1,
     "Objective-C"
   ],
   [
     "requesting-permission-e7782d9aae63458891b275a461ca8541#3a2424a2-0ef3-410d-9892-6998096d716e",
-    1307,
+    1302,
     -1,
     "Requesting Permission"
   ],
   [
     "requesting-permission-e7782d9aae63458891b275a461ca8541#8cd7ce80-a894-45c6-860a-c0839f9d190d",
-    1307,
+    1302,
     -1,
     "Swift"
   ],
   [
     "0adding-an-event-ac7fe43da9554c7e86f5d987e5801393",
-    1298,
-    1320,
+    1293,
+    1315,
     "0Adding an event",
     ""
   ],
   [
     "0adding-an-event-ac7fe43da9554c7e86f5d987e5801393#c5593791-2852-4e37-9867-3213490cee9b",
-    1319,
+    1314,
     -1,
     "Creating the event object"
   ],
   [
     "0adding-an-event-ac7fe43da9554c7e86f5d987e5801393#752ed5a3-7fd3-4ab3-a8b3-3cbf1b9f7151",
-    1319,
+    1314,
     -1,
     "Swift"
   ],
   [
     "0adding-an-event-ac7fe43da9554c7e86f5d987e5801393#821c55b1-202f-4dda-800d-6ffc431afe96",
-    1319,
+    1314,
     -1,
     "Objective-C"
   ],
   [
     "0adding-an-event-ac7fe43da9554c7e86f5d987e5801393#b16cf2dd-1514-4bd1-a633-8de789a47db3",
-    1319,
+    1314,
     -1,
     "Setting related calendar, title and dates"
   ],
   [
     "0adding-an-event-ac7fe43da9554c7e86f5d987e5801393#95eceedb-c5f0-48e6-82cf-dd008ab4d874",
-    1319,
+    1314,
     -1,
     "Swift"
   ],
   [
     "0adding-an-event-ac7fe43da9554c7e86f5d987e5801393#bc815c03-60e3-45a9-abbd-85f933cbb5a5",
-    1319,
+    1314,
     -1,
     "Adding event to calendar"
   ],
   [
     "0adding-an-event-ac7fe43da9554c7e86f5d987e5801393#50bdc167-5557-4d3a-bac9-e99675ee2051",
-    1319,
+    1314,
     -1,
     "Swift"
   ],
   [
     "0adding-an-event-ac7fe43da9554c7e86f5d987e5801393#38df3806-adfd-41bf-80fc-3297dff0acb0",
-    1319,
+    1314,
     -1,
     "Objective-C"
   ],
   [
     "nsbundle-a86b05efa1e2416991f83a6ffc7c127c",
     -1,
-    1329,
+    1324,
     "NSBundle"
   ],
   [
     "getting-bundle-by-path-b399001d82e44723aa0063f07961fe65",
-    1328,
+    1323,
     -1,
     "Getting Bundle by Path",
     ""
   ],
   [
     "getting-the-main-bundle-8d9f4845d76d4da6ab8ae7158ca6910b",
-    1328,
+    1323,
     -1,
     "Getting the Main Bundle",
     ""
@@ -8531,228 +8500,228 @@ gTocItems = [
   [
     "sirikit-412bcab78ba949f8b92b85545a0eff2a",
     -1,
-    1332,
+    1327,
     "SiriKit"
   ],
   [
     "sirikit-1efccf2aebca40df98200be74877cf76",
-    1331,
-    1333,
+    1326,
+    1328,
     "SiriKit",
     ""
   ],
   [
     "sirikit-1efccf2aebca40df98200be74877cf76#bd989bee-3cb9-4901-9ddf-1d9934b8c24f",
-    1332,
+    1327,
     -1,
     "Remarks"
   ],
   [
     "sirikit-1efccf2aebca40df98200be74877cf76#02ae408a-00c6-423d-9e57-ad073954a99d",
-    1332,
+    1327,
     -1,
     "Different types of Siri requests"
   ],
   [
     "adding-siri-extension-to-app-5cad6daeae33484997f94771a9e88f37",
+    1326,
     1331,
-    1336,
     "Adding Siri Extension to App",
     ""
   ],
   [
     "adding-siri-extension-to-app-5cad6daeae33484997f94771a9e88f37#17f36fb4-5071-4e9f-a0c1-f587c0281d28",
-    1335,
+    1330,
     -1,
     "Adding capability"
   ],
   [
     "adding-siri-extension-to-app-5cad6daeae33484997f94771a9e88f37#edfa8a46-2b2f-4c8b-af22-cb5b4fc6c984",
-    1335,
+    1330,
     -1,
     "Adding the extension"
   ],
   [
     "adding-siri-extension-to-app-5cad6daeae33484997f94771a9e88f37#064661e8-02b8-4853-8b36-d0692b049954",
-    1335,
+    1330,
     -1,
     "According to Apple:"
   ],
   [
     "adding-siri-extension-to-app-5cad6daeae33484997f94771a9e88f37#3b442b18-7bcc-4464-810c-5f8a8be39920",
-    1335,
+    1330,
     -1,
     "Note"
   ],
   [
     "adding-siri-extension-to-app-5cad6daeae33484997f94771a9e88f37#2e58ae7d-4e07-47a9-978e-970d2dfd7b16",
-    1335,
+    1330,
     -1,
     "Note"
   ],
   [
     "contacts-framework-01d9ad725b374e4d96ef12541877ae55",
     -1,
-    1342,
+    1337,
     "Contacts Framework"
   ],
   [
     "contacts-framework-967da51f84f04d3ebb4ebcda851bb8a6",
-    1341,
-    1343,
+    1336,
+    1338,
     "Contacts Framework",
     ""
   ],
   [
     "contacts-framework-967da51f84f04d3ebb4ebcda851bb8a6#cbc5430c-8d48-4344-a916-5ddde2e48597",
-    1342,
+    1337,
     -1,
     "Remarks"
   ],
   [
     "contacts-framework-967da51f84f04d3ebb4ebcda851bb8a6#255e74ac-3325-42e7-8007-cff6cecdc841",
-    1342,
+    1337,
     -1,
     "Useful Links"
   ],
   [
     "authorizing-contact-access-dcc767f2d3f742cf94c50aece3ed9fda",
+    1336,
     1341,
-    1346,
     "Authorizing Contact Access",
     ""
   ],
   [
     "authorizing-contact-access-dcc767f2d3f742cf94c50aece3ed9fda#b8b9455c-f378-4800-a27a-8a013b75ccbe",
-    1345,
+    1340,
     -1,
     "Importing the framework"
   ],
   [
     "authorizing-contact-access-dcc767f2d3f742cf94c50aece3ed9fda#e29ed858-1afa-4c2d-b4b4-0b45a213eb0f",
-    1345,
+    1340,
     -1,
     "Swift"
   ],
   [
     "authorizing-contact-access-dcc767f2d3f742cf94c50aece3ed9fda#c150abd4-2bd9-4803-b096-0e6b73d4d545",
-    1345,
+    1340,
     -1,
     "Objective-C"
   ],
   [
     "authorizing-contact-access-dcc767f2d3f742cf94c50aece3ed9fda#61630b71-7e90-4152-844d-d104803e2f56",
-    1345,
+    1340,
     -1,
     "Checking accessibility"
   ],
   [
     "authorizing-contact-access-dcc767f2d3f742cf94c50aece3ed9fda#c8d86317-9d38-4297-a6c2-0a79c4a9c559",
-    1345,
+    1340,
     -1,
     "Swift"
   ],
   [
     "authorizing-contact-access-dcc767f2d3f742cf94c50aece3ed9fda#3414a706-e0d8-4981-b079-747fa721361c",
-    1345,
+    1340,
     -1,
     "Objective-C"
   ],
   [
     "authorizing-contact-access-dcc767f2d3f742cf94c50aece3ed9fda#5781d20b-f68e-46b7-9b81-defa43c2b309",
-    1345,
+    1340,
     -1,
     "Requesting Permission"
   ],
   [
     "authorizing-contact-access-dcc767f2d3f742cf94c50aece3ed9fda#de0cacb7-06bb-4809-b310-55f708a48350",
-    1345,
+    1340,
     -1,
     "Swift"
   ],
   [
     "accessing-contacts-9681d08919cc4ec2a4034cda26de68fd",
-    1341,
-    1355,
+    1336,
+    1350,
     "Accessing Contacts",
     ""
   ],
   [
     "accessing-contacts-9681d08919cc4ec2a4034cda26de68fd#e5c6de83-4fa9-43cb-93f8-ee155fedeea0",
-    1354,
+    1349,
     -1,
     "Applying a filter"
   ],
   [
     "accessing-contacts-9681d08919cc4ec2a4034cda26de68fd#f6817f9a-a9a2-47b1-a70f-615af0e9ee18",
-    1354,
+    1349,
     -1,
     "Swift"
   ],
   [
     "accessing-contacts-9681d08919cc4ec2a4034cda26de68fd#4c7d7079-8a63-48dc-89fc-6270c9b6a1bf",
-    1354,
+    1349,
     -1,
     "Objective-C"
   ],
   [
     "accessing-contacts-9681d08919cc4ec2a4034cda26de68fd#00cc1793-fc3c-4b57-94c8-bf5c3cd4a160",
-    1354,
+    1349,
     -1,
     "Specifying keys to fetch"
   ],
   [
     "accessing-contacts-9681d08919cc4ec2a4034cda26de68fd#2d166a81-a55d-4053-925b-a25873e20843",
-    1354,
+    1349,
     -1,
     "Swift"
   ],
   [
     "accessing-contacts-9681d08919cc4ec2a4034cda26de68fd#fe6d1054-ea18-4912-8161-e034b390cf4c",
-    1354,
+    1349,
     -1,
     "Fetching contacts"
   ],
   [
     "accessing-contacts-9681d08919cc4ec2a4034cda26de68fd#44daf9ac-1212-478c-a823-668addf253fb",
-    1354,
+    1349,
     -1,
     "Swift"
   ],
   [
     "accessing-contacts-9681d08919cc4ec2a4034cda26de68fd#0653a474-c58d-44fa-8360-c65ed9c1ba29",
-    1354,
+    1349,
     -1,
     "Accessing contact details"
   ],
   [
     "accessing-contacts-9681d08919cc4ec2a4034cda26de68fd#508a59d3-9390-41c2-b554-3b2a982d67a6",
-    1354,
+    1349,
     -1,
     "Swift"
   ],
   [
     "0adding-a-contact-2f49060ed94d4d529bd63f58da94a6d5",
-    1341,
-    1365,
+    1336,
+    1360,
     "0Adding a Contact",
     ""
   ],
   [
     "0adding-a-contact-2f49060ed94d4d529bd63f58da94a6d5#8a35f937-63e7-430a-b673-a6932f15a030",
-    1364,
+    1359,
     -1,
     "Swift"
   ],
   [
     "dynamically-updating-a-uistackview-13746bb48e214cacb126fa1053d99ce5",
     -1,
-    1367,
+    1362,
     "Dynamically updating a UIStackView"
   ],
   [
     "connect-the-uiswitch-to-an-action-we-can-animate-switching-between-a-horizontal-or-vertical-layout-of-the-image-views-1d7d06bd050b440a92d8d25ff9053f65",
-    1366,
+    1361,
     -1,
     "Connect the UISwitch to an action we can animate switching between a horizontal or vertical layout of the image views",
     ""
@@ -8760,12 +8729,12 @@ gTocItems = [
   [
     "speech-recognition-b5a324d7bc784248862e18d76525e6ff",
     -1,
-    1369,
+    1364,
     "Speech Recognition"
   ],
   [
     "speech-to-text-recognize-speech-from-a-bundle-contained-audio-recording-ff03964defa74e78821d0c0ff6531104",
-    1368,
+    1363,
     -1,
     "Speech to text Recognize speech from a bundle contained audio recording",
     ""
@@ -8773,26 +8742,26 @@ gTocItems = [
   [
     "nsurlconnection-ec2465ef1d994aa2aed012926b09bd1b",
     -1,
-    1371,
+    1366,
     "NSURLConnection"
   ],
   [
     "delegate-methods-b9e16c17939d4d3d938561554628908a",
-    1370,
+    1365,
     -1,
     "Delegate methods",
     ""
   ],
   [
     "synchronous-request-71adf52e94214c1cb85dd5578e77578a",
-    1370,
+    1365,
     -1,
     "Synchronous Request",
     ""
   ],
   [
     "asynchronous-request-0c4a36f72f24476ca96eeb8836345440",
-    1370,
+    1365,
     -1,
     "Asynchronous request",
     ""
@@ -8800,12 +8769,12 @@ gTocItems = [
   [
     "storekit-a8d33480b9e24db79e653241d9234f91",
     -1,
-    1375,
+    1370,
     "StoreKit"
   ],
   [
     "get-localized-product-information-from-the-app-store-60056b31ffd94cc484af84176e9c97e7",
-    1374,
+    1369,
     -1,
     "Get localized product information from the App Store",
     ""
@@ -8813,43 +8782,43 @@ gTocItems = [
   [
     "code-signing-38e6ff5174c34a6e8bb8337b4df809f1",
     -1,
-    1377,
+    1372,
     "Code signing"
   ],
   [
     "provisioning-profiles-9bef22963f004e109c28fc22b93b575d",
-    1376,
-    1378,
+    1371,
+    1373,
     "Provisioning Profiles",
     ""
   ],
   [
     "provisioning-profiles-9bef22963f004e109c28fc22b93b575d#2e398b75-205a-41e6-af1a-777bd091cc73",
-    1377,
+    1372,
     -1,
     "Provisioning Profile Types"
   ],
   [
     "provisioning-profiles-9bef22963f004e109c28fc22b93b575d#f486d437-86f0-4700-a3d7-d6a432118543",
-    1377,
+    1372,
     -1,
     "Development"
   ],
   [
     "provisioning-profiles-9bef22963f004e109c28fc22b93b575d#cc43f113-74ea-457f-93ed-b5a7420df028",
-    1377,
+    1372,
     -1,
     "Distribution"
   ],
   [
     "ipa-file-to-upload-on-appstore-with-applicationloader-816f799bb14540808c7b59d441ea7611",
     -1,
-    1382,
+    1377,
     ".ipa file to upload on appstore with ApplicationLoader"
   ],
   [
     "create-ipa-file-to-upload-app-to-appstore-with-application-loader-19e094a00d884729b062a7354b3f783e",
-    1381,
+    1376,
     -1,
     "create .ipa file to upload app to appstore with Application Loader",
     ""
@@ -8857,25 +8826,25 @@ gTocItems = [
   [
     "resizing-uiimage-cffa9234a8a542eaa239318800b722af",
     -1,
-    1384,
+    1379,
     "Resizing UIImage"
   ],
   [
     "resizing-uiimage-a1608672ae2d47b2bbb4fa3409b9fafc",
-    1383,
-    1385,
+    1378,
+    1380,
     "Resizing UIImage",
     ""
   ],
   [
     "resizing-uiimage-a1608672ae2d47b2bbb4fa3409b9fafc#e1c62de9-2690-45a1-8273-174ec1b201c0",
-    1384,
+    1379,
     -1,
     "Parameters"
   ],
   [
     "01resize-any-image-by-size-quality-e68f6a4923dc43baa07bbbdcf94e14ad",
-    1383,
+    1378,
     -1,
     "01Resize any image by size quality",
     ""
@@ -8883,25 +8852,25 @@ gTocItems = [
   [
     "size-classes-and-adaptivity-38e1567f9314412d875109ef7aaaee15",
     -1,
-    1388,
+    1383,
     "Size Classes and Adaptivity"
   ],
   [
     "size-classes-and-adaptivity-d4611852215640c19aa0368a1506ee03",
-    1387,
-    1389,
+    1382,
+    1384,
     "Size Classes and Adaptivity",
     ""
   ],
   [
     "size-classes-and-adaptivity-d4611852215640c19aa0368a1506ee03#73507b82-3a68-41fd-9832-4cc7fd4592ca",
-    1388,
+    1383,
     -1,
     "Remarks"
   ],
   [
     "size-classes-and-adaptivity-through-storyboard-c138db0ec97a4f4a92929fd027517f11",
-    1387,
+    1382,
     -1,
     "Size Classes and Adaptivity through Storyboard",
     ""
@@ -8909,26 +8878,26 @@ gTocItems = [
   [
     "mkdistanceformatter-eebd19bbb45b41c980e3bddca0462d95",
     -1,
-    1392,
+    1387,
     "MKDistanceFormatter"
   ],
   [
     "string-from-distance-8c13ec96b81b4319baa75f19b7271941",
-    1391,
+    1386,
     -1,
     "String from distance",
     ""
   ],
   [
     "distance-units-59c679b5bf0b4bd3b101284454a04d39",
-    1391,
+    1386,
     -1,
     "Distance units",
     ""
   ],
   [
     "unit-style-254920dedfc94638ae3303d1521732ea",
-    1391,
+    1386,
     -1,
     "Unit style",
     ""
@@ -8936,19 +8905,19 @@ gTocItems = [
   [
     "3d-touch-9163750c05c041a5a347b1d61085b7c8",
     -1,
-    1396,
+    1391,
     "3D Touch"
   ],
   [
     "3d-touch-with-swift-4cb5ed4019c540f6ac95675223c1b7a8",
-    1395,
+    1390,
     -1,
     "3D Touch with Swift",
     ""
   ],
   [
     "d-touch-objective-c-example-53e48cd06819451db7182e705919b17a",
-    1395,
+    1390,
     -1,
     "D Touch Objective-C Example",
     ""
@@ -8956,12 +8925,12 @@ gTocItems = [
   [
     "gamecenter-leaderboards-d219b2ed8b8043dfaf87c7056d275085",
     -1,
-    1399,
+    1394,
     "GameCenter Leaderboards"
   ],
   [
     "gamecenter-leaderboards-0001e01670ae40f6be37fcaa78c15d10",
-    1398,
+    1393,
     -1,
     "GameCenter Leaderboards",
     ""
@@ -8969,192 +8938,192 @@ gTocItems = [
   [
     "keychain-8b055c1865b844bd93de3f6853c8e88d",
     -1,
-    1401,
+    1396,
     "Keychain"
   ],
   [
     "0keychain-419241b2f0f64dba81de80376de7b76a",
-    1400,
-    1402,
+    1395,
+    1397,
     "0Keychain",
     ""
   ],
   [
     "0keychain-419241b2f0f64dba81de80376de7b76a#31eb3d78-a167-4092-9ef5-23a31dc7c3dd",
-    1401,
+    1396,
     -1,
     "Syntax"
   ],
   [
     "0keychain-419241b2f0f64dba81de80376de7b76a#2db6e5ff-4981-4974-bf60-05ecd906230f",
-    1401,
+    1396,
     -1,
     "Remarks"
   ],
   [
     "adding-a-password-to-the-keychain-d3297109728f4ab6a6649591faf61a49",
+    1395,
     1400,
-    1405,
     "Adding a Password to the Keychain",
     ""
   ],
   [
     "adding-a-password-to-the-keychain-d3297109728f4ab6a6649591faf61a49#69fa6451-fbc1-4ad7-9704-cbd816a1ddb8",
-    1404,
+    1399,
     -1,
     "Swift"
   ],
   [
     "adding-a-password-to-the-keychain-d3297109728f4ab6a6649591faf61a49#f523cd0e-68df-42ad-b18d-27a77f2d8e89",
-    1404,
+    1399,
     -1,
     "Swift"
   ],
   [
     "adding-a-password-to-the-keychain-d3297109728f4ab6a6649591faf61a49#d69f01b4-d326-4b54-a60f-b233963ae3b4",
-    1404,
+    1399,
     -1,
     "Swift"
   ],
   [
     "adding-a-password-to-the-keychain-d3297109728f4ab6a6649591faf61a49#f5656056-e4d3-45ce-acb1-3c91258a3585",
-    1404,
+    1399,
     -1,
     "Swift"
   ],
   [
     "adding-a-password-to-the-keychain-d3297109728f4ab6a6649591faf61a49#2068191f-1333-4c9e-8e72-0f6c117880ce",
-    1404,
+    1399,
     -1,
     "Swift"
   ],
   [
     "adding-a-password-to-the-keychain-d3297109728f4ab6a6649591faf61a49#6727107a-a98b-42aa-a6dd-408a2f459456",
-    1404,
+    1399,
     -1,
     "Swift"
   ],
   [
     "keychain-access-control-touchid-with-password-fallback-2b946c8cb66445ef85900ae0041d56b9",
-    1400,
-    1412,
+    1395,
+    1407,
     "Keychain Access Control TouchID with password fallback",
     ""
   ],
   [
     "keychain-access-control-touchid-with-password-fallback-2b946c8cb66445ef85900ae0041d56b9#6ba5721d-72b7-4658-901a-6ab5ac597cb2",
-    1411,
+    1406,
     -1,
     "Swift"
   ],
   [
     "keychain-access-control-touchid-with-password-fallback-2b946c8cb66445ef85900ae0041d56b9#8df0a1d3-4c40-4dff-813c-ca7c450fc947",
-    1411,
+    1406,
     -1,
     "Swift"
   ],
   [
     "keychain-access-control-touchid-with-password-fallback-2b946c8cb66445ef85900ae0041d56b9#d2043c70-647b-48e2-99dd-1e44ae1c8d4a",
-    1411,
+    1406,
     -1,
     "Swift"
   ],
   [
     "keychain-access-control-touchid-with-password-fallback-2b946c8cb66445ef85900ae0041d56b9#00b6b8af-5e1f-43d2-9d24-c423158671ee",
-    1411,
+    1406,
     -1,
     "Swift"
   ],
   [
     "keychain-access-control-touchid-with-password-fallback-2b946c8cb66445ef85900ae0041d56b9#d73e55b1-8f4f-420d-ae02-3ba812703185",
-    1411,
+    1406,
     -1,
     "Swift"
   ],
   [
     "finding-a-password-in-the-keychain-04b93e101ed9479c8b11ae74e7ecd8ef",
-    1400,
-    1418,
+    1395,
+    1413,
     "Finding a Password in the Keychain",
     ""
   ],
   [
     "finding-a-password-in-the-keychain-04b93e101ed9479c8b11ae74e7ecd8ef#c566c31d-590e-4b3f-8afe-a456e5f16220",
-    1417,
+    1412,
     -1,
     "Swift"
   ],
   [
     "finding-a-password-in-the-keychain-04b93e101ed9479c8b11ae74e7ecd8ef#fb463a05-e59d-43e2-8130-c4d1b11a0ae3",
-    1417,
+    1412,
     -1,
     "Swift"
   ],
   [
     "finding-a-password-in-the-keychain-04b93e101ed9479c8b11ae74e7ecd8ef#ce32a9fe-b9b4-4c1d-8191-8418eacb39dd",
-    1417,
+    1412,
     -1,
     "Swift"
   ],
   [
     "finding-a-password-in-the-keychain-04b93e101ed9479c8b11ae74e7ecd8ef#9871d937-7db2-4a59-85c8-23173554b47f",
-    1417,
+    1412,
     -1,
     "Swift"
   ],
   [
     "updating-a-password-in-the-keychain-b2ffb18c8ee74be89086cfaa382fdd12",
-    1400,
-    1423,
+    1395,
+    1418,
     "Updating a Password in the Keychain",
     ""
   ],
   [
     "updating-a-password-in-the-keychain-b2ffb18c8ee74be89086cfaa382fdd12#e0b3f362-a861-4fe0-ab00-088fbbb3cffb",
-    1422,
+    1417,
     -1,
     "Swift"
   ],
   [
     "updating-a-password-in-the-keychain-b2ffb18c8ee74be89086cfaa382fdd12#9a864190-7e66-493d-8ce0-fe793226a126",
-    1422,
+    1417,
     -1,
     "Swift"
   ],
   [
     "updating-a-password-in-the-keychain-b2ffb18c8ee74be89086cfaa382fdd12#3d52bf24-9e85-4616-96c7-daafc41bb9ab",
-    1422,
+    1417,
     -1,
     "Swift"
   ],
   [
     "updating-a-password-in-the-keychain-b2ffb18c8ee74be89086cfaa382fdd12#8d72567c-9635-4ed4-9ccb-75cdd48f9f05",
-    1422,
+    1417,
     -1,
     "Swift"
   ],
   [
     "removing-a-password-from-the-keychain-7eee3a91ca90415e86e43759cf54e116",
-    1400,
-    1428,
+    1395,
+    1423,
     "Removing a Password from the Keychain",
     ""
   ],
   [
     "removing-a-password-from-the-keychain-7eee3a91ca90415e86e43759cf54e116#a357b488-5de0-4d8f-a4e3-ba47787210e0",
-    1427,
+    1422,
     -1,
     "Swift"
   ],
   [
     "removing-a-password-from-the-keychain-7eee3a91ca90415e86e43759cf54e116#fc6cb562-b10d-4de5-96ff-0f71a4ad662f",
-    1427,
+    1422,
     -1,
     "Swift"
   ],
   [
     "keychain-add-update-remove-and-find-operations-using-one-file-9d4170d8d47b4afd86249b82c5107f71",
-    1400,
+    1395,
     -1,
     "Keychain Add Update Remove and Find operations using one file.",
     ""
@@ -9162,12 +9131,12 @@ gTocItems = [
   [
     "handle-multiple-environment-using-macro-2271c0f07b444845a9409b148a77ca5e",
     -1,
-    1432,
+    1427,
     "Handle Multiple Environment using Macro"
   ],
   [
     "handle-multiple-environment-using-multiple-target-and-macro-2a46c23cc3a04e4aa3708343e564da64",
-    1431,
+    1426,
     -1,
     "Handle multiple environment using multiple target and macro",
     ""
@@ -9175,33 +9144,33 @@ gTocItems = [
   [
     "set-view-background-3f86d524b4e94909972c1b697a79898d",
     -1,
-    1434,
+    1429,
     "Set View Background"
   ],
   [
     "set-view-background-f50847b5818847d7acdde0234bea6674",
-    1433,
+    1428,
     -1,
     "Set View background",
     ""
   ],
   [
     "fill-background-image-of-a-uiview-e37f20b3855e415092cf8b5e8912121c",
-    1433,
+    1428,
     -1,
     "Fill background Image of a UIView",
     ""
   ],
   [
     "set-view-background-with-image-a7cdb10b3f32498c83d437dab6496d84",
-    1433,
+    1428,
     -1,
     "Set View background with image",
     ""
   ],
   [
     "04creating-a-gradient-background-view-fdbee9f1a6d4484e9a7a20cca01d85a2",
-    1433,
+    1428,
     -1,
     "04Creating a gradient background view",
     ""
@@ -9209,39 +9178,39 @@ gTocItems = [
   [
     "block-48aa82516704499e9d436b571e771d32",
     -1,
-    1439,
+    1434,
     "Block"
   ],
   [
     "block-19095494e6ad4775b381f7d7df9c8538",
-    1438,
-    1440,
+    1433,
+    1435,
     "Block",
     ""
   ],
   [
     "block-19095494e6ad4775b381f7d7df9c8538#9a44bb14-76fd-4487-b864-0a22cca32853",
-    1439,
+    1434,
     -1,
     "Syntax"
   ],
   [
     "custom-completion-block-for-custom-methods-b7381b1d427346f6b2d1efba345f96d5",
-    1438,
+    1433,
     -1,
     "Custom completion block for Custom Methods",
     ""
   ],
   [
     "uiview-animations-607620d189114dd1b2598b56666b155f",
-    1438,
+    1433,
     -1,
     "UIView Animations",
     ""
   ],
   [
     "modify-captured-variable-16d91639af6f4732bcebdf102bc08042",
-    1438,
+    1433,
     -1,
     "Modify captured variable",
     ""
@@ -9249,25 +9218,25 @@ gTocItems = [
   [
     "content-hugging-700d27b75d4b47ffabde321ded732d61",
     -1,
-    1445,
+    1440,
     "Content Hugging"
   ],
   [
     "content-huggingcontent-compression-in-autolayout-f984b4e9294d41589971eaf41e9a4b3c",
-    1444,
-    1446,
+    1439,
+    1441,
     "Content HuggingContent Compression in Autolayout",
     ""
   ],
   [
     "content-huggingcontent-compression-in-autolayout-f984b4e9294d41589971eaf41e9a4b3c#0ae5af4f-9ae1-472e-ac5c-d3a65fd0cfef",
-    1445,
+    1440,
     -1,
     "Remarks"
   ],
   [
     "definition-intrinsic-content-size-dc1e24c7ad16463b84023d3eeb25b46d",
-    1444,
+    1439,
     -1,
     "Definition Intrinsic Content Size",
     ""
@@ -9281,19 +9250,19 @@ gTocItems = [
   [
     "navigation-bar-268bd7f2babb4bdb84f50dbf14e493ec",
     -1,
-    1450,
+    1445,
     "Navigation Bar"
   ],
   [
     "swift-example-7e26b817191f47a4b9d8d4434a7870a8",
-    1449,
+    1444,
     -1,
     "SWIFT Example",
     ""
   ],
   [
     "customize-default-navigation-bar-appearance-0093a4013ab74e1cb4e2a5a817a8b03e",
-    1449,
+    1444,
     -1,
     "Customize default navigation bar appearance.",
     ""
@@ -9301,26 +9270,26 @@ gTocItems = [
   [
     "uitextfield-delegate-af5267c721cb4ae58a1837c55c089715",
     -1,
-    1453,
+    1448,
     "UITextField Delegate"
   ],
   [
     "uitextfield-restrict-textfield-to-certain-characters-cf2d848f1c5349028d655c3da768175a",
-    1452,
+    1447,
     -1,
     "UITextField - Restrict textfield to certain characters",
     ""
   ],
   [
     "actions-when-a-user-has-started-ended-interacting-with-a-textfield-b14d341756414084b75aaaf32053f299",
-    1452,
+    1447,
     -1,
     "Actions when a user has started / ended interacting with a textfield",
     ""
   ],
   [
     "03find-next-tag-manage-keyboard-bdff9197711d47238b1543b3c5e8afc7",
-    1452,
+    1447,
     -1,
     "03Find Next Tag Manage Keyboard",
     ""
@@ -9328,19 +9297,19 @@ gTocItems = [
   [
     "app-wide-operations-65adc4e071724277a751e6fbc60e5556",
     -1,
-    1457,
+    1452,
     "App-wide operations"
   ],
   [
     "get-the-top-most-uiviewcontroller-aa46500969714145aa46cefc20f2af3e",
-    1456,
+    1451,
     -1,
     "Get the top most UIViewController",
     ""
   ],
   [
     "intercept-system-events-f586892616c34d209a1b6b08210806fe",
-    1456,
+    1451,
     -1,
     "Intercept System Events",
     ""
@@ -9348,19 +9317,19 @@ gTocItems = [
   [
     "uilabel-text-underlining-61129e404b3040809c05fddea2874917",
     -1,
-    1460,
+    1455,
     "UILabel text underlining"
   ],
   [
     "underlining-a-text-in-a-uilabel-using-objective-c-38fe0f2bd62b46dda902f9f21ea3c690",
-    1459,
+    1454,
     -1,
     "Underlining a text in a UILabel using Objective C",
     ""
   ],
   [
     "underlining-a-text-in-uilabel-using-swift-2e07a3c65a2948cfbf9fbab32eb1cf28",
-    1459,
+    1454,
     -1,
     "Underlining a text in UILabel using Swift",
     ""
@@ -9368,18 +9337,18 @@ gTocItems = [
   [
     "cut-a-uiimage-into-a-circle-8bb6db06110e4da5a87303004d0b018f",
     -1,
-    1463,
+    1458,
     "Cut a UIImage into a circle"
   ],
   [
     "cut-a-uiimage-into-a-circle-8bb6db06110e4da5a87303004d0b018f#e957ad9e-4ca4-4adb-92c2-b03f3ca2852f",
-    1462,
+    1457,
     -1,
     "Objective-C version"
   ],
   [
     "cut-a-uiimage-into-a-circle-8bb6db06110e4da5a87303004d0b018f#6d317316-1995-4b16-8b0e-c50d2f5ebc9a",
-    1462,
+    1457,
     -1,
     "SWIFT 3 Example"
   ],
@@ -9398,12 +9367,12 @@ gTocItems = [
   [
     "convert-nsattributedstring-to-uiimage-04b33a50b35242afb0134bb7d6cc53a5",
     -1,
-    1468,
+    1463,
     "Convert NSAttributedString to UIImage"
   ],
   [
     "nsattributedstring-to-uiimage-conversion-4edbd654110c4746a1320f7e29583d9d",
-    1467,
+    1462,
     -1,
     "NSAttributedString to UIImage Conversion",
     ""
@@ -9411,12 +9380,12 @@ gTocItems = [
   [
     "coreimage-filters-ba3eb74a5a9c470f8570b42a3e4615d2",
     -1,
-    1470,
+    1465,
     "CoreImage Filters"
   ],
   [
     "core-image-filter-example-36fd9d1f9c764195a44620c368fe6bc0",
-    1469,
+    1464,
     -1,
     "Core Image Filter Example",
     ""
@@ -9424,12 +9393,12 @@ gTocItems = [
   [
     "face-detection-using-coreimageopencv-4d0bc171666d401191cc35ada0815e6c",
     -1,
-    1472,
+    1467,
     "Face Detection Using CoreImageOpenCV"
   ],
   [
     "face-and-feature-detection-f802f695dff24a21943b982f8f053d42",
-    1471,
+    1466,
     -1,
     "Face and Feature Detection",
     ""
@@ -9437,25 +9406,25 @@ gTocItems = [
   [
     "mpmediapickerdelegate-89a8006ee11e41f0be2af75b45cac04b",
     -1,
-    1474,
+    1469,
     "MPMediaPickerDelegate"
   ],
   [
     "mpmediapickerdelegate-d29d05cee6b54afe9bbd81ae6dce5f90",
-    1473,
-    1475,
+    1468,
+    1470,
     "MPMediaPickerDelegate",
     ""
   ],
   [
     "mpmediapickerdelegate-d29d05cee6b54afe9bbd81ae6dce5f90#fa7cb3c2-fcb0-4c64-8d90-2c15642bffba",
-    1474,
+    1469,
     -1,
     "Remarks"
   ],
   [
     "load-music-with-mpmediapickercontrollerdelegate-and-play-it-with-avaudioplayer-42146bf191bc4838bafe2234af9c7cb9",
-    1473,
+    1468,
     -1,
     "Load music with MPMediaPickerControllerDelegate and play it with AVAudioPlayer",
     ""
@@ -9463,12 +9432,12 @@ gTocItems = [
   [
     "graph-coreplot-56c78c8b90704aac925d8a7d9ad40920",
     -1,
-    1478,
+    1473,
     "Graph Coreplot"
   ],
   [
     "making-graphs-with-coreplot-031e4a7661a744949e878cbe82fb298e",
-    1477,
+    1472,
     -1,
     "Making graphs with CorePlot",
     ""
@@ -9476,12 +9445,12 @@ gTocItems = [
   [
     "nshttpcookiestorage-847c272f114e41a8ab2c710754cbdf1a",
     -1,
-    1480,
+    1475,
     "NSHTTPCookieStorage"
   ],
   [
     "store-and-read-the-cookies-from-nsuserdefault-9863764bd5f040948ea560b921047df0",
-    1479,
+    1474,
     -1,
     "Store and read the cookies from NSUserDefault",
     ""
@@ -9489,18 +9458,18 @@ gTocItems = [
   [
     "fcm-messaging-9e8d1004e1d84e20a199f4e926c84945",
     -1,
-    1482,
+    1477,
     "FCM Messaging"
   ],
   [
     "fcm-messaging-9e8d1004e1d84e20a199f4e926c84945#673f5e5f-228e-46c6-a02f-588b824f849f",
-    1481,
+    1476,
     -1,
     "Remarks"
   ],
   [
     "initialize-fcm-in-swift-da78dc79e7984f73aef66d8569ed3735",
-    1481,
+    1476,
     -1,
     "Initialize FCM in Swift",
     ""
@@ -9508,12 +9477,12 @@ gTocItems = [
   [
     "create-custom-framework-95d92daa90864b6d84fe55e366e8d733",
     -1,
-    1485,
+    1480,
     "Create Custom Framework"
   ],
   [
     "create-framework-in-swift-bf79038ba37344f8bb30c58183d83466",
-    1484,
+    1479,
     -1,
     "Create Framework in Swift",
     ""
@@ -9521,12 +9490,12 @@ gTocItems = [
   [
     "custom-keyboard-44263bf72a18423c83fd12b7304c9fb2",
     -1,
-    1487,
+    1482,
     "Custom Keyboard"
   ],
   [
     "custom-keyboard-example-8c58960e2c0a424190ced09f06c59243",
-    1486,
+    1481,
     -1,
     "Custom KeyBoard Example",
     ""
@@ -9534,12 +9503,12 @@ gTocItems = [
   [
     "airdrop-7ce14f8629be46b5b6854f6d94259e09",
     -1,
-    1489,
+    1484,
     "AirDrop"
   ],
   [
     "airdrop-a43daa55efb04da9befda468157a394c",
-    1488,
+    1483,
     -1,
     "AirDrop",
     ""
@@ -9547,12 +9516,12 @@ gTocItems = [
   [
     "slcomposeviewcontroller-9574d17fc1a742a79bfd4aa1b5a11c24",
     -1,
-    1491,
+    1486,
     "SLComposeViewController"
   ],
   [
     "slcomposeviewcontroller-for-twitter-facebook-sinawelbo-and-tencentwelbo-d67d49530d13491f918c996e598391ca",
-    1490,
+    1485,
     -1,
     "SLComposeViewController for Twitter facebook SinaWelbo and TencentWelbo",
     ""
@@ -9560,12 +9529,12 @@ gTocItems = [
   [
     "airprint-tutorial-09f79be5020746af9894b012f4cd8b28",
     -1,
-    1493,
+    1488,
     "AirPrint tutorial"
   ],
   [
     "airprint-printing-banner-text-1c21f34ffa154c1b82c83ce295017de0",
-    1492,
+    1487,
     -1,
     "AirPrint printing Banner Text",
     ""
@@ -9573,26 +9542,26 @@ gTocItems = [
   [
     "uislider-c0eec5a3fda643b289c0e6e298abbd4a",
     -1,
-    1495,
+    1490,
     "UISlider"
   ],
   [
     "uislider-dd2ec58f42594f379e4d6f0d5737d9b4",
-    1494,
+    1489,
     -1,
     "UISlider",
     ""
   ],
   [
     "swift-example-5e5fe86c650a48b5b9cb48a578e29d10",
-    1494,
+    1489,
     -1,
     "SWIFT Example",
     ""
   ],
   [
     "adding-a-custom-thumb-image-a122cb467f0f45c18c1b44c758562125",
-    1494,
+    1489,
     -1,
     "Adding a custom thumb image",
     ""
@@ -9600,12 +9569,12 @@ gTocItems = [
   [
     "carthage-b5f1c3f693c9445d882e7e0b2821589a",
     -1,
-    1499,
+    1494,
     "Carthage"
   ],
   [
     "carthage-installation-mac-18f181acd64544a3a6f0b7a486778c99",
-    1498,
+    1493,
     -1,
     "Carthage Installation Mac",
     ""
@@ -9613,12 +9582,12 @@ gTocItems = [
   [
     "healthkit-95004bf62de343cd9c8f148f5c80a5c5",
     -1,
-    1501,
+    1496,
     "HealthKit"
   ],
   [
     "healthkit-7fd755273ba347ae97d79982c6d61366",
-    1500,
+    1495,
     -1,
     "HealthKit",
     ""
@@ -9626,12 +9595,12 @@ gTocItems = [
   [
     "core-spotlight-ac103a8f5ae846f2b260680041442621",
     -1,
-    1503,
+    1498,
     "Core SpotLight"
   ],
   [
     "core-spotlight-d8c54bb1b4934c08bfc1b50cc6e3da46",
-    1502,
+    1497,
     -1,
     "Core-Spotlight",
     ""
@@ -9639,167 +9608,167 @@ gTocItems = [
   [
     "ui-testing-f8959fe8c6c043bfb119a204d400f7e3",
     -1,
-    1505,
+    1500,
     "UI Testing"
   ],
   [
     "ui-testing-2db118b302884a46ae97e5388c19d560",
-    1504,
-    1506,
+    1499,
+    1501,
     "UI Testing",
     ""
   ],
   [
     "ui-testing-2db118b302884a46ae97e5388c19d560#08fd537b-faa8-4323-9d43-7bc3e5c95dc7",
-    1505,
+    1500,
     -1,
     "Syntax"
   ],
   [
     "accessibility-identifier-799bc9642ff646f597985d4fc86939d8",
-    1504,
-    1508,
+    1499,
+    1503,
     "Accessibility Identifier",
     ""
   ],
   [
     "accessibility-identifier-799bc9642ff646f597985d4fc86939d8#f9990a97-8874-45bc-8fec-f24ae2ac75f0",
-    1507,
+    1502,
     -1,
     "When Accessibility enabled in Utilities"
   ],
   [
     "accessibility-identifier-799bc9642ff646f597985d4fc86939d8#52b2b7eb-5911-4778-9001-344eb25cb22d",
-    1507,
+    1502,
     -1,
     "When Accessibility disabled in Utilities"
   ],
   [
     "accessibility-identifier-799bc9642ff646f597985d4fc86939d8#0fc3cb95-384e-4356-b75a-36f2d05154c6",
-    1507,
+    1502,
     -1,
     "Setting up in UITest file"
   ],
   [
     "accessibility-identifier-799bc9642ff646f597985d4fc86939d8#a3eb5a04-8825-4840-ab59-b3390d05d6f3",
-    1507,
+    1502,
     -1,
     "UIView, UIImageView, UIScrollView"
   ],
   [
     "accessibility-identifier-799bc9642ff646f597985d4fc86939d8#0b503274-3067-4217-90d2-f2e46996550f",
-    1507,
+    1502,
     -1,
     "UILabel"
   ],
   [
     "accessibility-identifier-799bc9642ff646f597985d4fc86939d8#d748183c-07e9-4bad-bf34-106c87807ce5",
-    1507,
+    1502,
     -1,
     "UIStackView"
   ],
   [
     "accessibility-identifier-799bc9642ff646f597985d4fc86939d8#26f9bf88-486b-451c-8323-06b8580e6fed",
-    1507,
+    1502,
     -1,
     "UITableView"
   ],
   [
     "accessibility-identifier-799bc9642ff646f597985d4fc86939d8#ebdf0aca-69f1-4903-9a69-3af896a7df82",
-    1507,
+    1502,
     -1,
     "UITableViewCell"
   ],
   [
     "accessibility-identifier-799bc9642ff646f597985d4fc86939d8#e5fff616-2497-4dbc-901c-85b57e94cb1a",
-    1507,
+    1502,
     -1,
     "UITableViewCell elements"
   ],
   [
     "accessibility-identifier-799bc9642ff646f597985d4fc86939d8#3df1cc70-33e9-473a-be7a-d0845975f0f0",
-    1507,
+    1502,
     -1,
     "UICollectionView"
   ],
   [
     "accessibility-identifier-799bc9642ff646f597985d4fc86939d8#336ef622-56b6-4631-87bc-7e997c21f917",
-    1507,
+    1502,
     -1,
     "UIButton, UIBarButtonItem"
   ],
   [
     "accessibility-identifier-799bc9642ff646f597985d4fc86939d8#eab5eb07-61a4-4dc2-889d-480ecd8006c2",
-    1507,
+    1502,
     -1,
     "UITextField"
   ],
   [
     "accessibility-identifier-799bc9642ff646f597985d4fc86939d8#2dcf9e88-4f66-4be9-967f-a71799eccfef",
-    1507,
+    1502,
     -1,
     "UITextView"
   ],
   [
     "accessibility-identifier-799bc9642ff646f597985d4fc86939d8#9dc30500-ab96-43d1-ad74-4cad586fec4d",
-    1507,
+    1502,
     -1,
     "UISwitch"
   ],
   [
     "accessibility-identifier-799bc9642ff646f597985d4fc86939d8#b20860ed-edfd-4489-80e6-78217b1f5da7",
-    1507,
+    1502,
     -1,
     "Alerts"
   ],
   [
     "adding-test-files-to-xcode-project-c0aaf29b8e214da88cb1f41dbf07b8b0",
-    1504,
-    1524,
+    1499,
+    1519,
     "Adding Test Files to Xcode Project",
     ""
   ],
   [
     "adding-test-files-to-xcode-project-c0aaf29b8e214da88cb1f41dbf07b8b0#e5f48744-ddea-45df-a052-f8139f8b3d9d",
-    1523,
+    1518,
     -1,
     "When creating the project"
   ],
   [
     "adding-test-files-to-xcode-project-c0aaf29b8e214da88cb1f41dbf07b8b0#667b7c75-8a24-40c8-91cc-c5f972ad5dbc",
-    1523,
+    1518,
     -1,
     "After creating the project"
   ],
   [
     "disable-animations-during-ui-testing-02b828ecb5224728a5478e82d426c192",
-    1504,
+    1499,
     -1,
     "Disable animations during UI Testing",
     ""
   ],
   [
     "lunch-and-terminate-application-while-executing-33ba1c1a61c042288032bc1bdae67060",
-    1504,
-    1528,
+    1499,
+    1523,
     "Lunch and Terminate application while executing",
     ""
   ],
   [
     "lunch-and-terminate-application-while-executing-33ba1c1a61c042288032bc1bdae67060#75b4254b-25b0-40a5-a29d-2705a1ea93a0",
-    1527,
+    1522,
     -1,
     "Lunch application for testing"
   ],
   [
     "lunch-and-terminate-application-while-executing-33ba1c1a61c042288032bc1bdae67060#97947eb4-3dac-442e-98a5-4ab8efe801be",
-    1527,
+    1522,
     -1,
     "Terminating application"
   ],
   [
     "rotate-devices-0cd68cfcb9004fbd824b396606ea1bdc",
-    1504,
+    1499,
     -1,
     "Rotate devices",
     ""
@@ -9807,12 +9776,12 @@ gTocItems = [
   [
     "core-motion-92332108ac3a4416851eb74328cd6cd3",
     -1,
-    1532,
+    1527,
     "Core Motion"
   ],
   [
     "0accessing-barometer-to-get-relative-altitude-39408347dfab4a738235bb2caecec65a",
-    1531,
+    1526,
     -1,
     "0Accessing Barometer to get relative altitude",
     ""
@@ -9820,77 +9789,77 @@ gTocItems = [
   [
     "qr-code-scanner-e9b75dc1aa914870a97c903b327e12bc",
     -1,
-    1534,
+    1529,
     "QR Code Scanner"
   ],
   [
     "00qr-code-scanner-d9c0aa6262f44098a2e9af3f348cba41",
-    1533,
-    1535,
+    1528,
+    1530,
     "00QR Code Scanner",
     ""
   ],
   [
     "00qr-code-scanner-d9c0aa6262f44098a2e9af3f348cba41#9a95e1d6-197a-40d8-8f4c-ecbb0c2bf144",
-    1534,
+    1529,
     -1,
     "Introduction"
   ],
   [
     "uiviewcontroller-scanning-for-qr-and-displaying-video-input-8eb95c28af1240ecaad3ec1a714c09fb",
-    1533,
+    1528,
     -1,
     "UIViewController scanning for QR and displaying video input",
     ""
   ],
   [
     "scanning-qr-code-with-avfoudation-framework-03f20dbd720c45448d8a89bd81df20db",
+    1528,
     1533,
-    1538,
     "Scanning QR code with AVFoudation framework",
     ""
   ],
   [
     "scanning-qr-code-with-avfoudation-framework-03f20dbd720c45448d8a89bd81df20db#7fa18f73-02e5-403a-b0d5-3db5212b392c",
-    1537,
+    1532,
     -1,
     "Step 1"
   ],
   [
     "scanning-qr-code-with-avfoudation-framework-03f20dbd720c45448d8a89bd81df20db#6164d44c-dc79-4c60-bc8e-ec421bdaa92e",
-    1537,
+    1532,
     -1,
     "Step 2"
   ],
   [
     "scanning-qr-code-with-avfoudation-framework-03f20dbd720c45448d8a89bd81df20db#79fed52f-41bb-46e7-b08a-c1d07d8cf6bd",
-    1537,
+    1532,
     -1,
     "Step 3"
   ],
   [
     "plist-df86b4df37ba4d5ebd8380ef00c5983e",
     -1,
-    1542,
+    1537,
     "plist"
   ],
   [
     "plist-ios-055adb4bbf254d9d95e89d0fbc841ea4",
-    1541,
+    1536,
     -1,
     "plist iOS",
     ""
   ],
   [
     "example-e7449e95313a403886b018588bc83daf",
-    1541,
+    1536,
     -1,
     "Example",
     ""
   ],
   [
     "save-and-edit-delete-data-from-plist-47657a08761a4fa794ce34154650babf",
-    1541,
+    1536,
     -1,
     "Save and edit / delete data from Plist",
     ""
@@ -9898,12 +9867,12 @@ gTocItems = [
   [
     "nsinvocation-12be2d529f434af3939197b4c872653a",
     -1,
-    1546,
+    1541,
     "NSInvocation"
   ],
   [
     "nsinvocation-objective-c-d33a9d6b09de4e9d9b871162a183705e",
-    1545,
+    1540,
     -1,
     "NSInvocation Objective-C",
     ""
@@ -9911,32 +9880,32 @@ gTocItems = [
   [
     "uirefreshcontrol-tableview-e10567d948204d19a89e64d790f8a6a2",
     -1,
-    1548,
+    1543,
     "UIRefreshControl TableView"
   ],
   [
     "uirefreshcontrol-tableview-988046cabb904e2c92456c414b77017e",
-    1547,
-    1549,
+    1542,
+    1544,
     "UIRefreshControl TableView",
     ""
   ],
   [
     "uirefreshcontrol-tableview-988046cabb904e2c92456c414b77017e#b297e015-2179-4485-872e-f07c2908df71",
-    1548,
+    1543,
     -1,
     "Introduction"
   ],
   [
     "objective-c-example-b405df46262e47208e3369cc877b04aa",
-    1547,
+    1542,
     -1,
     "Objective-C Example",
     ""
   ],
   [
     "set-up-refreshcontrol-on-tableview-5817fda6e47e40a09516b95af117d4c5",
-    1547,
+    1542,
     -1,
     "Set up refreshControl on tableView",
     ""
@@ -9944,25 +9913,25 @@ gTocItems = [
   [
     "wcsessiondelegate-c1a446506bd440649ab2e370661c09f2",
     -1,
-    1553,
+    1548,
     "WCSessionDelegate"
   ],
   [
     "wcsessiondelegate-4a13f85cdb864aa3be7c60a812ccb256",
-    1552,
-    1554,
+    1547,
+    1549,
     "WCSessionDelegate",
     ""
   ],
   [
     "wcsessiondelegate-4a13f85cdb864aa3be7c60a812ccb256#1ee818c4-2e49-432d-898e-b939abccfb76",
-    1553,
+    1548,
     -1,
     "Introduction"
   ],
   [
     "watch-kit-controller-wkinterfacecontroller-15ddb64275ca40148f4e38c9e18f19be",
-    1552,
+    1547,
     -1,
     "Watch kit controller WKInterfaceController",
     ""
@@ -9970,46 +9939,46 @@ gTocItems = [
   [
     "appdelegate-6c0c16e2cabf4700a91eff98681e30a4",
     -1,
-    1557,
+    1552,
     "AppDelegate"
   ],
   [
     "appdelegate-ced1c3a9c31243f98fc9de7756052ab0",
-    1556,
-    1558,
+    1551,
+    1553,
     "AppDelegate",
     ""
   ],
   [
     "appdelegate-ced1c3a9c31243f98fc9de7756052ab0#9c35f94e-45eb-4d18-9cff-fe2bf292f46d",
-    1557,
+    1552,
     -1,
     "Introduction"
   ],
   [
     "all-states-of-application-through-appdelegate-methods-c415f10a11fa4cd68e5fa20217f23859",
-    1556,
+    1551,
     -1,
     "All States of Application through AppDelegate methods",
     ""
   ],
   [
     "appdelegate-roles-29b47e86f79a49e08383af2da44a5270",
-    1556,
+    1551,
     -1,
     "AppDelegate Roles",
     ""
   ],
   [
     "opening-a-url-specified-resource-a05efc2bcf32409595e4dbe35f84209e",
-    1556,
+    1551,
     -1,
     "Opening a URL-Specified Resource",
     ""
   ],
   [
     "handling-local-and-remote-notifications-8f99e3dbe8f9421eb42bc5b471758a66",
-    1556,
+    1551,
     -1,
     "Handling Local and Remote Notifications",
     ""
@@ -10017,46 +9986,46 @@ gTocItems = [
   [
     "app-submission-process-37a76bafc0cb4fca9d2952c69486b76a",
     -1,
-    1564,
+    1559,
     "App Submission Process"
   ],
   [
     "app-submission-process-92d1b401658245289bff8ea125824d79",
-    1563,
-    1565,
+    1558,
+    1560,
     "App Submission Process",
     ""
   ],
   [
     "app-submission-process-92d1b401658245289bff8ea125824d79#f9f55b6e-9a6f-4ae2-bc7b-49de4eb573d8",
-    1564,
+    1559,
     -1,
     "Introduction"
   ],
   [
     "setup-provisioning-profiles-83962dc4cea04b7a8bea26b6a135ef13",
-    1563,
+    1558,
     -1,
     "Setup provisioning profiles",
     ""
   ],
   [
     "archive-the-code-83192288059d4b5ebb1ef5d4cceb498a",
-    1563,
+    1558,
     -1,
     "Archive the code",
     ""
   ],
   [
     "export-ipa-file-6b34e7ab3be5438eb08692a6184be3b0",
-    1563,
+    1558,
     -1,
     "Export IPA file",
     ""
   ],
   [
     "upload-ipa-file-using-application-loader-e37370d1e78d4b3f8110038236d3917d",
-    1563,
+    1558,
     -1,
     "Upload IPA file using Application Loader",
     ""
@@ -10064,12 +10033,12 @@ gTocItems = [
   [
     "mvvm-027db969183248b09cae5c215b45db87",
     -1,
-    1571,
+    1566,
     "MVVM"
   ],
   [
     "mvvm-without-reactive-programming-f6b744d4fb7f4943b68d94a3a0d0c5b0",
-    1570,
+    1565,
     -1,
     "MVVM Without Reactive Programming",
     ""
@@ -10077,44 +10046,44 @@ gTocItems = [
   [
     "uistoryboard-da6dea88320842b89b30f9d3f2dfb69a",
     -1,
-    1573,
+    1568,
     "UIStoryboard"
   ],
   [
     "uistoryboard-ff81db2f38104ae3a5007a189f486264",
-    1572,
-    1574,
+    1567,
+    1569,
     "UIStoryboard",
     ""
   ],
   [
     "uistoryboard-ff81db2f38104ae3a5007a189f486264#c449d8cf-9762-4736-80b4-7e59b3abffc9",
-    1573,
+    1568,
     -1,
     "Introduction"
   ],
   [
     "getting-an-instance-of-uistoryboard-programmatically-6f1ae020ade64bbf98a2f1833fa0bc1a",
-    1572,
-    1576,
+    1567,
+    1571,
     "Getting an instance of UIStoryboard programmatically",
     ""
   ],
   [
     "getting-an-instance-of-uistoryboard-programmatically-6f1ae020ade64bbf98a2f1833fa0bc1a#487c8d54-1aa6-4bd4-9e5c-0e3e96f5f432",
-    1575,
+    1570,
     -1,
     "SWIFT:"
   ],
   [
     "getting-an-instance-of-uistoryboard-programmatically-6f1ae020ade64bbf98a2f1833fa0bc1a#5a7aec53-4d51-4862-aa24-74f0dfd2d2b5",
-    1575,
+    1570,
     -1,
     "OBJECTIVE-C:"
   ],
   [
     "open-another-storyboard-f7be33fbd07a431b8ebd075cde2d2506",
-    1572,
+    1567,
     -1,
     "Open another storyboard",
     ""
@@ -10122,12 +10091,12 @@ gTocItems = [
   [
     "basic-text-file-io-395228834ade49d4b21eb7b60a133095",
     -1,
-    1580,
+    1575,
     "Basic text file I/O"
   ],
   [
     "010read-and-write-from-documents-folder-1c8b6c19f98b4af2aa50103a7c4ebe5b",
-    1579,
+    1574,
     -1,
     "010Read and write from Documents folder",
     ""
@@ -10135,75 +10104,75 @@ gTocItems = [
   [
     "text-to-speech-tts-f9664b1797c84e5ab19e5027bb4abf2e",
     -1,
-    1582,
+    1577,
     "Text To Speech (TTS)"
   ],
   [
     "ios-tts-ea88fee12b3a439a86b9cecc327a7f2b",
-    1581,
-    1583,
+    1576,
+    1578,
     "iOS TTS",
     ""
   ],
   [
     "ios-tts-ea88fee12b3a439a86b9cecc327a7f2b#0ae2e0ff-0437-4d9a-9200-3c3a3226161d",
-    1582,
+    1577,
     -1,
     "Introduction"
   ],
   [
     "text-to-speech-fd7bfce4b1b6480ebf979b2e9ba56eaa",
-    1581,
-    1585,
+    1576,
+    1580,
     "Text To Speech",
     ""
   ],
   [
     "text-to-speech-fd7bfce4b1b6480ebf979b2e9ba56eaa#33494448-123a-468d-aa85-1b970afec02c",
-    1584,
+    1579,
     -1,
     "Objective C"
   ],
   [
     "text-to-speech-fd7bfce4b1b6480ebf979b2e9ba56eaa#9b584d42-1ce6-4edb-81e5-942a1fc1e62c",
-    1584,
+    1579,
     -1,
     "Swift"
   ],
   [
     "text-to-speech-fd7bfce4b1b6480ebf979b2e9ba56eaa#2dcdc298-149e-4369-a3d2-3ababe1c4d2f",
-    1584,
+    1579,
     -1,
     "Helpful methods"
   ],
   [
     "mpvolumeview-f562fd8615114b7b8b5f0bc31006abbc",
     -1,
-    1589,
+    1584,
     "MPVolumeView"
   ],
   [
     "mpvolumeview-ace4550ee8f94974befa1b058c90ffd0",
-    1588,
-    1590,
+    1583,
+    1585,
     "MPVolumeView",
     ""
   ],
   [
     "mpvolumeview-ace4550ee8f94974befa1b058c90ffd0#a0a96be3-1fb8-4566-9de9-8ac4d528f846",
-    1589,
+    1584,
     -1,
     "Introduction"
   ],
   [
     "mpvolumeview-ace4550ee8f94974befa1b058c90ffd0#eec06f52-3cfb-487e-9aac-b23fb325b2fa",
-    1589,
+    1584,
     -1,
     "Remarks"
   ],
   [
     "adding-a-mpvolumeview-a894bf23d06d4a629711522d572dd9f5",
-    1588,
+    1583,
     -1,
     "Adding a MPVolumeView",
     ""
@@ -10211,43 +10180,43 @@ gTocItems = [
   [
     "objective-c-associated-objects-e42d494a23754b37920ceab18d7e57e4",
     -1,
-    1594,
+    1589,
     "Objective-C Associated Objects"
   ],
   [
     "objective-c-associated-objects-1079a6381ac3468f80949b2987d2b9dd",
-    1593,
-    1595,
+    1588,
+    1590,
     "Objective-C Associated Objects",
     ""
   ],
   [
     "objective-c-associated-objects-1079a6381ac3468f80949b2987d2b9dd#c7d43705-f358-4fb1-a711-7af6a5505e3e",
-    1594,
+    1589,
     -1,
     "Introduction"
   ],
   [
     "objective-c-associated-objects-1079a6381ac3468f80949b2987d2b9dd#43c11fd1-8ad1-4075-ba34-94f6ac6f0af2",
-    1594,
+    1589,
     -1,
     "Syntax"
   ],
   [
     "objective-c-associated-objects-1079a6381ac3468f80949b2987d2b9dd#999cd590-957c-410f-9399-3870a8749a37",
-    1594,
+    1589,
     -1,
     "Parameters"
   ],
   [
     "objective-c-associated-objects-1079a6381ac3468f80949b2987d2b9dd#fab473cb-25e7-409b-9fd8-48f1a55cf5dc",
-    1594,
+    1589,
     -1,
     "Remarks"
   ],
   [
     "basic-associated-object-example-0d892f723dc54bbcba2ccec97fc0cff4",
-    1593,
+    1588,
     -1,
     "Basic Associated Object Example",
     ""
@@ -10255,25 +10224,25 @@ gTocItems = [
   [
     "passing-data-between-view-controllers-afd320bd356443679b59ab9ae1d6a0a9",
     -1,
-    1601,
+    1596,
     "Passing Data between View Controllers"
   ],
   [
     "passing-data-between-view-controllers-with-messagebox-concept-505d7fb3274d475988f17790e8169c99",
-    1600,
-    1602,
+    1595,
+    1597,
     "Passing Data between View Controllers with MessageBox-Concept",
     ""
   ],
   [
     "passing-data-between-view-controllers-with-messagebox-concept-505d7fb3274d475988f17790e8169c99#e811cce4-0415-4a70-a903-006825fb6f43",
-    1601,
+    1596,
     -1,
     "Introduction"
   ],
   [
     "simple-example-usage-ceed4bb2b6524981a3f9ae786f1a1856",
-    1600,
+    1595,
     -1,
     "Simple Example Usage",
     ""
@@ -10281,38 +10250,38 @@ gTocItems = [
   [
     "uiphoenix-5a7e3afb64c24a158d2e5f567c36424a",
     -1,
-    1605,
+    1600,
     "UIPhoenix"
   ],
   [
     "uipheonix-easy-flexible-dynamic-highly-scalable-ui-framework-5f79b2182c3740298d5057a3ff49d265",
-    1604,
-    1606,
+    1599,
+    1601,
     "UIPheonix - easy flexible dynamic highly scalable UI framework",
     ""
   ],
   [
     "uipheonix-easy-flexible-dynamic-highly-scalable-ui-framework-5f79b2182c3740298d5057a3ff49d265#40ba0e31-042c-4fd0-9991-7b5ca93d08de",
-    1605,
+    1600,
     -1,
     "Introduction"
   ],
   [
     "uipheonix-easy-flexible-dynamic-highly-scalable-ui-framework-5f79b2182c3740298d5057a3ff49d265#0651459d-2bc0-4ba8-a4bc-3c6523ee1522",
-    1605,
+    1600,
     -1,
     "Remarks"
   ],
   [
     "example-ui-components-ccbaa31b05f94667b449324a1e71e0a8",
-    1604,
+    1599,
     -1,
     "Example UI Components",
     ""
   ],
   [
     "example-usage-a9762f22fcab4941ae06ae30298bb504",
-    1604,
+    1599,
     -1,
     "Example Usage",
     ""
@@ -10320,25 +10289,25 @@ gTocItems = [
   [
     "blocks-in-queue-with-mkblockqueue-5aa71e1f99a644cb9027513bb5538289",
     -1,
-    1611,
+    1606,
     "Blocks in Queue with MKBlockQueue"
   ],
   [
     "chain-blocks-in-a-queue-with-mkblockqueue-6206e1a22d494062ac1c4292d3dcbecd",
-    1610,
-    1612,
+    1605,
+    1607,
     "Chain Blocks in a Queue with MKBlockQueue",
     ""
   ],
   [
     "chain-blocks-in-a-queue-with-mkblockqueue-6206e1a22d494062ac1c4292d3dcbecd#7bbbf235-e2ef-4981-a13e-81014168adac",
-    1611,
+    1606,
     -1,
     "Introduction"
   ],
   [
     "example-code-653e6ab9207941d6addfcf08169e39e3",
-    1610,
+    1605,
     -1,
     "Example Code",
     ""
@@ -10346,147 +10315,147 @@ gTocItems = [
   [
     "simulator-6ad358ddfa8641ccab807e138d125431",
     -1,
-    1615,
+    1610,
     "Simulator"
   ],
   [
     "simulator-85b5540847c14699930efa7e77fd3752",
-    1614,
-    1616,
+    1609,
+    1611,
     "Simulator",
     ""
   ],
   [
     "simulator-85b5540847c14699930efa7e77fd3752#a8305f2a-add6-40c6-84d2-8ff1cd7a7717",
-    1615,
+    1610,
     -1,
     "Introduction"
   ],
   [
     "simulator-85b5540847c14699930efa7e77fd3752#f5eebcf7-e5db-4fff-a55a-ea0c9ad0edbf",
-    1615,
+    1610,
     -1,
     "Remarks"
   ],
   [
     "simulator-85b5540847c14699930efa7e77fd3752#d0b32a85-7b98-412d-b98c-dfb54db35f1b",
-    1615,
+    1610,
     -1,
     "Different Types of Simulators"
   ],
   [
     "simulator-85b5540847c14699930efa7e77fd3752#be15da70-6fbd-48f2-80e7-7dbfb19086bc",
-    1615,
+    1610,
     -1,
     "Getting Help"
   ],
   [
     "launching-simulator-de82577367b740c1a0fd4bd5c8cf60c4",
-    1614,
+    1609,
     -1,
     "Launching Simulator",
     ""
   ],
   [
     "3d-force-touch-simulation-6eadf4f65edb407e9a064c9df5084785",
-    1614,
+    1609,
     -1,
     "3D Force Touch simulation",
     ""
   ],
   [
     "change-device-model-dc7e696e882e4b43be326d663b087eaf",
-    1614,
+    1609,
     -1,
     "Change Device Model",
     ""
   ],
   [
     "navigating-simulator-894bd269d10845f8b84a6f7cc6f14c00",
-    1614,
-    1624,
+    1609,
+    1619,
     "Navigating Simulator",
     ""
   ],
   [
     "navigating-simulator-894bd269d10845f8b84a6f7cc6f14c00#50c94ee4-889e-4fce-863f-81ba08d80d44",
-    1623,
+    1618,
     -1,
     "Home button"
   ],
   [
     "navigating-simulator-894bd269d10845f8b84a6f7cc6f14c00#ab8b6a6e-8b25-451d-a856-904a884f5673",
-    1623,
+    1618,
     -1,
     "Lock"
   ],
   [
     "navigating-simulator-894bd269d10845f8b84a6f7cc6f14c00#fba78e25-71a4-4300-bfb5-52720a508914",
-    1623,
+    1618,
     -1,
     "Rotation"
   ],
   [
     "backgroundmodes-6ea10b6618a64bcea7e35e6d48566644",
     -1,
-    1628,
+    1623,
     "BackgroundModes"
   ],
   [
     "background-modes-3a09d647989b42518a4f39ff6ef460d1",
-    1627,
-    1629,
+    1622,
+    1624,
     "Background Modes",
     ""
   ],
   [
     "background-modes-3a09d647989b42518a4f39ff6ef460d1#b5ac339f-e61c-43f6-a405-02e8c50922b2",
-    1628,
+    1623,
     -1,
     "Introduction"
   ],
   [
     "turning-on-the-background-modes-capability-f05504a5a7e346a3bf40d3c6ea2dec26",
-    1627,
+    1622,
     -1,
     "Turning on the Background Modes capability",
     ""
   ],
   [
     "background-fetch-1b3ece4a955d47a1b705bc7395181542",
+    1622,
     1627,
-    1632,
     "Background Fetch",
     ""
   ],
   [
     "background-fetch-1b3ece4a955d47a1b705bc7395181542#afb1ecf9-2af8-452b-9bee-80f3c7e92aca",
-    1631,
+    1626,
     -1,
     "Swift"
   ],
   [
     "background-fetch-1b3ece4a955d47a1b705bc7395181542#f8bce1a9-7ded-48c5-bab0-b0f38d8d94d3",
-    1631,
+    1626,
     -1,
     "Objective-C"
   ],
   [
     "background-fetch-1b3ece4a955d47a1b705bc7395181542#25b1d8ac-b4a2-4cae-9d57-ebab830479ca",
-    1631,
+    1626,
     -1,
     "Swift"
   ],
   [
     "testing-background-fetch-70964d9c25cc4a098dc2bd0be4573b34",
-    1627,
+    1622,
     -1,
     "Testing background fetch",
     ""
   ],
   [
     "background-audio-5658a0ccfb9c4a93b42b7399735cd013",
-    1627,
+    1622,
     -1,
     "Background Audio",
     ""
@@ -10494,31 +10463,31 @@ gTocItems = [
   [
     "nsarray-09a5053090ab4b4da9376b974f063191",
     -1,
-    1638,
+    1633,
     "NSArray"
   ],
   [
     "nsarray-8c9111908e2348d099914f2ae487cfce",
-    1637,
-    1639,
+    1632,
+    1634,
     "NSArray",
     ""
   ],
   [
     "nsarray-8c9111908e2348d099914f2ae487cfce#b006bd8b-b4ba-4282-b5ce-bae96320507c",
-    1638,
+    1633,
     -1,
     "Introduction"
   ],
   [
     "nsarray-8c9111908e2348d099914f2ae487cfce#68979d51-deac-4070-8828-48ff6080935b",
-    1638,
+    1633,
     -1,
     "Remarks"
   ],
   [
     "convert-array-into-json-string-009a2a35afd34f52824b16b447b8ec5a",
-    1637,
+    1632,
     -1,
     "Convert Array into json string",
     ""
@@ -10526,18 +10495,18 @@ gTocItems = [
   [
     "opengl-56eeb7f88740470cb6ca9ced00716b55",
     -1,
-    1643,
+    1638,
     "OpenGL"
   ],
   [
     "opengl-56eeb7f88740470cb6ca9ced00716b55#26e46238-b194-4179-9db8-478f46def473",
-    1642,
+    1637,
     -1,
     "Introduction"
   ],
   [
     "010example-project-c23987bf614744028d3044b5a4daa221",
-    1642,
+    1637,
     -1,
     "010Example Project",
     ""
@@ -10545,26 +10514,26 @@ gTocItems = [
   [
     "uiscrollview-with-stackview-child-acf782e768034e63931f895b6743a588",
     -1,
-    1646,
+    1641,
     "UIScrollView with StackView child"
   ],
   [
     "a-complex-stackview-inside-scrollview-example-a98207508eab4665a074dce6f202dc4b",
-    1645,
+    1640,
     -1,
     "A complex StackView inside Scrollview Example",
     ""
   ],
   [
     "preventing-ambiguous-layout-101061924aae44c086b61d6f041cd4c1",
-    1645,
+    1640,
     -1,
     "Preventing ambiguous layout",
     ""
   ],
   [
     "scrolling-to-content-inside-nested-stackviews-882719c89a9e4cf4a3a5841a467e69f4",
-    1645,
+    1640,
     -1,
     "Scrolling to content inside nested StackViews",
     ""
@@ -10572,12 +10541,12 @@ gTocItems = [
   [
     "cache-online-images-e8c7e5346b29477691ff1593e9bd6ff7",
     -1,
-    1650,
+    1645,
     "Cache online images"
   ],
   [
     "alamofireimage-160cf98dea714ab1b082cc75fa039622",
-    1649,
+    1644,
     -1,
     "AlamofireImage",
     ""
@@ -10585,59 +10554,59 @@ gTocItems = [
   [
     "mvp-architecture-cbac01a136d1413caf7605b73711fafe",
     -1,
-    1652,
+    1647,
     "MVP Architecture"
   ],
   [
     "mvp-architecture-f2c2f7bba0a042dca350f9777169026d",
-    1651,
-    1653,
+    1646,
+    1648,
     "MVP Architecture",
     ""
   ],
   [
     "mvp-architecture-f2c2f7bba0a042dca350f9777169026d#ae618349-da3c-4031-89b3-552ce3237aef",
-    1652,
+    1647,
     -1,
     "Introduction"
   ],
   [
     "mvp-architecture-f2c2f7bba0a042dca350f9777169026d#cf0f7d31-6e92-4515-a606-417041d59866",
-    1652,
+    1647,
     -1,
     "Remarks"
   ],
   [
     "dog-swift-bec4fa8dff14426c90b434958f2a7f95",
-    1651,
+    1646,
     -1,
     "Dog.swift",
     ""
   ],
   [
     "doggyservice-swift-9f6435e74a824bd3bd28aaed8f80749c",
-    1651,
+    1646,
     -1,
     "DoggyService.swift",
     ""
   ],
   [
     "doggypresenter-swift-9b4ac9183c474713bb20909cd4f3b0cd",
-    1651,
+    1646,
     -1,
     "DoggyPresenter.swift",
     ""
   ],
   [
     "doggyview-swift-0aedf73289bd47e79bf7b492bc199b68",
-    1651,
+    1646,
     -1,
     "DoggyView.swift",
     ""
   ],
   [
     "doggylistviewcontroller-swift-e6fdc4e4da87411da944d393c3b39dfd",
-    1651,
+    1646,
     -1,
     "DoggyListViewController.swift",
     ""
@@ -10645,280 +10614,280 @@ gTocItems = [
   [
     "uikit-dynamics-468b0602725a4cb6810eca88f35bd501",
     -1,
-    1661,
+    1656,
     "UIKit Dynamics"
   ],
   [
     "uikit-dynamics-932eae0d4cde4c0d9744365105e27ec7",
-    1660,
-    1662,
+    1655,
+    1657,
     "UIKit Dynamics",
     ""
   ],
   [
     "uikit-dynamics-932eae0d4cde4c0d9744365105e27ec7#90fead91-3646-4eb1-be75-066d745b32e9",
-    1661,
+    1656,
     -1,
     "Introduction"
   ],
   [
     "uikit-dynamics-932eae0d4cde4c0d9744365105e27ec7#36a66b81-4ca4-4d5f-9726-26ff628843f0",
-    1661,
+    1656,
     -1,
     "Remarks"
   ],
   [
     "uikit-dynamics-932eae0d4cde4c0d9744365105e27ec7#ed5c8059-2bb9-4953-aa58-bb8fc64e43dc",
-    1661,
+    1656,
     -1,
     "Swift"
   ],
   [
     "uikit-dynamics-932eae0d4cde4c0d9744365105e27ec7#6eae7f66-566a-4165-81f4-f579cfbd03dd",
-    1661,
+    1656,
     -1,
     "Objective-C"
   ],
   [
     "the-falling-square-269173dd667a4b82a1cd36e3717f93ba",
-    1660,
+    1655,
     -1,
     "The Falling Square",
     ""
   ],
   [
     "flick-view-based-on-gesture-velocity-3d9a20a42d9f4e4ab7c2d91e859a3611",
-    1660,
-    1668,
+    1655,
+    1663,
     "Flick View Based on Gesture Velocity",
     ""
   ],
   [
     "flick-view-based-on-gesture-velocity-3d9a20a42d9f4e4ab7c2d91e859a3611#cb6bdd93-22fc-45c3-9f24-18ffa9e83bec",
-    1667,
+    1662,
     -1,
     "Swift"
   ],
   [
     "flick-view-based-on-gesture-velocity-3d9a20a42d9f4e4ab7c2d91e859a3611#9e9ffa1e-4945-459f-bb33-f6a797b562ef",
-    1667,
+    1662,
     -1,
     "Objective-C"
   ],
   [
     "sticky-corners-effect-using-uifieldbehaviors-c9cb570c30444fd68b808dec4e0f2e31",
-    1660,
-    1671,
+    1655,
+    1666,
     "Sticky Corners Effect Using UIFieldBehaviors",
     ""
   ],
   [
     "sticky-corners-effect-using-uifieldbehaviors-c9cb570c30444fd68b808dec4e0f2e31#630e1d6a-e6bb-430b-a27f-b01398c11095",
-    1670,
+    1665,
     -1,
     "Swift"
   ],
   [
     "sticky-corners-effect-using-uifieldbehaviors-c9cb570c30444fd68b808dec4e0f2e31#5004d334-5ccf-465d-be08-1956f8a3d95d",
-    1670,
+    1665,
     -1,
     "Objective-C"
   ],
   [
     "uidynamicbehavior-driven-custom-transition-b29f520af34f47de82470e132e4f3da9",
-    1660,
-    1674,
+    1655,
+    1669,
     "UIDynamicBehavior Driven Custom Transition",
     ""
   ],
   [
     "uidynamicbehavior-driven-custom-transition-b29f520af34f47de82470e132e4f3da9#62487ec5-1f56-4101-9cd4-c8697f87988b",
-    1673,
+    1668,
     -1,
     "Swift"
   ],
   [
     "uidynamicbehavior-driven-custom-transition-b29f520af34f47de82470e132e4f3da9#d858a55d-aa9c-478d-9a9e-4b8702717292",
-    1673,
+    1668,
     -1,
     "Objective-C"
   ],
   [
     "uidynamicbehavior-driven-custom-transition-b29f520af34f47de82470e132e4f3da9#0c658cbf-d94e-44e4-b2ea-12deeadb494c",
-    1673,
+    1668,
     -1,
     "Swift"
   ],
   [
     "uidynamicbehavior-driven-custom-transition-b29f520af34f47de82470e132e4f3da9#78b56ea2-43a7-4ae2-9e9b-72668a7f51da",
-    1673,
+    1668,
     -1,
     "Objective-C"
   ],
   [
     "uidynamicbehavior-driven-custom-transition-b29f520af34f47de82470e132e4f3da9#d2a15ec6-eb9e-48f7-bed8-d9faf01b05e9",
-    1673,
+    1668,
     -1,
     "Swift"
   ],
   [
     "uidynamicbehavior-driven-custom-transition-b29f520af34f47de82470e132e4f3da9#1d5f21f4-4f45-4daa-a037-8b4189d270db",
-    1673,
+    1668,
     -1,
     "Objective-C"
   ],
   [
     "shade-transition-with-real-world-physics-using-uidynamicbehaviors-aefb61c8d1b7472cb81c80a805ff78c6",
-    1660,
-    1681,
+    1655,
+    1676,
     "Shade Transition with Real-World Physics Using UIDynamicBehaviors",
     ""
   ],
   [
     "shade-transition-with-real-world-physics-using-uidynamicbehaviors-aefb61c8d1b7472cb81c80a805ff78c6#82edbcc1-fab6-4eff-abbf-5c104d086ee0",
-    1680,
+    1675,
     -1,
     "Swift"
   ],
   [
     "shade-transition-with-real-world-physics-using-uidynamicbehaviors-aefb61c8d1b7472cb81c80a805ff78c6#ef985c0a-b083-47c9-9b86-db57f733926a",
-    1680,
+    1675,
     -1,
     "Objective-C"
   ],
   [
     "shade-transition-with-real-world-physics-using-uidynamicbehaviors-aefb61c8d1b7472cb81c80a805ff78c6#b20f0530-302f-402b-a187-de5156c7aae6",
-    1680,
+    1675,
     -1,
     "Swift"
   ],
   [
     "shade-transition-with-real-world-physics-using-uidynamicbehaviors-aefb61c8d1b7472cb81c80a805ff78c6#7e2fddc8-2820-4286-bb71-2bf5dac1503f",
-    1680,
+    1675,
     -1,
     "Objective-C"
   ],
   [
     "shade-transition-with-real-world-physics-using-uidynamicbehaviors-aefb61c8d1b7472cb81c80a805ff78c6#9946ffe9-1d81-468b-8501-e8e83ada3159",
-    1680,
+    1675,
     -1,
     "Swift"
   ],
   [
     "shade-transition-with-real-world-physics-using-uidynamicbehaviors-aefb61c8d1b7472cb81c80a805ff78c6#f5533485-ba7a-4c10-b73c-a8d73e974b3a",
-    1680,
+    1675,
     -1,
     "Objective-C"
   ],
   [
     "060map-dynamic-animation-position-changes-to-bounds-1b053edc5ef949168e4bbaf036baaacb",
-    1660,
-    1688,
+    1655,
+    1683,
     "060Map Dynamic Animation Position Changes to Bounds",
     ""
   ],
   [
     "060map-dynamic-animation-position-changes-to-bounds-1b053edc5ef949168e4bbaf036baaacb#16421c1f-943f-47ea-9d00-3d1ec620d70a",
-    1687,
+    1682,
     -1,
     "Swift"
   ],
   [
     "060map-dynamic-animation-position-changes-to-bounds-1b053edc5ef949168e4bbaf036baaacb#6c152d9b-71f5-40ba-aca5-2e6865874d83",
-    1687,
+    1682,
     -1,
     "Objective-C"
   ],
   [
     "060map-dynamic-animation-position-changes-to-bounds-1b053edc5ef949168e4bbaf036baaacb#c9a658e7-3a20-48fe-8280-a1c3acdb191f",
-    1687,
+    1682,
     -1,
     "Swift"
   ],
   [
     "060map-dynamic-animation-position-changes-to-bounds-1b053edc5ef949168e4bbaf036baaacb#31198ee7-e646-4049-b9ad-d788ffb35797",
-    1687,
+    1682,
     -1,
     "Objective-C"
   ],
   [
     "060map-dynamic-animation-position-changes-to-bounds-1b053edc5ef949168e4bbaf036baaacb#b0483bd8-3141-4dc4-909c-2e12b151c6f3",
-    1687,
+    1682,
     -1,
     "Swift"
   ],
   [
     "060map-dynamic-animation-position-changes-to-bounds-1b053edc5ef949168e4bbaf036baaacb#71b166b4-531f-409e-a338-a4347a33defa",
-    1687,
+    1682,
     -1,
     "Objective-C"
   ],
   [
     "configure-beacons-with-corebluetooth-7a56372dfe11400fa027df8c53584a7f",
     -1,
-    1695,
+    1690,
     "Configure Beacons with CoreBluetooth"
   ],
   [
     "configure-beacons-with-corebluetooth-2b5f849cba5c4384ba16c37f3156faab",
-    1694,
-    1696,
+    1689,
+    1691,
     "Configure Beacons with CoreBluetooth",
     ""
   ],
   [
     "configure-beacons-with-corebluetooth-2b5f849cba5c4384ba16c37f3156faab#d28aff8a-297c-485c-91e2-ee9fe779b22f",
-    1695,
+    1690,
     -1,
     "Introduction"
   ],
   [
     "configure-beacons-with-corebluetooth-2b5f849cba5c4384ba16c37f3156faab#c5c29a8f-18a6-4554-83d3-261c20fd249d",
-    1695,
+    1690,
     -1,
     "Remarks"
   ],
   [
     "configure-beacons-with-corebluetooth-2b5f849cba5c4384ba16c37f3156faab#67a8d52a-aceb-4131-9637-4518b568f909",
-    1695,
+    1690,
     -1,
     "Some important points"
   ],
   [
     "configure-beacons-with-corebluetooth-2b5f849cba5c4384ba16c37f3156faab#555d3e02-d0db-4432-a5ca-b5fa6bf6bd12",
-    1695,
+    1690,
     -1,
     "Scan for SERVICE UUID"
   ],
   [
     "configure-beacons-with-corebluetooth-2b5f849cba5c4384ba16c37f3156faab#7069e4a8-8b01-498a-82f4-f2d50c6e82ea",
-    1695,
+    1690,
     -1,
     "How to discover SERVICE UUID without documentation"
   ],
   [
     "configure-beacons-with-corebluetooth-2b5f849cba5c4384ba16c37f3156faab#b5d34b4e-b6b2-49b4-bc3b-499918ae7624",
-    1695,
+    1690,
     -1,
     "Convert data to UInt16 and contrary"
   ],
   [
     "showing-names-of-all-bluetooth-low-energy-ble-80bef4418d1c4259a0a86d677e6c37bb",
-    1694,
+    1689,
     -1,
     "Showing names of all Bluetooth Low Energy BLE",
     ""
   ],
   [
     "connect-and-read-major-value-0628e00207c9460091e68b4eac1befbb",
-    1694,
+    1689,
     -1,
     "Connect and read major value",
     ""
   ],
   [
     "0write-major-value-e714fddd54254fd8aee2835907ad85a0",
-    1694,
+    1689,
     -1,
     "0Write major value",
     ""
@@ -10926,25 +10895,25 @@ gTocItems = [
   [
     "core-data-a9319a1a6ef74f699827423bba1ebc3c",
     -1,
-    1706,
+    1701,
     "Core Data"
   ],
   [
     "core-data-18a28cb56d9a4d75a433808be33ef825",
-    1705,
-    1707,
+    1700,
+    1702,
     "Core Data",
     ""
   ],
   [
     "core-data-18a28cb56d9a4d75a433808be33ef825#230f7455-95ce-4be7-b7e3-49e72cb60516",
-    1706,
+    1701,
     -1,
     "Introduction"
   ],
   [
     "operations-on-core-data-8b2f1ee0c86546e788b9f272a023d0d3",
-    1705,
+    1700,
     -1,
     "Operations on core data",
     ""
@@ -10952,32 +10921,32 @@ gTocItems = [
   [
     "extension-for-rich-push-notification-71f71c7361934e89a63bb7662d6e178a",
     -1,
-    1710,
+    1705,
     "Extension for rich Push Notification"
   ],
   [
     "extension-for-rich-push-notification-ios-10-049b812ab992440fae13298654e4689e",
-    1709,
-    1711,
+    1704,
+    1706,
     "Extension for rich Push Notification - iOS 10.",
     ""
   ],
   [
     "extension-for-rich-push-notification-ios-10-049b812ab992440fae13298654e4689e#0c45ba56-dc5a-4f4f-98e4-a2e2c5355ba0",
-    1710,
+    1705,
     -1,
     "Introduction"
   ],
   [
     "notification-content-extension-345b449c4a74456b84c71c4f9ab56259",
-    1709,
+    1704,
     -1,
     "Notification Content Extension",
     ""
   ],
   [
     "implementation-555ec5ce0873494a8ee5e0a8e18b8ce1",
-    1709,
+    1704,
     -1,
     "Implementation",
     ""
@@ -10985,25 +10954,25 @@ gTocItems = [
   [
     "profiling-with-instruments-afa7082f8037499c9c25d8de44aeabb6",
     -1,
-    1715,
+    1710,
     "Profiling with Instruments"
   ],
   [
     "profile-with-instruments-4f88f72d1eb84c448d54c589a689ed6c",
-    1714,
-    1716,
+    1709,
+    1711,
     "Profile with Instruments",
     ""
   ],
   [
     "profile-with-instruments-4f88f72d1eb84c448d54c589a689ed6c#4750d2a3-4357-42ef-9074-5195ca6dfd79",
-    1715,
+    1710,
     -1,
     "Introduction"
   ],
   [
     "time-profiler-82a968276e32460e8a5384bf3e6964dc",
-    1714,
+    1709,
     -1,
     "Time Profiler",
     ""
@@ -11011,25 +10980,25 @@ gTocItems = [
   [
     "application-rating-review-request-edceef9b446f49b6801b444b155bb56c",
     -1,
-    1719,
+    1714,
     "Application rating review request"
   ],
   [
     "application-ratingreview-request-deb1714b87b64b57926494a1dc9420a0",
-    1718,
-    1720,
+    1713,
+    1715,
     "Application ratingreview request",
     ""
   ],
   [
     "application-ratingreview-request-deb1714b87b64b57926494a1dc9420a0#4babc5ee-9afd-4889-ae2b-7897178c966b",
-    1719,
+    1714,
     -1,
     "Introduction"
   ],
   [
     "ratereview-ios-application-02540b2051ee4c149e3113bb5616bee2",
-    1718,
+    1713,
     -1,
     "RateReview iOS Application",
     ""
@@ -11037,25 +11006,25 @@ gTocItems = [
   [
     "mylayout-bc0a3c54c9704e709523e069ba074e1a",
     -1,
-    1723,
+    1718,
     "MyLayout"
   ],
   [
     "mylayout-1c384d2d1c3f484397a97331ab908400",
-    1722,
-    1724,
+    1717,
+    1719,
     "MyLayout",
     ""
   ],
   [
     "mylayout-1c384d2d1c3f484397a97331ab908400#670ecbc3-d9cd-4bbb-b26d-1dcd9ce1d5a9",
-    1723,
+    1718,
     -1,
     "Introduction"
   ],
   [
     "a-simple-demo-to-use-mylayout-a2be74171db9469ea191404b61f35a81",
-    1722,
+    1717,
     -1,
     "A Simple Demo to use MyLayout",
     ""
@@ -11063,32 +11032,32 @@ gTocItems = [
   [
     "uifont-e430e55a3d8e4e3c98699ce1b53e6fa4",
     -1,
-    1727,
+    1722,
     "UIFont"
   ],
   [
     "uifont-5b1266dd1efc4557a2e233cab9b0cb5d",
-    1726,
-    1728,
+    1721,
+    1723,
     "UIFont",
     ""
   ],
   [
     "uifont-5b1266dd1efc4557a2e233cab9b0cb5d#2d089130-df34-4e8c-ad51-8173ec5d84f1",
-    1727,
+    1722,
     -1,
     "Introduction"
   ],
   [
     "declaring-and-initializing-uifont-b54b9d6cc17e4a21ab43ecba1088fcce",
-    1726,
+    1721,
     -1,
     "Declaring and initializing UIFont",
     ""
   ],
   [
     "changing-the-font-of-a-label-097553cc10d042b49ab9c3e49c7dadaa",
-    1726,
+    1721,
     -1,
     "Changing the font of a label",
     ""
@@ -11096,25 +11065,25 @@ gTocItems = [
   [
     "simulator-builds-c65b7e00f7914f60b501fae4b825a166",
     -1,
-    1732,
+    1727,
     "Simulator Builds"
   ],
   [
     "simulator-builds-4d2f3842046549ac8e4edf287a6ad69d",
-    1731,
-    1733,
+    1726,
+    1728,
     "Simulator Builds",
     ""
   ],
   [
     "simulator-builds-4d2f3842046549ac8e4edf287a6ad69d#8f5adcec-852c-4553-8c48-8c62c9073195",
-    1732,
+    1727,
     -1,
     "Introduction"
   ],
   [
     "installing-the-build-manually-on-simulator-3e73f8601e99420e89dc02cad1caff8a",
-    1731,
+    1726,
     -1,
     "Installing the build manually on simulator",
     ""
@@ -11122,19 +11091,19 @@ gTocItems = [
   [
     "simulating-location-using-gpx-files-57b1a2aaa5314ad882ef726a4cacdc88",
     -1,
-    1736,
+    1731,
     "Simulating Location Using GPX files"
   ],
   [
     "your-gpx-file-mps-hq-gpx-9c428e7580584e6b8d6426437529d803",
-    1735,
+    1730,
     -1,
     "Your .gpx file MPS HQ.gpx",
     ""
   ],
   [
     "to-set-this-location-a9388d9241bd4999930c5d99625d625d",
-    1735,
+    1730,
     -1,
     "To set this location",
     ""
@@ -11142,25 +11111,25 @@ gTocItems = [
   [
     "custom-methods-of-selection-of-uitableviewcells-43538d33f7fe45b28ba7bb5cf81a0ebb",
     -1,
-    1739,
+    1734,
     "Custom methods of selection of UITableViewCells"
   ],
   [
     "custom-methods-of-selection-of-uitableviewcells-4e7d034e5d6d4f40bd017d06863fbd45",
-    1738,
-    1740,
+    1733,
+    1735,
     "Custom methods of selection of UITableViewCells",
     ""
   ],
   [
     "custom-methods-of-selection-of-uitableviewcells-4e7d034e5d6d4f40bd017d06863fbd45#c6100730-d26c-47d4-beb5-38a0dd55d69c",
-    1739,
+    1734,
     -1,
     "Introduction"
   ],
   [
     "distinction-between-single-and-double-selection-on-row-cc47d6b81dc4416384077ce88726b554",
-    1738,
+    1733,
     -1,
     "Distinction between single and double selection on row",
     ""
@@ -11168,12 +11137,12 @@ gTocItems = [
   [
     "custom-methods-of-selection-of-uitableviewcells-2b404ec5be2d4675ab686fedcdca3bab",
     -1,
-    1743,
+    1738,
     "Custom methods of selection of UITableViewCells"
   ],
   [
     "distinction-between-single-and-double-selection-on-row-f6497382b3e745ef86094fa87954381d",
-    1742,
+    1737,
     -1,
     "Distinction between single and double selection on row",
     ""
@@ -11181,25 +11150,25 @@ gTocItems = [
   [
     "uisegmentedcontrol-25b599fb70444e3ca603f884a6da9616",
     -1,
-    1745,
+    1740,
     "UISegmentedControl"
   ],
   [
     "uisegmentedcontrol-8c22dda25d6b47699b659cc2e10aa2f2",
-    1744,
-    1746,
+    1739,
+    1741,
     "UISegmentedControl",
     ""
   ],
   [
     "uisegmentedcontrol-8c22dda25d6b47699b659cc2e10aa2f2#4e26a341-44c9-4dbd-97a4-b7f5308ebed0",
-    1745,
+    1740,
     -1,
     "Introduction"
   ],
   [
     "creating-uisegmentedcontrol-via-code-e9ca4cb7ba2d4a0cb67ae3562cff66e0",
-    1744,
+    1739,
     -1,
     "Creating UISegmentedControl via code",
     ""
@@ -11207,31 +11176,31 @@ gTocItems = [
   [
     "sqlcipher-integration-80878da679ac4ae3b4ee719e3e215987",
     -1,
-    1749,
+    1744,
     "SqlCipher integration"
   ],
   [
     "sqlcipher-integration-9498d343630742188b39b897a8f32081",
-    1748,
-    1750,
+    1743,
+    1745,
     "SqlCipher integration",
     ""
   ],
   [
     "sqlcipher-integration-9498d343630742188b39b897a8f32081#67929e0d-3e04-49c2-b956-d16befbad7aa",
-    1749,
+    1744,
     -1,
     "Introduction"
   ],
   [
     "sqlcipher-integration-9498d343630742188b39b897a8f32081#7e93b26c-4005-4206-b95a-8c6b69cda060",
-    1749,
+    1744,
     -1,
     "Remarks"
   ],
   [
     "integration-of-code-3e1fef50e781420281c1983906996da0",
-    1748,
+    1743,
     -1,
     "Integration of code",
     ""
@@ -11239,32 +11208,32 @@ gTocItems = [
   [
     "custom-uitextfield-6fdc376ac2bb4c7cabe1f8dcffd133b9",
     -1,
-    1754,
+    1749,
     "Custom UITextField"
   ],
   [
     "custom-uitextfield-9bf8bec0ea334be8ba62ae90f7eab196",
-    1753,
-    1755,
+    1748,
+    1750,
     "Custom UITextField",
     ""
   ],
   [
     "custom-uitextfield-9bf8bec0ea334be8ba62ae90f7eab196#b4a0078a-a429-4a81-8216-69d80017f585",
-    1754,
+    1749,
     -1,
     "Introduction"
   ],
   [
     "custom-uitextfield-for-filtering-input-text-47bb971bed2748e8a243dbd6d9220e66",
-    1753,
+    1748,
     -1,
     "Custom UITextField for Filtering Input Text",
     ""
   ],
   [
     "custom-uitextfield-to-disallow-all-actions-like-copy-paste-etc-d488e92f824041a0b12690155eb19493",
-    1753,
+    1748,
     -1,
     "Custom UITextField to Disallow All Actions like Copy Paste etc",
     ""
@@ -11272,32 +11241,32 @@ gTocItems = [
   [
     "custom-uitextfield-28e0a31725154bb694084708535f868a",
     -1,
-    1759,
+    1754,
     "Custom UITextField"
   ],
   [
     "custom-uitextfield-a1c577c21611494c9a571373f867be0f",
-    1758,
-    1760,
+    1753,
+    1755,
     "Custom UITextField",
     ""
   ],
   [
     "custom-uitextfield-a1c577c21611494c9a571373f867be0f#a8bf73c6-a27a-49bf-888c-17b1642284fe",
-    1759,
+    1754,
     -1,
     "Introduction"
   ],
   [
     "custom-uitextfield-for-filtering-input-text-1a0b596498c142fbadb12f3d95d32b4e",
-    1758,
+    1753,
     -1,
     "Custom UITextField for Filtering Input Text",
     ""
   ],
   [
     "custom-uitextfield-to-disallow-all-actions-like-copy-paste-etc-f2725f9401be4ece86ccfbe565d0da7c",
-    1758,
+    1753,
     -1,
     "Custom UITextField to Disallow All Actions like Copy Paste etc",
     ""
@@ -11305,32 +11274,32 @@ gTocItems = [
   [
     "security-380fc5faf9304b288a76819026b24346",
     -1,
-    1764,
+    1759,
     "Security"
   ],
   [
     "000security-ebd6812adb0b4f1584b5ef25edca2ee3",
-    1763,
-    1765,
+    1758,
+    1760,
     "000Security",
     ""
   ],
   [
     "000security-ebd6812adb0b4f1584b5ef25edca2ee3#6ad46127-0f4a-4b8f-8f44-e3bd140895c3",
-    1764,
+    1759,
     -1,
     "Introduction"
   ],
   [
     "securing-data-in-itunes-backups-8bd1a2f997f940eb916cd6f447c87ac7",
-    1763,
+    1758,
     -1,
     "Securing Data in iTunes Backups",
     ""
   ],
   [
     "020transport-security-using-ssl-f59166d39483411d95d7f212484a7b5a",
-    1763,
+    1758,
     -1,
     "020Transport Security using SSL",
     ""
@@ -11338,46 +11307,46 @@ gTocItems = [
   [
     "guideline-to-architecture-patterns-4e73988d2cf84e3c8ffc6b2186d1dfd1",
     -1,
-    1769,
+    1764,
     "Guideline to architecture patterns"
   ],
   [
     "00guideline-to-choose-best-ios-architecture-patterns-7a8cfe6c6680412fa5976798a65a1097",
-    1768,
-    1770,
+    1763,
+    1765,
     "00Guideline to choose best iOS Architecture Patterns",
     ""
   ],
   [
     "00guideline-to-choose-best-ios-architecture-patterns-7a8cfe6c6680412fa5976798a65a1097#f96a2b47-dc65-4072-9ccd-6151e27965ff",
-    1769,
+    1764,
     -1,
     "Introduction"
   ],
   [
     "mvp-patterns-e6e6b6b60fe54f1e8465068868c9c891",
-    1768,
+    1763,
     -1,
     "MVP Patterns",
     ""
   ],
   [
     "mvvm-pattern-f07bb541c3354f5198fe121204769517",
-    1768,
+    1763,
     -1,
     "MVVM Pattern",
     ""
   ],
   [
     "viper-pattern-b7c56251ebb5446f96a5f1ca68c692be",
-    1768,
+    1763,
     -1,
     "VIPER Pattern",
     ""
   ],
   [
     "mvc-pattern-d1d1966ec78e46eca6d84e1165ac4f39",
-    1768,
+    1763,
     -1,
     "MVC pattern",
     ""
@@ -11385,137 +11354,137 @@ gTocItems = [
   [
     "uifeedbackgenerator-521f83469197455687c65fac50ff72d6",
     -1,
-    1776,
+    1771,
     "UIFeedbackGenerator"
   ],
   [
     "uifeedbackgenerator-f059b0e37dee45d3aa21c2bbcc359ba0",
-    1775,
-    1777,
+    1770,
+    1772,
     "UIFeedbackGenerator",
     ""
   ],
   [
     "uifeedbackgenerator-f059b0e37dee45d3aa21c2bbcc359ba0#5ae4e6a6-a3d3-493e-a69f-d71f1b0c7997",
-    1776,
+    1771,
     -1,
     "Introduction"
   ],
   [
     "010trigger-impact-haptic-40fba4e07dce4ef9aa231f643b885540",
-    1775,
-    1779,
+    1770,
+    1774,
     "010Trigger Impact Haptic",
     ""
   ],
   [
     "010trigger-impact-haptic-40fba4e07dce4ef9aa231f643b885540#6cea39ae-7054-4d55-9fa2-f1c595cba58b",
-    1778,
+    1773,
     -1,
     "Swift"
   ],
   [
     "010trigger-impact-haptic-40fba4e07dce4ef9aa231f643b885540#fff398f7-3b4d-4679-b822-e4c7e011f89e",
-    1778,
+    1773,
     -1,
     "Objective-C"
   ],
   [
     "uikit-dynamics-with-uicollectionview-9dda7a1a881c4c8e9319248534575bdb",
     -1,
-    1782,
+    1777,
     "UIKit Dynamics with UICollectionView"
   ],
   [
     "uikit-dynamics-with-uicollectionview-7ea09c37a71e4038aaff9e44b19acd15",
-    1781,
-    1783,
+    1776,
+    1778,
     "UIKit Dynamics with UICollectionView",
     ""
   ],
   [
     "uikit-dynamics-with-uicollectionview-7ea09c37a71e4038aaff9e44b19acd15#2ea3c881-8cbc-4793-9d5b-ef702564e7ce",
-    1782,
+    1777,
     -1,
     "Introduction"
   ],
   [
     "creating-a-custom-dragging-behavior-with-uidynamicanimator-f8374e536d994a40bac91bd872d8eb60",
-    1781,
-    1785,
+    1776,
+    1780,
     "Creating a Custom Dragging Behavior with UIDynamicAnimator",
     ""
   ],
   [
     "creating-a-custom-dragging-behavior-with-uidynamicanimator-f8374e536d994a40bac91bd872d8eb60#1018f3ef-bcba-4f64-a8e5-358a154568f0",
-    1784,
+    1779,
     -1,
     "Swift"
   ],
   [
     "creating-a-custom-dragging-behavior-with-uidynamicanimator-f8374e536d994a40bac91bd872d8eb60#e387d5b1-44a7-49c3-a872-64995ba94e3e",
-    1784,
+    1779,
     -1,
     "Objective-C"
   ],
   [
     "creating-a-custom-dragging-behavior-with-uidynamicanimator-f8374e536d994a40bac91bd872d8eb60#9ee4bdb5-f840-4579-a063-93dbc8e05177",
-    1784,
+    1779,
     -1,
     "Swift"
   ],
   [
     "creating-a-custom-dragging-behavior-with-uidynamicanimator-f8374e536d994a40bac91bd872d8eb60#b59ace52-dbb0-424e-840e-8c76f7fffc92",
-    1784,
+    1779,
     -1,
     "Objective-C"
   ],
   [
     "creating-a-custom-dragging-behavior-with-uidynamicanimator-f8374e536d994a40bac91bd872d8eb60#0cb6552a-f94c-4b6c-98b6-e54c7d8622f2",
-    1784,
+    1779,
     -1,
     "Swift"
   ],
   [
     "creating-a-custom-dragging-behavior-with-uidynamicanimator-f8374e536d994a40bac91bd872d8eb60#e1f399d1-7435-4fff-b467-bc3747f766b5",
-    1784,
+    1779,
     -1,
     "Objective-C"
   ],
   [
     "creating-a-custom-dragging-behavior-with-uidynamicanimator-f8374e536d994a40bac91bd872d8eb60#fbff58b6-9b06-4a9f-9e4b-f11c33ae3bde",
-    1784,
+    1779,
     -1,
     "Swift"
   ],
   [
     "creating-a-custom-dragging-behavior-with-uidynamicanimator-f8374e536d994a40bac91bd872d8eb60#36626e62-c177-4a37-961c-29a9b37082d0",
-    1784,
+    1779,
     -1,
     "Objective-C"
   ],
   [
     "multicast-delegates-19cebc81050447ae87a126efb4712729",
     -1,
-    1794,
+    1789,
     "Multicast Delegates"
   ],
   [
     "multicast-delegates-5e2ee124555140b28cce79a0c97f0f71",
-    1793,
-    1795,
+    1788,
+    1790,
     "Multicast Delegates",
     ""
   ],
   [
     "multicast-delegates-5e2ee124555140b28cce79a0c97f0f71#ccab3dbd-3336-445b-b9db-2cc6142e7cea",
-    1794,
+    1789,
     -1,
     "Introduction"
   ],
   [
     "multicast-delegates-for-any-controls-c8ef10190f364e0bb767350a42c3146a",
-    1793,
+    1788,
     -1,
     "Multicast delegates for any controls",
     ""
@@ -11523,64 +11492,64 @@ gTocItems = [
   [
     "using-image-assets-63b092a2190c4b6db4c5f227f136fbd9",
     -1,
-    1798,
+    1793,
     "Using image assets"
   ],
   [
     "using-image-aseets-a8d646ba780b4c2d98634461f2c20797",
-    1797,
-    1799,
+    1792,
+    1794,
     "Using Image Aseets",
     ""
   ],
   [
     "using-image-aseets-a8d646ba780b4c2d98634461f2c20797#bda4d4a1-c6bd-4902-88eb-437bb257abfa",
-    1798,
+    1793,
     -1,
     "Introduction"
   ],
   [
     "app-icon-using-image-assets-30cc3d61c4404147a141fe667f1029b6",
-    1797,
+    1792,
     -1,
     "App Icon using Image Assets",
     ""
   ],
   [
     "launchimage-using-image-assets-ce6eaa9bc8d641cba5e2e7a7f821085b",
+    1792,
     1797,
-    1802,
     "LaunchImage using Image Assets",
     ""
   ],
   [
     "launchimage-using-image-assets-ce6eaa9bc8d641cba5e2e7a7f821085b#18b18ebb-da73-4a53-b663-48c72fc015eb",
-    1801,
+    1796,
     -1,
     "Notes:"
   ],
   [
     "uitableviewcell-8432908786144d9aaa20be012394b2e9",
     -1,
-    1804,
+    1799,
     "UITableViewCell"
   ],
   [
     "uitableviewcell-ad619ed3bd4940e680907588d71a5ebb",
-    1803,
-    1805,
+    1798,
+    1800,
     "UITableViewCell",
     ""
   ],
   [
     "uitableviewcell-ad619ed3bd4940e680907588d71a5ebb#ce6fd7b5-3410-41e8-9dfc-ae92abf49e2c",
-    1804,
+    1799,
     -1,
     "Introduction"
   ],
   [
     "xib-file-of-uitableviewcell-5d5c4fd34a7f4044a1c24ed8b2a23333",
-    1803,
+    1798,
     -1,
     "Xib file of UITableViewCell",
     ""
@@ -11588,12 +11557,12 @@ gTocItems = [
   [
     "runtime-in-objective-c-32d11ee6213b4d349db9a19e2d5e209c",
     -1,
-    1808,
+    1803,
     "Runtime in Objective-C"
   ],
   [
     "using-associated-objects-75ce8542be0f4909b4cb7fcb3d113628",
-    1807,
+    1802,
     -1,
     "Using Associated Objects",
     ""
@@ -11601,31 +11570,31 @@ gTocItems = [
   [
     "modelpresentationstyles-f381714a782f406aae00cfa22899f875",
     -1,
-    1810,
+    1805,
     "ModelPresentationStyles"
   ],
   [
     "modelpresentationstyles-e49e64a5c3ca4e768425df2e2b28be4b",
-    1809,
-    1811,
+    1804,
+    1806,
     "ModelPresentationStyles",
     ""
   ],
   [
     "modelpresentationstyles-e49e64a5c3ca4e768425df2e2b28be4b#201a7a4e-2efd-4670-91eb-187c2f66bab8",
-    1810,
+    1805,
     -1,
     "Introduction"
   ],
   [
     "modelpresentationstyles-e49e64a5c3ca4e768425df2e2b28be4b#289debeb-f2ca-4dd7-befa-e9e91e845102",
-    1810,
+    1805,
     -1,
     "Remarks"
   ],
   [
     "exploring-modalpresentationstyle-using-interface-builder-71c7efb18c074035ae14798b7cdb8f70",
-    1809,
+    1804,
     -1,
     "Exploring ModalPresentationStyle using Interface Builder",
     ""
@@ -11633,75 +11602,75 @@ gTocItems = [
   [
     "cydiasubstrate-tweak-74e493df4b36450e8b37ed5523b6900d",
     -1,
-    1815,
+    1810,
     "CydiaSubstrate tweak"
   ],
   [
     "cydiasubstrate-tweak-5d1db368465a4a44b23a1114ce217f83",
-    1814,
-    1816,
+    1809,
+    1811,
     "CydiaSubstrate tweak",
     ""
   ],
   [
     "cydiasubstrate-tweak-5d1db368465a4a44b23a1114ce217f83#483857da-6c6a-4669-9b4b-13eb9e27cb9f",
-    1815,
+    1810,
     -1,
     "Introduction"
   ],
   [
     "cydiasubstrate-tweak-5d1db368465a4a44b23a1114ce217f83#e4cafda7-0ecd-4d48-8ab2-fbee1af8f0ba",
-    1815,
+    1810,
     -1,
     "Remarks"
   ],
   [
     "cydiasubstrate-tweak-5d1db368465a4a44b23a1114ce217f83#e0bee983-c955-4db7-810c-510ab90206ab",
-    1815,
+    1810,
     -1,
     "Installing Theos"
   ],
   [
     "create-new-tweak-using-theos-e82dd7804e4e44ee94eb0970d9013f94",
-    1814,
-    1820,
+    1809,
+    1815,
     "Create new tweak using Theos",
     ""
   ],
   [
     "create-new-tweak-using-theos-e82dd7804e4e44ee94eb0970d9013f94#86a3fa74-f6f9-4334-bf25-ef9bc63dab19",
-    1819,
+    1814,
     -1,
     "Use nic to create a new project"
   ],
   [
     "create-new-tweak-using-theos-e82dd7804e4e44ee94eb0970d9013f94#7706be8e-e3e3-43ac-ab2f-e85f7b7e6865",
-    1819,
+    1814,
     -1,
     "Override iOS screenshots saving method"
   ],
   [
     "create-a-video-from-images-8b6ab10a9ab54df1b6a18d18cb9d3d8a",
     -1,
-    1823,
+    1818,
     "Create a video from images"
   ],
   [
     "create-a-video-from-images-48048355f9a647009069c007f3a2696d",
-    1822,
-    1824,
+    1817,
+    1819,
     "Create a video from images",
     ""
   ],
   [
     "create-a-video-from-images-48048355f9a647009069c007f3a2696d#9909d5f1-74be-40db-84e6-b3c4cffe0aee",
-    1823,
+    1818,
     -1,
     "Introduction"
   ],
   [
     "0create-video-from-uiimages-1ac9fa37248542a08e756a215abf0a80",
-    1822,
+    1817,
     -1,
     "0Create Video from UIImages",
     ""
@@ -11709,25 +11678,25 @@ gTocItems = [
   [
     "codable-fcb7318591d14210adeadbbd2857920b",
     -1,
-    1827,
+    1822,
     "Codable"
   ],
   [
     "codable-f74444c69b7f4482a0569a62c2ac9dd4",
-    1826,
-    1828,
+    1821,
+    1823,
     "Codable",
     ""
   ],
   [
     "codable-f74444c69b7f4482a0569a62c2ac9dd4#84ddc49c-dc9a-48ad-9afa-f4a3070f6908",
-    1827,
+    1822,
     -1,
     "Introduction"
   ],
   [
     "use-of-codable-with-jsonencoder-and-jsondecoder-in-swift4-9cf8852b33314f37bef5d9d149b06616",
-    1826,
+    1821,
     -1,
     "Use of Codable with JSONEncoder and JSONDecoder in Swift4",
     ""
@@ -11735,25 +11704,25 @@ gTocItems = [
   [
     "filehandle-05ad15e6c0d64e79b95bc4dc5f834109",
     -1,
-    1831,
+    1826,
     "FileHandle"
   ],
   [
     "filehandle-480c5351f603437db9662c5d655b71ea",
-    1830,
-    1832,
+    1825,
+    1827,
     "FileHandle",
     ""
   ],
   [
     "filehandle-480c5351f603437db9662c5d655b71ea#13bcf998-58bc-4760-87c5-69305beb71a7",
-    1831,
+    1826,
     -1,
     "Introduction"
   ],
   [
     "read-file-from-document-directory-in-chunks-76d0a3cc977c4975b656571843823af9",
-    1830,
+    1825,
     -1,
     "Read file from document directory in chunks",
     ""
@@ -11761,49 +11730,49 @@ gTocItems = [
   [
     "nsuseractivity-b496eb6da6774e1f94a996f5881118b9",
     -1,
-    1835,
+    1830,
     "NSUserActivity"
   ],
   [
     "nsuseractivity-5aee98faa0d149338e61ca010600f636",
-    1834,
-    1836,
+    1829,
+    1831,
     "NSUserActivity",
     ""
   ],
   [
     "nsuseractivity-5aee98faa0d149338e61ca010600f636#0f86302f-1766-491e-b694-a601708d37ee",
-    1835,
+    1830,
     -1,
     "Introduction"
   ],
   [
     "nsuseractivity-5aee98faa0d149338e61ca010600f636#752d6d34-7f83-438d-a5c2-defd41e993c0",
-    1835,
+    1830,
     -1,
     "Remarks"
   ],
   [
     "nsuseractivity-5aee98faa0d149338e61ca010600f636#e15c2a50-71d5-40c5-b6b5-372655ae92dd",
-    1835,
+    1830,
     -1,
     "Activity Types"
   ],
   [
     "nsuseractivity-5aee98faa0d149338e61ca010600f636#726da610-87cc-439c-8f76-c20602a3e18a",
-    1835,
+    1830,
     -1,
     "Becoming / Resigning the Current Activity"
   ],
   [
     "nsuseractivity-5aee98faa0d149338e61ca010600f636#b727aa5f-2eb5-4220-b2b1-b5afcf149051",
-    1835,
+    1830,
     -1,
     "Search Indexing"
   ],
   [
     "creating-a-nsuseractivity-3cd483fb802d41f2bb63af68e6b900ff",
-    1834,
+    1829,
     -1,
     "Creating a NSUserActivity",
     ""
@@ -11811,25 +11780,25 @@ gTocItems = [
   [
     "rich-notifications-fb26e6208732418288908cde57288290",
     -1,
-    1843,
+    1838,
     "Rich Notifications"
   ],
   [
     "rich-notifications-e505ec4171194c0fb21c7c8349a6698a",
-    1842,
-    1844,
+    1837,
+    1839,
     "Rich Notifications",
     ""
   ],
   [
     "rich-notifications-e505ec4171194c0fb21c7c8349a6698a#fa4828ea-ccaf-4072-9a75-86837fb5ccc5",
-    1843,
+    1838,
     -1,
     "Introduction"
   ],
   [
     "creating-a-simple-unnotificationcontentextension-9b87c78c2f9b44f4bf59182f85f979c4",
-    1842,
+    1837,
     -1,
     "Creating a simple UNNotificationContentExtension",
     ""
@@ -11837,19 +11806,19 @@ gTocItems = [
   [
     "load-images-async-1c7d0afd964c4b18a54f77c4ea09f8f2",
     -1,
-    1847,
+    1842,
     "Load images async"
   ],
   [
     "easiest-way-3af2ec3a0187486faf7380ec9a5aad28",
-    1846,
+    1841,
     -1,
     "Easiest way",
     ""
   ],
   [
     "check-that-the-cell-is-still-visible-after-download-79b541ba78aa429bac0e78fc570d171a",
-    1846,
+    1841,
     -1,
     "Check that the cell is still visible after download",
     ""
@@ -11857,19 +11826,19 @@ gTocItems = [
   [
     "adding-swift-bridging-header-e1621bc4312941fe82729f98ee34095c",
     -1,
-    1850,
+    1845,
     "Adding Swift bridging header"
   ],
   [
     "0how-to-create-a-swift-bridging-header-manually-1c7fd3261c034de68f737090ee010191",
-    1849,
+    1844,
     -1,
     "0How to create a Swift Bridging Header Manually",
     ""
   ],
   [
     "xcode-create-automatically-b19610ef1cf14c67b5afbd4b9e48a6e2",
-    1849,
+    1844,
     -1,
     "Xcode create automatically",
     ""
@@ -11877,19 +11846,19 @@ gTocItems = [
   [
     "creating-an-app-id-4e7f3250f994421dae4393e687dcec25",
     -1,
-    1853,
+    1848,
     "Creating an App ID"
   ],
   [
     "creating-in-app-purchase-products-4161ae5eb45b4a379bf0308bea8bdf99",
-    1852,
+    1847,
     -1,
     "Creating In-App Purchase Products",
     ""
   ],
   [
     "creating-a-sandbox-user-910a5182c343459685ee5c6d0d154bc5",
-    1852,
+    1847,
     -1,
     "Creating a Sandbox User",
     ""
@@ -11897,44 +11866,44 @@ gTocItems = [
   [
     "changing-the-rootview-controller-6b3e628c8baa405b9e95ac4553904020",
     -1,
-    1856,
+    1851,
     "Changing the rootview controller"
   ],
   [
     "swift-changing-the-rootviewcontroller-in-appdelegate-to-present-main-or-loginonboarding-flow-43b789a278674ad1afaf034906a342b6",
-    1855,
-    1857,
+    1850,
+    1852,
     "Swift Changing the rootViewController in AppDelegate to present main or loginonboarding flow",
     ""
   ],
   [
     "swift-changing-the-rootviewcontroller-in-appdelegate-to-present-main-or-loginonboarding-flow-43b789a278674ad1afaf034906a342b6#3288ff15-8092-4257-be6f-280cf5bfc580",
-    1856,
+    1851,
     -1,
     "Introduction"
   ],
   [
     "swift-changing-the-rootviewcontroller-in-appdelegate-to-present-main-or-loginonboarding-flow-43b789a278674ad1afaf034906a342b6#a961896d-9f24-4594-a816-5f3b2dc73c14",
-    1856,
+    1851,
     -1,
     "Remarks"
   ],
   [
     "swift-changing-the-rootviewcontroller-in-appdelegate-to-present-main-or-loginonboarding-flow-43b789a278674ad1afaf034906a342b6#79d01db3-6592-4c6d-8ac8-acfb9df7f9a9",
-    1856,
+    1851,
     -1,
     "Approaches:"
   ],
   [
     "option-1-swap-the-root-view-controller-good-61d28826fd79432589d16ebfcc22a212",
-    1855,
+    1850,
     -1,
     "Option 1 Swap the Root View Controller Good",
     ""
   ],
   [
     "option-2-present-alternative-flow-modally-better-30607b64626441b8a436194aefe9ee1c",
-    1855,
+    1850,
     -1,
     "Option 2 Present Alternative Flow Modally Better",
     ""
@@ -11942,32 +11911,32 @@ gTocItems = [
   [
     "attributed-text-in-uilabel-32466aa8da8e4c68905db787606ff491",
     -1,
-    1863,
+    1858,
     "Attributed text in UILabel"
   ],
   [
     "attributedtext-in-uilabel-c783ad99c50240369726ff7795859434",
-    1862,
-    1864,
+    1857,
+    1859,
     "attributedText in UILabel",
     ""
   ],
   [
     "attributedtext-in-uilabel-c783ad99c50240369726ff7795859434#40a28038-ef99-419f-a920-8caa8678f448",
-    1863,
+    1858,
     -1,
     "Introduction"
   ],
   [
     "html-text-in-uilabel-170e589fa22148e3aa909fbfb64e6c26",
-    1862,
+    1857,
     -1,
     "HTML text in UILabel",
     ""
   ],
   [
     "set-different-property-to-text-in-single-uilabel-67ec8d246d554651905a9325a3d2b699",
-    1862,
+    1857,
     -1,
     "Set different property to text in single UILabel",
     ""
@@ -11975,32 +11944,32 @@ gTocItems = [
   [
     "uitableviewcontroller-05f806285dd645429fa702369c6aa696",
     -1,
-    1868,
+    1863,
     "UITableViewController"
   ],
   [
     "uitableviewcontroller-1e986cc5f8d84322b04ccad3b9c75050",
-    1867,
-    1869,
+    1862,
+    1864,
     "UITableViewController",
     ""
   ],
   [
     "uitableviewcontroller-1e986cc5f8d84322b04ccad3b9c75050#0f361673-4205-4590-b682-2de37f386d01",
-    1868,
+    1863,
     -1,
     "Introduction"
   ],
   [
     "tableview-with-dynamic-properties-with-tableviewcellstyle-basic-6b64e322e07e412f888af841a98c253b",
-    1867,
+    1862,
     -1,
     "TableView with dynamic properties with tableviewCellStyle basic.",
     ""
   ],
   [
     "tableview-with-custom-cell-df4a955fc7ad47f894d0f745a1b122a7",
-    1867,
+    1862,
     -1,
     "TableView with Custom Cell",
     ""

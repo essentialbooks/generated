@@ -2261,59 +2261,27 @@ gTocItems = [
     ""
   ],
   [
-    "globalization-in-asp-net-1ebd212141bd4f8bb684d47f74390f12",
-    -1,
-    339,
-    "Globalization in ASP.NET"
-  ],
-  [
-    "globalization-in-asp-net-mvc-using-smart-internationalization-for-asp-net-608e013e16334aaa859980e126ce0e6a",
-    338,
-    340,
-    "Globalization in ASP.NET MVC using Smart internationalization for ASP.NET",
-    ""
-  ],
-  [
-    "globalization-in-asp-net-mvc-using-smart-internationalization-for-asp-net-608e013e16334aaa859980e126ce0e6a#f7642a00-59a7-4f4a-aa19-77a62391d03e",
-    339,
-    -1,
-    "Versions"
-  ],
-  [
-    "globalization-in-asp-net-mvc-using-smart-internationalization-for-asp-net-608e013e16334aaa859980e126ce0e6a#ad4e5807-d9aa-489e-b544-bb6a6787a6b5",
-    339,
-    -1,
-    "Remarks"
-  ],
-  [
-    "basic-configuration-and-setup-03c13216864340a69f4f135e7ede8ca8",
-    338,
-    -1,
-    "Basic configuration and setup",
-    ""
-  ],
-  [
     "task-parallel-library-tpl-392fa5c447d64cff9709e8d068082cc4",
     -1,
-    344,
+    339,
     "Task Parallel Library (TPL)"
   ],
   [
     "task-parallel-library-tpl-api-overviews-7db39817610b4b2f9bde3a2cb7673766",
-    343,
-    345,
+    338,
+    340,
     "Task Parallel Library TPL API Overviews",
     ""
   ],
   [
     "task-parallel-library-tpl-api-overviews-7db39817610b4b2f9bde3a2cb7673766#3626ace5-afb1-4cae-9e9f-8f5edfab5c6c",
-    344,
+    339,
     -1,
     "Remarks"
   ],
   [
     "perform-work-in-response-to-a-button-click-and-update-the-ui-69185acbeb1240bfa32c112f4f14a717",
-    343,
+    338,
     -1,
     "Perform work in response to a button click and update the UI",
     ""
@@ -2321,51 +2289,51 @@ gTocItems = [
   [
     "system-io-17dfbeabe6d94fe98b76cf3666038aec",
     -1,
-    348,
+    343,
     "System.IO"
   ],
   [
     "system-io-832e8349d99841a994ebe2ba4fc30403",
-    347,
+    342,
     -1,
     "System.IO",
     ""
   ],
   [
     "reading-a-text-file-using-streamreader-575b362e273d4d30b84835ee5daea15b",
-    347,
+    342,
     -1,
     "Reading a text file using StreamReader",
     ""
   ],
   [
     "serial-ports-using-system-io-serialports-1ca972bae90841b29d04ac5e970c8936",
-    347,
-    351,
+    342,
+    346,
     "Serial Ports using System.IO.SerialPorts",
     ""
   ],
   [
     "serial-ports-using-system-io-serialports-1ca972bae90841b29d04ac5e970c8936#96a0592b-0ffb-4904-a444-c1ac7f102575",
-    350,
+    345,
     -1,
     "Iterating over connected serial ports"
   ],
   [
     "serial-ports-using-system-io-serialports-1ca972bae90841b29d04ac5e970c8936#5a26fd6b-7bab-4b44-a110-ca3818bb37c7",
-    350,
+    345,
     -1,
     "Instantiating a System.IO.SerialPort object"
   ],
   [
     "serial-ports-using-system-io-serialports-1ca972bae90841b29d04ac5e970c8936#13662c7b-4cc8-4878-9e28-05d84c2b195e",
-    350,
+    345,
     -1,
     "Reading/Writing data over the SerialPort"
   ],
   [
     "readingwriting-data-using-system-io-file-33d1d6f88eb949cdb3c7588773e0d8bc",
-    347,
+    342,
     -1,
     "ReadingWriting Data Using System.IO.File",
     ""
@@ -2373,26 +2341,26 @@ gTocItems = [
   [
     "unit-testing-79ddd6cb0e0a455695fdc28289626981",
     -1,
-    356,
+    351,
     "Unit Testing"
   ],
   [
     "unit-testing-1a9568bf2b9e4ddba84982903e7a7b17",
-    355,
+    350,
     -1,
     "Unit testing",
     ""
   ],
   [
     "adding-mstest-unit-testing-project-to-an-existing-solution-8a1eb279d00747768538c0f3e8269231",
-    355,
+    350,
     -1,
     "Adding MSTest unit testing project to an existing solution",
     ""
   ],
   [
     "creating-a-sample-test-method-a3e9287c680b48bcbdc634c984a79865",
-    355,
+    350,
     -1,
     "Creating a sample test method",
     ""
@@ -2400,47 +2368,47 @@ gTocItems = [
   [
     "serial-ports-13cc7af077b14d3491b3fbb702596d72",
     -1,
-    360,
+    355,
     "Serial Ports"
   ],
   [
     "serial-ports-74a23aeff80f4141b5309f2ced9f299b",
-    359,
+    354,
     -1,
     "Serial Ports",
     ""
   ],
   [
     "basic-operation-3d5755c3d5c741b4ad9bd15e12500a54",
-    359,
+    354,
     -1,
     "Basic operation",
     ""
   ],
   [
     "list-available-port-names-2be040d0fbb74bb1b18041d63a342988",
-    359,
+    354,
     -1,
     "List available port names",
     ""
   ],
   [
     "asynchronous-read-f39e7604b51f4b8fbfd34abe3ac547d0",
-    359,
+    354,
     -1,
     "Asynchronous read",
     ""
   ],
   [
     "synchronous-text-echo-service-8e0397d8d83a44679e5326fda481fd36",
-    359,
+    354,
     -1,
     "Synchronous text echo service",
     ""
   ],
   [
     "asynchronous-message-receiver-6e53218259bf42bda06ceaa112cd09e4",
-    359,
+    354,
     -1,
     "Asynchronous message receiver",
     ""
@@ -2448,72 +2416,72 @@ gTocItems = [
   [
     "system-io-file-6f3b2b42b01e4ceda29a8cc1049169f6",
     -1,
-    367,
+    362,
     "System.IO.File"
   ],
   [
     "system-io-file-class-09e83fcafd1248e4b907334da97f13d7",
-    366,
-    368,
+    361,
+    363,
     "System.IO.File class",
     ""
   ],
   [
     "system-io-file-class-09e83fcafd1248e4b907334da97f13d7#a57f9493-b672-470c-b572-64445bd1da3e",
-    367,
+    362,
     -1,
     "Syntax"
   ],
   [
     "system-io-file-class-09e83fcafd1248e4b907334da97f13d7#f4d6df0b-e931-4ac7-bcd1-3fbd7829a998",
-    367,
+    362,
     -1,
     "Parameters"
   ],
   [
     "delete-a-file-fb91552baf754a7c96cc877f24173071",
-    366,
+    361,
     -1,
     "Delete a file",
     ""
   ],
   [
     "strip-unwanted-lines-from-a-text-file-2239ab524a0542ef86ef0e6bd2546e20",
-    366,
+    361,
     -1,
     "Strip unwanted lines from a text file",
     ""
   ],
   [
     "convert-text-file-encoding-7c782019de164f879521d209a0ede6f3",
-    366,
+    361,
     -1,
     "Convert text file encoding",
     ""
   ],
   [
     "enumerate-files-older-than-a-specified-amount-626c6eae0b674aa88dea93ce9e43fb5b",
-    366,
+    361,
     -1,
     "Enumerate files older than a specified amount",
     ""
   ],
   [
     "move-a-file-from-one-location-to-another-42e24f2245a04e569e04b81c8c6993b1",
-    366,
-    375,
+    361,
+    370,
     "Move a File from one location to another",
     ""
   ],
   [
     "move-a-file-from-one-location-to-another-42e24f2245a04e569e04b81c8c6993b1#94742e23-3eb9-421c-ba46-b90651679cc0",
-    374,
+    369,
     -1,
     "File.Move"
   ],
   [
     "touch-a-large-amount-of-files-to-update-last-write-time-4888995866b34e918ef5694fe089230d",
-    366,
+    361,
     -1,
     "Touch a large amount of files to update last write time",
     ""
@@ -2521,25 +2489,25 @@ gTocItems = [
   [
     "synchronization-contexts-44d59605d50a42aaab91c7977fd8a8b4",
     -1,
-    378,
+    373,
     "Synchronization contexts"
   ],
   [
     "synchronization-contexts-73774afd3cda4a9db9c57b4a3193084d",
-    377,
-    379,
+    372,
+    374,
     "Synchronization Contexts",
     ""
   ],
   [
     "synchronization-contexts-73774afd3cda4a9db9c57b4a3193084d#0ad057fc-c836-4dde-b862-6b4512c61e41",
-    378,
+    373,
     -1,
     "Remarks"
   ],
   [
     "execute-code-on-the-ui-thread-after-performing-background-work-83f5d64e5e194fc99d672a3c2b230111",
-    377,
+    372,
     -1,
     "Execute code on the UI thread after performing background work",
     ""
@@ -2547,26 +2515,26 @@ gTocItems = [
   [
     "using-progresst-and-iprogresst-4541582af23340f58dc4eb0d6c1eb10e",
     -1,
-    382,
+    377,
     "Using Progress\u003cT\u003e and IProgress\u003cT\u003e"
   ],
   [
     "using-progresst-and-iprogresst-16a1f082dd254dc283b036a4a823b1ec",
-    381,
+    376,
     -1,
     "Using ProgressT and IProgressT",
     ""
   ],
   [
     "simple-progress-reporting-2cc7fc6c6b164d01b91e05bb8ad1782f",
-    381,
+    376,
     -1,
     "Simple Progress reporting",
     ""
   ],
   [
     "using-iprogresst-a6697c208e1f4a4f96815f48b7c2c5a2",
-    381,
+    376,
     -1,
     "Using IProgressT",
     ""
@@ -2574,69 +2542,69 @@ gTocItems = [
   [
     "readonlycollections-f8ca8ac1616e45278aece0317d92b890",
     -1,
-    386,
+    381,
     "ReadOnlyCollections"
   ],
   [
     "readonlycollections-8b96354a3c3e48ed9679571eb35bf992",
-    385,
-    387,
+    380,
+    382,
     "ReadOnlyCollections",
     ""
   ],
   [
     "readonlycollections-8b96354a3c3e48ed9679571eb35bf992#45d08148-f4c5-4172-8bd3-26ec4938cf47",
-    386,
+    381,
     -1,
     "Versions"
   ],
   [
     "readonlycollections-8b96354a3c3e48ed9679571eb35bf992#2ab63c14-1703-4b40-a70b-8ad2f76de394",
-    386,
+    381,
     -1,
     "Remarks"
   ],
   [
     "readonlycollections-8b96354a3c3e48ed9679571eb35bf992#7260c249-2098-4125-bb1d-3e2a78bf8ed9",
-    386,
+    381,
     -1,
     "ReadOnlyCollections vs ImmutableCollection"
   ],
   [
     "creating-a-readonlycollection-8f9a5d493bbb45058708a58b1e5d7ef9",
-    385,
-    391,
+    380,
+    386,
     "Creating a ReadOnlyCollection",
     ""
   ],
   [
     "creating-a-readonlycollection-8f9a5d493bbb45058708a58b1e5d7ef9#f0a83253-962d-4493-8420-c23466c6e749",
-    390,
+    385,
     -1,
     "Using the Constructor"
   ],
   [
     "creating-a-readonlycollection-8f9a5d493bbb45058708a58b1e5d7ef9#5398b0e4-b71a-492a-9687-1d7f9128371a",
-    390,
+    385,
     -1,
     "Using LINQ"
   ],
   [
     "creating-a-readonlycollection-8f9a5d493bbb45058708a58b1e5d7ef9#5506904f-195a-4ea6-95b8-722898f93067",
-    390,
+    385,
     -1,
     "Note"
   ],
   [
     "updating-a-readonlycollection-5a04ab5fe7e643f187c05063255638a2",
-    385,
+    380,
     -1,
     "Updating a ReadOnlyCollection",
     ""
   ],
   [
     "warning-elements-in-a-readonlycollection-are-not-inherently-read-only-28f6a9ec634045b0a88c0993920573b3",
-    385,
+    380,
     -1,
     "Warning Elements in a ReadOnlyCollection are not inherently read-only",
     ""
@@ -2644,105 +2612,105 @@ gTocItems = [
   [
     "regular-expressions-fe958aa5191d44da9d9841ba1dde934f",
     -1,
-    397,
+    392,
     "Regular expressions"
   ],
   [
     "regular-expressions-system-text-regularexpressions-fb513b530c484251a8ad805b7e40ca7c",
-    396,
+    391,
     -1,
     "Regular Expressions System.Text.RegularExpressions",
     ""
   ],
   [
     "check-if-pattern-matches-input-73a545f5b06044bda27ab38c2bab634f",
-    396,
+    391,
     -1,
     "Check if pattern matches input",
     ""
   ],
   [
     "passing-options-99a553384fac415485df87e1a0f045f0",
-    396,
+    391,
     -1,
     "Passing Options",
     ""
   ],
   [
     "match-into-groups-c8d03923123f4e3493df2371b617e472",
-    396,
+    391,
     -1,
     "Match into groups",
     ""
   ],
   [
     "remove-non-alphanumeric-characters-from-string-9b8c10c4c5cb4f0f8a41c5ab7bfe98cb",
-    396,
+    391,
     -1,
     "Remove non alphanumeric characters from string",
     ""
   ],
   [
     "simple-match-and-replace-69da8a8f69f24465908119bf06896f17",
-    396,
+    391,
     -1,
     "Simple match and replace",
     ""
   ],
   [
     "find-all-matches-022c07af457341b5aba0ab36e6002b55",
-    396,
-    404,
+    391,
+    399,
     "Find all matches",
     ""
   ],
   [
     "find-all-matches-022c07af457341b5aba0ab36e6002b55#febf528f-09b3-4c4a-a8da-29c37b3ce9aa",
-    403,
+    398,
     -1,
     "Using"
   ],
   [
     "find-all-matches-022c07af457341b5aba0ab36e6002b55#ca947217-43b1-4265-9bc5-360ab85d6265",
-    403,
+    398,
     -1,
     "Code"
   ],
   [
     "find-all-matches-022c07af457341b5aba0ab36e6002b55#d601b2d5-d121-46a7-8f9c-1b405023ca6d",
-    403,
+    398,
     -1,
     "Output"
   ],
   [
     "system-net-mail-729ad137501c428aa6841cab5be722ce",
     -1,
-    408,
+    403,
     "System.Net.Mail"
   ],
   [
     "system-net-mail-d708f783642d409db9701047de4622a2",
-    407,
-    409,
+    402,
+    404,
     "System.Net.Mail",
     ""
   ],
   [
     "system-net-mail-d708f783642d409db9701047de4622a2#811c9ea4-a165-4bf8-a202-f4829bab8afd",
-    408,
+    403,
     -1,
     "Remarks"
   ],
   [
     "mailmessage-2c79158dd90c4e7aad1996435de5c60b",
-    407,
+    402,
     -1,
     "MailMessage",
     ""
   ],
   [
     "mail-with-attachment-6a183872fdf440b1a2ddb821ef41c266",
-    407,
+    402,
     -1,
     "Mail with Attachment",
     ""
@@ -2750,46 +2718,46 @@ gTocItems = [
   [
     "encryption-cryptography-b7cd86c14d1b4e0a847890678a901422",
     -1,
-    413,
+    408,
     "Encryption, cryptography"
   ],
   [
     "encryption-cryptography-5280e5c52ad64bbebb43804f54620485",
-    412,
-    414,
+    407,
+    409,
     "Encryption Cryptography",
     ""
   ],
   [
     "encryption-cryptography-5280e5c52ad64bbebb43804f54620485#6ce46909-4aa0-409c-bef1-d058426141da",
-    413,
+    408,
     -1,
     "Remarks"
   ],
   [
     "encrypt-and-decrypt-data-using-aes-in-c-46416030fc2242b7a410d054bf24a3b3",
-    412,
+    407,
     -1,
     "Encrypt and decrypt data using AES in C",
     ""
   ],
   [
     "create-a-key-from-a-password-random-salt-in-c-3bd1f3250ca14e179ec934bf6d435546",
-    412,
+    407,
     -1,
     "Create a Key from a Password Random SALT in C",
     ""
   ],
   [
     "rijndaelmanaged-1e6c107cded94e0592203645830857ba",
-    412,
+    407,
     -1,
     "RijndaelManaged",
     ""
   ],
   [
     "encryption-and-decryption-using-cryptography-aes-2207211600314152ae0d19daed1f33ed",
-    412,
+    407,
     -1,
     "Encryption and Decryption using Cryptography AES",
     ""
@@ -2797,25 +2765,25 @@ gTocItems = [
   [
     "parallel-process-d7a3662e5f0a4776aabd4c48cbde30a5",
     -1,
-    420,
+    415,
     "Parallel process"
   ],
   [
     "parallel-processing-using-net-framework-96baadb9e6ef464ab1df30f906d140b8",
-    419,
-    421,
+    414,
+    416,
     "Parallel processing using .Net framework",
     ""
   ],
   [
     "parallel-processing-using-net-framework-96baadb9e6ef464ab1df30f906d140b8#dd956a29-ecd3-45d7-a703-bee60c2debd7",
-    420,
+    415,
     -1,
     "Introduction"
   ],
   [
     "parallel-extensions-46ea3409443c4477b19dc69139b2eeff",
-    419,
+    414,
     -1,
     "Parallel Extensions",
     ""
@@ -2823,32 +2791,32 @@ gTocItems = [
   [
     "json-with-newtonsoft-json-0271bfe7c37a4696a45bc1e49994cf18",
     -1,
-    424,
+    419,
     "JSON with Newtonsoft.Json"
   ],
   [
     "json-in-net-with-newtonsoft-json-5772e4805cb7438a9e55676962a69377",
-    423,
-    425,
+    418,
+    420,
     "JSON in .NET with Newtonsoft.Json",
     ""
   ],
   [
     "json-in-net-with-newtonsoft-json-5772e4805cb7438a9e55676962a69377#74cbabc3-6ffb-44d0-a1f5-77bf01fc7f70",
-    424,
+    419,
     -1,
     "Introduction"
   ],
   [
     "deserialize-an-object-from-json-text-fc1ea0189add46ee9538fc4705d71272",
-    423,
+    418,
     -1,
     "Deserialize an object from JSON text",
     ""
   ],
   [
     "serialize-object-into-json-378532416bf34330a70519239ae91d7e",
-    423,
+    418,
     -1,
     "Serialize object into JSON",
     ""
@@ -2856,37 +2824,37 @@ gTocItems = [
   [
     "net-cor-c8781654f14149b3940ce450c22a3af7",
     -1,
-    429,
+    424,
     ".NET Cor"
   ],
   [
     "net-core-93215699240a44089f4685180d3db235",
-    428,
-    430,
+    423,
+    425,
     ".NET Core",
     ""
   ],
   [
     "net-core-93215699240a44089f4685180d3db235#c4878638-2220-48d9-a415-912507a31a99",
-    429,
+    424,
     -1,
     "Versions"
   ],
   [
     "net-core-93215699240a44089f4685180d3db235#c9013d77-5d26-4d63-9f1c-5485be435a9e",
-    429,
+    424,
     -1,
     "Introduction"
   ],
   [
     "net-core-93215699240a44089f4685180d3db235#380d0337-2cd9-46ce-91ed-9feec09ad115",
-    429,
+    424,
     -1,
     "Remarks"
   ],
   [
     "basic-console-app-3d2097d53cc54e409795d64a3d116ab8",
-    428,
+    423,
     -1,
     "Basic Console App",
     ""
@@ -2894,37 +2862,37 @@ gTocItems = [
   [
     "jit-compiler-89ba4d3d6adb486581cb543bb0cf3f66",
     -1,
-    435,
+    430,
     "JIT compiler"
   ],
   [
     "jit-compiler-461802517b454a939297af8c72b918b7",
-    434,
-    436,
+    429,
+    431,
     "JIT compiler",
     ""
   ],
   [
     "jit-compiler-461802517b454a939297af8c72b918b7#dfb2be47-3139-4017-bf59-b017874a9552",
-    435,
+    430,
     -1,
     "Versions"
   ],
   [
     "jit-compiler-461802517b454a939297af8c72b918b7#0f9dbfc8-0606-4f9a-a526-68a93b26c933",
-    435,
+    430,
     -1,
     "Introduction"
   ],
   [
     "jit-compiler-461802517b454a939297af8c72b918b7#cf6e2125-b4f3-4caa-ae32-7d22dd0fe772",
-    435,
+    430,
     -1,
     "Remarks"
   ],
   [
     "il-compilation-sample-b77065227a0f467caecd64bd98c7ecf1",
-    434,
+    429,
     -1,
     "IL compilation sample",
     ""
@@ -2932,38 +2900,38 @@ gTocItems = [
   [
     "stack-and-heap-fc35a31fb4a14387bb6be20e80d8c4c4",
     -1,
-    441,
+    436,
     "Stack and heap"
   ],
   [
     "stack-and-heap-70002cbec1b24077bb43aba903c27505",
-    440,
-    442,
+    435,
+    437,
     "Stack and Heap",
     ""
   ],
   [
     "stack-and-heap-70002cbec1b24077bb43aba903c27505#fb2054cb-8ffc-4a90-9924-b99868ab1981",
-    441,
+    436,
     -1,
     "Versions"
   ],
   [
     "stack-and-heap-70002cbec1b24077bb43aba903c27505#6397b562-0598-4229-acb3-901983d10aa6",
-    441,
+    436,
     -1,
     "Remarks"
   ],
   [
     "value-types-in-use-39da51130a374ee1b3225c0271b97e45",
-    440,
+    435,
     -1,
     "Value types in use",
     ""
   ],
   [
     "reference-types-in-use-f9365b83346a4d3a9fa33d5b188d1491",
-    440,
+    435,
     -1,
     "Reference types in use",
     ""
@@ -2971,25 +2939,25 @@ gTocItems = [
   [
     "sha1-3d72526cfdd645728bbd50165f36a8da",
     -1,
-    447,
+    442,
     "SHA1"
   ],
   [
     "work-with-sha1-in-c-6298ef91303446388559977b93a36e98",
-    446,
-    448,
+    441,
+    443,
     "Work with SHA1 in C",
     ""
   ],
   [
     "work-with-sha1-in-c-6298ef91303446388559977b93a36e98#aa98f77e-9d7f-4541-9650-32e3d3b01c66",
-    447,
+    442,
     -1,
     "Introduction"
   ],
   [
     "generate-sha1-checksum-of-a-file-function-60efc7a5a3d94bc0ac9532f3b313a81e",
-    446,
+    441,
     -1,
     "Generate SHA1 checksum of a file function",
     ""
@@ -2997,32 +2965,32 @@ gTocItems = [
   [
     "sha1-42e3249854de43f99f2f92fd72b66fd4",
     -1,
-    451,
+    446,
     "SHA1"
   ],
   [
     "work-with-sha1-in-c-0a1c6ebfdc74476599afb63686ad0e13",
-    450,
-    452,
+    445,
+    447,
     "Work with SHA1 in C",
     ""
   ],
   [
     "work-with-sha1-in-c-0a1c6ebfdc74476599afb63686ad0e13#fa0e1b4d-7db7-4218-b1fb-b6b343cb9dae",
-    451,
+    446,
     -1,
     "Introduction"
   ],
   [
     "generate-sha1-checksum-of-a-file-9d56b1f42af84a21af4e3d5964373d94",
-    450,
+    445,
     -1,
     "Generate SHA1 checksum of a file",
     ""
   ],
   [
     "generate-hash-of-a-text-2164b877607548038b2e7d9e928ef946",
-    450,
+    445,
     -1,
     "Generate hash of a text",
     ""
@@ -3030,72 +2998,72 @@ gTocItems = [
   [
     "garbage-collection-4cd15e8ed40c46799ced0cfcb5a44695",
     -1,
-    456,
+    451,
     "Garbage Collection"
   ],
   [
     "garbage-collection-72eff82505d642a9a942274aa70559c4",
-    455,
-    457,
+    450,
+    452,
     "Garbage Collection",
     ""
   ],
   [
     "garbage-collection-72eff82505d642a9a942274aa70559c4#ee6bda6f-b8b6-4310-bb1f-c8b43e5cd6ca",
-    456,
+    451,
     -1,
     "Versions"
   ],
   [
     "garbage-collection-72eff82505d642a9a942274aa70559c4#192312cb-2b87-4ac4-b2cd-7f0fb5886392",
-    456,
+    451,
     -1,
     "Introduction"
   ],
   [
     "garbage-collection-72eff82505d642a9a942274aa70559c4#ec7c0859-5139-48af-a634-0e4ce57da2a5",
-    456,
+    451,
     -1,
     "Remarks"
   ],
   [
     "a-basic-example-of-garbage-collection-68474a415fbe475c868d6d26371513e9",
-    455,
+    450,
     -1,
     "A basic example of garbage collection",
     ""
   ],
   [
     "live-objects-and-dead-objects-the-basics-9bdd0cf6e3df4c11b318eb54cefbb84f",
-    455,
+    450,
     -1,
     "Live objects and dead objects - the basics",
     ""
   ],
   [
     "multiple-dead-objects-27201966f358478ca2f6124bf435497e",
-    455,
+    450,
     -1,
     "Multiple dead objects",
     ""
   ],
   [
     "weak-references-d7c0c10312924c78804a70f1c69ac8f2",
-    455,
+    450,
     -1,
     "Weak References",
     ""
   ],
   [
     "dispose-vs-finalizers-568d10a048ac45adb53150b4fab9d85a",
-    455,
+    450,
     -1,
     "Dispose vs. finalizers",
     ""
   ],
   [
     "proper-disposal-and-finalization-of-objects-11a7537daa2e44b68ef3bb708d58f934",
-    455,
+    450,
     -1,
     "Proper disposal and finalization of objects",
     ""
@@ -3103,51 +3071,51 @@ gTocItems = [
   [
     "reading-and-writing-zip-files-7a6daccd42844458a4223162f3088238",
     -1,
-    467,
+    462,
     "Reading and writing ZIP files"
   ],
   [
     "reading-and-writing-zip-files-332a50854f7f45c5b777ed379d9aef41",
-    466,
-    468,
+    461,
+    463,
     "Reading and writing Zip files",
     ""
   ],
   [
     "reading-and-writing-zip-files-332a50854f7f45c5b777ed379d9aef41#f25c06f6-d601-47c7-a58b-5f03cfa6da42",
-    467,
+    462,
     -1,
     "Versions"
   ],
   [
     "reading-and-writing-zip-files-332a50854f7f45c5b777ed379d9aef41#78d4238d-8ad1-4c7a-900a-6a67e6ccb0ca",
-    467,
+    462,
     -1,
     "Introduction"
   ],
   [
     "reading-and-writing-zip-files-332a50854f7f45c5b777ed379d9aef41#e0338433-e786-4647-a4db-41a30d0778d2",
-    467,
+    462,
     -1,
     "Remarks"
   ],
   [
     "listing-zip-contents-5fd068d00c354acf8bfcf6639eee68de",
-    466,
+    461,
     -1,
     "Listing ZIP contents",
     ""
   ],
   [
     "extracting-files-from-zip-files-010c563670b54b13a9ab778c4c3a20e8",
-    466,
+    461,
     -1,
     "Extracting files from ZIP files",
     ""
   ],
   [
     "updating-a-zip-file-adb24f026bf34349a44b11a7d5952baf",
-    466,
+    461,
     -1,
     "Updating a ZIP file",
     ""
@@ -3155,32 +3123,32 @@ gTocItems = [
   [
     "stderr-stream-4d6337c3ed634dd785713c5ded909939",
     -1,
-    475,
+    470,
     "StdErr stream"
   ],
   [
     "write-to-and-read-from-stderr-stream-7409089245d14fcfa35280b42e6440a6",
-    474,
-    476,
+    469,
+    471,
     "Write to and read from StdErr stream",
     ""
   ],
   [
     "write-to-and-read-from-stderr-stream-7409089245d14fcfa35280b42e6440a6#c12fe9fb-d41f-42a7-b0ef-64802f53b8fd",
-    475,
+    470,
     -1,
     "Versions"
   ],
   [
     "write-to-standard-error-output-using-console-d3399e36515c4bbbaaf7f31924d74e3c",
-    474,
+    469,
     -1,
     "Write to standard error output using Console",
     ""
   ],
   [
     "read-from-standard-error-of-child-process-f89d8e2be86f4342bb2f44a042319db3",
-    474,
+    469,
     -1,
     "Read from standard error of child process",
     ""
@@ -3188,25 +3156,25 @@ gTocItems = [
   [
     "upload-file-and-post-data-to-webserver-524d9bfb5233406284c4edd378f0520f",
     -1,
-    480,
+    475,
     "Upload file and POST data to webserver"
   ],
   [
     "upload-file-and-post-data-to-webserver-af86336eb31e46e28164ebf62c8eadb5",
-    479,
-    481,
+    474,
+    476,
     "Upload file and POST data to webserver",
     ""
   ],
   [
     "upload-file-and-post-data-to-webserver-af86336eb31e46e28164ebf62c8eadb5#72f6e918-e509-4534-8d4f-3381b47be170",
-    480,
+    475,
     -1,
     "Versions"
   ],
   [
     "upload-file-with-webrequest-0b1d6a76e88a42c6b6181861b84cf708",
-    479,
+    474,
     -1,
     "Upload file with WebRequest",
     ""
@@ -3214,25 +3182,25 @@ gTocItems = [
   [
     "acronym-glossary-84b65762d2134fb9912590a5928c1c07",
     -1,
-    484,
+    479,
     "Acronym Glossary"
   ],
   [
     "acronym-glossary-9be03473de2b40bf885453a2051e3c26",
-    483,
-    485,
+    478,
+    480,
     "Acronym Glossary",
     ""
   ],
   [
     "acronym-glossary-9be03473de2b40bf885453a2051e3c26#c312cc33-45f6-489c-ab8b-e13ad69fad39",
-    484,
+    479,
     -1,
     "Versions"
   ],
   [
     "net-related-acronyms-c8f0d0211ed54c98abd962f8ab6fff00",
-    483,
+    478,
     -1,
     ".Net Related Acronyms",
     ""
