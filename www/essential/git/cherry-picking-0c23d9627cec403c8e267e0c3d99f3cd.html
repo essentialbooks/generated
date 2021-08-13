@@ -127,13 +127,65 @@
 </div>
 
 
-      <p>A cherry-pick takes the patch that was introduced in a commit and tries to reapply it on the branch you’re currently on.</p><h2 id="7bd61782-061a-41cb-856e-40ed7a950200" class="">Syntax<a class="header-anchor" href="#7bd61782-061a-41cb-856e-40ed7a950200" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><ul id="8980415c-0af5-4909-8c76-56c055e4e4b4" class="bulleted-list"><li><code>git cherry-pick [–edit] [-n] [-m parent-number] [-s] [-x] [–ff] [-S[key-id]] commit…</code></li><li><code>git cherry-pick –continue</code></li><li><code>git cherry-pick –quit</code></li><li><code>git cherry-pick –abort</code></li></ul><div id="3133850b-177d-4e23-857a-eb24554c7001" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th width="165">Parameters</th><th width="662">Details</th></tr></thead><tbody><tr id="34f19b9e-0d28-4c7d-934e-ce124612296d"><td class="cell-title col-type-title">-e, --edit</td><td class="cell-68[c col-type-text">With this option, git cherry-pick will let you edit the commit message prior to committing.</td></tr>
-<tr id="c9c56b37-ae95-4bc3-9c6c-346ac77d4c27"><td class="cell-title col-type-title">-x</td><td class="cell-68[c col-type-text">When recording the commit, append a line that says &quot;(cherry picked from commit …​)&quot; to the original commit message in order to indicate which commit this change was cherry-picked from. This is done only for cherry picks without conflicts.</td></tr>
-<tr id="7e1a5975-12df-4bbc-b2d8-6d833de9f010"><td class="cell-title col-type-title">--ff</td><td class="cell-68[c col-type-text">If the current HEAD is the same as the parent of the cherry-pick’ed commit, then a fast forward to this commit will be performed.</td></tr>
-<tr id="2405eb6d-7a57-47f1-b97a-8823797f9060"><td class="cell-title col-type-title">--continue</td><td class="cell-68[c col-type-text">Continue the operation in progress using the information in .git/sequencer. Can be used to continue after resolving conflicts in a failed cherry-pick or revert.</td></tr>
-<tr id="a9c5ffdd-8279-4de3-8410-39c64b90efe6"><td class="cell-title col-type-title">--quit</td><td class="cell-68[c col-type-text">Forget about the current operation in progress. Can be used to clear the sequencer state after a failed cherry-pick or revert.</td></tr>
-<tr id="f3baaea5-0620-4c6f-9763-a78151b043c2"><td class="cell-title col-type-title">--abort</td><td class="cell-68[c col-type-text">Cancel the operation and return to the pre-sequence state.</td></tr>
-</tbody></table></div>
+      
+<p>A cherry-pick takes the patch that was introduced in a commit and tries to reapply it on the branch you’re currently on.
+</p>
+  <h2 id="7bd61782-061a-41cb-856e-40ed7a950200" class="">Syntax
+  <a class="header-anchor" href="#7bd61782-061a-41cb-856e-40ed7a950200" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+  <ul id="8980415c-0af5-4909-8c76-56c055e4e4b4" class="bulleted-list">
+    <li><code>git cherry-pick [–edit] [-n] [-m parent-number] [-s] [-x] [–ff] [-S[key-id]] commit…</code>
+    </li>
+    <li><code>git cherry-pick –continue</code>
+    </li>
+    <li><code>git cherry-pick –quit</code>
+    </li>
+    <li><code>git cherry-pick –abort</code>
+    </li>
+  </ul>
+<div id="3133850b-177d-4e23-857a-eb24554c7001" class="collection-content">
+<h4 class="collection-title"></h4>
+<table class="collection-content">
+<thead>
+<tr>
+<th width="165">Parameters</th>
+<th width="662">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr id="34f19b9e-0d28-4c7d-934e-ce124612296d">
+<td class="cell-title col-type-title">-e, --edit</td>
+<td class="cell-68[c col-type-text">With this option, git cherry-pick will let you edit the commit message prior to committing.</td>
+</tr>
+
+<tr id="c9c56b37-ae95-4bc3-9c6c-346ac77d4c27">
+<td class="cell-title col-type-title">-x</td>
+<td class="cell-68[c col-type-text">When recording the commit, append a line that says &quot;(cherry picked from commit …​)&quot; to the original commit message in order to indicate which commit this change was cherry-picked from. This is done only for cherry picks without conflicts.</td>
+</tr>
+
+<tr id="7e1a5975-12df-4bbc-b2d8-6d833de9f010">
+<td class="cell-title col-type-title">--ff</td>
+<td class="cell-68[c col-type-text">If the current HEAD is the same as the parent of the cherry-pick’ed commit, then a fast forward to this commit will be performed.</td>
+</tr>
+
+<tr id="2405eb6d-7a57-47f1-b97a-8823797f9060">
+<td class="cell-title col-type-title">--continue</td>
+<td class="cell-68[c col-type-text">Continue the operation in progress using the information in .git/sequencer. Can be used to continue after resolving conflicts in a failed cherry-pick or revert.</td>
+</tr>
+
+<tr id="a9c5ffdd-8279-4de3-8410-39c64b90efe6">
+<td class="cell-title col-type-title">--quit</td>
+<td class="cell-68[c col-type-text">Forget about the current operation in progress. Can be used to clear the sequencer state after a failed cherry-pick or revert.</td>
+</tr>
+
+<tr id="f3baaea5-0620-4c6f-9763-a78151b043c2">
+<td class="cell-title col-type-title">--abort</td>
+<td class="cell-68[c col-type-text">Cancel the operation and return to the pre-sequence state.</td>
+</tr>
+
+</tbody>
+</table>
+</div>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

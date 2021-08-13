@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The idea of bound and unbound methods was <a href="https://python-history.blogspot.com/2009/02/first-class-everything.html">removed in Python 3</a>. In Python 3 when you declare a method within a class, you are using a <code>def</code> keyword, thus creating a function object. This is a regular function, and the surrounding class works as its namespace. In the following example we declare method <code>f</code> within class <code>A</code>, and it becomes a function <code>A.f</code>:</p>
+      
+<p>The idea of bound and unbound methods was <a href="https://python-history.blogspot.com/2009/02/first-class-everything.html">removed in Python 3</a>. In Python 3 when you declare a method within a class, you are using a <code>def</code> keyword, thus creating a function object. This is a regular function, and the surrounding class works as its namespace. In the following example we declare method <code>f</code> within class <code>A</code>, and it becomes a function <code>A.f</code>:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -139,7 +142,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In Python 2 the behavior was different: function objects within the class were implicitly replaced with objects of type <code>instancemethod</code>, which were called <em>unbound methods</em> because they were not bound to any particular class instance. It was possible to access the underlying function using <code>.__func__</code> property.</p>
+</div>
+<p>In Python 2 the behavior was different: function objects within the class were implicitly replaced with objects of type <code>instancemethod</code>, which were called <em>unbound methods</em> because they were not bound to any particular class instance. It was possible to access the underlying function using <code>.__func__</code> property.
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">A</span><span class="o">.</span><span class="n">f</span>
@@ -152,7 +158,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The latter behaviors are confirmed by inspection - methods are recognized as functions in Python 3, while the distinction is upheld in Python 2.</p>
+</div>
+<p>The latter behaviors are confirmed by inspection - methods are recognized as functions in Python 3, while the distinction is upheld in Python 2.
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="kn">import</span> <span class="nn">inspect</span>
@@ -165,7 +174,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In Python 3:</p>
+</div>
+<p>In Python 3:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import inspect
@@ -178,7 +190,12 @@ inspect.ismethod(A.f)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p></p><p>In both versions of Python function/method <code>A.f</code> can be called directly, provided that you pass an instance of class <code>A</code> as the first argument.</p>
+</div>
+<p>
+</p>
+<p>In both versions of Python function/method <code>A.f</code> can be called directly, provided that you pass an instance of class <code>A</code> as the first argument.
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">A</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
@@ -192,7 +209,12 @@ inspect.ismethod(A.f)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now suppose <code>a</code> is an instance of class <code>A</code>, what is <code>a.f</code> then? Well, intuitively this should be the same method <code>f</code> of class <code>A</code>, only it should somehow “know” that it was applied to the object <code>a</code> – in Python this is called method <em>bound</em> to <code>a</code>.</p><p>The nitty-gritty details are as follows: writing <code>a.f</code> invokes the magic <code>__getattribute__</code> method of <code>a</code>, which first checks whether <code>a</code> has an attribute named <code>f</code> (it doesn’t), then checks the class <code>A</code> whether it contains a method with such a name (it does), and creates a new object <code>m</code> of type <code>method</code> which has the reference to the original <code>A.f</code> in <code>m.__func__</code>, and a reference to the object <code>a</code> in <code>m.__self__</code>. When this object is called as a function, it simply does the following: <code>m(...) =&gt; m.__func__(m.__self__, ...)</code>. Thus this object is called a <strong>bound method</strong> because when invoked it knows to supply the object it was bound to as the first argument. (These things work same way in Python 2 and 3).</p>
+</div>
+<p>Now suppose <code>a</code> is an instance of class <code>A</code>, what is <code>a.f</code> then? Well, intuitively this should be the same method <code>f</code> of class <code>A</code>, only it should somehow “know” that it was applied to the object <code>a</code> – in Python this is called method <em>bound</em> to <code>a</code>.
+</p>
+<p>The nitty-gritty details are as follows: writing <code>a.f</code> invokes the magic <code>__getattribute__</code> method of <code>a</code>, which first checks whether <code>a</code> has an attribute named <code>f</code> (it doesn’t), then checks the class <code>A</code> whether it contains a method with such a name (it does), and creates a new object <code>m</code> of type <code>method</code> which has the reference to the original <code>A.f</code> in <code>m.__func__</code>, and a reference to the object <code>a</code> in <code>m.__self__</code>. When this object is called as a function, it simply does the following: <code>m(...) =&gt; m.__func__(m.__self__, ...)</code>. Thus this object is called a <strong>bound method</strong> because when invoked it knows to supply the object it was bound to as the first argument. (These things work same way in Python 2 and 3).
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
@@ -211,7 +233,10 @@ inspect.ismethod(A.f)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Finally, Python has <strong>class methods</strong> and <strong>static methods</strong> – special kinds of methods. Class methods work the same way as regular methods, except that when invoked on an object they bind to the <em>class</em> of the object instead of to the object. Thus <code>m.__self__ = type(a)</code>. When you call such bound method, it passes the class of <code>a</code> as the first argument. Static methods are even simpler: they don’t bind anything at all, and simply return the underlying function without any transformations.</p>
+</div>
+<p>Finally, Python has <strong>class methods</strong> and <strong>static methods</strong> – special kinds of methods. Class methods work the same way as regular methods, except that when invoked on an object they bind to the <em>class</em> of the object instead of to the object. Thus <code>m.__self__ = type(a)</code>. When you call such bound method, it passes the class of <code>a</code> as the first argument. Static methods are even simpler: they don’t bind anything at all, and simply return the underlying function without any transformations.
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">D</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -237,7 +262,10 @@ inspect.ismethod(A.f)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that class methods are bound to the class even when accessed on the instance:</p>
+</div>
+<p>Note that class methods are bound to the class even when accessed on the instance:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">d</span> <span class="o">=</span> <span class="n">D</span><span class="p">()</span>
@@ -252,7 +280,15 @@ inspect.ismethod(A.f)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It is worth noting that at the lowest level, functions, methods, staticmethods, etc. are actually <a href="http://stackoverflow.com/documentation/python/3405/descriptor/11716/simple-descriptor#t=201612051953531019874">descriptors</a> that invoke <code>__get__</code>, <code>__set</code>__ and optionally <code>__del__</code> special methods. For more details on classmethods and staticmethods:</p><ul id="7b426033-3d8d-4279-9e8f-ecf03d32c646" class="bulleted-list"><li>http://stackoverflow.com/questions/136097/what-is-the-difference-between-staticmethod-and-classmethod-in-python</li><li>http://stackoverflow.com/questions/12179271/python-classmethod-and-staticmethod-for-beginner</li></ul>
+</div>
+<p>It is worth noting that at the lowest level, functions, methods, staticmethods, etc. are actually <a href="http://stackoverflow.com/documentation/python/3405/descriptor/11716/simple-descriptor#t=201612051953531019874">descriptors</a> that invoke <code>__get__</code>, <code>__set</code>__ and optionally <code>__del__</code> special methods. For more details on classmethods and staticmethods:
+</p>
+  <ul id="7b426033-3d8d-4279-9e8f-ecf03d32c646" class="bulleted-list">
+    <li>http://stackoverflow.com/questions/136097/what-is-the-difference-between-staticmethod-and-classmethod-in-python
+    </li>
+    <li>http://stackoverflow.com/questions/12179271/python-classmethod-and-staticmethod-for-beginner
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

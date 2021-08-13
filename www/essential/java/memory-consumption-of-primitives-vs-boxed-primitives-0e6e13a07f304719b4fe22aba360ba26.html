@@ -127,7 +127,8 @@
 </div>
 
 
-      <p>Primitive | Boxed Type | Memory Size of primitive / boxed |
+      
+<p>Primitive | Boxed Type | Memory Size of primitive / boxed |
 ——— | ———– | ––––– |
 boolean | Boolean | 1 byte / 16 bytes |
 byte | Byte | 1 byte / 16 bytes |
@@ -136,7 +137,19 @@ char | Char | 2 bytes / 16 bytes |
 int | Integer | 4 bytes / 16 bytes |
 long | Long | 8 bytes / 16 bytes |
 float | Float | 4 bytes / 16 bytes |
-double | Double | 8 bytes / 16 bytes |</p><p>Boxed objects always require 8 bytes for type and memory management, and because the size of objects is always a multiple of 8, boxed types <em>all require 16 bytes total</em>. In <em>addition</em>, each usage of a boxed object entails storing a reference which accounts for another 4 or 8 bytes, depending on the JVM and JVM options.</p><p>In data-intensive operations, memory consumption can have a major impact on performance. Memory consumption grows even more when using arrays: a <code>float[5]</code> array will require only 32 bytes; whereas a <code>Float[5]</code> storing 5 distinct non-null values will require 112 bytes total (on 64 bit without compressed pointers, this increases to 152 bytes).</p><h2 id="f197cb7f-ba09-45d3-bd69-ce539b9326eb" class="">Boxed value caches<a class="header-anchor" href="#f197cb7f-ba09-45d3-bd69-ce539b9326eb" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>The space overheads of the boxed types can be mitigated to a degree by the boxed value caches. Some of the boxed types implement a cache of instances. For example, by default, the <code>Integer</code> class will cache instances to represent numbers in the range <code>-128</code> to <code>+127</code>. This does not, however, reduce the additional cost arising from the additional memory indirection.</p><p>If you create an instance of a boxed type either by autoboxing or by calling the static <code>valueOf(primitive)</code> method, the runtime system will attempt to use a cached value. If your application uses a lot of values in the range that is cached, then this can substantially reduce the memory penalty of using boxed types. Certainly, if you are creating boxed value instances “by hand”, it is better to use <code>valueOf</code> rather than <code>new</code>. (The <code>new</code> operation always creates a new instance.) If, however, the majority of your values are <em>not</em> in the cached range, it can be faster to call <code>new</code> and save the cache lookup.</p>
+double | Double | 8 bytes / 16 bytes |
+</p>
+<p>Boxed objects always require 8 bytes for type and memory management, and because the size of objects is always a multiple of 8, boxed types <em>all require 16 bytes total</em>. In <em>addition</em>, each usage of a boxed object entails storing a reference which accounts for another 4 or 8 bytes, depending on the JVM and JVM options.
+</p>
+<p>In data-intensive operations, memory consumption can have a major impact on performance. Memory consumption grows even more when using arrays: a <code>float[5]</code> array will require only 32 bytes; whereas a <code>Float[5]</code> storing 5 distinct non-null values will require 112 bytes total (on 64 bit without compressed pointers, this increases to 152 bytes).
+</p>
+  <h2 id="f197cb7f-ba09-45d3-bd69-ce539b9326eb" class="">Boxed value caches
+  <a class="header-anchor" href="#f197cb7f-ba09-45d3-bd69-ce539b9326eb" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>The space overheads of the boxed types can be mitigated to a degree by the boxed value caches. Some of the boxed types implement a cache of instances. For example, by default, the <code>Integer</code> class will cache instances to represent numbers in the range <code>-128</code> to <code>+127</code>. This does not, however, reduce the additional cost arising from the additional memory indirection.
+</p>
+<p>If you create an instance of a boxed type either by autoboxing or by calling the static <code>valueOf(primitive)</code> method, the runtime system will attempt to use a cached value. If your application uses a lot of values in the range that is cached, then this can substantially reduce the memory penalty of using boxed types. Certainly, if you are creating boxed value instances “by hand”, it is better to use <code>valueOf</code> rather than <code>new</code>. (The <code>new</code> operation always creates a new instance.) If, however, the majority of your values are <em>not</em> in the cached range, it can be faster to call <code>new</code> and save the cache lookup.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

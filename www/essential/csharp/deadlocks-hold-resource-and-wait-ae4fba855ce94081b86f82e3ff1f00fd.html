@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>A deadlock is what occurs when two or more threads are waiting for eachother to complete or to release a resource in such a way that they wait forever.</p><p>If thread1 holds a lock on resource A and is waiting for resource B to be released while thread2 holds resource B and is waiting for resource A to be released, they are deadlocked.</p><p>Clicking button1 for the following example code will cause your application to get into aforementioned deadlocked state and hang</p>
+      
+<p>A deadlock is what occurs when two or more threads are waiting for eachother to complete or to release a resource in such a way that they wait forever.
+</p>
+<p>If thread1 holds a lock on resource A and is waiting for resource B to be released while thread2 holds resource B and is waiting for resource A to be released, they are deadlocked.
+</p>
+<p>Clicking button1 for the following example code will cause your application to get into aforementioned deadlocked state and hang
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">private</span> <span class="k">void</span> <span class="n">button_Click</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
@@ -192,7 +199,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To avoid being deadlocked this way, one can use Monitor.TryEnter(lock_object, timeout_in_milliseconds) to check if a lock is held on an object already. If Monitor.TryEnter does not succeed in acquiring a lock on lock_object before timeout_in_milliseconds, it returns false, giving the thread a chance to release other held resources and yielding, thus giving other threads a chance to complete as in this slightly modified version of the above:</p>
+</div>
+<p>To avoid being deadlocked this way, one can use Monitor.TryEnter(lock_object, timeout_in_milliseconds) to check if a lock is held on an object already. If Monitor.TryEnter does not succeed in acquiring a lock on lock_object before timeout_in_milliseconds, it returns false, giving the thread a chance to release other held resources and yielding, thus giving other threads a chance to complete as in this slightly modified version of the above:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">private</span> <span class="k">void</span> <span class="n">button_Click</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
@@ -264,7 +274,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that this workaround relies on thread2 being stubborn about its locks and thread1 being willing to yield, such that thread2 always take precedence. Also note that thread1 has to redo the work it did after locking resource A, when it yields. Therefore be careful when implementing this approach with more than one yielding thread, as you’ll then run the risk of entering a so-called livelock - a state which would occur if two threads kept doing the first bit of their work and then yield mutually, starting over repeatedly.</p>
+</div>
+<p>Note that this workaround relies on thread2 being stubborn about its locks and thread1 being willing to yield, such that thread2 always take precedence. Also note that thread1 has to redo the work it did after locking resource A, when it yields. Therefore be careful when implementing this approach with more than one yielding thread, as you’ll then run the risk of entering a so-called livelock - a state which would occur if two threads kept doing the first bit of their work and then yield mutually, starting over repeatedly.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

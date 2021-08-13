@@ -127,7 +127,49 @@
 </div>
 
 
-      <h2 id="5d05b5e8-2121-479c-bc36-82bef6bead84" class="">Parameters<a class="header-anchor" href="#5d05b5e8-2121-479c-bc36-82bef6bead84" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Parameter | Details |</p><p>——— | —–– |</p><p><code>string $to</code> | The recipient email address |<code>string $subject</code> | The subject line |<code>string $message</code> | The body of the email |<code>string $additional_headers</code> | Optional: headers to add to the email |<code>string $additional_parameters</code> | Optional: arguments to pass to the configured mail send application in the command line |</p><h2 id="a6abdce9-d05d-4023-b8d5-5adca34c34d1" class="">Remarks<a class="header-anchor" href="#a6abdce9-d05d-4023-b8d5-5adca34c34d1" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p><strong>E-Mail I’m sending through my script never arrives. What should I do?</strong></p><ul id="cad85696-b7d0-414c-a391-b901e77c86d5" class="bulleted-list"><li>Make sure you have error reporting turned on to see any errors.</li><li>If you have access to PHP’s error log files, check those.</li><li>Is the <code>mail()</code> command <a href="http://uk3.php.net/manual/en/mail.configuration.php">configured properly on your server</a>? (If you are on shared hosting, you can not change anything here.)</li><li>If E-Mails are just disappearing, start an E-Mail account with a freemail service that has a spam folder (or use a mail account that does no spam filtering at all). This way, you can see whether the E-Mail is not getting sent out, or perhaps sent out but filtered as spam.</li><li>Did you check the “from:” address you used for possible “returned to sender” mails? You can also set up a separate <a href="http://stackoverflow.com/questions/5303541/set-email-headers-so-bounced-emails-go-to-a-specific-address">bounce address</a> for error mails.</li></ul><p><strong>The E-Mail I’m sending is getting filtered as spam. What should I do?</strong></p><ul id="b92b48a3-7311-4fa9-a6f5-91871e9f8d94" class="bulleted-list"><li>Does the sender address (“From”) belong to a domain that runs on the server you send the E-Mail from? If not, change that.</li></ul><p>Never use sender addresses like <code>xxx@gmail.com</code>. Use <code>reply-to</code> if you need replies to arrive at a different address.</p><ul id="2392e299-867b-446b-b201-77ae4b2c5418" class="bulleted-list"><li>Is your server on a blacklist? This is a possibility when you’re on shared hosting when neighbours behave badly. Most blacklist providers, like <a href="https://www.spamhaus.org/lookup/">Spamhaus</a>, have tools that allow you to look up your server’s IP. There’s also third party tools like <a href="http://mxtoolbox.com/blacklists.aspx">MX Toolbox.</a></li><li>Some installations of PHP require setting a <a href="http://stackoverflow.com/questions/1376152/what-does-the-f-flag-mean-in-the-fifth-parameter-in-the-php-mail-function">fifth parameter</a> to mail() to add a sender address. See whether this might be the case for you.</li><li>If all else fails, consider using email-as-a-service such as <a href="https://www.mailgun.com/">Mailgun</a>, <a href="https://www.sparkpost.com/">SparkPost</a>, <a href="https://aws.amazon.com/ses/">Amazon SES</a>, <a href="https://www.mailjet.com/">Mailjet</a>, <a href="https://www.sendinblue.com/">SendinBlue</a> or <a href="https://sendgrid.com/">SendGrid</a>—to name a few—instead. They all have APIs that can be called using PHP.</li></ul>
+      
+  <h2 id="5d05b5e8-2121-479c-bc36-82bef6bead84" class="">Parameters
+  <a class="header-anchor" href="#5d05b5e8-2121-479c-bc36-82bef6bead84" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Parameter | Details |
+</p>
+<p>——— | —–– |
+</p>
+<p><code>string $to</code> | The recipient email address |<code>string $subject</code> | The subject line |<code>string $message</code> | The body of the email |<code>string $additional_headers</code> | Optional: headers to add to the email |<code>string $additional_parameters</code> | Optional: arguments to pass to the configured mail send application in the command line |
+</p>
+  <h2 id="a6abdce9-d05d-4023-b8d5-5adca34c34d1" class="">Remarks
+  <a class="header-anchor" href="#a6abdce9-d05d-4023-b8d5-5adca34c34d1" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p><strong>E-Mail I’m sending through my script never arrives. What should I do?</strong>
+</p>
+  <ul id="cad85696-b7d0-414c-a391-b901e77c86d5" class="bulleted-list">
+    <li>Make sure you have error reporting turned on to see any errors.
+    </li>
+    <li>If you have access to PHP’s error log files, check those.
+    </li>
+    <li>Is the <code>mail()</code> command <a href="http://uk3.php.net/manual/en/mail.configuration.php">configured properly on your server</a>? (If you are on shared hosting, you can not change anything here.)
+    </li>
+    <li>If E-Mails are just disappearing, start an E-Mail account with a freemail service that has a spam folder (or use a mail account that does no spam filtering at all). This way, you can see whether the E-Mail is not getting sent out, or perhaps sent out but filtered as spam.
+    </li>
+    <li>Did you check the “from:” address you used for possible “returned to sender” mails? You can also set up a separate <a href="http://stackoverflow.com/questions/5303541/set-email-headers-so-bounced-emails-go-to-a-specific-address">bounce address</a> for error mails.
+    </li>
+  </ul>
+<p><strong>The E-Mail I’m sending is getting filtered as spam. What should I do?</strong>
+</p>
+  <ul id="b92b48a3-7311-4fa9-a6f5-91871e9f8d94" class="bulleted-list">
+    <li>Does the sender address (“From”) belong to a domain that runs on the server you send the E-Mail from? If not, change that.
+    </li>
+  </ul>
+<p>Never use sender addresses like <code>xxx@gmail.com</code>. Use <code>reply-to</code> if you need replies to arrive at a different address.
+</p>
+  <ul id="2392e299-867b-446b-b201-77ae4b2c5418" class="bulleted-list">
+    <li>Is your server on a blacklist? This is a possibility when you’re on shared hosting when neighbours behave badly. Most blacklist providers, like <a href="https://www.spamhaus.org/lookup/">Spamhaus</a>, have tools that allow you to look up your server’s IP. There’s also third party tools like <a href="http://mxtoolbox.com/blacklists.aspx">MX Toolbox.</a>
+    </li>
+    <li>Some installations of PHP require setting a <a href="http://stackoverflow.com/questions/1376152/what-does-the-f-flag-mean-in-the-fifth-parameter-in-the-php-mail-function">fifth parameter</a> to mail() to add a sender address. See whether this might be the case for you.
+    </li>
+    <li>If all else fails, consider using email-as-a-service such as <a href="https://www.mailgun.com/">Mailgun</a>, <a href="https://www.sparkpost.com/">SparkPost</a>, <a href="https://aws.amazon.com/ses/">Amazon SES</a>, <a href="https://www.mailjet.com/">Mailjet</a>, <a href="https://www.sendinblue.com/">SendinBlue</a> or <a href="https://sendgrid.com/">SendGrid</a>—to name a few—instead. They all have APIs that can be called using PHP.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

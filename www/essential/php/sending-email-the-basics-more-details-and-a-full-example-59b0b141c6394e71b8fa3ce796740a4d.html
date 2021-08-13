@@ -127,7 +127,30 @@
 </div>
 
 
-      <p>A typical email has three main components:</p><ol id="facc6a0a-155f-440d-a002-bf566d99370e" class="numbered-list" start="1"><li>A recipient (represented as an email address)</li><li>A subject</li><li>A message body</li></ol><p>Sending mail in PHP can be as simple as calling the built-in function <code>mail()</code>. <code>mail()</code> takes up to five parameters but the first three are all that is required to send an email (although the four parameters is commonly used as will be demonstrated below). The first three parameters are:</p><ol id="7fbcb0e6-6fd7-4fbf-b24a-a28cdaddfc6d" class="numbered-list" start="1"><li>The recipient’s email address (string)</li><li>The email’s subject (string)</li><li>The body of the email (string) (e.g. the content of the email)</li></ol><p>A minimal example would resemble the following code:</p>
+      
+<p>A typical email has three main components:
+</p>
+  <ol id="facc6a0a-155f-440d-a002-bf566d99370e" class="numbered-list" start="1">
+    <li>A recipient (represented as an email address)
+    </li>
+    <li>A subject
+    </li>
+    <li>A message body
+    </li>
+  </ol>
+<p>Sending mail in PHP can be as simple as calling the built-in function <code>mail()</code>. <code>mail()</code> takes up to five parameters but the first three are all that is required to send an email (although the four parameters is commonly used as will be demonstrated below). The first three parameters are:
+</p>
+  <ol id="7fbcb0e6-6fd7-4fbf-b24a-a28cdaddfc6d" class="numbered-list" start="1">
+    <li>The recipient’s email address (string)
+    </li>
+    <li>The email’s subject (string)
+    </li>
+    <li>The body of the email (string) (e.g. the content of the email)
+    </li>
+  </ol>
+<p>A minimal example would resemble the following code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mail(&#39;recipient@example.com&#39;, &#39;Email Subject&#39;, &#39;This is the email message body&#39;);</pre>
@@ -135,7 +158,20 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The simple example above works well in limited circumstances such as hardcoding an email alert for an internal system. However, it is common to place the data passed as the parameters for <code>mail()</code> in variables to make the code cleaner and easier to manage (for example, dynamically building an email from a form submission).</p><p>Additionally, <code>mail()</code> accepts a fourth parameter which allows you to have additional mail headers sent with your email. These headers can allow you to set:</p><ul id="c424a786-61bd-4e20-b718-66c604b99b9b" class="bulleted-list"><li>the <code>From</code> name and email address the user will see</li><li>the <code>Reply-To</code> email address the user’s response will be sent to</li><li>additional non-standards headers like <code>X-Mailer</code> which can tell the recipient this email was sent via PHP</li></ul>
+</div>
+<p>The simple example above works well in limited circumstances such as hardcoding an email alert for an internal system. However, it is common to place the data passed as the parameters for <code>mail()</code> in variables to make the code cleaner and easier to manage (for example, dynamically building an email from a form submission).
+</p>
+<p>Additionally, <code>mail()</code> accepts a fourth parameter which allows you to have additional mail headers sent with your email. These headers can allow you to set:
+</p>
+  <ul id="c424a786-61bd-4e20-b718-66c604b99b9b" class="bulleted-list">
+    <li>the <code>From</code> name and email address the user will see
+    </li>
+    <li>the <code>Reply-To</code> email address the user’s response will be sent to
+    </li>
+    <li>additional non-standards headers like <code>X-Mailer</code> which can tell the recipient this email was sent via PHP
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$to      = &#39;recipient@example.com&#39;;             // Could also be $to      = $_POST[&#39;recipient&#39;];  
@@ -150,7 +186,10 @@ $headers = implode(&#34;\r\n&#34;, [
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The optional fifth parameter can be used to pass additional flags as command line options to the program configured to be used when sending mail, as defined by the <code>sendmail_path</code> configuration setting. For example, this can be used to set the envelope sender address when using sendmail/postfix with the <code>-f</code> sendmail option.</p>
+</div>
+<p>The optional fifth parameter can be used to pass additional flags as command line options to the program configured to be used when sending mail, as defined by the <code>sendmail_path</code> configuration setting. For example, this can be used to set the envelope sender address when using sendmail/postfix with the <code>-f</code> sendmail option.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$fifth  = &#39;-fno-reply@example.com&#39;;</pre>
@@ -158,7 +197,10 @@ $headers = implode(&#34;\r\n&#34;, [
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Although using <code>mail()</code> can be pretty reliable, it is by no means guaranteed that an email will be sent when <code>mail()</code> is called. To see if there is a potential error when sending your email, you should capture the return value from <code>mail()</code>. <code>TRUE</code> will be returned if the mail was successfully accepted for delivery. Otherwise, you will receive <code>FALSE</code>.</p>
+</div>
+<p>Although using <code>mail()</code> can be pretty reliable, it is by no means guaranteed that an email will be sent when <code>mail()</code> is called. To see if there is a potential error when sending your email, you should capture the return value from <code>mail()</code>. <code>TRUE</code> will be returned if the mail was successfully accepted for delivery. Otherwise, you will receive <code>FALSE</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$result = mail($to, $subject, $message, $headers, $fifth);</pre>
@@ -166,7 +208,20 @@ $headers = implode(&#34;\r\n&#34;, [
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>NOTE</strong>: Although <code>mail()</code> may return <code>TRUE</code>, it does <em>not</em> mean the email was sent or that the email will be received by the recipient. It only indicates the mail was successfully handed over to your system’s mail system successfully.</p><p>If you wish to send an HTML email, there isn’t a lot more work you need to do. You need to:</p><ol id="03ef4757-3453-4306-9a63-d99736448002" class="numbered-list" start="1"><li>Add the <code>MIME-Version</code> header</li><li>Add the <code>Content-Type</code> header</li><li>Make sure your email content is HTML</li></ol>
+</div>
+<p><strong>NOTE</strong>: Although <code>mail()</code> may return <code>TRUE</code>, it does <em>not</em> mean the email was sent or that the email will be received by the recipient. It only indicates the mail was successfully handed over to your system’s mail system successfully.
+</p>
+<p>If you wish to send an HTML email, there isn’t a lot more work you need to do. You need to:
+</p>
+  <ol id="03ef4757-3453-4306-9a63-d99736448002" class="numbered-list" start="1">
+    <li>Add the <code>MIME-Version</code> header
+    </li>
+    <li>Add the <code>Content-Type</code> header
+    </li>
+    <li>Make sure your email content is HTML
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$to      = &#39;recipient@example.com&#39;;                            
@@ -183,7 +238,10 @@ $headers = implode(&#34;\r\n&#34;, [
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here’s a full example of using PHP’s <code>mail()</code> function</p>
+</div>
+<p>Here’s a full example of using PHP’s <code>mail()</code> function
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;?php
@@ -194,6 +252,7 @@ $headers = implode(&#34;\r\n&#34;, [
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">error_reporting(-1);
@@ -204,6 +263,7 @@ set_error_handler(&#34;var_dump&#34;);</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Special mail settings that can make mail less likely to be considered spam
@@ -213,6 +273,7 @@ set_error_handler(&#34;var_dump&#34;);</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ini_set(&#34;mail.log&#34;, &#34;/tmp/mail.log&#34;);
@@ -222,6 +283,7 @@ ini_set(&#34;mail.add_x_header&#34;, TRUE);</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// The components of our email</pre>
@@ -230,6 +292,7 @@ ini_set(&#34;mail.add_x_header&#34;, TRUE);</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$to      = &#39;recipient@example.com&#39;;
@@ -245,6 +308,7 @@ $headers = implode(&#34;\r\n&#34;, [
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Send the email
@@ -257,6 +321,7 @@ $result = mail($to, $subject, $message, $headers);
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if ($result) {
@@ -279,7 +344,51 @@ else {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>See Also</p><p>Official documentation</p><ul id="abe02382-3396-417d-b5e9-aaa4ab503016" class="bulleted-list"><li><a href="http://php.net/manual/en/function.mail.php"><code>mail()</code></a></li><li><a href="http://php.net/manual/en/mail.configuration.php">PHP </a><a href="http://php.net/manual/en/mail.configuration.php"><code>mail()</code></a><a href="http://php.net/manual/en/mail.configuration.php"> configuration</a></li></ul><p>Related Stack Overflow Questions</p><ul id="5ccbb6c6-de00-4c43-bbd8-6e7073d561eb" class="bulleted-list"><li><a href="http://stackoverflow.com/q/24644436/250259">PHP mail form doesn’t complete sending e-mail</a></li><li><a href="http://stackoverflow.com/q/371/250259">How do you make sure email you send programmatically is not automatically marked as spam?</a></li><li><a href="http://stackoverflow.com/questions/15965376/how-to-configure-xampp-to-send-mail-from-localhost/18185233#18185233">How to use SMTP to send email</a></li><li><a href="http://stackoverflow.com/a/5666682/2417031">Setting envelope from address</a></li></ul><p>Alternative Mailers</p><ul id="13750cbf-6afd-416b-91d2-3d2e4fdb7bd7" class="bulleted-list"><li><a href="https://github.com/Synchro/PHPMailer">PHPMailer</a></li><li><a href="http://swiftmailer.org/">SwiftMailer</a></li><li><a href="https://pear.php.net/package/Mail">PEAR::Mail</a></li></ul><p>Email Servers</p><ul id="079e35c0-51b3-4d68-ac93-ec294774444d" class="bulleted-list"><li><a href="http://www.pmail.com/overviews/ovw_mercury.htm">Mercury Mail (Windows)</a></li></ul><p>Related Topics</p><ul id="a8e4e402-8c5a-4515-ab4a-8a0ce7919fa6" class="bulleted-list"><li><a href="https://en.wikipedia.org/wiki/Post/Redirect/Get">Post/Redirect/Get</a></li></ul>
+</div>
+<p>See Also
+</p>
+<p>Official documentation
+</p>
+  <ul id="abe02382-3396-417d-b5e9-aaa4ab503016" class="bulleted-list">
+    <li><a href="http://php.net/manual/en/function.mail.php"><code>mail()</code></a>
+    </li>
+    <li><a href="http://php.net/manual/en/mail.configuration.php">PHP </a><a href="http://php.net/manual/en/mail.configuration.php"><code>mail()</code></a><a href="http://php.net/manual/en/mail.configuration.php"> configuration</a>
+    </li>
+  </ul>
+<p>Related Stack Overflow Questions
+</p>
+  <ul id="5ccbb6c6-de00-4c43-bbd8-6e7073d561eb" class="bulleted-list">
+    <li><a href="http://stackoverflow.com/q/24644436/250259">PHP mail form doesn’t complete sending e-mail</a>
+    </li>
+    <li><a href="http://stackoverflow.com/q/371/250259">How do you make sure email you send programmatically is not automatically marked as spam?</a>
+    </li>
+    <li><a href="http://stackoverflow.com/questions/15965376/how-to-configure-xampp-to-send-mail-from-localhost/18185233#18185233">How to use SMTP to send email</a>
+    </li>
+    <li><a href="http://stackoverflow.com/a/5666682/2417031">Setting envelope from address</a>
+    </li>
+  </ul>
+<p>Alternative Mailers
+</p>
+  <ul id="13750cbf-6afd-416b-91d2-3d2e4fdb7bd7" class="bulleted-list">
+    <li><a href="https://github.com/Synchro/PHPMailer">PHPMailer</a>
+    </li>
+    <li><a href="http://swiftmailer.org/">SwiftMailer</a>
+    </li>
+    <li><a href="https://pear.php.net/package/Mail">PEAR::Mail</a>
+    </li>
+  </ul>
+<p>Email Servers
+</p>
+  <ul id="079e35c0-51b3-4d68-ac93-ec294774444d" class="bulleted-list">
+    <li><a href="http://www.pmail.com/overviews/ovw_mercury.htm">Mercury Mail (Windows)</a>
+    </li>
+  </ul>
+<p>Related Topics
+</p>
+  <ul id="a8e4e402-8c5a-4515-ab4a-8a0ce7919fa6" class="bulleted-list">
+    <li><a href="https://en.wikipedia.org/wiki/Post/Redirect/Get">Post/Redirect/Get</a>
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

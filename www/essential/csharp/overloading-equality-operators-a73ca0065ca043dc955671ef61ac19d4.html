@@ -127,7 +127,36 @@
 </div>
 
 
-      <p>Overloading just equality operators is not enough. Under different circumstances, all of the following can be called:</p><ol id="359c12fc-b4aa-4f78-982c-25d7dd94e20c" class="numbered-list" start="1"><li><code>object.Equals</code> and <code>object.GetHashCode</code></li><li><code>IEquatable&lt;T&gt;.Equals</code> (optional, allows avoiding boxing)</li><li><code>operator ==</code> and <code>operator !=</code> (optional, allows using operators)</li></ol><p>When overriding <code>Equals</code>, <code>GetHashCode</code> must also be overriden. When implementing <code>Equals</code>, there are many special cases: comparing to objects of a different type, comparing to self etc.</p><p>When NOT overridden <code>Equals</code> method and <code>==</code> operator behave differently for classes and structs. For classes just references are compared, and for structs values of properties are compared via reflection what can negatively affect performance. <code>==</code> can not be used for comparing structs unless it is overridden.</p><p>Generally equality operation must obey the following rules:</p><ul id="8726f7f1-0c95-429e-9c26-ac1c0721d389" class="bulleted-list"><li>Must not <em>throw exceptions</em>.</li><li>Reflexivity: <code>A</code> always equals <code>A</code> (may not be true for <code>NULL</code> values in some systems).</li><li>Transitvity: if <code>A</code> equals <code>B</code>, and <code>B</code> equals <code>C</code>, then <code>A</code> equals <code>C</code>.</li><li>If <code>A</code> equals <code>B</code>, then <code>A</code> and <code>B</code> have equal hash codes.</li><li>Inheritance tree independence: if <code>B</code> and <code>C</code> are instances of <code>Class2</code> inherited from <code>Class1</code>: <code>Class1.Equals(A,B)</code> must always return the same value as the call to <code>Class2.Equals(A,B)</code>.</li></ul>
+      
+<p>Overloading just equality operators is not enough. Under different circumstances, all of the following can be called:
+</p>
+  <ol id="359c12fc-b4aa-4f78-982c-25d7dd94e20c" class="numbered-list" start="1">
+    <li><code>object.Equals</code> and <code>object.GetHashCode</code>
+    </li>
+    <li><code>IEquatable&lt;T&gt;.Equals</code> (optional, allows avoiding boxing)
+    </li>
+    <li><code>operator ==</code> and <code>operator !=</code> (optional, allows using operators)
+    </li>
+  </ol>
+<p>When overriding <code>Equals</code>, <code>GetHashCode</code> must also be overriden. When implementing <code>Equals</code>, there are many special cases: comparing to objects of a different type, comparing to self etc.
+</p>
+<p>When NOT overridden <code>Equals</code> method and <code>==</code> operator behave differently for classes and structs. For classes just references are compared, and for structs values of properties are compared via reflection what can negatively affect performance. <code>==</code> can not be used for comparing structs unless it is overridden.
+</p>
+<p>Generally equality operation must obey the following rules:
+</p>
+  <ul id="8726f7f1-0c95-429e-9c26-ac1c0721d389" class="bulleted-list">
+    <li>Must not <em>throw exceptions</em>.
+    </li>
+    <li>Reflexivity: <code>A</code> always equals <code>A</code> (may not be true for <code>NULL</code> values in some systems).
+    </li>
+    <li>Transitvity: if <code>A</code> equals <code>B</code>, and <code>B</code> equals <code>C</code>, then <code>A</code> equals <code>C</code>.
+    </li>
+    <li>If <code>A</code> equals <code>B</code>, then <code>A</code> and <code>B</code> have equal hash codes.
+    </li>
+    <li>Inheritance tree independence: if <code>B</code> and <code>C</code> are instances of <code>Class2</code> inherited from <code>Class1</code>: <code>Class1.Equals(A,B)</code> must always return the same value as the call to <code>Class2.Equals(A,B)</code>.
+    </li>
+  </ul>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">Student</span> <span class="p">:</span> <span class="n">IEquatable</span><span class="p">&lt;</span><span class="n">Student</span><span class="p">&gt;</span>

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Sometimes a query looks like this, with a <code>\*</code> in the <code>SELECT</code> clause.</p>
+      
+<p>Sometimes a query looks like this, with a <code>\*</code> in the <code>SELECT</code> clause.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT item.*,     /* nonstandard */ 
@@ -139,7 +142,12 @@ GROUP BY item.item_id</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Such a query needs to be refactored to comply with the <code>ONLY_FULL_GROUP_BY</code> standard.</p><p>To do this, we need a subquery that uses <code>GROUP BY</code> correctly to return the <code>number_of_uses</code> value for each <code>item_id</code>. This subquery is short and sweet, because it only needs to look at the <code>uses</code> table.</p>
+</div>
+<p>Such a query needs to be refactored to comply with the <code>ONLY_FULL_GROUP_BY</code> standard.
+</p>
+<p>To do this, we need a subquery that uses <code>GROUP BY</code> correctly to return the <code>number_of_uses</code> value for each <code>item_id</code>. This subquery is short and sweet, because it only needs to look at the <code>uses</code> table.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT item_id, COUNT(*) number_of_uses
@@ -149,7 +157,10 @@ GROUP BY item.item_id</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then, we can join that subquery with the <code>item</code> table.</p>
+</div>
+<p>Then, we can join that subquery with the <code>item</code> table.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT item.*, usecount.number_of_uses
@@ -163,7 +174,11 @@ GROUP BY item.item_id</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This allows the <code>GROUP BY</code> clause to be simple and correct, and also allows us to use the <code>\*</code> specifier.</p><p>Note: nevertheless, wise developers avoid using the <code>\*</code> specifier in any case. It’s usually better to list the columns you want in a query.</p>
+</div>
+<p>This allows the <code>GROUP BY</code> clause to be simple and correct, and also allows us to use the <code>\*</code> specifier.
+</p>
+<p>Note: nevertheless, wise developers avoid using the <code>\*</code> specifier in any case. It’s usually better to list the columns you want in a query.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

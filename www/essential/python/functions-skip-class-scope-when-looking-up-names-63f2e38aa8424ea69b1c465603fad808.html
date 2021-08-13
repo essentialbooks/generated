@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Classes have a local scope during definition, but functions inside the class do not use that scope when looking up names. Because lambdas are functions, and comprehensions are implemented using function scope, this can lead to some surprising behavior.</p>
+      
+<p>Classes have a local scope during definition, but functions inside the class do not use that scope when looking up names. Because lambdas are functions, and comprehensions are implemented using function scope, this can lead to some surprising behavior.
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">a</span> <span class="o">=</span> <span class="s1">&#39;global&#39;</span>
@@ -155,7 +158,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Users unfamiliar with how this scope works might expect <code>b</code>, <code>c</code>, and <code>e</code> to print <code>class</code>.</p><p>From <a href="http://www.python.org/dev/peps/pep-0227/">PEP 227</a>:</p><blockquote id="a6ae2b67-6afd-4e34-adf5-a5784570d964" class="">Names in class scope are not accessible. Names are resolved in the innermost enclosing function scope. If a class definition occurs in a chain of nested scopes, the resolution process skips class definitions.</blockquote><p>From Python’s documentation on <a href="http://docs.python.org/3/reference/executionmodel.html#naming">naming and binding</a>:</p><blockquote id="2ffcaa09-44ae-4bce-83bf-6f718bc9ba6f" class="">The scope of names defined in a class block is limited to the class block; it does not extend to the code blocks of methods – this includes comprehensions and generator expressions since they are implemented using a function scope. This means that the following will fail:</blockquote>
+</div>
+<p>Users unfamiliar with how this scope works might expect <code>b</code>, <code>c</code>, and <code>e</code> to print <code>class</code>.
+</p>
+<p>From <a href="http://www.python.org/dev/peps/pep-0227/">PEP 227</a>:
+</p>
+<blockquote id="a6ae2b67-6afd-4e34-adf5-a5784570d964" class="">Names in class scope are not accessible. Names are resolved in the innermost enclosing function scope. If a class definition occurs in a chain of nested scopes, the resolution process skips class definitions.
+</blockquote>
+<p>From Python’s documentation on <a href="http://docs.python.org/3/reference/executionmodel.html#naming">naming and binding</a>:
+</p>
+<blockquote id="2ffcaa09-44ae-4bce-83bf-6f718bc9ba6f" class="">The scope of names defined in a class block is limited to the class block; it does not extend to the code blocks of methods – this includes comprehensions and generator expressions since they are implemented using a function scope. This means that the following will fail:
+</blockquote>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
@@ -165,7 +179,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This example uses references from <a href="http://stackoverflow.com/questions/13905741/accessing-class-variables-from-a-list-comprehension-in-the-class-definition/13913933#13913933">this answer</a> by Martijn Pieters, which contains more in depth analysis of this behavior.</p>
+</div>
+<p>This example uses references from <a href="http://stackoverflow.com/questions/13905741/accessing-class-variables-from-a-list-comprehension-in-the-class-definition/13913933#13913933">this answer</a> by Martijn Pieters, which contains more in depth analysis of this behavior.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

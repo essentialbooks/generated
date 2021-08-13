@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Example of declarations are:</p>
+      
+<p>Example of declarations are:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int a; /* declaring single identifier of type int */</pre>
@@ -135,7 +138,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above declaration declares single identifier named <code>a</code> which refers to some object with <code>int</code> type.</p>
+</div>
+<p>The above declaration declares single identifier named <code>a</code> which refers to some object with <code>int</code> type.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int a1, b1; /* declaring 2 identifiers of type int */</pre>
@@ -143,7 +149,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The second declaration declares 2 identifiers named <code>a1</code> and <code>b1</code> which refers to some other objects though with the same <code>int</code> type.</p><p>Basically, the way this works is like this - first you put some <a href="http://stackoverflow.com/documentation/c/309/data-types#t=201607211551345511474">type</a>, then you write a single or multiple expressions separated via comma (<code>,</code>) (<strong>which will not be evaluated at this point - and which should otherwise be referred to as declarators in this context</strong>). In writing such expressions, you are allowed to apply only the indirection (<code>\*</code>), function call (<code>( )</code>) or subscript (or array indexing - <code></code>) operators onto some identifier (you can also not use any operators at all). The identifier used is not required to be visible in the current scope. Some examples:</p>
+</div>
+<p>The second declaration declares 2 identifiers named <code>a1</code> and <code>b1</code> which refers to some other objects though with the same <code>int</code> type.
+</p>
+<p>Basically, the way this works is like this - first you put some <a href="http://stackoverflow.com/documentation/c/309/data-types#t=201607211551345511474">type</a>, then you write a single or multiple expressions separated via comma (<code>,</code>) (<strong>which will not be evaluated at this point - and which should otherwise be referred to as declarators in this context</strong>). In writing such expressions, you are allowed to apply only the indirection (<code>\*</code>), function call (<code>( )</code>) or subscript (or array indexing - <code></code>) operators onto some identifier (you can also not use any operators at all). The identifier used is not required to be visible in the current scope. Some examples:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/* 1 */ int /* 2 */ (*z) /* 3 */ , /* 4 */ *x , /* 5 */ **c /* 6 */ ;</pre>
@@ -151,14 +162,25 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p># | Description|
+</div>
+<p># | Description|
 —— | —— |
 1| The name of integer type.|
 2| Un-evaluated expression applying indirection to some identifier <code>z</code>.|
 3| We have a comma indicating that one more expression will follow in the same declaration.|
 4| Un-evaluated expression applying indirection to some other identifier <code>x</code>.|
 5| Un-evaluated expression applying indirection to the value of the expression <code>(*c)</code>.|
-6| End of declaration.|</p><p><em>Note that none of the above identifiers were visible prior to this declaration and so the expressions used would not be valid before it.</em></p><p>After each such expression, the identifier used in it is introduced into the current scope. (If the identifier has assigned linkage to it, it may also be re-declared with the same type of linkage so that both identifiers refer to the same object or function)</p><p>Additionally, the equal operator sign (<code>=</code>) may be used for initialization. If an unevaluated expression (declarator) is followed by <code>=</code> inside the declaration - we say that the identifier being introduced is also being initialized. After the <code>=</code> sign we can put once again some expression, but this time it’ll be evaluated and its value will be used as initial for the object declared.</p><p>Examples:</p>
+6| End of declaration.|
+</p>
+<p><em>Note that none of the above identifiers were visible prior to this declaration and so the expressions used would not be valid before it.</em>
+</p>
+<p>After each such expression, the identifier used in it is introduced into the current scope. (If the identifier has assigned linkage to it, it may also be re-declared with the same type of linkage so that both identifiers refer to the same object or function)
+</p>
+<p>Additionally, the equal operator sign (<code>=</code>) may be used for initialization. If an unevaluated expression (declarator) is followed by <code>=</code> inside the declaration - we say that the identifier being introduced is also being initialized. After the <code>=</code> sign we can put once again some expression, but this time it’ll be evaluated and its value will be used as initial for the object declared.
+</p>
+<p>Examples:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int l = 90; /* the same as: */
@@ -172,7 +194,10 @@ int c = 2; int b[c];</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Later in your code, you are allowed to write the exact same expression from the declaration part of the newly introduced identifier, giving you an object of the type specified at the beginning of the declaration, assuming that you’ve assigned valid values to all accessed objects in the way. Examples:</p>
+</div>
+<p>Later in your code, you are allowed to write the exact same expression from the declaration part of the newly introduced identifier, giving you an object of the type specified at the beginning of the declaration, assuming that you’ve assigned valid values to all accessed objects in the way. Examples:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void f()
@@ -215,7 +240,12 @@ int c = 2; int b[c];</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The declaration of <code>b3</code> specifies that you can potentially use <code>b3</code> value as a mean to access some integer object.</p><p>Of course, in order to apply indirection (<code>\*</code>) to <code>b3</code>, you should also have a proper value stored in it (see <a href="http://stackoverflow.com/documentation/c/1108/pointers#t=20160721153330088157">pointers</a> for more info). You should also first store some value into an object before trying to retrieve it (you can see more about this problem <a href="http://stackoverflow.com/documentation/c/759/undefined-behavior/2576/reading-an-uninitialized-object-with-automatic-storage-duration">here</a>). We’ve done all of this in the above examples.</p>
+</div>
+<p>The declaration of <code>b3</code> specifies that you can potentially use <code>b3</code> value as a mean to access some integer object.
+</p>
+<p>Of course, in order to apply indirection (<code>\*</code>) to <code>b3</code>, you should also have a proper value stored in it (see <a href="http://stackoverflow.com/documentation/c/1108/pointers#t=20160721153330088157">pointers</a> for more info). You should also first store some value into an object before trying to retrieve it (you can see more about this problem <a href="http://stackoverflow.com/documentation/c/759/undefined-behavior/2576/reading-an-uninitialized-object-with-automatic-storage-duration">here</a>). We’ve done all of this in the above examples.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int a3(); /* you should be able to call a3 */</pre>
@@ -223,7 +253,10 @@ int c = 2; int b[c];</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This one tells the compiler that you’ll attempt to call <code>a3</code>. In this case <code>a3</code> refers to function instead of an object. One difference between object and function is that functions will always have some sort of linkage. Examples:</p>
+</div>
+<p>This one tells the compiler that you’ll attempt to call <code>a3</code>. In this case <code>a3</code> refers to function instead of an object. One difference between object and function is that functions will always have some sort of linkage. Examples:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void f1()
@@ -240,7 +273,10 @@ int c = 2; int b[c];</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In the above example, the 2 declarations refer to the same function <code>f2</code>, whilst if they were declaring objects then in this context (having 2 different block scopes), they would have be 2 different distinct objects.</p>
+</div>
+<p>In the above example, the 2 declarations refer to the same function <code>f2</code>, whilst if they were declaring objects then in this context (having 2 different block scopes), they would have be 2 different distinct objects.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int (*a3)(); /* you should be able to apply indirection to `a3` and then call it */</pre>
@@ -248,7 +284,12 @@ int c = 2; int b[c];</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now it may seems to be getting complicated, but if you know operators precedence you’ll have 0 problems reading the above declaration. The parentheses are needed because the <code>\*</code> operator has less precedence then the <code>( )</code> one.</p><p>In the case of using the subscript operator, the resulting expression wouldn’t be actually valid after the declaration because the index used in it (the value inside <code>\[</code> and <code>\]</code>) will always be 1 above the maximum allowed value for this object/function.</p>
+</div>
+<p>Now it may seems to be getting complicated, but if you know operators precedence you’ll have 0 problems reading the above declaration. The parentheses are needed because the <code>\*</code> operator has less precedence then the <code>( )</code> one.
+</p>
+<p>In the case of using the subscript operator, the resulting expression wouldn’t be actually valid after the declaration because the index used in it (the value inside <code>\[</code> and <code>\]</code>) will always be 1 above the maximum allowed value for this object/function.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int a4[5]; /* here a4 shouldn&#39;t be accessed using the index 5 later on */</pre>
@@ -256,7 +297,10 @@ int c = 2; int b[c];</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But it should be accessible by all other indexes lower then 5. Examples:</p>
+</div>
+<p>But it should be accessible by all other indexes lower then 5. Examples:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">a4[0], a4[1]; a4[4];</pre>
@@ -264,7 +308,10 @@ int c = 2; int b[c];</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>a4[5]</code> will result into UB. More information about arrays can be found <a href="http://stackoverflow.com/documentation/c/322/arrays#t=201607211550184387784">here</a>.</p>
+</div>
+<p><code>a4[5]</code> will result into UB. More information about arrays can be found <a href="http://stackoverflow.com/documentation/c/322/arrays#t=201607211550184387784">here</a>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int (*a5)[5](); /* here a4 could be applied indirection
@@ -274,7 +321,9 @@ int c = 2; int b[c];</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Unfortunately for us, although syntactically possible, the declaration of <code>a5</code> is forbidden by the current standard.</p>
+</div>
+<p>Unfortunately for us, although syntactically possible, the declaration of <code>a5</code> is forbidden by the current standard.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

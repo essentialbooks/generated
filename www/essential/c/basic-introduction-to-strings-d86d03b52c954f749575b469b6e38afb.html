@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>In C, a <strong>string</strong> is a sequence of characters that is terminated by a null character (‘\0’).</p><p>We can create strings using <strong>string literals</strong>, which are sequences of characters surrounded by double quotation marks; for example, take the string literal <code>&quot;hello world&quot;</code>. String literals are automatically null-terminated.</p><p>We can create strings using several methods. For instance, we can declare a <code>char *</code> and initialize it to point to the first character of a string:</p>
+      
+<p>In C, a <strong>string</strong> is a sequence of characters that is terminated by a null character (‘\0’).
+</p>
+<p>We can create strings using <strong>string literals</strong>, which are sequences of characters surrounded by double quotation marks; for example, take the string literal <code>&quot;hello world&quot;</code>. String literals are automatically null-terminated.
+</p>
+<p>We can create strings using several methods. For instance, we can declare a <code>char *</code> and initialize it to point to the first character of a string:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">char * string = &#34;hello world&#34;;</pre>
@@ -135,7 +142,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When initializing a <code>char *</code> to a string constant as above, the string itself is usually allocated in read-only data; <code>string</code> is a pointer to the first element of the array, which is the character <code>&#x27;h&#x27;</code>.</p><p>Since the string literal is allocated in read-only memory, it is non-modifiable1. Any attempt to modify it will lead to <a href="http://stackoverflow.com/documentation/c/364/undefined-behavior">undefined behaviour</a>, so it’s better to add <code>const</code> to get a compile-time error like this</p>
+</div>
+<p>When initializing a <code>char *</code> to a string constant as above, the string itself is usually allocated in read-only data; <code>string</code> is a pointer to the first element of the array, which is the character <code>&#x27;h&#x27;</code>.
+</p>
+<p>Since the string literal is allocated in read-only memory, it is non-modifiable1. Any attempt to modify it will lead to <a href="http://stackoverflow.com/documentation/c/364/undefined-behavior">undefined behaviour</a>, so it’s better to add <code>const</code> to get a compile-time error like this
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">char const * string = &#34;hello world&#34;;</pre>
@@ -143,7 +155,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It has similar effect2 as</p>
+</div>
+<p>It has similar effect2 as
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">char const string_arr[] = &#34;hello world&#34;;</pre>
@@ -151,7 +166,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To create a modifiable string, you can declare a character array and initialize its contents using a string literal, like so:</p>
+</div>
+<p>To create a modifiable string, you can declare a character array and initialize its contents using a string literal, like so:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">char modifiable_string[] = &#34;hello world&#34;;</pre>
@@ -159,7 +177,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is equivalent to the following:</p>
+</div>
+<p>This is equivalent to the following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">char modifiable_string[] = {&#39;h&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;, &#39; &#39;, &#39;w&#39;, &#39;o&#39;, &#39;r&#39;, &#39;l&#39;, &#39;d&#39;, &#39;\0&#39;};</pre>
@@ -167,7 +188,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since the second version uses brace-enclosed initializer, the string is not automatically null-terminated unless a <code>&#x27;\0&#x27;</code> character is included explicitly in the character array usually as its last element.</p><hr id="288fd6b9-418d-4306-9ad3-29b7516a221a"/><p>1 Non-modifiable implies that the characters in the string literal can’t be modified, but remember that the pointer <code>string</code> can be modified (can point somewhere else or can be incremented or decremented).</p><p>2 Both strings have similar effect in a sense that characters of both strings can’t be modified. It should be noted that <code>string</code> is a pointer to <code>char</code> and it is a <a href="https://en.wikipedia.org/wiki/Value_(computer_science)#lrvalue">modifiable l-value</a> so it can be incremented or point to some other location while the array <code>string_arr</code> is a non-modifiable l-value, it can’t be modified.</p>
+</div>
+<p>Since the second version uses brace-enclosed initializer, the string is not automatically null-terminated unless a <code>&#x27;\0&#x27;</code> character is included explicitly in the character array usually as its last element.
+</p>
+<hr id="288fd6b9-418d-4306-9ad3-29b7516a221a"/>
+<p>1 Non-modifiable implies that the characters in the string literal can’t be modified, but remember that the pointer <code>string</code> can be modified (can point somewhere else or can be incremented or decremented).
+</p>
+<p>2 Both strings have similar effect in a sense that characters of both strings can’t be modified. It should be noted that <code>string</code> is a pointer to <code>char</code> and it is a <a href="https://en.wikipedia.org/wiki/Value_(computer_science)#lrvalue">modifiable l-value</a> so it can be incremented or point to some other location while the array <code>string_arr</code> is a non-modifiable l-value, it can’t be modified.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

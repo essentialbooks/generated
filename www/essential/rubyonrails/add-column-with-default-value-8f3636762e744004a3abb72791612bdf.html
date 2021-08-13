@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The following example adds a column <code>admin</code> to the <code>users</code> table, and gives that column the default value <code>false</code>.</p>
+      
+<p>The following example adds a column <code>admin</code> to the <code>users</code> table, and gives that column the default value <code>false</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class AddDetailsToUsers &lt; ActiveRecord::Migration[5.0]
@@ -139,7 +142,17 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Migrations with defaults might take a long time in large tables with for example PostgreSQL. This is because each row will have to be updated with the default value for the newly added column. To circumvent this (and reduce downtime during deployments), you can split your migration into three steps:</p><ol id="93d071bd-7836-4db0-b846-9ab227c6130d" class="numbered-list" start="1"><li>Add a <code>add_column</code>-migration similar to the one above, but set no default</li><li>Deploy and update the column in a rake task or on the console while your app is running. Make sure your application already writes data to that colum for new/updated rows.</li><li>Add another <code>change_column</code> migration, which then changes the default of that column to the desired default value</li></ol>
+</div>
+<p>Migrations with defaults might take a long time in large tables with for example PostgreSQL. This is because each row will have to be updated with the default value for the newly added column. To circumvent this (and reduce downtime during deployments), you can split your migration into three steps:
+</p>
+  <ol id="93d071bd-7836-4db0-b846-9ab227c6130d" class="numbered-list" start="1">
+    <li>Add a <code>add_column</code>-migration similar to the one above, but set no default
+    </li>
+    <li>Deploy and update the column in a rake task or on the console while your app is running. Make sure your application already writes data to that colum for new/updated rows.
+    </li>
+    <li>Add another <code>change_column</code> migration, which then changes the default of that column to the desired default value
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

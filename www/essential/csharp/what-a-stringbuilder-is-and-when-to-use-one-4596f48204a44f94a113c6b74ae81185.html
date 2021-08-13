@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>A <a href="https://msdn.microsoft.com/en-us/library/system.text.stringbuilder(v=vs.110).aspx"><code>StringBuilder</code></a> represents a series of characters, which unlike a normal string, are mutable. Often times there is a need to modify strings that we’ve already made, but the standard string object is not mutable. This means that each time a string is modified, a new string object needs to be created, copied to, and then reassigned.</p>
+      
+<p>A <a href="https://msdn.microsoft.com/en-us/library/system.text.stringbuilder(v=vs.110).aspx"><code>StringBuilder</code></a> represents a series of characters, which unlike a normal string, are mutable. Often times there is a need to modify strings that we’ve already made, but the standard string object is not mutable. This means that each time a string is modified, a new string object needs to be created, copied to, and then reassigned.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">string</span> <span class="n">myString</span> <span class="p">=</span> <span class="s">&#34;Apples&#34;</span><span class="p">;</span>
@@ -137,7 +140,20 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In the above example, <code>myString</code> initially only has the value <code>&quot;Apples&quot;</code>. However, when we concatenate `” are my favorite fruit”’, what the string class does internally needs to do involves:</p><ul id="1f628c3f-55eb-45ab-8ed1-bdc332651d82" class="bulleted-list"><li>Creating a new array of characters equal to the length of <code>myString</code> and the new string we are appending.</li><li>Copying all of the characters of <code>myString</code> into the beginning of our new array and copying the new string into the end of the array.</li><li>Create a new string object in memory and reassign it to <code>myString</code>.</li></ul><p>For a single concatenation, this is relatively trivial. However, what if needed to perform many append operations, say, in a loop?</p>
+</div>
+<p>In the above example, <code>myString</code> initially only has the value <code>&quot;Apples&quot;</code>. However, when we concatenate `” are my favorite fruit”’, what the string class does internally needs to do involves:
+</p>
+  <ul id="1f628c3f-55eb-45ab-8ed1-bdc332651d82" class="bulleted-list">
+    <li>Creating a new array of characters equal to the length of <code>myString</code> and the new string we are appending.
+    </li>
+    <li>Copying all of the characters of <code>myString</code> into the beginning of our new array and copying the new string into the end of the array.
+    </li>
+    <li>Create a new string object in memory and reassign it to <code>myString</code>.
+    </li>
+  </ul>
+<p>For a single concatenation, this is relatively trivial. However, what if needed to perform many append operations, say, in a loop?
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">String</span> <span class="n">myString</span> <span class="p">=</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
@@ -148,7 +164,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Due to the repeated copying and object creation, this will bring significantly degrade the performance of our program. We can avoid this by instead using a <code>StringBuilder</code>.</p>
+</div>
+<p>Due to the repeated copying and object creation, this will bring significantly degrade the performance of our program. We can avoid this by instead using a <code>StringBuilder</code>.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">StringBuilder</span> <span class="n">myStringBuilder</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="p">();</span>    
@@ -159,7 +178,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now when the same loop is run, the performance and speed of the execution time of the program will be significantly faster than using a normal string. To make the <code>StringBuilder</code> back into a normal string, we can simply call the <code>ToString()</code> method of <code>StringBuilder</code>.</p><p>However, this isn’t the only optimization <code>StringBuilder</code> has. In order to further optimize functions, we can take advantage of other properties that help improve performance.</p>
+</div>
+<p>Now when the same loop is run, the performance and speed of the execution time of the program will be significantly faster than using a normal string. To make the <code>StringBuilder</code> back into a normal string, we can simply call the <code>ToString()</code> method of <code>StringBuilder</code>.
+</p>
+<p>However, this isn’t the only optimization <code>StringBuilder</code> has. In order to further optimize functions, we can take advantage of other properties that help improve performance.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">StringBuilder</span> <span class="n">sb</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="p">(</span><span class="m">10000</span><span class="p">);</span> <span class="c1">// initializes the capacity to 10000
@@ -168,7 +192,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If we know in advance how long our <code>StringBuilder</code> needs to be, we can specify its size ahead of time, which will prevent it from needing to resize the character array it has internally.</p>
+</div>
+<p>If we know in advance how long our <code>StringBuilder</code> needs to be, we can specify its size ahead of time, which will prevent it from needing to resize the character array it has internally.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">sb</span><span class="p">.</span><span class="n">Append</span><span class="p">(</span><span class="sc">&#39;k&#39;</span><span class="p">,</span> <span class="m">2000</span><span class="p">);</span>
@@ -177,7 +204,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Though using <code>StringBuilder</code> for appending is much faster than a string, it can run even faster if you only need to add a single character many times.</p><p>Once you have completed building your string, you may use the <code>ToString()</code> method on the <code>StringBuilder</code> to convert it to a basic <code>string</code>. This is often necessary because the <code>StringBuilder</code> class does not inherit from <code>string</code>.</p><p>For example, here is how you can use a <code>StringBuilder</code> to create a <code>string</code>:</p>
+</div>
+<p>Though using <code>StringBuilder</code> for appending is much faster than a string, it can run even faster if you only need to add a single character many times.
+</p>
+<p>Once you have completed building your string, you may use the <code>ToString()</code> method on the <code>StringBuilder</code> to convert it to a basic <code>string</code>. This is often necessary because the <code>StringBuilder</code> class does not inherit from <code>string</code>.
+</p>
+<p>For example, here is how you can use a <code>StringBuilder</code> to create a <code>string</code>:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">string</span> <span class="n">RepeatCharacterTimes</span><span class="p">(</span><span class="kt">char</span> <span class="n">character</span><span class="p">,</span> <span class="kt">int</span> <span class="n">times</span><span class="p">)</span>
@@ -196,7 +230,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In conclusion, <code>StringBuilder</code> should be used in place of string when many modifications to a string need to be made with performance in mind.</p>
+</div>
+<p>In conclusion, <code>StringBuilder</code> should be used in place of string when many modifications to a string need to be made with performance in mind.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

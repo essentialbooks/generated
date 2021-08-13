@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>The standard (section 23.3.7) specifies that a specialization of <code>vector&lt;bool&gt;</code> is provided, which optimizes space by packing the <code>bool</code> values, so that each takes up only one bit. Since bits aren’t addressable in C++, this means that several requirements on <code>vector</code> are not placed on <code>vector&lt;bool&gt;</code>:</p><ul id="34e9f72d-8f4b-4ebd-b401-3bceb0663c7b" class="bulleted-list"><li>The data stored is not required to be contiguous, so a <code>vector&lt;bool&gt;</code> can’t be passed to a C API which expects a <code>bool</code> array.</li><li><code>at()</code>, <code>operator []</code>, and dereferencing of iterators do not return a reference to <code>bool</code>. Rather they return a proxy object that (imperfectly) simulates a reference to a <code>bool</code> by overloading its assignment operators. As an example, the following code may not be valid for <code>std::vector&lt;bool&gt;</code>, because dereferencing an iterator does not return a reference:</li></ul>
+      
+<p>The standard (section 23.3.7) specifies that a specialization of <code>vector&lt;bool&gt;</code> is provided, which optimizes space by packing the <code>bool</code> values, so that each takes up only one bit. Since bits aren’t addressable in C++, this means that several requirements on <code>vector</code> are not placed on <code>vector&lt;bool&gt;</code>:
+</p>
+  <ul id="34e9f72d-8f4b-4ebd-b401-3bceb0663c7b" class="bulleted-list">
+    <li>The data stored is not required to be contiguous, so a <code>vector&lt;bool&gt;</code> can’t be passed to a C API which expects a <code>bool</code> array.
+    </li>
+    <li><code>at()</code>, <code>operator []</code>, and dereferencing of iterators do not return a reference to <code>bool</code>. Rather they return a proxy object that (imperfectly) simulates a reference to a <code>bool</code> by overloading its assignment operators. As an example, the following code may not be valid for <code>std::vector&lt;bool&gt;</code>, because dereferencing an iterator does not return a reference:
+    </li>
+  </ul>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="nb">true</span><span class="p">,</span> <span class="nb">false</span><span class="p">};</span>
@@ -137,7 +146,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Similarly, functions expecting a <code>bool&amp;</code> argument cannot be used with the result of <code>operator []</code> or <code>at()</code> applied to <code>vector&lt;bool&gt;</code>, or with the result of dereferencing its iterator:</p>
+</div>
+<p>Similarly, functions expecting a <code>bool&amp;</code> argument cannot be used with the result of <code>operator []</code> or <code>at()</code> applied to <code>vector&lt;bool&gt;</code>, or with the result of dereferencing its iterator:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">bool</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">);</span>
@@ -148,7 +160,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The implementation of <code>std::vector&lt;bool&gt;</code> is dependent on both the compiler and architecture. The specialisation is implemented by packing <code>n</code> Booleans into the lowest addressable section of memory. Here, <code>n</code> is the size in bits of the lowest addressable memory. In most modern systems this is 1 byte or 8 bits. This means that one byte can store 8 Boolean values. This is an improvement over the traditional implementation where 1 Boolean value is stored in 1 byte of memory.</p><p><em><strong>Note:</strong></em> The below example shows possible bit-wise values of individual bytes in a traditional vs. optimized <code>vector&lt;bool&gt;</code>. This will not always hold true in all architectures. It is, however, a good way of visualizing the optimization. In the below examples a byte is represented as [x, x, x, x, x, x, x, x].</p><p><em><strong>Traditional</strong></em><em> </em><code><em>std::vector&lt;char&gt;</em></code><em> storing 8 Boolean values:</em></p>
+</div>
+<p>The implementation of <code>std::vector&lt;bool&gt;</code> is dependent on both the compiler and architecture. The specialisation is implemented by packing <code>n</code> Booleans into the lowest addressable section of memory. Here, <code>n</code> is the size in bits of the lowest addressable memory. In most modern systems this is 1 byte or 8 bits. This means that one byte can store 8 Boolean values. This is an improvement over the traditional implementation where 1 Boolean value is stored in 1 byte of memory.
+</p>
+<p><em><strong>Note:</strong></em> The below example shows possible bit-wise values of individual bytes in a traditional vs. optimized <code>vector&lt;bool&gt;</code>. This will not always hold true in all architectures. It is, however, a good way of visualizing the optimization. In the below examples a byte is represented as [x, x, x, x, x, x, x, x].
+</p>
+<p><em><strong>Traditional</strong></em><em> </em><code><em>std::vector&lt;char&gt;</em></code><em> storing 8 Boolean values:</em>
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">trad_vect</span> <span class="o">=</span> <span class="p">{</span><span class="nb">true</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="nb">true</span><span class="p">};</span>
@@ -157,7 +176,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>Bitwise representation:</em></p>
+</div>
+<p><em>Bitwise representation:</em>
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> 
@@ -167,7 +189,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em><strong>Specialized</strong></em><em> </em><code><em>std::vector&lt;bool&gt;</em></code><em> storing 8 Boolean values:</em></p>
+</div>
+<p><em><strong>Specialized</strong></em><em> </em><code><em>std::vector&lt;bool&gt;</em></code><em> storing 8 Boolean values:</em>
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">optimized_vect</span> <span class="o">=</span> <span class="p">{</span><span class="nb">true</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="nb">true</span><span class="p">};</span>
@@ -176,7 +201,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>Bitwise representation:</em></p>
+</div>
+<p><em>Bitwise representation:</em>
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
@@ -185,7 +213,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Notice in the above example, that in the traditional version of <code>std::vector&lt;bool&gt;</code>, 8 Boolean values take up 8 bytes of memory, whereas in the optimized version of <code>std::vector&lt;bool&gt;</code>, they only use 1 byte of memory. This is a significant improvement on memory usage. If you need to pass a <code>vector&lt;bool&gt;</code> to an C-style API, you may need to copy the values to an array, or find a better way to use the API, if memory and performance are at risk.</p>
+</div>
+<p>Notice in the above example, that in the traditional version of <code>std::vector&lt;bool&gt;</code>, 8 Boolean values take up 8 bytes of memory, whereas in the optimized version of <code>std::vector&lt;bool&gt;</code>, they only use 1 byte of memory. This is a significant improvement on memory usage. If you need to pass a <code>vector&lt;bool&gt;</code> to an C-style API, you may need to copy the values to an array, or find a better way to use the API, if memory and performance are at risk.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

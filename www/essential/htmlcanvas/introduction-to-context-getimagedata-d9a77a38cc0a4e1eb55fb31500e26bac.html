@@ -127,7 +127,46 @@
 </div>
 
 
-      <p>Html5 Canvas gives you the ability to fetch and change the color of any pixel on the canvas.</p><p><strong>You can use Canvas’s pixel manipulation to:</strong></p><ul id="69bd0aa1-9721-48b9-aee6-e28027045cc3" class="bulleted-list"><li>Create a color-picker for an image or select a color on a color-wheel.</li><li>Create complex image filters like blurring and edge detection.</li><li>Recolor any part of an image at the pixel level (if you use HSL you can even recolor an image while retaining the important Lighting &amp; Saturation so the result doesn’t look like someone slapped paint on the image). Note: Canvas now has Blend Compositing that can also recolor an image in some cases.</li><li>“Knockout” the background around a person/item in an image,</li><li>Create a paint-bucket tool to detect and Floodfill part of an image (eg, change the color of a user-clicked flower petal from green to yellow).</li><li>Examine an image for content (eg. facial recognition).</li></ul><p><strong>Common issues:</strong></p><ul id="343430ee-31e6-4124-bc46-1d11f954d5f3" class="bulleted-list"><li>For security reasons, <code>getImageData</code> is disabled if you have drawn an image originating on a different domain than the web page itself.</li><li><code>getImageData</code> is a relatively expensive method because it creates a large pixel-data array and because it does not use the GPU to assist its efforts. Note: Canvas now has blend compositing that can do some of the same pixel manipulation that <code>getImageData</code> does.</li><li>For .png images, <code>getImageData</code> might not report the exact same colors as in the original .png file because the browser is allowed to do gamma-correction and alpha-premultiplication when drawing images on the canvas.</li></ul><p><strong>Getting pixel colors</strong></p><p>Use <code>getImageData</code> to fetch the pixel colors for all or part of your canvas content.</p><p>The <code>getImageData</code> method returns an <code>imageData</code> object</p><p>The <code>imageData</code> object has a <code>.data</code> property that contains the pixel color information.</p><p>The <code>data</code> property is a <code>Uint8ClampedArray</code> containing the Red, Green, Blue &amp; Alpha (opacity) color data for all requested pixels.</p>
+      
+<p>Html5 Canvas gives you the ability to fetch and change the color of any pixel on the canvas.
+</p>
+<p><strong>You can use Canvas’s pixel manipulation to:</strong>
+</p>
+  <ul id="69bd0aa1-9721-48b9-aee6-e28027045cc3" class="bulleted-list">
+    <li>Create a color-picker for an image or select a color on a color-wheel.
+    </li>
+    <li>Create complex image filters like blurring and edge detection.
+    </li>
+    <li>Recolor any part of an image at the pixel level (if you use HSL you can even recolor an image while retaining the important Lighting &amp; Saturation so the result doesn’t look like someone slapped paint on the image). Note: Canvas now has Blend Compositing that can also recolor an image in some cases.
+    </li>
+    <li>“Knockout” the background around a person/item in an image,
+    </li>
+    <li>Create a paint-bucket tool to detect and Floodfill part of an image (eg, change the color of a user-clicked flower petal from green to yellow).
+    </li>
+    <li>Examine an image for content (eg. facial recognition).
+    </li>
+  </ul>
+<p><strong>Common issues:</strong>
+</p>
+  <ul id="343430ee-31e6-4124-bc46-1d11f954d5f3" class="bulleted-list">
+    <li>For security reasons, <code>getImageData</code> is disabled if you have drawn an image originating on a different domain than the web page itself.
+    </li>
+    <li><code>getImageData</code> is a relatively expensive method because it creates a large pixel-data array and because it does not use the GPU to assist its efforts. Note: Canvas now has blend compositing that can do some of the same pixel manipulation that <code>getImageData</code> does.
+    </li>
+    <li>For .png images, <code>getImageData</code> might not report the exact same colors as in the original .png file because the browser is allowed to do gamma-correction and alpha-premultiplication when drawing images on the canvas.
+    </li>
+  </ul>
+<p><strong>Getting pixel colors</strong>
+</p>
+<p>Use <code>getImageData</code> to fetch the pixel colors for all or part of your canvas content.
+</p>
+<p>The <code>getImageData</code> method returns an <code>imageData</code> object
+</p>
+<p>The <code>imageData</code> object has a <code>.data</code> property that contains the pixel color information.
+</p>
+<p>The <code>data</code> property is a <code>Uint8ClampedArray</code> containing the Red, Green, Blue &amp; Alpha (opacity) color data for all requested pixels.
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="c1">// determine which pixels to fetch (this fetches all pixels on the canvas)
@@ -146,7 +185,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can get position of any [x,y] pixel within <code>data</code> array like this:</p>
+</div>
+<p>You can get position of any [x,y] pixel within <code>data</code> array like this:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="c1">// the data[] array position for pixel [x,y]
@@ -156,7 +198,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And then you can fetch that pixel’s red, green, blue &amp; alpha values like this:</p>
+</div>
+<p>And then you can fetch that pixel’s red, green, blue &amp; alpha values like this:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="c1">// the RGBA info for pixel [x,y]
@@ -169,7 +214,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="376603a4-4860-4275-aab7-b15f2cb53f77" class="">An Illustration showing how the pixel data array is structured<a class="header-anchor" href="#376603a4-4860-4275-aab7-b15f2cb53f77" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p><code>context.getImageData</code> is illustrated below for a small 2x3 pixel sized canvas:</p><img class="img" src="/img/24cfe48c9544e464e53caf6b1b2bfe5e89d7b909.png">
+</div>
+  <h1 id="376603a4-4860-4275-aab7-b15f2cb53f77" class="">An Illustration showing how the pixel data array is structured
+  <a class="header-anchor" href="#376603a4-4860-4275-aab7-b15f2cb53f77" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p><code>context.getImageData</code> is illustrated below for a small 2x3 pixel sized canvas:
+</p>
+<img class="img" src="/img/24cfe48c9544e464e53caf6b1b2bfe5e89d7b909.png">
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

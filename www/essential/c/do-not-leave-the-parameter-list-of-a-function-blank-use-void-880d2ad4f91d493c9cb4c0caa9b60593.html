@@ -127,7 +127,38 @@
 </div>
 
 
-      <p>Suppose you are creating a function that requires no arguments when it is called and you are faced with the dilemma of how you should define the parameter list in the function prototype and the function definition.</p><ul id="9dfcaccc-033d-4197-bd18-9feb867bbc8a" class="bulleted-list"><li>You have the choice of keeping the parameter list empty for both prototype and definition. Thereby, they look just like the function call statement you will need.</li><li>You read somewhere that one of the uses of keyword <em><strong>void</strong></em> (there are only a few of them), is to define the parameter list of functions that do not accept any arguments in their call. So, this is also a choice.</li></ul><p>So, which is the correct choice?</p><p><strong>ANSWER:</strong> using the keyword <em><strong>void</strong></em></p><p><strong>GENERAL ADVICE:</strong> If a language provides certain feature to use for a special purpose, you are better off using that in your code. For example, using <code>enum</code>s instead of <code>#define</code> macros (that’s for another example).</p><p>C11 section 6.7.6.3 “Function declarators”, paragraph 10, states:</p><blockquote id="8c33206d-42bb-4c7e-9bbd-7bf51676b533" class="">The special case of an unnamed parameter of type void as the only item in the list specifies that the function has no parameters.</blockquote><p>Paragraph 14 of that same section shows the only difference:</p><blockquote id="e677b5bc-21ef-43ac-818d-8fccb9e64d2b" class="">… An empty list in a function declarator that is part of a definition of that function specifies that the function has no parameters. The empty list in a function declarator that is not part of a definition of that function specifies that no information about the number or types of the parameters is supplied.</blockquote><p>A simplified explanation provided by K&amp;R (pgs- 72-73) for the above stuff:</p><blockquote id="74b23efe-4616-4232-8b57-461f52414c0b" class="">Furthermore, if a function declaration does not include arguments, as in</blockquote><p><code>double atof();</code>, &gt; that too is taken to mean that nothing is to be assumed about the arguments of <code>atof</code>; all parameter checking is turned off. This special meaning of the empty argument list is intended to permit older C programs to compile with new compilers. But it’s a bad idea to use it with new programs. If the function takes arguments, declare them; if it takes no arguments, use <code>void</code>.</p><p>So this is how your function prototype should look:</p>
+      
+<p>Suppose you are creating a function that requires no arguments when it is called and you are faced with the dilemma of how you should define the parameter list in the function prototype and the function definition.
+</p>
+  <ul id="9dfcaccc-033d-4197-bd18-9feb867bbc8a" class="bulleted-list">
+    <li>You have the choice of keeping the parameter list empty for both prototype and definition. Thereby, they look just like the function call statement you will need.
+    </li>
+    <li>You read somewhere that one of the uses of keyword <em><strong>void</strong></em> (there are only a few of them), is to define the parameter list of functions that do not accept any arguments in their call. So, this is also a choice.
+    </li>
+  </ul>
+<p>So, which is the correct choice?
+</p>
+<p><strong>ANSWER:</strong> using the keyword <em><strong>void</strong></em>
+</p>
+<p><strong>GENERAL ADVICE:</strong> If a language provides certain feature to use for a special purpose, you are better off using that in your code. For example, using <code>enum</code>s instead of <code>#define</code> macros (that’s for another example).
+</p>
+<p>C11 section 6.7.6.3 “Function declarators”, paragraph 10, states:
+</p>
+<blockquote id="8c33206d-42bb-4c7e-9bbd-7bf51676b533" class="">The special case of an unnamed parameter of type void as the only item in the list specifies that the function has no parameters.
+</blockquote>
+<p>Paragraph 14 of that same section shows the only difference:
+</p>
+<blockquote id="e677b5bc-21ef-43ac-818d-8fccb9e64d2b" class="">… An empty list in a function declarator that is part of a definition of that function specifies that the function has no parameters. The empty list in a function declarator that is not part of a definition of that function specifies that no information about the number or types of the parameters is supplied.
+</blockquote>
+<p>A simplified explanation provided by K&amp;R (pgs- 72-73) for the above stuff:
+</p>
+<blockquote id="74b23efe-4616-4232-8b57-461f52414c0b" class="">Furthermore, if a function declaration does not include arguments, as in
+</blockquote>
+<p><code>double atof();</code>, &gt; that too is taken to mean that nothing is to be assumed about the arguments of <code>atof</code>; all parameter checking is turned off. This special meaning of the empty argument list is intended to permit older C programs to compile with new compilers. But it’s a bad idea to use it with new programs. If the function takes arguments, declare them; if it takes no arguments, use <code>void</code>.
+</p>
+<p>So this is how your function prototype should look:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int foo(void);</pre>
@@ -135,7 +166,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And this is how the function definition should be:</p>
+</div>
+<p>And this is how the function definition should be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int foo(void)
@@ -149,7 +183,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>One advantage of using the above, over <code>int foo()</code> type of declaration (ie. without using the keyword <em><strong>void</strong></em>), is that the compiler can detect the error if you call your function using an erroneous statement like <code>foo(42)</code>. This kind of a function call statement would not cause any errors if you leave the parameter list blank. The error would pass silently, undetected and the code would still execute.</p><p>This also means that you should define the <code>main()</code> function like this:</p>
+</div>
+<p>One advantage of using the above, over <code>int foo()</code> type of declaration (ie. without using the keyword <em><strong>void</strong></em>), is that the compiler can detect the error if you call your function using an erroneous statement like <code>foo(42)</code>. This kind of a function call statement would not cause any errors if you leave the parameter list blank. The error would pass silently, undetected and the code would still execute.
+</p>
+<p>This also means that you should define the <code>main()</code> function like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int main(void)
@@ -163,7 +202,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that even though a function defined with an empty parameter list takes no arguments, it does not provide a prototype for the function, so the compiler will not complain if the function is subsequently called with arguments. For example:</p>
+</div>
+<p>Note that even though a function defined with an empty parameter list takes no arguments, it does not provide a prototype for the function, so the compiler will not complain if the function is subsequently called with arguments. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -182,7 +224,10 @@ int main(void)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If that code is saved in the file <code>proto79.c</code>, it can be compiled on Unix with GCC (version 7.1.0 on macOS Sierra 10.12.5 used for demonstration) like this:</p>
+</div>
+<p>If that code is saved in the file <code>proto79.c</code>, it can be compiled on Unix with GCC (version 7.1.0 on macOS Sierra 10.12.5 used for demonstration) like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ gcc -O3 -g -std=c11 -Wall -Wextra -Werror -Wmissing-prototypes -pedantic proto79.c -o proto79
@@ -191,7 +236,10 @@ $</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you compile with more stringent options, you get errors:</p>
+</div>
+<p>If you compile with more stringent options, you get errors:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ gcc -O3 -g -std=c11 -Wall -Wextra -Werror -Wmissing-prototypes -Wstrict-prototypes -Wold-style-definition -pedantic proto79.c -o proto79 
@@ -206,7 +254,10 @@ $</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you give the function the formal prototype <code>static void parameterless(void)</code>, then the compilation gives errors:</p>
+</div>
+<p>If you give the function the formal prototype <code>static void parameterless(void)</code>, then the compilation gives errors:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ gcc -O3 -g -std=c11 -Wall -Wextra -Werror -Wmissing-prototypes -Wstrict-prototypes -Wold-style-definition -pedantic proto79.c -o proto79 
@@ -222,7 +273,9 @@ $</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Moral — always make sure you have prototypes, and make sure your compiler tells you when you are not obeying the rules.</p>
+</div>
+<p>Moral — always make sure you have prototypes, and make sure your compiler tells you when you are not obeying the rules.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

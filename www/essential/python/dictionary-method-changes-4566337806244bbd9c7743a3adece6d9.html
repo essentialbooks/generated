@@ -127,7 +127,32 @@
 </div>
 
 
-      <p>In Python 3, many of the dictionary methods are quite different in behaviour from Python 2, and many were removed as well: <code>has_key</code>, <code>iter*</code> and <code>view*</code> are gone. Instead of <code>d.has_key(key)</code>, which had been long deprecated, one must now use <code>key in d</code>.</p><p>In Python 2, dictionary methods <code>keys</code>, <code>values</code> and <code>items</code> return lists. In Python 3 they return <em>view</em> objects instead; the view objects are not iterators, and they differ from them in two ways, namely:</p><ul id="fdc1eca1-caff-49c0-a87c-75e3e5555c03" class="bulleted-list"><li>they have size (one can use the <code>len</code> function on them)</li><li>they can be iterated over many times</li></ul><p>Additionally, like with iterators, the changes in the dictionary are reflected in the view objects.</p><p>Python 2.7 has backported these methods from Python 3; they’re available as <code>viewkeys</code>, <code>viewvalues</code> and <code>viewitems</code>. To transform Python 2 code to Python 3 code, the corresponding forms are:</p><ul id="6ffe36c0-0dbd-45c5-af2d-f4c04c707789" class="bulleted-list"><li><code>d.keys()</code>, <code>d.values()</code> and <code>d.items()</code> of Python 2 should be changed to <code>list(d.keys())</code>, <code>list(d.values())</code> and <code>list(d.items())</code></li><li><code>d.iterkeys()</code>, <code>d.itervalues()</code> and <code>d.iteritems()</code> should be changed to <code>iter(d.keys())</code>, or even better, <code>iter(d)</code>; <code>iter(d.values())</code> and <code>iter(d.items())</code> respectively</li><li>and finally Python 2.7 method calls <code>d.viewkeys()</code>, <code>d.viewvalues()</code> and <code>d.viewitems()</code> can be replaced with <code>d.keys()</code>, <code>d.values()</code> and <code>d.items()</code>.</li></ul><p>Porting Python 2 code that <em>iterates</em> over dictionary keys, values or items while mutating it is sometimes tricky. Consider:</p>
+      
+<p>In Python 3, many of the dictionary methods are quite different in behaviour from Python 2, and many were removed as well: <code>has_key</code>, <code>iter*</code> and <code>view*</code> are gone. Instead of <code>d.has_key(key)</code>, which had been long deprecated, one must now use <code>key in d</code>.
+</p>
+<p>In Python 2, dictionary methods <code>keys</code>, <code>values</code> and <code>items</code> return lists. In Python 3 they return <em>view</em> objects instead; the view objects are not iterators, and they differ from them in two ways, namely:
+</p>
+  <ul id="fdc1eca1-caff-49c0-a87c-75e3e5555c03" class="bulleted-list">
+    <li>they have size (one can use the <code>len</code> function on them)
+    </li>
+    <li>they can be iterated over many times
+    </li>
+  </ul>
+<p>Additionally, like with iterators, the changes in the dictionary are reflected in the view objects.
+</p>
+<p>Python 2.7 has backported these methods from Python 3; they’re available as <code>viewkeys</code>, <code>viewvalues</code> and <code>viewitems</code>. To transform Python 2 code to Python 3 code, the corresponding forms are:
+</p>
+  <ul id="6ffe36c0-0dbd-45c5-af2d-f4c04c707789" class="bulleted-list">
+    <li><code>d.keys()</code>, <code>d.values()</code> and <code>d.items()</code> of Python 2 should be changed to <code>list(d.keys())</code>, <code>list(d.values())</code> and <code>list(d.items())</code>
+    </li>
+    <li><code>d.iterkeys()</code>, <code>d.itervalues()</code> and <code>d.iteritems()</code> should be changed to <code>iter(d.keys())</code>, or even better, <code>iter(d)</code>; <code>iter(d.values())</code> and <code>iter(d.items())</code> respectively
+    </li>
+    <li>and finally Python 2.7 method calls <code>d.viewkeys()</code>, <code>d.viewvalues()</code> and <code>d.viewitems()</code> can be replaced with <code>d.keys()</code>, <code>d.values()</code> and <code>d.items()</code>.
+    </li>
+  </ul>
+<p>Porting Python 2 code that <em>iterates</em> over dictionary keys, values or items while mutating it is sometimes tricky. Consider:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;!&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
@@ -138,7 +163,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The code looks as if it would work similarly in Python 3, but there the <code>keys</code> method returns a view object, not a list, and if the dictionary changes size while being iterated over, the Python 3 code will crash with <code>RuntimeError: dictionary changed size during iteration</code>. The solution is of course to properly write <code>for key in list(d)</code>.</p><p>Similarly, view objects behave differently from iterators: one cannot use <code>next()</code> on them, and one cannot <em>resume</em> iteration; it would instead restart; if Python 2 code passes the return value of <code>d.iterkeys()</code>, <code>d.itervalues()</code> or <code>d.iteritems()</code> to a method that expects an iterator instead of an <em>iterable</em>, then that should be <code>iter(d)</code>, <code>iter(d.values())</code> or <code>iter(d.items())</code> in Python 3.</p>
+</div>
+<p>The code looks as if it would work similarly in Python 3, but there the <code>keys</code> method returns a view object, not a list, and if the dictionary changes size while being iterated over, the Python 3 code will crash with <code>RuntimeError: dictionary changed size during iteration</code>. The solution is of course to properly write <code>for key in list(d)</code>.
+</p>
+<p>Similarly, view objects behave differently from iterators: one cannot use <code>next()</code> on them, and one cannot <em>resume</em> iteration; it would instead restart; if Python 2 code passes the return value of <code>d.iterkeys()</code>, <code>d.itervalues()</code> or <code>d.iteritems()</code> to a method that expects an iterator instead of an <em>iterable</em>, then that should be <code>iter(d)</code>, <code>iter(d.values())</code> or <code>iter(d.items())</code> in Python 3.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>If you want to log exceptions you can and should make use of the <code>logging.exception(msg)</code> method:</p>
+      
+<p>If you want to log exceptions you can and should make use of the <code>logging.exception(msg)</code> method:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; import logging
@@ -145,7 +148,12 @@ Exception: foo</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Do not pass the exception as argument:</strong></p><p>As <code>logging.exception(msg)</code> expects a <code>msg</code> arg, it is a common pitfall to pass the exception into the logging call like this:</p>
+</div>
+<p><strong>Do not pass the exception as argument:</strong>
+</p>
+<p>As <code>logging.exception(msg)</code> expects a <code>msg</code> arg, it is a common pitfall to pass the exception into the logging call like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; try:
@@ -161,7 +169,10 @@ Exception: foo</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>While it might look as if this is the right thing to do at first, it is actually problematic due to the reason how exceptions and various encoding work together in the logging module:</p>
+</div>
+<p>While it might look as if this is the right thing to do at first, it is actually problematic due to the reason how exceptions and various encoding work together in the logging module:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; try:
@@ -182,7 +193,16 @@ Logged from file &lt;stdin&gt;, line 4</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Trying to log an exception that contains unicode chars, this way will <a href="http://stackoverflow.com/questions/31137568/properly-logging-unicode-utf-8-exceptions-in-python-2">fail miserably</a>. It will hide the stacktrace of the original exception by overriding it with a new one that is raised during formatting of your <code>logging.exception(e)</code> call.</p><p>Obviously, in your own code, you might be aware of the encoding in exceptions. However, 3rd party libs might handle this in a different way.</p><p><strong>Correct Usage:</strong></p><p>If instead of the exception you just pass a message and let python do its magic, it will work:</p>
+</div>
+<p>Trying to log an exception that contains unicode chars, this way will <a href="http://stackoverflow.com/questions/31137568/properly-logging-unicode-utf-8-exceptions-in-python-2">fail miserably</a>. It will hide the stacktrace of the original exception by overriding it with a new one that is raised during formatting of your <code>logging.exception(e)</code> call.
+</p>
+<p>Obviously, in your own code, you might be aware of the encoding in exceptions. However, 3rd party libs might handle this in a different way.
+</p>
+<p><strong>Correct Usage:</strong>
+</p>
+<p>If instead of the exception you just pass a message and let python do its magic, it will work:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; try:
@@ -198,7 +218,14 @@ Exception: f\xf6\xf6</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As you can see we don’t actually use <code>e</code> in that case, the call to <code>logging.exception(...)</code> magically formats the most recent exception.</p><p><strong>Logging exceptions with non ERROR log levels</strong></p><p>If you want to log an exception with another log level than ERROR, you can use the the <code>exc_info</code> argument of the default loggers:</p>
+</div>
+<p>As you can see we don’t actually use <code>e</code> in that case, the call to <code>logging.exception(...)</code> magically formats the most recent exception.
+</p>
+<p><strong>Logging exceptions with non ERROR log levels</strong>
+</p>
+<p>If you want to log an exception with another log level than ERROR, you can use the the <code>exc_info</code> argument of the default loggers:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">logging.debug(&#39;exception occurred&#39;, exc_info=1)
@@ -208,7 +235,12 @@ logging.warning(&#39;exception occurred&#39;, exc_info=1)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Accessing the exception’s message</strong></p><p>Be aware that libraries out there might throw exceptions with messages as any of unicode or (utf-8 if you’re lucky) byte-strings. If you really need to access an exception’s text, the only reliable way, that will always work, is to use <code>repr(e)</code> or the <code>%r</code> string formatting:</p>
+</div>
+<p><strong>Accessing the exception’s message</strong>
+</p>
+<p>Be aware that libraries out there might throw exceptions with messages as any of unicode or (utf-8 if you’re lucky) byte-strings. If you really need to access an exception’s text, the only reliable way, that will always work, is to use <code>repr(e)</code> or the <code>%r</code> string formatting:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; try:

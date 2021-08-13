@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>There’re several conventions of calling functions, specifying who (caller or callee) pops arguments from the stack, how arguments are passed and in what order. C++ uses <code>Cdecl</code> calling convention by default, but C# expects <code>StdCall</code>, which is usually used by Windows API. You need to change one or the other:</p><ul id="c7f03752-dc04-4cda-945b-90a3f48f6353" class="bulleted-list"><li>Change calling convention to <code>StdCall</code> in C++:</li></ul>
+      
+<p>There’re several conventions of calling functions, specifying who (caller or callee) pops arguments from the stack, how arguments are passed and in what order. C++ uses <code>Cdecl</code> calling convention by default, but C# expects <code>StdCall</code>, which is usually used by Windows API. You need to change one or the other:
+</p>
+  <ul id="c7f03752-dc04-4cda-945b-90a3f48f6353" class="bulleted-list">
+    <li>Change calling convention to <code>StdCall</code> in C++:
+    </li>
+  </ul>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">extern</span> <span class="s">&#34;C&#34;</span> <span class="n">__declspec</span><span class="p">(</span><span class="n">dllexport</span><span class="p">)</span> <span class="kt">int</span> <span class="n">__stdcall</span> <span class="k">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
@@ -137,6 +144,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="na">[DllImport(&#34;myDLL.dll&#34;)]</span>
@@ -145,7 +153,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="4ca72c43-3cd6-47c6-9290-7fcfce4e4e3b" class="bulleted-list"><li>Or, change calling convention to <code>Cdecl</code> in C#:</li></ul>
+</div>
+  <ul id="4ca72c43-3cd6-47c6-9290-7fcfce4e4e3b" class="bulleted-list">
+    <li>Or, change calling convention to <code>Cdecl</code> in C#:
+    </li>
+  </ul>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">extern</span> <span class="s">&#34;C&#34;</span> <span class="n">__declspec</span><span class="p">(</span><span class="n">dllexport</span><span class="p">)</span> <span class="kt">int</span> <span class="cm">/*__cdecl*/</span> <span class="k">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
@@ -155,6 +168,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="na">[DllImport(&#34;myDLL.dll&#34;, CallingConvention = CallingConvention.Cdecl)]</span>
@@ -163,7 +177,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you want to use a function with <code>Cdecl</code> calling convention and a mangled name, your code will look like this:</p>
+</div>
+<p>If you want to use a function with <code>Cdecl</code> calling convention and a mangled name, your code will look like this:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">__declspec</span><span class="p">(</span><span class="n">dllexport</span><span class="p">)</span> <span class="kt">int</span> <span class="k">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
@@ -173,6 +190,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="na">[DllImport(&#34;myDLL.dll&#34;, CallingConvention = CallingConvention.Cdecl,
@@ -182,7 +200,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="b5fe916c-47d8-4ff6-b1c6-36132dc2241c" class="bulleted-list"><li><strong>thiscall</strong>(**__thiscall**) is mainly used in functions that are members of a class.</li><li>When a function uses <strong>thiscall</strong>(**__thiscall**) , a pointer to the class is passed down as the first parameter.</li></ul>
+</div>
+  <ul id="b5fe916c-47d8-4ff6-b1c6-36132dc2241c" class="bulleted-list">
+    <li><strong>thiscall</strong>(**__thiscall**) is mainly used in functions that are members of a class.
+    </li>
+    <li>When a function uses <strong>thiscall</strong>(**__thiscall**) , a pointer to the class is passed down as the first parameter.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

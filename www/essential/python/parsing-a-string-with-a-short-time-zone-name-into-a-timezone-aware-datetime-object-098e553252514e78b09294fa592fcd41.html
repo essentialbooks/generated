@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Using the <a href="https://dateutil.readthedocs.io/"><code>dateutil</code></a> library as in the <a href="https://stackoverflow.com/documentation/python/484/date-and-time/1592/parsing-a-string-into-a-timezone-aware-datetime-object">previous example on parsing timezone-aware timestamps</a>, it is also possible to parse timestamps with a specified “short” time zone name.</p><p>For dates formatted with short time zone names or abbreviations, which are generally ambiguous (e.g. CST, which could be Central Standard Time, China Standard Time, Cuba Standard Time, etc - more can be found <a href="https://www.timeanddate.com/time/zones/">here</a>) or not necessarily available in a standard database, it is necessary to specify a mapping between time zone abbreviation and <code>tzinfo</code> object.</p>
+      
+<p>Using the <a href="https://dateutil.readthedocs.io/"><code>dateutil</code></a> library as in the <a href="https://stackoverflow.com/documentation/python/484/date-and-time/1592/parsing-a-string-into-a-timezone-aware-datetime-object">previous example on parsing timezone-aware timestamps</a>, it is also possible to parse timestamps with a specified “short” time zone name.
+</p>
+<p>For dates formatted with short time zone names or abbreviations, which are generally ambiguous (e.g. CST, which could be Central Standard Time, China Standard Time, Cuba Standard Time, etc - more can be found <a href="https://www.timeanddate.com/time/zones/">here</a>) or not necessarily available in a standard database, it is necessary to specify a mapping between time zone abbreviation and <code>tzinfo</code> object.
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="kn">from</span> <span class="nn">dateutil</span> <span class="kn">import</span> <span class="n">tz</span>
@@ -149,7 +154,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>After running this:</p>
+</div>
+<p>After running this:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">dt_est</span>
@@ -160,7 +168,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It is worth noting that if using a <code>pytz</code> time zone with this method, it will <em>not</em> be properly localized:</p>
+</div>
+<p>It is worth noting that if using a <code>pytz</code> time zone with this method, it will <em>not</em> be properly localized:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="kn">from</span> <span class="nn">dateutil.parser</span> <span class="kn">import</span> <span class="n">parse</span>
@@ -172,7 +183,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This simply attaches the <code>pytz</code> time zone to the datetime:</p>
+</div>
+<p>This simply attaches the <code>pytz</code> time zone to the datetime:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">dt</span><span class="o">.</span><span class="n">tzinfo</span> <span class="c1"># Will be in Local Mean Time!</span>
@@ -181,7 +195,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If using this method, you should probably re-<code>localize</code> the naive portion of the datetime after parsing:</p>
+</div>
+<p>If using this method, you should probably re-<code>localize</code> the naive portion of the datetime after parsing:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">dt_fixed</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">tzinfo</span><span class="o">.</span><span class="n">localize</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="bp">None</span><span class="p">))</span>

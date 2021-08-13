@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The method <code>nextInt(int bound)</code> of <code>Random</code> accepts an upper exclusive boundary, i.e. a number that the returned random value must be less than. However, only the <code>nextInt</code> method accepts a bound; <code>nextLong</code>, <code>nextDouble</code> etc. do not.</p>
+      
+<p>The method <code>nextInt(int bound)</code> of <code>Random</code> accepts an upper exclusive boundary, i.e. a number that the returned random value must be less than. However, only the <code>nextInt</code> method accepts a bound; <code>nextLong</code>, <code>nextDouble</code> etc. do not.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Random random = new Random();
@@ -138,7 +141,10 @@ int number = 10 + random.nextInt(100); // number is in the range of 10 to 109</p
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Starting in Java 1.7, you may also use <code>ThreadLocalRandom</code> (<a href="http://stackoverflow.com/questions/363681/generating-random-integers-in-a-specific-range">source</a>). This class provides a thread-safe PRNG (pseudo-random number generator). Note that the <code>nextInt</code> method of this class accepts both an upper and lower bound.</p>
+</div>
+<p>Starting in Java 1.7, you may also use <code>ThreadLocalRandom</code> (<a href="http://stackoverflow.com/questions/363681/generating-random-integers-in-a-specific-range">source</a>). This class provides a thread-safe PRNG (pseudo-random number generator). Note that the <code>nextInt</code> method of this class accepts both an upper and lower bound.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import java.util.concurrent.ThreadLocalRandom;
@@ -150,7 +156,14 @@ ThreadLocalRandom.current().nextInt(min, max + 1);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="f4e86c7f-83ea-4bd0-9d70-3655bee9b61c"/><p>Note that <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Random.html">the official documentation</a> states that <code>nextInt(int bound)</code> can do weird things when <code>bound</code> is near 230+1 (emphasis added):</p><blockquote id="4fbbee06-f226-42b7-b4f3-279fbf47bd1a" class="">The algorithm is slightly tricky. It rejects values that would result in an uneven distribution (due to the fact that 2^31 is not divisible by n). The probability of a value being rejected depends on n. The worst case is n=2^30+1, for which the probability of a reject is 1/2, and the expected number of iterations before the loop terminates is 2.</blockquote><p>In other words, specifying a bound will (slightly) decrease the performance of the <code>nextInt</code> method, and this performance decrease will become more pronounced as the <code>bound</code> approaches half the max int value.</p>
+</div>
+<hr id="f4e86c7f-83ea-4bd0-9d70-3655bee9b61c"/>
+<p>Note that <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Random.html">the official documentation</a> states that <code>nextInt(int bound)</code> can do weird things when <code>bound</code> is near 230+1 (emphasis added):
+</p>
+<blockquote id="4fbbee06-f226-42b7-b4f3-279fbf47bd1a" class="">The algorithm is slightly tricky. It rejects values that would result in an uneven distribution (due to the fact that 2^31 is not divisible by n). The probability of a value being rejected depends on n. The worst case is n=2^30+1, for which the probability of a reject is 1/2, and the expected number of iterations before the loop terminates is 2.
+</blockquote>
+<p>In other words, specifying a bound will (slightly) decrease the performance of the <code>nextInt</code> method, and this performance decrease will become more pronounced as the <code>bound</code> approaches half the max int value.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

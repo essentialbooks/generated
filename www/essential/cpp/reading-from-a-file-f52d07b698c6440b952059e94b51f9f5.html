@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>There are several ways to read data from a file.</p><p>If you know how the data is formatted, you can use the stream extraction operator (<code>&gt;&gt;</code>). Let’s assume you have a file named <em>foo.txt</em> which contains the following data:</p>
+      
+<p>There are several ways to read data from a file.
+</p>
+<p>If you know how the data is formatted, you can use the stream extraction operator (<code>&gt;&gt;</code>). Let’s assume you have a file named <em>foo.txt</em> which contains the following data:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">John Doe 25 4 6 1987
@@ -136,7 +141,10 @@ Jane Doe 15 5 24 1976</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then you can use the following code to read that data from the file:</p>
+</div>
+<p>Then you can use the following code to read that data from the file:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="c1">// Define variables.
@@ -155,7 +163,18 @@ Jane Doe 15 5 24 1976</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The stream extraction operator <code>&gt;&gt;</code> extracts every character and stops if it finds a character that can’t be stored or if it is a special character:</p><ul id="0c2e63a6-58dd-44f6-a1e1-47c7fb9ef5cd" class="bulleted-list"><li>For string types, the operator stops at a whitespace (<code> </code>) or at a newline (<code>\n</code>).</li><li>For numbers, the operator stops at a non-number character.</li></ul><p>This means that the following version of the file <em>foo.txt</em> will also be successfully read by the previous code:</p>
+</div>
+<p>The stream extraction operator <code>&gt;&gt;</code> extracts every character and stops if it finds a character that can’t be stored or if it is a special character:
+</p>
+  <ul id="0c2e63a6-58dd-44f6-a1e1-47c7fb9ef5cd" class="bulleted-list">
+    <li>For string types, the operator stops at a whitespace (<code> </code>) or at a newline (<code>\n</code>).
+    </li>
+    <li>For numbers, the operator stops at a non-number character.
+    </li>
+  </ul>
+<p>This means that the following version of the file <em>foo.txt</em> will also be successfully read by the previous code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">John 
@@ -171,7 +190,12 @@ Doe
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The stream extraction operator <code>&gt;&gt;</code> always returns the stream given to it. Therefore, multiple operators can be chained together in order to read data consecutively. However, a stream can also be used as a Boolean expression (as shown in the <code>while</code> loop in the previous code). This is because the stream classes have a conversion operator for the type <code>bool</code>. This <code>bool()</code> operator will return <code>true</code> as long as the stream has no errors. If a stream goes into an error state (for example, because no more data can be extracted), then the <code>bool()</code> operator will return <code>false</code>. Therefore, the <code>while</code> loop in the previous code will be exited after the input file has been read to its end.</p><p>If you wish to read an entire file as a string, you may use the following code:</p>
+</div>
+<p>The stream extraction operator <code>&gt;&gt;</code> always returns the stream given to it. Therefore, multiple operators can be chained together in order to read data consecutively. However, a stream can also be used as a Boolean expression (as shown in the <code>while</code> loop in the previous code). This is because the stream classes have a conversion operator for the type <code>bool</code>. This <code>bool()</code> operator will return <code>true</code> as long as the stream has no errors. If a stream goes into an error state (for example, because no more data can be extracted), then the <code>bool()</code> operator will return <code>false</code>. Therefore, the <code>while</code> loop in the previous code will be exited after the input file has been read to its end.
+</p>
+<p>If you wish to read an entire file as a string, you may use the following code:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="c1">// opens &#39;foo.txt&#39;
@@ -195,7 +219,12 @@ Doe
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This code reserves space for the <code>string</code> in order to cut down on unneeded memory allocations.</p><p>If you want to read a file line by line, you can use the function <a href="http://en.cppreference.com/w/cpp/string/basic_string/getline"><code>getline()</code></a>:</p>
+</div>
+<p>This code reserves space for the <code>string</code> in order to cut down on unneeded memory allocations.
+</p>
+<p>If you want to read a file line by line, you can use the function <a href="http://en.cppreference.com/w/cpp/string/basic_string/getline"><code>getline()</code></a>:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">ifstream</span> <span class="n">is</span><span class="p">(</span><span class="s">&#34;foo.txt&#34;</span><span class="p">);</span>   
@@ -209,7 +238,10 @@ Doe
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you want to read a fixed number of characters, you can use the stream’s member function <code>read()</code>:</p>
+</div>
+<p>If you want to read a fixed number of characters, you can use the stream’s member function <code>read()</code>:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">ifstream</span> <span class="n">is</span><span class="p">(</span><span class="s">&#34;foo.txt&#34;</span><span class="p">);</span>
@@ -222,7 +254,10 @@ Doe
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>After executing a read command, you should always check if the error state flag <code>failbit</code> has been set, as it indicates whether the operation failed or not. This can be done by calling the file stream’s member function <code>fail()</code>:</p>
+</div>
+<p>After executing a read command, you should always check if the error state flag <code>failbit</code> has been set, as it indicates whether the operation failed or not. This can be done by calling the file stream’s member function <code>fail()</code>:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">is</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span> <span class="c1">// this operation might fail for any reason.

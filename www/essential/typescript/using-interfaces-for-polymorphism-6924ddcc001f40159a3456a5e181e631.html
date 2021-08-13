@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>The primary reason to use interfaces to achieve polymorphism and provide developers to implement on their own way in future by implementing interface’s methods.</p><p>Suppose we have an interface and three classes:</p>
+      
+<p>The primary reason to use interfaces to achieve polymorphism and provide developers to implement on their own way in future by implementing interface’s methods.
+</p>
+<p>Suppose we have an interface and three classes:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">interface Connector{
@@ -137,7 +142,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is connector interface. Now we will implement that for Wifi communication.</p>
+</div>
+<p>This is connector interface. Now we will implement that for Wifi communication.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">export class WifiConnector implements Connector{
@@ -155,7 +163,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here we have developed our concrete class named <code>WifiConnector</code> that has its own implementation. This is now type <code>Connector</code>.</p><p>Now we are creating our <code>System</code> that has a component <code>Connector</code>. This is called dependency injection.</p>
+</div>
+<p>Here we have developed our concrete class named <code>WifiConnector</code> that has its own implementation. This is now type <code>Connector</code>.
+</p>
+<p>Now we are creating our <code>System</code> that has a component <code>Connector</code>. This is called dependency injection.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">export class System {
@@ -167,7 +180,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>constructor(private connector: Connector)</code> this line is very important here. <code>Connector</code> is an interface and must have <code>doConnect()</code>. As <code>Connector</code> is an interface this class <code>System</code> has much more flexibility. We can pass any Type which has implemented <code>Connector</code> interface. In future developer achieves more flexibility. For example, now developer want to add Bluetooth Connection module:</p>
+</div>
+<p><code>constructor(private connector: Connector)</code> this line is very important here. <code>Connector</code> is an interface and must have <code>doConnect()</code>. As <code>Connector</code> is an interface this class <code>System</code> has much more flexibility. We can pass any Type which has implemented <code>Connector</code> interface. In future developer achieves more flexibility. For example, now developer want to add Bluetooth Connection module:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">export class BluetoothConnector implements Connector{
@@ -184,7 +200,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>See that Wifi and Bluetooth have its own implementation. There own different way to connect. However, hence both have implemented Type <code>Connector</code> the are now Type <code>Connector</code>. So that we can pass any of those to <code>System</code> class as the constructor parameter. This is called polymorphism. The class <code>System</code> is now not aware of whether it is Bluetooth / Wifi even we can add another Communication module like Inferade, Bluetooth5 and whatsoever by just implementing <code>Connector</code> interface.</p><p>This is called <a href="https://en.wikipedia.org/wiki/Duck_typing">Duck typing</a>. <code>Connector</code> type is now dynamic as <code>doConnect()</code> is just a placeholder and developer implement this as his/her own.</p><p>if at <code>constructor(private connector: WifiConnector)</code> where <code>WifiConnector</code> is a concrete class what will happen? Then <code>System</code> class will tightly couple only with WifiConnector nothing else. Here interface solved our problem by polymorphism.</p>
+</div>
+<p>See that Wifi and Bluetooth have its own implementation. There own different way to connect. However, hence both have implemented Type <code>Connector</code> the are now Type <code>Connector</code>. So that we can pass any of those to <code>System</code> class as the constructor parameter. This is called polymorphism. The class <code>System</code> is now not aware of whether it is Bluetooth / Wifi even we can add another Communication module like Inferade, Bluetooth5 and whatsoever by just implementing <code>Connector</code> interface.
+</p>
+<p>This is called <a href="https://en.wikipedia.org/wiki/Duck_typing">Duck typing</a>. <code>Connector</code> type is now dynamic as <code>doConnect()</code> is just a placeholder and developer implement this as his/her own.
+</p>
+<p>if at <code>constructor(private connector: WifiConnector)</code> where <code>WifiConnector</code> is a concrete class what will happen? Then <code>System</code> class will tightly couple only with WifiConnector nothing else. Here interface solved our problem by polymorphism.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,16 @@
 </div>
 
 
-      <p><code>std::function</code> type erases down to a few operations. One of the things it requires is that the stored value be copyable.</p><p>This causes problems in a few contexts, like lambdas storing unique ptrs. If you are using the <code>std::function</code> in a context where copying doesn’t matter, like a thread pool where you dispatch tasks to threads, this requirement can add overhead.</p><p>In particular, <code>std::packaged_task&lt;Sig&gt;</code> is a callable object that is move-only. You can store a <code>std::packaged_task&lt;R(Args...)&gt;</code> in a <code>std::packaged_task&lt;void(Args...)&gt;</code>, but that is a pretty heavy-weight and obscure way to create a move-only callable type-erasure class.</p><p>Thus the <code>task</code>. This demonstrates how you could write a simple <code>std::function</code> type. I omitted the copy constructor (which would involve adding a <code>clone</code> method to <code>details::task_pimpl&lt;...&gt;</code> as well).</p>
+      
+<p><code>std::function</code> type erases down to a few operations. One of the things it requires is that the stored value be copyable.
+</p>
+<p>This causes problems in a few contexts, like lambdas storing unique ptrs. If you are using the <code>std::function</code> in a context where copying doesn’t matter, like a thread pool where you dispatch tasks to threads, this requirement can add overhead.
+</p>
+<p>In particular, <code>std::packaged_task&lt;Sig&gt;</code> is a callable object that is move-only. You can store a <code>std::packaged_task&lt;R(Args...)&gt;</code> in a <code>std::packaged_task&lt;void(Args...)&gt;</code>, but that is a pretty heavy-weight and obscure way to create a move-only callable type-erasure class.
+</p>
+<p>Thus the <code>task</code>. This demonstrates how you could write a simple <code>std::function</code> type. I omitted the copy constructor (which would involve adding a <code>clone</code> method to <code>details::task_pimpl&lt;...&gt;</code> as well).
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;class Sig&gt;
@@ -249,7 +258,13 @@ private:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To make this library-worthy, you’d want to add in a small buffer optimization, so it does not store every callable on the heap.</p><p>Adding SBO would require a non-default <code>task(task&amp;&amp;)</code>, some <code>std::aligned_storage_t</code> within the class, a <code>m_pImpl</code> <code>unique_ptr</code> with a deleter that can be set to destroy-only (and not return the memory to the heap), and a <code>emplace_move_to( void* ) = 0</code> in the <code>task_pimpl</code>.</p><p><a href="http://coliru.stacked-crooked.com/a/6e6811e8626a37d1">live example</a> of the above code (with no SBO).</p>
+</div>
+<p>To make this library-worthy, you’d want to add in a small buffer optimization, so it does not store every callable on the heap.
+</p>
+<p>Adding SBO would require a non-default <code>task(task&amp;&amp;)</code>, some <code>std::aligned_storage_t</code> within the class, a <code>m_pImpl</code> <code>unique_ptr</code> with a deleter that can be set to destroy-only (and not return the memory to the heap), and a <code>emplace_move_to( void* ) = 0</code> in the <code>task_pimpl</code>.
+</p>
+<p><a href="http://coliru.stacked-crooked.com/a/6e6811e8626a37d1">live example</a> of the above code (with no SBO).
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

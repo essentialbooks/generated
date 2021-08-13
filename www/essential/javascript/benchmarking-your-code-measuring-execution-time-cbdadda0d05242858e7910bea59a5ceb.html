@@ -127,7 +127,24 @@
 </div>
 
 
-      <p>Most performance tips are very dependent of the current state of JS engines and are expected to be only relevant at a given time. The fundamental law of performance optimization is that you must first measure before trying to optimize, and measure again after a presumed optimization.</p><p>To measure code execution time, you can use different time measurement tools like:</p><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance">Performance</a> interface that represents timing-related performance information for the given page (only available in browsers).</p><p><a href="https://nodejs.org/api/process.html#process_process_hrtime_time">process.hrtime</a> on Node.js gives you timing information as [seconds, nanoseconds] tuples. Called without argument it returns an arbitrary time but called with a previously returned value as argument it returns the difference between the two executions.</p><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Console/time">Console timers</a> <code>console.time(&quot;labelName&quot;)</code> starts a timer you can use to track how long an operation takes. You give each timer a unique label name, and may have up to 10,000 timers running on a given page. When you call <code>console.timeEnd(&quot;labelName&quot;)</code> with the same name, the browser will finish the timer for given name and output the time in milliseconds, that elapsed since the timer was started. The strings passed to time() and timeEnd() must match otherwise the timer will not finish.</p><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now">Date.now</a> function <code>Date.now()</code> returns current <a href="http://www.unixtimestamp.com/">Timestamp</a> in milliseconds, which is a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a> representation of time since 1 January 1970 00:00:00 UTC until now. The method now() is a static method of Date, therefore you always use it as Date.now().</p><p><strong>Example 1</strong> using: <code>performance.now()</code></p><p>In this example we are going to calculate the elapsed time for the execution of our function, and we are going to use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/now">Performance.now()</a> method that returns a <a href="https://developer.mozilla.org/en-US/docs/Web/API/DOMHighResTimeStamp">DOMHighResTimeStamp</a>, measured in milliseconds, accurate to one thousandth of a millisecond.</p>
+      
+<p>Most performance tips are very dependent of the current state of JS engines and are expected to be only relevant at a given time. The fundamental law of performance optimization is that you must first measure before trying to optimize, and measure again after a presumed optimization.
+</p>
+<p>To measure code execution time, you can use different time measurement tools like:
+</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance">Performance</a> interface that represents timing-related performance information for the given page (only available in browsers).
+</p>
+<p><a href="https://nodejs.org/api/process.html#process_process_hrtime_time">process.hrtime</a> on Node.js gives you timing information as [seconds, nanoseconds] tuples. Called without argument it returns an arbitrary time but called with a previously returned value as argument it returns the difference between the two executions.
+</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Console/time">Console timers</a> <code>console.time(&quot;labelName&quot;)</code> starts a timer you can use to track how long an operation takes. You give each timer a unique label name, and may have up to 10,000 timers running on a given page. When you call <code>console.timeEnd(&quot;labelName&quot;)</code> with the same name, the browser will finish the timer for given name and output the time in milliseconds, that elapsed since the timer was started. The strings passed to time() and timeEnd() must match otherwise the timer will not finish.
+</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now">Date.now</a> function <code>Date.now()</code> returns current <a href="http://www.unixtimestamp.com/">Timestamp</a> in milliseconds, which is a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a> representation of time since 1 January 1970 00:00:00 UTC until now. The method now() is a static method of Date, therefore you always use it as Date.now().
+</p>
+<p><strong>Example 1</strong> using: <code>performance.now()</code>
+</p>
+<p>In this example we are going to calculate the elapsed time for the execution of our function, and we are going to use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/now">Performance.now()</a> method that returns a <a href="https://developer.mozilla.org/en-US/docs/Web/API/DOMHighResTimeStamp">DOMHighResTimeStamp</a>, measured in milliseconds, accurate to one thousandth of a millisecond.
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">let</span> <span class="nx">startTime</span><span class="p">,</span> <span class="nx">endTime</span><span class="p">;</span>
@@ -152,7 +169,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The result in console will look something like this:</p>
+</div>
+<p>The result in console will look something like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Elapsed time: 0.10000000009313226</pre>
@@ -160,7 +180,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Usage of <a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/now"><code>performance.now()</code></a> has the highest precision in browsers with accuracy to one thousandth of a millisecond, but the lowest <a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/now#Browser_compatibility">compatibility</a>.</p><p><strong>Example 2</strong> using: <code>Date.now()</code></p><p>In this example we are going to calculate the elapsed time for the initialization of a big array (1 million values), and we are going to use the <code>Date.now()</code> method</p>
+</div>
+<p>Usage of <a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/now"><code>performance.now()</code></a> has the highest precision in browsers with accuracy to one thousandth of a millisecond, but the lowest <a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/now#Browser_compatibility">compatibility</a>.
+</p>
+<p><strong>Example 2</strong> using: <code>Date.now()</code>
+</p>
+<p>In this example we are going to calculate the elapsed time for the initialization of a big array (1 million values), and we are going to use the <code>Date.now()</code> method
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">let</span> <span class="nx">t0</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span> <span class="c1">//stores current Timestamp in milliseconds since 1 January 1970 00:00:00 UTC
@@ -174,7 +201,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Example 3</strong> using: <code>console.time(&quot;label&quot;)</code> &amp; <code>console.timeEnd(&quot;label&quot;)</code></p><p>In this example we are doing the same task as in Example 2, but we are going to use the <code>console.time(&quot;label&quot;)</code> &amp; <code>console.timeEnd(&quot;label&quot;)</code> methods</p>
+</div>
+<p><strong>Example 3</strong> using: <code>console.time(&quot;label&quot;)</code> &amp; <code>console.timeEnd(&quot;label&quot;)</code>
+</p>
+<p>In this example we are doing the same task as in Example 2, but we are going to use the <code>console.time(&quot;label&quot;)</code> &amp; <code>console.timeEnd(&quot;label&quot;)</code> methods
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="s2">&#34;t&#34;</span><span class="p">);</span> <span class="c1">//start new timer for label name: &#34;t&#34;
@@ -188,7 +220,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Exemple 4</strong> using <code>process.hrtime()</code></p><p>In Node.js programs this is the most precise way to measure spent time.</p>
+</div>
+<p><strong>Exemple 4</strong> using <code>process.hrtime()</code>
+</p>
+<p>In Node.js programs this is the most precise way to measure spent time.
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">let</span> <span class="nx">start</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">hrtime</span><span class="p">();</span>

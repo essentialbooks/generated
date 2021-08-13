@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>If you have code (a <em>routine</em>) you want to execute under a specific (constraint) context, you can use dependency injection.</p><p>The following example shows the constraint of executing under an open SSL connection. This first part would be in your library or framework, which you won’t expose to the client code.</p>
+      
+<p>If you have code (a <em>routine</em>) you want to execute under a specific (constraint) context, you can use dependency injection.
+</p>
+<p>The following example shows the constraint of executing under an open SSL connection. This first part would be in your library or framework, which you won’t expose to the client code.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">SSLContext</span>
@@ -165,7 +170,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now the client code which wants to do something under SSL but does not want to handle all the SSL details. You can now do whatever you want inside the SSL tunnel, for example exchange a symmetric key:</p>
+</div>
+<p>Now the client code which wants to do something under SSL but does not want to handle all the SSL details. You can now do whatever you want inside the SSL tunnel, for example exchange a symmetric key:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">void</span> <span class="n">ExchangeSymmetricKey</span><span class="p">(</span><span class="n">BinaryReader</span> <span class="n">sslReader</span><span class="p">,</span> <span class="n">BinaryWriter</span> <span class="n">sslWriter</span><span class="p">)</span>
@@ -179,7 +187,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You execute this routine as follows:</p>
+</div>
+<p>You execute this routine as follows:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">SSLContext</span><span class="p">.</span><span class="n">ClientTunnel</span><span class="p">(</span><span class="n">tcpClient</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">ExchangeSymmetricKey</span><span class="p">);</span>
@@ -188,7 +199,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To do this, you need the <code>using()</code> clause because it is the only way (apart from a <code>try..finally</code> block) you can guarantee the client code (<code>ExchangeSymmetricKey</code>) never exits without properly disposing of the disposable resources. Without <code>using()</code> clause, you would never know if a routine could break the context’s constraint to dispose of those resources.</p>
+</div>
+<p>To do this, you need the <code>using()</code> clause because it is the only way (apart from a <code>try..finally</code> block) you can guarantee the client code (<code>ExchangeSymmetricKey</code>) never exits without properly disposing of the disposable resources. Without <code>using()</code> clause, you would never know if a routine could break the context’s constraint to dispose of those resources.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

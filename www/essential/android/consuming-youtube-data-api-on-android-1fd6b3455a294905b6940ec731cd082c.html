@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>This example will guide you how to get playlist data using the YouTube Data API on Android.</p><p><strong>SHA-1 fingerprint</strong></p><p>First you need to get an SHA-1 fingerprint for your machine. There are various methods for retrieving it. You can choose any method provided in <a href="http://stackoverflow.com/q/27609442/5275639">this Q&amp;A</a>.</p><p><strong>Google API console and YouTube key for Android</strong></p><p>Now that you have an SHA-1 fingerprint, open the Google API console and create a project. Go to <a href="https://console.developers.google.com/iam-admin/projects?authuser=1">this page</a> and create a project using that SHA-1 key and enable the YouTube Data API. Now you will get a key. This key will be used to send requests from Android and fetch data.</p><p><strong>Gradle part</strong></p><p>You will have to add the following lines to your Gradle file for the YouTube Data API:</p>
+      
+<p>This example will guide you how to get playlist data using the YouTube Data API on Android.
+</p>
+<p><strong>SHA-1 fingerprint</strong>
+</p>
+<p>First you need to get an SHA-1 fingerprint for your machine. There are various methods for retrieving it. You can choose any method provided in <a href="http://stackoverflow.com/q/27609442/5275639">this Q&amp;A</a>.
+</p>
+<p><strong>Google API console and YouTube key for Android</strong>
+</p>
+<p>Now that you have an SHA-1 fingerprint, open the Google API console and create a project. Go to <a href="https://console.developers.google.com/iam-admin/projects?authuser=1">this page</a> and create a project using that SHA-1 key and enable the YouTube Data API. Now you will get a key. This key will be used to send requests from Android and fetch data.
+</p>
+<p><strong>Gradle part</strong>
+</p>
+<p>You will have to add the following lines to your Gradle file for the YouTube Data API:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">compile &#39;com.google.apis:google-api-services-youtube:v3-rev183-1.22.0&#39;</pre>
@@ -135,7 +150,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In order to use YouTube’s native client to send requests, we have to add the following lines in Gradle:</p>
+</div>
+<p>In order to use YouTube’s native client to send requests, we have to add the following lines in Gradle:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">compile &#39;com.google.http-client:google-http-client-android:+&#39;
@@ -145,7 +163,10 @@ compile &#39;com.google.api-client:google-api-client-gson:+&#39;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The following configuration also needs to be added in Gradle in order to avoid conflicts:</p>
+</div>
+<p>The following configuration also needs to be added in Gradle in order to avoid conflicts:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">configurations.all {
@@ -155,7 +176,12 @@ compile &#39;com.google.api-client:google-api-client-gson:+&#39;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Below it is shown how the <em>gradle.build</em> would finally look like.</p><p><strong>build.gradle</strong></p>
+</div>
+<p>Below it is shown how the <em>gradle.build</em> would finally look like.
+</p>
+<p><strong>build.gradle</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">apply plugin: &#39;com.android.application&#39;
@@ -197,7 +223,12 @@ dependencies {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now comes the Java part. Since we will be using <code>HttpTransport</code> for networking and <code>GsonFactory</code> for converting JSON into POJO, we don’t need any other library to send any requests.</p><p>Now I want to show how to get playlists via the YouTube API by providing the playlist IDs. For this task I will use <code>AsyncTask</code>. To understand how we request parameters and to understand the flow, please take a look at the <a href="https://developers.google.com/youtube/v3/docs/playlists/list">YouTube Data API</a>.</p>
+</div>
+<p>Now comes the Java part. Since we will be using <code>HttpTransport</code> for networking and <code>GsonFactory</code> for converting JSON into POJO, we don’t need any other library to send any requests.
+</p>
+<p>Now I want to show how to get playlists via the YouTube API by providing the playlist IDs. For this task I will use <code>AsyncTask</code>. To understand how we request parameters and to understand the flow, please take a look at the <a href="https://developers.google.com/youtube/v3/docs/playlists/list">YouTube Data API</a>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class GetPlaylistDataAsyncTask extends AsyncTask&lt;String[], Void, PlaylistListResponse&gt; {
@@ -235,7 +266,12 @@ dependencies {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above asynchronous task will return an instance of <code>PlaylistListResponse</code> which is a build-in class of the YouTube SDK. It has all the required fields, so we don’t have to create POJOs ourself.</p><p>Finally, in our <code>MainActivity</code> we will have to do the following:</p>
+</div>
+<p>The above asynchronous task will return an instance of <code>PlaylistListResponse</code> which is a build-in class of the YouTube SDK. It has all the required fields, so we don’t have to create POJOs ourself.
+</p>
+<p>Finally, in our <code>MainActivity</code> we will have to do the following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MainActivity extends AppCompatActivity {

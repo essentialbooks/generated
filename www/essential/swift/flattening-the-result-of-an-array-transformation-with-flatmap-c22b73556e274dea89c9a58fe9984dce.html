@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>As well as being able to create an array by <a href="http://stackoverflow.com/documentation/swift/284/arrays/3585/extracting-values-of-a-given-type-from-an-array-with-flatmap">filtering out </a><a href="http://stackoverflow.com/documentation/swift/284/arrays/3585/extracting-values-of-a-given-type-from-an-array-with-flatmap"><code>nil</code></a> from the transformed elements of a sequence, there is also a version of <a href="http://swiftdoc.org/v2.2/protocol/SequenceType/#func--flatmap-s_-sequencetype_-self-generator-element-throws-s"><code>flatMap(_:)</code></a> that expects the transformation <a href="http://stackoverflow.com/documentation/swift/262/closures">closure</a> to return a sequence <code>S</code>.</p>
+      
+<p>As well as being able to create an array by <a href="http://stackoverflow.com/documentation/swift/284/arrays/3585/extracting-values-of-a-given-type-from-an-array-with-flatmap">filtering out </a><a href="http://stackoverflow.com/documentation/swift/284/arrays/3585/extracting-values-of-a-given-type-from-an-array-with-flatmap"><code>nil</code></a> from the transformed elements of a sequence, there is also a version of <a href="http://swiftdoc.org/v2.2/protocol/SequenceType/#func--flatmap-s_-sequencetype_-self-generator-element-throws-s"><code>flatMap(_:)</code></a> that expects the transformation <a href="http://stackoverflow.com/documentation/swift/262/closures">closure</a> to return a sequence <code>S</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">extension SequenceType {
@@ -137,7 +140,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Each sequence from the transformation will be concatenated, resulting in an array containing the combined elements of each sequence – <code>[S.Generator.Element]</code>.</p><h2 id="5556675e-c3fd-493b-9314-06c12a30ab24" class="">Combining the characters in an array of strings<a class="header-anchor" href="#5556675e-c3fd-493b-9314-06c12a30ab24" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>For example, we can use it to take an array of prime strings and combine their characters into a single array:</p>
+</div>
+<p>Each sequence from the transformation will be concatenated, resulting in an array containing the combined elements of each sequence – <code>[S.Generator.Element]</code>.
+</p>
+  <h2 id="5556675e-c3fd-493b-9314-06c12a30ab24" class="">Combining the characters in an array of strings
+  <a class="header-anchor" href="#5556675e-c3fd-493b-9314-06c12a30ab24" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>For example, we can use it to take an array of prime strings and combine their characters into a single array:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let primes = [&#34;2&#34;, &#34;3&#34;, &#34;5&#34;, &#34;7&#34;, &#34;11&#34;, &#34;13&#34;, &#34;17&#34;, &#34;19&#34;]
@@ -147,7 +158,27 @@ let allCharacters = primes.flatMap { $0.characters }
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Breaking the above example down:</p><ol id="80ba3a4d-c218-4f30-937b-d229257720e4" class="numbered-list" start="1"><li><code>primes</code> is a <code>[String]</code> (As an array is a sequence, we can call <code>flatMap(_:)</code> on it).</li><li>The transformation closure takes in one of the elements of <code>primes</code>, a <a href="http://swiftdoc.org/v2.2/type/String/"><code>String</code></a> (<code>Array&lt;String&gt;.Generator.Element</code>).</li><li>The closure then returns a sequence of type <a href="http://swiftdoc.org/v2.2/type/String.CharacterView/"><code>String.CharacterView</code></a>.</li><li>The result is then an array containing the combined elements of all the sequences from each of the transformation closure calls – <code>[String.CharacterView.Generator.Element]</code>.</li></ol><h2 id="56a45107-1b61-48dd-bc6e-d4a5c5f628b0" class="">Flattening a multidimensional array<a class="header-anchor" href="#56a45107-1b61-48dd-bc6e-d4a5c5f628b0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>As <code>flatMap(_:)</code> will concatenate the sequences returned from the transformation closure calls, it can be used to flatten a multidimensional array – such as a 2D array into a 1D array, a 3D array into a 2D array etc.</p><p>This can simply be done by returning the given element <code>$0</code> (a nested array) in the closure:</p>
+</div>
+<p>Breaking the above example down:
+</p>
+  <ol id="80ba3a4d-c218-4f30-937b-d229257720e4" class="numbered-list" start="1">
+    <li><code>primes</code> is a <code>[String]</code> (As an array is a sequence, we can call <code>flatMap(_:)</code> on it).
+    </li>
+    <li>The transformation closure takes in one of the elements of <code>primes</code>, a <a href="http://swiftdoc.org/v2.2/type/String/"><code>String</code></a> (<code>Array&lt;String&gt;.Generator.Element</code>).
+    </li>
+    <li>The closure then returns a sequence of type <a href="http://swiftdoc.org/v2.2/type/String.CharacterView/"><code>String.CharacterView</code></a>.
+    </li>
+    <li>The result is then an array containing the combined elements of all the sequences from each of the transformation closure calls – <code>[String.CharacterView.Generator.Element]</code>.
+    </li>
+  </ol>
+  <h2 id="56a45107-1b61-48dd-bc6e-d4a5c5f628b0" class="">Flattening a multidimensional array
+  <a class="header-anchor" href="#56a45107-1b61-48dd-bc6e-d4a5c5f628b0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>As <code>flatMap(_:)</code> will concatenate the sequences returned from the transformation closure calls, it can be used to flatten a multidimensional array – such as a 2D array into a 1D array, a 3D array into a 2D array etc.
+</p>
+<p>This can simply be done by returning the given element <code>$0</code> (a nested array) in the closure:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// A 2D array of type [[Int]]

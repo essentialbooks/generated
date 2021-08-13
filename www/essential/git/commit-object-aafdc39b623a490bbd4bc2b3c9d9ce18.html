@@ -127,7 +127,26 @@
 </div>
 
 
-      <p>A <code>commit</code> is probably the <code>object</code> type most familiar to <code>git</code> users, as it’s what they are used to creating with the <code>git commit</code> commands.</p><p>However, the <code>commit</code> does not directly contain any changed files or data. Rather, it contains mostly metadata and pointers to other <code>objects</code> which contain the actual contents of the <code>commit</code>.</p><p>A <code>commit</code> contains a few things:</p><ul id="dfa2a22c-123d-4343-884a-865ebf97cbda" class="bulleted-list"><li>hash of a <code>tree</code></li><li>hash of a parent <code>commit</code></li><li>author name/email, commiter name/email</li><li>commit message</li></ul><p>You can see the contents of any commit like this:</p>
+      
+<p>A <code>commit</code> is probably the <code>object</code> type most familiar to <code>git</code> users, as it’s what they are used to creating with the <code>git commit</code> commands.
+</p>
+<p>However, the <code>commit</code> does not directly contain any changed files or data. Rather, it contains mostly metadata and pointers to other <code>objects</code> which contain the actual contents of the <code>commit</code>.
+</p>
+<p>A <code>commit</code> contains a few things:
+</p>
+  <ul id="dfa2a22c-123d-4343-884a-865ebf97cbda" class="bulleted-list">
+    <li>hash of a <code>tree</code>
+    </li>
+    <li>hash of a parent <code>commit</code>
+    </li>
+    <li>author name/email, commiter name/email
+    </li>
+    <li>commit message
+    </li>
+  </ul>
+<p>You can see the contents of any commit like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ git cat-file commit 5bac93
@@ -141,7 +160,19 @@ First commit!</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="56ca784d-a2db-4c3d-94b6-6759124f5972" class="">Tree<a class="header-anchor" href="#56ca784d-a2db-4c3d-94b6-6759124f5972" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>A very important note is that the <code>tree</code> objects stores EVERY file in your project, and it stores whole files not diffs. This means that each <code>commit</code> contains a snapshot of the entire project*.</p><p>*<em>Technically, only changed files are stored. But this is more an implementation detail for efficiency. From a design perspective, a </em><code><em>commit</em></code><em> should be considered as containing a complete copy of the project</em>.</p><h1 id="148ed48f-339f-4509-a611-17763186d382" class="">Parent<a class="header-anchor" href="#148ed48f-339f-4509-a611-17763186d382" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>The <code>parent</code> line contains a hash of another <code>commit</code> object, and can be thought of as a “parent pointer” that points to the “previous commit”. This implicitly forms a graph of commits known as the <strong>commit graph</strong>. Specifically, it’s a <a href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">directed acyclic graph</a> (or DAG).</p>
+</div>
+  <h1 id="56ca784d-a2db-4c3d-94b6-6759124f5972" class="">Tree
+  <a class="header-anchor" href="#56ca784d-a2db-4c3d-94b6-6759124f5972" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>A very important note is that the <code>tree</code> objects stores EVERY file in your project, and it stores whole files not diffs. This means that each <code>commit</code> contains a snapshot of the entire project*.
+</p>
+<p>*<em>Technically, only changed files are stored. But this is more an implementation detail for efficiency. From a design perspective, a </em><code><em>commit</em></code><em> should be considered as containing a complete copy of the project</em>.
+</p>
+  <h1 id="148ed48f-339f-4509-a611-17763186d382" class="">Parent
+  <a class="header-anchor" href="#148ed48f-339f-4509-a611-17763186d382" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>The <code>parent</code> line contains a hash of another <code>commit</code> object, and can be thought of as a “parent pointer” that points to the “previous commit”. This implicitly forms a graph of commits known as the <strong>commit graph</strong>. Specifically, it’s a <a href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">directed acyclic graph</a> (or DAG).
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

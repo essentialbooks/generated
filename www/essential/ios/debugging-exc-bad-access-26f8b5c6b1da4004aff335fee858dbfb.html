@@ -127,7 +127,26 @@
 </div>
 
 
-      <p><code>EXC_BAD_ACCESS</code> means the process tried to access memory in an invalid way, like dereferencing a <code>NULL</code> pointer or writing to read-only memory. This is the hardest kind of crash to debug, because it usually does not have an error message, and some crashes can be <em>very</em> difficult to reproduce and/or occur in code completely unrelated to the problem. This error is very rare in Swift, but if it occurs, you can often get easier-to-debug crashes by reducing compiler optimizations.</p><p>Most <code>EXC_BAD_ACCESS</code> errors are caused by trying to dereference a <code>NULL</code> pointer. If this is the case, the address listed in the red arrow will usually be a hexadecimal number that is lower than a normal memory address, often <code>0x0</code>. Set breakpoints in the debugger or add occasional <code>printf</code>/<code>NSLog</code> statements to find out why that pointer is <code>NULL</code>.</p><p>An <code>EXC_BAD_ACCESS</code> that occurs less reliably or makes no sense at all could be the result of a memory management problem. Common problems that can cause this are:</p><ul id="06c5ce93-becd-43fb-8697-44e6a5f07663" class="bulleted-list"><li>Using memory that has been deallocated</li><li>Trying to write past the end of a C array or other kind of buffer</li><li>Using a pointer which has not been initialized</li></ul><p>In the Diagnostics section of the Scheme Editor, Xcode includes a few useful tools to help debug memory problems:</p><img class="img" src="/img/20eebaf88c01de546f9dfa258cde9b7eef89d025.png"><p>The Address Sanitizer adds lots of checks that will stop the app whenever memory problems occur and provide a helpful error message detailing exactly what happened. Zombie Objects detects problems with deallocated Objective-C objects, but you shouldn’t get these kinds of problems with Automatic Reference Counting turned on.</p>
+      
+<p><code>EXC_BAD_ACCESS</code> means the process tried to access memory in an invalid way, like dereferencing a <code>NULL</code> pointer or writing to read-only memory. This is the hardest kind of crash to debug, because it usually does not have an error message, and some crashes can be <em>very</em> difficult to reproduce and/or occur in code completely unrelated to the problem. This error is very rare in Swift, but if it occurs, you can often get easier-to-debug crashes by reducing compiler optimizations.
+</p>
+<p>Most <code>EXC_BAD_ACCESS</code> errors are caused by trying to dereference a <code>NULL</code> pointer. If this is the case, the address listed in the red arrow will usually be a hexadecimal number that is lower than a normal memory address, often <code>0x0</code>. Set breakpoints in the debugger or add occasional <code>printf</code>/<code>NSLog</code> statements to find out why that pointer is <code>NULL</code>.
+</p>
+<p>An <code>EXC_BAD_ACCESS</code> that occurs less reliably or makes no sense at all could be the result of a memory management problem. Common problems that can cause this are:
+</p>
+  <ul id="06c5ce93-becd-43fb-8697-44e6a5f07663" class="bulleted-list">
+    <li>Using memory that has been deallocated
+    </li>
+    <li>Trying to write past the end of a C array or other kind of buffer
+    </li>
+    <li>Using a pointer which has not been initialized
+    </li>
+  </ul>
+<p>In the Diagnostics section of the Scheme Editor, Xcode includes a few useful tools to help debug memory problems:
+</p>
+<img class="img" src="/img/20eebaf88c01de546f9dfa258cde9b7eef89d025.png">
+<p>The Address Sanitizer adds lots of checks that will stop the app whenever memory problems occur and provide a helpful error message detailing exactly what happened. Zombie Objects detects problems with deallocated Objective-C objects, but you shouldn’t get these kinds of problems with Automatic Reference Counting turned on.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

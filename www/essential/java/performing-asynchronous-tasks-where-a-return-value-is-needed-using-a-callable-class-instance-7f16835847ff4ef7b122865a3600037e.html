@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>It is often necessary to execute a long-running task and use the result of that task once it has completed.</p><p>In this example, we will create two classes: One which implements the Callable&lt;T&gt; interface (where T is the type we wish to return), and one which contains a main() method.</p><p><strong>AsyncValueTypeTaskCompleter.java</strong></p>
+      
+<p>It is often necessary to execute a long-running task and use the result of that task once it has completed.
+</p>
+<p>In this example, we will create two classes: One which implements the Callable&lt;T&gt; interface (where T is the type we wish to return), and one which contains a main() method.
+</p>
+<p><strong>AsyncValueTypeTaskCompleter.java</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import lombok.extern.java.Log;
@@ -162,7 +169,10 @@ public class AsyncValueTypeTaskCompleter implements Callable&lt;Integer&gt; {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>AsyncExample2.java</strong></p>
+</div>
+<p><strong>AsyncExample2.java</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import lombok.extern.java.Log;
@@ -204,7 +214,10 @@ public class AsyncExample2 {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Running AsyncExample2.main() resulted in the following output:</p>
+</div>
+<p>Running AsyncExample2.main() resulted in the following output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Dec 28, 2016 3:07:15 PM AsyncValueTypeTaskCompleter call
@@ -271,7 +284,19 @@ INFO: A task just completed after sleeping for 16 seconds</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Observations of Note:</strong></p><p>There are several things to note in the output above,</p><ol id="384c55b3-cb04-4527-8995-c175c5b8bedb" class="numbered-list" start="1"><li>Each call to ExecutorService.submit() returned an instance of Future, which was stored in a list for later use</li><li>Future contains a method called isDone() which can be used to check whether our task has been completed before attempting to check it’s return value. Calling the Future.get() method on a Future that is not yet done will block the current thread until the task is complete, potentially negating many benefits gained from performing the task Asynchronously.</li><li>The executorService.shutdown() method was called prior to checking the return values of the Future objects. This is not required, but was done in this way to show that it is possible. The executorService.shutdown() method does not prevent the completion of tasks which have already been submitted to the ExecutorService, but rather prevents new tasks from being added to the Queue.</li></ol>
+</div>
+<p><strong>Observations of Note:</strong>
+</p>
+<p>There are several things to note in the output above,
+</p>
+  <ol id="384c55b3-cb04-4527-8995-c175c5b8bedb" class="numbered-list" start="1">
+    <li>Each call to ExecutorService.submit() returned an instance of Future, which was stored in a list for later use
+    </li>
+    <li>Future contains a method called isDone() which can be used to check whether our task has been completed before attempting to check it’s return value. Calling the Future.get() method on a Future that is not yet done will block the current thread until the task is complete, potentially negating many benefits gained from performing the task Asynchronously.
+    </li>
+    <li>The executorService.shutdown() method was called prior to checking the return values of the Future objects. This is not required, but was done in this way to show that it is possible. The executorService.shutdown() method does not prevent the completion of tasks which have already been submitted to the ExecutorService, but rather prevents new tasks from being added to the Queue.
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

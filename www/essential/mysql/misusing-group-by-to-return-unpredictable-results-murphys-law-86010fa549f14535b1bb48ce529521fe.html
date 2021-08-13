@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">SELECT</span> <span class="n">item</span><span class="p">.</span><span class="n">item_id</span><span class="p">,</span> <span class="n">uses</span><span class="p">.</span><span class="n">category</span><span class="p">,</span>   <span class="cm">/* nonstandard */</span> 
@@ -139,7 +140,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>will show the rows in a table called item, and show the count of related rows in a table called uses. It will also show the value of a column called <code>uses.category</code>.</p><p>This query works in MySQL (before the <code>ONLY_FULL_GROUP_BY</code> flag appeared). It uses <a href="https://dev.mysql.com/doc/refman/5.7/en/group-by-handling.html">MySQL’s nonstandard extension to </a><a href="https://dev.mysql.com/doc/refman/5.7/en/group-by-handling.html"><code>GROUP BY</code></a>.</p><p>But the query has a problem: if several rows in the <code>uses</code> table match the <code>ON</code> condition in the <code>JOIN</code> clause, MySQL returns the <code>category</code> column from just one of those rows. Which row? The writer of the query, and the user of the application, doesn’t get to know that in advance. Formally speaking, it’s <em>unpredictable</em>: MySQL can return any value it wants.</p><p><em>Unpredictable</em> is like <em>random,</em> with one significant difference. One might expect a <em>random</em> choice to change from time to time. Therefore, if a choice were random, you might detect it during debugging or testing. The <em>unpredictable</em> result is worse: MySQL returns the same result each time you use the query, <em>until it doesn’t.</em> Sometimes it’s a new version of the MySQL server that causes a different result. Sometimes it’s a growing table causing the problem. What can go wrong, will go wrong, and when you don’t expect it. That’s called <a href="https://en.wikipedia.org/wiki/Murphy&#x27;s_law">Murphy’s Law</a>.</p><p>The MySQL team has been working to make it harder for developers to make this mistake. Newer versions of MySQL in the 5.7 sequence have a <code>sql_mode</code> flag called <code>ONLY_FULL_GROUP_BY</code>. When that flag is set, the MySQL server returns the 1055 error and refuses to run this kind of query.</p>
+</div>
+<p>will show the rows in a table called item, and show the count of related rows in a table called uses. It will also show the value of a column called <code>uses.category</code>.
+</p>
+<p>This query works in MySQL (before the <code>ONLY_FULL_GROUP_BY</code> flag appeared). It uses <a href="https://dev.mysql.com/doc/refman/5.7/en/group-by-handling.html">MySQL’s nonstandard extension to </a><a href="https://dev.mysql.com/doc/refman/5.7/en/group-by-handling.html"><code>GROUP BY</code></a>.
+</p>
+<p>But the query has a problem: if several rows in the <code>uses</code> table match the <code>ON</code> condition in the <code>JOIN</code> clause, MySQL returns the <code>category</code> column from just one of those rows. Which row? The writer of the query, and the user of the application, doesn’t get to know that in advance. Formally speaking, it’s <em>unpredictable</em>: MySQL can return any value it wants.
+</p>
+<p><em>Unpredictable</em> is like <em>random,</em> with one significant difference. One might expect a <em>random</em> choice to change from time to time. Therefore, if a choice were random, you might detect it during debugging or testing. The <em>unpredictable</em> result is worse: MySQL returns the same result each time you use the query, <em>until it doesn’t.</em> Sometimes it’s a new version of the MySQL server that causes a different result. Sometimes it’s a growing table causing the problem. What can go wrong, will go wrong, and when you don’t expect it. That’s called <a href="https://en.wikipedia.org/wiki/Murphy&#x27;s_law">Murphy’s Law</a>.
+</p>
+<p>The MySQL team has been working to make it harder for developers to make this mistake. Newer versions of MySQL in the 5.7 sequence have a <code>sql_mode</code> flag called <code>ONLY_FULL_GROUP_BY</code>. When that flag is set, the MySQL server returns the 1055 error and refuses to run this kind of query.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

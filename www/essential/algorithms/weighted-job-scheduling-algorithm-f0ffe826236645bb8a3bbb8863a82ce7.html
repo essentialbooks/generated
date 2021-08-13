@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>Weighted Job Scheduling Algorithm can also be denoted as Weighted Activity Selection Algorithm.</p><p>The problem is, given certain jobs with their start time and end time, and a profit you make when you finish the job, what is the maximum profit you can make given no two jobs can be executed in parallel?</p><p>This one looks like Activity Selection using Greedy Algorithm, but there’s an added twist. That is, instead of maximizing the number of jobs finished, we focus on making the maximum profit. The number of jobs performed doesn’t matter here.</p><p>Let’s look at an example:</p>
+      
+<p>Weighted Job Scheduling Algorithm can also be denoted as Weighted Activity Selection Algorithm.
+</p>
+<p>The problem is, given certain jobs with their start time and end time, and a profit you make when you finish the job, what is the maximum profit you can make given no two jobs can be executed in parallel?
+</p>
+<p>This one looks like Activity Selection using Greedy Algorithm, but there’s an added twist. That is, instead of maximizing the number of jobs finished, we focus on making the maximum profit. The number of jobs performed doesn’t matter here.
+</p>
+<p>Let’s look at an example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+-------------------------+---------+---------+---------+---------+---------+---------+
@@ -141,7 +150,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The jobs are denoted with a name, their start and finishing time and profit. After a few iterations, we can find out if we perform <strong>Job-A</strong> and <strong>Job-E</strong>, we can get the maximum profit of 17. Now how to find this out using an algorithm?</p><p>The first thing we do is sort the jobs by their finishing time in non-decreasing order. Why do we do this? It’s because if we select a job that takes less time to finish, then we leave the most amount of time for choosing other jobs. We have:</p>
+</div>
+<p>The jobs are denoted with a name, their start and finishing time and profit. After a few iterations, we can find out if we perform <strong>Job-A</strong> and <strong>Job-E</strong>, we can get the maximum profit of 17. Now how to find this out using an algorithm?
+</p>
+<p>The first thing we do is sort the jobs by their finishing time in non-decreasing order. Why do we do this? It’s because if we select a job that takes less time to finish, then we leave the most amount of time for choosing other jobs. We have:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+-------------------------+---------+---------+---------+---------+---------+---------+
@@ -155,7 +169,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We’ll have an additional temporary array <strong>Acc_Prof</strong> of size <strong>n</strong> (Here, <strong>n</strong> denotes the total number of jobs). This will contain the maximum accumulated profit of performing the jobs. Don’t get it? Wait and watch. We’ll initialize the values of the array with the profit of each jobs. That means, <strong>Acc_Prof[i]</strong> will at first hold the profit of performing <strong>i-th</strong> job.</p>
+</div>
+<p>We’ll have an additional temporary array <strong>Acc_Prof</strong> of size <strong>n</strong> (Here, <strong>n</strong> denotes the total number of jobs). This will contain the maximum accumulated profit of performing the jobs. Don’t get it? Wait and watch. We’ll initialize the values of the array with the profit of each jobs. That means, <strong>Acc_Prof[i]</strong> will at first hold the profit of performing <strong>i-th</strong> job.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+-------------------------+---------+---------+---------+---------+---------+---------+
@@ -165,7 +182,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now let’s denote <strong>position 2</strong> with <strong>i</strong>, and <strong>position 1</strong> will be denoted with <strong>j</strong>. Our strategy will be to iterate <strong>j</strong> from <strong>1</strong> to <strong>i-1</strong> and after each iteration, we will increment <strong>i</strong> by 1, until <strong>i</strong> becomes <strong>n+1</strong>.</p>
+</div>
+<p>Now let’s denote <strong>position 2</strong> with <strong>i</strong>, and <strong>position 1</strong> will be denoted with <strong>j</strong>. Our strategy will be to iterate <strong>j</strong> from <strong>1</strong> to <strong>i-1</strong> and after each iteration, we will increment <strong>i</strong> by 1, until <strong>i</strong> becomes <strong>n+1</strong>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">j        i
@@ -183,7 +203,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We check if <strong>Job[i]</strong> and <strong>Job[j]</strong> overlap, that is, if the <strong>finish time</strong> of <strong>Job[j]</strong> is greater than <strong>Job[i]</strong>‘s start time, then these two jobs can’t be done together. However, if they don’t overlap, we’ll check if <strong>Acc_Prof[j] + Profit[i] &gt; Acc_Prof[i]</strong>. If this is the case, we will update <strong>Acc_Prof[i] = Acc_Prof[j] + Profit[i]</strong>. That is:</p>
+</div>
+<p>We check if <strong>Job[i]</strong> and <strong>Job[j]</strong> overlap, that is, if the <strong>finish time</strong> of <strong>Job[j]</strong> is greater than <strong>Job[i]</strong>‘s start time, then these two jobs can’t be done together. However, if they don’t overlap, we’ll check if <strong>Acc_Prof[j] + Profit[i] &gt; Acc_Prof[i]</strong>. If this is the case, we will update <strong>Acc_Prof[i] = Acc_Prof[j] + Profit[i]</strong>. That is:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if Job[j].finish_time &lt;= Job[i].start_time
@@ -195,7 +218,12 @@ endif</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here <strong>Acc_Prof[j] + Profit[i]</strong> represents the accumulated profit of doing these two jobs toegther. Let’s check it for our example:</p><p>Here <strong>Job[j]</strong> overlaps with <strong>Job[i]</strong>. So these to can’t be done together. Since our <strong>j</strong> is equal to <strong>i-1</strong>, we increment the value of <strong>i</strong> to <strong>i+1</strong> that is <strong>3</strong>. And we make <strong>j = 1</strong>.</p>
+</div>
+<p>Here <strong>Acc_Prof[j] + Profit[i]</strong> represents the accumulated profit of doing these two jobs toegther. Let’s check it for our example:
+</p>
+<p>Here <strong>Job[j]</strong> overlaps with <strong>Job[i]</strong>. So these to can’t be done together. Since our <strong>j</strong> is equal to <strong>i-1</strong>, we increment the value of <strong>i</strong> to <strong>i+1</strong> that is <strong>3</strong>. And we make <strong>j = 1</strong>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">j                   i
@@ -213,7 +241,10 @@ endif</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now <strong>Job[j]</strong> and <strong>Job[i]</strong> don’t overlap. The total amount of profit we can make by picking these two jobs is: <strong>Acc_Prof[j] + Profit[i] = 5 + 5 = 10</strong> which is greater than <strong>Acc_Prof[i]</strong>. So we update <strong>Acc_Prof[i] = 10</strong>. We also increment <strong>j</strong> by 1. We get,</p>
+</div>
+<p>Now <strong>Job[j]</strong> and <strong>Job[i]</strong> don’t overlap. The total amount of profit we can make by picking these two jobs is: <strong>Acc_Prof[j] + Profit[i] = 5 + 5 = 10</strong> which is greater than <strong>Acc_Prof[i]</strong>. So we update <strong>Acc_Prof[i] = 10</strong>. We also increment <strong>j</strong> by 1. We get,
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">j         i
@@ -231,7 +262,10 @@ endif</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, <strong>Job[j]</strong> overlaps with <strong>Job[i]</strong> and <strong>j</strong> is also equal to <strong>i-1</strong>. So we increment <strong>i</strong> by 1, and make <strong>j = 1</strong>. We get,</p>
+</div>
+<p>Here, <strong>Job[j]</strong> overlaps with <strong>Job[i]</strong> and <strong>j</strong> is also equal to <strong>i-1</strong>. So we increment <strong>i</strong> by 1, and make <strong>j = 1</strong>. We get,
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">j                             i
@@ -249,7 +283,10 @@ endif</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, <strong>Job[j]</strong> and <strong>Job[i]</strong> don’t overlap, we get the accumulated profit <strong>5 + 4 = 9</strong>, which is greater than <strong>Acc_Prof[i]</strong>. We update <strong>Acc_Prof[i] = 9</strong> and increment <strong>j</strong> by 1.</p>
+</div>
+<p>Now, <strong>Job[j]</strong> and <strong>Job[i]</strong> don’t overlap, we get the accumulated profit <strong>5 + 4 = 9</strong>, which is greater than <strong>Acc_Prof[i]</strong>. We update <strong>Acc_Prof[i] = 9</strong> and increment <strong>j</strong> by 1.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">j                   i
@@ -267,7 +304,10 @@ endif</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Again <strong>Job[j]</strong> and <strong>Job[i]</strong> don’t overlap. The accumulated profit is: <strong>6 + 4 = 10</strong>, which is greater than <strong>Acc_Prof[i]</strong>. We again update <strong>Acc_Prof[i] = 10</strong>. We increment <strong>j</strong> by 1. We get:</p>
+</div>
+<p>Again <strong>Job[j]</strong> and <strong>Job[i]</strong> don’t overlap. The accumulated profit is: <strong>6 + 4 = 10</strong>, which is greater than <strong>Acc_Prof[i]</strong>. We again update <strong>Acc_Prof[i] = 10</strong>. We increment <strong>j</strong> by 1. We get:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">j         i
@@ -285,7 +325,10 @@ endif</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If we continue this process, after iterating through the whole table using <strong>i</strong>, our table will finally look like:</p>
+</div>
+<p>If we continue this process, after iterating through the whole table using <strong>i</strong>, our table will finally look like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+-------------------------+---------+---------+---------+---------+---------+---------+
@@ -301,7 +344,12 @@ endif</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>* A few steps have been skipped to make the document shorter.</p><p>If we iterate through the array <strong>Acc_Prof</strong>, we can find out the maximum profit to be <strong>17</strong>! The pseudo-code:</p>
+</div>
+<p>* A few steps have been skipped to make the document shorter.
+</p>
+<p>If we iterate through the array <strong>Acc_Prof</strong>, we can find out the maximum profit to be <strong>17</strong>! The pseudo-code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure WeightedJobScheduling(Job)
@@ -325,7 +373,12 @@ return maxProfit</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The complexity of populating the <strong>Acc_Prof</strong> array is <strong>O(n2).</strong> The array traversal takes <strong>O(n)</strong>. So the total complexity of this algorithm is <strong>O(n2).</strong></p><p>Now, If we want to find out which jobs were performed to get the maximum profit, we need to traverse the array in reverse order and if the <strong>Acc_Prof</strong> matches the <strong>maxProfit</strong>, we will push the <strong>name</strong> of the job in a <strong>stack</strong> and subtract <strong>Profit</strong> of that job from <strong>maxProfit</strong>. We will do this until our <strong>maxProfit &gt; 0</strong> or we reach the beginning point of the <strong>Acc_Prof</strong> array. The pseudo-code will look like:</p>
+</div>
+<p>The complexity of populating the <strong>Acc_Prof</strong> array is <strong>O(n2).</strong> The array traversal takes <strong>O(n)</strong>. So the total complexity of this algorithm is <strong>O(n2).</strong>
+</p>
+<p>Now, If we want to find out which jobs were performed to get the maximum profit, we need to traverse the array in reverse order and if the <strong>Acc_Prof</strong> matches the <strong>maxProfit</strong>, we will push the <strong>name</strong> of the job in a <strong>stack</strong> and subtract <strong>Profit</strong> of that job from <strong>maxProfit</strong>. We will do this until our <strong>maxProfit &gt; 0</strong> or we reach the beginning point of the <strong>Acc_Prof</strong> array. The pseudo-code will look like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure FindingPerformedJobs(Job, Acc_Prof, maxProfit):
@@ -340,7 +393,11 @@ endfor</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The complexity of this procedure is: <strong>O(n)</strong>.</p><p>One thing to remember, if there are multiple job schedules that can give us maximum profit, we can only find one job schedule via this procedure.</p>
+</div>
+<p>The complexity of this procedure is: <strong>O(n)</strong>.
+</p>
+<p>One thing to remember, if there are multiple job schedules that can give us maximum profit, we can only find one job schedule via this procedure.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>We want to process data in parallel and push it down the line to be processed by other workers.</p><p>Since Workers both consume and produce data we have to create two queues:</p>
+      
+<p>We want to process data in parallel and push it down the line to be processed by other workers.
+</p>
+<p>Since Workers both consume and produce data we have to create two queues:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">first_input_source = Queue.new
@@ -137,7 +142,10 @@ first_output_sink  = Queue.new
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>First wave of workers read an item from <code>first_input_source</code>, process the item, and write results in <code>first_output_sink</code>:</p>
+</div>
+<p>First wave of workers read an item from <code>first_input_source</code>, process the item, and write results in <code>first_output_sink</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">(1..16).to_a.map do
@@ -153,7 +161,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Second wave of workers uses <code>first_output_sink</code> as its input source and reads, process then writes to another output sink:</p>
+</div>
+<p>Second wave of workers uses <code>first_output_sink</code> as its input source and reads, process then writes to another output sink:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">second_input_source = first_output_sink
@@ -172,7 +183,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now <code>second_output_sink</code> is the sink, let’s convert it to an array:</p>
+</div>
+<p>Now <code>second_output_sink</code> is the sink, let’s convert it to an array:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">sleep 5 # workaround in place of synchronization

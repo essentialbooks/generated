@@ -127,7 +127,12 @@
 </div>
 
 
-      <p><code>void_t</code> is a meta-function that maps any (number of) types to type <code>void</code>. The primary purpose of <code>void_t</code> is to facilitate writing of type traits.</p><p><a href="http://en.cppreference.com/w/cpp/types/void_t"><code>std::void_t</code></a> will be part of C++17, but until then, it is extremely straightforward to implement:</p>
+      
+<p><code>void_t</code> is a meta-function that maps any (number of) types to type <code>void</code>. The primary purpose of <code>void_t</code> is to facilitate writing of type traits.
+</p>
+<p><a href="http://en.cppreference.com/w/cpp/types/void_t"><code>std::void_t</code></a> will be part of C++17, but until then, it is extremely straightforward to implement:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template &lt;class...&gt; using void_t = void;</pre>
@@ -135,7 +140,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Some compilers <a href="http://open-std.org/JTC1/SC22/WG21/docs/cwg_defects.html#1558">require</a> a slightly different implementation:</p>
+</div>
+<p>Some compilers <a href="http://open-std.org/JTC1/SC22/WG21/docs/cwg_defects.html#1558">require</a> a slightly different implementation:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template &lt;class...&gt;
@@ -147,7 +155,10 @@ using void_t = typename make_void&lt;T...&gt;::type;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The primary application of <code>void_t</code> is writing type traits that check validity of a statement. For example, let’s check if a type has a member function <code>foo()</code> that takes no arguments:</p>
+</div>
+<p>The primary application of <code>void_t</code> is writing type traits that check validity of a statement. For example, let’s check if a type has a member function <code>foo()</code> that takes no arguments:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template &lt;class T, class=void&gt;
@@ -159,7 +170,18 @@ struct has_foo&lt;T, void_t&lt;decltype(std::declval&lt;T&amp;&gt;().foo())&gt;&
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>How does this work? When I try to instantiate <code>has_foo&lt;T&gt;::value</code>, that will cause the compiler to try to look for the best specialization for <code>has_foo&lt;T, void&gt;</code>. We have two options: the primary, and this secondary one which involves having to instantiate that underlying expression:</p><ul id="a6c4c3f7-45e1-4c09-951b-841bd34951a5" class="bulleted-list"><li>If <code>T</code> <em>does</em> have a member function <code>foo()</code>, then whatever type that returns gets converted to <code>void</code>, and the specialization is preferred to the primary based on the template partial ordering rules. So <code>has_foo&lt;T&gt;::value</code> will be <code>true</code></li><li>If <code>T</code> <em>doesn’t</em> have such a member function (or it requires more than one argument), then substitution fails for the specialization and we only have the primary template to fallback on. Hence, <code>has_foo&lt;T&gt;::value</code> is <code>false</code>.</li></ul><p>A simpler case:</p>
+</div>
+<p>How does this work? When I try to instantiate <code>has_foo&lt;T&gt;::value</code>, that will cause the compiler to try to look for the best specialization for <code>has_foo&lt;T, void&gt;</code>. We have two options: the primary, and this secondary one which involves having to instantiate that underlying expression:
+</p>
+  <ul id="a6c4c3f7-45e1-4c09-951b-841bd34951a5" class="bulleted-list">
+    <li>If <code>T</code> <em>does</em> have a member function <code>foo()</code>, then whatever type that returns gets converted to <code>void</code>, and the specialization is preferred to the primary based on the template partial ordering rules. So <code>has_foo&lt;T&gt;::value</code> will be <code>true</code>
+    </li>
+    <li>If <code>T</code> <em>doesn’t</em> have such a member function (or it requires more than one argument), then substitution fails for the specialization and we only have the primary template to fallback on. Hence, <code>has_foo&lt;T&gt;::value</code> is <code>false</code>.
+    </li>
+  </ul>
+<p>A simpler case:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;class T, class=void&gt;
@@ -171,7 +193,12 @@ struct can_reference&lt;T, std::void_t&lt;T&amp;&gt;&gt; : std::true_type {};</p
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>this doesn’t use <code>std::declval</code> or <code>decltype</code>.</p><p>You may notice a common pattern of a void argument. We can factor this out:</p>
+</div>
+<p>this doesn’t use <code>std::declval</code> or <code>decltype</code>.
+</p>
+<p>You may notice a common pattern of a void argument. We can factor this out:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct details {
@@ -191,7 +218,10 @@ using can_apply = details::can_apply&lt;Z, void, Ts...&gt;;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>which hides the use of <code>std::void_t</code> and makes <code>can_apply</code> act like an indicator whether the type supplied as the first template argument is well-formed after substituting the other types into it. The previous examples may now be rewritten using <code>can_apply</code> as:</p>
+</div>
+<p>which hides the use of <code>std::void_t</code> and makes <code>can_apply</code> act like an indicator whether the type supplied as the first template argument is well-formed after substituting the other types into it. The previous examples may now be rewritten using <code>can_apply</code> as:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;class T&gt;
@@ -203,7 +233,10 @@ using can_reference = can_apply&lt;ref_t, T&gt;;    // Is T&amp; well formed for
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>and:</p>
+</div>
+<p>and:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;class T&gt;
@@ -215,7 +248,13 @@ using can_dot_foo = can_apply&lt; dot_foo_r, T &gt;;    // Is T.foo() well forme
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>which seems simpler than the original versions.</p><p>There are post-C++17 proposals for <code>std</code> traits similar to <code>can_apply</code>.</p><p>The utility of <code>void_t</code> was discovered by Walter Brown. He gave a wonderful <a href="https://youtu.be/a0FliKwcwXE?t=1747">presentation</a> on it at CppCon 2016.</p>
+</div>
+<p>which seems simpler than the original versions.
+</p>
+<p>There are post-C++17 proposals for <code>std</code> traits similar to <code>can_apply</code>.
+</p>
+<p>The utility of <code>void_t</code> was discovered by Walter Brown. He gave a wonderful <a href="https://youtu.be/a0FliKwcwXE?t=1747">presentation</a> on it at CppCon 2016.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

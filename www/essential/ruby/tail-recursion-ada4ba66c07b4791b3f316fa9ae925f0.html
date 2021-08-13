@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Many recursive algorithms can be expressed using iteration. For instance, the greatest common denominator function can be <a href="https://en.wikipedia.org/wiki/Recursion_(computer_science)#Recursive_procedures">written recursively</a>:</p>
+      
+<p>Many recursive algorithms can be expressed using iteration. For instance, the greatest common denominator function can be <a href="https://en.wikipedia.org/wiki/Recursion_(computer_science)#Recursive_procedures">written recursively</a>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def gdc (x, y)
@@ -138,7 +141,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>or iteratively:</p>
+</div>
+<p>or iteratively:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def gdc_iter (x, y)
@@ -152,7 +158,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The two algorithms are equivalent in theory, but the recursive version risks a <a href="https://ruby-doc.org/core/SystemStackError.html">SystemStackError</a>. However, since the recursive method ends with a call to itself, it could be optimized to avoid a stack overflow. Another way to put it: the recursive algorithm can result in the same machine code as the iterative <em>if</em> the compiler knows to look for the recursive method call at the end of the method. Ruby doesn’t do tail call optimization by default, but you can <a href="https://ruby-doc.org/core/RubyVM/InstructionSequence.html#method-c-compile_option">turn it on with</a>:</p>
+</div>
+<p>The two algorithms are equivalent in theory, but the recursive version risks a <a href="https://ruby-doc.org/core/SystemStackError.html">SystemStackError</a>. However, since the recursive method ends with a call to itself, it could be optimized to avoid a stack overflow. Another way to put it: the recursive algorithm can result in the same machine code as the iterative <em>if</em> the compiler knows to look for the recursive method call at the end of the method. Ruby doesn’t do tail call optimization by default, but you can <a href="https://ruby-doc.org/core/RubyVM/InstructionSequence.html#method-c-compile_option">turn it on with</a>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">RubyVM::InstructionSequence.compile_option = {
@@ -163,7 +172,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In addition to turning on tail-call optimization, you also need to turn off instruction tracing. Unfortunately, these options only apply at compile time, so you either need to <code>require</code> the recursive method from another file or <code>eval</code> the method definition:</p>
+</div>
+<p>In addition to turning on tail-call optimization, you also need to turn off instruction tracing. Unfortunately, these options only apply at compile time, so you either need to <code>require</code> the recursive method from another file or <code>eval</code> the method definition:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">RubyVM::InstructionSequence.new(&lt;&lt;-EOF).eval
@@ -176,7 +188,10 @@ me_myself_and_i # Infinite loop, not stack overflow</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Finally, the final return call must return the method and <em>only the method</em>. That means you’ll need to re-write the standard factorial function:</p>
+</div>
+<p>Finally, the final return call must return the method and <em>only the method</em>. That means you’ll need to re-write the standard factorial function:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def fact(x)
@@ -187,7 +202,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To something like:</p>
+</div>
+<p>To something like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def fact(x, acc=1)
@@ -198,7 +216,11 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This version passes the accumulated sum via a second (optional) argument that <a href="http://stackoverflow.com/documentation/ruby/997/methods/3243/default-parameters#t=201705072356272378973">defaults</a> to 1.</p><p>Further reading: <a href="http://nithinbekal.com/posts/ruby-tco/">Tail Call Optimization in Ruby</a> and <a href="http://timelessrepo.com/tailin-ruby">Tailin’ Ruby</a>.</p>
+</div>
+<p>This version passes the accumulated sum via a second (optional) argument that <a href="http://stackoverflow.com/documentation/ruby/997/methods/3243/default-parameters#t=201705072356272378973">defaults</a> to 1.
+</p>
+<p>Further reading: <a href="http://nithinbekal.com/posts/ruby-tco/">Tail Call Optimization in Ruby</a> and <a href="http://timelessrepo.com/tailin-ruby">Tailin’ Ruby</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

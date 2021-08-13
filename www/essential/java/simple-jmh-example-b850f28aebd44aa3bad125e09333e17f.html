@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>One of the tools for writing proper benchmark tests is <a href="http://openjdk.java.net/projects/code-tools/jmh/">JMH</a>. Let’s say we want to compare performance of searching an element in <code>HashSet</code> vs <code>TreeSet</code>.</p><p>The easiest way to get JHM into your project - is to use maven and <a href="https://maven.apache.org/plugins/maven-shade-plugin/">shade</a> plugin. Also you can see <code>pom.xml</code> from <a href="http://hg.openjdk.java.net/code-tools/jmh/file/tip/jmh-archetypes/jmh-java-benchmark-archetype/src/main/resources/archetype-resources/pom.xml">JHM examples</a>.</p>
+      
+<p>One of the tools for writing proper benchmark tests is <a href="http://openjdk.java.net/projects/code-tools/jmh/">JMH</a>. Let’s say we want to compare performance of searching an element in <code>HashSet</code> vs <code>TreeSet</code>.
+</p>
+<p>The easiest way to get JHM into your project - is to use maven and <a href="https://maven.apache.org/plugins/maven-shade-plugin/">shade</a> plugin. Also you can see <code>pom.xml</code> from <a href="http://hg.openjdk.java.net/code-tools/jmh/file/tip/jmh-archetypes/jmh-java-benchmark-archetype/src/main/resources/archetype-resources/pom.xml">JHM examples</a>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;build&gt;
@@ -183,7 +188,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>After this you need to write benchmark class itself:</p>
+</div>
+<p>After this you need to write benchmark class itself:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">benchmark</span><span class="p">;</span>
@@ -238,7 +246,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Please keep in mind this <code>blackhole.consume()</code>, we’ll get back to it later. Also we need main class for running benchmark:</p>
+</div>
+<p>Please keep in mind this <code>blackhole.consume()</code>, we’ll get back to it later. Also we need main class for running benchmark:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">benchmark</span><span class="p">;</span>
@@ -262,7 +273,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And we’re all set. We just need to run <code>mvn package</code> (it will create <code>benchmarks.jar</code> in your <code>/target</code> folder) and run our benchmark test:</p><p><code>java -cp target/benchmarks.jar benchmark.BenchmarkMain</code></p><p>And after some warmup and calculation iterations, we will have our results:</p>
+</div>
+<p>And we’re all set. We just need to run <code>mvn package</code> (it will create <code>benchmarks.jar</code> in your <code>/target</code> folder) and run our benchmark test:
+</p>
+<p><code>java -cp target/benchmarks.jar benchmark.BenchmarkMain</code>
+</p>
+<p>And after some warmup and calculation iterations, we will have our results:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"># Run complete. Total time: 00:01:21
@@ -274,7 +292,11 @@ CollectionFinderBenchmarkTest.testTreeSet  avgt   20  98.858 ± 13.743  ns/op</p
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>About that <code>blackhole.consume()</code>. If your calculations do not change the state of your application, java will most likely just ignore it. So, in order to avoid it, you can either make your benchmark methods return some value, or use <code>Blackhole</code> object to consume it.</p><p>You can find more information about writing proper benchmarks in <a href="https://shipilev.net/blog/2014/nanotrusting-nanotime/">Aleksey Shipilëv’s blog</a>, in <a href="http://tutorials.jenkov.com/java-performance/jmh.html">Jacob Jenkov’s blog</a> and in java-performance blog: <a href="http://java-performance.info/jmh/">1</a>, <a href="http://java-performance.info/introduction-jmh-profilers/">2</a>.</p>
+</div>
+<p>About that <code>blackhole.consume()</code>. If your calculations do not change the state of your application, java will most likely just ignore it. So, in order to avoid it, you can either make your benchmark methods return some value, or use <code>Blackhole</code> object to consume it.
+</p>
+<p>You can find more information about writing proper benchmarks in <a href="https://shipilev.net/blog/2014/nanotrusting-nanotime/">Aleksey Shipilëv’s blog</a>, in <a href="http://tutorials.jenkov.com/java-performance/jmh.html">Jacob Jenkov’s blog</a> and in java-performance blog: <a href="http://java-performance.info/jmh/">1</a>, <a href="http://java-performance.info/introduction-jmh-profilers/">2</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

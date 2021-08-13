@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>The <code>query</code> function takes a valid SQL string and executes it directly against the database connection <code>$conn</code></p><p><strong>Object oriented style</strong></p>
+      
+<p>The <code>query</code> function takes a valid SQL string and executes it directly against the database connection <code>$conn</code>
+</p>
+<p><strong>Object oriented style</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$result = $conn-&gt;query(&#34;SELECT * FROM `people`&#34;);</pre>
@@ -135,7 +140,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Procedural style</strong></p>
+</div>
+<p><strong>Procedural style</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$result = mysqli_query($conn, &#34;SELECT * FROM `people`&#34;);</pre>
@@ -143,7 +151,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="3c36faa5-2695-4f5e-81ba-64d4d3ac3ee3" class="">CAUTION</blockquote><p>A common problem here is that people will simply execute the query and expect it to work (i.e. return a <a href="https://secure.php.net/manual/en/class.mysqli-stmt.php">mysqli_stmt object</a>). Since this function takes only a string, you’re building the query first yourself. If there are any mistakes in the SQL at all, the MySQL compiler will fail, <strong>at which point this function will return </strong><code><strong>false</strong></code>.</p>
+</div>
+<blockquote id="3c36faa5-2695-4f5e-81ba-64d4d3ac3ee3" class="">CAUTION
+</blockquote>
+<p>A common problem here is that people will simply execute the query and expect it to work (i.e. return a <a href="https://secure.php.net/manual/en/class.mysqli-stmt.php">mysqli_stmt object</a>). Since this function takes only a string, you’re building the query first yourself. If there are any mistakes in the SQL at all, the MySQL compiler will fail, <strong>at which point this function will return </strong><code><strong>false</strong></code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$result = $conn-&gt;query(&#39;SELECT * FROM non_existent_table&#39;); // This query will fail
@@ -152,7 +165,14 @@ $row = $result-&gt;fetch_assoc();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above code will generate a <code>E_FATAL</code> error because <code>$result</code> is <code>false</code>, and not an object.</p><blockquote id="6d8a9ac4-fb3a-428a-be89-51a9c615e9e7" class="">PHP Fatal error: Call to a member function fetch_assoc() on a non-object</blockquote><p>The procedural error is similar, but not fatal, because we’re just violating the expectations of the function.</p>
+</div>
+<p>The above code will generate a <code>E_FATAL</code> error because <code>$result</code> is <code>false</code>, and not an object.
+</p>
+<blockquote id="6d8a9ac4-fb3a-428a-be89-51a9c615e9e7" class="">PHP Fatal error: Call to a member function fetch_assoc() on a non-object
+</blockquote>
+<p>The procedural error is similar, but not fatal, because we’re just violating the expectations of the function.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$row = mysqli_fetch_assoc($result); // same query as previous</pre>
@@ -160,7 +180,14 @@ $row = $result-&gt;fetch_assoc();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You will get the following message from PHP</p><blockquote id="b7145f05-8276-4b40-9f7d-b9e1f53efa14" class="">mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given</blockquote><p>You can avoid this by doing a test first</p>
+</div>
+<p>You will get the following message from PHP
+</p>
+<blockquote id="b7145f05-8276-4b40-9f7d-b9e1f53efa14" class="">mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given
+</blockquote>
+<p>You can avoid this by doing a test first
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if($result) $row = mysqli_fetch_assoc($result);</pre>

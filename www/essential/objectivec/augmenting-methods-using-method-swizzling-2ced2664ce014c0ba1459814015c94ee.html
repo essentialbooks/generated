@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>The Objective-C runtime allows you to change the implementation of a method at runtime. This is called <em>method swizzling</em> and is often used to exchange the implementations of two methods. For example, if the methods <code>foo</code> and <code>bar</code> are exchanged, sending the message <code>foo</code> will now execute the implementation of <code>bar</code> and vice versa.</p><p>This technique can be used to augment or “patch” existing methods which you cannot edit directly, such as methods of system-provided classes.</p><p>In the following example, the <code>-[NSUserDefaults synchronize]</code> method is augmented to print the execution time of the original implementation.</p><p><strong>IMPORTANT:</strong> Many people try to do swizzling using <code>method_exchangeImplementations</code>. However, this approach is dangerous if you need to call the method you’re replacing, because you’ll be calling it using a different selector than it is expecting to receive. As a result, your code can break in strange and unexpected ways—particularly if multiple parties swizzle an object in this way. Instead, you should always do swizzling using <code>setImplementation</code> in conjunction with a C function, allowing you to call the method with the original selector.</p>
+      
+<p>The Objective-C runtime allows you to change the implementation of a method at runtime. This is called <em>method swizzling</em> and is often used to exchange the implementations of two methods. For example, if the methods <code>foo</code> and <code>bar</code> are exchanged, sending the message <code>foo</code> will now execute the implementation of <code>bar</code> and vice versa.
+</p>
+<p>This technique can be used to augment or “patch” existing methods which you cannot edit directly, such as methods of system-provided classes.
+</p>
+<p>In the following example, the <code>-[NSUserDefaults synchronize]</code> method is augmented to print the execution time of the original implementation.
+</p>
+<p><strong>IMPORTANT:</strong> Many people try to do swizzling using <code>method_exchangeImplementations</code>. However, this approach is dangerous if you need to call the method you’re replacing, because you’ll be calling it using a different selector than it is expecting to receive. As a result, your code can break in strange and unexpected ways—particularly if multiple parties swizzle an object in this way. Instead, you should always do swizzling using <code>setImplementation</code> in conjunction with a C function, allowing you to call the method with the original selector.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#import &#34;NSUserDefaults+Timing.h&#34;
@@ -158,6 +167,7 @@ static void new_synchronize(id self, SEL _cmd);
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Call the original implementation, passing the same parameters
@@ -168,6 +178,7 @@ returnValue = old_synchronize(self, _cmd);</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">NSLog(@&#34;Writing user defaults took %f seconds.&#34;, [[NSDate date] timeIntervalSinceDate:started]);
@@ -180,7 +191,10 @@ return returnValue;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you need to swizzle a method that takes parameters, you just add them as additional parameters to the function. For example:</p>
+</div>
+<p>If you need to swizzle a method that takes parameters, you just add them as additional parameters to the function. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">static IMP old_viewWillAppear_animated = NULL;

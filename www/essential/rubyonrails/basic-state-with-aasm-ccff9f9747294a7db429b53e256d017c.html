@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>Usually you’ll end up creating models which will contain a state, and that state will be changing during the lifespan of the object.</p><p><a href="https://github.com/aasm/aasm">AASM</a> is a finite state machine enabler library that can help you out with dealing with having an easy passing through the process design of your objects.</p><p>Having something like this in your model goes pretty aligned with the <a href="http://stackoverflow.com/documentation/ruby-on-rails/1207/rails-best-practices/9609/fat-model-skinny-controller#t=201611091524540826623">Fat Model, Skinny Controller</a> idea, one of Rails best practices. The model is the sole responsible of managing its state, its changes and of generating the events triggered by those changes.</p><p>To install, in Gemfile</p>
+      
+<p>Usually you’ll end up creating models which will contain a state, and that state will be changing during the lifespan of the object.
+</p>
+<p><a href="https://github.com/aasm/aasm">AASM</a> is a finite state machine enabler library that can help you out with dealing with having an easy passing through the process design of your objects.
+</p>
+<p>Having something like this in your model goes pretty aligned with the <a href="http://stackoverflow.com/documentation/ruby-on-rails/1207/rails-best-practices/9609/fat-model-skinny-controller#t=201611091524540826623">Fat Model, Skinny Controller</a> idea, one of Rails best practices. The model is the sole responsible of managing its state, its changes and of generating the events triggered by those changes.
+</p>
+<p>To install, in Gemfile
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">gem &#39;aasm&#39;</pre>
@@ -135,7 +144,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Consider an App where the user Quotes a product for a price.</p>
+</div>
+<p>Consider an App where the user Quotes a product for a price.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Quote
@@ -179,7 +191,18 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The Quote class’ states can go however it’s best for your process.</p><p>You can think of the states as being past, like in the previous example or algo in other tense, for example: pricing, paying, delivering, etc. The naming of the states depends on you. From a personal point a view, past states work better because your end state will surely be a past action and links up better with the event names, which will be explained later.</p><p><strong>NOTE:</strong> Be careful what names you use, you have to worry about not using Ruby or Ruby on Rails reserved keywords, like <code>valid</code>, <code>end</code>, <code>being</code>, etc.</p><p>Having defined the states and transitions we can now access some methods created by AASM.</p><p>For example:</p>
+</div>
+<p>The Quote class’ states can go however it’s best for your process.
+</p>
+<p>You can think of the states as being past, like in the previous example or algo in other tense, for example: pricing, paying, delivering, etc. The naming of the states depends on you. From a personal point a view, past states work better because your end state will surely be a past action and links up better with the event names, which will be explained later.
+</p>
+<p><strong>NOTE:</strong> Be careful what names you use, you have to worry about not using Ruby or Ruby on Rails reserved keywords, like <code>valid</code>, <code>end</code>, <code>being</code>, etc.
+</p>
+<p>Having defined the states and transitions we can now access some methods created by AASM.
+</p>
+<p>For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Quote.priced  # Shows all Quotes with priced events
@@ -189,7 +212,12 @@ quote.price!  # Triggers the event the would transition from requested to priced
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As you can see the event has transitions, this transitions determine the way the state will change upon the event call. If the event is invalid due to the current state an Error will be raised.</p><p>The events and transitions also have some other callbacks, for example</p>
+</div>
+<p>As you can see the event has transitions, this transitions determine the way the state will change upon the event call. If the event is invalid due to the current state an Error will be raised.
+</p>
+<p>The events and transitions also have some other callbacks, for example
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">guard: product_delivered?</pre>
@@ -197,7 +225,10 @@ quote.price!  # Triggers the event the would transition from requested to priced
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Will call the <code>product_delivered?</code> method which will return a boolean. If it turns out false, the transition will not be applied and if the no other transitions are available, the state won’t change.</p>
+</div>
+<p>Will call the <code>product_delivered?</code> method which will return a boolean. If it turns out false, the transition will not be applied and if the no other transitions are available, the state won’t change.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">success: :reverse_charges</pre>
@@ -205,7 +236,11 @@ quote.price!  # Triggers the event the would transition from requested to priced
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If that translation successfully happens the <code>:reverse_charges</code> method will be invoked.</p><p>There are several other methods in AASM with more callbacks in the process but this will help you creating your first models with finite states.</p>
+</div>
+<p>If that translation successfully happens the <code>:reverse_charges</code> method will be invoked.
+</p>
+<p>There are several other methods in AASM with more callbacks in the process but this will help you creating your first models with finite states.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

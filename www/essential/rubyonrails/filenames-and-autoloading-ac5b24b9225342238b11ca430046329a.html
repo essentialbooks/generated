@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Rails files - and Ruby files in general - should be named with <code>lower_snake_case</code> filenames. E.g.</p>
+      
+<p>Rails files - and Ruby files in general - should be named with <code>lower_snake_case</code> filenames. E.g.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">app/controllers/application_controller.rb</pre>
@@ -135,7 +138,25 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>is the file that contains the <code>ApplicationController</code> class definition. Note that while <code>PascalCase</code> is used for class and module names, the files in which they reside should still be <code>lower_snake_case</code>.</p><p>Consistent naming is important since Rails makes use of auto-loading files as needed, and uses “inflection” to transform between different naming styles, such as transforming <code>application_controller</code> to <code>ApplicationController</code> and back again.</p><p>E.g. if Rails sees that the <code>BlogPost</code> class doesn’t exist (hasn’t been loaded yet), it’ll look for a file named <code>blog_post.rb</code> and attempt to load that file.</p><p>It is therefore also important to name files for what they contain, since the autoloader expects file names to match content. If, for instance, the <code>blog_post.rb</code> instead contains a class named just <code>Post</code>, you’ll see a <code>LoadError</code>: <code>Expected [some path]/blog_post.rb to define BlogPost</code>.</p><p>If you add a dir under <code>app/something/</code> (e.g. /models/products/), and</p><ul id="60861e2c-a9e5-44fa-9a1a-21c5520bb25e" class="bulleted-list"><li>want to namespace modules and classes inside new dir then you don’t need to do anything and it’ll be loaded itself. For example, in <code>app/models/products/ you would need to wrap your class in</code>module Products`.</li><li>don’t want to namespace modules and classes inside my new dir then you have to add <code>config.autoload_paths += %W( #{config.root}/app/models/products )</code> to your <code>application.rb</code> to autoload.</li></ul><p>One more thing to pay attention to (especially if English is not your first language) is the fact that Rails accounts for irregular plural nouns in English. So if you have model named “Foot” the corresponding controller needs to be called “FeetController” rather than “FootsController” if you want rails “magic” routing (and many more such features) to work.</p>
+</div>
+<p>is the file that contains the <code>ApplicationController</code> class definition. Note that while <code>PascalCase</code> is used for class and module names, the files in which they reside should still be <code>lower_snake_case</code>.
+</p>
+<p>Consistent naming is important since Rails makes use of auto-loading files as needed, and uses “inflection” to transform between different naming styles, such as transforming <code>application_controller</code> to <code>ApplicationController</code> and back again.
+</p>
+<p>E.g. if Rails sees that the <code>BlogPost</code> class doesn’t exist (hasn’t been loaded yet), it’ll look for a file named <code>blog_post.rb</code> and attempt to load that file.
+</p>
+<p>It is therefore also important to name files for what they contain, since the autoloader expects file names to match content. If, for instance, the <code>blog_post.rb</code> instead contains a class named just <code>Post</code>, you’ll see a <code>LoadError</code>: <code>Expected [some path]/blog_post.rb to define BlogPost</code>.
+</p>
+<p>If you add a dir under <code>app/something/</code> (e.g. /models/products/), and
+</p>
+  <ul id="60861e2c-a9e5-44fa-9a1a-21c5520bb25e" class="bulleted-list">
+    <li>want to namespace modules and classes inside new dir then you don’t need to do anything and it’ll be loaded itself. For example, in <code>app/models/products/ you would need to wrap your class in</code>module Products`.
+    </li>
+    <li>don’t want to namespace modules and classes inside my new dir then you have to add <code>config.autoload_paths += %W( #{config.root}/app/models/products )</code> to your <code>application.rb</code> to autoload.
+    </li>
+  </ul>
+<p>One more thing to pay attention to (especially if English is not your first language) is the fact that Rails accounts for irregular plural nouns in English. So if you have model named “Foot” the corresponding controller needs to be called “FeetController” rather than “FootsController” if you want rails “magic” routing (and many more such features) to work.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

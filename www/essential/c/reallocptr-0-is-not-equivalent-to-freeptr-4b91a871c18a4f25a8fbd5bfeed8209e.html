@@ -127,7 +127,27 @@
 </div>
 
 
-      <p><code>realloc</code> is <em>conceptually equivalent</em> to <code>malloc + memcpy + free</code> on the other pointer.</p><p>If the size of the space requested is zero, the behavior of <code>realloc</code> is implementation-defined. This is similar for all memory allocation functions that receive a <code>size</code> parameter of value <code>0</code>. Such functions may in fact return a non-null pointer, but that must never be dereferenced.</p><p>Thus, <code>realloc(ptr,0)</code> is not equivalent to <code>free(ptr)</code>. It may</p><ul id="3a62c9e1-e018-4dfe-a5b2-df93dc031ab1" class="bulleted-list"><li>be a “lazy” implementation and just return <code>ptr</code></li><li><code>free(ptr)</code>, allocate a dummy element and return that</li><li><code>free(ptr)</code> and return <code>0</code></li><li>just return <code>0</code> for failure and do nothing else.</li></ul><p>So in particular the latter two cases are indistinguishable by application code.</p><p>This means <code>realloc(ptr,0)</code> may not really free/deallocate the memory, and thus it should never be used as a replacement for <code>free</code>.</p>
+      
+<p><code>realloc</code> is <em>conceptually equivalent</em> to <code>malloc + memcpy + free</code> on the other pointer.
+</p>
+<p>If the size of the space requested is zero, the behavior of <code>realloc</code> is implementation-defined. This is similar for all memory allocation functions that receive a <code>size</code> parameter of value <code>0</code>. Such functions may in fact return a non-null pointer, but that must never be dereferenced.
+</p>
+<p>Thus, <code>realloc(ptr,0)</code> is not equivalent to <code>free(ptr)</code>. It may
+</p>
+  <ul id="3a62c9e1-e018-4dfe-a5b2-df93dc031ab1" class="bulleted-list">
+    <li>be a “lazy” implementation and just return <code>ptr</code>
+    </li>
+    <li><code>free(ptr)</code>, allocate a dummy element and return that
+    </li>
+    <li><code>free(ptr)</code> and return <code>0</code>
+    </li>
+    <li>just return <code>0</code> for failure and do nothing else.
+    </li>
+  </ul>
+<p>So in particular the latter two cases are indistinguishable by application code.
+</p>
+<p>This means <code>realloc(ptr,0)</code> may not really free/deallocate the memory, and thus it should never be used as a replacement for <code>free</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

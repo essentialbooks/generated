@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>This class is called <code>Greeter</code>. Its responsibility is to output a greeting. It has two <em>dependencies</em>. It needs something that will give it the greeting to output, and then it needs a way to output that greeting. Those dependencies are both described as interfaces, <code>IGreetingProvider</code> and <code>IGreetingWriter</code>. In this example, those two dependencies are “injected” into <code>Greeter</code>. (Further explanation following the example.)</p>
+      
+<p>This class is called <code>Greeter</code>. Its responsibility is to output a greeting. It has two <em>dependencies</em>. It needs something that will give it the greeting to output, and then it needs a way to output that greeting. Those dependencies are both described as interfaces, <code>IGreetingProvider</code> and <code>IGreetingWriter</code>. In this example, those two dependencies are “injected” into <code>Greeter</code>. (Further explanation following the example.)
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Greeter
@@ -152,6 +155,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public interface IGreetingProvider
@@ -167,7 +171,21 @@ public interface IGreetingWriter
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>Greeting</code> class depends on both <code>IGreetingProvider</code> and <code>IGreetingWriter</code>, but it is not responsible for creating instances of either. Instead it requires them in its constructor. Whatever creates an instance of <code>Greeting</code> must provide those two dependencies. We can call that “injecting” the dependencies.</p><p>Because dependencies are provided to the class in its constructor, this is also called “constructor injection.”</p><p>A few common conventions:</p><ul id="da7b1ff0-f3e3-44a6-8d7b-2eec47e3165f" class="bulleted-list"><li>The constructor saves the dependencies as <code>private</code> fields. As soon as the class is instantiated, those dependencies are available to all other non-static methods of the class.</li><li>The <code>private</code> fields are <code>readonly</code>. Once they are set in the constructor they cannot be changed. This indicates that those fields should not (and cannot) be modified outside of the constructor. That further ensures that those dependencies will be available for the lifetime of the class.</li><li>The dependencies are interfaces. This is not strictly necessary, but is common because it makes it easier to substitute one implementation of the dependency with another. It also allows providing a mocked version of the interface for unit testing purposes.</li></ul>
+</div>
+<p>The <code>Greeting</code> class depends on both <code>IGreetingProvider</code> and <code>IGreetingWriter</code>, but it is not responsible for creating instances of either. Instead it requires them in its constructor. Whatever creates an instance of <code>Greeting</code> must provide those two dependencies. We can call that “injecting” the dependencies.
+</p>
+<p>Because dependencies are provided to the class in its constructor, this is also called “constructor injection.”
+</p>
+<p>A few common conventions:
+</p>
+  <ul id="da7b1ff0-f3e3-44a6-8d7b-2eec47e3165f" class="bulleted-list">
+    <li>The constructor saves the dependencies as <code>private</code> fields. As soon as the class is instantiated, those dependencies are available to all other non-static methods of the class.
+    </li>
+    <li>The <code>private</code> fields are <code>readonly</code>. Once they are set in the constructor they cannot be changed. This indicates that those fields should not (and cannot) be modified outside of the constructor. That further ensures that those dependencies will be available for the lifetime of the class.
+    </li>
+    <li>The dependencies are interfaces. This is not strictly necessary, but is common because it makes it easier to substitute one implementation of the dependency with another. It also allows providing a mocked version of the interface for unit testing purposes.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

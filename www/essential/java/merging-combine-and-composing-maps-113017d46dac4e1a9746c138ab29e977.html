@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Use <code>putAll</code> to put every member of one map into another. Keys already present in the map will have their corresponding values overwritten.</p>
+      
+<p>Use <code>putAll</code> to put every member of one map into another. Keys already present in the map will have their corresponding values overwritten.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Map&lt;String, Integer&gt; numbers = new HashMap&lt;&gt;();
@@ -142,7 +145,10 @@ numbers.putAll(other_numbers)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This yields the following mapping in <code>numbers</code>:</p>
+</div>
+<p>This yields the following mapping in <code>numbers</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&#34;One&#34; -&gt; 1
@@ -152,7 +158,11 @@ numbers.putAll(other_numbers)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="dfe63eeb-476f-4c4a-a7e5-5efbd9be88a8"/><p>If you want to combine values instead of overwriting them, you can use <a href="http://docs.oracle.com/javase/8/docs/api/java/util/Map.html#merge-K-V-java.util.function.BiFunction-"><code>Map.merge</code></a>, added in Java 8, which uses a user-provided <code>BiFunction</code> to merge values for duplicate keys. <code>merge</code> operates on individual keys and values, so you’ll need to use a loop or <code>Map.forEach</code>. Here we concatenate strings for duplicate keys:</p>
+</div>
+<hr id="dfe63eeb-476f-4c4a-a7e5-5efbd9be88a8"/>
+<p>If you want to combine values instead of overwriting them, you can use <a href="http://docs.oracle.com/javase/8/docs/api/java/util/Map.html#merge-K-V-java.util.function.BiFunction-"><code>Map.merge</code></a>, added in Java 8, which uses a user-provided <code>BiFunction</code> to merge values for duplicate keys. <code>merge</code> operates on individual keys and values, so you’ll need to use a loop or <code>Map.forEach</code>. Here we concatenate strings for duplicate keys:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for (Map.Entry&lt;String, Integer&gt; e : other_numbers.entrySet())
@@ -163,7 +173,10 @@ other_numbers.forEach((k, v) -&gt; numbers.merge(k, v, Integer::sum));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you want to enforce the constraint there are no duplicate keys, you can use a merge function that throws an <code>AssertionError</code>:</p>
+</div>
+<p>If you want to enforce the constraint there are no duplicate keys, you can use a merge function that throws an <code>AssertionError</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mapA.forEach((k, v) -&gt;
@@ -173,7 +186,13 @@ other_numbers.forEach((k, v) -&gt; numbers.merge(k, v, Integer::sum));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="18ec1f7e-0ba8-4e2f-b0fa-9410de3981c5" class="">Composing Map&lt;X,Y&gt; and Map&lt;Y,Z&gt; to get Map&lt;X,Z&gt;<a class="header-anchor" href="#18ec1f7e-0ba8-4e2f-b0fa-9410de3981c5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>If you want to compose two mappings, you can do it as follows</p>
+</div>
+  <h2 id="18ec1f7e-0ba8-4e2f-b0fa-9410de3981c5" class="">Composing Map&lt;X,Y&gt; and Map&lt;Y,Z&gt; to get Map&lt;X,Z&gt;
+  <a class="header-anchor" href="#18ec1f7e-0ba8-4e2f-b0fa-9410de3981c5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>If you want to compose two mappings, you can do it as follows
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Map&lt;String, Integer&gt; map1 = new HashMap&lt;String, Integer&gt;();
@@ -192,7 +211,10 @@ map1.forEach((key,value)-&gt;map3.put(key,map2.get(value)));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This yields the following mapping</p>
+</div>
+<p>This yields the following mapping
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&#34;key1&#34; -&gt; 1.0

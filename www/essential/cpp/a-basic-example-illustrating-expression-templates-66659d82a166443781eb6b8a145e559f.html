@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>An expression template is a compile-time optimization technique used mostly in scientific computing. It’s main purpose is to avoid unnecessary temporaries and optimize loop calculations using a single pass (typically when performing operations on numerical aggregates). Expression templates were initially devised in order to circumvent the inefficiencies of naïve operator overloading when implementing numerical <code>Array</code> or <code>Matrix</code> types. An equivalent terminology for expression templates has been introduced by Bjarne Stroustrup, who calls them “fused operations” in the latest version of his book, “The C++ Programming Language”.</p><p>Before actually diving into expression templates, you should understand why you need them in the first place. To illustrate this, consider the very simple Matrix class given below:</p>
+      
+<p>An expression template is a compile-time optimization technique used mostly in scientific computing. It’s main purpose is to avoid unnecessary temporaries and optimize loop calculations using a single pass (typically when performing operations on numerical aggregates). Expression templates were initially devised in order to circumvent the inefficiencies of naïve operator overloading when implementing numerical <code>Array</code> or <code>Matrix</code> types. An equivalent terminology for expression templates has been introduced by Bjarne Stroustrup, who calls them “fused operations” in the latest version of his book, “The C++ Programming Language”.
+</p>
+<p>Before actually diving into expression templates, you should understand why you need them in the first place. To illustrate this, consider the very simple Matrix class given below:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template &lt;typename T, std::size_t COL, std::size_t ROW&gt;
@@ -164,7 +169,10 @@ operator+(const Matrix&lt;T, COL, ROW&gt;&amp; lhs, const Matrix&lt;T, COL, ROW&
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Given the previous class definition, you can now write Matrix expressions such as:</p>
+</div>
+<p>Given the previous class definition, you can now write Matrix expressions such as:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">const std::size_t cols = 2000;
@@ -186,7 +194,16 @@ Matrix&lt;double, cols, rows&gt; d = a + b + c;  // d(x, y) = 6</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As illustrated above, being able to overload <code>operator+()</code> provides you with a notation which mimics the natural mathematical notation for matrices.</p><p>Unfortunately, the previous implementation is also highly inefficient compared to an equivalent “hand-crafted” version.</p><p>To understand why, you have to consider what happens when you write an expression such as <code>Matrix d = a + b + c</code>. This in fact expands to <code>((a + b) + c)</code> or <code>operator+(operator+(a, b), c)</code>. In other words, the loop inside <code>operator+()</code> is executed twice, whereas it could have been easily performed in a single pass. This also results in 2 temporaries being created, which further degrades performance. In essence, by adding the flexibility to use a notation close to its mathematical counterpart, you have also made the <code>Matrix</code> class highly inefficient.</p><p>For example, without operator overloading, you could implement a far more efficient Matrix summation using a single pass:</p>
+</div>
+<p>As illustrated above, being able to overload <code>operator+()</code> provides you with a notation which mimics the natural mathematical notation for matrices.
+</p>
+<p>Unfortunately, the previous implementation is also highly inefficient compared to an equivalent “hand-crafted” version.
+</p>
+<p>To understand why, you have to consider what happens when you write an expression such as <code>Matrix d = a + b + c</code>. This in fact expands to <code>((a + b) + c)</code> or <code>operator+(operator+(a, b), c)</code>. In other words, the loop inside <code>operator+()</code> is executed twice, whereas it could have been easily performed in a single pass. This also results in 2 temporaries being created, which further degrades performance. In essence, by adding the flexibility to use a notation close to its mathematical counterpart, you have also made the <code>Matrix</code> class highly inefficient.
+</p>
+<p>For example, without operator overloading, you could implement a far more efficient Matrix summation using a single pass:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;typename T, std::size_t COL, std::size_t ROW&gt;
@@ -206,7 +223,18 @@ Matrix&lt;T, COL, ROW&gt; add3(const Matrix&lt;T, COL, ROW&gt;&amp; a,
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The previous example however has its own disadvantages because it creates a far more convoluted interface for the Matrix class (you would have to consider methods such as <code>Matrix::add2()</code>, <code>Matrix::AddMultiply()</code> and so on).</p><p>Instead let us take a step back and see how we can adapt operator overloading to perform in a more efficient way</p><p>The problem stems from the fact that the expression <code>Matrix d = a + b + c</code> is evaluated too “eagerly” before you have had an opportunity to build the entire expression tree. In other words, what you really want to achieve is to evaluate <code>a + b + c</code> in one pass and only once you actually need to assign the resulting expressing to <code>d</code>.</p><p>This is the core idea behind expression templates: instead of having <code>operator+()</code> evaluate immediately the result of adding two Matrix instances, it will return an <em>“expression template”</em> for future evaluation once the entire expression tree has been built.</p><p>For example, here is a possible implementation for an expression template corresponding to the summation of 2 types:</p>
+</div>
+<p>The previous example however has its own disadvantages because it creates a far more convoluted interface for the Matrix class (you would have to consider methods such as <code>Matrix::add2()</code>, <code>Matrix::AddMultiply()</code> and so on).
+</p>
+<p>Instead let us take a step back and see how we can adapt operator overloading to perform in a more efficient way
+</p>
+<p>The problem stems from the fact that the expression <code>Matrix d = a + b + c</code> is evaluated too “eagerly” before you have had an opportunity to build the entire expression tree. In other words, what you really want to achieve is to evaluate <code>a + b + c</code> in one pass and only once you actually need to assign the resulting expressing to <code>d</code>.
+</p>
+<p>This is the core idea behind expression templates: instead of having <code>operator+()</code> evaluate immediately the result of adding two Matrix instances, it will return an <em>“expression template”</em> for future evaluation once the entire expression tree has been built.
+</p>
+<p>For example, here is a possible implementation for an expression template corresponding to the summation of 2 types:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template &lt;typename LHS, typename RHS&gt;
@@ -228,7 +256,10 @@ private:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And here is the updated version of <code>operator+()</code></p>
+</div>
+<p>And here is the updated version of <code>operator+()</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template &lt;typename LHS, typename RHS&gt;
@@ -239,7 +270,12 @@ MatrixSum&lt;LHS, RHS&gt; operator+(const LHS&amp; lhs, const LHS&amp; rhs) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As you can see, <code>operator+()</code> no longer returns an “eager evaluation” of the result of adding 2 Matrix instances (which would be another Matrix instance), but instead an expression template representing the addition operation. The most important point to keep in mind is that the expression has not been evaluated yet. It merely holds references to its operands.</p><p>In fact, nothing stops you from instantiating the <code>MatrixSum&lt;&gt;</code> expression template as follows:</p>
+</div>
+<p>As you can see, <code>operator+()</code> no longer returns an “eager evaluation” of the result of adding 2 Matrix instances (which would be another Matrix instance), but instead an expression template representing the addition operation. The most important point to keep in mind is that the expression has not been evaluated yet. It merely holds references to its operands.
+</p>
+<p>In fact, nothing stops you from instantiating the <code>MatrixSum&lt;&gt;</code> expression template as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">MatrixSum&lt;Matrix&lt;double&gt;, Matrix&lt;double&gt; &gt; SumAB(a, b);</pre>
@@ -247,7 +283,10 @@ MatrixSum&lt;LHS, RHS&gt; operator+(const LHS&amp; lhs, const LHS&amp; rhs) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can however at a later stage, when you actually need the result of the summation, evaluate the expression <code>d = a + b</code> as follows:</p>
+</div>
+<p>You can however at a later stage, when you actually need the result of the summation, evaluate the expression <code>d = a + b</code> as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for (std::size_t y = 0; y != a.rows(); ++y) {
@@ -259,7 +298,12 @@ MatrixSum&lt;LHS, RHS&gt; operator+(const LHS&amp; lhs, const LHS&amp; rhs) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As you can see, another benefit of using an expression template, is that you have basically managed to evaluate the sum of <code>a</code> and <code>b</code> and assign it to <code>d</code> in a single pass.</p><p>Also, nothing stops you from combining multiple expression templates. For example, <code>a + b + c</code> would result in the following expression template:</p>
+</div>
+<p>As you can see, another benefit of using an expression template, is that you have basically managed to evaluate the sum of <code>a</code> and <code>b</code> and assign it to <code>d</code> in a single pass.
+</p>
+<p>Also, nothing stops you from combining multiple expression templates. For example, <code>a + b + c</code> would result in the following expression template:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">MatrixSum&lt;MatrixSum&lt;Matrix&lt;double&gt;, Matrix&lt;double&gt; &gt;, Matrix&lt;double&gt; &gt; SumABC(SumAB, c);</pre>
@@ -267,7 +311,10 @@ MatrixSum&lt;LHS, RHS&gt; operator+(const LHS&amp; lhs, const LHS&amp; rhs) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And here again you can evaluate the final result using a single pass:</p>
+</div>
+<p>And here again you can evaluate the final result using a single pass:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for (std::size_t y = 0; y != a.rows(); ++y) {
@@ -279,7 +326,10 @@ MatrixSum&lt;LHS, RHS&gt; operator+(const LHS&amp; lhs, const LHS&amp; rhs) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Finally, the last piece of the puzzle is to actually plug your expression template into the <code>Matrix</code> class. This is essentially achieved by providing an implementation for <code>Matrix::operator=()</code>, which takes the expression template as an argument and evaluates it in one pass, as you did “manually” before:</p>
+</div>
+<p>Finally, the last piece of the puzzle is to actually plug your expression template into the <code>Matrix</code> class. This is essentially achieved by providing an implementation for <code>Matrix::operator=()</code>, which takes the expression template as an argument and evaluates it in one pass, as you did “manually” before:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template &lt;typename T, std::size_t COL, std::size_t ROW&gt;

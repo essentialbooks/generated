@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Type erasure is a way to hide the type of an object from code using it, even though it is not derived from a common base class. In doing so, it provides a bridge between the worlds of static polymorphism (templates; at the place of use, the exact type must be known at compile time, but it need not be declared to conform to an interface at definition) and dynamic polymorphism (inheritance and virtual functions; at the place of use, the exact type need not be known at compile time, but must be declared to conform to an interface at definition).</p><p>The following code shows the basic mechanism of type erasure.</p>
+      
+<p>Type erasure is a way to hide the type of an object from code using it, even though it is not derived from a common base class. In doing so, it provides a bridge between the worlds of static polymorphism (templates; at the place of use, the exact type must be known at compile time, but it need not be declared to conform to an interface at definition) and dynamic polymorphism (inheritance and virtual functions; at the place of use, the exact type need not be known at compile time, but must be declared to conform to an interface at definition).
+</p>
+<p>The following code shows the basic mechanism of type erasure.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;ostream&gt;
@@ -161,7 +166,10 @@ private:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>At the use site, only the above definition need to be visible, just as with base classes with virtual functions. For example:</p>
+</div>
+<p>At the use site, only the above definition need to be visible, just as with base classes with virtual functions. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;
@@ -174,7 +182,12 @@ void print_value(Printable const &amp;p)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that this is <em>not</em> a template, but a normal function that only needs to be declared in a header file, and can be defined in an implementation file (unlike templates, whose definition must be visible at the place of use).</p><p>At the definition of the concrete type, nothing needs to be known about <code>Printable</code>, it just needs to conform to an interface, as with templates:</p>
+</div>
+<p>Note that this is <em>not</em> a template, but a normal function that only needs to be declared in a header file, and can be defined in an implementation file (unlike templates, whose definition must be visible at the place of use).
+</p>
+<p>At the definition of the concrete type, nothing needs to be known about <code>Printable</code>, it just needs to conform to an interface, as with templates:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct MyType { int i; };
@@ -186,7 +199,10 @@ ostream&amp; operator &lt;&lt; (ostream &amp;os, MyType const &amp;mc)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We can now pass an object of this class to the function defined above:</p>
+</div>
+<p>We can now pass an object of this class to the function defined above:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">MyType foo = { 42 };

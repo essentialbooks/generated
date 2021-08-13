@@ -127,7 +127,24 @@
 </div>
 
 
-      <h1 id="f7ba3af6-6503-4eed-98be-b80feb7c53b0" class="">What is <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage">.postMessage()</a>, when and why do we use it<a class="header-anchor" href="#f7ba3af6-6503-4eed-98be-b80feb7c53b0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage"><code><strong>.postMessage()</strong></code></a><strong> method is a way to safely allow communication between cross-origin scripts.</strong></p><p>Normally, two different pages, can only directly communicate with each other using JavaScript when they are under the same origin, even if one of them is embedded into another (e.g. <code>iframes</code>) or one is opened from inside the other (e.g. <code>window.open()</code>). With <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage"><code>.postMessage()</code></a>, you can work around this restriction while still staying safe.</p><p><strong>You can only use </strong><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage"><code><strong>.postMessage()</strong></code></a><strong> when you have access to both pages’ JavaScript code.</strong> Since the receiver needs to validate the sender and process the message accordingly, you can only use this method to communicate between two scripts you have access to.</p><p>We will build an example to send messages to a child window and have the messages be displayed on the child window. The parent/sender page will be assumed to be <code>http://sender.com</code> and child/receiver page will be assumed to be <code>http://receiver.com</code> for the example.</p><h1 id="1d8c3000-0759-4e8b-8673-166edb00d5b4" class="">Sending messages<a class="header-anchor" href="#1d8c3000-0759-4e8b-8673-166edb00d5b4" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>In order to send messages to another window, you need to have a reference to its <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window"><code>window</code></a> object. <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/open"><code>window.open()</code></a> returns the reference object of the newly opened window. For other methods to obtain a reference to a window object, see the explanation under <code>otherWindow</code> parameter <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage#Syntax">here</a>.</p>
+      
+  <h1 id="f7ba3af6-6503-4eed-98be-b80feb7c53b0" class="">What is <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage">.postMessage()</a>, when and why do we use it
+  <a class="header-anchor" href="#f7ba3af6-6503-4eed-98be-b80feb7c53b0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage"><code><strong>.postMessage()</strong></code></a><strong> method is a way to safely allow communication between cross-origin scripts.</strong>
+</p>
+<p>Normally, two different pages, can only directly communicate with each other using JavaScript when they are under the same origin, even if one of them is embedded into another (e.g. <code>iframes</code>) or one is opened from inside the other (e.g. <code>window.open()</code>). With <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage"><code>.postMessage()</code></a>, you can work around this restriction while still staying safe.
+</p>
+<p><strong>You can only use </strong><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage"><code><strong>.postMessage()</strong></code></a><strong> when you have access to both pages’ JavaScript code.</strong> Since the receiver needs to validate the sender and process the message accordingly, you can only use this method to communicate between two scripts you have access to.
+</p>
+<p>We will build an example to send messages to a child window and have the messages be displayed on the child window. The parent/sender page will be assumed to be <code>http://sender.com</code> and child/receiver page will be assumed to be <code>http://receiver.com</code> for the example.
+</p>
+  <h1 id="1d8c3000-0759-4e8b-8673-166edb00d5b4" class="">Sending messages
+  <a class="header-anchor" href="#1d8c3000-0759-4e8b-8673-166edb00d5b4" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>In order to send messages to another window, you need to have a reference to its <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window"><code>window</code></a> object. <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/open"><code>window.open()</code></a> returns the reference object of the newly opened window. For other methods to obtain a reference to a window object, see the explanation under <code>otherWindow</code> parameter <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage#Syntax">here</a>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var childWindow = window.open(&#34;http://receiver.com&#34;, &#34;_blank&#34;);</pre>
@@ -135,7 +152,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Add a <code>textarea</code> and a <code>send button</code> that will be used to send messages to child window.</p>
+</div>
+<p>Add a <code>textarea</code> and a <code>send button</code> that will be used to send messages to child window.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;textarea id=&#34;text&#34;&gt;&lt;/textarea&gt;
@@ -144,7 +164,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Send the text of <code>textarea</code> using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage"><code>.postMessage(message, targetOrigin)</code></a> when the <code>button</code> is clicked.</p>
+</div>
+<p>Send the text of <code>textarea</code> using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage"><code>.postMessage(message, targetOrigin)</code></a> when the <code>button</code> is clicked.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var btn = document.getElementById(&#34;btn&#34;),
@@ -166,7 +189,19 @@ function sendMessage(message) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In order send and receive JSON objects instead of a simple string, <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify"><code>JSON.stringify()</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse"><code>JSON.parse()</code></a> methods can be used. A <a href="https://developer.mozilla.org/en-US/docs/Web/API/Transferable"><code>Transfarable Object</code></a> can be given as the third optional parameter of the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage"><code>.postMessage(message, targetOrigin, transfer)</code></a> method, but browser support is still lacking even in modern browsers.</p><p>For this example, since our receiver is assumed to be <code>http://receiver.com</code> page, we enter its url as the <code>targetOrigin</code>. The value of this parameter should match the <code>origin</code> of the <code>childWindow</code> object for the message to be send. It is possible to use <code>\*</code> as a <code>wildcard</code> but is <strong>highly recommended</strong> to avoid using the wildcard and always set this parameter to receiver’s specific origin <strong>for security reasons</strong>.</p><h1 id="3142b1e3-d5a0-4676-b495-20e39f7b24f0" class="">Receiving, Validating and Processing Messages<a class="header-anchor" href="#3142b1e3-d5a0-4676-b495-20e39f7b24f0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>The code under this part should be put in the receiver page, which is <code>http://receiver.com</code> for our example.</p><p>In order to receive messages, the <a href="https://developer.mozilla.org/en-US/docs/Web/Events/message_webmessaging"><code>message event</code></a> of the <code>window</code> should be listened.</p>
+</div>
+<p>In order send and receive JSON objects instead of a simple string, <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify"><code>JSON.stringify()</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse"><code>JSON.parse()</code></a> methods can be used. A <a href="https://developer.mozilla.org/en-US/docs/Web/API/Transferable"><code>Transfarable Object</code></a> can be given as the third optional parameter of the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage"><code>.postMessage(message, targetOrigin, transfer)</code></a> method, but browser support is still lacking even in modern browsers.
+</p>
+<p>For this example, since our receiver is assumed to be <code>http://receiver.com</code> page, we enter its url as the <code>targetOrigin</code>. The value of this parameter should match the <code>origin</code> of the <code>childWindow</code> object for the message to be send. It is possible to use <code>\*</code> as a <code>wildcard</code> but is <strong>highly recommended</strong> to avoid using the wildcard and always set this parameter to receiver’s specific origin <strong>for security reasons</strong>.
+</p>
+  <h1 id="3142b1e3-d5a0-4676-b495-20e39f7b24f0" class="">Receiving, Validating and Processing Messages
+  <a class="header-anchor" href="#3142b1e3-d5a0-4676-b495-20e39f7b24f0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>The code under this part should be put in the receiver page, which is <code>http://receiver.com</code> for our example.
+</p>
+<p>In order to receive messages, the <a href="https://developer.mozilla.org/en-US/docs/Web/Events/message_webmessaging"><code>message event</code></a> of the <code>window</code> should be listened.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">window.addEventListener(&#34;message&#34;, receiveMessage);</pre>
@@ -174,7 +209,20 @@ function sendMessage(message) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When a message is received there are a couple of <strong>steps that should be followed to assure security as much as possible</strong>.</p><ul id="6ac01d90-5b19-4946-9804-7f49375f8203" class="bulleted-list"><li>Validate the sender</li><li>Validate the message</li><li>Process the message</li></ul><p>The sender should always be validated to make sure the message is received from a trusted sender. After that, the message itself should be validated to make sure nothing malicious is received. After these two validations, the message can be processed.</p>
+</div>
+<p>When a message is received there are a couple of <strong>steps that should be followed to assure security as much as possible</strong>.
+</p>
+  <ul id="6ac01d90-5b19-4946-9804-7f49375f8203" class="bulleted-list">
+    <li>Validate the sender
+    </li>
+    <li>Validate the message
+    </li>
+    <li>Process the message
+    </li>
+  </ul>
+<p>The sender should always be validated to make sure the message is received from a trusted sender. After that, the message itself should be validated to make sure nothing malicious is received. After these two validations, the message can be processed.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">function receiveMessage(ev) {
@@ -204,7 +252,10 @@ function sendMessage(message) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="4c468428-8d79-4ac5-9756-5dfd9117809a"/><blockquote id="7608d254-0e80-4dd4-b8f9-3a8dcaf260fd" class="">Click here for a JS Fiddle showcasing its usage.</blockquote>
+</div>
+<hr id="4c468428-8d79-4ac5-9756-5dfd9117809a"/>
+<blockquote id="7608d254-0e80-4dd4-b8f9-3a8dcaf260fd" class="">Click here for a JS Fiddle showcasing its usage.
+</blockquote>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

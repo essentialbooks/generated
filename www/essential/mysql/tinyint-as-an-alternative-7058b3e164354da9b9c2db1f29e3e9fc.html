@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Let’s say we have</p>
+      
+<p>Let’s say we have
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">type ENUM(&#39;fish&#39;,&#39;mammal&#39;,&#39;bird&#39;)</pre>
@@ -135,7 +138,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>An alternative is</p>
+</div>
+<p>An alternative is
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">type TINYINT UNSIGNED</pre>
@@ -143,7 +149,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>plus</p>
+</div>
+<p>plus
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">CREATE TABLE AnimalTypes (
@@ -156,7 +165,23 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>which is very much like a many-to-many table.</p><p>Comparison, and whether better or worse than ENUM:</p><ul id="c9b9f254-5b30-4cfa-a77c-51b8cb806e7f" class="bulleted-list"><li>(worse) INSERT: need to lookup the <code>type</code></li><li>(worse) SELECT: need to JOIN to get the string (ENUM gives you the string with no effort)</li><li>(better) Adding new types: Simply insert into this table. With ENUM, you need to do an ALTER TABLE.</li><li>(same) Either technique (for up to 255 values) takes only 1 byte.</li><li>(mixed) There’s also an issue of data integrity: <code>TINYINT</code> will admit invalid values; whereas <code>ENUM</code> sets them to a special empty-string value (unless strict SQL mode is enabled, in which case they are rejected). Better data integrity can be achieved with <code>TINYINT</code> by making it a foreign key into a lookup table: which, with appropriate queries/joins, but there is still the small cost of reaching into the other table. (<code>FOREIGN KEYs</code> are not free.)</li></ul>
+</div>
+<p>which is very much like a many-to-many table.
+</p>
+<p>Comparison, and whether better or worse than ENUM:
+</p>
+  <ul id="c9b9f254-5b30-4cfa-a77c-51b8cb806e7f" class="bulleted-list">
+    <li>(worse) INSERT: need to lookup the <code>type</code>
+    </li>
+    <li>(worse) SELECT: need to JOIN to get the string (ENUM gives you the string with no effort)
+    </li>
+    <li>(better) Adding new types: Simply insert into this table. With ENUM, you need to do an ALTER TABLE.
+    </li>
+    <li>(same) Either technique (for up to 255 values) takes only 1 byte.
+    </li>
+    <li>(mixed) There’s also an issue of data integrity: <code>TINYINT</code> will admit invalid values; whereas <code>ENUM</code> sets them to a special empty-string value (unless strict SQL mode is enabled, in which case they are rejected). Better data integrity can be achieved with <code>TINYINT</code> by making it a foreign key into a lookup table: which, with appropriate queries/joins, but there is still the small cost of reaching into the other table. (<code>FOREIGN KEYs</code> are not free.)
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

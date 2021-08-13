@@ -127,7 +127,28 @@
 </div>
 
 
-      <p>The operators <code>&lt;&lt;</code> and <code>&gt;&gt;</code> are commonly used as “write” and “read” operators:</p><ul id="92f59b8f-1dd7-41ff-bb42-1d1d5cc344b6" class="bulleted-list"><li><code>std::ostream</code> overloads <code>&lt;&lt;</code> to write variables to the underlying stream (example: <code>std::cout</code>)</li><li><code>std::istream</code> overloads <code>&gt;&gt;</code> to read from the underlying stream to a variable (example: <code>std::cin</code>)</li></ul><p>The way they do this is similar if you wanted to overload them “normally” outside of the <code>class</code>/<code>struct</code>, except that specifying the arguments are not of the same type:</p><ul id="50c155aa-6bfc-48a2-8c4a-5f6b35f99188" class="bulleted-list"><li>Return type is the stream you want to overload from (for example, <code>std::ostream</code>) passed by reference, to allow chaining (Chaining: <code>std::cout &lt;&lt; a &lt;&lt; b;</code>). Example: <code>std::ostream&amp;</code></li><li><code>lhs</code> would be the same as the return type</li><li><code>rhs</code> is the type you want to allow overloading from (i.e. <code>T</code>), passed by <code>const&amp;</code> instead of value for performance reason (<code>rhs</code> shouldn’t be changed anyway). Example: <code>const Vector&amp;</code>.</li></ul><p>Example:</p>
+      
+<p>The operators <code>&lt;&lt;</code> and <code>&gt;&gt;</code> are commonly used as “write” and “read” operators:
+</p>
+  <ul id="92f59b8f-1dd7-41ff-bb42-1d1d5cc344b6" class="bulleted-list">
+    <li><code>std::ostream</code> overloads <code>&lt;&lt;</code> to write variables to the underlying stream (example: <code>std::cout</code>)
+    </li>
+    <li><code>std::istream</code> overloads <code>&gt;&gt;</code> to read from the underlying stream to a variable (example: <code>std::cin</code>)
+    </li>
+  </ul>
+<p>The way they do this is similar if you wanted to overload them “normally” outside of the <code>class</code>/<code>struct</code>, except that specifying the arguments are not of the same type:
+</p>
+  <ul id="50c155aa-6bfc-48a2-8c4a-5f6b35f99188" class="bulleted-list">
+    <li>Return type is the stream you want to overload from (for example, <code>std::ostream</code>) passed by reference, to allow chaining (Chaining: <code>std::cout &lt;&lt; a &lt;&lt; b;</code>). Example: <code>std::ostream&amp;</code>
+    </li>
+    <li><code>lhs</code> would be the same as the return type
+    </li>
+    <li><code>rhs</code> is the type you want to allow overloading from (i.e. <code>T</code>), passed by <code>const&amp;</code> instead of value for performance reason (<code>rhs</code> shouldn’t be changed anyway). Example: <code>const Vector&amp;</code>.
+    </li>
+  </ul>
+<p>Example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">//Overload std::ostream operator&lt;&lt; to allow output from Vector&#39;s

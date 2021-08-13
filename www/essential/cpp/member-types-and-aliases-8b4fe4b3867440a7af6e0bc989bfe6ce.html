@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>A <code>class</code> or <code>struct</code> can also define member type aliases, which are type aliases contained within, and treated as members of, the class itself.</p>
+      
+<p>A <code>class</code> or <code>struct</code> can also define member type aliases, which are type aliases contained within, and treated as members of, the class itself.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">struct</span> <span class="nc">IHaveATypedef</span> <span class="p">{</span>
@@ -143,7 +146,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Like static members, these typedefs are accessed using the scope operator, <code>::</code>.</p>
+</div>
+<p>Like static members, these typedefs are accessed using the scope operator, <code>::</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">IHaveATypedef::MyTypedef i = 5; // i is an int.
@@ -153,7 +159,10 @@ IHaveATemplateTypedef::MyTemplateTypedef&lt;int&gt; v; // v is a std::vector&lt;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As with normal type aliases, each member type alias is allowed to refer to any type defined or aliased before, but not after, its definition. Likewise, a typedef outside the class definition can refer to any accessible typedefs within the class definition, provided it comes after the class definition.</p>
+</div>
+<p>As with normal type aliases, each member type alias is allowed to refer to any type defined or aliased before, but not after, its definition. Likewise, a typedef outside the class definition can refer to any accessible typedefs within the class definition, provided it comes after the class definition.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -177,7 +186,10 @@ IHaveATemplateTypedef::MyTemplateTypedef&lt;int&gt; v; // v is a std::vector&lt;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Member type aliases can be declared with any access level, and will respect the appropriate access modifier.</p>
+</div>
+<p>Member type aliases can be declared with any access level, and will respect the appropriate access modifier.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">TypedefAccessLevels</span> <span class="p">{</span>
@@ -204,7 +216,10 @@ IHaveATemplateTypedef::MyTemplateTypedef&lt;int&gt; v; // v is a std::vector&lt;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This can be used to provide a level of abstraction, allowing a class’ designer to change its internal workings without breaking code that relies on it.</p>
+</div>
+<p>This can be used to provide a level of abstraction, allowing a class’ designer to change its internal workings without breaking code that relies on it.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">Something</span> <span class="p">{</span>
@@ -230,7 +245,12 @@ IHaveATemplateTypedef::MyTemplateTypedef&lt;int&gt; v; // v is a std::vector&lt;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this situation, if the helper class is changed from <code>SomeComplexType</code> to some other type, only the <code>typedef</code> and the <code>friend</code> declaration would need to be modified; as long as the helper class provides the same functionality, any code that uses it as <code>Something::MyHelper</code> instead of specifying it by name will usually still work without any modifications. In this manner, we minimise the amount of code that needs to be modified when the underlying implementation is changed, such that the type name only needs to be changed in one location.</p><p>This can also be combined with <code>decltype</code>, if one so desires.</p>
+</div>
+<p>In this situation, if the helper class is changed from <code>SomeComplexType</code> to some other type, only the <code>typedef</code> and the <code>friend</code> declaration would need to be modified; as long as the helper class provides the same functionality, any code that uses it as <code>Something::MyHelper</code> instead of specifying it by name will usually still work without any modifications. In this manner, we minimise the amount of code that needs to be modified when the underlying implementation is changed, such that the type name only needs to be changed in one location.
+</p>
+<p>This can also be combined with <code>decltype</code>, if one so desires.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">SomethingElse</span> <span class="p">{</span>
@@ -254,7 +274,15 @@ IHaveATemplateTypedef::MyTemplateTypedef&lt;int&gt; v; // v is a std::vector&lt;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this situation, changing the implementation of <code>SomethingElse::helper</code> will automatically change the typedef for us, due to <code>decltype</code>. This minimises the number of modifications necessary when we want to change <code>helper</code>, which minimises the risk of human error.</p><p>As with everything, however, this can be taken too far. If the typename is only used once or twice internally and zero times externally, for example, there’s no need to provide an alias for it. If it’s used hundreds or thousands of times throughout a project, or if it has a long enough name, then it can be useful to provide it as a typedef instead of always using it in absolute terms. One must balance forwards compatibility and convenience with the amount of unnecessary noise created.</p><hr id="6c2eceb4-290b-425d-8418-32f66b644d3f"/><p>This can also be used with template classes, to provide access to the template parameters from outside the class.</p>
+</div>
+<p>In this situation, changing the implementation of <code>SomethingElse::helper</code> will automatically change the typedef for us, due to <code>decltype</code>. This minimises the number of modifications necessary when we want to change <code>helper</code>, which minimises the risk of human error.
+</p>
+<p>As with everything, however, this can be taken too far. If the typename is only used once or twice internally and zero times externally, for example, there’s no need to provide an alias for it. If it’s used hundreds or thousands of times throughout a project, or if it has a long enough name, then it can be useful to provide it as a typedef instead of always using it in absolute terms. One must balance forwards compatibility and convenience with the amount of unnecessary noise created.
+</p>
+<hr id="6c2eceb4-290b-425d-8418-32f66b644d3f"/>
+<p>This can also be used with template classes, to provide access to the template parameters from outside the class.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -278,7 +306,10 @@ IHaveATemplateTypedef::MyTemplateTypedef&lt;int&gt; v; // v is a std::vector&lt;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is commonly used with containers, which will usually provide their element type, and other helper types, as member type aliases. Most of the containers in the C++ standard library, for example, provide the following 12 helper types, along with any other special types they might need.</p>
+</div>
+<p>This is commonly used with containers, which will usually provide their element type, and other helper types, as member type aliases. Most of the containers in the C++ standard library, for example, provide the following 12 helper types, along with any other special types they might need.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -305,7 +336,10 @@ IHaveATemplateTypedef::MyTemplateTypedef&lt;int&gt; v; // v is a std::vector&lt;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Prior to C++11, it was also commonly used to provide a “template <code>typedef</code>” of sorts, as the feature wasn’t yet available; these have become a bit less common with the introduction of alias templates, but are still useful in some situations (and are combined with alias templates in other situations, which can be very useful for obtaining individual components of a complex type such as a function pointer). They commonly use the name <code>type</code> for their type alias.</p>
+</div>
+<p>Prior to C++11, it was also commonly used to provide a “template <code>typedef</code>” of sorts, as the feature wasn’t yet available; these have become a bit less common with the introduction of alias templates, but are still useful in some situations (and are combined with alias templates in other situations, which can be very useful for obtaining individual components of a complex type such as a function pointer). They commonly use the name <code>type</code> for their type alias.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -319,7 +353,10 @@ IHaveATemplateTypedef::MyTemplateTypedef&lt;int&gt; v; // v is a std::vector&lt;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This was often used with types with multiple template parameters, to provide an alias that defines one or more of the parameters.</p>
+</div>
+<p>This was often used with types with multiple template parameters, to provide an alias that defines one or more of the parameters.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">SZ</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">D</span><span class="o">&gt;</span>

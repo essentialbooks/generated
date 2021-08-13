@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>Concurrent collections are a generalization of thread-safe collections, that allow for a broader usage in a concurrent environment.</p><p>While thread-safe collections have safe element addition or removal from multiple threads, they do not necessarily have safe iteration in the same context (one may not be able to safely iterate through the collection in one thread, while another one modifies it by adding/removing elements).</p><p>This is where concurrent collections are used.</p><p>As iteration is often the base implementation of several bulk methods in collections, like <code>addAll</code>, <code>removeAll</code>, or also collection copying (through a constructor, or other means), sorting, … the use case for concurrent collections is actually pretty large.</p><p>For example, the Java SE 5 <code>java.util.concurrent.CopyOnWriteArrayList</code> is a thread safe and concurrent <code>Lis</code>t implementation, its <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CopyOnWriteArrayList.html">javadoc</a> states :</p><blockquote id="28c43340-94c6-4dbd-bdc7-1c328de89988" class="">The “snapshot” style iterator method uses a reference to the state of the array at the point that the iterator was created. This array never changes during the lifetime of the iterator, so interference is impossible and the iterator is guaranteed not to throw ConcurrentModificationException.</blockquote><p>Therefore, the following code is safe :</p>
+      
+<p>Concurrent collections are a generalization of thread-safe collections, that allow for a broader usage in a concurrent environment.
+</p>
+<p>While thread-safe collections have safe element addition or removal from multiple threads, they do not necessarily have safe iteration in the same context (one may not be able to safely iterate through the collection in one thread, while another one modifies it by adding/removing elements).
+</p>
+<p>This is where concurrent collections are used.
+</p>
+<p>As iteration is often the base implementation of several bulk methods in collections, like <code>addAll</code>, <code>removeAll</code>, or also collection copying (through a constructor, or other means), sorting, … the use case for concurrent collections is actually pretty large.
+</p>
+<p>For example, the Java SE 5 <code>java.util.concurrent.CopyOnWriteArrayList</code> is a thread safe and concurrent <code>Lis</code>t implementation, its <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CopyOnWriteArrayList.html">javadoc</a> states :
+</p>
+<blockquote id="28c43340-94c6-4dbd-bdc7-1c328de89988" class="">The “snapshot” style iterator method uses a reference to the state of the array at the point that the iterator was created. This array never changes during the lifetime of the iterator, so interference is impossible and the iterator is guaranteed not to throw ConcurrentModificationException.
+</blockquote>
+<p>Therefore, the following code is safe :
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class ThreadSafeAndConcurrent {
@@ -177,7 +192,19 @@ public static final class IteratorRunnable implements Runnable {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Another concurrent collection regarding iteration is <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentLinkedQueue.html"><code>ConcurrentLinkedQueue</code></a>, which states :</p><blockquote id="499845ed-8dc7-409e-b8a8-c536f67d262f" class="">Iterators are weakly consistent, returning elements reflecting the state of the queue at some point at or since the creation of the iterator. They do not throw java.util.ConcurrentModificationException, and may proceed concurrently with other operations. Elements contained in the queue since the creation of the iterator will be returned exactly once.</blockquote><p>One should check the javadocs to see if a collection is concurrent, or not. The attributes of the iterator returned by the <code>iterator()</code> method (“fail fast”, “weakly consistent”, …) is the most important attribute to look for.</p><h1 id="c74f3b0e-e291-48ed-af6d-56761c54d46a" class="">Thread safe but non concurrent examples<a class="header-anchor" href="#c74f3b0e-e291-48ed-af6d-56761c54d46a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>In the above code, changing the <code>LIST</code> declaration to</p>
+</div>
+<p>Another concurrent collection regarding iteration is <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentLinkedQueue.html"><code>ConcurrentLinkedQueue</code></a>, which states :
+</p>
+<blockquote id="499845ed-8dc7-409e-b8a8-c536f67d262f" class="">Iterators are weakly consistent, returning elements reflecting the state of the queue at some point at or since the creation of the iterator. They do not throw java.util.ConcurrentModificationException, and may proceed concurrently with other operations. Elements contained in the queue since the creation of the iterator will be returned exactly once.
+</blockquote>
+<p>One should check the javadocs to see if a collection is concurrent, or not. The attributes of the iterator returned by the <code>iterator()</code> method (“fail fast”, “weakly consistent”, …) is the most important attribute to look for.
+</p>
+  <h1 id="c74f3b0e-e291-48ed-af6d-56761c54d46a" class="">Thread safe but non concurrent examples
+  <a class="header-anchor" href="#c74f3b0e-e291-48ed-af6d-56761c54d46a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>In the above code, changing the <code>LIST</code> declaration to
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public static final List&lt;Integer&gt; LIST = Collections.synchronizedList(new ArrayList&lt;&gt;());</pre>
@@ -185,7 +212,11 @@ public static final class IteratorRunnable implements Runnable {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Could (and statistically will on most modern, multi CPU/core architectures) lead to exceptions.</p><p>Synchronized collections from the <code>Collections</code> utility methods are thread safe for addition/removal of elements, but not iteration (unless the underlying collection being passed to it already is).</p>
+</div>
+<p>Could (and statistically will on most modern, multi CPU/core architectures) lead to exceptions.
+</p>
+<p>Synchronized collections from the <code>Collections</code> utility methods are thread safe for addition/removal of elements, but not iteration (unless the underlying collection being passed to it already is).
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>When creating a model for a table that has a composite primary key, additional work is required on the Object for the model Entity to respect those constraints.</p><p>The following example SQL table and Entity demonstrates the structure to store a review left by a customer for an item in an online store. In this example, we want the <code>customer_id</code> and <code>item_id</code> columns to be a composite primary key, allowing only one review to exist between a specific customer and item.</p><p><strong>SQL Table</strong></p>
+      
+<p>When creating a model for a table that has a composite primary key, additional work is required on the Object for the model Entity to respect those constraints.
+</p>
+<p>The following example SQL table and Entity demonstrates the structure to store a review left by a customer for an item in an online store. In this example, we want the <code>customer_id</code> and <code>item_id</code> columns to be a composite primary key, allowing only one review to exist between a specific customer and item.
+</p>
+<p><strong>SQL Table</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">CREATE TABLE review (
@@ -141,7 +148,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Usually we would use the <code>@Id</code> and <code>@Unique</code> annotations above the respective fields in the entity class, however for a composite primary key we do the following:</p><ol id="1a39a63a-4043-411e-b1b5-8e15e53944ee" class="numbered-list" start="1"><li>Add the <code>@Index</code> annotation inside the class-level <code>@Entity</code> annotation. The value property contains a comma-delimited list of the fields that make up the key. Use the <code>unique</code> property as shown to enforce uniqueness on the key.</li><li>GreenDAO requires every Entity have a <code>long</code> or <code>Long</code> object as a primary key. We still need to add this to the Entity class, however we do not need to use it or worry about it affecting our implementation. In the example below it is called <code>localID</code></li></ol><p><strong>Entity</strong></p>
+</div>
+<p>Usually we would use the <code>@Id</code> and <code>@Unique</code> annotations above the respective fields in the entity class, however for a composite primary key we do the following:
+</p>
+  <ol id="1a39a63a-4043-411e-b1b5-8e15e53944ee" class="numbered-list" start="1">
+    <li>Add the <code>@Index</code> annotation inside the class-level <code>@Entity</code> annotation. The value property contains a comma-delimited list of the fields that make up the key. Use the <code>unique</code> property as shown to enforce uniqueness on the key.
+    </li>
+    <li>GreenDAO requires every Entity have a <code>long</code> or <code>Long</code> object as a primary key. We still need to add this to the Entity class, however we do not need to use it or worry about it affecting our implementation. In the example below it is called <code>localID</code>
+    </li>
+  </ol>
+<p><strong>Entity</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Entity(indexes = { @Index(value = &#34;customer_id,item_id&#34;, unique = true)})

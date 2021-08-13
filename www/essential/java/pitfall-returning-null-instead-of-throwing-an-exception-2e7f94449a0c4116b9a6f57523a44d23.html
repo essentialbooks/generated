@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Some Java programmers have a general aversion to throwing or propagating exceptions. This leads to code like the following:</p>
+      
+<p>Some Java programmers have a general aversion to throwing or propagating exceptions. This leads to code like the following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public Reader getReader(String pathname) {
@@ -141,7 +144,31 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>}</p><p>So what is the problem with that?</p><p>The problem is that the <code>getReader</code> is returning a <code>null</code> as a special value to indicate that the <code>Reader</code> could not be opened. Now the returned value needs to be tested to see if it is <code>null</code> before it is used. If the test is left out, the result will be a <code>NullPointerException</code>.</p><p>There are actually three problems here:</p><ol id="311a44bb-8518-48ac-a264-4145ec429337" class="numbered-list" start="1"><li>The <code>IOException</code> was caught too soon.</li><li>The structure of this code means that there is a risk of leaking a resource.</li><li>A <code>null</code> was used then returned because no “real” <code>Reader</code> was available to return.</li></ol><p>In fact, assuming that the exception did need to be caught early like this, there were a couple of alternatives to returning <code>null</code>:</p><ol id="8d6743aa-a8ef-4fb1-ab71-dbb28ec5f32b" class="numbered-list" start="1"><li>It would be possible to implement a <code>NullReader</code> class; e.g. one where API’s operations behaves as if the reader was already at the “end of file” position.</li><li>With Java 8, it would be possible to declare <code>getReader</code> as returning an <code>Optional&lt;Reader&gt;</code>.</li></ol>
+</div>
+<p>}
+</p>
+<p>So what is the problem with that?
+</p>
+<p>The problem is that the <code>getReader</code> is returning a <code>null</code> as a special value to indicate that the <code>Reader</code> could not be opened. Now the returned value needs to be tested to see if it is <code>null</code> before it is used. If the test is left out, the result will be a <code>NullPointerException</code>.
+</p>
+<p>There are actually three problems here:
+</p>
+  <ol id="311a44bb-8518-48ac-a264-4145ec429337" class="numbered-list" start="1">
+    <li>The <code>IOException</code> was caught too soon.
+    </li>
+    <li>The structure of this code means that there is a risk of leaking a resource.
+    </li>
+    <li>A <code>null</code> was used then returned because no “real” <code>Reader</code> was available to return.
+    </li>
+  </ol>
+<p>In fact, assuming that the exception did need to be caught early like this, there were a couple of alternatives to returning <code>null</code>:
+</p>
+  <ol id="8d6743aa-a8ef-4fb1-ab71-dbb28ec5f32b" class="numbered-list" start="1">
+    <li>It would be possible to implement a <code>NullReader</code> class; e.g. one where API’s operations behaves as if the reader was already at the “end of file” position.
+    </li>
+    <li>With Java 8, it would be possible to declare <code>getReader</code> as returning an <code>Optional&lt;Reader&gt;</code>.
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>This example shows how JNDI works in RMI. It has two roles:</p><ul id="0be7251e-4db1-4f14-a320-93bb0e727ecc" class="bulleted-list"><li>to provide the server with a bind/unbind/rebind API to the RMI Registry</li><li>to provide the client with a lookup/list API to the RMI Registry.</li></ul><p>The RMI Registry is part of RMI, not JNDI.</p><p>To make this simple, we will use <code>java.rmi.registry.CreateRegistry()</code> to create the RMI Registry.</p><ol id="cb0de80e-fc63-48e8-bc3e-ae2a60c2833e" class="numbered-list" start="1"><li>Server.java(the JNDI server)
+      
+<p>This example shows how JNDI works in RMI. It has two roles:
+</p>
+  <ul id="0be7251e-4db1-4f14-a320-93bb0e727ecc" class="bulleted-list">
+    <li>to provide the server with a bind/unbind/rebind API to the RMI Registry
+    </li>
+    <li>to provide the client with a lookup/list API to the RMI Registry.
+    </li>
+  </ul>
+<p>The RMI Registry is part of RMI, not JNDI.
+</p>
+<p>To make this simple, we will use <code>java.rmi.registry.CreateRegistry()</code> to create the RMI Registry.
+</p>
+  <ol id="cb0de80e-fc63-48e8-bc3e-ae2a60c2833e" class="numbered-list" start="1">
+    <li>Server.java(the JNDI server)
+      
 <div class="code-box lang-Java">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nn">com.neohope.jndi.test</span><span class="o">;</span>
@@ -190,7 +205,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div></li><li>Client.java(the JNDI client)
+</div>
+    </li>
+    <li>Client.java(the JNDI client)
+      
 <div class="code-box lang-Java">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nn">com.neohope.jndi.test</span><span class="o">;</span>
@@ -222,7 +240,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div></li><li>NMessage.java (RMI server class)
+</div>
+    </li>
+    <li>NMessage.java (RMI server class)
+      
 <div class="code-box lang-Java">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nn">com.neohope.jndi.test</span><span class="o">;</span>
@@ -247,7 +268,47 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div></li></ol><p>How to run the eaxmple:</p><ol id="c16f8bdc-9814-4020-855c-85a96f63063f" class="numbered-list" start="1"><li>build and start the server</li><li>build and start the client</li></ol><p><strong>Introduce</strong></p><img class="img" src="/img/842a71bf07e851a51f22890ac9c9236414d30cc4.png"><p>The <strong>Java Naming and Directory Interface (JNDI)</strong> is a Java API for a directory service that allows Java software clients to discover and look up data and objects via a name. It is designed to be independent of any specific naming or directory service implementation.</p><p>The JNDI architecture consists of an <strong>API</strong> (Application Programming Interface) and an <strong>SPI</strong> (Service Provider Interface). Java applications use this API to access a variety of naming and directory services. The SPI enables a variety of naming and directory services to be plugged in transparently, allowing the Java application using the API of the JNDI technology to access their services.</p><p>As you can see form the picture above, JNDI supports LDAP, DNS, NIS, NDS, RMI and CORBA. Of course, you can extend it.</p><p><strong>How it works</strong></p><p>In this example, the Java RMI use the JNDI API to look up objects in a network. If you want to look up a object, you need at least two pieces of information:</p><ul id="c10a84ac-53e3-4402-9abf-850a1f0a477d" class="bulleted-list"><li>Where to find the object</li></ul><p>The RMI Registry manages the name bindings, it tells you where to find the object.</p><ul id="39fe6abe-3f85-47ce-a5af-9919cc514dc0" class="bulleted-list"><li>The name of the object</li></ul><p>What is a object’s name? It is usually a string, it can also be a object that implements the Name interface.</p><p><strong>Step by step</strong></p><ol id="a7384460-145d-457d-a037-5c3cfd67290a" class="numbered-list" start="1"><li>First you need a registry, which manage the name binding. In this example, we use <code>java.rmi.registry.LocateRegistry</code>.
+</div>
+    </li>
+  </ol>
+<p>How to run the eaxmple:
+</p>
+  <ol id="c16f8bdc-9814-4020-855c-85a96f63063f" class="numbered-list" start="1">
+    <li>build and start the server
+    </li>
+    <li>build and start the client
+    </li>
+  </ol>
+<p><strong>Introduce</strong>
+</p>
+<img class="img" src="/img/842a71bf07e851a51f22890ac9c9236414d30cc4.png">
+<p>The <strong>Java Naming and Directory Interface (JNDI)</strong> is a Java API for a directory service that allows Java software clients to discover and look up data and objects via a name. It is designed to be independent of any specific naming or directory service implementation.
+</p>
+<p>The JNDI architecture consists of an <strong>API</strong> (Application Programming Interface) and an <strong>SPI</strong> (Service Provider Interface). Java applications use this API to access a variety of naming and directory services. The SPI enables a variety of naming and directory services to be plugged in transparently, allowing the Java application using the API of the JNDI technology to access their services.
+</p>
+<p>As you can see form the picture above, JNDI supports LDAP, DNS, NIS, NDS, RMI and CORBA. Of course, you can extend it.
+</p>
+<p><strong>How it works</strong>
+</p>
+<p>In this example, the Java RMI use the JNDI API to look up objects in a network. If you want to look up a object, you need at least two pieces of information:
+</p>
+  <ul id="c10a84ac-53e3-4402-9abf-850a1f0a477d" class="bulleted-list">
+    <li>Where to find the object
+    </li>
+  </ul>
+<p>The RMI Registry manages the name bindings, it tells you where to find the object.
+</p>
+  <ul id="39fe6abe-3f85-47ce-a5af-9919cc514dc0" class="bulleted-list">
+    <li>The name of the object
+    </li>
+  </ul>
+<p>What is a object’s name? It is usually a string, it can also be a object that implements the Name interface.
+</p>
+<p><strong>Step by step</strong>
+</p>
+  <ol id="a7384460-145d-457d-a037-5c3cfd67290a" class="numbered-list" start="1">
+    <li>First you need a registry, which manage the name binding. In this example, we use <code>java.rmi.registry.LocateRegistry</code>.
+      
 <div class="code-box lang-Java">
 	<div>
 	<pre class="chroma"><span class="c1">// This will start a registry on localhost, port 1234
@@ -256,7 +317,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div></li><li>Both client and server need a Context. Server use the Context to bind the name and object. Client use the Context to lookup the name and get the object.
+</div>
+    </li>
+    <li>Both client and server need a Context. Server use the Context to bind the name and object. Client use the Context to lookup the name and get the object.
+      
 <div class="code-box lang-Java">
 	<div>
 	<pre class="chroma"><span class="c1">//We use com.sun.jndi.rmi.registry.RegistryContextFactory as the InitialContextFactory
@@ -269,7 +333,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div></li><li>The server bind the name and object
+</div>
+    </li>
+    <li>The server bind the name and object
+      
 <div class="code-box lang-Java">
 	<div>
 	<pre class="chroma"><span class="c1">//The jndi name is &#34;/neohope/jndi/test01&#34;
@@ -278,7 +345,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div></li><li>The client look up the object by the name “/neohope/jndi/test01”
+</div>
+    </li>
+    <li>The client look up the object by the name “/neohope/jndi/test01”
+      
 <div class="code-box lang-Java">
 	<div>
 	<pre class="chroma"><span class="c1">//look up the object by name &#34;java:com/neohope/jndi/test01&#34;
@@ -287,7 +357,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div></li><li>Now the client can use the object</li><li>When the server is ending, need to clean up.
+</div>
+    </li>
+    <li>Now the client can use the object
+    </li>
+    <li>When the server is ending, need to clean up.
+      
 <div class="code-box lang-Java">
 	<div>
 	<pre class="chroma"><span class="n">ctx</span><span class="o">.</span><span class="na">unbind</span><span class="o">(</span><span class="s">&#34;/neohope/jndi/test01&#34;</span><span class="o">);</span>
@@ -296,7 +371,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div></li></ol>
+</div>
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>If you need to extract a part of string from the input string, we can use <strong>capture groups</strong> of regex.</p><p>For this example, we’ll start with a simple phone number regex:</p>
+      
+<p>If you need to extract a part of string from the input string, we can use <strong>capture groups</strong> of regex.
+</p>
+<p>For this example, we’ll start with a simple phone number regex:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">\d{3}-\d{3}-\d{4}</pre>
@@ -135,7 +140,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If parentheses are added to the regex, each set of parentheses is considered a <em>capturing group</em>. In this case, we are using what are called numbered capture groups:</p>
+</div>
+<p>If parentheses are added to the regex, each set of parentheses is considered a <em>capturing group</em>. In this case, we are using what are called numbered capture groups:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">(\d{3})-(\d{3})-(\d{4})
@@ -145,7 +153,10 @@ Group 1 Group 2 Group 3</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Before we can use it in Java, we must not forget to follow the rules of Strings, escaping the backslashes, resulting in the following pattern:</p>
+</div>
+<p>Before we can use it in Java, we must not forget to follow the rules of Strings, escaping the backslashes, resulting in the following pattern:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&#34;(\\d{3})-(\\d{3})-(\\d{4})&#34;</pre>
@@ -153,7 +164,10 @@ Group 1 Group 2 Group 3</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We first need to compile the regex pattern to make a <code>Pattern</code> and then we need a <code>Matcher</code> to match our input string with the pattern:</p>
+</div>
+<p>We first need to compile the regex pattern to make a <code>Pattern</code> and then we need a <code>Matcher</code> to match our input string with the pattern:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Pattern phonePattern = Pattern.compile(&#34;(\\d{3})-(\\d{3})-(\\d{4})&#34;);
@@ -162,7 +176,10 @@ Matcher phoneMatcher = phonePattern.matcher(&#34;abcd800-555-1234wxyz&#34;);</pr
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Next, the Matcher needs to find the first subsequence that matches the regex:</p>
+</div>
+<p>Next, the Matcher needs to find the first subsequence that matches the regex:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">phoneMatcher.find();</pre>
@@ -170,7 +187,10 @@ Matcher phoneMatcher = phonePattern.matcher(&#34;abcd800-555-1234wxyz&#34;);</pr
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, using the group method, we can extract the data from the string:</p>
+</div>
+<p>Now, using the group method, we can extract the data from the string:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String number = phoneMatcher.group(0); //&#34;800-555-1234&#34; (Group 0 is everything the regex matched)
@@ -181,7 +201,14 @@ String fourDigit = phoneMatcher.group(3); //&#34;1234&#34;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Note:</strong> <code>Matcher.group()</code> can be used in place of <code>Matcher.group(0)</code>.</p><p>Java 7 introduced named capture groups. Named capture groups function the same as numbered capture groups (but with a name instead of a number), although there are slight syntax changes. Using named capture groups improves readability.</p><p>We can alter the above code to use named groups:</p>
+</div>
+<p><strong>Note:</strong> <code>Matcher.group()</code> can be used in place of <code>Matcher.group(0)</code>.
+</p>
+<p>Java 7 introduced named capture groups. Named capture groups function the same as numbered capture groups (but with a name instead of a number), although there are slight syntax changes. Using named capture groups improves readability.
+</p>
+<p>We can alter the above code to use named groups:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">(?&lt;AreaCode&gt;\d{3})-(\d{3})-(\d{4})
@@ -191,7 +218,10 @@ AreaCode           Group 2 Group 3</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To get the contents of “AreaCode”, we can instead use:</p>
+</div>
+<p>To get the contents of “AreaCode”, we can instead use:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String aCode = phoneMatcher.group(&#34;AreaCode&#34;); //&#34;800&#34;</pre>

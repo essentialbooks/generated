@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>When using async await in loops, you might encounter some of these problems.</p><p>If you just try to use await inside <code>forEach</code>, this will throw an <code>Unexpected token</code> error.</p>
+      
+<p>When using async await in loops, you might encounter some of these problems.
+</p>
+<p>If you just try to use await inside <code>forEach</code>, this will throw an <code>Unexpected token</code> error.
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="p">(</span><span class="nx">async</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
@@ -142,7 +147,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This comes from the fact that you’ve erroneously seen the arrow function as a block. The <code>await</code> will be in the context of the callback function, which is not <code>async</code>.</p><p>The interpreter protects us from making the above error, but if you add <code>async</code> to the <code>forEach</code> callback no errors get thrown. You might think this solves the problem, but it won’t work as expected.</p><p>Example:</p>
+</div>
+<p>This comes from the fact that you’ve erroneously seen the arrow function as a block. The <code>await</code> will be in the context of the callback function, which is not <code>async</code>.
+</p>
+<p>The interpreter protects us from making the above error, but if you add <code>async</code> to the <code>forEach</code> callback no errors get thrown. You might think this solves the problem, but it won’t work as expected.
+</p>
+<p>Example:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="p">(</span><span class="nx">async</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
@@ -158,7 +170,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This happens because the callback async function can only pause itself, not the parent async function.</p><blockquote id="fa56a21b-fae4-4fce-a33b-de530699c073" class="">You could write an asyncForEach function that returns a promise and then you could something like await asyncForEach(async (e) =&gt; await somePromiseFn(e), data ) Basically you return a promise that resolves when all the callbacks are awaited and done. But there are better ways of doing this, and that is to just use a loop.</blockquote><p>You can use a <code>for-of</code> loop or a <code>for/while</code> loop, it doesn’t really matter which one you pick.</p>
+</div>
+<p>This happens because the callback async function can only pause itself, not the parent async function.
+</p>
+<blockquote id="fa56a21b-fae4-4fce-a33b-de530699c073" class="">You could write an asyncForEach function that returns a promise and then you could something like await asyncForEach(async (e) =&gt; await somePromiseFn(e), data ) Basically you return a promise that resolves when all the callbacks are awaited and done. But there are better ways of doing this, and that is to just use a loop.
+</blockquote>
+<p>You can use a <code>for-of</code> loop or a <code>for/while</code> loop, it doesn’t really matter which one you pick.
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="p">(</span><span class="nx">async</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
@@ -174,7 +193,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But there’s another catch. This solution will wait for each call to <code>somePromiseFn</code> to complete before iterating over the next one.</p><p>This is great if you actually want your <code>somePromiseFn</code> invocations to be executed in order but if you want them to run concurrently, you will need to <code>await</code> on <code>Promise.all</code>.</p>
+</div>
+<p>But there’s another catch. This solution will wait for each call to <code>somePromiseFn</code> to complete before iterating over the next one.
+</p>
+<p>This is great if you actually want your <code>somePromiseFn</code> invocations to be executed in order but if you want them to run concurrently, you will need to <code>await</code> on <code>Promise.all</code>.
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="p">(</span><span class="nx">async</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
@@ -187,7 +211,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>Promise.all</code> receives an array of promises as its only parameter and returns a promise. When all of the promises in the array are resolved, the returned promise is also resolved. We <code>await</code> on that promise and when it’s resolved all our values are available.</p><p>The above examples are fully runnable. The <code>somePromiseFn</code> function can be made as an async echo function with a timeout. You can try out the examples in the <a href="https://babeljs.io/repl">babel-repl</a> with at least the <code>stage-3</code> preset and look at the output.</p>
+</div>
+<p><code>Promise.all</code> receives an array of promises as its only parameter and returns a promise. When all of the promises in the array are resolved, the returned promise is also resolved. We <code>await</code> on that promise and when it’s resolved all our values are available.
+</p>
+<p>The above examples are fully runnable. The <code>somePromiseFn</code> function can be made as an async echo function with a timeout. You can try out the examples in the <a href="https://babeljs.io/repl">babel-repl</a> with at least the <code>stage-3</code> preset and look at the output.
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">function</span> <span class="nx">somePromiseFn</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>

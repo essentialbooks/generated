@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>GCD provides mechanism for performing a loop, whereby the loops happen concurrently with respect to each other. This is very useful when performing a series of computationally expensive calculations.</p><p>Consider this loop:</p>
+      
+<p>GCD provides mechanism for performing a loop, whereby the loops happen concurrently with respect to each other. This is very useful when performing a series of computationally expensive calculations.
+</p>
+<p>Consider this loop:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for index in 0 ..&lt; iterations {
@@ -137,7 +142,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can perform those calculations concurrently using <code>concurrentPerform</code> (in Swift 3) or <code>dispatch_apply</code> (in Swift 2):</p>
+</div>
+<p>You can perform those calculations concurrently using <code>concurrentPerform</code> (in Swift 3) or <code>dispatch_apply</code> (in Swift 2):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">DispatchQueue.concurrentPerform(iterations: iterations) { index in
@@ -148,6 +156,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">dispatch_apply(iterations, queue) { index in
@@ -157,7 +166,21 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The loop closure will be invoked for each <code>index</code> from <code>0</code> to, but not including, <code>iterations</code>. These iterations will be run concurrently with respect to each other, and thus the order that they run is not guaranteed. The actual number of iterations that happen concurrently at any given time is generally dictated by the capabilities of the device in question (e.g. how many cores does the device have).</p><p>A couple of special considerations:</p><ul id="c3d52190-324a-4e0c-be23-effc77a88558" class="bulleted-list"><li>The <code>concurrentPerform</code>/<code>dispatch_apply</code> may run the loops concurrently with respect to each other, but this all happens synchronously with respect to the thread from which you call it. So, do not call this from the main thread, as this will block that thread until the loop is done.</li><li>Because these loops happen concurrently with respect to each other, you are responsible for ensuring the thread-safety of the results. For example, if updating some dictionary with the results of these computationally expensive calculations, make sure to synchronize those updates yourself.</li><li>Note, there is some overhead associated in running concurrent loops. Thus, if the calculations being performed inside the loop are not sufficiently computationally intensive, you may find that any performance gained by using concurrent loops may be diminished, if not be completely offset, by the overhead associated with the synchronizing all of these concurrent threads.</li></ul><p>So, you are responsible determining the correct amount of work to be performed in each iteration of the loop. If the calculations are too simple, you may employ “striding” to include more work per loop. For example, rather than doing a concurrent loop with 1 million trivial calculations, you may do 100 iterations in your loop, doing 10,000 calculations per loop. That way there is enough work being performed on each thread, so the overhead associated with managing these concurrent loops becomes less significant.</p>
+</div>
+<p>The loop closure will be invoked for each <code>index</code> from <code>0</code> to, but not including, <code>iterations</code>. These iterations will be run concurrently with respect to each other, and thus the order that they run is not guaranteed. The actual number of iterations that happen concurrently at any given time is generally dictated by the capabilities of the device in question (e.g. how many cores does the device have).
+</p>
+<p>A couple of special considerations:
+</p>
+  <ul id="c3d52190-324a-4e0c-be23-effc77a88558" class="bulleted-list">
+    <li>The <code>concurrentPerform</code>/<code>dispatch_apply</code> may run the loops concurrently with respect to each other, but this all happens synchronously with respect to the thread from which you call it. So, do not call this from the main thread, as this will block that thread until the loop is done.
+    </li>
+    <li>Because these loops happen concurrently with respect to each other, you are responsible for ensuring the thread-safety of the results. For example, if updating some dictionary with the results of these computationally expensive calculations, make sure to synchronize those updates yourself.
+    </li>
+    <li>Note, there is some overhead associated in running concurrent loops. Thus, if the calculations being performed inside the loop are not sufficiently computationally intensive, you may find that any performance gained by using concurrent loops may be diminished, if not be completely offset, by the overhead associated with the synchronizing all of these concurrent threads.
+    </li>
+  </ul>
+<p>So, you are responsible determining the correct amount of work to be performed in each iteration of the loop. If the calculations are too simple, you may employ “striding” to include more work per loop. For example, rather than doing a concurrent loop with 1 million trivial calculations, you may do 100 iterations in your loop, doing 10,000 calculations per loop. That way there is enough work being performed on each thread, so the overhead associated with managing these concurrent loops becomes less significant.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

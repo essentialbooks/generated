@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Adding the <code>volatile</code> keyword to a field indicates to the compiler that the field’s value may be changed by multiple separate threads. The primary purpose of the <code>volatile</code> keyword is to prevent compiler optimizations that assume only single-threaded access. Using <code>volatile</code> ensures that the value of the field is the most recent value that is available, and the value is not subject to the caching that non-volatile values are.</p><p>It is good practice to mark <em>every variable</em> that may be used by multiple threads as <code>volatile</code> to prevent unexpected behavior due to behind-the-scenes optimizations. Consider the following code block:</p>
+      
+<p>Adding the <code>volatile</code> keyword to a field indicates to the compiler that the field’s value may be changed by multiple separate threads. The primary purpose of the <code>volatile</code> keyword is to prevent compiler optimizations that assume only single-threaded access. Using <code>volatile</code> ensures that the value of the field is the most recent value that is available, and the value is not subject to the caching that non-volatile values are.
+</p>
+<p>It is good practice to mark <em>every variable</em> that may be used by multiple threads as <code>volatile</code> to prevent unexpected behavior due to behind-the-scenes optimizations. Consider the following code block:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">Example</span>
@@ -150,7 +155,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In the above code-block, the compiler reads the statements <code>x = 5</code> and <code>y = x + 10</code> and determines that the value of <code>y</code> will always end up as 15. Thus, it will optimize the last statement as <code>y = 15</code>. However, the variable <code>x</code> is in fact a <code>public</code> field and the value of <code>x</code> may be modified at runtime through a different thread acting on this field separately. Now consider this modified code-block. Do note that the field <code>x</code> is now declared as <code>volatile</code>.</p>
+</div>
+<p>In the above code-block, the compiler reads the statements <code>x = 5</code> and <code>y = x + 10</code> and determines that the value of <code>y</code> will always end up as 15. Thus, it will optimize the last statement as <code>y = 15</code>. However, the variable <code>x</code> is in fact a <code>public</code> field and the value of <code>x</code> may be modified at runtime through a different thread acting on this field separately. Now consider this modified code-block. Do note that the field <code>x</code> is now declared as <code>volatile</code>.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">Example</span>
@@ -173,7 +181,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, the compiler looks for <em>read</em> usages of the field <code>x</code> and ensures that the current value of the field is always retrieved. This ensures that even if multiple threads are reading and writing to this field, the current value of <code>x</code> is always retrieved.</p><p><code>volatile</code> can only be used on fields within <code>class</code>es or <code>struct</code>s. The following <a href="https://msdn.microsoft.com/en-us/library/x13ttww7.aspx">is </a><a href="https://msdn.microsoft.com/en-us/library/x13ttww7.aspx"><em>not</em></a><a href="https://msdn.microsoft.com/en-us/library/x13ttww7.aspx"> valid</a>:</p>
+</div>
+<p>Now, the compiler looks for <em>read</em> usages of the field <code>x</code> and ensures that the current value of the field is always retrieved. This ensures that even if multiple threads are reading and writing to this field, the current value of <code>x</code> is always retrieved.
+</p>
+<p><code>volatile</code> can only be used on fields within <code>class</code>es or <code>struct</code>s. The following <a href="https://msdn.microsoft.com/en-us/library/x13ttww7.aspx">is </a><a href="https://msdn.microsoft.com/en-us/library/x13ttww7.aspx"><em>not</em></a><a href="https://msdn.microsoft.com/en-us/library/x13ttww7.aspx"> valid</a>:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">void</span> <span class="n">MyMethod</span><span class="p">()</span>
@@ -185,7 +198,29 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>volatile</code> can only be applied to fields of following types:</p><ul id="c6504cae-9898-4e80-9ef8-21989649d774" class="bulleted-list"><li>reference types or generic type parameters known to be reference types</li><li>primitive types such as <code>sbyte</code>, <code>byte</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>char</code>, <code>float</code>, and <code>bool</code></li><li>enums types based on <code>byte</code>, <code>sbyte</code>, <code>short</code>, <code>ushort</code>, <code>int</code> or <code>uint</code></li><li><code>IntPtr</code> and <code>UIntPtr</code></li></ul><p><strong>Remarks:</strong></p><ul id="38a73bae-587b-477b-9053-27b6cc1fdeea" class="bulleted-list"><li>The <a href="http://stackoverflow.com/questions/72275/when-should-the-volatile-keyword-be-used-in-c"><code>volatile</code></a> modifier is usually used for a field that is accessed by multiple threads without using the lock statement to serialize access.</li><li>The <code>volatile</code> keyword can be applied to fields of reference types</li><li>The <code>volatile</code> keyword will not make operating on 64-bit primitives on a 32-bit platform atomic. Interlocked operations such as <a href="https://msdn.microsoft.com/en-us/library/system.threading.interlocked.read(v=vs.110).aspx"><code>Interlocked.Read</code></a> and <a href="https://msdn.microsoft.com/en-us/library/dk0121zy(v=vs.110).aspx"><code>Interlocked.Exchange</code></a> must still be used for safe multi-threaded access on these platforms.</li></ul>
+</div>
+<p><code>volatile</code> can only be applied to fields of following types:
+</p>
+  <ul id="c6504cae-9898-4e80-9ef8-21989649d774" class="bulleted-list">
+    <li>reference types or generic type parameters known to be reference types
+    </li>
+    <li>primitive types such as <code>sbyte</code>, <code>byte</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>char</code>, <code>float</code>, and <code>bool</code>
+    </li>
+    <li>enums types based on <code>byte</code>, <code>sbyte</code>, <code>short</code>, <code>ushort</code>, <code>int</code> or <code>uint</code>
+    </li>
+    <li><code>IntPtr</code> and <code>UIntPtr</code>
+    </li>
+  </ul>
+<p><strong>Remarks:</strong>
+</p>
+  <ul id="38a73bae-587b-477b-9053-27b6cc1fdeea" class="bulleted-list">
+    <li>The <a href="http://stackoverflow.com/questions/72275/when-should-the-volatile-keyword-be-used-in-c"><code>volatile</code></a> modifier is usually used for a field that is accessed by multiple threads without using the lock statement to serialize access.
+    </li>
+    <li>The <code>volatile</code> keyword can be applied to fields of reference types
+    </li>
+    <li>The <code>volatile</code> keyword will not make operating on 64-bit primitives on a 32-bit platform atomic. Interlocked operations such as <a href="https://msdn.microsoft.com/en-us/library/system.threading.interlocked.read(v=vs.110).aspx"><code>Interlocked.Read</code></a> and <a href="https://msdn.microsoft.com/en-us/library/dk0121zy(v=vs.110).aspx"><code>Interlocked.Exchange</code></a> must still be used for safe multi-threaded access on these platforms.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

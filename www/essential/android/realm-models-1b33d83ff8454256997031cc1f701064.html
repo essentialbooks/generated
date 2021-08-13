@@ -127,7 +127,12 @@
 </div>
 
 
-      <p><a href="https://realm.io/docs/java/latest/#models">Realm models</a> must extend the <code>RealmObject</code> base class, they define the schema of the underlying database.</p><p>Supported field types are <code>boolean</code>, <code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code>, <code>float</code>, <code>double</code>, <code>String</code>, <code>Date</code>, <code>byte[]</code>, links to other <code>RealmObject</code>s, and <code>RealmList&lt;T extends RealmModel&gt;</code>.</p>
+      
+<p><a href="https://realm.io/docs/java/latest/#models">Realm models</a> must extend the <code>RealmObject</code> base class, they define the schema of the underlying database.
+</p>
+<p>Supported field types are <code>boolean</code>, <code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code>, <code>float</code>, <code>double</code>, <code>String</code>, <code>Date</code>, <code>byte[]</code>, links to other <code>RealmObject</code>s, and <code>RealmList&lt;T extends RealmModel&gt;</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Person extends RealmObject {
@@ -152,7 +157,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you add (or remove) a new field to your RealmObject (or you add a new RealmObject class or delete an existing one), a <strong>migration</strong> will be needed. You can either set <code>deleteIfMigrationNeeded()</code> in your <code>RealmConfiguration.Builder</code>, or define the necessary migration. Migration is also required when adding (or removing) <code>@Required</code>, or <code>@Index</code>, or <code>@PrimaryKey</code> annotation.</p><p>Relationships must be set manually, they are NOT automatic based on primary keys.</p><p>Since 0.88.0, it is also possible to use public fields instead of private fields/getters/setters in RealmObject classes.</p><p>It is also possible to implement <a href="https://realm.io/docs/java/latest/#realmmodel-interface"><code>RealmModel</code></a> instead of extending <code>RealmObject</code>, if the class is also annotated with <code>@RealmClass</code>.</p>
+</div>
+<p>If you add (or remove) a new field to your RealmObject (or you add a new RealmObject class or delete an existing one), a <strong>migration</strong> will be needed. You can either set <code>deleteIfMigrationNeeded()</code> in your <code>RealmConfiguration.Builder</code>, or define the necessary migration. Migration is also required when adding (or removing) <code>@Required</code>, or <code>@Index</code>, or <code>@PrimaryKey</code> annotation.
+</p>
+<p>Relationships must be set manually, they are NOT automatic based on primary keys.
+</p>
+<p>Since 0.88.0, it is also possible to use public fields instead of private fields/getters/setters in RealmObject classes.
+</p>
+<p>It is also possible to implement <a href="https://realm.io/docs/java/latest/#realmmodel-interface"><code>RealmModel</code></a> instead of extending <code>RealmObject</code>, if the class is also annotated with <code>@RealmClass</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@RealmClass
@@ -163,7 +177,13 @@ public class Person implements RealmModel {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In that case, methods like <code>person.deleteFromRealm()</code> or <code>person.addChangeListener()</code> are replaced with <code>RealmObject.deleteFromRealm(person)</code> and <code>RealmObject.addChangeListener(person)</code>.</p><p><a href="https://realm.io/docs/java/latest/#limitations">Limitations</a> are that by a <code>RealmObject</code>, only <code>RealmObject</code> can be extended, and there is no support for <code>final</code>, <code>volatile</code> and <code>transient</code> fields.</p><p>It is important that a <em>managed</em> RealmObject class can only be modified in a transaction. A <em>managed</em> RealmObject cannot be passed between threads.</p>
+</div>
+<p>In that case, methods like <code>person.deleteFromRealm()</code> or <code>person.addChangeListener()</code> are replaced with <code>RealmObject.deleteFromRealm(person)</code> and <code>RealmObject.addChangeListener(person)</code>.
+</p>
+<p><a href="https://realm.io/docs/java/latest/#limitations">Limitations</a> are that by a <code>RealmObject</code>, only <code>RealmObject</code> can be extended, and there is no support for <code>final</code>, <code>volatile</code> and <code>transient</code> fields.
+</p>
+<p>It is important that a <em>managed</em> RealmObject class can only be modified in a transaction. A <em>managed</em> RealmObject cannot be passed between threads.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

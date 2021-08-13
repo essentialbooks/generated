@@ -127,7 +127,49 @@
 </div>
 
 
-      <p>Let’s say we have <strong>8</strong> houses. We want to setup telephone lines between these houses. The edge between the houses represent the cost of setting line between two houses.</p><img class="img" src="/img/22a95efe3f7d0d13212bda1e165c8051503037af.png"><p>Our task is to set up lines in such a way that all the houses are connected and the cost of setting up the whole connection is minimum. Now how do we find that out? We can use <strong>Prim’s Algorithm</strong>.</p><p><a href="https://en.wikipedia.org/wiki/Prim&#x27;s_algorithm">Prim’s Algorithm</a> is a greedy algorithm that finds a minimum spanning tree for a weighted undirected graph. This means it finds a subset of the edges that forms a tree that includes every node, where the total weight of all the edges in the tree are minimized. The algorithm was developed in 1930 by Czech mathematician <a href="https://en.wikipedia.org/wiki/Vojt%C4%9Bch_Jarn%C3%ADk">Vojtěch Jarník</a> and later rediscovered and republished by computer scientist <a href="https://en.wikipedia.org/wiki/Robert_C._Prim">Robert Clay Prim</a> in 1957 and <a href="https://en.wikipedia.org/wiki/Edsger_W._Dijkstra">Edsger Wybe Dijkstra</a> in 1959. It is also known as <strong>DJP algorithm</strong>, <strong>Jarnik’s algorithm</strong>, <strong>Prim-Jarnik algorithm</strong> or <strong>Prim-Dijsktra algorithm</strong>.</p><p>Now let’s look at the technical terms first. If we create a graph, <strong>S</strong> using some nodes and edges of an undirected graph <strong>G</strong>, then <strong>S</strong> is called a <strong>subgraph</strong> of the graph <strong>G</strong>. Now <strong>S</strong> will be called a <strong>Spanning Tree</strong> if and only if:</p><ul id="f9609d3a-b5c7-48d1-84c8-6065d3d3014f" class="bulleted-list"><li>It contains all the nodes of <strong>G</strong>.</li><li>It is a tree, that means there is no cycle and all the nodes are connected.</li><li>There are <strong>(n-1)</strong> edges in the tree, where <strong>n</strong> is the number of nodes in <strong>G</strong>.</li></ul><p>There can be many <strong>Spanning Tree</strong>‘s of a graph. The <strong>Minimum Spanning Tree</strong> of a weighted undirected graph is a tree, such that sum of the weight of the edges is minimum. Now we’ll use <strong>Prim’s algorithm</strong> to find out the minimum spanning tree, that is how to set up the telephone lines in our example graph in such way that the cost of set up is minimum.</p><p>At first we’ll select a <strong>source</strong> node. Let’s say, <strong>node-1</strong> is our <strong>source</strong>. Now we’ll add the edge from <strong>node-1</strong> that has the minimum cost to our subgraph. Here we mark the edges that are in the subgraph using the color <strong>blue</strong>. Here <strong>1-5</strong> is our desired edge.</p><img class="img" src="/img/af56e3f917bf0282d69d4a49ced40d308a21b685.png"><p>Now we consider all the edges from <strong>node-1</strong> and <strong>node-5</strong> and take the minimum. Since <strong>1-5</strong> is already marked, we take <strong>1-2</strong>.</p><img class="img" src="/img/c144c1cb2b0a8145a3a734131d7e0a8627d10bb0.png"><p>This time, we consider <strong>node-1</strong>, <strong>node-2</strong> and <strong>node-5</strong> and take the minimum edge which is <strong>5-4</strong>.</p><img class="img" src="/img/199aebbe9c1aade9b3cbfe741e1ae95c9c89e7f9.png"><p>The next step is important. From <strong>node-1</strong>, <strong>node-2</strong>, <strong>node-5</strong> and <strong>node-4</strong>, the minimum edge is <strong>2-4</strong>. But if we select that one, it’ll create a cycle in our subgraph. This is because <strong>node-2</strong> and <strong>node-4</strong> are already in our subgraph. So taking edge <strong>2-4</strong> doesn’t benefit us. <em>We’ll select the edges in such way that it adds a new node in our subgraph</em>. So we select edge <strong>4-8</strong>.</p><img class="img" src="/img/37db1e04884085f11fa8970249bea90b4f4ff988.png"><p>If we continue this way, we’ll select edge <strong>8-6</strong>, <strong>6-7</strong> and <strong>4-3</strong>. Our subgraph will look like:</p><img class="img" src="/img/d2b1da433319e85655779f11a03af4409c85d9ec.png"><p>This is our desired subgraph, that’ll give us the minimum spanning tree. If we remove the edges that we didn’t select, we’ll get:</p><img class="img" src="/img/cfa2e1ecb4f9f056101b11060f1b967ffad85c52.png"><p>This is our <strong>minimum spanning tree</strong> (MST). So the cost of setting up the telephone connections is: <strong>4</strong> + <strong>2</strong> + <strong>5</strong> + <strong>11</strong> + <strong>9</strong> + <strong>2</strong> + <strong>1</strong> = <strong>34</strong>. And the set of houses and their connections are shown in the graph. There can be multiple <strong>MST</strong> of a graph. It depends on the <strong>source</strong> node we choose.</p><p>The pseudo-code of the algorithm is given below:</p>
+      
+<p>Let’s say we have <strong>8</strong> houses. We want to setup telephone lines between these houses. The edge between the houses represent the cost of setting line between two houses.
+</p>
+<img class="img" src="/img/22a95efe3f7d0d13212bda1e165c8051503037af.png">
+<p>Our task is to set up lines in such a way that all the houses are connected and the cost of setting up the whole connection is minimum. Now how do we find that out? We can use <strong>Prim’s Algorithm</strong>.
+</p>
+<p><a href="https://en.wikipedia.org/wiki/Prim&#x27;s_algorithm">Prim’s Algorithm</a> is a greedy algorithm that finds a minimum spanning tree for a weighted undirected graph. This means it finds a subset of the edges that forms a tree that includes every node, where the total weight of all the edges in the tree are minimized. The algorithm was developed in 1930 by Czech mathematician <a href="https://en.wikipedia.org/wiki/Vojt%C4%9Bch_Jarn%C3%ADk">Vojtěch Jarník</a> and later rediscovered and republished by computer scientist <a href="https://en.wikipedia.org/wiki/Robert_C._Prim">Robert Clay Prim</a> in 1957 and <a href="https://en.wikipedia.org/wiki/Edsger_W._Dijkstra">Edsger Wybe Dijkstra</a> in 1959. It is also known as <strong>DJP algorithm</strong>, <strong>Jarnik’s algorithm</strong>, <strong>Prim-Jarnik algorithm</strong> or <strong>Prim-Dijsktra algorithm</strong>.
+</p>
+<p>Now let’s look at the technical terms first. If we create a graph, <strong>S</strong> using some nodes and edges of an undirected graph <strong>G</strong>, then <strong>S</strong> is called a <strong>subgraph</strong> of the graph <strong>G</strong>. Now <strong>S</strong> will be called a <strong>Spanning Tree</strong> if and only if:
+</p>
+  <ul id="f9609d3a-b5c7-48d1-84c8-6065d3d3014f" class="bulleted-list">
+    <li>It contains all the nodes of <strong>G</strong>.
+    </li>
+    <li>It is a tree, that means there is no cycle and all the nodes are connected.
+    </li>
+    <li>There are <strong>(n-1)</strong> edges in the tree, where <strong>n</strong> is the number of nodes in <strong>G</strong>.
+    </li>
+  </ul>
+<p>There can be many <strong>Spanning Tree</strong>‘s of a graph. The <strong>Minimum Spanning Tree</strong> of a weighted undirected graph is a tree, such that sum of the weight of the edges is minimum. Now we’ll use <strong>Prim’s algorithm</strong> to find out the minimum spanning tree, that is how to set up the telephone lines in our example graph in such way that the cost of set up is minimum.
+</p>
+<p>At first we’ll select a <strong>source</strong> node. Let’s say, <strong>node-1</strong> is our <strong>source</strong>. Now we’ll add the edge from <strong>node-1</strong> that has the minimum cost to our subgraph. Here we mark the edges that are in the subgraph using the color <strong>blue</strong>. Here <strong>1-5</strong> is our desired edge.
+</p>
+<img class="img" src="/img/af56e3f917bf0282d69d4a49ced40d308a21b685.png">
+<p>Now we consider all the edges from <strong>node-1</strong> and <strong>node-5</strong> and take the minimum. Since <strong>1-5</strong> is already marked, we take <strong>1-2</strong>.
+</p>
+<img class="img" src="/img/c144c1cb2b0a8145a3a734131d7e0a8627d10bb0.png">
+<p>This time, we consider <strong>node-1</strong>, <strong>node-2</strong> and <strong>node-5</strong> and take the minimum edge which is <strong>5-4</strong>.
+</p>
+<img class="img" src="/img/199aebbe9c1aade9b3cbfe741e1ae95c9c89e7f9.png">
+<p>The next step is important. From <strong>node-1</strong>, <strong>node-2</strong>, <strong>node-5</strong> and <strong>node-4</strong>, the minimum edge is <strong>2-4</strong>. But if we select that one, it’ll create a cycle in our subgraph. This is because <strong>node-2</strong> and <strong>node-4</strong> are already in our subgraph. So taking edge <strong>2-4</strong> doesn’t benefit us. <em>We’ll select the edges in such way that it adds a new node in our subgraph</em>. So we select edge <strong>4-8</strong>.
+</p>
+<img class="img" src="/img/37db1e04884085f11fa8970249bea90b4f4ff988.png">
+<p>If we continue this way, we’ll select edge <strong>8-6</strong>, <strong>6-7</strong> and <strong>4-3</strong>. Our subgraph will look like:
+</p>
+<img class="img" src="/img/d2b1da433319e85655779f11a03af4409c85d9ec.png">
+<p>This is our desired subgraph, that’ll give us the minimum spanning tree. If we remove the edges that we didn’t select, we’ll get:
+</p>
+<img class="img" src="/img/cfa2e1ecb4f9f056101b11060f1b967ffad85c52.png">
+<p>This is our <strong>minimum spanning tree</strong> (MST). So the cost of setting up the telephone connections is: <strong>4</strong> + <strong>2</strong> + <strong>5</strong> + <strong>11</strong> + <strong>9</strong> + <strong>2</strong> + <strong>1</strong> = <strong>34</strong>. And the set of houses and their connections are shown in the graph. There can be multiple <strong>MST</strong> of a graph. It depends on the <strong>source</strong> node we choose.
+</p>
+<p>The pseudo-code of the algorithm is given below:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure PrimsMST(Graph):     // here Graph is a non-empty connected weighted graph
@@ -145,7 +187,14 @@ Return Vnew and Enew</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Complexity:</strong></p><p>Time complexity of the above naive approach is <strong>O(V²)</strong>. It uses adjacency matrix. We can reduce the complexity using priority queue. When we add a new node to <strong>Vnew</strong>, we can add its adjacent edges in the priority queue. Then pop the minimum weighted edge from it. Then the complexity will be: <strong>O(ElogE)</strong>, where <strong>E</strong> is the number of edges. Again a Binary Heap can be constructed to reduce the complexity to <strong>O(ElogV)</strong>.</p><p>The pseudo-code using Priority Queue is given below:</p>
+</div>
+<p><strong>Complexity:</strong>
+</p>
+<p>Time complexity of the above naive approach is <strong>O(V²)</strong>. It uses adjacency matrix. We can reduce the complexity using priority queue. When we add a new node to <strong>Vnew</strong>, we can add its adjacent edges in the priority queue. Then pop the minimum weighted edge from it. Then the complexity will be: <strong>O(ElogE)</strong>, where <strong>E</strong> is the number of edges. Again a Binary Heap can be constructed to reduce the complexity to <strong>O(ElogV)</strong>.
+</p>
+<p>The pseudo-code using Priority Queue is given below:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure MSTPrim(Graph, source):
@@ -170,7 +219,12 @@ end while</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here <strong>key[]</strong> stores the minimum cost of traversing <strong>node-v</strong>. <strong>parent[]</strong> is used to store the parent node. It is useful for traversing and printing the tree.</p><p>Below is a simple program in Java:</p>
+</div>
+<p>Here <strong>key[]</strong> stores the minimum cost of traversing <strong>node-v</strong>. <strong>parent[]</strong> is used to store the parent node. It is useful for traversing and printing the tree.
+</p>
+<p>Below is a simple program in Java:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import java.util.*;
@@ -278,7 +332,12 @@ public class Graph
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Compile the above code using <code>javac Graph.java</code></p><p>Output:</p>
+</div>
+<p>Compile the above code using <code>javac Graph.java</code>
+</p>
+<p>Output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ java Graph

@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>One of the primary uses for <code>this</code> cv-qualifiers is <a href="http://stackoverflow.com/documentation/c%2B%2B/7217/const-correctness#t=201610191431578985982"><code><em>const</em></code></a><a href="http://stackoverflow.com/documentation/c%2B%2B/7217/const-correctness#t=201610191431578985982"><em> correctness</em></a>. This is the practice of guaranteeing that only accesses that <em>need</em> to modify an object are <em>able</em> to modify the object, and that any (member or non-member) function that doesn’t need to modify an object doesn’t have write access to that object (whether directly or indirectly). This prevents unintentional modifications, making code less errorprone. It also allows any function that doesn’t need to modify state to be able to take either a <code>const</code> or non-<code>const</code> object, without needing to rewrite or overload the function.</p><p><code>const</code> correctness, due to its nature, starts at the bottom up: Any class member function that doesn’t need to change state is <a href="http://stackoverflow.com/documentation/c%2B%2B/7146/the-this-pointer/24492/this-pointer-cv-qualifiers#t=201610191432572968878">declared as </a><a href="http://stackoverflow.com/documentation/c%2B%2B/7146/the-this-pointer/24492/this-pointer-cv-qualifiers#t=201610191432572968878"><code>const</code></a>, so that it can be called on <code>const</code> instances. This, in turn, allows passed-by-reference parameters to be declared <code>const</code> when they don’t need to be modified, which allows functions to take either <code>const</code> or non-<code>const</code> objects without complaining, and <code>const</code>-ness can propagate outwards in this manner. Due to this, getters are frequently <code>const</code>, as are any other functions that don’t need to modify logical state.</p>
+      
+<p>One of the primary uses for <code>this</code> cv-qualifiers is <a href="http://stackoverflow.com/documentation/c%2B%2B/7217/const-correctness#t=201610191431578985982"><code><em>const</em></code></a><a href="http://stackoverflow.com/documentation/c%2B%2B/7217/const-correctness#t=201610191431578985982"><em> correctness</em></a>. This is the practice of guaranteeing that only accesses that <em>need</em> to modify an object are <em>able</em> to modify the object, and that any (member or non-member) function that doesn’t need to modify an object doesn’t have write access to that object (whether directly or indirectly). This prevents unintentional modifications, making code less errorprone. It also allows any function that doesn’t need to modify state to be able to take either a <code>const</code> or non-<code>const</code> object, without needing to rewrite or overload the function.
+</p>
+<p><code>const</code> correctness, due to its nature, starts at the bottom up: Any class member function that doesn’t need to change state is <a href="http://stackoverflow.com/documentation/c%2B%2B/7146/the-this-pointer/24492/this-pointer-cv-qualifiers#t=201610191432572968878">declared as </a><a href="http://stackoverflow.com/documentation/c%2B%2B/7146/the-this-pointer/24492/this-pointer-cv-qualifiers#t=201610191432572968878"><code>const</code></a>, so that it can be called on <code>const</code> instances. This, in turn, allows passed-by-reference parameters to be declared <code>const</code> when they don’t need to be modified, which allows functions to take either <code>const</code> or non-<code>const</code> objects without complaining, and <code>const</code>-ness can propagate outwards in this manner. Due to this, getters are frequently <code>const</code>, as are any other functions that don’t need to modify logical state.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class ConstIncorrect {
@@ -178,7 +183,9 @@ but_i_can.do_nothing();          // Good.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As illustrated by the comments on <code>ConstIncorrect</code> and <code>ConstCorrect</code>, properly cv-qualifying functions also serves as documentation. If a class is <code>const</code> correct, any function that isn’t <code>const</code> can safely be assumed to change state, and any function that is <code>const</code> can safely be assumed not to change state.</p>
+</div>
+<p>As illustrated by the comments on <code>ConstIncorrect</code> and <code>ConstCorrect</code>, properly cv-qualifying functions also serves as documentation. If a class is <code>const</code> correct, any function that isn’t <code>const</code> can safely be assumed to change state, and any function that is <code>const</code> can safely be assumed not to change state.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

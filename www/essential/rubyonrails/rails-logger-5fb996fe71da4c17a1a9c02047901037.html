@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Always use <code>Rails.logger.{debug|info|warn|error|fatal}</code> rather than <code>puts</code>. This allows your logs to fit into the standard log format, have a timestamp and have a level so you choose whether they are important enough to be shown in a specific environment. You can see the separate log files for your application under <code>log/</code> directory with your rails app environment name. like: <code>development.log</code> or <code>production.log</code> or <code>staging.log</code></p><p>You can easily rotating rails production logs with LogRotate.You just have to do small configuration as below</p><p>Open <code>/etc/logrotate.conf</code> with your favourite linux editor <code>vim</code> or <code>nano</code> and add the below code in this file at bottom.</p>
+      
+<p>Always use <code>Rails.logger.{debug|info|warn|error|fatal}</code> rather than <code>puts</code>. This allows your logs to fit into the standard log format, have a timestamp and have a level so you choose whether they are important enough to be shown in a specific environment. You can see the separate log files for your application under <code>log/</code> directory with your rails app environment name. like: <code>development.log</code> or <code>production.log</code> or <code>staging.log</code>
+</p>
+<p>You can easily rotating rails production logs with LogRotate.You just have to do small configuration as below
+</p>
+<p>Open <code>/etc/logrotate.conf</code> with your favourite linux editor <code>vim</code> or <code>nano</code> and add the below code in this file at bottom.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/YOUR/RAILSAPP/PATH/log/*.log { 
@@ -143,7 +150,31 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So, <strong>How It Works</strong> This is fantastically easy. Each bit of the configuration does the following:</p><ul id="bd6f8125-2332-4348-84c6-b5c869860845" class="bulleted-list"><li><strong>daily</strong> – Rotate the log files each day. You can also use weekly or monthly here instead.</li><li><strong>missingok</strong> – If the log file doesn’t exist,ignore it</li><li><strong>rotate 7</strong> – Only keep 7 days of logs around</li><li><strong>compress</strong> – GZip the log file on rotation</li><li><strong>delaycompress</strong> – Rotate the file one day, then compress it the next day so we can be sure that it won’t interfere with the Rails server</li><li><strong>notifempty</strong> – Don’t rotate the file if the logs are empty</li><li><strong>copytruncate</strong> – Copy the log file and then empties it. This makes sure that the log file Rails is writing to always exists so you won’t get problems because the file does not actually change. If you don’t use this, you would need to restart your Rails application each time.</li></ul><p><strong>Running Logrotate</strong> Since we just wrote this configuration, you want to test it.</p><p>To run logrotate manually, just do: <code>sudo /usr/sbin/logrotate -f /etc/logrotate.conf</code></p><p>That’s it.</p>
+</div>
+<p>So, <strong>How It Works</strong> This is fantastically easy. Each bit of the configuration does the following:
+</p>
+  <ul id="bd6f8125-2332-4348-84c6-b5c869860845" class="bulleted-list">
+    <li><strong>daily</strong> – Rotate the log files each day. You can also use weekly or monthly here instead.
+    </li>
+    <li><strong>missingok</strong> – If the log file doesn’t exist,ignore it
+    </li>
+    <li><strong>rotate 7</strong> – Only keep 7 days of logs around
+    </li>
+    <li><strong>compress</strong> – GZip the log file on rotation
+    </li>
+    <li><strong>delaycompress</strong> – Rotate the file one day, then compress it the next day so we can be sure that it won’t interfere with the Rails server
+    </li>
+    <li><strong>notifempty</strong> – Don’t rotate the file if the logs are empty
+    </li>
+    <li><strong>copytruncate</strong> – Copy the log file and then empties it. This makes sure that the log file Rails is writing to always exists so you won’t get problems because the file does not actually change. If you don’t use this, you would need to restart your Rails application each time.
+    </li>
+  </ul>
+<p><strong>Running Logrotate</strong> Since we just wrote this configuration, you want to test it.
+</p>
+<p>To run logrotate manually, just do: <code>sudo /usr/sbin/logrotate -f /etc/logrotate.conf</code>
+</p>
+<p>That’s it.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

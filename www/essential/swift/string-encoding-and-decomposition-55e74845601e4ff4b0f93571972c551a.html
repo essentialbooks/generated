@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>A Swift <a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/StringsAndCharacters.html">String</a> is made of <a href="http://www.unicode.org/standard/standard.html">Unicode</a> code points. It can be decomposed and encoded in several different ways.</p>
+      
+<p>A Swift <a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/StringsAndCharacters.html">String</a> is made of <a href="http://www.unicode.org/standard/standard.html">Unicode</a> code points. It can be decomposed and encoded in several different ways.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let str = &#34;ที่👌①!&#34;</pre>
@@ -135,7 +138,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="980d20cd-8f55-4661-9cd1-f8dfa5a8ff90" class="">Decomposing Strings<a class="header-anchor" href="#980d20cd-8f55-4661-9cd1-f8dfa5a8ff90" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>A string’s <code>characters</code> are Unicode <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Strings/Articles/stringsClusters.html">extended grapheme clusters</a>:</p>
+</div>
+  <h1 id="980d20cd-8f55-4661-9cd1-f8dfa5a8ff90" class="">Decomposing Strings
+  <a class="header-anchor" href="#980d20cd-8f55-4661-9cd1-f8dfa5a8ff90" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>A string’s <code>characters</code> are Unicode <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Strings/Articles/stringsClusters.html">extended grapheme clusters</a>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Array(str.characters)  // [&#34;ที่&#34;, &#34;👌&#34;, &#34;①&#34;, &#34;!&#34;]</pre>
@@ -143,7 +152,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>unicodeScalars</code> are the Unicode <a href="https://en.wikipedia.org/wiki/Code_point">code points</a> that make up a string (notice that <code>ที่</code> is one grapheme cluster, but 3 code points — 3607, 3637, 3656 — so the length of the resulting array is not the same as with <code>characters</code>):</p>
+</div>
+<p>The <code>unicodeScalars</code> are the Unicode <a href="https://en.wikipedia.org/wiki/Code_point">code points</a> that make up a string (notice that <code>ที่</code> is one grapheme cluster, but 3 code points — 3607, 3637, 3656 — so the length of the resulting array is not the same as with <code>characters</code>):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">str.unicodeScalars.map{ $0.value }  // [3607, 3637, 3656, 128076, 9312, 33]</pre>
@@ -151,7 +163,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can encode and decompose strings as <a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a> (a sequence of <code>UInt8</code>s) or <a href="https://en.wikipedia.org/wiki/UTF-16">UTF-16</a> (a sequence of <code>UInt16</code>s):</p>
+</div>
+<p>You can encode and decompose strings as <a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a> (a sequence of <code>UInt8</code>s) or <a href="https://en.wikipedia.org/wiki/UTF-16">UTF-16</a> (a sequence of <code>UInt16</code>s):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Array(str.utf8)   // [224, 184, 151, 224, 184, 181, 224, 185, 136, 240, 159, 145, 140, 226, 145, 160, 33]
@@ -160,7 +175,13 @@ Array(str.utf16)  // [3607, 3637, 3656, 55357, 56396, 9312, 33]</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="cb077865-6db1-4b27-a976-e2a480a0a8d9" class="">String Length and Iteration<a class="header-anchor" href="#cb077865-6db1-4b27-a976-e2a480a0a8d9" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>A string’s <code>characters</code>, <code>unicodeScalars</code>, <code>utf8</code>, and <code>utf16</code> are all <a href="https://developer.apple.com/library/ios/documentation/Swift/Reference/Swift_CollectionType_Protocol/index.html">Collection</a>s, so you can get their <code>count</code> and iterate over them:</p>
+</div>
+  <h1 id="cb077865-6db1-4b27-a976-e2a480a0a8d9" class="">String Length and Iteration
+  <a class="header-anchor" href="#cb077865-6db1-4b27-a976-e2a480a0a8d9" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>A string’s <code>characters</code>, <code>unicodeScalars</code>, <code>utf8</code>, and <code>utf16</code> are all <a href="https://developer.apple.com/library/ios/documentation/Swift/Reference/Swift_CollectionType_Protocol/index.html">Collection</a>s, so you can get their <code>count</code> and iterate over them:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// NOTE: These operations are NOT necessarily fast/cheap! 
@@ -174,6 +195,7 @@ str.utf16.count          // 7</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for c in str.characters { // ...

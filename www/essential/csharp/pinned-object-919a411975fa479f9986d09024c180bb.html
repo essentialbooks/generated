@@ -127,7 +127,24 @@
 </div>
 
 
-      <p><strong>GC</strong> (Garbage Collector) is responsible for cleaning our garbage.</p><p>While <strong>GC</strong> cleans our garbage, he removes the unused objects from the managed heap which cause heap fragmentation. When <strong>GC</strong> is done with the removal, it performs a heap compression (defragmintation) which involves moving objects on the heap.</p><p>Since <strong>GC</strong> isn’t deterministic, when passing managed object reference/pointer to native code, <strong>GC</strong> can kick in at any time, if it occurs just after Inerop call, there is a very good possibility that object (which reference passed to native) will be moved on the managed heap - as a result, we get an invalid reference on managed side.</p><p>In this scenario, you should <strong>pin</strong> the object before passing it to native code.</p><p><strong>Pinned Object</strong></p><p>Pinned object is an object that is not allowed to move by GC.</p><p><strong>Gc Pinned Handle</strong></p><p>You can create a pin object using <strong>Gc.Alloc</strong> method</p>
+      
+<p><strong>GC</strong> (Garbage Collector) is responsible for cleaning our garbage.
+</p>
+<p>While <strong>GC</strong> cleans our garbage, he removes the unused objects from the managed heap which cause heap fragmentation. When <strong>GC</strong> is done with the removal, it performs a heap compression (defragmintation) which involves moving objects on the heap.
+</p>
+<p>Since <strong>GC</strong> isn’t deterministic, when passing managed object reference/pointer to native code, <strong>GC</strong> can kick in at any time, if it occurs just after Inerop call, there is a very good possibility that object (which reference passed to native) will be moved on the managed heap - as a result, we get an invalid reference on managed side.
+</p>
+<p>In this scenario, you should <strong>pin</strong> the object before passing it to native code.
+</p>
+<p><strong>Pinned Object</strong>
+</p>
+<p>Pinned object is an object that is not allowed to move by GC.
+</p>
+<p><strong>Gc Pinned Handle</strong>
+</p>
+<p>You can create a pin object using <strong>Gc.Alloc</strong> method
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">GCHandle</span> <span class="n">handle</span> <span class="p">=</span> <span class="n">GCHandle</span><span class="p">.</span><span class="n">Alloc</span><span class="p">(</span><span class="n">yourObject</span><span class="p">,</span> <span class="n">GCHandleType</span><span class="p">.</span><span class="n">Pinned</span><span class="p">);</span>
@@ -136,7 +153,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="a9beccc4-0c01-472b-ae02-9404d0034ebc" class="bulleted-list"><li>Obtaining a pinned <strong>GCHandle</strong> to managed object marks a specific object as one that cannot be moved by <strong>GC</strong>, until freeing the handle</li></ul><p>Example:</p>
+</div>
+  <ul id="a9beccc4-0c01-472b-ae02-9404d0034ebc" class="bulleted-list">
+    <li>Obtaining a pinned <strong>GCHandle</strong> to managed object marks a specific object as one that cannot be moved by <strong>GC</strong>, until freeing the handle
+    </li>
+  </ul>
+<p>Example:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="na">[DllImport(&#34;kernel32.dll&#34;, SetLastError = true)]</span>
@@ -164,7 +188,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Precautions</strong></p><ul id="bfa5cfd6-1aec-433c-809c-311c69586bb2" class="bulleted-list"><li>When pinning (especially large ones) object try to release the pinned <strong>GcHandle</strong> as fast as possible, since it interrupt heap defragmentation.</li><li>If you forget to free <strong>GcHandle</strong> nothing will. Do it in a safe code section (such as finaly)</li></ul>
+</div>
+<p><strong>Precautions</strong>
+</p>
+  <ul id="bfa5cfd6-1aec-433c-809c-311c69586bb2" class="bulleted-list">
+    <li>When pinning (especially large ones) object try to release the pinned <strong>GcHandle</strong> as fast as possible, since it interrupt heap defragmentation.
+    </li>
+    <li>If you forget to free <strong>GcHandle</strong> nothing will. Do it in a safe code section (such as finaly)
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

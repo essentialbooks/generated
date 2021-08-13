@@ -127,7 +127,24 @@
 </div>
 
 
-      <p><em>Find f(n): nth Fibonacci number.</em> The problem is quite easy when <strong>n</strong> is relatively small. We can use simple recursion, <code>f(n) = f(n-1) + f(n-2)</code>, or we can use dynamic programming approach to avoid the calculation of same function over and over again. But what will you do if the problem says, <strong>Given 0 &lt; n &lt; 10⁹, find f(n) mod 999983?</strong> Dynamic programming will fail, so how do we tackle this problem?</p><p>First let’s see how matrix exponentiation can help to represent recursive relation.</p><p><strong>Prerequisites:</strong></p><ul id="18f56aee-704b-4b3c-804f-ccb271089f87" class="bulleted-list"><li>Given two matrices, know how to find their product. Further, given the product matrix of two matrices, and one of them, know how to find the other matrix.</li><li>Given a matrix of size <strong>d X d</strong>, know how to find its nth power in <strong>O(d3log(n))</strong>.</li></ul><p><strong>Patterns:</strong></p><p>At first we need a recursive relation and we want to find a matrix <strong>M</strong> which can lead us to the desired state from a set of already known states. Let’s assume that, we know the <strong>k</strong> states of a given recurrence relation and we want to find the <strong>(k+1)th</strong> state. Let <strong>M</strong> be a <strong>k X k</strong> matrix, and we build a matrix <strong>A:[k X 1]</strong> from the known states of the recurrence relation, now we want to get a matrix <strong>B:[k X 1]</strong> which will represent the set of next states, i. e. <strong>M X A = B</strong> as shown below:</p>
+      
+<p><em>Find f(n): nth Fibonacci number.</em> The problem is quite easy when <strong>n</strong> is relatively small. We can use simple recursion, <code>f(n) = f(n-1) + f(n-2)</code>, or we can use dynamic programming approach to avoid the calculation of same function over and over again. But what will you do if the problem says, <strong>Given 0 &lt; n &lt; 10⁹, find f(n) mod 999983?</strong> Dynamic programming will fail, so how do we tackle this problem?
+</p>
+<p>First let’s see how matrix exponentiation can help to represent recursive relation.
+</p>
+<p><strong>Prerequisites:</strong>
+</p>
+  <ul id="18f56aee-704b-4b3c-804f-ccb271089f87" class="bulleted-list">
+    <li>Given two matrices, know how to find their product. Further, given the product matrix of two matrices, and one of them, know how to find the other matrix.
+    </li>
+    <li>Given a matrix of size <strong>d X d</strong>, know how to find its nth power in <strong>O(d3log(n))</strong>.
+    </li>
+  </ul>
+<p><strong>Patterns:</strong>
+</p>
+<p>At first we need a recursive relation and we want to find a matrix <strong>M</strong> which can lead us to the desired state from a set of already known states. Let’s assume that, we know the <strong>k</strong> states of a given recurrence relation and we want to find the <strong>(k+1)th</strong> state. Let <strong>M</strong> be a <strong>k X k</strong> matrix, and we build a matrix <strong>A:[k X 1]</strong> from the known states of the recurrence relation, now we want to get a matrix <strong>B:[k X 1]</strong> which will represent the set of next states, i. e. <strong>M X A = B</strong> as shown below:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">|  f(n)  |     | f(n+1) |
@@ -139,7 +156,12 @@ M X | f(n-2) |  =  | f(n-1) |
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So, if we can design <strong>M</strong> accordingly, our job will be done! The matrix will then be used to represent the recurrence relation.</p><p><strong>Type 1:</strong> Let’s start with the simplest one, <code>f(n) = f(n-1) + f(n-2)</code> We get, <code>f(n+1) = f(n) + f(n-1)</code>. Let’s assume, we know <code>f(n)</code> and <code>f(n-1)</code>; We want to find out <code>f(n+1)</code>. From the situation stated above, matrix <strong>A</strong> and matrix <strong>B</strong> can be formed as shown below:</p>
+</div>
+<p>So, if we can design <strong>M</strong> accordingly, our job will be done! The matrix will then be used to represent the recurrence relation.
+</p>
+<p><strong>Type 1:</strong> Let’s start with the simplest one, <code>f(n) = f(n-1) + f(n-2)</code> We get, <code>f(n+1) = f(n) + f(n-1)</code>. Let’s assume, we know <code>f(n)</code> and <code>f(n-1)</code>; We want to find out <code>f(n+1)</code>. From the situation stated above, matrix <strong>A</strong> and matrix <strong>B</strong> can be formed as shown below:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Matrix A          Matrix B
@@ -150,7 +172,10 @@ M X | f(n-2) |  =  | f(n-1) |
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>[Note: Matrix <strong>A</strong> will be always designed in such a way that, every state on which <code>f(n+1)</code> depends, will be present] Now, we need to design a <strong>2X2</strong> matrix <strong>M</strong> such that, it satisfies <strong>M X A = B</strong> as stated above. The first element of <strong>B</strong> is <code>f(n+1)</code> which is actually <code>f(n) + f(n-1)</code>. To get this, from matrix <strong>A</strong>, we need, <strong>1 X f(n)</strong> and <strong>1 X f(n-1)</strong>. So the first row of <strong>M</strong> will be <strong>[1 1]</strong>.</p>
+</div>
+<p>[Note: Matrix <strong>A</strong> will be always designed in such a way that, every state on which <code>f(n+1)</code> depends, will be present] Now, we need to design a <strong>2X2</strong> matrix <strong>M</strong> such that, it satisfies <strong>M X A = B</strong> as stated above. The first element of <strong>B</strong> is <code>f(n+1)</code> which is actually <code>f(n) + f(n-1)</code>. To get this, from matrix <strong>A</strong>, we need, <strong>1 X f(n)</strong> and <strong>1 X f(n-1)</strong>. So the first row of <strong>M</strong> will be <strong>[1 1]</strong>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">| 1   1 |  X  |  f(n)  |  =  | f(n+1) |
@@ -159,7 +184,10 @@ M X | f(n-2) |  =  | f(n-1) |
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>[Note: —– means we are not concerned about this value.] Similarly, 2nd item of <strong>B</strong> is <code>f(n)</code> which can be got by simply taking <strong>1 X f(n)</strong> from <strong>A</strong>, so the 2nd row of <strong>M</strong> is [1 0].</p>
+</div>
+<p>[Note: —– means we are not concerned about this value.] Similarly, 2nd item of <strong>B</strong> is <code>f(n)</code> which can be got by simply taking <strong>1 X f(n)</strong> from <strong>A</strong>, so the 2nd row of <strong>M</strong> is [1 0].
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">| ----- |  X  |  f(n)  |  =  | ------ |
@@ -168,7 +196,10 @@ M X | f(n-2) |  =  | f(n-1) |
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then we get our desired <strong>2 X 2</strong> matrix <strong>M</strong>.</p>
+</div>
+<p>Then we get our desired <strong>2 X 2</strong> matrix <strong>M</strong>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">| 1   1 |  X  |  f(n)  |  =  | f(n+1) |
@@ -177,7 +208,14 @@ M X | f(n-2) |  =  | f(n-1) |
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>These matrices are simply derived using matrix multiplication.</p><p><strong>Type 2:</strong></p><p>Let’s make it a little complex: find <code>f(n) = a X f(n-1) + b X f(n-2)</code>, where <strong>a</strong> and <strong>b</strong> are constants. This tells us, <code>f(n+1) = a X f(n) + b X f(n-1)</code>. By this far, this should be clear that the dimension of the matrices will be equal to the number of dependencies, i.e. in this particular example, again 2. So for <strong>A</strong> and <strong>B</strong>, we can build two matrices of size <strong>2 X 1</strong>:</p>
+</div>
+<p>These matrices are simply derived using matrix multiplication.
+</p>
+<p><strong>Type 2:</strong>
+</p>
+<p>Let’s make it a little complex: find <code>f(n) = a X f(n-1) + b X f(n-2)</code>, where <strong>a</strong> and <strong>b</strong> are constants. This tells us, <code>f(n+1) = a X f(n) + b X f(n-1)</code>. By this far, this should be clear that the dimension of the matrices will be equal to the number of dependencies, i.e. in this particular example, again 2. So for <strong>A</strong> and <strong>B</strong>, we can build two matrices of size <strong>2 X 1</strong>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Matrix A             Matrix B
@@ -187,7 +225,10 @@ M X | f(n-2) |  =  | f(n-1) |
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now for <code>f(n+1) = a X f(n) + b X f(n-1)</code>, we need [a, b] in the first row of objective matrix <strong>M</strong>. And for the 2nd item in <strong>B</strong>, i.e. <code>f(n)</code> we already have that in matrix <strong>A</strong>, so we just take that, which leads, the 2nd row of the matrix M to [1 0]. This time we get:</p>
+</div>
+<p>Now for <code>f(n+1) = a X f(n) + b X f(n-1)</code>, we need [a, b] in the first row of objective matrix <strong>M</strong>. And for the 2nd item in <strong>B</strong>, i.e. <code>f(n)</code> we already have that in matrix <strong>A</strong>, so we just take that, which leads, the 2nd row of the matrix M to [1 0]. This time we get:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">| a   b |  X  |  f(n)  |  =  | f(n+1) |
@@ -196,7 +237,16 @@ M X | f(n-2) |  =  | f(n-1) |
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Pretty simple, eh?</p><p><strong>Type 3:</strong></p><p>If you’ve survived through to this stage, you’ve grown much older, now let’s face a bit complex relation: find <code>f(n) = a X f(n-1) + c X f(n-3)</code>? Ooops! A few minutes ago, all we saw were contiguous states, but here, the state <strong>f(n-2)</strong> is missing. Now?</p><p>Actually this is not a problem anymore, we can convert the relation as follows: <code>f(n) = a X f(n-1) + 0 X f(n-2) + c X f(n-3)</code>, deducing <code>f(n+1) = a X f(n) + 0 X f(n-1) + c X f(n-2)</code>. Now, we see that, this is actually a form described in Type 2. So here the objective matrix <strong>M</strong> will be <strong>3 X 3</strong>, and the elements are:</p>
+</div>
+<p>Pretty simple, eh?
+</p>
+<p><strong>Type 3:</strong>
+</p>
+<p>If you’ve survived through to this stage, you’ve grown much older, now let’s face a bit complex relation: find <code>f(n) = a X f(n-1) + c X f(n-3)</code>? Ooops! A few minutes ago, all we saw were contiguous states, but here, the state <strong>f(n-2)</strong> is missing. Now?
+</p>
+<p>Actually this is not a problem anymore, we can convert the relation as follows: <code>f(n) = a X f(n-1) + 0 X f(n-2) + c X f(n-3)</code>, deducing <code>f(n+1) = a X f(n) + 0 X f(n-1) + c X f(n-2)</code>. Now, we see that, this is actually a form described in Type 2. So here the objective matrix <strong>M</strong> will be <strong>3 X 3</strong>, and the elements are:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">| a 0 c |     |  f(n)  |     | f(n+1) |
@@ -206,7 +256,14 @@ M X | f(n-2) |  =  | f(n-1) |
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>These are calculated in the same way as type 2, if you find it difficult, try it on pen and paper.</p><p><strong>Type 4:</strong></p><p>Life is getting complex as hell, and Mr, Problem now asks you to find <code>f(n) = f(n-1) + f(n-2) + c</code> where <strong>c</strong> is any constant. Now this is a new one and all we have seen in past, after the multiplication, each state in <strong>A</strong> transforms to its next state in <strong>B</strong>.</p>
+</div>
+<p>These are calculated in the same way as type 2, if you find it difficult, try it on pen and paper.
+</p>
+<p><strong>Type 4:</strong>
+</p>
+<p>Life is getting complex as hell, and Mr, Problem now asks you to find <code>f(n) = f(n-1) + f(n-2) + c</code> where <strong>c</strong> is any constant. Now this is a new one and all we have seen in past, after the multiplication, each state in <strong>A</strong> transforms to its next state in <strong>B</strong>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">f(n) = f(n-1) + f(n-2) + c
@@ -217,7 +274,10 @@ f(n+2) = f(n+1) + f(n) + c
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So , normally we can’t get it through previous fashion, but how about we add <strong>c</strong> as a state:</p>
+</div>
+<p>So , normally we can’t get it through previous fashion, but how about we add <strong>c</strong> as a state:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">|  f(n)  |   | f(n+1) |
@@ -227,7 +287,10 @@ M X | f(n-1) | = |  f(n)  |
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, its not much hard to design <strong>M</strong>. Here’s how its done, but don’t forget to verify:</p>
+</div>
+<p>Now, its not much hard to design <strong>M</strong>. Here’s how its done, but don’t forget to verify:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">| 1 1 1 |     |  f(n)  |     | f(n+1) |
@@ -237,7 +300,12 @@ M X | f(n-1) | = |  f(n)  |
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Type 5:</strong></p><p>Let’s put it altogether: find <code>f(n) = a X f(n-1) + c X f(n-3) + d X f(n-4) + e</code>. Let’s leave it as an exercise for you. First try to find out the states and matrix <strong>M</strong>. And check if it matches with your solution. Also find matrix <strong>A</strong> and <strong>B</strong>.</p>
+</div>
+<p><strong>Type 5:</strong>
+</p>
+<p>Let’s put it altogether: find <code>f(n) = a X f(n-1) + c X f(n-3) + d X f(n-4) + e</code>. Let’s leave it as an exercise for you. First try to find out the states and matrix <strong>M</strong>. And check if it matches with your solution. Also find matrix <strong>A</strong> and <strong>B</strong>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">| a 0 c d 1 |
@@ -249,7 +317,12 @@ M X | f(n-1) | = |  f(n)  |
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Type 6:</strong></p><p>Sometimes the recurrence is given like this:</p>
+</div>
+<p><strong>Type 6:</strong>
+</p>
+<p>Sometimes the recurrence is given like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">f(n) = f(n-1)   -&gt; if n is odd
@@ -258,7 +331,10 @@ f(n) = f(n-2)   -&gt; if n is even</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In short:</p>
+</div>
+<p>In short:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">f(n) = (n&amp;1) X f(n-1) + (!(n&amp;1)) X f(n-2)</pre>
@@ -266,7 +342,14 @@ f(n) = f(n-2)   -&gt; if n is even</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, we can split the functions in the basis of odd even and keep 2 different matrix for both of them and calculate them separately.</p><p><strong>Type 7:</strong></p><p>Feeling little too confident? Good for you. Sometimes we may need to maintain more than one recurrence, where they are interested. For example, let a recurrence re;atopm be:</p>
+</div>
+<p>Here, we can split the functions in the basis of odd even and keep 2 different matrix for both of them and calculate them separately.
+</p>
+<p><strong>Type 7:</strong>
+</p>
+<p>Feeling little too confident? Good for you. Sometimes we may need to maintain more than one recurrence, where they are interested. For example, let a recurrence re;atopm be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">g(n) = 2g(n-1) + 2g(n-2) + f(n)</pre>
@@ -274,7 +357,10 @@ f(n) = f(n-2)   -&gt; if n is even</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, recurrence <em>g(n)</em> is dependent upon <code>f(n)</code> and this can be calculated in the same matrix but of increased dimensions. From these let’s at first design the matrices <strong>A</strong> and <strong>B</strong>.</p>
+</div>
+<p>Here, recurrence <em>g(n)</em> is dependent upon <code>f(n)</code> and this can be calculated in the same matrix but of increased dimensions. From these let’s at first design the matrices <strong>A</strong> and <strong>B</strong>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Matrix A            Matrix B
@@ -286,7 +372,10 @@ f(n) = f(n-2)   -&gt; if n is even</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, <code>g(n+1) = 2g(n-1) + f(n+1) and f(n+2) = 2f(n+1) + 2f(n)</code>. Now, using the processes stated above, we can find the objective matrix <strong>M</strong> to be:</p>
+</div>
+<p>Here, <code>g(n+1) = 2g(n-1) + f(n+1) and f(n+2) = 2f(n+1) + 2f(n)</code>. Now, using the processes stated above, we can find the objective matrix <strong>M</strong> to be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">| 2 2 1 0 |
@@ -297,7 +386,9 @@ f(n) = f(n-2)   -&gt; if n is even</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So, these are the basic categories of recurrence relations which are used to solveby this simple technique.</p>
+</div>
+<p>So, these are the basic categories of recurrence relations which are used to solveby this simple technique.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p><code>for</code> loops can be used to iterate over the elements of a iterator-based range, without using a numeric index or directly accessing the iterators:</p>
+      
+<p><code>for</code> loops can be used to iterate over the elements of a iterator-based range, without using a numeric index or directly accessing the iterators:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.4f</span><span class="p">,</span> <span class="mf">12.5f</span><span class="p">,</span> <span class="mf">16.234f</span><span class="p">};</span>
@@ -143,7 +146,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will iterate over every element in <code>v</code>, with <code>val</code> getting the value of the current element. The following statement:</p>
+</div>
+<p>This will iterate over every element in <code>v</code>, with <code>val</code> getting the value of the current element. The following statement:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">for</span> <span class="p">(</span><span class="k">for</span><span class="o">-</span><span class="n">range</span><span class="o">-</span><span class="nl">declaration</span> <span class="p">:</span> <span class="k">for</span><span class="o">-</span><span class="n">range</span><span class="o">-</span><span class="n">initializer</span> <span class="p">)</span> <span class="n">statement</span>
@@ -152,7 +158,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>is equivalent to:</p>
+</div>
+<p>is equivalent to:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="p">{</span>
@@ -168,7 +177,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In C++ 17:</p>
+</div>
+<p>In C++ 17:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="p">{</span>
@@ -185,7 +197,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This change was introduced for the planned support of Ranges TS in C++20.</p><p>In this case, our loop is equivalent to:</p>
+</div>
+<p>This change was introduced for the planned support of Ranges TS in C++20.
+</p>
+<p>In this case, our loop is equivalent to:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="p">{</span>
@@ -201,7 +218,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that <code>auto val</code> declares a value type, which will be a copy of a value stored in the range (we are copy-initializing it from the iterator as we go). If the values stored in the range are expensive to copy, you may want to use <code>const auto &amp;val</code>. You are also not required to use <code>auto</code>; you can use an appropriate typename, so long as it is implicitly convertible from the range’s value type.</p><p>If you need access to the iterator, range-based for cannot help you (not without some effort, at least).</p><p>If you wish to reference it, you may do so:</p>
+</div>
+<p>Note that <code>auto val</code> declares a value type, which will be a copy of a value stored in the range (we are copy-initializing it from the iterator as we go). If the values stored in the range are expensive to copy, you may want to use <code>const auto &amp;val</code>. You are also not required to use <code>auto</code>; you can use an appropriate typename, so long as it is implicitly convertible from the range’s value type.
+</p>
+<p>If you need access to the iterator, range-based for cannot help you (not without some effort, at least).
+</p>
+<p>If you wish to reference it, you may do so:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.4f</span><span class="p">,</span> <span class="mf">12.5f</span><span class="p">,</span> <span class="mf">16.234f</span><span class="p">};</span>
@@ -215,7 +239,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You could iterate on <code>const</code> reference if you have <code>const</code> container:</p>
+</div>
+<p>You could iterate on <code>const</code> reference if you have <code>const</code> container:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.4f</span><span class="p">,</span> <span class="mf">12.5f</span><span class="p">,</span> <span class="mf">16.234f</span><span class="p">};</span>
@@ -229,7 +256,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>One would use forwarding references when the sequence iterator returns a proxy object and you need to operate on that object in a non-<code>const</code> way. Note: it will most likely confuse readers of your code.</p>
+</div>
+<p>One would use forwarding references when the sequence iterator returns a proxy object and you need to operate on that object in a non-<code>const</code> way. Note: it will most likely confuse readers of your code.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
@@ -243,7 +273,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The “range” type provided to range-based <code>for</code> can be one of the following:</p><ul id="ec781440-ba20-4a82-870d-6f3973d0c452" class="bulleted-list"><li>Language arrays:
+</div>
+<p>The “range” type provided to range-based <code>for</code> can be one of the following:
+</p>
+  <ul id="ec781440-ba20-4a82-870d-6f3973d0c452" class="bulleted-list">
+    <li>Language arrays:
+    
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">float</span> <span class="n">arr</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.4f</span><span class="p">,</span> <span class="mf">12.5f</span><span class="p">,</span> <span class="mf">16.234f</span><span class="p">};</span>
@@ -266,7 +301,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div></li><li>Any type which has member functions <code>begin()</code> and <code>end()</code>, which return iterators to the elements of the type. The standard library containers qualify, but user-defined types can be used as well:
+</div>
+    </li>
+    <li>Any type which has member functions <code>begin()</code> and <code>end()</code>, which return iterators to the elements of the type. The standard library containers qualify, but user-defined types can be used as well:
+    
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">struct</span> <span class="nc">Rng</span>
@@ -294,7 +332,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div></li><li>Any type which has non-member <code>begin(type)</code> and <code>end(type)</code> functions which can found via argument dependent lookup, based on <code>type</code>. This is useful for creating a range type without having to modify class type itself:
+</div>
+    </li>
+    <li>Any type which has non-member <code>begin(type)</code> and <code>end(type)</code> functions which can found via argument dependent lookup, based on <code>type</code>. This is useful for creating a range type without having to modify class type itself:
+    
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">namespace</span> <span class="n">Mine</span>
@@ -322,7 +363,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div></li></ul>
+</div>
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

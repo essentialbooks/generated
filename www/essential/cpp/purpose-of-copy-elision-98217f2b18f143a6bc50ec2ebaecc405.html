@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>There are places in the standard where an object is copied or moved in order to initialize an object. Copy elision (sometimes called return value optimization) is an optimization whereby, under certain specific circumstances, a compiler is permitted to avoid the copy or move even though the standard says that it must happen.</p><p>Consider the following function:</p>
+      
+<p>There are places in the standard where an object is copied or moved in order to initialize an object. Copy elision (sometimes called return value optimization) is an optimization whereby, under certain specific circumstances, a compiler is permitted to avoid the copy or move even though the standard says that it must happen.
+</p>
+<p>Consider the following function:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::string get_string()
@@ -138,7 +143,20 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>According to the strict wording of the standard, this function will initialize a temporary <code>std::string</code>, then copy/move that into the return value object, then destroy the temporary. The standard is very clear that this is how the code is interpreted.</p><p>Copy elision is a rule that permits a C++ compiler to <em>ignore</em> the creation of the temporary and its subsequent copy/destruction. That is, the compiler can take the initializing expression for the temporary and initialize the function’s return value from it directly. This obviously saves performance.</p><p>However, it does have two visible effects on the user:</p><ol id="d79cc2e8-08d8-4526-8c9e-b65435012958" class="numbered-list" start="1"><li>The type must have the copy/move constructor that would have been called. Even if the compiler elides the copy/move, the type must still be able to have been copied/moved.</li><li>Side-effects of copy/move constructors are not guaranteed in circumstances where elision can happen. Consider the following:</li></ol>
+</div>
+<p>According to the strict wording of the standard, this function will initialize a temporary <code>std::string</code>, then copy/move that into the return value object, then destroy the temporary. The standard is very clear that this is how the code is interpreted.
+</p>
+<p>Copy elision is a rule that permits a C++ compiler to <em>ignore</em> the creation of the temporary and its subsequent copy/destruction. That is, the compiler can take the initializing expression for the temporary and initialize the function’s return value from it directly. This obviously saves performance.
+</p>
+<p>However, it does have two visible effects on the user:
+</p>
+  <ol id="d79cc2e8-08d8-4526-8c9e-b65435012958" class="numbered-list" start="1">
+    <li>The type must have the copy/move constructor that would have been called. Even if the compiler elides the copy/move, the type must still be able to have been copied/moved.
+    </li>
+    <li>Side-effects of copy/move constructors are not guaranteed in circumstances where elision can happen. Consider the following:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct my_type
@@ -156,7 +174,15 @@ my_type func()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>What will calling <code>func</code> do? Well, it will never print “Copying”, since the temporary is an rvalue and <code>my_type</code> is a moveable type. So will it print “Moving”?</p><p>Without the copy elision rule, this would be required to always print “Moving”. But because the copy elision rule exists, the move constructor may or may not be called; it is implementation-dependent.</p><p>And therefore, you cannot depend on the calling of copy/move constructors in contexts where elision is possible.</p><p>Because elision is an optimization, your compiler may not support elision in all cases. And regardless of whether the compiler elides a particular case or not, the type must still support the operation being elided. So if a copy construction is elided, the type must still have a copy constructor, even though it will not be called.</p>
+</div>
+<p>What will calling <code>func</code> do? Well, it will never print “Copying”, since the temporary is an rvalue and <code>my_type</code> is a moveable type. So will it print “Moving”?
+</p>
+<p>Without the copy elision rule, this would be required to always print “Moving”. But because the copy elision rule exists, the move constructor may or may not be called; it is implementation-dependent.
+</p>
+<p>And therefore, you cannot depend on the calling of copy/move constructors in contexts where elision is possible.
+</p>
+<p>Because elision is an optimization, your compiler may not support elision in all cases. And regardless of whether the compiler elides a particular case or not, the type must still support the operation being elided. So if a copy construction is elided, the type must still have a copy constructor, even though it will not be called.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

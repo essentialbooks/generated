@@ -127,7 +127,84 @@
 </div>
 
 
-      <p>This example shows the process from designing the shape you want to drawing it on a view. A specific shap is used but the concepts you learn can be applied to any shape.</p><h1 id="52e7f249-1b5a-47a3-a390-b6c46b884985" class="">How to draw a <a href="https://developer.apple.com/library/ios/documentation/2DDrawing/Conceptual/DrawingPrintingiOS/BezierPaths/BezierPaths.html">Bézier path</a> in a custom view<a class="header-anchor" href="#52e7f249-1b5a-47a3-a390-b6c46b884985" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>These are the main steps:</p><ol id="f1742767-5ac9-4172-8f60-67d0d29236db" class="numbered-list" start="1"><li>Design the outline of the shape you want.</li><li>Divide the outline path into segments of lines, arcs, and curves.</li><li>Build that path programmatically.</li><li>Draw the path either in <code>drawRect</code> or using a <code>CAShapeLayer</code>.</li></ol><h1 id="eea6a441-0f02-4dae-b490-04e2424c65bb" class="">Design shape outline<a class="header-anchor" href="#eea6a441-0f02-4dae-b490-04e2424c65bb" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>You could do anything, but as an example I have chosen the shape below. It could be a popup key on a keyboard.</p><img class="img" src="/img/7181fe6f29d17075c7efeb0857e9c5b4ffb17bef.png"><h1 id="e4f95e9b-dabd-4e19-9be0-91939b45244f" class="">Divide the path into segments<a class="header-anchor" href="#e4f95e9b-dabd-4e19-9be0-91939b45244f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Look back at your shape design and break it down into simpler elements of lines (for straight lines), arcs (for circles and round corners), and curves (for anything else).</p><p>Here is what our example design would look like:</p><img class="img" src="/img/7c524f1dc4c21dcb27351484b7dca2c5eab6146b.png"><ul id="fcee3401-349c-4edb-a51f-ae4325f05f81" class="bulleted-list"><li>Black are line segments</li><li>Light blue are arc segments</li><li>Red are curves</li><li>Orange dots are the control points for the curves</li><li>Green dots are the points between path segments</li><li>Dotted lines show the bounding rectangle</li><li>Dark blue numbers are the segments in the order that they will be added programmatically</li></ul><h1 id="8538eb83-076e-4c8e-b2af-d25787b5916a" class="">Build the path programmatically<a class="header-anchor" href="#8538eb83-076e-4c8e-b2af-d25787b5916a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>We’ll arbitrarily start in the bottom left corner and work clockwise. I’ll use the grid in the image to get the x and y values for the points. I’ll hardcode everything here, but of course you wouldn’t do that in a real project.</p><p>The basic process is:</p><ol id="a40bb035-a6bf-47de-8953-e5a1dc99c687" class="numbered-list" start="1"><li>Create a new <code>UIBezierPath</code></li><li>Choose a starting point on the path with <code>moveToPoint</code></li><li>Add segments to the path</li></ol><ul id="e7336357-a554-47d7-81e1-8b5797fe5aac" class="bulleted-list"><li>line: <code>addLineToPoint</code></li><li>arc: <code>addArcWithCenter</code></li><li>curve: <code>addCurveToPoint</code></li></ul><ol id="0fff13dc-76aa-4107-a919-b80909cfa91d" class="numbered-list" start="1"><li>Close the path with <code>closePath</code></li></ol><p>Here is the code to make the path in the image above.</p>
+      
+<p>This example shows the process from designing the shape you want to drawing it on a view. A specific shap is used but the concepts you learn can be applied to any shape.
+</p>
+  <h1 id="52e7f249-1b5a-47a3-a390-b6c46b884985" class="">How to draw a <a href="https://developer.apple.com/library/ios/documentation/2DDrawing/Conceptual/DrawingPrintingiOS/BezierPaths/BezierPaths.html">Bézier path</a> in a custom view
+  <a class="header-anchor" href="#52e7f249-1b5a-47a3-a390-b6c46b884985" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>These are the main steps:
+</p>
+  <ol id="f1742767-5ac9-4172-8f60-67d0d29236db" class="numbered-list" start="1">
+    <li>Design the outline of the shape you want.
+    </li>
+    <li>Divide the outline path into segments of lines, arcs, and curves.
+    </li>
+    <li>Build that path programmatically.
+    </li>
+    <li>Draw the path either in <code>drawRect</code> or using a <code>CAShapeLayer</code>.
+    </li>
+  </ol>
+  <h1 id="eea6a441-0f02-4dae-b490-04e2424c65bb" class="">Design shape outline
+  <a class="header-anchor" href="#eea6a441-0f02-4dae-b490-04e2424c65bb" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>You could do anything, but as an example I have chosen the shape below. It could be a popup key on a keyboard.
+</p>
+<img class="img" src="/img/7181fe6f29d17075c7efeb0857e9c5b4ffb17bef.png">
+  <h1 id="e4f95e9b-dabd-4e19-9be0-91939b45244f" class="">Divide the path into segments
+  <a class="header-anchor" href="#e4f95e9b-dabd-4e19-9be0-91939b45244f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Look back at your shape design and break it down into simpler elements of lines (for straight lines), arcs (for circles and round corners), and curves (for anything else).
+</p>
+<p>Here is what our example design would look like:
+</p>
+<img class="img" src="/img/7c524f1dc4c21dcb27351484b7dca2c5eab6146b.png">
+  <ul id="fcee3401-349c-4edb-a51f-ae4325f05f81" class="bulleted-list">
+    <li>Black are line segments
+    </li>
+    <li>Light blue are arc segments
+    </li>
+    <li>Red are curves
+    </li>
+    <li>Orange dots are the control points for the curves
+    </li>
+    <li>Green dots are the points between path segments
+    </li>
+    <li>Dotted lines show the bounding rectangle
+    </li>
+    <li>Dark blue numbers are the segments in the order that they will be added programmatically
+    </li>
+  </ul>
+  <h1 id="8538eb83-076e-4c8e-b2af-d25787b5916a" class="">Build the path programmatically
+  <a class="header-anchor" href="#8538eb83-076e-4c8e-b2af-d25787b5916a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>We’ll arbitrarily start in the bottom left corner and work clockwise. I’ll use the grid in the image to get the x and y values for the points. I’ll hardcode everything here, but of course you wouldn’t do that in a real project.
+</p>
+<p>The basic process is:
+</p>
+  <ol id="a40bb035-a6bf-47de-8953-e5a1dc99c687" class="numbered-list" start="1">
+    <li>Create a new <code>UIBezierPath</code>
+    </li>
+    <li>Choose a starting point on the path with <code>moveToPoint</code>
+    </li>
+    <li>Add segments to the path
+    </li>
+  </ol>
+  <ul id="e7336357-a554-47d7-81e1-8b5797fe5aac" class="bulleted-list">
+    <li>line: <code>addLineToPoint</code>
+    </li>
+    <li>arc: <code>addArcWithCenter</code>
+    </li>
+    <li>curve: <code>addCurveToPoint</code>
+    </li>
+  </ul>
+  <ol id="0fff13dc-76aa-4107-a919-b80909cfa91d" class="numbered-list" start="1">
+    <li>Close the path with <code>closePath</code>
+    </li>
+  </ol>
+<p>Here is the code to make the path in the image above.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">func createBezierPath() -&gt; UIBezierPath {
@@ -202,7 +279,19 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note: Some of the above code can be reduced by adding a line and an arc in a single command (since the arc has an implied starting point). See <a href="http://ronnqvi.st/thinking-like-a-bzier-path/">here</a> for more details.</p><h1 id="d274782a-e77a-4518-ac63-59febe991312" class="">Draw the path<a class="header-anchor" href="#d274782a-e77a-4518-ac63-59febe991312" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>We can draw the path either in a layer or in <code>drawRect</code>.</p><p><strong>Method 1: Draw path in a layer</strong></p><p>Our custom class looks like this. We add our Bezier path to a new <code>CAShapeLayer</code> when the view is initialized.</p>
+</div>
+<p>Note: Some of the above code can be reduced by adding a line and an arc in a single command (since the arc has an implied starting point). See <a href="http://ronnqvi.st/thinking-like-a-bzier-path/">here</a> for more details.
+</p>
+  <h1 id="d274782a-e77a-4518-ac63-59febe991312" class="">Draw the path
+  <a class="header-anchor" href="#d274782a-e77a-4518-ac63-59febe991312" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>We can draw the path either in a layer or in <code>drawRect</code>.
+</p>
+<p><strong>Method 1: Draw path in a layer</strong>
+</p>
+<p>Our custom class looks like this. We add our Bezier path to a new <code>CAShapeLayer</code> when the view is initialized.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import UIKit
@@ -246,7 +335,10 @@ class MyCustomView: UIView {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And creating our view in the View Controller like this</p>
+</div>
+<p>And creating our view in the View Controller like this
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">override func viewDidLoad() {
@@ -263,7 +355,13 @@ class MyCustomView: UIView {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We get…</p><img class="img" src="/img/bb4045c59663b3e7f31a63dfdfb761cb5043bb8b.png"><p>Hmm, that’s a little small because I hardcoded all the numbers in. I can scale the path size up, though, like this:</p>
+</div>
+<p>We get…
+</p>
+<img class="img" src="/img/bb4045c59663b3e7f31a63dfdfb761cb5043bb8b.png">
+<p>Hmm, that’s a little small because I hardcoded all the numbers in. I can scale the path size up, though, like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let path = createBezierPath()
@@ -274,7 +372,15 @@ shapeLayer.path = path.CGPath</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><img class="img" src="/img/841f45fc44dde2069f783472f317d06cad8e7f89.png"><p><strong>Method 2: Draw path in </strong><code><strong>drawRect</strong></code></p><p>Using <code>drawRect</code> is slower than drawing to the layer, so this is not the recommended method if you don’t need it.</p><p>Here is the revised code for our custom view:</p>
+</div>
+<img class="img" src="/img/841f45fc44dde2069f783472f317d06cad8e7f89.png">
+<p><strong>Method 2: Draw path in </strong><code><strong>drawRect</strong></code>
+</p>
+<p>Using <code>drawRect</code> is slower than drawing to the layer, so this is not the recommended method if you don’t need it.
+</p>
+<p>Here is the revised code for our custom view:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import UIKit
@@ -312,7 +418,34 @@ class MyCustomView: UIView {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>which gives us the same result…</p><img class="img" src="/img/b4a3cadcc4223803d430ed686f145486bbb792aa.png"><h1 id="e2a068c6-2ff4-4a72-bfb1-d40c983956f3" class="">Further study<a class="header-anchor" href="#e2a068c6-2ff4-4a72-bfb1-d40c983956f3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Excellent articles for understanding Bezier paths.</p><ul id="32a223c7-4bf0-412a-a712-01e797519f93" class="bulleted-list"><li><a href="http://ronnqvi.st/thinking-like-a-bzier-path/">Thinking like a Bézier path</a> (Everything I’ve ever read from this author is good and the inspiration for my example above came from here.)</li><li><a href="https://www.youtube.com/watch?v=dXECQRlmIaE">Coding Math: Episode 19 - Bezier Curves</a> (entertaining and good visual illustrations)</li><li><a href="https://www.youtube.com/watch?v=Qu-QK3uoMdY">Bezier Curves</a> (how they are used in graphics applications)</li><li><a href="https://www.youtube.com/watch?v=2HvH9cmHbG4">Bezier Curves</a> (good description of how the mathematical formulas are derived)</li></ul><h1 id="3fe357ba-baa8-4bfd-b6f0-1a6d78083911" class="">Notes<a class="header-anchor" href="#3fe357ba-baa8-4bfd-b6f0-1a6d78083911" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><ul id="9c81b3c3-e83f-403b-8cb6-c8f9aa6e21a1" class="bulleted-list"><li>This example originally comes from <a href="http://stackoverflow.com/a/34659468/3681880">this Stack Overflow answer</a>.</li><li>In your actual projects you probably shouldn’t use hard coded numbers, but rather get the sizes from your view’s bounds.</li></ul>
+</div>
+<p>which gives us the same result…
+</p>
+<img class="img" src="/img/b4a3cadcc4223803d430ed686f145486bbb792aa.png">
+  <h1 id="e2a068c6-2ff4-4a72-bfb1-d40c983956f3" class="">Further study
+  <a class="header-anchor" href="#e2a068c6-2ff4-4a72-bfb1-d40c983956f3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Excellent articles for understanding Bezier paths.
+</p>
+  <ul id="32a223c7-4bf0-412a-a712-01e797519f93" class="bulleted-list">
+    <li><a href="http://ronnqvi.st/thinking-like-a-bzier-path/">Thinking like a Bézier path</a> (Everything I’ve ever read from this author is good and the inspiration for my example above came from here.)
+    </li>
+    <li><a href="https://www.youtube.com/watch?v=dXECQRlmIaE">Coding Math: Episode 19 - Bezier Curves</a> (entertaining and good visual illustrations)
+    </li>
+    <li><a href="https://www.youtube.com/watch?v=Qu-QK3uoMdY">Bezier Curves</a> (how they are used in graphics applications)
+    </li>
+    <li><a href="https://www.youtube.com/watch?v=2HvH9cmHbG4">Bezier Curves</a> (good description of how the mathematical formulas are derived)
+    </li>
+  </ul>
+  <h1 id="3fe357ba-baa8-4bfd-b6f0-1a6d78083911" class="">Notes
+  <a class="header-anchor" href="#3fe357ba-baa8-4bfd-b6f0-1a6d78083911" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <ul id="9c81b3c3-e83f-403b-8cb6-c8f9aa6e21a1" class="bulleted-list">
+    <li>This example originally comes from <a href="http://stackoverflow.com/a/34659468/3681880">this Stack Overflow answer</a>.
+    </li>
+    <li>In your actual projects you probably shouldn’t use hard coded numbers, but rather get the sizes from your view’s bounds.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

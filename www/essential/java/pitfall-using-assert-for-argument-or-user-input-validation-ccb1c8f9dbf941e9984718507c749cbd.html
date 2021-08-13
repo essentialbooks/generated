@@ -127,7 +127,31 @@
 </div>
 
 
-      <p>A question that occasionally on StackOverflow is whether it is appropriate to use <code>assert</code> to validate arguments supplied to a method, or even inputs provided by the user.</p><p>The simple answer is that it is not appropriate.</p><p>Better alternatives include:</p><ul id="da96f610-2bc0-4fa7-9d61-5ed6397d99dd" class="bulleted-list"><li>Throwing an IllegalArgumentException using custom code.</li><li>Using the <code>Preconditions</code> methods available in Google Guava library.</li><li>Using the <code>Validate</code> methods available in Apache Commons Lang3 library.</li></ul><p>This is what the <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-14.html#jls-14.10">Java Language Specification (JLS 14.10, for Java 8)</a> advises on this matter:</p><blockquote id="7bd45e9d-4669-4296-9cf2-d695ad0dad00" class="">Typically, assertion checking is enabled during program development and testing, and disabled for deployment, to improve performance.</blockquote><p>Because assertions may be disabled, programs must not assume that the expressions contained in assertions will be evaluated. Thus, these boolean expressions should generally be free of side effects. Evaluating such a boolean expression should not affect any state that is visible after the evaluation is complete. It is not illegal for a boolean expression contained in an assertion to have a side effect, but it is generally inappropriate, as it could cause program behavior to vary depending on whether assertions were enabled or disabled.</p><p>In light of this, assertions should not be used for argument checking in public methods. Argument checking is typically part of the contract of a method, and this contract must be upheld whether assertions are enabled or disabled.</p><p>A secondary problem with using assertions for argument checking is that erroneous arguments should result in an appropriate run-time exception (such as <code>IllegalArgumentException</code>, <code>ArrayIndexOutOfBoundsException</code>, or <code>NullPointerException</code>). An assertion failure will not throw an appropriate exception. Again, it is not illegal to use assertions for argument checking on public methods, but it is generally inappropriate. It is intended that <code>AssertionError</code> never be caught, but it is possible to do so, thus the rules for try statements should treat assertions appearing in a try block similarly to the current treatment of throw statements.</p>
+      
+<p>A question that occasionally on StackOverflow is whether it is appropriate to use <code>assert</code> to validate arguments supplied to a method, or even inputs provided by the user.
+</p>
+<p>The simple answer is that it is not appropriate.
+</p>
+<p>Better alternatives include:
+</p>
+  <ul id="da96f610-2bc0-4fa7-9d61-5ed6397d99dd" class="bulleted-list">
+    <li>Throwing an IllegalArgumentException using custom code.
+    </li>
+    <li>Using the <code>Preconditions</code> methods available in Google Guava library.
+    </li>
+    <li>Using the <code>Validate</code> methods available in Apache Commons Lang3 library.
+    </li>
+  </ul>
+<p>This is what the <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-14.html#jls-14.10">Java Language Specification (JLS 14.10, for Java 8)</a> advises on this matter:
+</p>
+<blockquote id="7bd45e9d-4669-4296-9cf2-d695ad0dad00" class="">Typically, assertion checking is enabled during program development and testing, and disabled for deployment, to improve performance.
+</blockquote>
+<p>Because assertions may be disabled, programs must not assume that the expressions contained in assertions will be evaluated. Thus, these boolean expressions should generally be free of side effects. Evaluating such a boolean expression should not affect any state that is visible after the evaluation is complete. It is not illegal for a boolean expression contained in an assertion to have a side effect, but it is generally inappropriate, as it could cause program behavior to vary depending on whether assertions were enabled or disabled.
+</p>
+<p>In light of this, assertions should not be used for argument checking in public methods. Argument checking is typically part of the contract of a method, and this contract must be upheld whether assertions are enabled or disabled.
+</p>
+<p>A secondary problem with using assertions for argument checking is that erroneous arguments should result in an appropriate run-time exception (such as <code>IllegalArgumentException</code>, <code>ArrayIndexOutOfBoundsException</code>, or <code>NullPointerException</code>). An assertion failure will not throw an appropriate exception. Again, it is not illegal to use assertions for argument checking on public methods, but it is generally inappropriate. It is intended that <code>AssertionError</code> never be caught, but it is possible to do so, thus the rules for try statements should treat assertions appearing in a try block similarly to the current treatment of throw statements.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Let’s say that we’re given <code>const string input</code> as a phone number to be validated. We could start by requiring a numeric input with a <strong>zero or more quantifier</strong>: <code>regex_match(input, regex(&quot;\\d*&quot;))</code> or a <strong>one or more quantifier</strong>: <code>regex_match(input, regex(&quot;\\d+&quot;))</code> But both of those really fall short if <code>input</code> contains an invalid numeric string like: “123” Let’s use a <strong>n or more quantifier</strong> to ensure that we’re getting at least 7 digits:</p>
+      
+<p>Let’s say that we’re given <code>const string input</code> as a phone number to be validated. We could start by requiring a numeric input with a <strong>zero or more quantifier</strong>: <code>regex_match(input, regex(&quot;\\d*&quot;))</code> or a <strong>one or more quantifier</strong>: <code>regex_match(input, regex(&quot;\\d+&quot;))</code> But both of those really fall short if <code>input</code> contains an invalid numeric string like: “123” Let’s use a <strong>n or more quantifier</strong> to ensure that we’re getting at least 7 digits:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">regex_match(input, regex(&#34;\\d{7,}&#34;))</pre>
@@ -135,7 +138,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will guarantee that we will get at least a phone number of digits, but <code>input</code> could also contain a numeric string that’s too long like: “123456789012”. So lets go with a <strong>between n and m quantifier</strong> so the <code>input</code> is at least 7 digits but not more than 11:</p>
+</div>
+<p>This will guarantee that we will get at least a phone number of digits, but <code>input</code> could also contain a numeric string that’s too long like: “123456789012”. So lets go with a <strong>between n and m quantifier</strong> so the <code>input</code> is at least 7 digits but not more than 11:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">regex_match(input, regex(&#34;\\d{7,11}&#34;));</pre>
@@ -143,7 +149,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This gets us closer, but illegal numeric strings that are in the range of [7, 11] are still accepted, like: “123456789” So let’s make the country code optional with a <strong>lazy quantifier</strong>:</p>
+</div>
+<p>This gets us closer, but illegal numeric strings that are in the range of [7, 11] are still accepted, like: “123456789” So let’s make the country code optional with a <strong>lazy quantifier</strong>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">regex_match(input, regex(&#34;\\d?\\d{7,10}&#34;))</pre>
@@ -151,7 +160,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It’s important to note that the <strong>lazy quantifier</strong> matches <em>as few characters as possible</em>, so the only way this character will be matched is if there are already 10 characters that have been matched by <code>\d{7,10}</code>. (To match the first character greedily we would have had to do: <code>\d{0,1}</code>.) The <strong>lazy quantifier</strong> can be appended to any other quantifier.</p><p>Now, how would we make the area code optional <em>and</em> only accept a country code if the area code was present?</p>
+</div>
+<p>It’s important to note that the <strong>lazy quantifier</strong> matches <em>as few characters as possible</em>, so the only way this character will be matched is if there are already 10 characters that have been matched by <code>\d{7,10}</code>. (To match the first character greedily we would have had to do: <code>\d{0,1}</code>.) The <strong>lazy quantifier</strong> can be appended to any other quantifier.
+</p>
+<p>Now, how would we make the area code optional <em>and</em> only accept a country code if the area code was present?
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">regex_match(input, regex(&#34;(?:\\d{3,4})?\\d{7}&#34;))</pre>
@@ -159,7 +173,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this final regex, the <code>\d{7}</code> <em>requires</em> 7 digits. These 7 digits are optionally preceded by either 3 or 4 digits.</p><p>Note that we did not append the <strong>lazy quantifier</strong>: <code>\d{3,4}?\d{7}</code>, the <code>\d{3,4}?</code> would have matched either 3 or 4 characters, preferring 3. Instead we’re making the non-capturing group match at most once, preferring not to match. Causing a mismatch if <code>input</code> didn’t include the area code like: “1234567”.</p><hr id="d1da3ec0-65e2-4339-84c6-72bfa5a99fce"/><p>In conclusion of the quantifier topic, I’d like to mention the other appending quantifier that you can use, the <strong>possessive quantifier</strong>. <em>Either</em> the <strong>lazy quantifier</strong> or the <strong>possessive quantifier</strong> can be appended to any quantifier. The <strong>possessive quantifier</strong>‘s only function is to assist the regex engine by telling it, greedily take these characters <em>and don’t ever give them up even if it causes the regex to fail</em>. This for example doesn’t make much sense: <code>regex_match(input, regex(&quot;\\d{3,4}+\\d{7}))</code> Because an <code>input</code> like: “1234567890” wouldn’t be matched as <code>\d{3,4}+</code> will always match 4 characters even if matching 3 would have allowed the regex to succeed. The <strong>possessive quantifier</strong> is best used <em>when the quantified token limits the number of matchable characters</em>. For example:</p>
+</div>
+<p>In this final regex, the <code>\d{7}</code> <em>requires</em> 7 digits. These 7 digits are optionally preceded by either 3 or 4 digits.
+</p>
+<p>Note that we did not append the <strong>lazy quantifier</strong>: <code>\d{3,4}?\d{7}</code>, the <code>\d{3,4}?</code> would have matched either 3 or 4 characters, preferring 3. Instead we’re making the non-capturing group match at most once, preferring not to match. Causing a mismatch if <code>input</code> didn’t include the area code like: “1234567”.
+</p>
+<hr id="d1da3ec0-65e2-4339-84c6-72bfa5a99fce"/>
+<p>In conclusion of the quantifier topic, I’d like to mention the other appending quantifier that you can use, the <strong>possessive quantifier</strong>. <em>Either</em> the <strong>lazy quantifier</strong> or the <strong>possessive quantifier</strong> can be appended to any quantifier. The <strong>possessive quantifier</strong>‘s only function is to assist the regex engine by telling it, greedily take these characters <em>and don’t ever give them up even if it causes the regex to fail</em>. This for example doesn’t make much sense: <code>regex_match(input, regex(&quot;\\d{3,4}+\\d{7}))</code> Because an <code>input</code> like: “1234567890” wouldn’t be matched as <code>\d{3,4}+</code> will always match 4 characters even if matching 3 would have allowed the regex to succeed. The <strong>possessive quantifier</strong> is best used <em>when the quantified token limits the number of matchable characters</em>. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">regex_match(input, regex(&#34;(?:.*\\d{3,4}+){3}&#34;))</pre>
@@ -167,7 +189,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Can be used to match if <code>input</code> contained any of the following:</p><blockquote id="dbc6e2d7-b29d-44a5-bf9c-5fdde3bd0917" class="">123 456 7890 123-456-7890 (123)456-7890 (123) 456 - 7890</blockquote><p>But when this regex really shines is when <code>input</code> contains an <em>illegal</em> input:</p><blockquote id="a51b371a-5481-4d8f-b261-548a6ad6cae4" class="">12345 - 67890</blockquote><p>Without the <strong>possessive quantifier</strong> the regex engine has to go back and test <em>every combination of </em><code><em>.*</em></code><em> and either 3 or 4 characters</em> to see if it can find a matchable combination. With the <strong>possessive quantifier</strong> the regex starts where the 2nd <strong>possessive quantifier</strong> left off, the ‘0’ character, and the regex engine tries to adjust the <code>.*</code> to allow <code>\d{3,4}</code> to match; when it can’t the regex just fails, no back tracking is done to see if earlier <code>.*</code> adjustment could have allowed a match.</p>
+</div>
+<p>Can be used to match if <code>input</code> contained any of the following:
+</p>
+<blockquote id="dbc6e2d7-b29d-44a5-bf9c-5fdde3bd0917" class="">123 456 7890 123-456-7890 (123)456-7890 (123) 456 - 7890
+</blockquote>
+<p>But when this regex really shines is when <code>input</code> contains an <em>illegal</em> input:
+</p>
+<blockquote id="a51b371a-5481-4d8f-b261-548a6ad6cae4" class="">12345 - 67890
+</blockquote>
+<p>Without the <strong>possessive quantifier</strong> the regex engine has to go back and test <em>every combination of </em><code><em>.*</em></code><em> and either 3 or 4 characters</em> to see if it can find a matchable combination. With the <strong>possessive quantifier</strong> the regex starts where the 2nd <strong>possessive quantifier</strong> left off, the ‘0’ character, and the regex engine tries to adjust the <code>.*</code> to allow <code>\d{3,4}</code> to match; when it can’t the regex just fails, no back tracking is done to see if earlier <code>.*</code> adjustment could have allowed a match.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

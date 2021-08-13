@@ -127,7 +127,52 @@
 </div>
 
 
-      <h2 id="e98eb72a-f9f5-42b9-82de-600db86dca6f" class="">Introduction<a class="header-anchor" href="#e98eb72a-f9f5-42b9-82de-600db86dca6f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>The API to use a relational database from Java is JDBC.</p><p>This API is implemented by a JDBC driver.</p><p>To use it, put the JAR-file with the driver on the JAVA class path.</p><p>This documentation shows samples how to use the JDBC driver to connect to a database.</p><h2 id="a184a0da-b52a-471d-bf55-7bd3b61f4ba6" class="">Remarks<a class="header-anchor" href="#a184a0da-b52a-471d-bf55-7bd3b61f4ba6" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p><strong>JDBC URL</strong></p><p>The JDBC URL can take one of these forms:</p><ul id="2b9b5a18-e1fc-4a02-8752-558df8cc339d" class="bulleted-list"><li>jdbc:postgresql://<em>host</em>[:<em>port</em>]/[<em>database</em>][<em>parameters</em>]</li></ul><p><em>host</em> defaults to <code>localhost</code>, <em>port</em> to 5432.</p><p>If <em>host</em> is an IPv6 address, it must be enclosed in square brackets.</p><p>The default database name is the same as the name of the connecting user.</p><p>To implement failover, it is possible to have several <em>host</em>[:<em>port</em>] entries separated by a comma.</p><p>They are tried in turn until a connection succeeds.</p><ul id="ecf16028-c2ee-466d-996b-3a65e5778e6a" class="bulleted-list"><li>jdbc:postgresql:<em>database</em>[<em>parameters</em>]</li><li>jdbc:postgresql:/[<em>parameters</em>]</li></ul><p>These forms are for connections to <code>localhost</code>.</p><p><em>parameters</em> is a list of <em>key</em>[=<em>value</em>] pairs, headed by <code>?</code> and separated by <code>&amp;</code>. If the <em>value</em> is missing, it is assumed to be <code>true</code>.</p><p>An example:</p>
+      
+  <h2 id="e98eb72a-f9f5-42b9-82de-600db86dca6f" class="">Introduction
+  <a class="header-anchor" href="#e98eb72a-f9f5-42b9-82de-600db86dca6f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>The API to use a relational database from Java is JDBC.
+</p>
+<p>This API is implemented by a JDBC driver.
+</p>
+<p>To use it, put the JAR-file with the driver on the JAVA class path.
+</p>
+<p>This documentation shows samples how to use the JDBC driver to connect to a database.
+</p>
+  <h2 id="a184a0da-b52a-471d-bf55-7bd3b61f4ba6" class="">Remarks
+  <a class="header-anchor" href="#a184a0da-b52a-471d-bf55-7bd3b61f4ba6" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p><strong>JDBC URL</strong>
+</p>
+<p>The JDBC URL can take one of these forms:
+</p>
+  <ul id="2b9b5a18-e1fc-4a02-8752-558df8cc339d" class="bulleted-list">
+    <li>jdbc:postgresql://<em>host</em>[:<em>port</em>]/[<em>database</em>][<em>parameters</em>]
+    </li>
+  </ul>
+<p><em>host</em> defaults to <code>localhost</code>, <em>port</em> to 5432.
+</p>
+<p>If <em>host</em> is an IPv6 address, it must be enclosed in square brackets.
+</p>
+<p>The default database name is the same as the name of the connecting user.
+</p>
+<p>To implement failover, it is possible to have several <em>host</em>[:<em>port</em>] entries separated by a comma.
+</p>
+<p>They are tried in turn until a connection succeeds.
+</p>
+  <ul id="ecf16028-c2ee-466d-996b-3a65e5778e6a" class="bulleted-list">
+    <li>jdbc:postgresql:<em>database</em>[<em>parameters</em>]
+    </li>
+    <li>jdbc:postgresql:/[<em>parameters</em>]
+    </li>
+  </ul>
+<p>These forms are for connections to <code>localhost</code>.
+</p>
+<p><em>parameters</em> is a list of <em>key</em>[=<em>value</em>] pairs, headed by <code>?</code> and separated by <code>&amp;</code>. If the <em>value</em> is missing, it is assumed to be <code>true</code>.
+</p>
+<p>An example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">jdbc:postgresql://localhost/test?user=fred&amp;password=secret&amp;ssl&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory</pre>
@@ -135,7 +180,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>References</strong></p><ul id="077d0960-e009-4dd7-b68c-43a35fb7b18a" class="bulleted-list"><li>JDBC specification: http://download.oracle.com/otndocs/jcp/jdbc-4_2-mrel2-eval-spec/</li><li>PostgreSQL JDBC driver: https://jdbc.postgresql.org/</li><li>PostgreSQL JDBC driver documentation: https://jdbc.postgresql.org/documentation/head/index.html</li></ul>
+</div>
+<p><strong>References</strong>
+</p>
+  <ul id="077d0960-e009-4dd7-b68c-43a35fb7b18a" class="bulleted-list">
+    <li>JDBC specification: http://download.oracle.com/otndocs/jcp/jdbc-4_2-mrel2-eval-spec/
+    </li>
+    <li>PostgreSQL JDBC driver: https://jdbc.postgresql.org/
+    </li>
+    <li>PostgreSQL JDBC driver documentation: https://jdbc.postgresql.org/documentation/head/index.html
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

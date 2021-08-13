@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>Listed from least expensive to most expensive at run-time:</p><ol id="05606f1e-e091-4cbc-965e-efffbed8e1ff" class="numbered-list" start="1"><li><code>str::strtok</code> is the cheapest standard provided tokenization method, it also allows the delimiter to be modified between tokens, but it incurs 3 difficulties with modern C++:<ul id="5b98e7f1-4466-4fae-8869-a70c92e891ce" class="bulleted-list"><li><code>std::strtok</code> cannot be used on multiple <code>strings</code> at the same time (though some implementations do extend to support this, such as: <a href="https://msdn.microsoft.com/en-us/library/ftsafwz3.aspx"><code>strtok_s</code></a>)</li><li>For the same reason <code>std::strtok</code> cannot be used on multiple threads simultaneously (this may however be implementation defined, for example: <a href="https://msdn.microsoft.com/en-us/library/2c8d19sb.aspx#Anchor_3">Visual Studio’s implementation is thread safe</a>)</li><li>Calling <code>std::strtok</code> modifies the <code>std::string</code> it is operating on, so it cannot be used on <code>const string</code>s, <code>const char*</code>s, or literal strings, to tokenize any of these with <code>std::strtok</code> or to operate on a <code>std::string</code> who’s contents need to be preserved, the input would have to be copied, then the copy could be operated on</li></ul><p>Generally any of these options cost will be hidden in the allocation cost of the tokens, but if the cheapest algorithm is required and <code>std::strtok</code>’s difficulties cannot be overcome, consider a <a href="http://stackoverflow.com/a/38595708/2642059">hand-spun solution</a>.</p>
+      
+<p>Listed from least expensive to most expensive at run-time:
+</p>
+  <ol id="05606f1e-e091-4cbc-965e-efffbed8e1ff" class="numbered-list" start="1">
+    <li><code>str::strtok</code> is the cheapest standard provided tokenization method, it also allows the delimiter to be modified between tokens, but it incurs 3 difficulties with modern C++:
+        <ul id="5b98e7f1-4466-4fae-8869-a70c92e891ce" class="bulleted-list">
+          <li><code>std::strtok</code> cannot be used on multiple <code>strings</code> at the same time (though some implementations do extend to support this, such as: <a href="https://msdn.microsoft.com/en-us/library/ftsafwz3.aspx"><code>strtok_s</code></a>)
+          </li>
+          <li>For the same reason <code>std::strtok</code> cannot be used on multiple threads simultaneously (this may however be implementation defined, for example: <a href="https://msdn.microsoft.com/en-us/library/2c8d19sb.aspx#Anchor_3">Visual Studio’s implementation is thread safe</a>)
+          </li>
+          <li>Calling <code>std::strtok</code> modifies the <code>std::string</code> it is operating on, so it cannot be used on <code>const string</code>s, <code>const char*</code>s, or literal strings, to tokenize any of these with <code>std::strtok</code> or to operate on a <code>std::string</code> who’s contents need to be preserved, the input would have to be copied, then the copy could be operated on
+          </li>
+        </ul>
+      <p>Generally any of these options cost will be hidden in the allocation cost of the tokens, but if the cheapest algorithm is required and <code>std::strtok</code>’s difficulties cannot be overcome, consider a <a href="http://stackoverflow.com/a/38595708/2642059">hand-spun solution</a>.
+      </p>
+      
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="c1">// String to tokenize
@@ -143,7 +158,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="http://ideone.com/8kAGoa">Live Example</a></p></li><li>The <code>std::istream_iterator</code> uses the stream’s extraction operator iteratively. If the input <code>std::string</code> is white-space delimited this is able to expand on the <code>std::strtok</code> option by eliminating its difficulties, allowing inline tokenization thereby supporting the generation of a <code>const vector&lt;string&gt;</code>, and by adding support for multiple delimiting white-space character:
+</div>
+      <p><a href="http://ideone.com/8kAGoa">Live Example</a>
+      </p>
+    </li>
+    <li>The <code>std::istream_iterator</code> uses the stream’s extraction operator iteratively. If the input <code>std::string</code> is white-space delimited this is able to expand on the <code>std::strtok</code> option by eliminating its difficulties, allowing inline tokenization thereby supporting the generation of a <code>const vector&lt;string&gt;</code>, and by adding support for multiple delimiting white-space character:
+      
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="c1">// String to tokenize
@@ -158,7 +178,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="http://ideone.com/gWmfV9">Live Example</a></p></li><li>The <code>std::regex_token_iterator</code> uses a <code>std::regex</code> to iteratively tokenize. It provides for a more flexible delimiter definition. For example, non-delimited commas and white-space:
+</div>
+      <p><a href="http://ideone.com/gWmfV9">Live Example</a>
+      </p>
+    </li>
+    <li>The <code>std::regex_token_iterator</code> uses a <code>std::regex</code> to iteratively tokenize. It provides for a more flexible delimiter definition. For example, non-delimited commas and white-space:
+      
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="c1">// String to tokenize
@@ -174,7 +199,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="http://ideone.com/q58zoX">Live Example</a></p><p>See the <a href="/essential/cpp/regex-token-iterator-example-74e3bac1bb1746288cf79c38142e1be3"><code>regex_token_iterator example</code></a><a href="http://stackoverflow.com/documentation/c%2B%2B/1681/regular-expressions/5425/regex-token-iterator-example"> </a>for more details.</p></li></ol>
+</div>
+      <p><a href="http://ideone.com/q58zoX">Live Example</a>
+      </p>
+      <p>See the <a href="/essential/cpp/regex-token-iterator-example-74e3bac1bb1746288cf79c38142e1be3"><code>regex_token_iterator example</code></a><a href="http://stackoverflow.com/documentation/c%2B%2B/1681/regular-expressions/5425/regex-token-iterator-example"> </a>for more details.
+      </p>
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

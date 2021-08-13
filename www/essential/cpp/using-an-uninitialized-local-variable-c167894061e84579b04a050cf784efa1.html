@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
@@ -137,7 +138,32 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This results in <strong>undefined behavior</strong>, because <code>a</code> is uninitialised.</p><p>It is often, incorrectly, claimed that this is because the value is “indeterminate”, or “whatever value was in that memory location before”. However, it is the act of accessing the value of <code>a</code> in the above example that gives undefined behaviour. In practice, printing a “garbage value” is a common symptom in this case, but that is only one possible form of undefined behaviour.</p><p>Although highly unlikely in practice (since it is reliant on specific hardware support) the compiler could equally well electrocute the programmer when compiling the code sample above. With such a compiler and hardware support, such a response to undefined behaviour would markedly increase average (living) programmer understanding of the true meaning of undefined behaviour - which is that the standard places no constraint on the resultant behaviour.</p><p>Using an indeterminate value of <code>unsigned char</code> type does not produce undefined behavior if the value is used as:</p><ul id="859d598a-031a-4cac-ab63-578354a0901b" class="bulleted-list"><li>the second or third operand of the ternary conditional operator;</li><li>the right operand of the built-in comma operator;</li><li>the operand of a conversion to <code>unsigned char</code>;</li><li>the right operand of the assignment operator, if the left operand is also of type <code>unsigned char</code>;</li><li>the initializer for an <code>unsigned char</code> object;</li></ul><p>or if the value is discarded. In such cases, the indeterminate value simply propagates to the result of the expression, if applicable.</p><p>Note that a <code>static</code> variable is <strong>always</strong> zero-initialized (if possible):</p>
+</div>
+<p>This results in <strong>undefined behavior</strong>, because <code>a</code> is uninitialised.
+</p>
+<p>It is often, incorrectly, claimed that this is because the value is “indeterminate”, or “whatever value was in that memory location before”. However, it is the act of accessing the value of <code>a</code> in the above example that gives undefined behaviour. In practice, printing a “garbage value” is a common symptom in this case, but that is only one possible form of undefined behaviour.
+</p>
+<p>Although highly unlikely in practice (since it is reliant on specific hardware support) the compiler could equally well electrocute the programmer when compiling the code sample above. With such a compiler and hardware support, such a response to undefined behaviour would markedly increase average (living) programmer understanding of the true meaning of undefined behaviour - which is that the standard places no constraint on the resultant behaviour.
+</p>
+<p>Using an indeterminate value of <code>unsigned char</code> type does not produce undefined behavior if the value is used as:
+</p>
+  <ul id="859d598a-031a-4cac-ab63-578354a0901b" class="bulleted-list">
+    <li>the second or third operand of the ternary conditional operator;
+    </li>
+    <li>the right operand of the built-in comma operator;
+    </li>
+    <li>the operand of a conversion to <code>unsigned char</code>;
+    </li>
+    <li>the right operand of the assignment operator, if the left operand is also of type <code>unsigned char</code>;
+    </li>
+    <li>the initializer for an <code>unsigned char</code> object;
+    </li>
+  </ul>
+<p>or if the value is discarded. In such cases, the indeterminate value simply propagates to the result of the expression, if applicable.
+</p>
+<p>Note that a <code>static</code> variable is <strong>always</strong> zero-initialized (if possible):
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">static</span> <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>

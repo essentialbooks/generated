@@ -127,7 +127,16 @@
 </div>
 
 
-      <p><strong>Add the gradle dependency in app-level build.gradle</strong></p><p><code>compile &#x27;com.android.volley:volley:1.0.0&#x27;</code></p><p>Also, add the <a href="https://developer.android.com/reference/android/Manifest.permission.html#INTERNET">android.permission.INTERNET</a> permission to your app’s manifest.</p><p><strong>Create Volley RequestQueue instance singleton in your Application</strong></p>
+      
+<p><strong>Add the gradle dependency in app-level build.gradle</strong>
+</p>
+<p><code>compile &#x27;com.android.volley:volley:1.0.0&#x27;</code>
+</p>
+<p>Also, add the <a href="https://developer.android.com/reference/android/Manifest.permission.html#INTERNET">android.permission.INTERNET</a> permission to your app’s manifest.
+</p>
+<p><strong>Create Volley RequestQueue instance singleton in your Application</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class InitApplication extends Application {
@@ -141,6 +150,7 @@ private static final String TAG = InitApplication.class.getSimpleName();</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -185,7 +195,12 @@ public RequestQueue getQueue() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, you can use the volley instance using the getInstance() method and add a new request in the queue using <code>InitApplication.getInstance().addToQueue(request);</code></p><p>A simple example to request JsonObject from server is</p>
+</div>
+<p>Now, you can use the volley instance using the getInstance() method and add a new request in the queue using <code>InitApplication.getInstance().addToQueue(request);</code>
+</p>
+<p>A simple example to request JsonObject from server is
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">JsonObjectRequest myRequest = new JsonObjectRequest(Method.GET,
@@ -212,7 +227,21 @@ myRequest.setRetryPolicy(new DefaultRetryPolicy(
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To handle Volley timeouts you need to use a <a href="https://pablobaxter.github.io/volley-docs/com/android/volley/RetryPolicy.html"><code>RetryPolicy</code></a>. A retry policy is used in case a request cannot be completed due to network failure or some other cases.</p><p>Volley provides an easy way to implement your <code>RetryPolicy</code> for your requests. By default, Volley sets all socket and connection timeouts to 5 seconds for all requests. <code>RetryPolicy</code> is an interface where you need to implement your logic of how you want to retry a particular request when a timeout occurs.</p><p>The constructor takes the following three parameters:</p><ul id="c27154cd-a0bf-4463-b976-d7ca0e79379f" class="bulleted-list"><li><code>initialTimeoutMs</code> - Specifies the socket timeout in milliseconds for every retry attempt.</li><li><code>maxNumRetries</code> - The number of times retry is attempted.</li><li><code>backoffMultiplier</code> - A multiplier which is used to determine exponential time set to socket for every retry attempt.</li></ul>
+</div>
+<p>To handle Volley timeouts you need to use a <a href="https://pablobaxter.github.io/volley-docs/com/android/volley/RetryPolicy.html"><code>RetryPolicy</code></a>. A retry policy is used in case a request cannot be completed due to network failure or some other cases.
+</p>
+<p>Volley provides an easy way to implement your <code>RetryPolicy</code> for your requests. By default, Volley sets all socket and connection timeouts to 5 seconds for all requests. <code>RetryPolicy</code> is an interface where you need to implement your logic of how you want to retry a particular request when a timeout occurs.
+</p>
+<p>The constructor takes the following three parameters:
+</p>
+  <ul id="c27154cd-a0bf-4463-b976-d7ca0e79379f" class="bulleted-list">
+    <li><code>initialTimeoutMs</code> - Specifies the socket timeout in milliseconds for every retry attempt.
+    </li>
+    <li><code>maxNumRetries</code> - The number of times retry is attempted.
+    </li>
+    <li><code>backoffMultiplier</code> - A multiplier which is used to determine exponential time set to socket for every retry attempt.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

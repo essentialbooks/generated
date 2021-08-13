@@ -127,7 +127,24 @@
 </div>
 
 
-      <p>During <code>mousemove</code> you get flooded with 30 mouse events per second. You might not be able to redraw your drawings at 30 times per second. Even if you can, you’re probably wasting computing power by drawing when the browser is not ready to draw (wasted == across display refresh cycles).</p><p>Therefore it makes sense to separate your users input events (like mousemove) from the drawing of your animations.</p><ul id="826e7752-7946-46bb-a8d4-44dbb5aea799" class="bulleted-list"><li>In event handlers, save all the event variables that control where drawings are positioned on the Canvas. But don’t actually draw anything.</li><li>In a <code>requestAnimationFrame</code> loop, render all the drawings to the Canvas using the saved information.</li></ul><p>By not drawing in the event handlers, you are not forcing Canvas to try to refresh complex drawings at mouse event speeds.</p><p>By doing all drawing in <code>requestAnimationFrame</code> you gain all the benefits described in here <a href="http://stackoverflow.com/documentation/html5-canvas/drafts/58696#">Use ‘requestanimationFrame’ not ‘setInterval’ for animation loops</a>.</p><p><strong>Annotated Code:</strong></p>
+      
+<p>During <code>mousemove</code> you get flooded with 30 mouse events per second. You might not be able to redraw your drawings at 30 times per second. Even if you can, you’re probably wasting computing power by drawing when the browser is not ready to draw (wasted == across display refresh cycles).
+</p>
+<p>Therefore it makes sense to separate your users input events (like mousemove) from the drawing of your animations.
+</p>
+  <ul id="826e7752-7946-46bb-a8d4-44dbb5aea799" class="bulleted-list">
+    <li>In event handlers, save all the event variables that control where drawings are positioned on the Canvas. But don’t actually draw anything.
+    </li>
+    <li>In a <code>requestAnimationFrame</code> loop, render all the drawings to the Canvas using the saved information.
+    </li>
+  </ul>
+<p>By not drawing in the event handlers, you are not forcing Canvas to try to refresh complex drawings at mouse event speeds.
+</p>
+<p>By doing all drawing in <code>requestAnimationFrame</code> you gain all the benefits described in here <a href="http://stackoverflow.com/documentation/html5-canvas/drafts/58696#">Use ‘requestanimationFrame’ not ‘setInterval’ for animation loops</a>.
+</p>
+<p><strong>Annotated Code:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;!doctype html&gt;
@@ -177,6 +194,7 @@ window.onload=(function(){
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">function handleMouseMove(e){

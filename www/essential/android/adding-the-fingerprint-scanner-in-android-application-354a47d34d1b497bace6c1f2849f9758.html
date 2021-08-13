@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Android supports fingerprint api from Android 6.0 (Marshmallow) SDK 23</p><blockquote id="8117ff2d-9b1b-4525-9492-41585ceca6d7" class="">To use this feature in your app, first add the USE_FINGERPRINT permission in your manifest.</blockquote>
+      
+<p>Android supports fingerprint api from Android 6.0 (Marshmallow) SDK 23
+</p>
+<blockquote id="8117ff2d-9b1b-4525-9492-41585ceca6d7" class="">To use this feature in your app, first add the USE_FINGERPRINT permission in your manifest.
+</blockquote>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;uses-permission
@@ -136,7 +141,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here the procedure to follow</p><blockquote id="c8283c3a-ee66-4a4a-8d49-62530ff28a28" class="">First you need to create a symmetric key in the Android Key Store using KeyGenerator which can be only be used after the user has authenticated with fingerprint and pass a KeyGenParameterSpec.</blockquote>
+</div>
+<p>Here the procedure to follow
+</p>
+<blockquote id="c8283c3a-ee66-4a4a-8d49-62530ff28a28" class="">First you need to create a symmetric key in the Android Key Store using KeyGenerator which can be only be used after the user has authenticated with fingerprint and pass a KeyGenParameterSpec.
+</blockquote>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_EC, &#34;AndroidKeyStore&#34;);
@@ -152,7 +162,10 @@ keyPairGenerator.generateKeyPair();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="90d8bd87-ea47-4145-972b-69d0a9f3b03a" class="">By setting KeyGenParameterSpec.Builder.setUserAuthenticationRequired to true, you can permit the use of the key only after the user authenticate it including when authenticated with the user’s fingerprint.</blockquote>
+</div>
+<blockquote id="90d8bd87-ea47-4145-972b-69d0a9f3b03a" class="">By setting KeyGenParameterSpec.Builder.setUserAuthenticationRequired to true, you can permit the use of the key only after the user authenticate it including when authenticated with the user’s fingerprint.
+</blockquote>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">KeyStore keyStore = KeyStore.getInstance(&#34;AndroidKeyStore&#34;);
@@ -167,7 +180,18 @@ PrivateKey key = (PrivateKey) keyStore.getKey(KEY_NAME, null);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="788da89d-0910-43ba-9dad-a72117a3a6f9" class="">Then start listening to a fingerprint on the fingerprint sensor by calling FingerprintManager.authenticate with a Cipher initialized with the symmetric key created. Or alternatively you can fall back to server-side verified password as an authenticator.</blockquote><p>Create and initialise the <code>FingerprintManger</code> from <code>fingerprintManger.class</code></p><p><code>getContext().getSystemService(FingerprintManager.class)</code></p><p>To authenticate use <code>FingerprintManger</code> api and create subclass using</p><p><code>FingerprintManager.AuthenticationCallback</code> and override the methods</p>
+</div>
+<blockquote id="788da89d-0910-43ba-9dad-a72117a3a6f9" class="">Then start listening to a fingerprint on the fingerprint sensor by calling FingerprintManager.authenticate with a Cipher initialized with the symmetric key created. Or alternatively you can fall back to server-side verified password as an authenticator.
+</blockquote>
+<p>Create and initialise the <code>FingerprintManger</code> from <code>fingerprintManger.class</code>
+</p>
+<p><code>getContext().getSystemService(FingerprintManager.class)</code>
+</p>
+<p>To authenticate use <code>FingerprintManger</code> api and create subclass using
+</p>
+<p><code>FingerprintManager.AuthenticationCallback</code> and override the methods
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">onAuthenticationError
@@ -178,7 +202,12 @@ onAuthenticationFailed</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>To Start</strong></p><p>To startListening the fingerPrint event call authenticate method with crypto</p>
+</div>
+<p><strong>To Start</strong>
+</p>
+<p>To startListening the fingerPrint event call authenticate method with crypto
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">fingerprintManager
@@ -187,7 +216,12 @@ onAuthenticationFailed</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Cancel</strong></p><p>to stop listenting the scanner call</p>
+</div>
+<p><strong>Cancel</strong>
+</p>
+<p>to stop listenting the scanner call
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">android.os.CancellationSignal;</pre>
@@ -195,7 +229,10 @@ onAuthenticationFailed</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="6961f6ee-9ef1-4100-8354-5b82e7166177" class="">Once the fingerprint (or password) is verified, the FingerprintManager.AuthenticationCallback#onAuthenticationSucceeded() callback is called.</blockquote>
+</div>
+<blockquote id="6961f6ee-9ef1-4100-8354-5b82e7166177" class="">Once the fingerprint (or password) is verified, the FingerprintManager.AuthenticationCallback#onAuthenticationSucceeded() callback is called.
+</blockquote>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override

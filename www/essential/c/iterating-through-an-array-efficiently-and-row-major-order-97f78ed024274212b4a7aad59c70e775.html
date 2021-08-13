@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Arrays in C can be seen as a contiguous chunk of memory. More precisely, the last dimension of the array is the contiguous part. We call this the <em>row-major order</em>. Understanding this and the fact that a cache fault loads a complete cache line into the cache when accessing uncached data to prevent subsequent cache faults, we can see why accessing an array of dimension 10000x10000 with <code>array[0][0]</code> would <strong>potentially</strong> load <code>array[0][1]</code> in cache, but accessing <code>array[1][0]</code> right after would generate a second cache fault, since it is <code>sizeof(type)*10000</code> bytes away from <code>array[0][0]</code>, and therefore certainly not on the same cache line. Which is why iterating like this is inefficient:</p>
+      
+<p>Arrays in C can be seen as a contiguous chunk of memory. More precisely, the last dimension of the array is the contiguous part. We call this the <em>row-major order</em>. Understanding this and the fact that a cache fault loads a complete cache line into the cache when accessing uncached data to prevent subsequent cache faults, we can see why accessing an array of dimension 10000x10000 with <code>array[0][0]</code> would <strong>potentially</strong> load <code>array[0][1]</code> in cache, but accessing <code>array[1][0]</code> right after would generate a second cache fault, since it is <code>sizeof(type)*10000</code> bytes away from <code>array[0][0]</code>, and therefore certainly not on the same cache line. Which is why iterating like this is inefficient:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define ARRLEN 10000
@@ -145,7 +148,10 @@ for (i = 0; i &lt; ARRLEN; ++i)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And iterating like this is more efficient:</p>
+</div>
+<p>And iterating like this is more efficient:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define ARRLEN 10000
@@ -163,7 +169,10 @@ for (i = 0; i &lt; ARRLEN; ++i)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In the same vein, this is why when dealing with an array with one dimension and multiple indexes (let’s say 2 dimensions here for simplicity with indexes i and j) it is important to iterate through the array like this:</p>
+</div>
+<p>In the same vein, this is why when dealing with an array with one dimension and multiple indexes (let’s say 2 dimensions here for simplicity with indexes i and j) it is important to iterate through the array like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define DIM_X 10
@@ -183,7 +192,10 @@ for (i = 0; i &lt; DIM_X; ++i)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Or with 3 dimensions and indexes i,j and k:</p>
+</div>
+<p>Or with 3 dimensions and indexes i,j and k:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define DIM_X 10
@@ -207,7 +219,12 @@ for (i = 0; i &lt; DIM_X; ++i)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Or in a more generic way, when we have an array with <strong>N1 x N2 x … x Nd</strong> elements, <strong>d</strong> dimensions and indices noted as <strong>n1,n2,…,nd</strong> the offset is calculated like this</p><img class="img" src="/img/a3dda3293b2a5893b44bb67f3aab6cc5dcc87906.png"><p>Picture/formula taken from: https://en.wikipedia.org/wiki/Row-major_order</p>
+</div>
+<p>Or in a more generic way, when we have an array with <strong>N1 x N2 x … x Nd</strong> elements, <strong>d</strong> dimensions and indices noted as <strong>n1,n2,…,nd</strong> the offset is calculated like this
+</p>
+<img class="img" src="/img/a3dda3293b2a5893b44bb67f3aab6cc5dcc87906.png">
+<p>Picture/formula taken from: https://en.wikipedia.org/wiki/Row-major_order
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

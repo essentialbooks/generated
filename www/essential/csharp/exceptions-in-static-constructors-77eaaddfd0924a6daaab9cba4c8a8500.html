@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>If a static constructor throws an exception, it is never retried. The type is unusable for the lifetime of the AppDomain. Any further usages of the type will raise a <code>TypeInitializationException</code> wrapped around the original exception.</p>
+      
+<p>If a static constructor throws an exception, it is never retried. The type is unusable for the lifetime of the AppDomain. Any further usages of the type will raise a <code>TypeInitializationException</code> wrapped around the original exception.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">Animal</span>
@@ -163,9 +166,19 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will output:</p><blockquote id="2dab4657-03c7-4da4-8f54-2b064b530c81" class="">Static ctor
+</div>
+<p>This will output:
+</p>
+<blockquote id="2dab4657-03c7-4da4-8f54-2b064b530c81" class="">Static ctor
 
-System.TypeInitializationException: The type initializer &gt; for ‘Animal’ threw an exception. —&gt; System.Exception: Exception of &gt; type ‘System.Exception’ was thrown.</blockquote><p>[…]</p><blockquote id="8dab0838-009a-4d5f-944a-a5cced07bb5b" class="">System.TypeInitializationException: The type initializer for ‘Animal’ threw an exception. —&gt; System.Exception: Exception of type ‘System.Exception’ was thrown.</blockquote><p>where you can see that the actual constructor is only executed once, and the exception is re-used.</p>
+System.TypeInitializationException: The type initializer &gt; for ‘Animal’ threw an exception. —&gt; System.Exception: Exception of &gt; type ‘System.Exception’ was thrown.
+</blockquote>
+<p>[…]
+</p>
+<blockquote id="8dab0838-009a-4d5f-944a-a5cced07bb5b" class="">System.TypeInitializationException: The type initializer for ‘Animal’ threw an exception. —&gt; System.Exception: Exception of type ‘System.Exception’ was thrown.
+</blockquote>
+<p>where you can see that the actual constructor is only executed once, and the exception is re-used.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,24 @@
 </div>
 
 
-      <p>A BroadcastReceiver is basically a mechanism to relay Intents through the OS to perform specific actions. A classic definition being</p><blockquote id="0c04c335-30f2-44e3-b96c-bcd35ba539b5" class="">“A Broadcast receiver is an Android component which allows you to register for system or application events.”</blockquote><p><a href="https://developer.android.com/reference/android/support/v4/content/LocalBroadcastManager.html">LocalBroadcastManager</a> is a way to send or receive broadcasts within an application process. This mechanism has a lot of advantages</p><ol id="d991ec46-3859-46ce-b411-917c94a378f9" class="numbered-list" start="1"><li>since the data remains inside the application process, the data cannot be leaked.</li><li>LocalBroadcasts are resolved faster, since the resolution of a normal broadcast happens at runtime throughout the OS.</li></ol><p>A simple example of a LocalBroastManager is:</p><p><strong>SenderActivity</strong></p>
+      
+<p>A BroadcastReceiver is basically a mechanism to relay Intents through the OS to perform specific actions. A classic definition being
+</p>
+<blockquote id="0c04c335-30f2-44e3-b96c-bcd35ba539b5" class="">“A Broadcast receiver is an Android component which allows you to register for system or application events.”
+</blockquote>
+<p><a href="https://developer.android.com/reference/android/support/v4/content/LocalBroadcastManager.html">LocalBroadcastManager</a> is a way to send or receive broadcasts within an application process. This mechanism has a lot of advantages
+</p>
+  <ol id="d991ec46-3859-46ce-b411-917c94a378f9" class="numbered-list" start="1">
+    <li>since the data remains inside the application process, the data cannot be leaked.
+    </li>
+    <li>LocalBroadcasts are resolved faster, since the resolution of a normal broadcast happens at runtime throughout the OS.
+    </li>
+  </ol>
+<p>A simple example of a LocalBroastManager is:
+</p>
+<p><strong>SenderActivity</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Intent intent = new Intent(&#34;anEvent&#34;);
@@ -137,7 +154,16 @@ LocalBroadcastManager.getInstance(this).sendBroadcast(intent);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>ReceiverActivity</strong></p><ol id="fb2a9e78-8ac4-4dc9-aea0-5f3209c98666" class="numbered-list" start="1"><li>Register a receiver</li></ol><blockquote id="f9813c7c-894e-43cc-9514-fd07115ecb7d" class="">``` LocalBroadcastManager.getInstance(this).registerReceiver(aLBReceiver, new IntentFilter(“anEvent”));</blockquote>
+</div>
+<p><strong>ReceiverActivity</strong>
+</p>
+  <ol id="fb2a9e78-8ac4-4dc9-aea0-5f3209c98666" class="numbered-list" start="1">
+    <li>Register a receiver
+    </li>
+  </ol>
+<blockquote id="f9813c7c-894e-43cc-9514-fd07115ecb7d" class="">``` LocalBroadcastManager.getInstance(this).registerReceiver(aLBReceiver, new IntentFilter(“anEvent”));
+</blockquote>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">2. A concrete object for performing action when the receiver is called
@@ -153,12 +179,18 @@ private BroadcastReceiver aLBReceiver = new BroadcastReceiver() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="cd77b16f-6847-433b-8bd2-309c85962a63" class="numbered-list" start="1"><li>unregister when the view is not visible any longer.</li></ol><blockquote id="9adbd53b-d888-4be3-8921-33a0e7866419" class="">@Override 
+</div>
+  <ol id="cd77b16f-6847-433b-8bd2-309c85962a63" class="numbered-list" start="1">
+    <li>unregister when the view is not visible any longer.
+    </li>
+  </ol>
+<blockquote id="9adbd53b-d888-4be3-8921-33a0e7866419" class="">@Override 
 protected void onPause() { 
 // Unregister since the activity is about to be closed. 
 LocalBroadcastManager.getInstance(this).unregisterReceiver(aLBReceiver);
 super.onDestroy(); 
-}</blockquote>
+}
+</blockquote>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

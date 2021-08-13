@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>The abstract class <a href="https://developer.android.com/reference/android/app/IntentService.html"><code>IntentService</code></a> is a base class for services, which run in the background without any user interface. Therefore, in order to update the UI, we have to make use of a receiver, which may be either a <a href="https://developer.android.com/reference/android/content/BroadcastReceiver.html"><code>BroadcastReceiver</code></a> or a <a href="https://developer.android.com/reference/android/os/ResultReceiver.html"><code>ResultReceiver</code></a>:</p><ul id="1a35879c-4593-41af-b7de-512424489636" class="bulleted-list"><li>A <code>BroadcastReceiver</code> should be used if your service needs to communicate with multiple components that want to listen for communication.</li><li>A <code>ResultReceiver</code>: should be used if your service needs to communicate with only the parent application (i.e. your application).</li></ul><p>Within the <code>IntentService</code>, we have one key method, <code>onHandleIntent()</code>, in which we will do all actions, for example, preparing notifications, creating alarms, etc.</p><p>If you want to use you own <code>IntentService</code>, you have to extend it as follows:</p>
+      
+<p>The abstract class <a href="https://developer.android.com/reference/android/app/IntentService.html"><code>IntentService</code></a> is a base class for services, which run in the background without any user interface. Therefore, in order to update the UI, we have to make use of a receiver, which may be either a <a href="https://developer.android.com/reference/android/content/BroadcastReceiver.html"><code>BroadcastReceiver</code></a> or a <a href="https://developer.android.com/reference/android/os/ResultReceiver.html"><code>ResultReceiver</code></a>:
+</p>
+  <ul id="1a35879c-4593-41af-b7de-512424489636" class="bulleted-list">
+    <li>A <code>BroadcastReceiver</code> should be used if your service needs to communicate with multiple components that want to listen for communication.
+    </li>
+    <li>A <code>ResultReceiver</code>: should be used if your service needs to communicate with only the parent application (i.e. your application).
+    </li>
+  </ul>
+<p>Within the <code>IntentService</code>, we have one key method, <code>onHandleIntent()</code>, in which we will do all actions, for example, preparing notifications, creating alarms, etc.
+</p>
+<p>If you want to use you own <code>IntentService</code>, you have to extend it as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class YourIntentService extends IntentService {
@@ -139,6 +152,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -150,7 +164,10 @@ protected void onHandleIntent(Intent intent) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Calling/starting the activity can be done as follows:</p>
+</div>
+<p>Calling/starting the activity can be done as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Intent i = new Intent(this, YourIntentService.class);
@@ -160,7 +177,10 @@ startActivity(i); // For the activity; ignore this for now.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Similar to any activity, you can pass extra information such as bundle data to it as follows:</p>
+</div>
+<p>Similar to any activity, you can pass extra information such as bundle data to it as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Intent passDataIntent = new Intent(this, YourIntentService.class);
@@ -170,7 +190,10 @@ startService(passDataIntent);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now assume that we passed some data to the <code>YourIntentService</code> class. Based on this data, an action can be performed as follows:</p>
+</div>
+<p>Now assume that we passed some data to the <code>YourIntentService</code> class. Based on this data, an action can be performed as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class YourIntentService extends IntentService {
@@ -194,7 +217,9 @@ startService(passDataIntent);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The code above also shows how to handle constraints in the <code>OnHandleIntent()</code> method.</p>
+</div>
+<p>The code above also shows how to handle constraints in the <code>OnHandleIntent()</code> method.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

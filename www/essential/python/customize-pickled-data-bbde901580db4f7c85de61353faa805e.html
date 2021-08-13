@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Some data cannot be pickled. Other data should not be pickled for other reasons.</p><p>What will be pickled can be defined in <code>__getstate__</code> method. This method must return something that is picklable.</p><p>On the oposite side is <code>__setstate__</code>: it will receive what <code>__getstate__</code> created and has to initialize the object.</p>
+      
+<p>Some data cannot be pickled. Other data should not be pickled for other reasons.
+</p>
+<p>What will be pickled can be defined in <code>__getstate__</code> method. This method must return something that is picklable.
+</p>
+<p>On the oposite side is <code>__setstate__</code>: it will receive what <code>__getstate__</code> created and has to initialize the object.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class A(object):
@@ -153,7 +160,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, this can be done:</p>
+</div>
+<p>Now, this can be done:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; a1 = A(&#39;very important&#39;)
@@ -171,7 +181,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The implementation here pickles a list with one value: <code>[self.important_data]</code>. That was just an example, <code>__getstate__</code> could have returned anything that is picklable, as long as <code>__setstate__</code> knows how to do the opposite. A good alternative is a dictionary of all values: <code>{&#x27;important_data&#x27;: self.important_data}</code>.</p><p><strong>Constructor is not called!</strong> Note that in the previous example instance <code>a2</code> was created in <code>pickle.loads</code> without ever calling <code>A.__init__</code>, so <code>A.__setstate__</code> had to initialize everything that <code>__init__</code> would have initialized if it were called.</p>
+</div>
+<p>The implementation here pickles a list with one value: <code>[self.important_data]</code>. That was just an example, <code>__getstate__</code> could have returned anything that is picklable, as long as <code>__setstate__</code> knows how to do the opposite. A good alternative is a dictionary of all values: <code>{&#x27;important_data&#x27;: self.important_data}</code>.
+</p>
+<p><strong>Constructor is not called!</strong> Note that in the previous example instance <code>a2</code> was created in <code>pickle.loads</code> without ever calling <code>A.__init__</code>, so <code>A.__setstate__</code> had to initialize everything that <code>__init__</code> would have initialized if it were called.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

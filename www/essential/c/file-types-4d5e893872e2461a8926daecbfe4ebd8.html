@@ -127,7 +127,49 @@
 </div>
 
 
-      <p>Compiling C programs requires you to work with five kinds of files:</p><ol id="ca0ca6e7-365f-406b-aa85-fe817d70cb9f" class="numbered-list" start="1"><li><strong>Source files</strong>: These files contain function definitions, and have names which end in <code>.c</code> by convention. Note: <code>.cc</code> and <code>.cpp</code> are C++ files; <em>not</em> C files.</li></ol><p>e.g., <code>foo.c</code></p><ol id="37529de6-67c0-4518-94e3-8cc3f884752b" class="numbered-list" start="1"><li><strong>Header files</strong>: These files contain function prototypes and various pre-processor statements (see below). They are used to allow source code files to access externally-defined functions. Header files end in <code>.h</code> by convention.</li></ol><p>e.g., <code>foo.h</code></p><ol id="7a755eb1-ecf2-482f-a81d-bdb1950ad0ae" class="numbered-list" start="1"><li><strong>Object files</strong>: These files are produced as the output of the compiler. They consist of function definitions in binary form, but they are not executable by themselves. Object files end in <code>.o</code> by convention, although on some operating systems (e.g. Windows, MS-DOS), they often end in <code>.obj</code>.</li></ol><p>e.g., <code>foo.o</code> <code>foo.obj</code></p><ol id="4af16968-89ff-4d94-842b-b102dff827a5" class="numbered-list" start="1"><li><strong>Binary executables</strong>: These are produced as the output of a program called a “linker”. The linker links together a number of object files to produce a binary file which can be directly executed. Binary executables have no special suffix on Unix operating systems, although they generally end in <code>.exe</code> on Windows.</li></ol><p>e.g., <code>foo</code> <code>foo.exe</code></p><ol id="38d1c666-a850-4887-8b41-44540a253c77" class="numbered-list" start="1"><li><strong>Libraries</strong>: A library is a compiled binary but is not in itself an an executable (i.e., there is no <code>main()</code> function in a library). A library contains functions that may be used by more than one program. A library should ship with header files which contain prototypes for all functions in the library; these header files should be referenced (e.g; <code>#include &lt;library.h&gt;</code>) in any source file that uses the library. The linker then needs to be referred to the library so the program can successfully compiled. There are two types of libraries: static and dynamic.</li></ol><ul id="b9278f49-3a03-490b-b4c4-8841f762033d" class="bulleted-list"><li><strong>Static library</strong>: A static library (<code>.a</code> files for POSIX systems and <code>.lib</code> files for Windows — not to be confused with <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms682592(v=vs.85).aspx">DLL import library files</a>, which also use the <code>.lib</code> extension) is statically built into the program . Static libraries have the advantage that the program knows exactly which version of a library is used. On the other hand, the sizes of executables are bigger as all used library functions are included.</li></ul><p>e.g., <code>libfoo.a</code> <code>foo.lib</code></p><ul id="e2a427b0-0876-46d3-9852-a7820464085b" class="bulleted-list"><li><strong>Dynamic library</strong>: A dynamic library (<code>.so</code> files for most POSIX systems, <code>.dylib</code> for OSX and <code>.dll</code> files for Windows) is dynamically linked at runtime by the program. These are also sometimes referred to as shared libraries because one library image can be shared by many programs. Dynamic libraries have the advantage of taking up less disk space if more than one application is using the library. Also, they allow library updates (bug fixes) without having to rebuild executables.</li></ul><p>e.g., <code>foo.so</code> <code>foo.dylib</code> <code>foo.dll</code></p>
+      
+<p>Compiling C programs requires you to work with five kinds of files:
+</p>
+  <ol id="ca0ca6e7-365f-406b-aa85-fe817d70cb9f" class="numbered-list" start="1">
+    <li><strong>Source files</strong>: These files contain function definitions, and have names which end in <code>.c</code> by convention. Note: <code>.cc</code> and <code>.cpp</code> are C++ files; <em>not</em> C files.
+    </li>
+  </ol>
+<p>e.g., <code>foo.c</code>
+</p>
+  <ol id="37529de6-67c0-4518-94e3-8cc3f884752b" class="numbered-list" start="1">
+    <li><strong>Header files</strong>: These files contain function prototypes and various pre-processor statements (see below). They are used to allow source code files to access externally-defined functions. Header files end in <code>.h</code> by convention.
+    </li>
+  </ol>
+<p>e.g., <code>foo.h</code>
+</p>
+  <ol id="7a755eb1-ecf2-482f-a81d-bdb1950ad0ae" class="numbered-list" start="1">
+    <li><strong>Object files</strong>: These files are produced as the output of the compiler. They consist of function definitions in binary form, but they are not executable by themselves. Object files end in <code>.o</code> by convention, although on some operating systems (e.g. Windows, MS-DOS), they often end in <code>.obj</code>.
+    </li>
+  </ol>
+<p>e.g., <code>foo.o</code> <code>foo.obj</code>
+</p>
+  <ol id="4af16968-89ff-4d94-842b-b102dff827a5" class="numbered-list" start="1">
+    <li><strong>Binary executables</strong>: These are produced as the output of a program called a “linker”. The linker links together a number of object files to produce a binary file which can be directly executed. Binary executables have no special suffix on Unix operating systems, although they generally end in <code>.exe</code> on Windows.
+    </li>
+  </ol>
+<p>e.g., <code>foo</code> <code>foo.exe</code>
+</p>
+  <ol id="38d1c666-a850-4887-8b41-44540a253c77" class="numbered-list" start="1">
+    <li><strong>Libraries</strong>: A library is a compiled binary but is not in itself an an executable (i.e., there is no <code>main()</code> function in a library). A library contains functions that may be used by more than one program. A library should ship with header files which contain prototypes for all functions in the library; these header files should be referenced (e.g; <code>#include &lt;library.h&gt;</code>) in any source file that uses the library. The linker then needs to be referred to the library so the program can successfully compiled. There are two types of libraries: static and dynamic.
+    </li>
+  </ol>
+  <ul id="b9278f49-3a03-490b-b4c4-8841f762033d" class="bulleted-list">
+    <li><strong>Static library</strong>: A static library (<code>.a</code> files for POSIX systems and <code>.lib</code> files for Windows — not to be confused with <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms682592(v=vs.85).aspx">DLL import library files</a>, which also use the <code>.lib</code> extension) is statically built into the program . Static libraries have the advantage that the program knows exactly which version of a library is used. On the other hand, the sizes of executables are bigger as all used library functions are included.
+    </li>
+  </ul>
+<p>e.g., <code>libfoo.a</code> <code>foo.lib</code>
+</p>
+  <ul id="e2a427b0-0876-46d3-9852-a7820464085b" class="bulleted-list">
+    <li><strong>Dynamic library</strong>: A dynamic library (<code>.so</code> files for most POSIX systems, <code>.dylib</code> for OSX and <code>.dll</code> files for Windows) is dynamically linked at runtime by the program. These are also sometimes referred to as shared libraries because one library image can be shared by many programs. Dynamic libraries have the advantage of taking up less disk space if more than one application is using the library. Also, they allow library updates (bug fixes) without having to rebuild executables.
+    </li>
+  </ul>
+<p>e.g., <code>foo.so</code> <code>foo.dylib</code> <code>foo.dll</code>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

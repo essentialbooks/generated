@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>There are two common ways to encode a POST request body: URL encoding (application/x-www-form-urlencoded) and form data (multipart/form-data). Much of the code is similar, but the way you construct the body data is different.</p><p><strong>Sending a request using URL encoding</strong></p><p>Be it you have a server for your small application or your working in a team with a full out back-end engineer, you’ll want to talk to that server at one point with your iOS application.</p><p>In the following code we will be composing a string of arguments that the destination server script will use to do something that changes depending on your case. For example we may want to send the string:</p><blockquote id="2642916a-d613-43cf-9b62-d7af808de6ce" class="">name=Brendon&amp;password=abcde</blockquote><p>To the server when a user signs up to your application, so the server can store this information in a database.</p><p>Let’s get started. You’ll want to create a NSURLSession POST request with the following code.</p>
+      
+<p>There are two common ways to encode a POST request body: URL encoding (application/x-www-form-urlencoded) and form data (multipart/form-data). Much of the code is similar, but the way you construct the body data is different.
+</p>
+<p><strong>Sending a request using URL encoding</strong>
+</p>
+<p>Be it you have a server for your small application or your working in a team with a full out back-end engineer, you’ll want to talk to that server at one point with your iOS application.
+</p>
+<p>In the following code we will be composing a string of arguments that the destination server script will use to do something that changes depending on your case. For example we may want to send the string:
+</p>
+<blockquote id="2642916a-d613-43cf-9b62-d7af808de6ce" class="">name=Brendon&amp;password=abcde
+</blockquote>
+<p>To the server when a user signs up to your application, so the server can store this information in a database.
+</p>
+<p>Let’s get started. You’ll want to create a NSURLSession POST request with the following code.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Create the configuration, which is necessary so we can cancel cacheing amongst other things.
@@ -150,7 +165,12 @@ NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithRequest:urlRequest
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above code just created and fired the POST request to the server. Remember that the script URL and the POST data string changes depending on your situation. If you’re reading this, you’ll know what to fill those variables with.</p><p>You’ll also need to add a small method that does the URL encoding:</p>
+</div>
+<p>The above code just created and fired the POST request to the server. Remember that the script URL and the POST data string changes depending on your situation. If you’re reading this, you’ll know what to fill those variables with.
+</p>
+<p>You’ll also need to add a small method that does the URL encoding:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">- (NSString *)URLEncode:(NSString *)originalString encoding:(NSStringEncoding)encoding
@@ -166,7 +186,12 @@ NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithRequest:urlRequest
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So, when the server is finished processing this data it will send a return to your iOS app. So we need to process this return, but how?</p><p>We use event-driven programming and use NSURLSession’s delegate methods. This means as the server sends back a response these methods will start triggering. The following 5 methods are the ones that’ll be triggered throughout the ENTIRE request, each time one is made:</p>
+</div>
+<p>So, when the server is finished processing this data it will send a return to your iOS app. So we need to process this return, but how?
+</p>
+<p>We use event-driven programming and use NSURLSession’s delegate methods. This means as the server sends back a response these methods will start triggering. The following 5 methods are the ones that’ll be triggered throughout the ENTIRE request, each time one is made:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSURLResponse *)response
@@ -183,7 +208,10 @@ NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithRequest:urlRequest
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Below you’ll see the above methods used in context. Each of their purposes are pretty self-explanatory thanks to Apple, but I’ve commented their uses anyway:</p>
+</div>
+<p>Below you’ll see the above methods used in context. Each of their purposes are pretty self-explanatory thanks to Apple, but I’ve commented their uses anyway:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Response handling delegates
@@ -243,7 +271,16 @@ NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithRequest:urlRequest
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So that’s it! That’s all the code you need to send, receive and parse a request for an API in iOS 9! Okay…it was kind of a lot of code. But if implemented right like above, it’ll be fail-safe! Make sure to always handle errors where suggested above.</p><p><strong>Sending a request using form encoding</strong></p><p>URL encoding is a broadly compatible way to encode arbitrary data. However, it is relatively inefficient for uploading binary data (such as photos) because every non-ASCII byte turns into a three-character code. It also does not support file attachments, so you would have to pass filenames and file data as separate fields.</p><p>Suppose we want to upload a photograph in a way that is efficient and actually looks like a file on the server side. One way to do that is to use form encoding instead. To do this, edit the code that creates the NSURLSession as follows:</p>
+</div>
+<p>So that’s it! That’s all the code you need to send, receive and parse a request for an API in iOS 9! Okay…it was kind of a lot of code. But if implemented right like above, it’ll be fail-safe! Make sure to always handle errors where suggested above.
+</p>
+<p><strong>Sending a request using form encoding</strong>
+</p>
+<p>URL encoding is a broadly compatible way to encode arbitrary data. However, it is relatively inefficient for uploading binary data (such as photos) because every non-ASCII byte turns into a three-character code. It also does not support file attachments, so you would have to pass filenames and file data as separate fields.
+</p>
+<p>Suppose we want to upload a photograph in a way that is efficient and actually looks like a file on the server side. One way to do that is to use form encoding instead. To do this, edit the code that creates the NSURLSession as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">UIImage * imgToSend;
@@ -319,7 +356,9 @@ NSURLSessionDataTask * uploadTask = [defaultSession dataTaskWithRequest:request]
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This creates and fires the NSURLSession request just as before, and as a result the delegate methods will behave exactly the same way. Make sure that the script the image is being sent to (located at the url in the variable <code>url</code>) is expecting an image and can parse it correctly.</p>
+</div>
+<p>This creates and fires the NSURLSession request just as before, and as a result the delegate methods will behave exactly the same way. Make sure that the script the image is being sent to (located at the url in the variable <code>url</code>) is expecting an image and can parse it correctly.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

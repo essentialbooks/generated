@@ -127,7 +127,18 @@
 </div>
 
 
-      <ul id="44e3af54-6dfb-4960-82e6-eb806141be0a" class="bulleted-list"><li>I’m in a controlled room with a single minew beacon that use IBEACON protocol.</li><li>BLEController needs to extend CBPeripheralDelegate</li><li>I’ll use the first BLE to connect after the search has stop.</li><li>Modify the method StopSearchBLE()</li></ul>
+      
+  <ul id="44e3af54-6dfb-4960-82e6-eb806141be0a" class="bulleted-list">
+    <li>I’m in a controlled room with a single minew beacon that use IBEACON protocol.
+    </li>
+    <li>BLEController needs to extend CBPeripheralDelegate
+    </li>
+    <li>I’ll use the first BLE to connect after the search has stop.
+    </li>
+    <li>Modify the method StopSearchBLE()
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class BLEController: CBCentralManagerDelegate, CBPeripheralDelegate{
@@ -145,7 +156,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="35130df1-3227-4757-829e-0cb08cf22c91" class="bulleted-list"><li>In the documention of your BLE device, you should look for the SERVICE UUID and MAJOR UUID CHARACTERISTIC</li></ul>
+</div>
+  <ul id="35130df1-3227-4757-829e-0cb08cf22c91" class="bulleted-list">
+    <li>In the documention of your BLE device, you should look for the SERVICE UUID and MAJOR UUID CHARACTERISTIC
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var service_uuid =  CBUUID(string: &#34;0000fff0-0000-1000-8000-00805f9b34fb&#34;)
@@ -164,7 +180,16 @@ func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="1526ec68-8ff1-44dc-909f-5b6ce6861092" class="bulleted-list"><li>Create a variable ‘service_uuid’ and ‘major_uuid’ like code above. ‘-0000-1000-8000-00805f9b34fb’ is part of the standard. ‘fff0’ is my SERVICE UUID, ‘fff2’ is my MAJOR UUID characteristic and ‘0000’ are required to fill the 4 bytes uuid 1º block.</li><li>discoverCharacteristics([major_uuid], for: (peripheral.services?[0])!) will get major characteristic from my device gatt server and it will have NIL as value for now.</li><li>(peripheral.services?[0])! - 0 beacuse will return a single value once I did peripheral.discoverServices([service_uuid])</li></ul>
+</div>
+  <ul id="1526ec68-8ff1-44dc-909f-5b6ce6861092" class="bulleted-list">
+    <li>Create a variable ‘service_uuid’ and ‘major_uuid’ like code above. ‘-0000-1000-8000-00805f9b34fb’ is part of the standard. ‘fff0’ is my SERVICE UUID, ‘fff2’ is my MAJOR UUID characteristic and ‘0000’ are required to fill the 4 bytes uuid 1º block.
+    </li>
+    <li>discoverCharacteristics([major_uuid], for: (peripheral.services?[0])!) will get major characteristic from my device gatt server and it will have NIL as value for now.
+    </li>
+    <li>(peripheral.services?[0])! - 0 beacuse will return a single value once I did peripheral.discoverServices([service_uuid])
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
@@ -185,7 +210,13 @@ func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CB
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="08c4c6b3-fb93-40a4-bc51-12bb28c418fc" class="bulleted-list"><li>Characteristic value will only be readable after call peripheral.readValue(for: characteristic)</li><li>readValue will result in func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) with value in Data type.</li></ul>
+</div>
+  <ul id="08c4c6b3-fb93-40a4-bc51-12bb28c418fc" class="bulleted-list">
+    <li>Characteristic value will only be readable after call peripheral.readValue(for: characteristic)
+    </li>
+    <li>readValue will result in func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) with value in Data type.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,28 @@
 </div>
 
 
-      <p><strong>Pre-requisites:</strong></p><ul id="ec171cad-d7dc-4062-a63d-7802c033d228" class="bulleted-list"><li>cx_Oracle package - See <a href="https://pypi.python.org/pypi/cx_Oracle/5.2.1">here</a> for all versions</li><li>Oracle instant client - For <a href="http://www.oracle.com/technetwork/topics/winx64soft-089540.html">Windows x64</a>, <a href="http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html">Linux x64</a></li></ul><p><strong>Setup:</strong></p><ul id="7114d744-0886-42fd-9861-49f095fc57c0" class="bulleted-list"><li>Install the cx_Oracle package as:</li></ul><p><code>sudo rpm -i &lt;YOUR_PACKAGE_FILENAME&gt;</code></p><ul id="451988f4-0549-4c35-88e3-ab56c548f059" class="bulleted-list"><li>Extract the Oracle instant client and set environment variables as:</li></ul>
+      
+<p><strong>Pre-requisites:</strong>
+</p>
+  <ul id="ec171cad-d7dc-4062-a63d-7802c033d228" class="bulleted-list">
+    <li>cx_Oracle package - See <a href="https://pypi.python.org/pypi/cx_Oracle/5.2.1">here</a> for all versions
+    </li>
+    <li>Oracle instant client - For <a href="http://www.oracle.com/technetwork/topics/winx64soft-089540.html">Windows x64</a>, <a href="http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html">Linux x64</a>
+    </li>
+  </ul>
+<p><strong>Setup:</strong>
+</p>
+  <ul id="7114d744-0886-42fd-9861-49f095fc57c0" class="bulleted-list">
+    <li>Install the cx_Oracle package as:
+    </li>
+  </ul>
+<p><code>sudo rpm -i &lt;YOUR_PACKAGE_FILENAME&gt;</code>
+</p>
+  <ul id="451988f4-0549-4c35-88e3-ab56c548f059" class="bulleted-list">
+    <li>Extract the Oracle instant client and set environment variables as:
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ORACLE_HOME=&lt;PATH_TO_INSTANTCLIENT&gt;
@@ -137,7 +158,10 @@ LD_LIBRARY_PATH=&lt;PATH_TO_INSTANTCLIENT&gt;:$LD_LIBRARY_PATH</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Creating a connection:</strong></p>
+</div>
+<p><strong>Creating a connection:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import cx_Oracle
@@ -154,7 +178,10 @@ class OraExec(object):
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Get database version:</strong></p>
+</div>
+<p><strong>Get database version:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ver = con.version.split(&#34;.&#34;)
@@ -163,7 +190,12 @@ print ver</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Sample Output: [‘12’, ‘1’, ‘0’, ‘2’, ‘0’]</p><p><strong>Execute query: SELECT</strong></p>
+</div>
+<p>Sample Output: [‘12’, ‘1’, ‘0’, ‘2’, ‘0’]
+</p>
+<p><strong>Execute query: SELECT</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">_db_cur.execute(&#34;select * from employees order by emp_id&#34;)
@@ -173,7 +205,16 @@ for result in _db_cur:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output will be in Python tuples:</p><p>(10, ‘SYSADMIN’, ‘IT-INFRA’, 7)</p><p>(23, ‘HR ASSOCIATE’, ‘HUMAN RESOURCES’, 6)</p><p><strong>Execute query: INSERT</strong></p>
+</div>
+<p>Output will be in Python tuples:
+</p>
+<p>(10, ‘SYSADMIN’, ‘IT-INFRA’, 7)
+</p>
+<p>(23, ‘HR ASSOCIATE’, ‘HUMAN RESOURCES’, 6)
+</p>
+<p><strong>Execute query: INSERT</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">_db_cur.execute(&#34;insert into employees(emp_id, title, dept, grade) 
@@ -183,7 +224,16 @@ _db_connection.commit()</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When you perform insert/update/delete operations in an Oracle Database, the changes are only available within your session until <code>commit</code> is issued. When the updated data is committed to the database, it is then available to other users and sessions.</p><p><strong>Execute query: INSERT using Bind variables</strong></p><p><a href="http://www.oracle.com/technetwork/articles/dsl/python-091105.html">Reference</a></p><p>Bind variables enable you to re-execute statements with new values, without the overhead of re-parsing the statement. Bind variables improve code re-usability, and can reduce the risk of SQL Injection attacks.</p>
+</div>
+<p>When you perform insert/update/delete operations in an Oracle Database, the changes are only available within your session until <code>commit</code> is issued. When the updated data is committed to the database, it is then available to other users and sessions.
+</p>
+<p><strong>Execute query: INSERT using Bind variables</strong>
+</p>
+<p><a href="http://www.oracle.com/technetwork/articles/dsl/python-091105.html">Reference</a>
+</p>
+<p>Bind variables enable you to re-execute statements with new values, without the overhead of re-parsing the statement. Bind variables improve code re-usability, and can reduce the risk of SQL Injection attacks.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">rows = [ (1, &#34;First&#34; ),
@@ -197,7 +247,10 @@ _db_connection.commit()</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Close connection:</strong></p>
+</div>
+<p><strong>Close connection:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">_db_connection.close()</pre>
@@ -205,7 +258,9 @@ _db_connection.commit()</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The close() method closes the connection. Any connections not explicitly closed will be automatically released when the script ends.</p>
+</div>
+<p>The close() method closes the connection. Any connections not explicitly closed will be automatically released when the script ends.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

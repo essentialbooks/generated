@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>Given these sample data:</p><p>|ID |STATUS |STATUS_TIME |STATUS_BY | |———–|–––––|–––––––––––––|–––––| | 1|ONE |2016-09-28-19.47.52.501398|USER_1 | | 3|ONE |2016-09-28-19.47.52.501511|USER_2 | | 1|THREE |2016-09-28-19.47.52.501517|USER_3 | | 3|TWO |2016-09-28-19.47.52.501521|USER_2 | | 3|THREE |2016-09-28-19.47.52.501524|USER_4 |</p><p>Items identified by <code>ID</code> values must move from <code>STATUS</code> ‘ONE’ to ‘TWO’ to ‘THREE’ in sequence, without skipping statuses. The problem is to find users (<code>STATUS_BY</code>) values who violate the rule and move from ‘ONE’ immediately to ‘THREE’.</p><p>The <code>LAG()</code> analytical function helps to solve the problem by returning for each row the value in the preceding row:</p>
+      
+<p>Given these sample data:
+</p>
+<p>|ID |STATUS |STATUS_TIME |STATUS_BY | |———–|–––––|–––––––––––––|–––––| | 1|ONE |2016-09-28-19.47.52.501398|USER_1 | | 3|ONE |2016-09-28-19.47.52.501511|USER_2 | | 1|THREE |2016-09-28-19.47.52.501517|USER_3 | | 3|TWO |2016-09-28-19.47.52.501521|USER_2 | | 3|THREE |2016-09-28-19.47.52.501524|USER_4 |
+</p>
+<p>Items identified by <code>ID</code> values must move from <code>STATUS</code> ‘ONE’ to ‘TWO’ to ‘THREE’ in sequence, without skipping statuses. The problem is to find users (<code>STATUS_BY</code>) values who violate the rule and move from ‘ONE’ immediately to ‘THREE’.
+</p>
+<p>The <code>LAG()</code> analytical function helps to solve the problem by returning for each row the value in the preceding row:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT * FROM (
@@ -140,7 +149,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In case your database doesn’t have LAG() you can use this to produce the same result:</p>
+</div>
+<p>In case your database doesn’t have LAG() you can use this to produce the same result:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT A.id, A.status, B.status as prev_status, A.status_time, B.status_time as prev_status_time

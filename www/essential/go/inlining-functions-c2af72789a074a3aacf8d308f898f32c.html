@@ -127,7 +127,31 @@
 </div>
 
 
-      <p>Function inlining is a common compiler optimization for improving performance of the code.</p><p>Small, frequently called functions can be directly included (inlined) in the body of the calling function. This eliminate function calling overhead.</p><p>Go compiler doesn&#x27;t provide a way to force inlining of functions.</p><p>Go compiler makes inlining decisions based on a number of heuristics. </p><p>Here&#x27;s an incomplete list of attributes that disable inlining:</p><ul id="e83e6a38-402f-411f-93a8-97e07c681f58" class="bulleted-list"><li>functions are variadic (eg. they have <code>...</code> args)</li><li>functions are too big</li><li>functions contain <code>panic</code>, <code>recover</code>, or <code>defer</code></li></ul><h1 id="b27b506f-47b7-4df6-9963-5b0d553505a4" class="">Checking if a function was inlined<a class="header-anchor" href="#b27b506f-47b7-4df6-9963-5b0d553505a4" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>We can find out which functions were inlined with <code>-gcflags -m</code> compiler flags. For example:</p>
+      
+<p>Function inlining is a common compiler optimization for improving performance of the code.
+</p>
+<p>Small, frequently called functions can be directly included (inlined) in the body of the calling function. This eliminate function calling overhead.
+</p>
+<p>Go compiler doesn&#x27;t provide a way to force inlining of functions.
+</p>
+<p>Go compiler makes inlining decisions based on a number of heuristics. 
+</p>
+<p>Here&#x27;s an incomplete list of attributes that disable inlining:
+</p>
+  <ul id="e83e6a38-402f-411f-93a8-97e07c681f58" class="bulleted-list">
+    <li>functions are variadic (eg. they have <code>...</code> args)
+    </li>
+    <li>functions are too big
+    </li>
+    <li>functions contain <code>panic</code>, <code>recover</code>, or <code>defer</code>
+    </li>
+  </ul>
+  <h1 id="b27b506f-47b7-4df6-9963-5b0d553505a4" class="">Checking if a function was inlined
+  <a class="header-anchor" href="#b27b506f-47b7-4df6-9963-5b0d553505a4" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>We can find out which functions were inlined with <code>-gcflags -m</code> compiler flags. For example:
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">$ go build -gcflags -m .
@@ -141,7 +165,21 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="94974b44-e45d-4579-89ea-21abc6437e65" class="">Rewriting functions to improve inlining<a class="header-anchor" href="#94974b44-e45d-4579-89ea-21abc6437e65" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Go only inlines very small functions. Some functions that are too big to be inlined can be split into 2 functions:</p><ul id="e7f105c7-cc64-4ec8-9d24-4d96938ff197" class="bulleted-list"><li>a small, fast path that can be inlined</li><li>a big, non-inlineable function</li></ul><p>Here&#x27;s an example from Go standard library. A function <code>sync.Do()</code>:</p>
+</div>
+  <h1 id="94974b44-e45d-4579-89ea-21abc6437e65" class="">Rewriting functions to improve inlining
+  <a class="header-anchor" href="#94974b44-e45d-4579-89ea-21abc6437e65" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Go only inlines very small functions. Some functions that are too big to be inlined can be split into 2 functions:
+</p>
+  <ul id="e7f105c7-cc64-4ec8-9d24-4d96938ff197" class="bulleted-list">
+    <li>a small, fast path that can be inlined
+    </li>
+    <li>a big, non-inlineable function
+    </li>
+  </ul>
+<p>Here&#x27;s an example from Go standard library. A function <code>sync.Do()</code>:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kd">func</span> <span class="p">(</span><span class="nx">o</span> <span class="o">*</span><span class="nx">Once</span><span class="p">)</span> <span class="nf">Do</span><span class="p">(</span><span class="nx">f</span> <span class="kd">func</span><span class="p">())</span> <span class="p">{</span>
@@ -160,7 +198,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>was <a href="https://github.com/golang/go/commit/ca8354843ef9f30207efd0a40bb6c53e7ba86892#diff-5ec3d154401e5eb1017f8ce94b6b64f0">rewritten</a> as:</p>
+</div>
+<p>was <a href="https://github.com/golang/go/commit/ca8354843ef9f30207efd0a40bb6c53e7ba86892#diff-5ec3d154401e5eb1017f8ce94b6b64f0">rewritten</a> as:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kd">func</span> <span class="p">(</span><span class="nx">o</span> <span class="o">*</span><span class="nx">Once</span><span class="p">)</span> <span class="nf">Do</span><span class="p">(</span><span class="nx">f</span> <span class="kd">func</span><span class="p">())</span> <span class="p">{</span>
@@ -182,7 +223,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This optimization only makes a difference if a function is called a lot and most of the time the slow path is not called.</p><h1 id="548c0ae7-d87a-4fdc-b72b-878e31d989f9" class="">Disabling inline expansion<a class="header-anchor" href="#548c0ae7-d87a-4fdc-b72b-878e31d989f9" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Inline expansion can be disabled with the <code>go:noinline</code> pragma. For example, if we build the following simple program:</p>
+</div>
+<p>This optimization only makes a difference if a function is called a lot and most of the time the slow path is not called.
+</p>
+  <h1 id="548c0ae7-d87a-4fdc-b72b-878e31d989f9" class="">Disabling inline expansion
+  <a class="header-anchor" href="#548c0ae7-d87a-4fdc-b72b-878e31d989f9" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Inline expansion can be disabled with the <code>go:noinline</code> pragma. For example, if we build the following simple program:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">main</span>
@@ -198,7 +247,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>we get output that looks like this (trimmed for readability):</p>
+</div>
+<p>we get output that looks like this (trimmed for readability):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ go version
@@ -228,7 +280,10 @@ TEXT main.main(SB) /home/sam/main.go
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that there is no <code>CALL</code> to <code>printhello</code>. However, if we then build the program with the pragma in place:</p>
+</div>
+<p>Note that there is no <code>CALL</code> to <code>printhello</code>. However, if we then build the program with the pragma in place:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">main</span>
@@ -245,7 +300,10 @@ TEXT main.main(SB) /home/sam/main.go
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The output contains the printhello function and a <code>CALL main.printhello</code>:</p>
+</div>
+<p>The output contains the printhello function and a <code>CALL main.printhello</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ go version

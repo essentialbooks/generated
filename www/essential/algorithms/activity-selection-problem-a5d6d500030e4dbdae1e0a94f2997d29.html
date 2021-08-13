@@ -127,12 +127,100 @@
 </div>
 
 
-      <h2 id="20fbb3f7-ebb0-48b9-a88f-c409dc207968" class=""><strong>The Problem</strong><a class="header-anchor" href="#20fbb3f7-ebb0-48b9-a88f-c409dc207968" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>You have a set of things to do (activities). Each activity has a start time and a end time. You aren’t allowed to perform more than one activity at a time. Your task is to find a way to perform the maximum number of activities.</p><p>For example, suppose you have a selection of classes to choose from.</p><p>Activity No.| start time| end time|
-—— | —— | —— |</p><p>|1| 10.20 A.M | 11.00AM | |2| 10.30 A.M | 11.30AM | |3| 11.00 A.M | 12.00AM | |4| 10.00 A.M | 11.30AM | |5| 9.00 A.M | 11.00AM |</p><p>Remember, you can’t take two classes at the same time. That means you can’t take class 1 and 2 because they share a common time 10.30 A.M to 11.00 A.M. However, you can take class 1 and 3 because they don’t share a common time. So your task is to take maximum number of classes as possible without any overlap. How can you do that?</p><h2 id="d573ff72-57b9-43d4-b6c9-a4c21226b01a" class=""><strong>Analysis</strong><a class="header-anchor" href="#d573ff72-57b9-43d4-b6c9-a4c21226b01a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Lets think for the solution by greedy approach.First of all we randomly chose some approach and check that will work or not.</p><ul id="a33c8e49-423f-45c6-b793-e6de74f2f365" class="bulleted-list"><li><strong>sort the activity by start time</strong> that means which activity start first we will take them first. then take first to last from sorted list and check it will intersect from previous taken activity or not. If the current activity is not intersect with the previously taken activity, we will perform the activity otherwise we will not perform. this approach will work for some cases like</li></ul><p>Activity No.| start time| end time|
-—— | —— | —— |</p><p>|1| 11.00 A.M | 1.30P.M | |2| 11.30 A.M | 12.00P.M | |3| 1.30 P.M | 2.00P.M | |4| 10.00 A.M | 11.00AM |</p><p>the sorting order will be 4–&gt;1–&gt;2–&gt;3 .The activity 4–&gt; 1–&gt; 3 will be performed and the activity 2 will be skipped. the maximum 3 activity will be performed. It works for this type of cases. but it will fail for some cases. Lets apply this approach for the case</p><p>Activity No.| start time| end time|
-—— | —— | —— |</p><p>|1| 11.00 A.M | 1.30P.M | |2| 11.30 A.M | 12.00P.M | |3| 1.30 P.M | 2.00P.M | |4| 10.00 A.M | 3.00P.M |</p><p>The sort order will be 4–&gt;1–&gt;2–&gt;3 and only activity 4 will be performed but the answer can be activity 1–&gt;3 or 2–&gt;3 will be performed. So our approach will not work for the above case. Let’s try another approach</p><ul id="b4c07be9-01ad-4b9b-9cce-a5ee8fde3e4a" class="bulleted-list"><li><strong>Sort the activity by time duration</strong> that means perform the shortest activity first. that can solve the previous problem . Although the problem is not completely solved. There still some cases that can fail the solution. apply this approach on the case bellow.</li></ul><p>Activity No.| start time| end time|
-—— | —— | —— |</p><p>|1| 6.00 A.M | 11.40A.M | |2| 11.30 A.M | 12.00P.M | |3| 11.40 P.M | 2.00P.M |</p><p>if we sort the activity by time duration the sort order will be 2–&gt; 3 —&gt;1 . and if we perform activity No. 2 first then no other activity can be performed. But the answer will be perform activity 1 then perform 3 . So we can perform maximum 2 activity.So this can not be a solution of this problem. We should try a different approach.</p><hr id="07b8c9ab-d66f-4eae-bb10-0851d758b0ee"/><h2 id="38060078-e775-458e-8bc5-a8282c3af28b" class=""><strong>The solution</strong><a class="header-anchor" href="#38060078-e775-458e-8bc5-a8282c3af28b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><ul id="5f4aa1d1-5798-4a35-986f-cceba86a688f" class="bulleted-list"><li><strong>Sort the Activity by ending time</strong> that means the activity finishes first that come first. the algorithm is given below</li></ul><blockquote id="bf5f682f-5fa8-44c5-8f9f-10f147e9718e" class=""></blockquote><ol id="342d6377-92b5-438a-9e39-8e953c4a2f40" class="numbered-list" start="1"><li>Sort the activities by its ending times.</li><li>If the activity to be performed do not share a common time with the activities that previously performed, perform the activity.</li></ol><p>Lets analyse the first example</p><p>Activity No.| start time| end time|
-—— | —— | —— |</p><p>|1| 10.20 A.M | 11.00AM | |2| 10.30 A.M | 11.30AM | |3| 11.00 A.M | 12.00AM | |4| 10.00 A.M | 11.30AM | |5| 9.00 A.M | 11.00AM |</p><p>sort the activity by its ending times , So sort order will be 1–&gt;5–&gt;2–&gt;4–&gt;3.. the answer is 1–&gt;3 these two activities will be performed. ans that’s the answer. here is the sudo code.</p><blockquote id="a46428cd-1740-4af6-8c57-a8268b132646" class=""></blockquote><ol id="7d14ce41-2e83-4ff4-9372-cd0d221b5cd2" class="numbered-list" start="1"><li>sort: activities</li><li>perform first activity from the sorted list of activities.</li><li>Set : Current_activity := first activity</li><li>set: end_time := end_time of Current activity</li><li>go to next activity if exist, if not exist terminate .</li><li>if start_time of current activity &lt;= end_time : perform the activity and go to 4</li><li>else: got to 5.</li></ol><p>see here for coding help http://www.geeksforgeeks.org/greedy-algorithms-set-1-activity-selection-problem/</p>
+      
+  <h2 id="20fbb3f7-ebb0-48b9-a88f-c409dc207968" class=""><strong>The Problem</strong>
+  <a class="header-anchor" href="#20fbb3f7-ebb0-48b9-a88f-c409dc207968" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>You have a set of things to do (activities). Each activity has a start time and a end time. You aren’t allowed to perform more than one activity at a time. Your task is to find a way to perform the maximum number of activities.
+</p>
+<p>For example, suppose you have a selection of classes to choose from.
+</p>
+<p>Activity No.| start time| end time|
+—— | —— | —— |
+</p>
+<p>|1| 10.20 A.M | 11.00AM | |2| 10.30 A.M | 11.30AM | |3| 11.00 A.M | 12.00AM | |4| 10.00 A.M | 11.30AM | |5| 9.00 A.M | 11.00AM |
+</p>
+<p>Remember, you can’t take two classes at the same time. That means you can’t take class 1 and 2 because they share a common time 10.30 A.M to 11.00 A.M. However, you can take class 1 and 3 because they don’t share a common time. So your task is to take maximum number of classes as possible without any overlap. How can you do that?
+</p>
+  <h2 id="d573ff72-57b9-43d4-b6c9-a4c21226b01a" class=""><strong>Analysis</strong>
+  <a class="header-anchor" href="#d573ff72-57b9-43d4-b6c9-a4c21226b01a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Lets think for the solution by greedy approach.First of all we randomly chose some approach and check that will work or not.
+</p>
+  <ul id="a33c8e49-423f-45c6-b793-e6de74f2f365" class="bulleted-list">
+    <li><strong>sort the activity by start time</strong> that means which activity start first we will take them first. then take first to last from sorted list and check it will intersect from previous taken activity or not. If the current activity is not intersect with the previously taken activity, we will perform the activity otherwise we will not perform. this approach will work for some cases like
+    </li>
+  </ul>
+<p>Activity No.| start time| end time|
+—— | —— | —— |
+</p>
+<p>|1| 11.00 A.M | 1.30P.M | |2| 11.30 A.M | 12.00P.M | |3| 1.30 P.M | 2.00P.M | |4| 10.00 A.M | 11.00AM |
+</p>
+<p>the sorting order will be 4–&gt;1–&gt;2–&gt;3 .The activity 4–&gt; 1–&gt; 3 will be performed and the activity 2 will be skipped. the maximum 3 activity will be performed. It works for this type of cases. but it will fail for some cases. Lets apply this approach for the case
+</p>
+<p>Activity No.| start time| end time|
+—— | —— | —— |
+</p>
+<p>|1| 11.00 A.M | 1.30P.M | |2| 11.30 A.M | 12.00P.M | |3| 1.30 P.M | 2.00P.M | |4| 10.00 A.M | 3.00P.M |
+</p>
+<p>The sort order will be 4–&gt;1–&gt;2–&gt;3 and only activity 4 will be performed but the answer can be activity 1–&gt;3 or 2–&gt;3 will be performed. So our approach will not work for the above case. Let’s try another approach
+</p>
+  <ul id="b4c07be9-01ad-4b9b-9cce-a5ee8fde3e4a" class="bulleted-list">
+    <li><strong>Sort the activity by time duration</strong> that means perform the shortest activity first. that can solve the previous problem . Although the problem is not completely solved. There still some cases that can fail the solution. apply this approach on the case bellow.
+    </li>
+  </ul>
+<p>Activity No.| start time| end time|
+—— | —— | —— |
+</p>
+<p>|1| 6.00 A.M | 11.40A.M | |2| 11.30 A.M | 12.00P.M | |3| 11.40 P.M | 2.00P.M |
+</p>
+<p>if we sort the activity by time duration the sort order will be 2–&gt; 3 —&gt;1 . and if we perform activity No. 2 first then no other activity can be performed. But the answer will be perform activity 1 then perform 3 . So we can perform maximum 2 activity.So this can not be a solution of this problem. We should try a different approach.
+</p>
+<hr id="07b8c9ab-d66f-4eae-bb10-0851d758b0ee"/>
+  <h2 id="38060078-e775-458e-8bc5-a8282c3af28b" class=""><strong>The solution</strong>
+  <a class="header-anchor" href="#38060078-e775-458e-8bc5-a8282c3af28b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+  <ul id="5f4aa1d1-5798-4a35-986f-cceba86a688f" class="bulleted-list">
+    <li><strong>Sort the Activity by ending time</strong> that means the activity finishes first that come first. the algorithm is given below
+    </li>
+  </ul>
+<blockquote id="bf5f682f-5fa8-44c5-8f9f-10f147e9718e" class="">
+</blockquote>
+  <ol id="342d6377-92b5-438a-9e39-8e953c4a2f40" class="numbered-list" start="1">
+    <li>Sort the activities by its ending times.
+    </li>
+    <li>If the activity to be performed do not share a common time with the activities that previously performed, perform the activity.
+    </li>
+  </ol>
+<p>Lets analyse the first example
+</p>
+<p>Activity No.| start time| end time|
+—— | —— | —— |
+</p>
+<p>|1| 10.20 A.M | 11.00AM | |2| 10.30 A.M | 11.30AM | |3| 11.00 A.M | 12.00AM | |4| 10.00 A.M | 11.30AM | |5| 9.00 A.M | 11.00AM |
+</p>
+<p>sort the activity by its ending times , So sort order will be 1–&gt;5–&gt;2–&gt;4–&gt;3.. the answer is 1–&gt;3 these two activities will be performed. ans that’s the answer. here is the sudo code.
+</p>
+<blockquote id="a46428cd-1740-4af6-8c57-a8268b132646" class="">
+</blockquote>
+  <ol id="7d14ce41-2e83-4ff4-9372-cd0d221b5cd2" class="numbered-list" start="1">
+    <li>sort: activities
+    </li>
+    <li>perform first activity from the sorted list of activities.
+    </li>
+    <li>Set : Current_activity := first activity
+    </li>
+    <li>set: end_time := end_time of Current activity
+    </li>
+    <li>go to next activity if exist, if not exist terminate .
+    </li>
+    <li>if start_time of current activity &lt;= end_time : perform the activity and go to 4
+    </li>
+    <li>else: got to 5.
+    </li>
+  </ol>
+<p>see here for coding help http://www.geeksforgeeks.org/greedy-algorithms-set-1-activity-selection-problem/
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

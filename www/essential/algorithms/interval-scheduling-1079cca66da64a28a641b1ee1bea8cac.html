@@ -127,7 +127,34 @@
 </div>
 
 
-      <p>We have a set of jobs <code>J={a,b,c,d,e,f,g}</code>. Let <code>j in J</code> be a job than its start at <code>sj</code> and ends at <code>fj</code>. Two jobs are compatible if they don’t overlap. A picture as example: <a href="https://postimg.org/image/6etvj3k81/">intervall_scheduling.png</a> The goal is to find the <strong>maximum subset of mutually compatible jobs</strong>. There are several greedy approaches for this problem:</p><ol id="720e1ad2-497b-48ee-9f4c-dc7cea29f0a9" class="numbered-list" start="1"><li><strong>Earliest start time</strong>: Consider jobs in ascending order of <code>sj</code></li><li><strong>Earliest finish time</strong>: Consider jobs in ascending order of <code>fj</code></li><li><strong>Shortest interval</strong>: Consider jobs in ascending order of <code>fj-sj</code></li><li><strong>Fewest conflicts</strong>: For each job <code>j</code>, count the number of conflicting jobs <code>cj</code></li></ol><p>The question now is, which approach is really successfull. <strong>Early start time</strong> definetly not, here is a counter example <a href="https://postimg.org/image/x8zfx2zq9/">ce_early.png</a> <strong>Shortest interval</strong> is not optimal either <a href="https://postimg.org/image/m4npmnkur/">ce_shortest_intervall.png</a> and <strong>fewest conflicts</strong> may indeed sound optimal, but here is a problem case for this approach: <a href="https://postimg.org/image/48f87mmol/">ce_fewest_conflicts.png</a> Which leaves us with <strong>earliest finish time</strong>. The pseudo code is quiet simple:</p><ol id="a0b5923c-3f0d-4264-a10b-d36298a64418" class="numbered-list" start="1"><li>Sort jobs by finish time so that <code>f1&lt;=f2&lt;=...&lt;=fn</code></li><li>Let <code>A</code> be an empty set</li><li>for <code>j=1</code> to <code>n</code> if <code>j</code> is compatible to <strong>all</strong> jobs in <code>A</code> set <code>A=A+{j}</code></li><li><code>A</code> is a <strong>maximum subset of mutually compatible jobs</strong></li></ol><p>Or as C++ program:</p>
+      
+<p>We have a set of jobs <code>J={a,b,c,d,e,f,g}</code>. Let <code>j in J</code> be a job than its start at <code>sj</code> and ends at <code>fj</code>. Two jobs are compatible if they don’t overlap. A picture as example: <a href="https://postimg.org/image/6etvj3k81/">intervall_scheduling.png</a> The goal is to find the <strong>maximum subset of mutually compatible jobs</strong>. There are several greedy approaches for this problem:
+</p>
+  <ol id="720e1ad2-497b-48ee-9f4c-dc7cea29f0a9" class="numbered-list" start="1">
+    <li><strong>Earliest start time</strong>: Consider jobs in ascending order of <code>sj</code>
+    </li>
+    <li><strong>Earliest finish time</strong>: Consider jobs in ascending order of <code>fj</code>
+    </li>
+    <li><strong>Shortest interval</strong>: Consider jobs in ascending order of <code>fj-sj</code>
+    </li>
+    <li><strong>Fewest conflicts</strong>: For each job <code>j</code>, count the number of conflicting jobs <code>cj</code>
+    </li>
+  </ol>
+<p>The question now is, which approach is really successfull. <strong>Early start time</strong> definetly not, here is a counter example <a href="https://postimg.org/image/x8zfx2zq9/">ce_early.png</a> <strong>Shortest interval</strong> is not optimal either <a href="https://postimg.org/image/m4npmnkur/">ce_shortest_intervall.png</a> and <strong>fewest conflicts</strong> may indeed sound optimal, but here is a problem case for this approach: <a href="https://postimg.org/image/48f87mmol/">ce_fewest_conflicts.png</a> Which leaves us with <strong>earliest finish time</strong>. The pseudo code is quiet simple:
+</p>
+  <ol id="a0b5923c-3f0d-4264-a10b-d36298a64418" class="numbered-list" start="1">
+    <li>Sort jobs by finish time so that <code>f1&lt;=f2&lt;=...&lt;=fn</code>
+    </li>
+    <li>Let <code>A</code> be an empty set
+    </li>
+    <li>for <code>j=1</code> to <code>n</code> if <code>j</code> is compatible to <strong>all</strong> jobs in <code>A</code> set <code>A=A+{j}</code>
+    </li>
+    <li><code>A</code> is a <strong>maximum subset of mutually compatible jobs</strong>
+    </li>
+  </ol>
+<p>Or as C++ program:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;
@@ -194,7 +221,26 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The output for this example is: <code>Compatible: (1,3) (4,5) (6,8) (9,10)</code></p><p>The implementation of the algorithm is clearly in Θ(n^2). There is a Θ(n log n) implementation and the interested reader may continue reading below (Java Example).</p><p>Now we have a greedy algorithm for the interval scheduling problem, but is it optimal?</p><p><strong>Proposition:</strong> The greedy algorithm <strong>earliest finish time</strong> is optimal.</p><p><strong>Proof:</strong><em>(by contradiction)</em></p><p>Assume greedy is not optimal and <code>i1,i2,...,ik</code> denote the set of jobs selected by greedy. Let <code>j1,j2,...,jm</code> denote the set of jobs in an <strong>optimal</strong> solution with <code>i1=j1,i2=j2,...,ir=jr</code> for the <strong>largest possible</strong> value of <code>r</code>.</p><p>The job <code>i(r+1)</code> exists and finishes before <code>j(r+1)</code> (earliest finish). But than is <code>j1,j2,...,jr,i(r+1),j(r+2),...,jm</code> also a <strong>optimal</strong> solution and for all <code>k</code> in <code>[1,(r+1)]</code> is <code>jk=ik</code>. thats a <strong>contradiction</strong> to the maximality of <code>r</code>. This concludes the proof.</p><p>This second example demonstrates that there are usually many possible greedy strategies but only some or even none might find the optimal solution in every instance.</p><p>Below is a Java program that runs in Θ(n log n)</p>
+</div>
+<p>The output for this example is: <code>Compatible: (1,3) (4,5) (6,8) (9,10)</code>
+</p>
+<p>The implementation of the algorithm is clearly in Θ(n^2). There is a Θ(n log n) implementation and the interested reader may continue reading below (Java Example).
+</p>
+<p>Now we have a greedy algorithm for the interval scheduling problem, but is it optimal?
+</p>
+<p><strong>Proposition:</strong> The greedy algorithm <strong>earliest finish time</strong> is optimal.
+</p>
+<p><strong>Proof:</strong><em>(by contradiction)</em>
+</p>
+<p>Assume greedy is not optimal and <code>i1,i2,...,ik</code> denote the set of jobs selected by greedy. Let <code>j1,j2,...,jm</code> denote the set of jobs in an <strong>optimal</strong> solution with <code>i1=j1,i2=j2,...,ir=jr</code> for the <strong>largest possible</strong> value of <code>r</code>.
+</p>
+<p>The job <code>i(r+1)</code> exists and finishes before <code>j(r+1)</code> (earliest finish). But than is <code>j1,j2,...,jr,i(r+1),j(r+2),...,jm</code> also a <strong>optimal</strong> solution and for all <code>k</code> in <code>[1,(r+1)]</code> is <code>jk=ik</code>. thats a <strong>contradiction</strong> to the maximality of <code>r</code>. This concludes the proof.
+</p>
+<p>This second example demonstrates that there are usually many possible greedy strategies but only some or even none might find the optimal solution in every instance.
+</p>
+<p>Below is a Java program that runs in Θ(n log n)
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import java.util.Arrays;
@@ -276,7 +322,10 @@ public class WeightedIntervalScheduling
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And the expected output is:</p>
+</div>
+<p>And the expected output is:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Optimal profit is 250</pre>

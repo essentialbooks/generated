@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>PHP 5.6 introduced variable-length argument lists (a.k.a. varargs, variadic arguments), using the <code>...</code> token before the argument name to indicate that the parameter is variadic, i.e. it is an array including all supplied parameters from that one onward.</p>
+      
+<p>PHP 5.6 introduced variable-length argument lists (a.k.a. varargs, variadic arguments), using the <code>...</code> token before the argument name to indicate that the parameter is variadic, i.e. it is an array including all supplied parameters from that one onward.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">function variadic_func($nonVariadic, ...$variadic) {
@@ -139,7 +142,10 @@ variadic_func(1, 2, 3, 4); // prints [2,3,4]</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Type names can be added in front of the <code>...</code>:</p>
+</div>
+<p>Type names can be added in front of the <code>...</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">function foo(Bar ...$bars) {}</pre>
@@ -147,7 +153,10 @@ variadic_func(1, 2, 3, 4); // prints [2,3,4]</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>&amp;</code> reference operator can be added before the <code>...</code>, but after the type name (if any). Consider this example:</p>
+</div>
+<p>The <code>&amp;</code> reference operator can be added before the <code>...</code>, but after the type name (if any). Consider this example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Foo{}
@@ -166,7 +175,10 @@ var_dump($a, $b, $c);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output:</p>
+</div>
+<p>Output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int(0)
@@ -176,7 +188,10 @@ int(1)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>On the other hand, an array (or <code>Traversable</code>) of arguments can be unpacked to be passed to a function in the form of an argument list:</p>
+</div>
+<p>On the other hand, an array (or <code>Traversable</code>) of arguments can be unpacked to be passed to a function in the form of an argument list:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var_dump(...hash_algos());</pre>
@@ -184,7 +199,10 @@ int(1)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output:</p>
+</div>
+<p>Output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">string(3) &#34;md2&#34;
@@ -195,7 +213,10 @@ string(3) &#34;md5&#34;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Compare with this snippet without using <code>...</code>:</p>
+</div>
+<p>Compare with this snippet without using <code>...</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var_dump(hash_algos());</pre>
@@ -203,7 +224,10 @@ string(3) &#34;md5&#34;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output:</p>
+</div>
+<p>Output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">array(46) {
@@ -217,7 +241,10 @@ string(3) &#34;md5&#34;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Therefore, redirect functions for variadic functions can now be easily made, for example:</p>
+</div>
+<p>Therefore, redirect functions for variadic functions can now be easily made, for example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public function formatQuery($query, ...$args){
@@ -227,7 +254,10 @@ string(3) &#34;md5&#34;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Apart from arrays, <code>Traversable</code>s, such as <code>Iterator</code> (especially many of its subclasses from SPL) can also be used. For example:</p>
+</div>
+<p>Apart from arrays, <code>Traversable</code>s, such as <code>Iterator</code> (especially many of its subclasses from SPL) can also be used. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$iterator = new LimitIterator(new ArrayIterator([0, 1, 2, 3, 4, 5, 6]), 2, 3);
@@ -236,7 +266,10 @@ echo bin2hex(pack(&#34;c*&#34;, ...$it)); // Output: 020304</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If the iterator iterates infinitely, for example:</p>
+</div>
+<p>If the iterator iterates infinitely, for example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$iterator = new InfiniteIterator(new ArrayIterator([0, 1, 2, 3, 4]));
@@ -245,7 +278,25 @@ var_dump(...$iterator);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Different versions of PHP behave differently:</p><ul id="5563cb17-b5c1-4258-a4ff-75283c093223" class="bulleted-list"><li>From PHP 7.0.0 up to PHP 7.1.0 (beta 1):</li><li>A segmentation fault will occur</li><li>The PHP process will exit with code 139</li><li>In PHP 5.6:</li><li>A fatal error of memory exhaustion (“Allowed memory size of %d bytes exhausted”) will be shown.</li><li>The PHP process will exit with code 255</li></ul><blockquote id="e7786bd9-c6f4-4d10-8f6a-17e02df2b7c0" class="">Note: HHVM (v3.10 - v3.12) does not support unpacking Traversables. A warning message “Only containers may be unpacked” will be shown in this attempt.</blockquote>
+</div>
+<p>Different versions of PHP behave differently:
+</p>
+  <ul id="5563cb17-b5c1-4258-a4ff-75283c093223" class="bulleted-list">
+    <li>From PHP 7.0.0 up to PHP 7.1.0 (beta 1):
+    </li>
+    <li>A segmentation fault will occur
+    </li>
+    <li>The PHP process will exit with code 139
+    </li>
+    <li>In PHP 5.6:
+    </li>
+    <li>A fatal error of memory exhaustion (“Allowed memory size of %d bytes exhausted”) will be shown.
+    </li>
+    <li>The PHP process will exit with code 255
+    </li>
+  </ul>
+<blockquote id="e7786bd9-c6f4-4d10-8f6a-17e02df2b7c0" class="">Note: HHVM (v3.10 - v3.12) does not support unpacking Traversables. A warning message “Only containers may be unpacked” will be shown in this attempt.
+</blockquote>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

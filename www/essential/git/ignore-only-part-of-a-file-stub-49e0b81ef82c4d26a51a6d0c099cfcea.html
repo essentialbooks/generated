@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Sometimes you may want to have local changes in a file you don’t want to commit or publish. Ideally local settings should be concentrated in a separate file that can be placed into <code>.gitignore</code>, but sometimes as a short-term solution it can be helpful to have something local in a checked-in file.</p><p>You can make Git “unsee” those lines using clean filter. They won’t even show up in diffs.</p><p>Suppose here is snippet from file <code>file1.c</code>:</p>
+      
+<p>Sometimes you may want to have local changes in a file you don’t want to commit or publish. Ideally local settings should be concentrated in a separate file that can be placed into <code>.gitignore</code>, but sometimes as a short-term solution it can be helpful to have something local in a checked-in file.
+</p>
+<p>You can make Git “unsee” those lines using clean filter. They won’t even show up in diffs.
+</p>
+<p>Suppose here is snippet from file <code>file1.c</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct settings s;
@@ -141,7 +148,12 @@ s.auth = 0; // NOCOMMIT</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You don’t want to publish <code>NOCOMMIT</code> lines anywhere.</p><p>Create “nocommit” filter by adding this to Git config file like <code>.git/config</code>:</p>
+</div>
+<p>You don’t want to publish <code>NOCOMMIT</code> lines anywhere.
+</p>
+<p>Create “nocommit” filter by adding this to Git config file like <code>.git/config</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[filter &#34;nocommit&#34;]
@@ -150,7 +162,10 @@ s.auth = 0; // NOCOMMIT</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Add (or create) this to <code>.git/info/attributes</code> or <code>.gitmodules</code>:</p>
+</div>
+<p>Add (or create) this to <code>.git/info/attributes</code> or <code>.gitmodules</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">file1.c filter=nocommit</pre>
@@ -158,7 +173,19 @@ s.auth = 0; // NOCOMMIT</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And your NOCOMMIT lines are hidden from Git.</p><p>Caveats:</p><ul id="1c20fac3-a80f-4311-aa1e-f535d52f2451" class="bulleted-list"><li>Using clean filter slows down processing of files, especially on Windows.</li><li>The ignored line may disappear from file when Git updates it. It can be counteracted with a smudge filter, but it is trickier.</li><li>Not tested on Windows</li></ul>
+</div>
+<p>And your NOCOMMIT lines are hidden from Git.
+</p>
+<p>Caveats:
+</p>
+  <ul id="1c20fac3-a80f-4311-aa1e-f535d52f2451" class="bulleted-list">
+    <li>Using clean filter slows down processing of files, especially on Windows.
+    </li>
+    <li>The ignored line may disappear from file when Git updates it. It can be counteracted with a smudge filter, but it is trickier.
+    </li>
+    <li>Not tested on Windows
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

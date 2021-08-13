@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Taking a complex JSON document in a table:</p>
+      
+<p>Taking a complex JSON document in a table:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">mytable</span> <span class="p">(</span><span class="k">data</span> <span class="n">JSONB</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">);</span>
@@ -165,7 +168,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Query for a top-level element:</p>
+</div>
+<p>Query for a top-level element:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">SELECT</span> <span class="k">data</span><span class="o">-&gt;&gt;</span><span class="s1">&#39;name&#39;</span> <span class="k">FROM</span> <span class="n">mytable</span> <span class="k">WHERE</span> <span class="k">data</span> <span class="o">@&gt;</span> <span class="s1">&#39;{&#34;name&#34;:&#34;Alice&#34;}&#39;</span><span class="p">;</span></pre>
@@ -173,7 +179,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Query for a simple item in an array:</p>
+</div>
+<p>Query for a simple item in an array:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">SELECT</span> <span class="k">data</span><span class="o">-&gt;&gt;</span><span class="s1">&#39;name&#39;</span> <span class="k">FROM</span> <span class="n">mytable</span> <span class="k">WHERE</span> <span class="k">data</span> <span class="o">@&gt;</span> <span class="s1">&#39;{&#34;emails&#34;:[&#34;alice1@test.com&#34;]}&#39;</span><span class="p">;</span></pre>
@@ -181,7 +190,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Query for an object in an array:</p>
+</div>
+<p>Query for an object in an array:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">SELECT</span> <span class="k">data</span><span class="o">-&gt;&gt;</span><span class="s1">&#39;name&#39;</span> <span class="k">FROM</span> <span class="n">mytable</span> <span class="k">WHERE</span> <span class="k">data</span> <span class="o">@&gt;</span> <span class="s1">&#39;{&#34;events&#34;:[{&#34;type&#34;:&#34;anniversary&#34;}]}&#39;</span><span class="p">;</span></pre>
@@ -189,7 +201,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Query for a nested object:</p>
+</div>
+<p>Query for a nested object:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">SELECT</span> <span class="k">data</span><span class="o">-&gt;&gt;</span><span class="s1">&#39;name&#39;</span> <span class="k">FROM</span> <span class="n">mytable</span> <span class="k">WHERE</span> <span class="k">data</span> <span class="o">@&gt;</span> <span class="s1">&#39;{&#34;locations&#34;:{&#34;home&#34;:{&#34;city&#34;:&#34;London&#34;}}}&#39;</span><span class="p">;</span></pre>
@@ -197,7 +212,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="5f305de4-376d-43b5-95ab-2fe464ecb31e" class="">Performance of <code>@&gt;</code> compared to <code>-&gt;</code> and <code>-&gt;&gt;</code><a class="header-anchor" href="#5f305de4-376d-43b5-95ab-2fe464ecb31e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>It is important to understand the performance difference between using <code>@&gt;</code>, <code>-&gt;</code> and <code>-&gt;&gt;</code> in the <code>WHERE</code> part of the query. Although these two queries appear to be broadly equivalent:</p>
+</div>
+  <h2 id="5f305de4-376d-43b5-95ab-2fe464ecb31e" class="">Performance of <code>@&gt;</code> compared to <code>-&gt;</code> and <code>-&gt;&gt;</code>
+  <a class="header-anchor" href="#5f305de4-376d-43b5-95ab-2fe464ecb31e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>It is important to understand the performance difference between using <code>@&gt;</code>, <code>-&gt;</code> and <code>-&gt;&gt;</code> in the <code>WHERE</code> part of the query. Although these two queries appear to be broadly equivalent:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">SELECT</span> <span class="k">data</span> <span class="k">FROM</span> <span class="n">mytable</span> <span class="k">WHERE</span> <span class="k">data</span> <span class="o">@&gt;</span> <span class="s1">&#39;{&#34;name&#34;:&#34;Alice&#34;}&#39;</span><span class="p">;</span>
@@ -207,7 +228,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>the first statement will use the index created above whereas the latter two will not, requiring a complete table scan.</p><p>It is still allowable to use the <code>-&gt;</code> operator when obtaining resultant data, so the following queries will also use the index:</p>
+</div>
+<p>the first statement will use the index created above whereas the latter two will not, requiring a complete table scan.
+</p>
+<p>It is still allowable to use the <code>-&gt;</code> operator when obtaining resultant data, so the following queries will also use the index:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">SELECT</span> <span class="k">data</span><span class="o">-&gt;</span><span class="s1">&#39;locations&#39;</span><span class="o">-&gt;</span><span class="s1">&#39;work&#39;</span> <span class="k">FROM</span> <span class="n">mytable</span> <span class="k">WHERE</span> <span class="k">data</span> <span class="o">@&gt;</span> <span class="s1">&#39;{&#34;name&#34;:&#34;Alice&#34;}&#39;</span><span class="p">;</span>

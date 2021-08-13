@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The idea behind programming to an interface is to base the code primarily on interfaces and only use concrete classes at the time of instantiation. In this context, good code dealing with e.g. Java collections will look something like this (not that the method itself is of any use at all, just illustration):</p>
+      
+<p>The idea behind programming to an interface is to base the code primarily on interfaces and only use concrete classes at the time of instantiation. In this context, good code dealing with e.g. Java collections will look something like this (not that the method itself is of any use at all, just illustration):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public &lt;T&gt; Set&lt;T&gt; toSet(Collection&lt;T&gt; collection) {
@@ -137,7 +140,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>while bad code might look like this:</p>
+</div>
+<p>while bad code might look like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public &lt;T&gt; HashSet&lt;T&gt; toSet(ArrayList&lt;T&gt; collection) {
@@ -147,7 +153,32 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Not only the former can be applied to a wider choice of arguments, its results will be more compatible with code provided by other developers that generally adhere to the concept of programming to an interface. However, the most important reasons to use the former are:</p><ul id="e0c47157-c5d4-4cca-b1cb-58827798ad11" class="bulleted-list"><li>most of the time the context, in which the result is used, does not and should not need that many details as the concrete implementation provides;</li><li>adhering to an interface forces cleaner code and less hacks such as yet another public method gets added to a class serving some specific scenario;</li><li>the code is more testable as interfaces are easily mockable;</li><li>finally, the concept helps even if only one implementation is expected (at least for testability).</li></ul><p>So how can one easily apply the concept of programming to an interface when writing new code having in mind one particular implementation? One option that we commonly use is a combination of the following patterns:</p><ul id="ebc0a7dd-bf5d-4dc9-bbc5-fce46e95c727" class="bulleted-list"><li>programming to an interface</li><li>factory</li><li>builder</li></ul><p>The following example based on these principles is a simplified and truncated version of an RPC implementation written for a number of different protocols:</p>
+</div>
+<p>Not only the former can be applied to a wider choice of arguments, its results will be more compatible with code provided by other developers that generally adhere to the concept of programming to an interface. However, the most important reasons to use the former are:
+</p>
+  <ul id="e0c47157-c5d4-4cca-b1cb-58827798ad11" class="bulleted-list">
+    <li>most of the time the context, in which the result is used, does not and should not need that many details as the concrete implementation provides;
+    </li>
+    <li>adhering to an interface forces cleaner code and less hacks such as yet another public method gets added to a class serving some specific scenario;
+    </li>
+    <li>the code is more testable as interfaces are easily mockable;
+    </li>
+    <li>finally, the concept helps even if only one implementation is expected (at least for testability).
+    </li>
+  </ul>
+<p>So how can one easily apply the concept of programming to an interface when writing new code having in mind one particular implementation? One option that we commonly use is a combination of the following patterns:
+</p>
+  <ul id="ebc0a7dd-bf5d-4dc9-bbc5-fce46e95c727" class="bulleted-list">
+    <li>programming to an interface
+    </li>
+    <li>factory
+    </li>
+    <li>builder
+    </li>
+  </ul>
+<p>The following example based on these principles is a simplified and truncated version of an RPC implementation written for a number of different protocols:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public interface RemoteInvoker {
@@ -157,7 +188,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above interface is not supposed to be instantiated directly via a factory, instead we derive further more concrete interfaces, one for HTTP invocation and one for AMQP, each then having a factory and a builder to construct instances, which in turn are also instances of the above interface:</p>
+</div>
+<p>The above interface is not supposed to be instantiated directly via a factory, instead we derive further more concrete interfaces, one for HTTP invocation and one for AMQP, each then having a factory and a builder to construct instances, which in turn are also instances of the above interface:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public interface AmqpInvoker extends RemoteInvoker {
@@ -169,7 +203,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Instances of <code>RemoteInvoker</code> for the use with AMQP can now be constructed as easy as (or more involved depending on the builder):</p>
+</div>
+<p>Instances of <code>RemoteInvoker</code> for the use with AMQP can now be constructed as easy as (or more involved depending on the builder):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">RemoteInvoker invoker = AmqpInvoker.with(instanceId, factory)
@@ -179,7 +216,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And an invocation of a request is as easy as:</p>
+</div>
+<p>And an invocation of a request is as easy as:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Response res = invoker.invoke(new Request(data), Response.class).get();</pre>
@@ -187,7 +227,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Due to Java 8 permitting placing of static methods directly into interfaces, the intermediate factory has become implicit in the above code replaced with <code>AmqpInvoker.with()</code>. In Java prior to version 8, the same effect can be achieved with an inner <code>Factory</code> class:</p>
+</div>
+<p>Due to Java 8 permitting placing of static methods directly into interfaces, the intermediate factory has become implicit in the above code replaced with <code>AmqpInvoker.with()</code>. In Java prior to version 8, the same effect can be achieved with an inner <code>Factory</code> class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public interface AmqpInvoker extends RemoteInvoker {
@@ -201,7 +244,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The corresponding instantiation would then turn into:</p>
+</div>
+<p>The corresponding instantiation would then turn into:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">RemoteInvoker invoker = AmqpInvoker.Factory.with(instanceId, factory)
@@ -211,7 +257,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The builder used above could look like this (although this is a simplification as the actual one permits defining of up to 15 parameters deviating from defaults). Note that the construct is not public, so it is specifically usable only from the above <code>AmqpInvoker</code> interface:</p>
+</div>
+<p>The builder used above could look like this (although this is a simplification as the actual one permits defining of up to 15 parameters deviating from defaults). Note that the construct is not public, so it is specifically usable only from the above <code>AmqpInvoker</code> interface:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class AmqpInvokerBuilder {
@@ -234,7 +283,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Generally, a builder can also be generated using a tool like FreeBuilder.</p><p>Finally, the standard (and the only expected) implementation of this interface is defined as a package-local class to enforce the use of the interface, the factory and the builder:</p>
+</div>
+<p>Generally, a builder can also be generated using a tool like FreeBuilder.
+</p>
+<p>Finally, the standard (and the only expected) implementation of this interface is defined as a package-local class to enforce the use of the interface, the factory and the builder:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class AmqpInvokerImpl implements AmqpInvoker {
@@ -246,6 +300,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -257,7 +312,9 @@ public &lt;RQ, RS&gt; CompletableFuture&lt;RS&gt; invoke(final RQ request, final
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Meanwhile, this pattern proved to be very efficient in developing all our new code not matter how simple or complex the functionality is.</p>
+</div>
+<p>Meanwhile, this pattern proved to be very efficient in developing all our new code not matter how simple or complex the functionality is.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

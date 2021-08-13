@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>We consume rest API as a JSON format and then unmarshal it to a POJO. Jackson’s org.codehaus.jackson.map.ObjectMapper “just works” out of the box and we really don’t do anything in most cases. But sometimes we need custom deserializer to fulfill our custom needs and this tutorial will guide you through the process of creating your own custom deserializer.</p><p>Let’s say we have following entities.</p>
+      
+<p>We consume rest API as a JSON format and then unmarshal it to a POJO. Jackson’s org.codehaus.jackson.map.ObjectMapper “just works” out of the box and we really don’t do anything in most cases. But sometimes we need custom deserializer to fulfill our custom needs and this tutorial will guide you through the process of creating your own custom deserializer.
+</p>
+<p>Let’s say we have following entities.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class User {
@@ -141,7 +146,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And</p>
+</div>
+<p>And
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Program {
@@ -156,7 +164,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Let’s serialize/marshal an object first.</p>
+</div>
+<p>Let’s serialize/marshal an object first.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">User user = new User();
@@ -175,7 +186,12 @@ ObjectMapper objectMapper = new ObjectMapper();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>final String json = objectMapper.writeValueAsString(program); System.out.println(json);</p><p>The above code will produce following JSON-</p>
+</div>
+<p>final String json = objectMapper.writeValueAsString(program); System.out.println(json);
+</p>
+<p>The above code will produce following JSON-
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">{
@@ -192,7 +208,12 @@ ObjectMapper objectMapper = new ObjectMapper();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now can do the opposite very easily. If we have this JSON, we can unmarshal to a program object using ObjectMapper as following –</p><p>Now let’s say, this is not the real case, we are going to have a different JSON from an API which doesn’t match with our <code>Program</code> class.</p>
+</div>
+<p>Now can do the opposite very easily. If we have this JSON, we can unmarshal to a program object using ObjectMapper as following –
+</p>
+<p>Now let’s say, this is not the real case, we are going to have a different JSON from an API which doesn’t match with our <code>Program</code> class.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">{
@@ -205,7 +226,18 @@ ObjectMapper objectMapper = new ObjectMapper();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Look at the JSON string, you can see, it has a different field that is owenerId.</p><p>Now if you want to serialize this JSON as we did earlier, you will have exceptions.</p><p>There are two ways to avoid exceptions and have this serialized –</p><p><strong>Ignore the unknown fields</strong></p><p>Ignore the <code>onwerId</code>. Add the following annotation in the Program class</p>
+</div>
+<p>Look at the JSON string, you can see, it has a different field that is owenerId.
+</p>
+<p>Now if you want to serialize this JSON as we did earlier, you will have exceptions.
+</p>
+<p>There are two ways to avoid exceptions and have this serialized –
+</p>
+<p><strong>Ignore the unknown fields</strong>
+</p>
+<p>Ignore the <code>onwerId</code>. Add the following annotation in the Program class
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@JsonIgnoreProperties(ignoreUnknown = true)
@@ -214,7 +246,18 @@ public class Program {}</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Write custom deserializer</strong></p><p>But there are cases when you actually need this <code>owerId</code> field. Let’s say you want to relate it as an id of the <code>User</code> class.</p><p>In such case, you need to write a custom deserializer-</p><p>As you can see, first you have to access the <code>JsonNode</code> from the <code>JonsParser</code>. And then you can easily extract information from a <code>JsonNode</code> using the <code>get()</code> method. and you have to make sure about the field name. It should be the exact name, spelling mistake will cause exceptions.</p><p>And finally, you have to register your ProgramDeserializer to the <code>ObjectMapper</code>.</p>
+</div>
+<p><strong>Write custom deserializer</strong>
+</p>
+<p>But there are cases when you actually need this <code>owerId</code> field. Let’s say you want to relate it as an id of the <code>User</code> class.
+</p>
+<p>In such case, you need to write a custom deserializer-
+</p>
+<p>As you can see, first you have to access the <code>JsonNode</code> from the <code>JonsParser</code>. And then you can easily extract information from a <code>JsonNode</code> using the <code>get()</code> method. and you have to make sure about the field name. It should be the exact name, spelling mistake will cause exceptions.
+</p>
+<p>And finally, you have to register your ProgramDeserializer to the <code>ObjectMapper</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ObjectMapper mapper = new ObjectMapper();
@@ -229,7 +272,10 @@ final Program program2 = mapper.readValue(newJsonString, Program.class);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Alternatively, you can use annotation to register the deserializer directly –</p>
+</div>
+<p>Alternatively, you can use annotation to register the deserializer directly –
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@JsonDeserialize(using = ProgramDeserializer.class)

@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>In case your activities, fragments and UI require some background processing a good thing to use is a MockWebServer which runs localy on an android device which brings a closed and testable enviroment for your UI.</p><p>https://github.com/square/okhttp/tree/master/mockwebserver</p><p>First step is including the gradle dependency:</p>
+      
+<p>In case your activities, fragments and UI require some background processing a good thing to use is a MockWebServer which runs localy on an android device which brings a closed and testable enviroment for your UI.
+</p>
+<p>https://github.com/square/okhttp/tree/master/mockwebserver
+</p>
+<p>First step is including the gradle dependency:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">testCompile &#39;com.squareup.okhttp3:mockwebserver:(insert latest version)&#39;</pre>
@@ -135,7 +142,22 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now steps for running and using the mock server are:</p><ul id="dbfb9157-83ac-4c86-a5ab-171896d99cff" class="bulleted-list"><li>create mock server object</li><li>start it at specific address and port (usually localhost:portnumber)</li><li>enqueue responses for specific requests</li><li>start the test</li></ul><p>This is nicely explained in the github page of the mockwebserver but in our case we want something nicer and reusable for all tests, and JUnit rules will come nicely into play here:</p>
+</div>
+<p>Now steps for running and using the mock server are:
+</p>
+  <ul id="dbfb9157-83ac-4c86-a5ab-171896d99cff" class="bulleted-list">
+    <li>create mock server object
+    </li>
+    <li>start it at specific address and port (usually localhost:portnumber)
+    </li>
+    <li>enqueue responses for specific requests
+    </li>
+    <li>start the test
+    </li>
+  </ul>
+<p>This is nicely explained in the github page of the mockwebserver but in our case we want something nicer and reusable for all tests, and JUnit rules will come nicely into play here:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/**
@@ -192,7 +214,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now lets assume that we have the exact same activity like in previous example, just in this case when we push the button app will fetch something from the network for example: https://someapi.com/name</p><p>This would return some text string which would be concatenated in the snackbar text e.g. NAME + text you typed in.</p>
+</div>
+<p>Now lets assume that we have the exact same activity like in previous example, just in this case when we push the button app will fetch something from the network for example: https://someapi.com/name
+</p>
+<p>This would return some text string which would be concatenated in the snackbar text e.g. NAME + text you typed in.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/**
@@ -265,7 +292,10 @@ public class SnackbarActivityTest{
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>I would suggest wrapping the dispatcher in some sort of a Builder so you can easily chain and add new responses for your screens. e.g.</p>
+</div>
+<p>I would suggest wrapping the dispatcher in some sort of a Builder so you can easily chain and add new responses for your screens. e.g.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">return newDispatcherBuilder()

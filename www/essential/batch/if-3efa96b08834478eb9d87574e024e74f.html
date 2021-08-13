@@ -127,7 +127,40 @@
 </div>
 
 
-      <p>Conditionally executes a command. Available elementary tests:</p><ul id="64facecb-79db-42fb-ae6c-c31ae4fa4357" class="bulleted-list"><li><code>exist &lt;filename&gt;</code></li><li><code>&lt;string&gt;==&lt;string&gt;</code></li><li><code>&lt;expression1&gt; equ &lt;expression2&gt;</code> -- equals</li><li><code>&lt;expression1&gt; neq &lt;expression2&gt;</code> -- not equal</li><li><code>&lt;expression1&gt; lss &lt;expression2&gt;</code> -- less than</li><li><code>&lt;expression1&gt; leq &lt;expression2&gt;</code> -- less than or equal</li><li><code>&lt;expression1&gt; gtr &lt;expression2&gt;</code> -- greater than</li><li><code>&lt;expression1&gt; geq &lt;expression2&gt;</code> -- greater than or equal</li><li><code>defined &lt;variable&gt;</code></li><li><code>errorlevel &lt;number&gt;</code></li><li><code>cmdextversion &lt;number&gt;</code></li></ul><p>To each elementary test, &quot;not&quot; can be applied. Apparently there are no operators like AND, OR, etc. to combine elementary tests.</p><p>The <code>/I</code> switch makes the <code>==</code> and <code>equ</code> comparisons ignore case.</p><p>An example:</p>
+      
+<p>Conditionally executes a command. Available elementary tests:
+</p>
+  <ul id="64facecb-79db-42fb-ae6c-c31ae4fa4357" class="bulleted-list">
+    <li><code>exist &lt;filename&gt;</code>
+    </li>
+    <li><code>&lt;string&gt;==&lt;string&gt;</code>
+    </li>
+    <li><code>&lt;expression1&gt; equ &lt;expression2&gt;</code> -- equals
+    </li>
+    <li><code>&lt;expression1&gt; neq &lt;expression2&gt;</code> -- not equal
+    </li>
+    <li><code>&lt;expression1&gt; lss &lt;expression2&gt;</code> -- less than
+    </li>
+    <li><code>&lt;expression1&gt; leq &lt;expression2&gt;</code> -- less than or equal
+    </li>
+    <li><code>&lt;expression1&gt; gtr &lt;expression2&gt;</code> -- greater than
+    </li>
+    <li><code>&lt;expression1&gt; geq &lt;expression2&gt;</code> -- greater than or equal
+    </li>
+    <li><code>defined &lt;variable&gt;</code>
+    </li>
+    <li><code>errorlevel &lt;number&gt;</code>
+    </li>
+    <li><code>cmdextversion &lt;number&gt;</code>
+    </li>
+  </ul>
+<p>To each elementary test, &quot;not&quot; can be applied. Apparently there are no operators like AND, OR, etc. to combine elementary tests.
+</p>
+<p>The <code>/I</code> switch makes the <code>==</code> and <code>equ</code> comparisons ignore case.
+</p>
+<p>An example:
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma"><span class="k">if</span> not exist %targetpath% <span class="o">(</span>
@@ -138,7 +171,58 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Examples:</p><ul id="88970f62-c4ca-4324-a7a1-3921d546e9d8" class="bulleted-list"><li><code>if not 1 equ 0 echo Not equal</code></li><li><code>if 1 equ 0 echo A &amp; echo B</code><p>Does nothing; both echo commands are subject to the condition.</p></li><li><code>if not 1 equ 0 goto :mylabel</code></li><li><code>if not a geq b echo Not greater</code></li><li><code>if b geq a echo Greater</code></li><li><code>if b geq A echo Greater in a case-insensitive comparison</code></li><li><code>if B geq a echo Greater in a case-insensitive comparison</code></li><li><code>if 0 equ 00 echo Numerical equality</code></li><li><code>if not 0==00 echo String inequality</code></li><li><code>if 01 geq 1 echo Numerical comparison</code></li><li><code>if not &quot;01&quot; geq &quot;1&quot; echo String comparison</code></li><li><code>if 1 equ 0 (echo Equal) else echo Unequal</code><p>Notice the brackets around the positive then-part to make it work.</p></li><li><code>if not a==A echo Case-sensitive inequality</code></li><li><code>if /i a==A echo Case-insensitive equality</code></li><li><code>if /i==/i echo This does not work</code></li><li><code>if &quot;/i&quot;==&quot;/i&quot; echo Equal, using quotation marks to prevent the literal meaning of /i</code></li></ul><p>Links:</p><ul id="0b0938b9-18c4-4942-9ad5-e0ae3fd58509" class="bulleted-list"><li><a href="http://ss64.com/nt/if.html">if at ss64.com</a></li><li><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/if">if at Microsoft</a></li></ul><p></p>
+</div>
+<p>Examples:
+</p>
+  <ul id="88970f62-c4ca-4324-a7a1-3921d546e9d8" class="bulleted-list">
+    <li><code>if not 1 equ 0 echo Not equal</code>
+    </li>
+    <li><code>if 1 equ 0 echo A &amp; echo B</code>
+    <p>Does nothing; both echo commands are subject to the condition.
+    </p>
+    </li>
+    <li><code>if not 1 equ 0 goto :mylabel</code>
+    </li>
+    <li><code>if not a geq b echo Not greater</code>
+    </li>
+    <li><code>if b geq a echo Greater</code>
+    </li>
+    <li><code>if b geq A echo Greater in a case-insensitive comparison</code>
+    </li>
+    <li><code>if B geq a echo Greater in a case-insensitive comparison</code>
+    </li>
+    <li><code>if 0 equ 00 echo Numerical equality</code>
+    </li>
+    <li><code>if not 0==00 echo String inequality</code>
+    </li>
+    <li><code>if 01 geq 1 echo Numerical comparison</code>
+    </li>
+    <li><code>if not &quot;01&quot; geq &quot;1&quot; echo String comparison</code>
+    </li>
+    <li><code>if 1 equ 0 (echo Equal) else echo Unequal</code>
+    <p>Notice the brackets around the positive then-part to make it work.
+    </p>
+    </li>
+    <li><code>if not a==A echo Case-sensitive inequality</code>
+    </li>
+    <li><code>if /i a==A echo Case-insensitive equality</code>
+    </li>
+    <li><code>if /i==/i echo This does not work</code>
+    </li>
+    <li><code>if &quot;/i&quot;==&quot;/i&quot; echo Equal, using quotation marks to prevent the literal meaning of /i</code>
+    </li>
+  </ul>
+<p>Links:
+</p>
+  <ul id="0b0938b9-18c4-4942-9ad5-e0ae3fd58509" class="bulleted-list">
+    <li><a href="http://ss64.com/nt/if.html">if at ss64.com</a>
+    </li>
+    <li><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/if">if at Microsoft</a>
+    </li>
+  </ul>
+<p>
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">$ <span class="k">if</span> /?

@@ -127,7 +127,28 @@
 </div>
 
 
-      <p>One of the most important implementations of Dynamic Programming is finding out the <a href="https://en.wikipedia.org/wiki/Longest_common_subsequence_problem">Longest Common Subsequence</a>. Let’s define some of the basic terminologies first.</p><p><strong>Subsequence:</strong></p><p>A subsequence is a sequence that can be derived from another sequence by deleting some elements without changing the order of the remaining elements. Let’s say we have a string <strong>ABC</strong>. If we erase zero or one or more than one character from this string we get the subsequence of this string. So the subsequences of string <strong>ABC</strong> will be {<strong>“A”</strong>, <strong>“B”</strong>, <strong>“C”</strong>, <strong>“AB”</strong>, <strong>“AC”</strong>, <strong>“BC”</strong>, <strong>“ABC”</strong>, <strong>” “</strong>}. Even if we remove all the characters, the empty string will also be a subsequence. To find out the subsequence, for each characters in a string, we have two options - either we take the character, or we don’t. So if the length of the string is <strong>n</strong>, there are <strong>2n</strong> subsequences of that string.</p><p><strong>Longest Common Subsequence:</strong></p><p>As the name suggest, of all the common subsequencesbetween two strings, the longest common subsequence(LCS) is the one with the maximum length. For example: The common subsequences between <strong>“HELLOM”</strong> and <strong>“HMLD”</strong> are <strong>“H”</strong>, <strong>“HL”</strong>, <strong>“HM”</strong> etc. Here <strong>“HLL”</strong> is the longest common subsequence which has length 3.</p><p><strong>Brute-Force Method:</strong></p><p>We can generate all the subsequences of two strings using <em>backtracking</em>. Then we can compare them to find out the common subsequences. After we’ll need to find out the one with the maximum length. We have already seen that, there are <strong>2n</strong> subsequences of a string of length <strong>n</strong>. It would take years to solve the problem if our <strong>n</strong> crosses <strong>20-25</strong>.</p><p><strong>Dynamic Programming Method:</strong></p><p>Let’s approach our method with an example. Assume that, we have two strings <strong>abcdaf</strong> and <strong>acbcf</strong>. Let’s denote these with <strong>s1</strong> and <strong>s2</strong>. So the longest common subsequence of these two strings will be <strong>“abcf”</strong>, which has length 4. Again I remind you, subsequences need not be continuous in the string. To construct <strong>“abcf”</strong>, we ignored <strong>“da”</strong> in <strong>s1</strong> and <strong>“c”</strong> in <strong>s2</strong>. How do we find this out using Dynamic Programming?</p><p>We’ll start with a table (a 2D array) having all the characters of <strong>s1</strong> in a row and all the characters of <strong>s2</strong> in column. Here the table is 0-indexed and we put the characters from 1 to onwards. We’ll traverse the table from left to right for each row. Our table will look like:</p>
+      
+<p>One of the most important implementations of Dynamic Programming is finding out the <a href="https://en.wikipedia.org/wiki/Longest_common_subsequence_problem">Longest Common Subsequence</a>. Let’s define some of the basic terminologies first.
+</p>
+<p><strong>Subsequence:</strong>
+</p>
+<p>A subsequence is a sequence that can be derived from another sequence by deleting some elements without changing the order of the remaining elements. Let’s say we have a string <strong>ABC</strong>. If we erase zero or one or more than one character from this string we get the subsequence of this string. So the subsequences of string <strong>ABC</strong> will be {<strong>“A”</strong>, <strong>“B”</strong>, <strong>“C”</strong>, <strong>“AB”</strong>, <strong>“AC”</strong>, <strong>“BC”</strong>, <strong>“ABC”</strong>, <strong>” “</strong>}. Even if we remove all the characters, the empty string will also be a subsequence. To find out the subsequence, for each characters in a string, we have two options - either we take the character, or we don’t. So if the length of the string is <strong>n</strong>, there are <strong>2n</strong> subsequences of that string.
+</p>
+<p><strong>Longest Common Subsequence:</strong>
+</p>
+<p>As the name suggest, of all the common subsequencesbetween two strings, the longest common subsequence(LCS) is the one with the maximum length. For example: The common subsequences between <strong>“HELLOM”</strong> and <strong>“HMLD”</strong> are <strong>“H”</strong>, <strong>“HL”</strong>, <strong>“HM”</strong> etc. Here <strong>“HLL”</strong> is the longest common subsequence which has length 3.
+</p>
+<p><strong>Brute-Force Method:</strong>
+</p>
+<p>We can generate all the subsequences of two strings using <em>backtracking</em>. Then we can compare them to find out the common subsequences. After we’ll need to find out the one with the maximum length. We have already seen that, there are <strong>2n</strong> subsequences of a string of length <strong>n</strong>. It would take years to solve the problem if our <strong>n</strong> crosses <strong>20-25</strong>.
+</p>
+<p><strong>Dynamic Programming Method:</strong>
+</p>
+<p>Let’s approach our method with an example. Assume that, we have two strings <strong>abcdaf</strong> and <strong>acbcf</strong>. Let’s denote these with <strong>s1</strong> and <strong>s2</strong>. So the longest common subsequence of these two strings will be <strong>“abcf”</strong>, which has length 4. Again I remind you, subsequences need not be continuous in the string. To construct <strong>“abcf”</strong>, we ignored <strong>“da”</strong> in <strong>s1</strong> and <strong>“c”</strong> in <strong>s2</strong>. How do we find this out using Dynamic Programming?
+</p>
+<p>We’ll start with a table (a 2D array) having all the characters of <strong>s1</strong> in a row and all the characters of <strong>s2</strong> in column. Here the table is 0-indexed and we put the characters from 1 to onwards. We’ll traverse the table from left to right for each row. Our table will look like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">0     1     2     3     4     5     6
@@ -150,7 +171,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here each row and column represent the length of the longest common subsequence between two strings if we take the characters of that row and column and add to the prefix before it. For example: <strong>Table[2][3]</strong> represents the length of the longest common subsequence between <strong>“ac”</strong> and <strong>“abc”</strong>.</p><p>The 0-th column represents the empty subsequence of <strong>s1</strong>. Similarly the 0-th row represents the empty subsequence of <strong>s2</strong>. If we take an empty subsequence of a string and try to match it with another string, no matter how long the length of the second substring is, the common subsequence will have 0 length. So we can fill-up the 0-th rows and 0-th columns with 0’s. We get:</p>
+</div>
+<p>Here each row and column represent the length of the longest common subsequence between two strings if we take the characters of that row and column and add to the prefix before it. For example: <strong>Table[2][3]</strong> represents the length of the longest common subsequence between <strong>“ac”</strong> and <strong>“abc”</strong>.
+</p>
+<p>The 0-th column represents the empty subsequence of <strong>s1</strong>. Similarly the 0-th row represents the empty subsequence of <strong>s2</strong>. If we take an empty subsequence of a string and try to match it with another string, no matter how long the length of the second substring is, the common subsequence will have 0 length. So we can fill-up the 0-th rows and 0-th columns with 0’s. We get:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">0     1     2     3     4     5     6
@@ -173,7 +199,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Let’s begin. When we’re filling <strong>Table[1][1]</strong>, we’re asking ourselves, if we had a string <strong>a</strong> and another string <strong>a</strong> and nothing else, what will be the longest common subsequence here? The length of the LCS here will be 1. Now let’s look at <strong>Table[1][2]</strong>. We have string <strong>ab</strong> and string <strong>a</strong>. The length of the LCS will be 1. As you can see, the rest of the values will be also 1 for the first row as it considers only string <strong>a</strong> with <strong>abcd</strong>, <strong>abcda</strong>, <strong>abcdaf</strong>. So our table will look like:</p>
+</div>
+<p>Let’s begin. When we’re filling <strong>Table[1][1]</strong>, we’re asking ourselves, if we had a string <strong>a</strong> and another string <strong>a</strong> and nothing else, what will be the longest common subsequence here? The length of the LCS here will be 1. Now let’s look at <strong>Table[1][2]</strong>. We have string <strong>ab</strong> and string <strong>a</strong>. The length of the LCS will be 1. As you can see, the rest of the values will be also 1 for the first row as it considers only string <strong>a</strong> with <strong>abcd</strong>, <strong>abcda</strong>, <strong>abcdaf</strong>. So our table will look like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">0     1     2     3     4     5     6
@@ -196,7 +225,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For row 2, which will now include <strong>c</strong>. For <strong>Table[2][1]</strong> we have <strong>ac</strong> on one side and <strong>a</strong> on the other side. So the length of the LCS is 1. Where did we get this 1 from? From the top, which denotes the LCS <strong>a</strong> between two substrings. So what we are saying is, if <strong>s1[2]</strong> and <strong>s2[1]</strong> are not same, then the length of the LCS will be the maximum of the length of LCS at the <strong>top</strong>, or at the <strong>left</strong>. Taking the length of the LCS at the top denotes that, we don’t take the current character from <strong>s2</strong>. Similarly, Taking the length of the LCS at the left denotes that, we don’t take the current character from <strong>s1</strong> to create the LCS. We get:</p>
+</div>
+<p>For row 2, which will now include <strong>c</strong>. For <strong>Table[2][1]</strong> we have <strong>ac</strong> on one side and <strong>a</strong> on the other side. So the length of the LCS is 1. Where did we get this 1 from? From the top, which denotes the LCS <strong>a</strong> between two substrings. So what we are saying is, if <strong>s1[2]</strong> and <strong>s2[1]</strong> are not same, then the length of the LCS will be the maximum of the length of LCS at the <strong>top</strong>, or at the <strong>left</strong>. Taking the length of the LCS at the top denotes that, we don’t take the current character from <strong>s2</strong>. Similarly, Taking the length of the LCS at the left denotes that, we don’t take the current character from <strong>s1</strong> to create the LCS. We get:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">0     1     2     3     4     5     6
@@ -219,7 +251,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So our first formula will be:</p>
+</div>
+<p>So our first formula will be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if s2[i] is not equal to s1[j]
@@ -229,7 +264,10 @@ endif</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Moving on, for <strong>Table[2][2]</strong> we have string <strong>ab</strong> and <strong>ac</strong>. Since <strong>c</strong> and <strong>b</strong> are not same, we put the maximum of the top or left here. In this case, it’s again 1. After that, for <strong>Table[2][3]</strong> we have string <strong>abc</strong> and <strong>ac</strong>. This time current values of both row and column are same. Now the length of the LCS will be equal to the maximum length of LCS so far + 1. How do we get the maximum length of LCS so far? We check the diagonal value, which represents the best match between <strong>ab</strong> and <strong>a</strong>. From this state, for the current values, we added one more character to <strong>s1</strong> and <strong>s2</strong> which happened to be the same. So the length of LCS will of course increase. We’ll put <strong>1 + 1 = 2</strong> in <strong>Table[2][3]</strong>. We get,</p>
+</div>
+<p>Moving on, for <strong>Table[2][2]</strong> we have string <strong>ab</strong> and <strong>ac</strong>. Since <strong>c</strong> and <strong>b</strong> are not same, we put the maximum of the top or left here. In this case, it’s again 1. After that, for <strong>Table[2][3]</strong> we have string <strong>abc</strong> and <strong>ac</strong>. This time current values of both row and column are same. Now the length of the LCS will be equal to the maximum length of LCS so far + 1. How do we get the maximum length of LCS so far? We check the diagonal value, which represents the best match between <strong>ab</strong> and <strong>a</strong>. From this state, for the current values, we added one more character to <strong>s1</strong> and <strong>s2</strong> which happened to be the same. So the length of LCS will of course increase. We’ll put <strong>1 + 1 = 2</strong> in <strong>Table[2][3]</strong>. We get,
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">0     1     2     3     4     5     6
@@ -252,7 +290,10 @@ endif</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So our second formula will be:</p>
+</div>
+<p>So our second formula will be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if s2[i] equals to s1[j]
@@ -262,7 +303,10 @@ endif</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We have defined both the cases. Using these two formulas, we can populate the whole table. After filling up the table, it will look like this:</p>
+</div>
+<p>We have defined both the cases. Using these two formulas, we can populate the whole table. After filling up the table, it will look like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">0     1     2     3     4     5     6
@@ -285,7 +329,10 @@ endif</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The length of the LCS between <strong>s1</strong> and <strong>s2</strong> will be <strong>Table[5][6] = 4</strong>. Here, 5 and 6 are the length of <strong>s2</strong> and <strong>s1</strong> respectively. Our pseudo-code will be:</p>
+</div>
+<p>The length of the LCS between <strong>s1</strong> and <strong>s2</strong> will be <strong>Table[5][6] = 4</strong>. Here, 5 and 6 are the length of <strong>s2</strong> and <strong>s1</strong> respectively. Our pseudo-code will be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure LCSlength(s1, s2):
@@ -310,7 +357,12 @@ Return Table[s2.length][s1.length]</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The time complexity for this algorithm is: <strong>O(mn)</strong> where <strong>m</strong> and <strong>n</strong> denotes the length of each strings.</p><p>How do we find out the longest common subsequence? We’ll start from the bottom-right corner. We will check from where the value is coming. If the value is coming from the diagonal, that is if <strong>Table[i-1][j-1]</strong> is equal to <strong>Table[i][j] - 1</strong>, we push either <strong>s2[i]</strong> or <strong>s1[j]</strong> (both are the same) and move diagonally. If the value is coming from top, that means, if <strong>Table[i-1][j]</strong> is equal to <strong>Table[i][j]</strong>, we move to the top. If the value is coming from left, that means, if <strong>Table[i][j-1]</strong> is equal to <strong>Table[i][j]</strong>, we move to the left. When we reach the leftmost or topmost column, our search ends. Then we pop the values from the stack and print them. The pseudo-code:</p>
+</div>
+<p>The time complexity for this algorithm is: <strong>O(mn)</strong> where <strong>m</strong> and <strong>n</strong> denotes the length of each strings.
+</p>
+<p>How do we find out the longest common subsequence? We’ll start from the bottom-right corner. We will check from where the value is coming. If the value is coming from the diagonal, that is if <strong>Table[i-1][j-1]</strong> is equal to <strong>Table[i][j] - 1</strong>, we push either <strong>s2[i]</strong> or <strong>s1[j]</strong> (both are the same) and move diagonally. If the value is coming from top, that means, if <strong>Table[i-1][j]</strong> is equal to <strong>Table[i][j]</strong>, we move to the top. If the value is coming from left, that means, if <strong>Table[i][j-1]</strong> is equal to <strong>Table[i][j]</strong>, we move to the left. When we reach the leftmost or topmost column, our search ends. Then we pop the values from the stack and print them. The pseudo-code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure PrintLCS(LCSlength, s1, s2)
@@ -336,7 +388,11 @@ endwhile</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Point to be noted: if both <strong>Table[i-1][j]</strong> and <strong>Table[i][j-1]</strong> is equal to <strong>Table[i][j]</strong> and <strong>Table[i-1][j-1]</strong> is not equal to <strong>Table[i][j] - 1</strong>, there can be two LCS for that moment. This pseudo-code doesn’t consider this situation. You’ll have to solve this recursively to find multiple LCSs.</p><p>The time complexity for this algorithm is: <strong>O(max(m, n))</strong>.</p>
+</div>
+<p>Point to be noted: if both <strong>Table[i-1][j]</strong> and <strong>Table[i][j-1]</strong> is equal to <strong>Table[i][j]</strong> and <strong>Table[i-1][j-1]</strong> is not equal to <strong>Table[i][j] - 1</strong>, there can be two LCS for that moment. This pseudo-code doesn’t consider this situation. You’ll have to solve this recursively to find multiple LCSs.
+</p>
+<p>The time complexity for this algorithm is: <strong>O(max(m, n))</strong>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

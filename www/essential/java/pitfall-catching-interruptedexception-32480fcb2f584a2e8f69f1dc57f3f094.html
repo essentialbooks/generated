@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>As already pointed out in other pitfalls, catching all exceptions by using</p>
+      
+<p>As already pointed out in other pitfalls, catching all exceptions by using
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">try {
@@ -139,7 +142,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Comes with a lot of different problems. But one perticular problem is that it can lead to deadlocks as it breaks the interrupt system when writing multi-threaded applications.</p><p>If you start a thread you usually also need to be able to stop it abruptly for various reasons.</p>
+</div>
+<p>Comes with a lot of different problems. But one perticular problem is that it can lead to deadlocks as it breaks the interrupt system when writing multi-threaded applications.
+</p>
+<p>If you start a thread you usually also need to be able to stop it abruptly for various reasons.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Thread t = new Thread(new Runnable() {
@@ -168,7 +176,10 @@ if (t.isAlive()) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>t.interrupt()</code> will raise an InterruptedException in that thread, than is intended to shut down the thread. But what if the Thread needs to clean up some resources before its completely stopped? For this it can catch the InterruptedException and do some cleanup.</p>
+</div>
+<p>The <code>t.interrupt()</code> will raise an InterruptedException in that thread, than is intended to shut down the thread. But what if the Thread needs to clean up some resources before its completely stopped? For this it can catch the InterruptedException and do some cleanup.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Thread t = new Thread(new Runnable() {
@@ -192,7 +203,10 @@ if (t.isAlive()) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But if you have a catch-all expression in your code, the InterruptedException will be caught by it as well and the interruption will not continue. Which in this case could lead to a deadlock as the parent thread waits indefinitely for this thead to stop with <code>t.join()</code>.</p>
+</div>
+<p>But if you have a catch-all expression in your code, the InterruptedException will be caught by it as well and the interruption will not continue. Which in this case could lead to a deadlock as the parent thread waits indefinitely for this thead to stop with <code>t.join()</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Thread t = new Thread(new Runnable() {
@@ -217,7 +231,10 @@ if (t.isAlive()) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So it is better to catch Exceptions individually, but if you insist on using a catch-all, at least catch the InterruptedException individually beforehand.</p>
+</div>
+<p>So it is better to catch Exceptions individually, but if you insist on using a catch-all, at least catch the InterruptedException individually beforehand.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Thread t = new Thread(new Runnable() {

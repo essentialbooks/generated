@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>A table may be joined to itself, with different rows matching each other by some condition. In this use case, aliases must be used in order to distinguish the two occurrences of the table.</p><p>In the below example, for each Employee in the <a href="http://stackoverflow.com/documentation/sql/280/example-database#t=201604180847497343904">example database Employees table</a>, a record is returned containing the employee’s first name together with the corresponding first name of the employee’s manager. Since managers are also employees, the table is joined with itself:</p>
+      
+<p>A table may be joined to itself, with different rows matching each other by some condition. In this use case, aliases must be used in order to distinguish the two occurrences of the table.
+</p>
+<p>In the below example, for each Employee in the <a href="http://stackoverflow.com/documentation/sql/280/example-database#t=201604180847497343904">example database Employees table</a>, a record is returned containing the employee’s first name together with the corresponding first name of the employee’s manager. Since managers are also employees, the table is joined with itself:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT 
@@ -142,7 +147,35 @@ JOIN
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This query will return the following data:</p><p>| Employee | Manager | |:–––––|:––––| | John | James | | Michael | James | | Johnathon | John |</p><hr id="e11900d1-50cf-407a-a1ea-49f3441de9f5"/><h1 id="ef308d80-1be6-415d-b9d4-1913962d534d" class="">So how does this work?<a class="header-anchor" href="#ef308d80-1be6-415d-b9d4-1913962d534d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>The original table contains these records:</p><p>| Id | FName | LName | PhoneNumber | ManagerId | DepartmentId | Salary | HireDate | |:—|:–––––|:———|:————|:–––––|:———––|:—––|:———–| | 1 | James | Smith | 1234567890 | NULL | 1 | 1000 | 01-01-2002 | | 2 | John | Johnson | 2468101214 | 1 | 1 | 400 | 23-03-2005 | | 3 | Michael | Williams | 1357911131 | 1 | 2 | 600 | 12-05-2009 | | 4 | Johnathon | Smith | 1212121212 | 2 | 1 | 500 | 24-07-2016 |</p><p>The first action is to create a <em>Cartesian</em> product of all records in the tables used in the <strong>FROM</strong> clause. In this case it’s the Employees table twice, so the intermediate table will look like this (I’ve removed any fields not used in this example):</p><p>| e.Id | e.FName | e.ManagerId | m.Id | m.FName | m.ManagerId | |:—–|:–––––|:————|:—–|:–––––|:————| | 1 | James | NULL | 1 | James | NULL | | 1 | James | NULL | 2 | John | 1 | | 1 | James | NULL | 3 | Michael | 1 | | 1 | James | NULL | 4 | Johnathon | 2 | | 2 | John | 1 | 1 | James | NULL | | 2 | John | 1 | 2 | John | 1 | | 2 | John | 1 | 3 | Michael | 1 | | 2 | John | 1 | 4 | Johnathon | 2 | | 3 | Michael | 1 | 1 | James | NULL | | 3 | Michael | 1 | 2 | John | 1 | | 3 | Michael | 1 | 3 | Michael | 1 | | 3 | Michael | 1 | 4 | Johnathon | 2 | | 4 | Johnathon | 2 | 1 | James | NULL | | 4 | Johnathon | 2 | 2 | John | 1 | | 4 | Johnathon | 2 | 3 | Michael | 1 | | 4 | Johnathon | 2 | 4 | Johnathon | 2 |</p><p>The next action is to only keep the records that meet the <strong>JOIN</strong> criteria, so any records where the aliased <code>e</code> table <code>ManagerId</code> equals the aliased <code>m</code> table <code>Id</code>:</p><p>| e.Id | e.FName | e.ManagerId | m.Id | m.FName | m.ManagerId | |:—–|:–––––|:————|:—–|:––––|:————| | 2 | John | 1 | 1 | James | NULL | | 3 | Michael | 1 | 1 | James | NULL | | 4 | Johnathon | 2 | 2 | John | 1 |</p><p>Then, each expression used within the <strong>SELECT</strong> clause is evaluated to return this table:</p><p>| e.FName | m.FName | |:–––––|:––––| | John | James | | Michael | James | | Johnathon | John |</p><p>Finally, column names <code>e.FName</code> and <code>m.FName</code> are replaced by their alias column names, assigned with the <a href="http://stackoverflow.com/documentation/sql/222/select/1264/select-using-column-aliases#t=201609282325090459635">AS</a> operator:</p><p>| Employee | Manager | |:–––––|:––––| | John | James | | Michael | James | | Johnathon | John |</p>
+</div>
+<p>This query will return the following data:
+</p>
+<p>| Employee | Manager | |:–––––|:––––| | John | James | | Michael | James | | Johnathon | John |
+</p>
+<hr id="e11900d1-50cf-407a-a1ea-49f3441de9f5"/>
+  <h1 id="ef308d80-1be6-415d-b9d4-1913962d534d" class="">So how does this work?
+  <a class="header-anchor" href="#ef308d80-1be6-415d-b9d4-1913962d534d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>The original table contains these records:
+</p>
+<p>| Id | FName | LName | PhoneNumber | ManagerId | DepartmentId | Salary | HireDate | |:—|:–––––|:———|:————|:–––––|:———––|:—––|:———–| | 1 | James | Smith | 1234567890 | NULL | 1 | 1000 | 01-01-2002 | | 2 | John | Johnson | 2468101214 | 1 | 1 | 400 | 23-03-2005 | | 3 | Michael | Williams | 1357911131 | 1 | 2 | 600 | 12-05-2009 | | 4 | Johnathon | Smith | 1212121212 | 2 | 1 | 500 | 24-07-2016 |
+</p>
+<p>The first action is to create a <em>Cartesian</em> product of all records in the tables used in the <strong>FROM</strong> clause. In this case it’s the Employees table twice, so the intermediate table will look like this (I’ve removed any fields not used in this example):
+</p>
+<p>| e.Id | e.FName | e.ManagerId | m.Id | m.FName | m.ManagerId | |:—–|:–––––|:————|:—–|:–––––|:————| | 1 | James | NULL | 1 | James | NULL | | 1 | James | NULL | 2 | John | 1 | | 1 | James | NULL | 3 | Michael | 1 | | 1 | James | NULL | 4 | Johnathon | 2 | | 2 | John | 1 | 1 | James | NULL | | 2 | John | 1 | 2 | John | 1 | | 2 | John | 1 | 3 | Michael | 1 | | 2 | John | 1 | 4 | Johnathon | 2 | | 3 | Michael | 1 | 1 | James | NULL | | 3 | Michael | 1 | 2 | John | 1 | | 3 | Michael | 1 | 3 | Michael | 1 | | 3 | Michael | 1 | 4 | Johnathon | 2 | | 4 | Johnathon | 2 | 1 | James | NULL | | 4 | Johnathon | 2 | 2 | John | 1 | | 4 | Johnathon | 2 | 3 | Michael | 1 | | 4 | Johnathon | 2 | 4 | Johnathon | 2 |
+</p>
+<p>The next action is to only keep the records that meet the <strong>JOIN</strong> criteria, so any records where the aliased <code>e</code> table <code>ManagerId</code> equals the aliased <code>m</code> table <code>Id</code>:
+</p>
+<p>| e.Id | e.FName | e.ManagerId | m.Id | m.FName | m.ManagerId | |:—–|:–––––|:————|:—–|:––––|:————| | 2 | John | 1 | 1 | James | NULL | | 3 | Michael | 1 | 1 | James | NULL | | 4 | Johnathon | 2 | 2 | John | 1 |
+</p>
+<p>Then, each expression used within the <strong>SELECT</strong> clause is evaluated to return this table:
+</p>
+<p>| e.FName | m.FName | |:–––––|:––––| | John | James | | Michael | James | | Johnathon | John |
+</p>
+<p>Finally, column names <code>e.FName</code> and <code>m.FName</code> are replaced by their alias column names, assigned with the <a href="http://stackoverflow.com/documentation/sql/222/select/1264/select-using-column-aliases#t=201609282325090459635">AS</a> operator:
+</p>
+<p>| Employee | Manager | |:–––––|:––––| | John | James | | Michael | James | | Johnathon | John |
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

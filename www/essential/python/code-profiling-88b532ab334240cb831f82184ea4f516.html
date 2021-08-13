@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>First and foremost you should be able to find the bottleneck of your script and note that no optimization can compensate for a poor choice in data structure or a flaw in your algorithm design. Secondly do not try to optimize too early in your coding process at the expense of readability/design/quality. Donald Knuth made the following statement on optimization:</p><blockquote id="fceaaf54-18c5-44b2-a495-25ca55ea677f" class="">“We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%”</blockquote><p>To profile your code you have several tools: <code>cProfile</code> (or the slower <code>profile</code>) from the standard library, <code>line_profiler</code> and <code>timeit</code>. Each of them serve a different purpose.</p><p><code>cProfile</code> is a determistic profiler: function call, function return, and exception events are monitored, and precise timings are made for the intervals between these events (up to 0.001s). The library documentation (<a href="https://github.com/rkern/line_profiler">https://docs.python.org/2/library/profile.html</a>) provides us with a simple use case</p>
+      
+<p>First and foremost you should be able to find the bottleneck of your script and note that no optimization can compensate for a poor choice in data structure or a flaw in your algorithm design. Secondly do not try to optimize too early in your coding process at the expense of readability/design/quality. Donald Knuth made the following statement on optimization:
+</p>
+<blockquote id="fceaaf54-18c5-44b2-a495-25ca55ea677f" class="">“We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%”
+</blockquote>
+<p>To profile your code you have several tools: <code>cProfile</code> (or the slower <code>profile</code>) from the standard library, <code>line_profiler</code> and <code>timeit</code>. Each of them serve a different purpose.
+</p>
+<p><code>cProfile</code> is a determistic profiler: function call, function return, and exception events are monitored, and precise timings are made for the intervals between these events (up to 0.001s). The library documentation (<a href="https://github.com/rkern/line_profiler">https://docs.python.org/2/library/profile.html</a>) provides us with a simple use case
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import cProfile
@@ -138,7 +147,10 @@ cProfile.run(&#39;f(12)&#39;)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Or if you prefer to wrap parts of your existing code:</p>
+</div>
+<p>Or if you prefer to wrap parts of your existing code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import cProfile, pstats, StringIO
@@ -155,7 +167,10 @@ print s.getvalue()</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will create outputs looking like the table below, where you can quickly see where your program spends most of its time and identify the functions to optimize.</p>
+</div>
+<p>This will create outputs looking like the table below, where you can quickly see where your program spends most of its time and identify the functions to optimize.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">3 function calls in 0.000 seconds
@@ -169,7 +184,10 @@ ncalls  tottime  percall  cumtime  percall filename:lineno(function)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The module <code>line_profiler</code> (<a href="https://github.com/rkern/line_profiler">https://github.com/rkern/line_profiler</a>) is useful to have a line by line analysis of your code. This is obviously not manageable for long scripts but is aimed at snippets. See the documentation for more details. The easiest way to get started is to use the kernprof script as explained one the package page, note that you will need to specify manually the function(s) to profile.</p>
+</div>
+<p>The module <code>line_profiler</code> (<a href="https://github.com/rkern/line_profiler">https://github.com/rkern/line_profiler</a>) is useful to have a line by line analysis of your code. This is obviously not manageable for long scripts but is aimed at snippets. See the documentation for more details. The easiest way to get started is to use the kernprof script as explained one the package page, note that you will need to specify manually the function(s) to profile.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ kernprof -l script_to_profile.py</pre>
@@ -177,7 +195,10 @@ ncalls  tottime  percall  cumtime  percall filename:lineno(function)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>kernprof will create an instance of LineProfiler and insert it into the <code>__builtins__</code> namespace with the name profile. It has been written to be used as a decorator, so in your script, you decorate the functions you want to profile with <code>@profile</code>.</p>
+</div>
+<p>kernprof will create an instance of LineProfiler and insert it into the <code>__builtins__</code> namespace with the name profile. It has been written to be used as a decorator, so in your script, you decorate the functions you want to profile with <code>@profile</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@profile
@@ -187,7 +208,10 @@ def slow_function(a, b, c):
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The default behavior of kernprof is to put the results into a binary file <code>script_to_profile.py.lprof</code> . You can tell kernprof to immediately view the formatted results at the terminal with the [-v/–view] option. Otherwise, you can view the results later like so:</p>
+</div>
+<p>The default behavior of kernprof is to put the results into a binary file <code>script_to_profile.py.lprof</code> . You can tell kernprof to immediately view the formatted results at the terminal with the [-v/–view] option. Otherwise, you can view the results later like so:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ python -m line_profiler script_to_profile.py.lprof</pre>
@@ -195,7 +219,10 @@ def slow_function(a, b, c):
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Finally <code>timeit</code> provides a simple way to test one liners or small expression both from the command line and the python shell. This module will answer question such as, is it faster to do a list comprehension or use the built-in <code>list()</code> when transforming a set into a list. Look for the <code>setup</code> keyword or <code>-s</code> option to add setup code.</p>
+</div>
+<p>Finally <code>timeit</code> provides a simple way to test one liners or small expression both from the command line and the python shell. This module will answer question such as, is it faster to do a list comprehension or use the built-in <code>list()</code> when transforming a set into a list. Look for the <code>setup</code> keyword or <code>-s</code> option to add setup code.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; import timeit
@@ -205,7 +232,10 @@ def slow_function(a, b, c):
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>from a terminal</p>
+</div>
+<p>from a terminal
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ python -m timeit &#39;&#34;-&#34;.join(str(n) for n in range(100))&#39;

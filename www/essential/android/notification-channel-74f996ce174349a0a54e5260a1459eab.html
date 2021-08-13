@@ -127,7 +127,14 @@
 </div>
 
 
-      <p><strong>What Are Notification Channels?</strong></p><p>Notification channels enable us app developers to group our notifications into groups—channels—with the user having the ability to modify notification settings for the entire channel at once. For example, for each channel, users can completely block all notifications, override the importance level, or allow a notification badge to be shown. This new feature helps in greatly improving the user experience of an app.</p><p><strong>Create Notification Channels</strong></p>
+      
+<p><strong>What Are Notification Channels?</strong>
+</p>
+<p>Notification channels enable us app developers to group our notifications into groups—channels—with the user having the ability to modify notification settings for the entire channel at once. For example, for each channel, users can completely block all notifications, override the importance level, or allow a notification badge to be shown. This new feature helps in greatly improving the user experience of an app.
+</p>
+<p><strong>Create Notification Channels</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import android.app.Notification;
@@ -143,6 +150,7 @@ public class NotificationUtils extends ContextWrapper {</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private NotificationManager mManager;
@@ -155,6 +163,7 @@ public static final String IOS_CHANNEL_NAME = &#34;IOS CHANNEL&#34;;</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public NotificationUtils(Context base) {
@@ -166,6 +175,7 @@ public static final String IOS_CHANNEL_NAME = &#34;IOS CHANNEL&#34;;</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public void createChannels() {</pre>
@@ -174,6 +184,7 @@ public static final String IOS_CHANNEL_NAME = &#34;IOS CHANNEL&#34;;</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// create android channel
@@ -192,6 +203,7 @@ androidChannel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">getManager().createNotificationChannel(androidChannel);</pre>
@@ -200,6 +212,7 @@ androidChannel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// create ios channel
@@ -215,6 +228,7 @@ getManager().createNotificationChannel(iosChannel);</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">}</pre>
@@ -223,6 +237,7 @@ getManager().createNotificationChannel(iosChannel);</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private NotificationManager getManager() {
@@ -235,7 +250,32 @@ getManager().createNotificationChannel(iosChannel);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In the code above, we created two instances of the NotificationChannel, passing uniqueid a channel name, and also an importance level in its constructor. For each notification channel, we applied following characteristics.</p><ol id="b9d7e76f-4b52-4135-8aa2-7caaf09147a2" class="numbered-list" start="1"><li>Sound</li><li>Lights</li><li>Vibration</li><li>Notification to show on lock screen.</li></ol><p>Finally, we got the NotificationManager from the system and then registered the channel by calling the method createNotificationChannel(), passing the channel we have created.</p><p>We can create multiple notification channels all at once with createNotificationChannels(), passing a Java list of NotificationChannel instances. You can get all notification channels for an app with getNotificationChannels() and get a specific channel with getNotificationChannel(), passing only the channel id as an argument.</p><p><strong>Importance Level in Notification Channels</strong></p><p>| Method | Description | | —— | —— | | IMPORTANCE_MAX | unused| |<a href="https://developer.android.com/reference/android/app/NotificationManager.html#IMPORTANCE_HIGH">IMPORTANCE_HIGH</a>| shows everywhere, makes noise and peeks| |<a href="https://developer.android.com/reference/android/app/NotificationManager.html#IMPORTANCE_DEFAULT">IMPORTANCE_DEFAULT</a>|shows everywhere, makes noise, but does not visually intrude| |IMPORTANCE_LOW|shows everywhere, but is not intrusive,value is 0| |IMPORTANCE_MIN|only shows in the shade, below the fold| |IMPORTANCE_NONE|a notification with no importance; does not show in the shade|</p><p><strong>Create Notification and Post to channel</strong></p><p>We have created two notification one using NotificationUtils another using NotificationBuilder.</p>
+</div>
+<p>In the code above, we created two instances of the NotificationChannel, passing uniqueid a channel name, and also an importance level in its constructor. For each notification channel, we applied following characteristics.
+</p>
+  <ol id="b9d7e76f-4b52-4135-8aa2-7caaf09147a2" class="numbered-list" start="1">
+    <li>Sound
+    </li>
+    <li>Lights
+    </li>
+    <li>Vibration
+    </li>
+    <li>Notification to show on lock screen.
+    </li>
+  </ol>
+<p>Finally, we got the NotificationManager from the system and then registered the channel by calling the method createNotificationChannel(), passing the channel we have created.
+</p>
+<p>We can create multiple notification channels all at once with createNotificationChannels(), passing a Java list of NotificationChannel instances. You can get all notification channels for an app with getNotificationChannels() and get a specific channel with getNotificationChannel(), passing only the channel id as an argument.
+</p>
+<p><strong>Importance Level in Notification Channels</strong>
+</p>
+<p>| Method | Description | | —— | —— | | IMPORTANCE_MAX | unused| |<a href="https://developer.android.com/reference/android/app/NotificationManager.html#IMPORTANCE_HIGH">IMPORTANCE_HIGH</a>| shows everywhere, makes noise and peeks| |<a href="https://developer.android.com/reference/android/app/NotificationManager.html#IMPORTANCE_DEFAULT">IMPORTANCE_DEFAULT</a>|shows everywhere, makes noise, but does not visually intrude| |IMPORTANCE_LOW|shows everywhere, but is not intrusive,value is 0| |IMPORTANCE_MIN|only shows in the shade, below the fold| |IMPORTANCE_NONE|a notification with no importance; does not show in the shade|
+</p>
+<p><strong>Create Notification and Post to channel</strong>
+</p>
+<p>We have created two notification one using NotificationUtils another using NotificationBuilder.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public Notification.Builder getAndroidChannelNotification(String title, String body) {
@@ -257,7 +297,14 @@ public Notification.Builder getIosChannelNotification(String title, String body)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We can also set NotificationChannel Using Notification.Builder().For that we can use <em><strong>setChannel(String channelId)</strong></em>.</p><p><strong>Update Notification Channel Settings</strong></p><p>Once you create a notification channel, the user is in charge of its settings and behavior. You can call createNotificationChannel() again to rename an existing notification channel, or update its description. The following sample code describes how you can redirect a user to the settings for a notification channel by creating an intent to start an activity. In this case, the intent requires extended data including the ID of the notification channel and the package name of your app.</p>
+</div>
+<p>We can also set NotificationChannel Using Notification.Builder().For that we can use <em><strong>setChannel(String channelId)</strong></em>.
+</p>
+<p><strong>Update Notification Channel Settings</strong>
+</p>
+<p>Once you create a notification channel, the user is in charge of its settings and behavior. You can call createNotificationChannel() again to rename an existing notification channel, or update its description. The following sample code describes how you can redirect a user to the settings for a notification channel by creating an intent to start an activity. In this case, the intent requires extended data including the ID of the notification channel and the package name of your app.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -279,7 +326,10 @@ protected void onCreate(Bundle savedInstanceState) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>XML file:</p>
+</div>
+<p>XML file:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;!--...--&gt;
@@ -293,7 +343,12 @@ protected void onCreate(Bundle savedInstanceState) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Deleting Notification Channel</strong></p><p>You can delete notification channels by calling deleteNotificationChannel().</p>
+</div>
+<p><strong>Deleting Notification Channel</strong>
+</p>
+<p>You can delete notification channels by calling deleteNotificationChannel().
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">NotificationManager mNotificationManager =
@@ -306,7 +361,12 @@ mNotificationManager.deleteNotificationChannel(mChannel);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Now Create MainActivity and xml</strong></p><p>activity_main.xml</p>
+</div>
+<p><strong>Now Create MainActivity and xml</strong>
+</p>
+<p>activity_main.xml
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
@@ -389,7 +449,14 @@ mNotificationManager.deleteNotificationChannel(mChannel);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em><strong>MainActivity.java</strong></em></p><p>we are going to edit our MainActivity so that we can get the title and author from the EditText components and then send these to the Android channel. We get the Notification.Builder for the Android channel we created in our NotificationUtils, and then notify the NotificationManager.</p><p>import android.app.Notification; import android.os.Bundle; import android.support.v7.app.AppCompatActivity; import android.text.TextUtils; import android.view.View; import android.widget.Button; import android.widget.EditText;</p>
+</div>
+<p><em><strong>MainActivity.java</strong></em>
+</p>
+<p>we are going to edit our MainActivity so that we can get the title and author from the EditText components and then send these to the Android channel. We get the Notification.Builder for the Android channel we created in our NotificationUtils, and then notify the NotificationManager.
+</p>
+<p>import android.app.Notification; import android.os.Bundle; import android.support.v7.app.AppCompatActivity; import android.text.TextUtils; import android.view.View; import android.widget.Button; import android.widget.EditText;
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MainActivity extends AppCompatActivity {

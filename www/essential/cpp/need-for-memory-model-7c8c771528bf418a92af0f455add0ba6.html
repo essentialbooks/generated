@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int x, y;
@@ -148,7 +149,14 @@ void use()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>One thread calls the <code>init()</code> function while another thread (or signal handler) calls the <code>use()</code> function. One might expect that the <code>use()</code> function will either print <code>5</code> or do nothing. This may not always be the case for several reasons:</p><ul id="369e0cd1-ea86-4d87-9610-7635ec2f2d5e" class="bulleted-list"><li>The CPU may reorder the writes that happen in <code>init()</code> so that the code that actually executes might look like:</li></ul>
+</div>
+<p>One thread calls the <code>init()</code> function while another thread (or signal handler) calls the <code>use()</code> function. One might expect that the <code>use()</code> function will either print <code>5</code> or do nothing. This may not always be the case for several reasons:
+</p>
+  <ul id="369e0cd1-ea86-4d87-9610-7635ec2f2d5e" class="bulleted-list">
+    <li>The CPU may reorder the writes that happen in <code>init()</code> so that the code that actually executes might look like:
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void init()
@@ -161,7 +169,12 @@ void use()
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="86aa3133-ebd3-499b-ad98-189200cde1e0" class="bulleted-list"><li>The CPU may reorder the reads that happen in <code>use()</code> so that the actually executed code might become:</li></ul>
+</div>
+  <ul id="86aa3133-ebd3-499b-ad98-189200cde1e0" class="bulleted-list">
+    <li>The CPU may reorder the reads that happen in <code>use()</code> so that the actually executed code might become:
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void use()
@@ -175,7 +188,16 @@ void use()
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="1e6cf0bf-0718-42c7-b790-3ba4cd47a432" class="bulleted-list"><li>An optimizing C++ compiler may decide to reorder the program in similar way.</li></ul><p>Such reordering cannot change the behavior of a program running in single thread because a thread cannot interleave the calls to <code>init()</code> and <code>use()</code>. On the other hand in a multi-threaded setting one thread may see part of the writes performed by the other thread where it may happen that <code>use()</code> may see <code>ready==true</code> and garbage in <code>x</code> or <code>y</code> or both.</p><p>The C++ Memory Model allows the programmer to specify which reordering operations are permitted and which are not, so that a multi-threaded program would also be able to behave as expected. The example above can be rewritten in thread-safe way like this:</p>
+</div>
+  <ul id="1e6cf0bf-0718-42c7-b790-3ba4cd47a432" class="bulleted-list">
+    <li>An optimizing C++ compiler may decide to reorder the program in similar way.
+    </li>
+  </ul>
+<p>Such reordering cannot change the behavior of a program running in single thread because a thread cannot interleave the calls to <code>init()</code> and <code>use()</code>. On the other hand in a multi-threaded setting one thread may see part of the writes performed by the other thread where it may happen that <code>use()</code> may see <code>ready==true</code> and garbage in <code>x</code> or <code>y</code> or both.
+</p>
+<p>The C++ Memory Model allows the programmer to specify which reordering operations are permitted and which are not, so that a multi-threaded program would also be able to behave as expected. The example above can be rewritten in thread-safe way like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int x, y;
@@ -196,7 +218,17 @@ void use()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here <code>init()</code> performs <em>atomic store-release</em> operation. This not only stores the value <code>true</code> into <code>ready</code>, but also tells the compiler that it cannot move this operation before write operations that are <em>sequenced before</em> it.</p><p>The <code>use()</code> function does an <em>atomic load-acquire</em> operation. It reads the current value of <code>ready</code> and also forbids the compiler from placing read operations that are <em>sequenced after</em> it to <em>happen before</em> the <em>atomic load-acquire</em>.</p><p>These atomic operations also cause the compiler to put whatever hardware instructions are needed to inform the CPU to refrain from the unwanted reorderings.</p><p>Because the <em>atomic store-release</em> is to the same memory location as the <em>atomic load-acquire</em>, the memory model stipulates that if the <em>load-acquire</em> operation sees the value written by the <em>store-release</em> operation, then all writes performed by <code>init()</code>’s thread prior to that <em>store-release</em> will be visible to loads that <code>use()</code>’s thread executes after its <em>load-acquire</em>. That is if <code>use()</code> sees <code>ready==true</code>, then it is guaranteed to see <code>x==2</code> and <code>y==3</code>.</p><p>Note that the compiler and the CPU are still allowed to write to <code>y</code> before writing to <code>x</code>, and similarly the reads from these variables in <code>use()</code> can happen in any order.</p>
+</div>
+<p>Here <code>init()</code> performs <em>atomic store-release</em> operation. This not only stores the value <code>true</code> into <code>ready</code>, but also tells the compiler that it cannot move this operation before write operations that are <em>sequenced before</em> it.
+</p>
+<p>The <code>use()</code> function does an <em>atomic load-acquire</em> operation. It reads the current value of <code>ready</code> and also forbids the compiler from placing read operations that are <em>sequenced after</em> it to <em>happen before</em> the <em>atomic load-acquire</em>.
+</p>
+<p>These atomic operations also cause the compiler to put whatever hardware instructions are needed to inform the CPU to refrain from the unwanted reorderings.
+</p>
+<p>Because the <em>atomic store-release</em> is to the same memory location as the <em>atomic load-acquire</em>, the memory model stipulates that if the <em>load-acquire</em> operation sees the value written by the <em>store-release</em> operation, then all writes performed by <code>init()</code>’s thread prior to that <em>store-release</em> will be visible to loads that <code>use()</code>’s thread executes after its <em>load-acquire</em>. That is if <code>use()</code> sees <code>ready==true</code>, then it is guaranteed to see <code>x==2</code> and <code>y==3</code>.
+</p>
+<p>Note that the compiler and the CPU are still allowed to write to <code>y</code> before writing to <code>x</code>, and similarly the reads from these variables in <code>use()</code> can happen in any order.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

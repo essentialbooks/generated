@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>To modify an XML file with <code>XDocument</code>, you load the file into a variable of type <code>XDocument</code>, modify it in memory, then save it, overwriting the original file. A common mistake is to modify the XML in memory and expect the file on disk to change.</p><p>Given an XML file:</p>
+      
+<p>To modify an XML file with <code>XDocument</code>, you load the file into a variable of type <code>XDocument</code>, modify it in memory, then save it, overwriting the original file. A common mistake is to modify the XML in memory and expect the file on disk to change.
+</p>
+<p>Given an XML file:
+</p>
+
 <div class="code-box lang-XML">
 	<div>
 	<pre class="chroma"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
@@ -145,7 +150,26 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You want to modify the Banana’s color to brown:</p><ol id="3059a281-88b7-4a94-a4e8-16960d64c8c7" class="numbered-list" start="1"><li>We need to know the path to the file on disk.</li><li>One overload of <code>XDocument.Load</code> receives a URI (file path).</li><li>Since the xml file uses a namespace, we must query with the namespace AND element name.</li><li>A Linq query utilizing C# 6 syntax to accommodate for the possibility of null values. Every <code>.</code> used in this query has the potential to return a null set if the condition finds no elements. Before C# 6 you would do this in multiple steps, checking for null along the way. The result is the <code>&lt;Fruit&gt;</code> element that contains the Banana. Actually an <code>IEnumerable&lt;XElement&gt;</code>, which is why the next step uses <code>FirstOfDefault()</code>.</li><li>Now we extract the FruitColor element out of the Fruit element we just found. Here we assume there is just one, or we only care about the first one.</li><li>If it is not null, we set the FruitColor to “Brown”.</li><li>Finally, we save the <code>XDocument</code>, overwriting the original file on disk.</li></ol>
+</div>
+<p>You want to modify the Banana’s color to brown:
+</p>
+  <ol id="3059a281-88b7-4a94-a4e8-16960d64c8c7" class="numbered-list" start="1">
+    <li>We need to know the path to the file on disk.
+    </li>
+    <li>One overload of <code>XDocument.Load</code> receives a URI (file path).
+    </li>
+    <li>Since the xml file uses a namespace, we must query with the namespace AND element name.
+    </li>
+    <li>A Linq query utilizing C# 6 syntax to accommodate for the possibility of null values. Every <code>.</code> used in this query has the potential to return a null set if the condition finds no elements. Before C# 6 you would do this in multiple steps, checking for null along the way. The result is the <code>&lt;Fruit&gt;</code> element that contains the Banana. Actually an <code>IEnumerable&lt;XElement&gt;</code>, which is why the next step uses <code>FirstOfDefault()</code>.
+    </li>
+    <li>Now we extract the FruitColor element out of the Fruit element we just found. Here we assume there is just one, or we only care about the first one.
+    </li>
+    <li>If it is not null, we set the FruitColor to “Brown”.
+    </li>
+    <li>Finally, we save the <code>XDocument</code>, overwriting the original file on disk.
+    </li>
+  </ol>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="c1">// 1.
@@ -179,7 +203,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The file now looks like this:</p>
+</div>
+<p>The file now looks like this:
+</p>
+
 <div class="code-box lang-XML">
 	<div>
 	<pre class="chroma"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>

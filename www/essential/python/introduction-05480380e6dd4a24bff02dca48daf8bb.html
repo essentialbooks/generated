@@ -127,7 +127,10 @@
 </div>
 
 
-      <p><strong>Generator expressions</strong> are similar to list, dictionary and set comprehensions, but are enclosed with parentheses. The parentheses do not have to be present when they are used as the sole argument for a function call.</p>
+      
+<p><strong>Generator expressions</strong> are similar to list, dictionary and set comprehensions, but are enclosed with parentheses. The parentheses do not have to be present when they are used as the sole argument for a function call.
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">expression</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span></pre>
@@ -135,7 +138,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This example generates the 10 first perfect squares, including 0 (in which x = 0).</p><p><strong>Generator functions</strong> are similar to regular functions, except that they have one or more <a href="https://docs.python.org/3/reference/simple_stmts.html#yield"><code>yield</code></a> statements in their body. Such functions cannot <code>return</code> any values (however empty <code>return</code>s are allowed if you want to stop the generator early).</p>
+</div>
+<p>This example generates the 10 first perfect squares, including 0 (in which x = 0).
+</p>
+<p><strong>Generator functions</strong> are similar to regular functions, except that they have one or more <a href="https://docs.python.org/3/reference/simple_stmts.html#yield"><code>yield</code></a> statements in their body. Such functions cannot <code>return</code> any values (however empty <code>return</code>s are allowed if you want to stop the generator early).
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">def</span> <span class="nf">function</span><span class="p">():</span>
@@ -145,7 +153,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This generator function is equivalent to the previous generator expression, it outputs the same.</p><p><strong>Note</strong>: all generator expressions have their own <em>equivalent</em> functions, but not vice versa.</p><p>A generator expression can be used without parentheses if both parentheses would be repeated otherwise:</p>
+</div>
+<p>This generator function is equivalent to the previous generator expression, it outputs the same.
+</p>
+<p><strong>Note</strong>: all generator expressions have their own <em>equivalent</em> functions, but not vice versa.
+</p>
+<p>A generator expression can be used without parentheses if both parentheses would be repeated otherwise:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="nb">sum</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>   <span class="c1">#Output: 20</span>
@@ -155,7 +170,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Instead of:</p>
+</div>
+<p>Instead of:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="nb">sum</span><span class="p">((</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
@@ -165,7 +183,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But not:</p>
+</div>
+<p>But not:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">fooFunction</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span><span class="n">foo</span><span class="p">,</span><span class="n">bar</span><span class="p">)</span>
@@ -175,7 +196,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Calling a generator function produces a <strong>generator object</strong>, which can later be iterated over. Unlike other types of iterators, generator objects may only be traversed once.</p>
+</div>
+<p>Calling a generator function produces a <strong>generator object</strong>, which can later be iterated over. Unlike other types of iterators, generator objects may only be traversed once.
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">g1</span> <span class="o">=</span> <span class="n">function</span><span class="p">()</span>
@@ -184,7 +208,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Notice that a generator’s body is <strong>not</strong> immediately executed: when you call <code>function()</code> in the example above, it immediately returns a generator object, without executing even the first print statement. This allows generators to consume less memory than functions that return a list, and it allows creating generators that produce infinitely long sequences.</p><p>For this reason, generators are often used in data science, and other contexts involving large amounts of data. Another advantage is that other code can immediately use the values yielded by a generator, without waiting for the complete sequence to be produced.</p><p>However, if you need to use the values produced by a generator more than once, and if generating them costs more than storing, it may be better to store the yielded values as a <code>list</code> than to re-generate the sequence. See ‘Resetting a generator’ below for more details.</p><p>Typically a generator object is used in a loop, or in any function that requires an iterable:</p>
+</div>
+<p>Notice that a generator’s body is <strong>not</strong> immediately executed: when you call <code>function()</code> in the example above, it immediately returns a generator object, without executing even the first print statement. This allows generators to consume less memory than functions that return a list, and it allows creating generators that produce infinitely long sequences.
+</p>
+<p>For this reason, generators are often used in data science, and other contexts involving large amounts of data. Another advantage is that other code can immediately use the values yielded by a generator, without waiting for the complete sequence to be produced.
+</p>
+<p>However, if you need to use the values produced by a generator more than once, and if generating them costs more than storing, it may be better to store the yielded values as a <code>list</code> than to re-generate the sequence. See ‘Resetting a generator’ below for more details.
+</p>
+<p>Typically a generator object is used in a loop, or in any function that requires an iterable:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">g1</span><span class="p">:</span>
@@ -210,7 +243,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since generator objects are iterators, one can iterate over them manually using the <a href="https://docs.python.org/3/library/functions.html#next"><code>next()</code></a> function. Doing so will return the yielded values one by one on each subsequent invocation.</p><p>Under the hood, each time you call <code>next()</code> on a generator, Python executes statements in the body of the generator function until it hits the next <code>yield</code> statement. At this point it returns the argument of the <code>yield</code> command, and remembers the point where that happened. Calling <code>next()</code> once again will resume execution from that point and continue until the next <code>yield</code> statement.</p><p>If Python reaches the end of the generator function without encountering any more <code>yield</code>s, a <code>StopIteration</code> exception is raised (this is normal, all iterators behave in the same way).</p>
+</div>
+<p>Since generator objects are iterators, one can iterate over them manually using the <a href="https://docs.python.org/3/library/functions.html#next"><code>next()</code></a> function. Doing so will return the yielded values one by one on each subsequent invocation.
+</p>
+<p>Under the hood, each time you call <code>next()</code> on a generator, Python executes statements in the body of the generator function until it hits the next <code>yield</code> statement. At this point it returns the argument of the <code>yield</code> command, and remembers the point where that happened. Calling <code>next()</code> once again will resume execution from that point and continue until the next <code>yield</code> statement.
+</p>
+<p>If Python reaches the end of the generator function without encountering any more <code>yield</code>s, a <code>StopIteration</code> exception is raised (this is normal, all iterators behave in the same way).
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">g3</span> <span class="o">=</span> <span class="n">function</span><span class="p">()</span>
@@ -223,7 +263,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that in Python 2 generator objects had <code>.next()</code> methods that could be used to iterate through the yielded values manually. In Python 3 this method was replaced with the <code>.__next__()</code> standard for all iterators.</p><p><strong>Resetting a generator</strong></p><p>Remember that you can only iterate through the objects generated by a generator <em>once</em>. If you have already iterated through the objects in a script, any further attempt do so will yield <code>None</code>.</p><p>If you need to use the objects generated by a generator more than once, you can either define the generator function again and use it a second time, or, alternatively, you can store the output of the generator function in a list on first use. Re-defining the generator function will be a good option if you are dealing with large volumes of data, and storing a list of all data items would take up a lot of disc space. Conversely, if it is costly to generate the items initially, you may prefer to store the generated items in a list so that you can re-use them.</p>
+</div>
+<p>Note that in Python 2 generator objects had <code>.next()</code> methods that could be used to iterate through the yielded values manually. In Python 3 this method was replaced with the <code>.__next__()</code> standard for all iterators.
+</p>
+<p><strong>Resetting a generator</strong>
+</p>
+<p>Remember that you can only iterate through the objects generated by a generator <em>once</em>. If you have already iterated through the objects in a script, any further attempt do so will yield <code>None</code>.
+</p>
+<p>If you need to use the objects generated by a generator more than once, you can either define the generator function again and use it a second time, or, alternatively, you can store the output of the generator function in a list on first use. Re-defining the generator function will be a good option if you are dealing with large volumes of data, and storing a list of all data items would take up a lot of disc space. Conversely, if it is costly to generate the items initially, you may prefer to store the generated items in a list so that you can re-use them.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

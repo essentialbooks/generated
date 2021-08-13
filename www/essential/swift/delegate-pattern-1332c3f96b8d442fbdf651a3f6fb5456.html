@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>A <em>delegate</em> is a common design pattern used in Cocoa and CocoaTouch frameworks, where one class delegates responsibility for implementing some functionality to another. This follows a principle of separation of concerns, where the framework class implements generic functionality while a separate delegate instance implements the specific use case.</p><p>Another way to look into delegate pattern is in terms of object communication. <code>Objects</code> often needs to talks to each other and to do so an object need conform to a <code>protocol</code> in order to become a delegate of another Object. Once this setup has been done, the other object talks back to its delegates when interesting things happens.</p><p>For example, A view in userinterface to display a list of data should be responsible only for the logic of how data is displayed, not for deciding what data should be displayed.</p><p>Let’s dive into a more concrete example. if you have two classes, a parent and a child:</p>
+      
+<p>A <em>delegate</em> is a common design pattern used in Cocoa and CocoaTouch frameworks, where one class delegates responsibility for implementing some functionality to another. This follows a principle of separation of concerns, where the framework class implements generic functionality while a separate delegate instance implements the specific use case.
+</p>
+<p>Another way to look into delegate pattern is in terms of object communication. <code>Objects</code> often needs to talks to each other and to do so an object need conform to a <code>protocol</code> in order to become a delegate of another Object. Once this setup has been done, the other object talks back to its delegates when interesting things happens.
+</p>
+<p>For example, A view in userinterface to display a list of data should be responsible only for the logic of how data is displayed, not for deciding what data should be displayed.
+</p>
+<p>Let’s dive into a more concrete example. if you have two classes, a parent and a child:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Parent { }
@@ -136,7 +145,12 @@ class Child { }</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And you want to notify the parent of a change from the child.</p><p>In Swift, delegates are implemented using a <a href="https://developer.apple.com/library/prerelease/content/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html"><code>protocol</code></a> declaration and so we will declare a <code>protocol</code> which the <code>delegate</code> will implement. Here delegate is the <code>parent</code> object.</p>
+</div>
+<p>And you want to notify the parent of a change from the child.
+</p>
+<p>In Swift, delegates are implemented using a <a href="https://developer.apple.com/library/prerelease/content/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html"><code>protocol</code></a> declaration and so we will declare a <code>protocol</code> which the <code>delegate</code> will implement. Here delegate is the <code>parent</code> object.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">protocol ChildDelegate: class {
@@ -146,7 +160,10 @@ class Child { }</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The child needs to declare a property to store the reference to the delegate:</p>
+</div>
+<p>The child needs to declare a property to store the reference to the delegate:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Child {
@@ -156,7 +173,14 @@ class Child { }</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Notice the variable <code>delegate</code> is an optional and the protocol <code>ChildDelegate</code> is marked to be only implemented by class type (without this the <code>delegate</code> variable can’t be declared as a <code>weak</code> reference avoiding any retain cycle. This means that if the <code>delegate</code> variable is no longer referenced anywhere else, it will be released). This is so the parent class only registers the delegate when it is needed and available.</p><p>Also in order to mark our delegate as <code>weak</code> we must constrain our ChildDelegate protocol to reference types by adding <code>class</code> keyword in protocol declaration.</p><p>In this example, when the child does something and needs to notify its parent, the child will call:</p>
+</div>
+<p>Notice the variable <code>delegate</code> is an optional and the protocol <code>ChildDelegate</code> is marked to be only implemented by class type (without this the <code>delegate</code> variable can’t be declared as a <code>weak</code> reference avoiding any retain cycle. This means that if the <code>delegate</code> variable is no longer referenced anywhere else, it will be released). This is so the parent class only registers the delegate when it is needed and available.
+</p>
+<p>Also in order to mark our delegate as <code>weak</code> we must constrain our ChildDelegate protocol to reference types by adding <code>class</code> keyword in protocol declaration.
+</p>
+<p>In this example, when the child does something and needs to notify its parent, the child will call:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">delegate?.childDidSomething()</pre>
@@ -164,7 +188,12 @@ class Child { }</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If the delegate has been defined, the delegate will be notified that the child has done something.</p><p>The parent class will need to extend the <code>ChildDelegate</code> protocol to be able to respond to its actions. This can be done directly on the parent class:</p>
+</div>
+<p>If the delegate has been defined, the delegate will be notified that the child has done something.
+</p>
+<p>The parent class will need to extend the <code>ChildDelegate</code> protocol to be able to respond to its actions. This can be done directly on the parent class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Parent: ChildDelegate {
@@ -178,7 +207,10 @@ class Child { }</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Or using an extension:</p>
+</div>
+<p>Or using an extension:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">extension Parent: ChildDelegate {
@@ -190,7 +222,10 @@ class Child { }</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The parent also needs to tell the child that it is the child’s delegate:</p>
+</div>
+<p>The parent also needs to tell the child that it is the child’s delegate:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// In the parent
@@ -200,7 +235,12 @@ child.delegate = self</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>By default a Swift <code>protocol</code> does not allow an optional function be implemented. These can only be specified if your protocol is marked with the <code>@objc</code> attribute and the <code>optional</code> modifier.</p><p>For example <code>UITableView</code> implements the generic behavior of a table view in iOS, but the user must implement two delegate classes called <code>UITableViewDelegate</code> and <code>UITableViewDataSource</code> that implement how the specific cells look like and behave.</p>
+</div>
+<p>By default a Swift <code>protocol</code> does not allow an optional function be implemented. These can only be specified if your protocol is marked with the <code>@objc</code> attribute and the <code>optional</code> modifier.
+</p>
+<p>For example <code>UITableView</code> implements the generic behavior of a table view in iOS, but the user must implement two delegate classes called <code>UITableViewDelegate</code> and <code>UITableViewDataSource</code> that implement how the specific cells look like and behave.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@objc public protocol UITableViewDelegate : NSObjectProtocol, UIScrollViewDelegate {
@@ -216,7 +256,10 @@ child.delegate = self</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can implement this protocol by changing your class definition, for example:</p>
+</div>
+<p>You can implement this protocol by changing your class definition, for example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class MyViewController : UIViewController, UITableViewDelegate</pre>
@@ -224,7 +267,9 @@ child.delegate = self</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Any methods not marked <code>optional</code> in the protocol definition (<code>UITableViewDelegate</code> in this case) must be implemented.</p>
+</div>
+<p>Any methods not marked <code>optional</code> in the protocol definition (<code>UITableViewDelegate</code> in this case) must be implemented.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

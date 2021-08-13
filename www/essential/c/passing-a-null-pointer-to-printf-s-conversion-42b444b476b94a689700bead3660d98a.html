@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The <code>%s</code> conversion of <code>printf</code> states that the corresponding argument <em>a pointer to the initial element of an array of character type</em>. A null pointer does not point to the initial element of any array of character type, and thus the behavior of the following is undefined:</p>
+      
+<p>The <code>%s</code> conversion of <code>printf</code> states that the corresponding argument <em>a pointer to the initial element of an array of character type</em>. A null pointer does not point to the initial element of any array of character type, and thus the behavior of the following is undefined:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">char *foo = NULL;
@@ -136,7 +139,10 @@ printf(&#34;%s&#34;, foo); /* undefined behavior */</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, the undefined behavior does not always mean that the program crashes — some systems take steps to avoid the crash that normally happens when a null pointer is dereferenced. For example Glibc is known to print</p>
+</div>
+<p>However, the undefined behavior does not always mean that the program crashes — some systems take steps to avoid the crash that normally happens when a null pointer is dereferenced. For example Glibc is known to print
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">(null)</pre>
@@ -144,7 +150,10 @@ printf(&#34;%s&#34;, foo); /* undefined behavior */</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>for the code above. However, add (just) a newline to the format string and you will get a crash:</p>
+</div>
+<p>for the code above. However, add (just) a newline to the format string and you will get a crash:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">char *foo = 0;
@@ -153,7 +162,12 @@ printf(&#34;%s\n&#34;, foo); /* undefined behavior */</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this case, it happens because GCC has an optimization that turns <code>printf(&quot;%s\n&quot;, argument);</code> into a call to <code>puts</code> with <code>puts(argument)</code>, and <code>puts</code> in Glibc does not handle null pointers. All this behavior is standard conforming.</p><p>Note that <em>null pointer</em> is different from an <em>empty string</em>. So, the following is valid and has no undefined behaviour. It’ll just print a <em>newline</em>:</p>
+</div>
+<p>In this case, it happens because GCC has an optimization that turns <code>printf(&quot;%s\n&quot;, argument);</code> into a call to <code>puts</code> with <code>puts(argument)</code>, and <code>puts</code> in Glibc does not handle null pointers. All this behavior is standard conforming.
+</p>
+<p>Note that <em>null pointer</em> is different from an <em>empty string</em>. So, the following is valid and has no undefined behaviour. It’ll just print a <em>newline</em>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">char *foo = &#34;&#34;;

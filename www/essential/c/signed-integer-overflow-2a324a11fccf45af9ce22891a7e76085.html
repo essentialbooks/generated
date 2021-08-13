@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Per paragraph 6.5/5 of both C99 and C11, evaluation of an expression produces undefined behavior if the result is not a representable value of the expression’s type. For arithmetic types, that’s called an <em>overflow</em>. Unsigned integer arithmetic does not overflow because paragraph 6.2.5/9 applies, causing any unsigned result that otherwise would be out of range to be reduced to an in-range value. There is no analogous provision for <em>signed</em> integer types, however; these can and do overflow, producing undefined behavior. For example,</p>
+      
+<p>Per paragraph 6.5/5 of both C99 and C11, evaluation of an expression produces undefined behavior if the result is not a representable value of the expression’s type. For arithmetic types, that’s called an <em>overflow</em>. Unsigned integer arithmetic does not overflow because paragraph 6.2.5/9 applies, causing any unsigned result that otherwise would be out of range to be reduced to an in-range value. There is no analogous provision for <em>signed</em> integer types, however; these can and do overflow, producing undefined behavior. For example,
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;limits.h&gt;      /* to get INT_MAX */
@@ -140,7 +143,10 @@ int main(void) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Most instances of this type of undefined behavior are more difficult to recognize or predict. Overflow can in principle arise from any addition, subtraction, or multiplication operation on signed integers (subject to the usual arithmetic conversions) where there are not effective bounds on or a relationship between the operands to prevent it. For example, this function:</p>
+</div>
+<p>Most instances of this type of undefined behavior are more difficult to recognize or predict. Overflow can in principle arise from any addition, subtraction, or multiplication operation on signed integers (subject to the usual arithmetic conversions) where there are not effective bounds on or a relationship between the operands to prevent it. For example, this function:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int square(int x) {
@@ -150,7 +156,12 @@ int main(void) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>is reasonable, and it does the right thing for small enough argument values, but its behavior is undefined for larger argument values. You cannot judge from the function alone whether programs that call it exhibit undefined behavior as a result. It depends on what arguments they pass to it.</p><p>On the other hand, consider this trivial example of overflow-safe signed integer arithmetic:</p>
+</div>
+<p>is reasonable, and it does the right thing for small enough argument values, but its behavior is undefined for larger argument values. You cannot judge from the function alone whether programs that call it exhibit undefined behavior as a result. It depends on what arguments they pass to it.
+</p>
+<p>On the other hand, consider this trivial example of overflow-safe signed integer arithmetic:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int zero(int x) {
@@ -160,7 +171,10 @@ int main(void) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The relationship between the operands of the subtraction operator ensures that the subtraction never overflows. Or consider this somewhat more practical example:</p>
+</div>
+<p>The relationship between the operands of the subtraction operator ensures that the subtraction never overflows. Or consider this somewhat more practical example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int sizeDelta(FILE *f1, FILE *f2) {
@@ -175,7 +189,9 @@ int main(void) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As long as that the counters do not overflow individually, the operands of the final subtraction will both be non-negative. All differences between any two such values are representable as <code>int</code>.</p>
+</div>
+<p>As long as that the counters do not overflow individually, the operands of the final subtraction will both be non-negative. All differences between any two such values are representable as <code>int</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

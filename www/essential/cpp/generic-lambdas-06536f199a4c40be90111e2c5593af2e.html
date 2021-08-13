@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Lambda functions can take arguments of arbitrary types. This allows a lambda to be more generic:</p>
+      
+<p>Lambda functions can take arguments of arbitrary types. This allows a lambda to be more generic:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto twice = [](auto x){ return x+x; };
@@ -138,7 +141,10 @@ std::string s = twice(&#34;hello&#34;); // s == &#34;hellohello&#34;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is implemented in C++ by making the closure type’s <code>operator()</code> overload a template function. The following type has equivalent behavior to the above lambda closure:</p>
+</div>
+<p>This is implemented in C++ by making the closure type’s <code>operator()</code> overload a template function. The following type has equivalent behavior to the above lambda closure:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct _unique_lambda_type
@@ -150,7 +156,10 @@ std::string s = twice(&#34;hello&#34;); // s == &#34;hellohello&#34;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Not all parameters in a generic lambda need be generic:</p>
+</div>
+<p>Not all parameters in a generic lambda need be generic:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[](auto x, int y) {return x + y;}</pre>
@@ -158,7 +167,12 @@ std::string s = twice(&#34;hello&#34;); // s == &#34;hellohello&#34;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, <code>x</code> is deduced based on the first function argument, while <code>y</code> will always be <code>int</code>.</p><p>Generic lambdas can take arguments by reference as well, using the usual rules for <code>auto</code> and <code>&amp;</code>. If a generic parameter is taken as <code>auto&amp;&amp;</code>, this is a <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n4164.pdf"><em>forwarding</em></a><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n4164.pdf"> reference</a> to the passed in argument and not an <a href="http://en.cppreference.com/w/cpp/language/reference"><em>rvalue</em></a><a href="http://en.cppreference.com/w/cpp/language/reference"> reference</a>:</p>
+</div>
+<p>Here, <code>x</code> is deduced based on the first function argument, while <code>y</code> will always be <code>int</code>.
+</p>
+<p>Generic lambdas can take arguments by reference as well, using the usual rules for <code>auto</code> and <code>&amp;</code>. If a generic parameter is taken as <code>auto&amp;&amp;</code>, this is a <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n4164.pdf"><em>forwarding</em></a><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n4164.pdf"> reference</a> to the passed in argument and not an <a href="http://en.cppreference.com/w/cpp/language/reference"><em>rvalue</em></a><a href="http://en.cppreference.com/w/cpp/language/reference"> reference</a>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto lamb1 = [](int &amp;&amp;x) {return x + 5;};
@@ -170,7 +184,10 @@ lamb2(x); // Legal; the type of `x` is deduced as `int&amp;`.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Lambda functions can be variadic and perfectly forward their arguments:</p>
+</div>
+<p>Lambda functions can be variadic and perfectly forward their arguments:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto lam = [](auto&amp;&amp;... args){return f(std::forward&lt;decltype(args)&gt;(args)...);};</pre>
@@ -178,7 +195,10 @@ lamb2(x); // Legal; the type of `x` is deduced as `int&amp;`.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>or:</p>
+</div>
+<p>or:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto lam = [](auto&amp;&amp;... args){return f(decltype(args)(args)...);};</pre>
@@ -186,7 +206,12 @@ lamb2(x); // Legal; the type of `x` is deduced as `int&amp;`.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>which only works “properly” with variables of type <code>auto&amp;&amp;</code>.</p><p>A strong reason to use generic lambdas is for visiting syntax.</p>
+</div>
+<p>which only works “properly” with variables of type <code>auto&amp;&amp;</code>.
+</p>
+<p>A strong reason to use generic lambdas is for visiting syntax.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">boost::variant&lt;int, double&gt; value;
@@ -197,7 +222,10 @@ apply_visitor(value, [&amp;](auto&amp;&amp; e){
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here we are visiting in a polymorphic manner; but in other contexts, the names of the type we are passing isn’t interesting:</p>
+</div>
+<p>Here we are visiting in a polymorphic manner; but in other contexts, the names of the type we are passing isn’t interesting:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mutex_wrapped&lt;std::ostream&amp;&gt; os = std::cout;
@@ -208,7 +236,9 @@ os.write([&amp;](auto&amp;&amp; os){
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Repeating the type of <code>std::ostream&amp;</code> is noise here; it would be like having to mention the type of a variable every time you use it. Here we are creating a visitor, but no a polymorphic one; <code>auto</code> is used for the same reason you might use <code>auto</code> in a <code>for(:)</code> loop.</p>
+</div>
+<p>Repeating the type of <code>std::ostream&amp;</code> is noise here; it would be like having to mention the type of a variable every time you use it. Here we are creating a visitor, but no a polymorphic one; <code>auto</code> is used for the same reason you might use <code>auto</code> in a <code>for(:)</code> loop.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

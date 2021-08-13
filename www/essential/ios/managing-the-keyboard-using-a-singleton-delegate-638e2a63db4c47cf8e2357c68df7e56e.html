@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>When I first started managing the keyboard I would use separate Notifications in each ViewController.</p><p>Notification Method (Using NSNotification):</p>
+      
+<p>When I first started managing the keyboard I would use separate Notifications in each ViewController.
+</p>
+<p>Notification Method (Using NSNotification):
+</p>
+
 <div class="code-box lang-Swift">
 	<div>
 	<pre class="chroma"><span class="kd">class</span> <span class="nc">ViewController</span><span class="p">:</span> <span class="n">UIViewController</span> <span class="p">{</span>
@@ -157,7 +162,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>My problem was that I found myself writing this code again and again for every single ViewController. After experimenting a bit I found using a Singleton + Delegate pattern allowed me to reuse a bunch of code and organize all of the Keyboard Management in a single place!</p><p>Singleton + Delegate Method:</p>
+</div>
+<p>My problem was that I found myself writing this code again and again for every single ViewController. After experimenting a bit I found using a Singleton + Delegate pattern allowed me to reuse a bunch of code and organize all of the Keyboard Management in a single place!
+</p>
+<p>Singleton + Delegate Method:
+</p>
+
 <div class="code-box lang-Swift">
 	<div>
 	<pre class="chroma"><span class="kd">protocol</span> <span class="nc">KeyboardManagerDelegate</span><span class="p">:</span> <span class="kd">class</span> <span class="p">{</span>
@@ -195,7 +205,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now when I want to manage the keyboard from a ViewController all I need to do is set the delegate to that ViewController and implement any delegate methods.</p>
+</div>
+<p>Now when I want to manage the keyboard from a ViewController all I need to do is set the delegate to that ViewController and implement any delegate methods.
+</p>
+
 <div class="code-box lang-Swift">
 	<div>
 	<pre class="chroma"><span class="kd">class</span> <span class="nc">ViewController</span><span class="p">:</span> <span class="n">UIViewController</span> <span class="p">{</span>
@@ -221,7 +234,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This method is very customizable too! Say we want to add functionality for <code>UIKeyboardWillHideNotification</code>. This is as easy as adding a method to our <code>KeyboardManagerDelegate</code>.</p><p><code>KeyboardManagerDelegate</code> with <code>UIKeyboardWillHideNotification</code>:</p>
+</div>
+<p>This method is very customizable too! Say we want to add functionality for <code>UIKeyboardWillHideNotification</code>. This is as easy as adding a method to our <code>KeyboardManagerDelegate</code>.
+</p>
+<p><code>KeyboardManagerDelegate</code> with <code>UIKeyboardWillHideNotification</code>:
+</p>
+
 <div class="code-box lang-Swift">
 	<div>
 	<pre class="chroma"><span class="kd">protocol</span> <span class="nc">KeyboardManagerDelegate</span><span class="p">:</span> <span class="kd">class</span> <span class="p">{</span>
@@ -244,7 +262,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Say we only want to implement <code>func keyboardWillHide(notificationUserInfo: [NSObject: AnyObject])</code> in one ViewController. We can also make this method optional.</p>
+</div>
+<p>Say we only want to implement <code>func keyboardWillHide(notificationUserInfo: [NSObject: AnyObject])</code> in one ViewController. We can also make this method optional.
+</p>
+
 <div class="code-box lang-Swift">
 	<div>
 	<pre class="chroma"><span class="kd">typealias</span> <span class="n">KeyboardManagerDelegate</span> <span class="p">=</span> <span class="kd">protocol</span><span class="p">&lt;</span><span class="n">KeyboardManagerModel</span><span class="p">,</span> <span class="n">KeyboardManagerConfigureable</span><span class="p">&gt;</span>
@@ -260,7 +281,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>*Note this pattern helps avoid overuse of <code>@objc</code>. See http://www.jessesquires.com/avoiding-objc-in-swift/ for more details!</p><p>In summary, I’ve found using a Singleton + Delegate to manage the keyboard is both more efficient and easier to use than using Notifications</p>
+</div>
+<p>*Note this pattern helps avoid overuse of <code>@objc</code>. See http://www.jessesquires.com/avoiding-objc-in-swift/ for more details!
+</p>
+<p>In summary, I’ve found using a Singleton + Delegate to manage the keyboard is both more efficient and easier to use than using Notifications
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

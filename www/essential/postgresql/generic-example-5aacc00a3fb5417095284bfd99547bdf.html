@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Preparing data:</p>
+      
+<p>Preparing data:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">create</span> <span class="k">table</span> <span class="n">wf_example</span><span class="p">(</span><span class="n">i</span> <span class="nb">int</span><span class="p">,</span> <span class="n">t</span> <span class="nb">text</span><span class="p">,</span><span class="n">ts</span> <span class="n">timestamptz</span><span class="p">,</span><span class="n">b</span> <span class="nb">boolean</span><span class="p">);</span>
@@ -143,7 +146,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Running:</p>
+</div>
+<p>Running:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">select</span> <span class="o">*</span>
@@ -159,7 +165,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Result:</p>
+</div>
+<p>Result:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">i | t |           ts           | b | dist_by_i | prev_t | nth | num_by_i | num_all | ntile
@@ -177,7 +186,21 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Explanation:</p><p><em>dist_by_i</em>: <code>dense_rank() over (order by i)</code> is like a row_number per distinct values. Can be used for the number of distinct values of i (<code>count(DISTINCT i)</code> wold not work). Just use the maximum value.</p><p><em>prev_t</em>: <code>lag(t) over ()</code> is a previous value of t over the whole window. mind that it is null for the first row.</p><p><em>nth</em>: <code>nth_value(i, 6) over ()</code> is the value of sixth rows column i over the whole window</p><p><em>num_by_i</em>: <code>count(true) over (partition by i)</code> is an amount of rows for each value of i</p><p><em>num_all</em>: <code>count(true) over ()</code> is an amount of rows over a whole window</p><p><em>ntile</em>: <code>ntile(3) over()</code> splits the whole window to 3 (as much as possible) equal in quantity parts</p>
+</div>
+<p>Explanation:
+</p>
+<p><em>dist_by_i</em>: <code>dense_rank() over (order by i)</code> is like a row_number per distinct values. Can be used for the number of distinct values of i (<code>count(DISTINCT i)</code> wold not work). Just use the maximum value.
+</p>
+<p><em>prev_t</em>: <code>lag(t) over ()</code> is a previous value of t over the whole window. mind that it is null for the first row.
+</p>
+<p><em>nth</em>: <code>nth_value(i, 6) over ()</code> is the value of sixth rows column i over the whole window
+</p>
+<p><em>num_by_i</em>: <code>count(true) over (partition by i)</code> is an amount of rows for each value of i
+</p>
+<p><em>num_all</em>: <code>count(true) over ()</code> is an amount of rows over a whole window
+</p>
+<p><em>ntile</em>: <code>ntile(3) over()</code> splits the whole window to 3 (as much as possible) equal in quantity parts
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

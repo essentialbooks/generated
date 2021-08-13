@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>If a lambda’s capture list is empty, then the lambda has an implicit conversion to a function pointer that takes the same arguments and returns the same return type:</p>
+      
+<p>If a lambda’s capture list is empty, then the lambda has an implicit conversion to a function pointer that takes the same arguments and returns the same return type:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto sorter = [](int lhs, int rhs) -&gt; bool {return lhs &lt; rhs;};
@@ -138,7 +141,10 @@ func_ptr sorter_func = sorter; // implicit conversion</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Such a conversion may also be enforced using unary plus operator:</p>
+</div>
+<p>Such a conversion may also be enforced using unary plus operator:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">func_ptr sorter_func2 = +sorter; // enforce implicit conversion</pre>
@@ -146,7 +152,14 @@ func_ptr sorter_func = sorter; // implicit conversion</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Calling this function pointer behaves exactly like invoking <code>operator()</code> on the lambda. This function pointer is in no way reliant on the source lambda closure’s existence. It therefore may outlive the lambda closure.</p><p>This feature is mainly useful for using lambdas with APIs that deal in function pointers, rather than C++ function objects.</p><p>Conversion to a function pointer is also possible for generic lambdas with an empty capture list. If necessary, template argument deduction will be used to select the correct specialization.</p>
+</div>
+<p>Calling this function pointer behaves exactly like invoking <code>operator()</code> on the lambda. This function pointer is in no way reliant on the source lambda closure’s existence. It therefore may outlive the lambda closure.
+</p>
+<p>This feature is mainly useful for using lambdas with APIs that deal in function pointers, rather than C++ function objects.
+</p>
+<p>Conversion to a function pointer is also possible for generic lambdas with an empty capture list. If necessary, template argument deduction will be used to select the correct specialization.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto sorter = [](auto lhs, auto rhs) { return lhs &lt; rhs; };

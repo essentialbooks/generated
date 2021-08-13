@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>You can quickly determine if a text includes a specific pattern using Regex. There are multiple ways to work with Regex in PowerShell.</p>
+      
+<p>You can quickly determine if a text includes a specific pattern using Regex. There are multiple ways to work with Regex in PowerShell.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#Sample text
@@ -143,7 +146,13 @@ $pattern = &#39;\(.*?\)&#39;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="8a34dd0b-aa73-4f35-9c1b-eb7d8cfde79a" class="">Using the -Match operator<a class="header-anchor" href="#8a34dd0b-aa73-4f35-9c1b-eb7d8cfde79a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>To determine if a string matches a pattern using the built-in <code>-matches</code> operator, use the syntax <code>&#x27;input&#x27; -match &#x27;pattern&#x27;</code>. This will return <code>true</code> or <code>false</code> depending on the result of the search. If there was match you can view the match and groups (if defined in pattern) by accessing the <code>$Matches</code>-variable.</p>
+</div>
+  <h1 id="8a34dd0b-aa73-4f35-9c1b-eb7d8cfde79a" class="">Using the -Match operator
+  <a class="header-anchor" href="#8a34dd0b-aa73-4f35-9c1b-eb7d8cfde79a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>To determine if a string matches a pattern using the built-in <code>-matches</code> operator, use the syntax <code>&#x27;input&#x27; -match &#x27;pattern&#x27;</code>. This will return <code>true</code> or <code>false</code> depending on the result of the search. If there was match you can view the match and groups (if defined in pattern) by accessing the <code>$Matches</code>-variable.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt; $text -match $pattern
@@ -158,7 +167,10 @@ Name Value
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can also use <code>-match</code> to filter through an array of strings and only return the strings containing a match.</p>
+</div>
+<p>You can also use <code>-match</code> to filter through an array of strings and only return the strings containing a match.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt; $textarray = @&#34;
@@ -174,7 +186,13 @@ a (sample text)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="3a7567ab-86f1-4de5-af42-131128e87beb" class="">Using Select-String<a class="header-anchor" href="#3a7567ab-86f1-4de5-af42-131128e87beb" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>PowerShell 2.0 introduced a new cmdlet for searching through text using regex. It returns a <code>MatchInfo</code> object per textinput that contains a match. You can access it’s properties to find matching groups etc.</p>
+</div>
+  <h1 id="3a7567ab-86f1-4de5-af42-131128e87beb" class="">Using Select-String
+  <a class="header-anchor" href="#3a7567ab-86f1-4de5-af42-131128e87beb" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>PowerShell 2.0 introduced a new cmdlet for searching through text using regex. It returns a <code>MatchInfo</code> object per textinput that contains a match. You can access it’s properties to find matching groups etc.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt; $m = Select-String -InputObject $text -Pattern $pattern
@@ -201,7 +219,10 @@ Matches    : {(a)}</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Like <code>-match</code>, <code>Select-String</code> can also be used to filter through an array of strings by piping an array to it. It creates a <code>MatchInfo</code>-object per string that includes a match.</p>
+</div>
+<p>Like <code>-match</code>, <code>Select-String</code> can also be used to filter through an array of strings by piping an array to it. It creates a <code>MatchInfo</code>-object per string that includes a match.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt; $textarray | Select-String -Pattern $pattern
@@ -233,7 +254,15 @@ Matches    : {(sample text)}</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>Select-String</code> can also search using a normal text-pattern (no regex) by adding the <code>-SimpleMatch</code> switch.</p><h1 id="c56d5c81-ef0b-4ca6-becf-a57a6ae1a33a" class="">Using [RegEx]::Match()<a class="header-anchor" href="#c56d5c81-ef0b-4ca6-becf-a57a6ae1a33a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>You can also use the static <code>Match()</code> method available in the .NET <code>[RegEx]</code>-class.</p>
+</div>
+<p><code>Select-String</code> can also search using a normal text-pattern (no regex) by adding the <code>-SimpleMatch</code> switch.
+</p>
+  <h1 id="c56d5c81-ef0b-4ca6-becf-a57a6ae1a33a" class="">Using [RegEx]::Match()
+  <a class="header-anchor" href="#c56d5c81-ef0b-4ca6-becf-a57a6ae1a33a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>You can also use the static <code>Match()</code> method available in the .NET <code>[RegEx]</code>-class.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt; [regex]::Match($text,$pattern)

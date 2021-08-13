@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>The <code>alignas</code> <a href="http://stackoverflow.com/documentation/c%2B%2B/4891/keywords">keyword</a> can be used to force a variable, class data member, declaration or definition of a class, or declaration or definition of an enum, to have a particular alignment, if supported. It comes in two forms:</p><ul id="a3c80968-78c2-4ec6-b868-bbae904c5ef1" class="bulleted-list"><li><code>alignas(x)</code>, where <code>x</code> is a constant expression, gives the entity the alignment <code>x</code>, if supported.</li><li><code>alignas(T)</code>, where <code>T</code> is a type, gives the entity an alignment equal to the alignment requirement of <code>T</code>, that is, <code>alignof(T)</code>, if supported.</li></ul><p>If multiple <code>alignas</code> specifiers are applied to the same entity, the strictest one applies.</p><p>In this example, the buffer <code>buf</code> is guaranteed to be appropriately aligned to hold an <code>int</code> object, even though its element type is <code>unsigned char</code>, which may have a weaker alignment requirement.</p>
+      
+<p>The <code>alignas</code> <a href="http://stackoverflow.com/documentation/c%2B%2B/4891/keywords">keyword</a> can be used to force a variable, class data member, declaration or definition of a class, or declaration or definition of an enum, to have a particular alignment, if supported. It comes in two forms:
+</p>
+  <ul id="a3c80968-78c2-4ec6-b868-bbae904c5ef1" class="bulleted-list">
+    <li><code>alignas(x)</code>, where <code>x</code> is a constant expression, gives the entity the alignment <code>x</code>, if supported.
+    </li>
+    <li><code>alignas(T)</code>, where <code>T</code> is a type, gives the entity an alignment equal to the alignment requirement of <code>T</code>, that is, <code>alignof(T)</code>, if supported.
+    </li>
+  </ul>
+<p>If multiple <code>alignas</code> specifiers are applied to the same entity, the strictest one applies.
+</p>
+<p>In this example, the buffer <code>buf</code> is guaranteed to be appropriately aligned to hold an <code>int</code> object, even though its element type is <code>unsigned char</code>, which may have a weaker alignment requirement.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">alignas</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)];</span>
@@ -137,7 +150,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>alignas</code> cannot be used to give a type a smaller alignment than the type would have without this declaration:</p>
+</div>
+<p><code>alignas</code> cannot be used to give a type a smaller alignment than the type would have without this declaration:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">alignas</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="kt">int</span> <span class="n">i</span><span class="p">;</span> <span class="c1">//Il-formed, unless `int` on this platform is aligned to 1 byte.
@@ -147,7 +163,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>alignas</code>, when given an integer constant expression, must be given a valid alignment. Valid alignments are always powers of two, and must be greater than zero. Compilers are required to support all valid alignments up to the alignment of the type <code>std::max_align_t</code>. They <em>may</em> support larger alignments than this, but support for allocating memory for such objects is limited. The upper limit on alignments is implementation dependent.</p><p>C++17 features direct support in <code>operator new</code> for allocating memory for over-aligned types.</p>
+</div>
+<p><code>alignas</code>, when given an integer constant expression, must be given a valid alignment. Valid alignments are always powers of two, and must be greater than zero. Compilers are required to support all valid alignments up to the alignment of the type <code>std::max_align_t</code>. They <em>may</em> support larger alignments than this, but support for allocating memory for such objects is limited. The upper limit on alignments is implementation dependent.
+</p>
+<p>C++17 features direct support in <code>operator new</code> for allocating memory for over-aligned types.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

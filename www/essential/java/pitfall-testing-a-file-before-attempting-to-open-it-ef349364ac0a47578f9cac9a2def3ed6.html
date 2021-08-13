@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Some people recommend that you should apply various tests to a file before attempting to open it either to provide better diagnostics or avoid dealing with exceptions. For example, this method attempts to check if <code>path</code> corresponds to a readable file:</p>
+      
+<p>Some people recommend that you should apply various tests to a file before attempting to open it either to provide better diagnostics or avoid dealing with exceptions. For example, this method attempts to check if <code>path</code> corresponds to a readable file:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public static File getValidatedFile(String path) throws IOException {
@@ -141,7 +144,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You might use the above method like this:</p>
+</div>
+<p>You might use the above method like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">File f = null;
@@ -158,7 +164,22 @@ try (InputStream is = new FileInputStream(file)) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The first problem is in the signature for <code>FileInputStream(File)</code> because the compiler will still insist we catch <code>IOException</code> here, or further up the stack.</p><p>The second problem is that checks performed by <code>getValidatedFile</code> do not guarantee that the <code>FileInputStream</code> will succeed.</p><ul id="b841a034-b0cf-4007-9d89-2aef8349c1e4" class="bulleted-list"><li>Race conditions: another thread or a separate process could rename the file, delete the file, or remove read access after the <code>getValidatedFile</code> returns. That would lead to a “plain” <code>IOException</code> without the custom message.</li><li>There are edge cases not covered by those tests. For example, on a system with SELinux in “enforcing” mode, an attempt to read a file can fail despite <code>canRead()</code> returning <code>true</code>.</li></ul><p>The third problem is that the tests are inefficient. For example, the <code>exists</code>, <code>isFile</code> and <code>canRead</code> calls will each make a <a href="https://en.wikipedia.org/wiki/System_call">syscall</a> to perform the required check. Another syscall is then made to open the file, which repeats the same checks behind the scenes.</p><p>In short, methods like <code>getValidatedFile</code> are misguided. It is better to simply attempt to open the file and handle the exception:</p>
+</div>
+<p>The first problem is in the signature for <code>FileInputStream(File)</code> because the compiler will still insist we catch <code>IOException</code> here, or further up the stack.
+</p>
+<p>The second problem is that checks performed by <code>getValidatedFile</code> do not guarantee that the <code>FileInputStream</code> will succeed.
+</p>
+  <ul id="b841a034-b0cf-4007-9d89-2aef8349c1e4" class="bulleted-list">
+    <li>Race conditions: another thread or a separate process could rename the file, delete the file, or remove read access after the <code>getValidatedFile</code> returns. That would lead to a “plain” <code>IOException</code> without the custom message.
+    </li>
+    <li>There are edge cases not covered by those tests. For example, on a system with SELinux in “enforcing” mode, an attempt to read a file can fail despite <code>canRead()</code> returning <code>true</code>.
+    </li>
+  </ul>
+<p>The third problem is that the tests are inefficient. For example, the <code>exists</code>, <code>isFile</code> and <code>canRead</code> calls will each make a <a href="https://en.wikipedia.org/wiki/System_call">syscall</a> to perform the required check. Another syscall is then made to open the file, which repeats the same checks behind the scenes.
+</p>
+<p>In short, methods like <code>getValidatedFile</code> are misguided. It is better to simply attempt to open the file and handle the exception:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">try (InputStream is = new FileInputStream(&#34;somefile&#34;)) {
@@ -171,7 +192,9 @@ try (InputStream is = new FileInputStream(file)) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you wanted to distinguish IO errors thrown while opening and reading, you could use a nested try / catch. If you wanted to produce better diagnostics for open failures, you could perform the <code>exists</code>, <code>isFile</code> and <code>canRead</code> checks in the handler.</p>
+</div>
+<p>If you wanted to distinguish IO errors thrown while opening and reading, you could use a nested try / catch. If you wanted to produce better diagnostics for open failures, you could perform the <code>exists</code>, <code>isFile</code> and <code>canRead</code> checks in the handler.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

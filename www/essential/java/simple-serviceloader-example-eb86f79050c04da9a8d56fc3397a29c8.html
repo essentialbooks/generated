@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>The ServiceLoader is a simple and easy to use built-in mechanism for dynamic loading of interface implementations. With the service loader - providing means for instantation (but not the wiring) - a simple dependency injection mechanism can be built in Java SE. With the ServiceLoader interface and implementation separation becomes natural and programs can be conveniently extended. Actually a lot of Java API are implented based on the ServiceLoader</p><p>The basic concepts are</p><ul id="8d76d238-1c54-41a7-8080-6d5229428e46" class="bulleted-list"><li>Operating on <em>interfaces</em> of services</li><li>Obtaining implementation(s) of the service via <code>ServiceLoader</code></li><li>Providing implementation of servics</li></ul><p>Lets start with the interface and put it in a jar, named for example <code>accounting-api.jar</code></p>
+      
+<p>The ServiceLoader is a simple and easy to use built-in mechanism for dynamic loading of interface implementations. With the service loader - providing means for instantation (but not the wiring) - a simple dependency injection mechanism can be built in Java SE. With the ServiceLoader interface and implementation separation becomes natural and programs can be conveniently extended. Actually a lot of Java API are implented based on the ServiceLoader
+</p>
+<p>The basic concepts are
+</p>
+  <ul id="8d76d238-1c54-41a7-8080-6d5229428e46" class="bulleted-list">
+    <li>Operating on <em>interfaces</em> of services
+    </li>
+    <li>Obtaining implementation(s) of the service via <code>ServiceLoader</code>
+    </li>
+    <li>Providing implementation of servics
+    </li>
+  </ul>
+<p>Lets start with the interface and put it in a jar, named for example <code>accounting-api.jar</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">example</span><span class="p">;</span>
@@ -140,7 +155,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we provide an implementation of that service in a jar named <code>accounting-impl.jar</code>, containing an implementation of the service</p>
+</div>
+<p>Now we provide an implementation of that service in a jar named <code>accounting-impl.jar</code>, containing an implementation of the service
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">example</span><span class="p">.</span><span class="nx">impl</span><span class="p">;</span>
@@ -160,7 +178,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>further, the <code>accounting-impl.jar</code> contains a file declaring that this jar provides an implementation of <code>AccountingService</code>. The file has to have a path starting with <code>META-INF/services/</code> and must have the same name as the <em>fully-qualified</em> name of the interface:</p><ul id="ad7b1923-3dc2-4523-9019-8f60a5843934" class="bulleted-list"><li><code>META-INF/services/example.AccountingService</code></li></ul><p>The content of the file is the <em>fully-qualfified</em> name of the implementation:</p>
+</div>
+<p>further, the <code>accounting-impl.jar</code> contains a file declaring that this jar provides an implementation of <code>AccountingService</code>. The file has to have a path starting with <code>META-INF/services/</code> and must have the same name as the <em>fully-qualified</em> name of the interface:
+</p>
+  <ul id="ad7b1923-3dc2-4523-9019-8f60a5843934" class="bulleted-list">
+    <li><code>META-INF/services/example.AccountingService</code>
+    </li>
+  </ul>
+<p>The content of the file is the <em>fully-qualfified</em> name of the implementation:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">example.impl.DefaultAccountingService</pre>
@@ -168,7 +195,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Given both jars are in the classpath of the program, that consumes the <code>AccountingService</code>, an instance of the Service can be obtained by using the ServiceLauncher</p>
+</div>
+<p>Given both jars are in the classpath of the program, that consumes the <code>AccountingService</code>, an instance of the Service can be obtained by using the ServiceLauncher
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ServiceLoader&lt;AccountingService&gt; loader = ServiceLoader.load(AccountingService.class)
@@ -178,7 +208,10 @@ long balance = service.getBalance();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As the <code>ServiceLoader</code> is an <code>Iterable</code>, it supports multiple implementation providers, where the program may choose from:</p>
+</div>
+<p>As the <code>ServiceLoader</code> is an <code>Iterable</code>, it supports multiple implementation providers, where the program may choose from:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ServiceLoader&lt;AccountingService&gt; loader = ServiceLoader.load(AccountingService.class)
@@ -189,7 +222,9 @@ for(AccountingService service : loader) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that when invoking <code>next()</code> a new instance will allways be created. If you want to re-use an instance, you have to use the <code>iterator()</code> method of the ServiceLoader or the for-each loop as shown above.</p>
+</div>
+<p>Note that when invoking <code>next()</code> a new instance will allways be created. If you want to re-use an instance, you have to use the <code>iterator()</code> method of the ServiceLoader or the for-each loop as shown above.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

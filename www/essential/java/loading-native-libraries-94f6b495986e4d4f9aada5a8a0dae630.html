@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The common idiom for loading shared library files in Java is the following :</p>
+      
+<p>The common idiom for loading shared library files in Java is the following :
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class ClassWithNativeMethods {
@@ -141,7 +144,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Calls to <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/System.html#loadLibrary(java.lang.String)"><code>System.loadLibrary</code></a> are almost always static so as to occur during class loading, ensuring that no native method can execute before the shared library has been loaded. However the following is possible :</p>
+</div>
+<p>Calls to <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/System.html#loadLibrary(java.lang.String)"><code>System.loadLibrary</code></a> are almost always static so as to occur during class loading, ensuring that no native method can execute before the shared library has been loaded. However the following is possible :
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class ClassWithNativeMethods {
@@ -155,7 +161,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This allows to defer shared library loading until necessary, but requires extra care to avoid <code>java.lang.UnsatisfiedLinkError</code>s.</p><h2 id="acb78896-b87c-4674-b87f-a4753cfe306d" class="">Target file lookup<a class="header-anchor" href="#acb78896-b87c-4674-b87f-a4753cfe306d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Shared library files are searched for in the paths defined by the <code>java.library.path</code> system property, which can be overriden using the <code>-Djava.library.path=</code> JVM argument at runtime :</p>
+</div>
+<p>This allows to defer shared library loading until necessary, but requires extra care to avoid <code>java.lang.UnsatisfiedLinkError</code>s.
+</p>
+  <h2 id="acb78896-b87c-4674-b87f-a4753cfe306d" class="">Target file lookup
+  <a class="header-anchor" href="#acb78896-b87c-4674-b87f-a4753cfe306d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Shared library files are searched for in the paths defined by the <code>java.library.path</code> system property, which can be overriden using the <code>-Djava.library.path=</code> JVM argument at runtime :
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">java -Djava.library.path=path/to/lib/:path/to/other/lib MainClassWithNativeMethods</pre>
@@ -163,7 +177,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>Watch out for system path separators : for example, Windows uses </em><code><em>;</em></code><em> instead of </em><code><em>:</em></code><em>.</em></p><p>Note that <code>System.loadLibrary</code> resolves library filenames in a platform-dependent manner : the code snippet above expects a file named <code>libExample.so</code> on Linux, and <code>Example.dll</code> on Windows.</p><p>An alternative to <code>System.loadLibrary</code> is <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/System.html#load(java.lang.String)"><code>System.load(String)</code></a>, which takes the full path to a shared library file, circumventing the <code>java.library.path</code> lookup :</p>
+</div>
+<p><em>Watch out for system path separators : for example, Windows uses </em><code><em>;</em></code><em> instead of </em><code><em>:</em></code><em>.</em>
+</p>
+<p>Note that <code>System.loadLibrary</code> resolves library filenames in a platform-dependent manner : the code snippet above expects a file named <code>libExample.so</code> on Linux, and <code>Example.dll</code> on Windows.
+</p>
+<p>An alternative to <code>System.loadLibrary</code> is <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/System.html#load(java.lang.String)"><code>System.load(String)</code></a>, which takes the full path to a shared library file, circumventing the <code>java.library.path</code> lookup :
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class ClassWithNativeMethods {

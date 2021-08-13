@@ -127,7 +127,13 @@
 </div>
 
 
-      <p><em>Note: Before upgrading your Rails app, always make sure to save your code on a version control system, such as Git.</em></p><hr id="0f13bdc0-5d17-46f7-9f65-642c971a7ca7"/><p>To upgrade from Rails 4.2 to Rails 5.0, you must be using Ruby 2.2.2 or newer. After upgrading your Ruby version if required, go to your Gemfile and change the line:</p>
+      
+<p><em>Note: Before upgrading your Rails app, always make sure to save your code on a version control system, such as Git.</em>
+</p>
+<hr id="0f13bdc0-5d17-46f7-9f65-642c971a7ca7"/>
+<p>To upgrade from Rails 4.2 to Rails 5.0, you must be using Ruby 2.2.2 or newer. After upgrading your Ruby version if required, go to your Gemfile and change the line:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">gem &#39;rails&#39;, &#39;4.2.X&#39;</pre>
@@ -135,7 +141,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>to:</p>
+</div>
+<p>to:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">gem &#39;rails&#39;, &#39;~&gt; 5.0.0&#39;</pre>
@@ -143,7 +152,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>and on the command line run:</p>
+</div>
+<p>and on the command line run:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ bundle update</pre>
@@ -151,7 +163,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now run the update task using the command:</p>
+</div>
+<p>Now run the update task using the command:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ rake rails:update</pre>
@@ -159,7 +174,28 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will help you to update configuration files. You will be prompted to overwrite files and you have several options to input:</p><ul id="9922c8f6-38ae-4e48-a613-8effc1f2ff15" class="bulleted-list"><li>Y – yes, overwrite</li><li>n – no, do not overwrite</li><li>a – all, overwrite this and all others</li><li>q – quit, abort</li><li>d – diff, show the differences between the old and the new</li><li>h – help</li></ul><p>Typically, you should check the differences between the old and new files to make sure you aren’t getting any unwanted changes.</p><p>Rails 5.0 <code>ActiveRecord</code> models inherit from <code>ApplicationRecord</code>, rather than <code>ActiveRecord::Base</code>. <code>ApplicationRecord</code> is the superclass for all models, similar to how <code>ApplicationController</code> is the superclass for controllers. To account for this new way in which models are handled, you must create a file in your <code>app/models/</code> folder called <code>application_record.rb</code> and then edit that file’s contents to be:</p>
+</div>
+<p>This will help you to update configuration files. You will be prompted to overwrite files and you have several options to input:
+</p>
+  <ul id="9922c8f6-38ae-4e48-a613-8effc1f2ff15" class="bulleted-list">
+    <li>Y – yes, overwrite
+    </li>
+    <li>n – no, do not overwrite
+    </li>
+    <li>a – all, overwrite this and all others
+    </li>
+    <li>q – quit, abort
+    </li>
+    <li>d – diff, show the differences between the old and the new
+    </li>
+    <li>h – help
+    </li>
+  </ul>
+<p>Typically, you should check the differences between the old and new files to make sure you aren’t getting any unwanted changes.
+</p>
+<p>Rails 5.0 <code>ActiveRecord</code> models inherit from <code>ApplicationRecord</code>, rather than <code>ActiveRecord::Base</code>. <code>ApplicationRecord</code> is the superclass for all models, similar to how <code>ApplicationController</code> is the superclass for controllers. To account for this new way in which models are handled, you must create a file in your <code>app/models/</code> folder called <code>application_record.rb</code> and then edit that file’s contents to be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class ApplicationRecord &lt; ActiveRecord::Base
@@ -169,7 +205,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Rails 5.0 also handles callbacks slightly different. Callbacks that return <code>false</code> won’t halt the callback chain, which means subsequent callbacks will still run, unlike Rails 4.2. When you upgrade, the Rails 4.2 behavior will remain, though you can switch to the Rails 5.0 behavior by adding:</p>
+</div>
+<p>Rails 5.0 also handles callbacks slightly different. Callbacks that return <code>false</code> won’t halt the callback chain, which means subsequent callbacks will still run, unlike Rails 4.2. When you upgrade, the Rails 4.2 behavior will remain, though you can switch to the Rails 5.0 behavior by adding:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ActiveSupport.halt_callback_chains_on_return_false = false</pre>
@@ -177,7 +216,12 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>to the <code>config/application.rb</code> file. You can explicitly halt the callback chain by calling <code>throw(:abort)</code>.</p><p>In Rails 5.0, <code>ActiveJob</code> will inherit from <code>ApplicationJob</code>, rather than <code>ActiveJob::Base</code> like in Rails 4.2. To upgrade to Rails 5.0, create a file called <code>application_job.rb</code> in the <code>app/jobs/</code> folder. Edit that file’s contents to be:</p>
+</div>
+<p>to the <code>config/application.rb</code> file. You can explicitly halt the callback chain by calling <code>throw(:abort)</code>.
+</p>
+<p>In Rails 5.0, <code>ActiveJob</code> will inherit from <code>ApplicationJob</code>, rather than <code>ActiveJob::Base</code> like in Rails 4.2. To upgrade to Rails 5.0, create a file called <code>application_job.rb</code> in the <code>app/jobs/</code> folder. Edit that file’s contents to be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class ApplicationJob &lt; ActiveJob::Base
@@ -186,7 +230,11 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then, you must change all of your jobs to inherit from <code>ApplicationJob</code> rather than <code>ActiveJob::Base</code>.</p><p>One of the other biggest changes of Rails 5.0 doesn’t require any code changes, but will change the way you use the command line with your Rails apps. You will be able to use <code>bin/rails</code>, or just <code>rails</code>, to run tasks and tests. For example, instead of using <code>$ rake db:migrate</code>, you can now do <code>$ rails db:migrate</code>. If you run <code>$ bin/rails</code>, you can view all the available commands. Note that many of the tasks that can now be run with <code>bin/rails</code> still work using <code>rake</code>.</p>
+</div>
+<p>Then, you must change all of your jobs to inherit from <code>ApplicationJob</code> rather than <code>ActiveJob::Base</code>.
+</p>
+<p>One of the other biggest changes of Rails 5.0 doesn’t require any code changes, but will change the way you use the command line with your Rails apps. You will be able to use <code>bin/rails</code>, or just <code>rails</code>, to run tasks and tests. For example, instead of using <code>$ rake db:migrate</code>, you can now do <code>$ rails db:migrate</code>. If you run <code>$ bin/rails</code>, you can view all the available commands. Note that many of the tasks that can now be run with <code>bin/rails</code> still work using <code>rake</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

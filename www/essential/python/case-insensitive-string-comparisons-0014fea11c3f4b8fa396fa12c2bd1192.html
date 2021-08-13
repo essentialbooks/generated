@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Comparing string in a case insensitive way seems like something that’s trivial, but it’s not. This section only considers unicode strings (the default in Python 3). Note that Python 2 may have subtle weaknesses relative to Python 3 - the later’s unicode handling is much more complete.</p><p>The first thing to note it that case-removing conversions in unicode aren’t trivial. There is text for which <code>text.lower() != text.upper().lower()</code>, such as <code>&quot;ß&quot;</code>:</p>
+      
+<p>Comparing string in a case insensitive way seems like something that’s trivial, but it’s not. This section only considers unicode strings (the default in Python 3). Note that Python 2 may have subtle weaknesses relative to Python 3 - the later’s unicode handling is much more complete.
+</p>
+<p>The first thing to note it that case-removing conversions in unicode aren’t trivial. There is text for which <code>text.lower() != text.upper().lower()</code>, such as <code>&quot;ß&quot;</code>:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="o">&gt;&gt;&gt;</span> <span class="s2">&#34;ß&#34;</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
@@ -139,7 +144,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But let’s say you wanted to caselessly compare <code>&quot;BUSSE&quot;</code> and <code>&quot;Buße&quot;</code>. Heck, you probably also want to compare <code>&quot;BUSSE&quot;</code> and <code>&quot;BUẞE&quot;</code> equal - that’s the newer capital form. The recommended way is to use <code>casefold</code>:</p>
+</div>
+<p>But let’s say you wanted to caselessly compare <code>&quot;BUSSE&quot;</code> and <code>&quot;Buße&quot;</code>. Heck, you probably also want to compare <code>&quot;BUSSE&quot;</code> and <code>&quot;BUẞE&quot;</code> equal - that’s the newer capital form. The recommended way is to use <code>casefold</code>:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="o">&gt;&gt;&gt;</span> <span class="n">help</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">casefold</span><span class="p">)</span>
@@ -155,7 +163,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Do not just use <code>lower</code>. If <code>casefold</code> is not available, doing <code>.upper().lower()</code> helps (but only somewhat).</p><p>Then you should consider accents. If your font renderer is good, you probably think <code>&quot;ê&quot; == &quot;ê&quot;</code> - but it doesn’t:</p>
+</div>
+<p>Do not just use <code>lower</code>. If <code>casefold</code> is not available, doing <code>.upper().lower()</code> helps (but only somewhat).
+</p>
+<p>Then you should consider accents. If your font renderer is good, you probably think <code>&quot;ê&quot; == &quot;ê&quot;</code> - but it doesn’t:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="o">&gt;&gt;&gt;</span> <span class="s2">&#34;ê&#34;</span> <span class="o">==</span> <span class="s2">&#34;ê&#34;</span>
@@ -164,7 +177,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is because they are actually</p>
+</div>
+<p>This is because they are actually
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">unicodedata</span>
@@ -176,6 +192,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">unicodedata</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">char</span><span class="p">)</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="s2">&#34;ê&#34;</span><span class="p">]</span>
@@ -184,7 +201,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The simplest way to deal with this is <code>unicodedata.normalize</code>. You probably want to use <strong>NFKD</strong> normalization, but feel free to check the documentation. Then one does</p>
+</div>
+<p>The simplest way to deal with this is <code>unicodedata.normalize</code>. You probably want to use <strong>NFKD</strong> normalization, but feel free to check the documentation. Then one does
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="o">&gt;&gt;&gt;</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s2">&#34;NFKD&#34;</span><span class="p">,</span> <span class="s2">&#34;ê&#34;</span><span class="p">)</span> <span class="o">==</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s2">&#34;NFKD&#34;</span><span class="p">,</span> <span class="s2">&#34;ê&#34;</span><span class="p">)</span>
@@ -193,7 +213,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To finish up, here this is expressed in functions:</p>
+</div>
+<p>To finish up, here this is expressed in functions:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="kn">import</span> <span class="nn">unicodedata</span>

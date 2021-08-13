@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>MySQL does not support the <code>FULL OUTER JOIN</code>, but there are ways to emulate one.</p><p><strong>Setting up the data</strong></p>
+      
+<p>MySQL does not support the <code>FULL OUTER JOIN</code>, but there are ways to emulate one.
+</p>
+<p><strong>Setting up the data</strong>
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="c1">-- ----------------------------
@@ -175,7 +180,20 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>What do we want to see?</strong></p><p>We want to get a list, in which we see who owns which tools, and which tools might not have an owner.</p><p><strong>The queries</strong></p><p>To accomplish this, we can combine two queries by using <code>UNION</code>. In this first query we are joining the tools on the owners by using a <code>LEFT JOIN</code>. This will add all of our owners to our resultset, doesn’t matter if they actually own tools.</p><p>In the second query we are using a <code>RIGHT JOIN</code> to join the tools onto the owners. This way we manage to get all the tools in our resultset, if they are owned by no one their owner column will simply contain <code>NULL</code>. By adding a <code>WHERE</code>-clause which is filtering by <code>owners.owner_id IS NULL</code> we are defining the result as those datasets, which have not already been returned by the first query, as we are only looking for the data in the right joined table.</p><p>Since we are using <code>UNION ALL</code> the resultset of the second query will be attached to the first queries resultset.</p>
+</div>
+<p><strong>What do we want to see?</strong>
+</p>
+<p>We want to get a list, in which we see who owns which tools, and which tools might not have an owner.
+</p>
+<p><strong>The queries</strong>
+</p>
+<p>To accomplish this, we can combine two queries by using <code>UNION</code>. In this first query we are joining the tools on the owners by using a <code>LEFT JOIN</code>. This will add all of our owners to our resultset, doesn’t matter if they actually own tools.
+</p>
+<p>In the second query we are using a <code>RIGHT JOIN</code> to join the tools onto the owners. This way we manage to get all the tools in our resultset, if they are owned by no one their owner column will simply contain <code>NULL</code>. By adding a <code>WHERE</code>-clause which is filtering by <code>owners.owner_id IS NULL</code> we are defining the result as those datasets, which have not already been returned by the first query, as we are only looking for the data in the right joined table.
+</p>
+<p>Since we are using <code>UNION ALL</code> the resultset of the second query will be attached to the first queries resultset.
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">SELECT</span> <span class="o">`</span><span class="n">owners</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="k">owner</span><span class="o">`</span><span class="p">,</span> <span class="n">tools</span><span class="p">.</span><span class="n">tool</span>
@@ -191,6 +209,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+-------+--------------+

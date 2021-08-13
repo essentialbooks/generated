@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@interface MyObject : MySuperclass
@@ -139,7 +140,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When assigning, since <code>self</code> retains <code>blockProperty</code>, block should not contain a strong reference to self. Those mutual strong references are called a “retain cycle” and will prevent the release of either object.</p>
+</div>
+<p>When assigning, since <code>self</code> retains <code>blockProperty</code>, block should not contain a strong reference to self. Those mutual strong references are called a “retain cycle” and will prevent the release of either object.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">__weak __typeof(self) weakSelf = self;
@@ -150,7 +154,10 @@ self.blockProperty = ^(NSString *string) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It is highly unlikely, but <code>self</code> might be deallocated inside the block, somewhere during the execution. In this case <code>weakSelf</code> becomes <code>nil</code> and all messages to it have no desired effect. This might leave the app in an unknown state. This can be avoided by retaining <code>weakSelf</code> with a <code>__strong</code> ivar during block execution and clean up afterward.</p>
+</div>
+<p>It is highly unlikely, but <code>self</code> might be deallocated inside the block, somewhere during the execution. In this case <code>weakSelf</code> becomes <code>nil</code> and all messages to it have no desired effect. This might leave the app in an unknown state. This can be avoided by retaining <code>weakSelf</code> with a <code>__strong</code> ivar during block execution and clean up afterward.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">__weak __typeof(self) weakSelf = self;

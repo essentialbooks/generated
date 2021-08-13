@@ -127,7 +127,19 @@
 </div>
 
 
-      <p>RenderScript is a framework to allow high performance parallel computation on Android. Scripts you write will be executed across all available processors (e.g. CPU, GPU etc) in parallel allowing you to focus on the task you want to achieve instead of how it is scheduled and executed.</p><p>Scripts are written in a C99 based language (C99 being an old version of the C programming language standard). For each Script a Java class is created which allows you to easily interact with RenderScript in your Java code.</p><h1 id="21957bdd-e931-466d-969b-0fd0993d27a8" class="">Setting up your project<a class="header-anchor" href="#21957bdd-e931-466d-969b-0fd0993d27a8" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>There exist two different ways to access RenderScript in your app, with the Android Framework libraries or the Support Library. Even if you don’t want to target devices before API level 11 you should always use the Support Library implementation because it ensures devices compatibility across many different devices. To use the support library implementation you need to use at least build tools version <code>18.1.0</code>!</p><p>Now lets setup the build.gradle file of your application:</p>
+      
+<p>RenderScript is a framework to allow high performance parallel computation on Android. Scripts you write will be executed across all available processors (e.g. CPU, GPU etc) in parallel allowing you to focus on the task you want to achieve instead of how it is scheduled and executed.
+</p>
+<p>Scripts are written in a C99 based language (C99 being an old version of the C programming language standard). For each Script a Java class is created which allows you to easily interact with RenderScript in your Java code.
+</p>
+  <h1 id="21957bdd-e931-466d-969b-0fd0993d27a8" class="">Setting up your project
+  <a class="header-anchor" href="#21957bdd-e931-466d-969b-0fd0993d27a8" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>There exist two different ways to access RenderScript in your app, with the Android Framework libraries or the Support Library. Even if you don’t want to target devices before API level 11 you should always use the Support Library implementation because it ensures devices compatibility across many different devices. To use the support library implementation you need to use at least build tools version <code>18.1.0</code>!
+</p>
+<p>Now lets setup the build.gradle file of your application:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">android {
@@ -146,7 +158,38 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="0585b753-842b-403e-82c0-6a9c48b858e6" class="bulleted-list"><li><code>renderscriptTargetApi</code>: This should be set to the version earliest API level which provides all RenderScript functionality you require.</li><li><code>renderscriptSupportModeEnabled</code>: This enables the use of the Support Library RenderScript implementation.</li></ul><h1 id="81ffc6d4-a4e6-43d4-a78f-78833a246e77" class="">How RenderScript works<a class="header-anchor" href="#81ffc6d4-a4e6-43d4-a78f-78833a246e77" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>A typical RenderScript consists of two things: Kernels and Functions. A function is just what it sounds like - it accepts an input, does something with that input and returns an output. A Kernel is where the real power of RenderScript comes from.</p><p>A Kernel is a function which is executed against every element inside an <code>Allocation</code>. An <code>Allocation</code> can be used to pass data like a <code>Bitmap</code> or a <code>byte</code> array to a <code>RenderScript</code> and they are also used to get a result from a Kernel. Kernels can either take one <code>Allocation</code> as input and another as output or they can modify the data inside just one <code>Allocation</code>.</p><p>You can write your one Kernels, but there are also many predefined Kernels which you can use to perform common operations like a Gaussian Image Blur.</p><p>As already mentioned for every RenderScript file a class is generated to interact with it. These classes always start with the prefix <code>ScriptC_</code> followed by the name of the RenderScript file. For example if your RenderScript file is called <code>example</code> then the generated Java class will be called <code>ScriptC_example</code>. All predefined Scripts just start with the prefix <code>Script</code> - for example the Gaussian Image Blur Script is called <code>ScriptIntrinsicBlur</code>.</p><h1 id="718b4f50-2614-40db-bd55-c00d185f27bb" class="">Writing your first RenderScript<a class="header-anchor" href="#718b4f50-2614-40db-bd55-c00d185f27bb" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>The following example is based on an example on GitHub. It performs basic image manipulation by modifying the saturation of an image. You can find the source code <a href="https://github.com/Wrdlbrnft/RenderScriptSample"><strong>here</strong></a> and check it out if you want to play around with it yourself. Here’s a quick gif of what the result is supposed to look like:</p><img class="img" src="/img/0fa2a7b2d7c7aa14f3551cd0012350c288c2e835.gif"><p>demo picture</p><h2 id="8464cce0-05c7-4733-b4f9-b435662fddbe" class="">RenderScript Boilerplate<a class="header-anchor" href="#8464cce0-05c7-4733-b4f9-b435662fddbe" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>RenderScript files reside in the folder <code>src/main/rs</code> in your project. Each file has the file extension <code>.rs</code> and has to contain two <code>#pragma</code> statements at the top:</p>
+</div>
+  <ul id="0585b753-842b-403e-82c0-6a9c48b858e6" class="bulleted-list">
+    <li><code>renderscriptTargetApi</code>: This should be set to the version earliest API level which provides all RenderScript functionality you require.
+    </li>
+    <li><code>renderscriptSupportModeEnabled</code>: This enables the use of the Support Library RenderScript implementation.
+    </li>
+  </ul>
+  <h1 id="81ffc6d4-a4e6-43d4-a78f-78833a246e77" class="">How RenderScript works
+  <a class="header-anchor" href="#81ffc6d4-a4e6-43d4-a78f-78833a246e77" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>A typical RenderScript consists of two things: Kernels and Functions. A function is just what it sounds like - it accepts an input, does something with that input and returns an output. A Kernel is where the real power of RenderScript comes from.
+</p>
+<p>A Kernel is a function which is executed against every element inside an <code>Allocation</code>. An <code>Allocation</code> can be used to pass data like a <code>Bitmap</code> or a <code>byte</code> array to a <code>RenderScript</code> and they are also used to get a result from a Kernel. Kernels can either take one <code>Allocation</code> as input and another as output or they can modify the data inside just one <code>Allocation</code>.
+</p>
+<p>You can write your one Kernels, but there are also many predefined Kernels which you can use to perform common operations like a Gaussian Image Blur.
+</p>
+<p>As already mentioned for every RenderScript file a class is generated to interact with it. These classes always start with the prefix <code>ScriptC_</code> followed by the name of the RenderScript file. For example if your RenderScript file is called <code>example</code> then the generated Java class will be called <code>ScriptC_example</code>. All predefined Scripts just start with the prefix <code>Script</code> - for example the Gaussian Image Blur Script is called <code>ScriptIntrinsicBlur</code>.
+</p>
+  <h1 id="718b4f50-2614-40db-bd55-c00d185f27bb" class="">Writing your first RenderScript
+  <a class="header-anchor" href="#718b4f50-2614-40db-bd55-c00d185f27bb" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>The following example is based on an example on GitHub. It performs basic image manipulation by modifying the saturation of an image. You can find the source code <a href="https://github.com/Wrdlbrnft/RenderScriptSample"><strong>here</strong></a> and check it out if you want to play around with it yourself. Here’s a quick gif of what the result is supposed to look like:
+</p>
+<img class="img" src="/img/0fa2a7b2d7c7aa14f3551cd0012350c288c2e835.gif">
+<p>demo picture
+</p>
+  <h2 id="8464cce0-05c7-4733-b4f9-b435662fddbe" class="">RenderScript Boilerplate
+  <a class="header-anchor" href="#8464cce0-05c7-4733-b4f9-b435662fddbe" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>RenderScript files reside in the folder <code>src/main/rs</code> in your project. Each file has the file extension <code>.rs</code> and has to contain two <code>#pragma</code> statements at the top:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#pragma version(1)
@@ -155,7 +198,31 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="6bcc2dea-d075-4786-afee-30063211f082" class="bulleted-list"><li><code>#pragma version(1)</code>: This can be used to set the version of RenderScript you are using. Currently there is only version 1.</li><li><code>#pragma rs java_package_name(your.package.name)</code>: This can be used to set the package name of the Java class generated to interact with this particular RenderScript.</li></ul><p>There is another <code>#pragma</code> you should usually set in each of your RenderScript files and it is used to set the floating point precision. You can set the floating point precision to three different levels:</p><ul id="293ef076-f392-45a7-ab75-5fd8ccffad31" class="bulleted-list"><li><code>#pragma rs_fp_full</code>: This is the strictest setting with the highest precision and it is also the default value if don’t specify anything. You should use this if you require high floating point precision.</li><li><code>#pragma rs_fp_relaxed</code>: This is ensures not quite as high floating point precision, but on some architectures it enables a bunch of optimizations which can cause your scripts to run faster.</li><li><code>#pragma rs_fp_imprecise</code>: This ensures even less precision and should be used if floating point precision does not really matter to your script.</li></ul><p>Most scripts can just use <code>#pragma rs_fp_relaxed</code> unless you really need high floating point precision.</p><h2 id="6fc98ef1-930d-4031-a9ae-9b5407065d87" class="">Global Variables<a class="header-anchor" href="#6fc98ef1-930d-4031-a9ae-9b5407065d87" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Now just like in C code you can define global variables or constants:</p>
+</div>
+  <ul id="6bcc2dea-d075-4786-afee-30063211f082" class="bulleted-list">
+    <li><code>#pragma version(1)</code>: This can be used to set the version of RenderScript you are using. Currently there is only version 1.
+    </li>
+    <li><code>#pragma rs java_package_name(your.package.name)</code>: This can be used to set the package name of the Java class generated to interact with this particular RenderScript.
+    </li>
+  </ul>
+<p>There is another <code>#pragma</code> you should usually set in each of your RenderScript files and it is used to set the floating point precision. You can set the floating point precision to three different levels:
+</p>
+  <ul id="293ef076-f392-45a7-ab75-5fd8ccffad31" class="bulleted-list">
+    <li><code>#pragma rs_fp_full</code>: This is the strictest setting with the highest precision and it is also the default value if don’t specify anything. You should use this if you require high floating point precision.
+    </li>
+    <li><code>#pragma rs_fp_relaxed</code>: This is ensures not quite as high floating point precision, but on some architectures it enables a bunch of optimizations which can cause your scripts to run faster.
+    </li>
+    <li><code>#pragma rs_fp_imprecise</code>: This ensures even less precision and should be used if floating point precision does not really matter to your script.
+    </li>
+  </ul>
+<p>Most scripts can just use <code>#pragma rs_fp_relaxed</code> unless you really need high floating point precision.
+</p>
+  <h2 id="6fc98ef1-930d-4031-a9ae-9b5407065d87" class="">Global Variables
+  <a class="header-anchor" href="#6fc98ef1-930d-4031-a9ae-9b5407065d87" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Now just like in C code you can define global variables or constants:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">const static float3 gMonoMult = {0.299f, 0.587f, 0.114f};
@@ -165,7 +232,20 @@ float saturationLevel = 0.0f;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The variable <code>gMonoMult</code> is of type <code>float3</code>. This means it is a vector consisting of 3 float numbers. The other <code>float</code> variable called <code>saturationValue</code> is not constant, therefore you can set it at runtime to a value you like. You can use variables like this in your Kernels or functions and therefore they are another way to give input to or receive output from your RenderScripts. For each not constant variable a getter and setter method will be generated on the associated Java class.</p><h2 id="c1fcf768-77e5-4017-90f9-c8defda78b63" class="">Kernels<a class="header-anchor" href="#c1fcf768-77e5-4017-90f9-c8defda78b63" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>But now lets get started implementing the Kernel. For the purposes of this example I am not going to explain the math used in the Kernel to modify the saturation of the image, but instead will focus on how to implement a Kernel and and how to use it. At the end of this chapter I will quickly explain what the code in this Kernel is actually doing.</p><h2 id="59002645-e581-48a6-96b4-38bfa5c1324a" class="">Kernels in general<a class="header-anchor" href="#59002645-e581-48a6-96b4-38bfa5c1324a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Let’s take a look at the source code first:</p>
+</div>
+<p>The variable <code>gMonoMult</code> is of type <code>float3</code>. This means it is a vector consisting of 3 float numbers. The other <code>float</code> variable called <code>saturationValue</code> is not constant, therefore you can set it at runtime to a value you like. You can use variables like this in your Kernels or functions and therefore they are another way to give input to or receive output from your RenderScripts. For each not constant variable a getter and setter method will be generated on the associated Java class.
+</p>
+  <h2 id="c1fcf768-77e5-4017-90f9-c8defda78b63" class="">Kernels
+  <a class="header-anchor" href="#c1fcf768-77e5-4017-90f9-c8defda78b63" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>But now lets get started implementing the Kernel. For the purposes of this example I am not going to explain the math used in the Kernel to modify the saturation of the image, but instead will focus on how to implement a Kernel and and how to use it. At the end of this chapter I will quickly explain what the code in this Kernel is actually doing.
+</p>
+  <h2 id="59002645-e581-48a6-96b4-38bfa5c1324a" class="">Kernels in general
+  <a class="header-anchor" href="#59002645-e581-48a6-96b4-38bfa5c1324a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Let’s take a look at the source code first:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">uchar4 __attribute__((kernel)) saturation(uchar4 in) {
@@ -178,7 +258,28 @@ float saturationLevel = 0.0f;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As you can see it looks like a normal C function with one exception: The <code>__attribute__((kernel))</code> between the return type and method name. This is what tells RenderScript that this method is a Kernel. Another thing you might notice is that this method accepts a <code>uchar4</code> parameter and returns another <code>uchar4</code> value. <code>uchar4</code> is - like the <code>float3</code> variable we discussed in the chapter before - a vector. It contains 4 <code>uchar</code> values which are just byte values in the range from 0 to 255.</p><p>You can access these individual values in many different ways, for example <code>in.r</code> would return the byte which corresponds to the red channel of a pixel. We use a <code>uchar4</code> since each pixel is made up of 4 values - <code>r</code> for red, <code>g</code> for green, <code>b</code> for blue and <code>a</code> for alpha - and you can access them with this shorthand. RenderScript also allows you to take any number of values from a vector and create another vector with them. For example <code>in.rgb</code> would return a <code>uchar3</code> value which just contains the red, green and blue parts of the pixel without the alpha value.</p><p>At runtime RenderScript will call this Kernel method for each pixel of an image which is why the return value and parameter are just one <code>uchar4</code> value. RenderScript will run many of these calls in parallel on all available processors which is why RenderScript is so powerful. This also means that you don’t have to worry about threading or thread safety, you can just implement whatever you want to do to each pixel and RenderScript takes care of the rest.</p><p>When calling a Kernel in Java you supply two <code>Allocation</code> variables, one which contains the input data and another one which will receive the output. Your Kernel method will be called for each value in the input <code>Allocation</code> and will write the result to the output <code>Allocation</code>.</p><h2 id="25a43f9a-853d-4ba2-a8d5-adade51b1fd0" class="">RenderScript Runtime API methods<a class="header-anchor" href="#25a43f9a-853d-4ba2-a8d5-adade51b1fd0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>In the Kernel above a few methods are used which are provided out of the box. RenderScript provides many such methods and they are vital for almost anything you are going to do with RenderScript. Among them are methods to do math operations like <code>sin()</code> and helper methods like <code>mix()</code> which mixes two values according to another values. But there are also methods for more complex operations when dealing with vectors, quaternions and matrices.</p><p>The official <a href="https://developer.android.com/guide/topics/renderscript/reference/overview.html"><strong>RenderScript Runtime API Reference</strong></a> is the best resource out there if you want to know more about a particular method or are looking for a specific method which performs a common operation like calculating the dot product of a matrix. You can find this documentation <a href="https://developer.android.com/guide/topics/renderscript/reference/overview.html"><strong>here</strong></a>.</p><h2 id="4f121b4f-d7c1-4cd1-958c-300c57b215d8" class="">Kernel Implementation<a class="header-anchor" href="#4f121b4f-d7c1-4cd1-958c-300c57b215d8" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Now let’s take a look at the specifics of what this Kernel is doing. Here’s the first line in the Kernel:</p>
+</div>
+<p>As you can see it looks like a normal C function with one exception: The <code>__attribute__((kernel))</code> between the return type and method name. This is what tells RenderScript that this method is a Kernel. Another thing you might notice is that this method accepts a <code>uchar4</code> parameter and returns another <code>uchar4</code> value. <code>uchar4</code> is - like the <code>float3</code> variable we discussed in the chapter before - a vector. It contains 4 <code>uchar</code> values which are just byte values in the range from 0 to 255.
+</p>
+<p>You can access these individual values in many different ways, for example <code>in.r</code> would return the byte which corresponds to the red channel of a pixel. We use a <code>uchar4</code> since each pixel is made up of 4 values - <code>r</code> for red, <code>g</code> for green, <code>b</code> for blue and <code>a</code> for alpha - and you can access them with this shorthand. RenderScript also allows you to take any number of values from a vector and create another vector with them. For example <code>in.rgb</code> would return a <code>uchar3</code> value which just contains the red, green and blue parts of the pixel without the alpha value.
+</p>
+<p>At runtime RenderScript will call this Kernel method for each pixel of an image which is why the return value and parameter are just one <code>uchar4</code> value. RenderScript will run many of these calls in parallel on all available processors which is why RenderScript is so powerful. This also means that you don’t have to worry about threading or thread safety, you can just implement whatever you want to do to each pixel and RenderScript takes care of the rest.
+</p>
+<p>When calling a Kernel in Java you supply two <code>Allocation</code> variables, one which contains the input data and another one which will receive the output. Your Kernel method will be called for each value in the input <code>Allocation</code> and will write the result to the output <code>Allocation</code>.
+</p>
+  <h2 id="25a43f9a-853d-4ba2-a8d5-adade51b1fd0" class="">RenderScript Runtime API methods
+  <a class="header-anchor" href="#25a43f9a-853d-4ba2-a8d5-adade51b1fd0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>In the Kernel above a few methods are used which are provided out of the box. RenderScript provides many such methods and they are vital for almost anything you are going to do with RenderScript. Among them are methods to do math operations like <code>sin()</code> and helper methods like <code>mix()</code> which mixes two values according to another values. But there are also methods for more complex operations when dealing with vectors, quaternions and matrices.
+</p>
+<p>The official <a href="https://developer.android.com/guide/topics/renderscript/reference/overview.html"><strong>RenderScript Runtime API Reference</strong></a> is the best resource out there if you want to know more about a particular method or are looking for a specific method which performs a common operation like calculating the dot product of a matrix. You can find this documentation <a href="https://developer.android.com/guide/topics/renderscript/reference/overview.html"><strong>here</strong></a>.
+</p>
+  <h2 id="4f121b4f-d7c1-4cd1-958c-300c57b215d8" class="">Kernel Implementation
+  <a class="header-anchor" href="#4f121b4f-d7c1-4cd1-958c-300c57b215d8" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Now let’s take a look at the specifics of what this Kernel is doing. Here’s the first line in the Kernel:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">float4 f4 = rsUnpackColor8888(in);</pre>
@@ -186,7 +287,10 @@ float saturationLevel = 0.0f;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The first line calls the built in method <a href="https://developer.android.com/guide/topics/renderscript/reference/rs_convert.html#android_rs:rsUnpackColor8888"><code><strong>rsUnpackColor8888()</strong></code></a> which transforms the <code>uchar4</code> value to a <code>float4</code> values. Each color channel is also transformed to the range <code>0.0f - 1.0f</code> where <code>0.0f</code> corresponds to a byte value of <code>0</code> and <code>1.0f</code> to <code>255</code>. The main purpose of this is to make all the math in this Kernel a lot simpler.</p>
+</div>
+<p>The first line calls the built in method <a href="https://developer.android.com/guide/topics/renderscript/reference/rs_convert.html#android_rs:rsUnpackColor8888"><code><strong>rsUnpackColor8888()</strong></code></a> which transforms the <code>uchar4</code> value to a <code>float4</code> values. Each color channel is also transformed to the range <code>0.0f - 1.0f</code> where <code>0.0f</code> corresponds to a byte value of <code>0</code> and <code>1.0f</code> to <code>255</code>. The main purpose of this is to make all the math in this Kernel a lot simpler.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">float3 dotVector = dot(f4.rgb, gMonoMult);</pre>
@@ -194,7 +298,10 @@ float saturationLevel = 0.0f;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This next line uses the built in method <a href="https://developer.android.com/guide/topics/renderscript/reference/rs_vector_math.html#android_rs:dot"><code><strong>dot()</strong></code></a> to calculate the dot product of two vectors. <code>gMonoMult</code> is a constant value we defined a few chapters above. Since both vectors need to be of the same length to calculate the dot product and also since we just want to affect the color channels and not the alpha channel of a pixel we use the shorthand <code>.rgb</code> to get a new <code>float3</code> vector which just contains the red, green and blue color channels. Those of us who still remember from school how the dot product works will quickly notice that the dot product should return just one value and not a vector. Yet in the code above we are assigning the result to a <code>float3</code> vector. This is again a feature of RenderScript. When you assign a one dimensional number to a vector all elements in the vector will be set to this value. For example the following snippet will assign <code>2.0f</code> to each of the three values in the <code>float3</code> vector:</p>
+</div>
+<p>This next line uses the built in method <a href="https://developer.android.com/guide/topics/renderscript/reference/rs_vector_math.html#android_rs:dot"><code><strong>dot()</strong></code></a> to calculate the dot product of two vectors. <code>gMonoMult</code> is a constant value we defined a few chapters above. Since both vectors need to be of the same length to calculate the dot product and also since we just want to affect the color channels and not the alpha channel of a pixel we use the shorthand <code>.rgb</code> to get a new <code>float3</code> vector which just contains the red, green and blue color channels. Those of us who still remember from school how the dot product works will quickly notice that the dot product should return just one value and not a vector. Yet in the code above we are assigning the result to a <code>float3</code> vector. This is again a feature of RenderScript. When you assign a one dimensional number to a vector all elements in the vector will be set to this value. For example the following snippet will assign <code>2.0f</code> to each of the three values in the <code>float3</code> vector:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">float3 example = 2.0f;</pre>
@@ -202,7 +309,12 @@ float saturationLevel = 0.0f;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So the result of the dot product above is assigned to each element in the <code>float3</code> vector above.</p><p>Now comes the part in which we actually use the global variable <code>saturationLevel</code> to modify the saturation of the image:</p>
+</div>
+<p>So the result of the dot product above is assigned to each element in the <code>float3</code> vector above.
+</p>
+<p>Now comes the part in which we actually use the global variable <code>saturationLevel</code> to modify the saturation of the image:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">float3 newColor = mix(dotVector, f4.rgb, saturationLevel);</pre>
@@ -210,7 +322,10 @@ float saturationLevel = 0.0f;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This uses the built in method <a href="https://developer.android.com/guide/topics/renderscript/reference/rs_math.html#android_rs:mix"><code><strong>mix()</strong></code></a> to mix together the original color with the dot product vector we created above. How they are mixed together is determined by the global <code>saturationLevel</code> variable. So a <code>saturationLevel</code> of <code>0.0f</code> will cause the resulting color to have no part of the original color values and will only consist of values in the <code>dotVector</code> which results in a black and white or grayed out image. A value of <code>1.0f</code> will cause the resulting color to be completely made up of the original color values and values above <code>1.0f</code> will multiply the original colors to make them more bright and intense.</p>
+</div>
+<p>This uses the built in method <a href="https://developer.android.com/guide/topics/renderscript/reference/rs_math.html#android_rs:mix"><code><strong>mix()</strong></code></a> to mix together the original color with the dot product vector we created above. How they are mixed together is determined by the global <code>saturationLevel</code> variable. So a <code>saturationLevel</code> of <code>0.0f</code> will cause the resulting color to have no part of the original color values and will only consist of values in the <code>dotVector</code> which results in a black and white or grayed out image. A value of <code>1.0f</code> will cause the resulting color to be completely made up of the original color values and values above <code>1.0f</code> will multiply the original colors to make them more bright and intense.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">return rsPackColorTo8888(newColor);</pre>
@@ -218,7 +333,20 @@ float saturationLevel = 0.0f;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is the last part in the Kernel. <a href="https://developer.android.com/guide/topics/renderscript/reference/rs_convert.html#android_rs:rsPackColorTo8888"><code><strong>rsPackColorTo8888()</strong></code></a> transforms the <code>float3</code> vector back to a <code>uchar4</code> value which is then returned. The resulting byte values are clamped to a range between 0 and 255, so float values higher than <code>1.0f</code> will result in a byte value of 255 and values lower than <code>0.0</code> will result in a byte value of <code>0</code>.</p><p>And that is the whole Kernel implementation. Now there is only one part remaining: How to call a Kernel in Java.</p><h1 id="acdbd066-768d-496d-9b76-53fc0356492b" class="">Calling RenderScript in Java<a class="header-anchor" href="#acdbd066-768d-496d-9b76-53fc0356492b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><h2 id="7dd92514-6019-4ce5-a1a6-42aa7d0a5b7e" class="">Basics<a class="header-anchor" href="#7dd92514-6019-4ce5-a1a6-42aa7d0a5b7e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>As was already mentioned above for each RenderScript file a Java class is generated which allows you to interact with the your scripts. These files have the prefix <code>ScriptC_</code> followed by the name of the RenderScript file. To create an instance of these classes you first need an instance of the <code>RenderScript</code> class:</p>
+</div>
+<p>This is the last part in the Kernel. <a href="https://developer.android.com/guide/topics/renderscript/reference/rs_convert.html#android_rs:rsPackColorTo8888"><code><strong>rsPackColorTo8888()</strong></code></a> transforms the <code>float3</code> vector back to a <code>uchar4</code> value which is then returned. The resulting byte values are clamped to a range between 0 and 255, so float values higher than <code>1.0f</code> will result in a byte value of 255 and values lower than <code>0.0</code> will result in a byte value of <code>0</code>.
+</p>
+<p>And that is the whole Kernel implementation. Now there is only one part remaining: How to call a Kernel in Java.
+</p>
+  <h1 id="acdbd066-768d-496d-9b76-53fc0356492b" class="">Calling RenderScript in Java
+  <a class="header-anchor" href="#acdbd066-768d-496d-9b76-53fc0356492b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <h2 id="7dd92514-6019-4ce5-a1a6-42aa7d0a5b7e" class="">Basics
+  <a class="header-anchor" href="#7dd92514-6019-4ce5-a1a6-42aa7d0a5b7e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>As was already mentioned above for each RenderScript file a Java class is generated which allows you to interact with the your scripts. These files have the prefix <code>ScriptC_</code> followed by the name of the RenderScript file. To create an instance of these classes you first need an instance of the <code>RenderScript</code> class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">final RenderScript renderScript = RenderScript.create(context);</pre>
@@ -226,7 +354,10 @@ float saturationLevel = 0.0f;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The static method <code>create()</code> can be used to create a <code>RenderScript</code> instance from a <code>Context</code>. You can then instantiate the Java class which was generated for your script. If you called the RenderScript file <code>saturation.rs</code> then the class will be called <code>ScriptC_saturation</code>:</p>
+</div>
+<p>The static method <code>create()</code> can be used to create a <code>RenderScript</code> instance from a <code>Context</code>. You can then instantiate the Java class which was generated for your script. If you called the RenderScript file <code>saturation.rs</code> then the class will be called <code>ScriptC_saturation</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">final ScriptC_saturation script = new ScriptC_saturation(renderScript);</pre>
@@ -234,7 +365,10 @@ float saturationLevel = 0.0f;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>On this class you can now set the saturation level and call the Kernel. The setter which was generated for the <code>saturationLevel</code> variable will have the prefix <code>set_</code> followed by the name of the variable:</p>
+</div>
+<p>On this class you can now set the saturation level and call the Kernel. The setter which was generated for the <code>saturationLevel</code> variable will have the prefix <code>set_</code> followed by the name of the variable:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">script.set_saturationLevel(1.0f);</pre>
@@ -242,7 +376,10 @@ float saturationLevel = 0.0f;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>There is also a getter prefixed with <code>get_</code> which allows you to get the saturation level currently set:</p>
+</div>
+<p>There is also a getter prefixed with <code>get_</code> which allows you to get the saturation level currently set:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">float saturationLevel = script.get_saturationLevel();</pre>
@@ -250,7 +387,10 @@ float saturationLevel = 0.0f;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Kernels you define in your RenderScript are prefixed with <code>forEach_</code> followed by the name of the Kernel method. The Kernel we have written expects an input <code>Allocation</code> and an output <code>Allocation</code> as its parameters:</p>
+</div>
+<p>Kernels you define in your RenderScript are prefixed with <code>forEach_</code> followed by the name of the Kernel method. The Kernel we have written expects an input <code>Allocation</code> and an output <code>Allocation</code> as its parameters:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">script.forEach_saturation(inputAllocation, outputAllocation);</pre>
@@ -258,7 +398,12 @@ float saturationLevel = 0.0f;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The input <code>Allocation</code> needs to contain the input image, and after the <code>forEach_saturation</code> method has finished the output allocation will contain the modified image data.</p><p>Once you have an <code>Allocation</code> instance you can copy data from and to those <code>Allocations</code> by using the methods <code>copyFrom()</code> and <code>copyTo()</code>. For example you can copy a new image into your input `Allocation by calling:</p>
+</div>
+<p>The input <code>Allocation</code> needs to contain the input image, and after the <code>forEach_saturation</code> method has finished the output allocation will contain the modified image data.
+</p>
+<p>Once you have an <code>Allocation</code> instance you can copy data from and to those <code>Allocations</code> by using the methods <code>copyFrom()</code> and <code>copyTo()</code>. For example you can copy a new image into your input `Allocation by calling:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">inputAllocation.copyFrom(inputBitmap);</pre>
@@ -266,7 +411,10 @@ float saturationLevel = 0.0f;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The same way you can retrieve the result image by calling <code>copyTo()</code> on the output <code>Allocation</code>:</p>
+</div>
+<p>The same way you can retrieve the result image by calling <code>copyTo()</code> on the output <code>Allocation</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">outputAllocation.copyTo(outputBitmap);</pre>
@@ -274,7 +422,15 @@ float saturationLevel = 0.0f;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="69d10b00-ccc2-412c-8874-1c768d42d6dc" class="">Creating Allocation instances<a class="header-anchor" href="#69d10b00-ccc2-412c-8874-1c768d42d6dc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>There are many ways to create an <code>Allocation</code>. Once you have an <code>Allocation</code> instance you can copy new data from and to those <code>Allocations</code> with <code>copyTo()</code> and <code>copyFrom()</code> like explained above, but to create them initially you have to know with what kind of data you are exactly working with. Let’s start with the input <code>Allocation</code>:</p><p>We can use the static method <code>createFromBitmap()</code> to quickly create our input <code>Allocation</code> from a <code>Bitmap</code>:</p>
+</div>
+  <h2 id="69d10b00-ccc2-412c-8874-1c768d42d6dc" class="">Creating Allocation instances
+  <a class="header-anchor" href="#69d10b00-ccc2-412c-8874-1c768d42d6dc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>There are many ways to create an <code>Allocation</code>. Once you have an <code>Allocation</code> instance you can copy new data from and to those <code>Allocations</code> with <code>copyTo()</code> and <code>copyFrom()</code> like explained above, but to create them initially you have to know with what kind of data you are exactly working with. Let’s start with the input <code>Allocation</code>:
+</p>
+<p>We can use the static method <code>createFromBitmap()</code> to quickly create our input <code>Allocation</code> from a <code>Bitmap</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">final Allocation inputAllocation = Allocation.createFromBitmap(renderScript, image);</pre>
@@ -282,7 +438,12 @@ float saturationLevel = 0.0f;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this example the input image never changes so we never need to modify the input <code>Allocation</code> again. We can reuse it each time the <code>saturationLevel</code> changes to create a new output <code>Bitmap</code>.</p><p>Creating the output <code>Allocation</code> is a little more complex. First we need to create what’s called a <code>Type</code>. A <code>Type</code> is used to tell an <code>Allocation</code> with what kind of data it’s dealing with. Usually one uses the <code>Type.Builder</code> class to quickly create an appropriate <code>Type</code>. Let’s take a look at the code first:</p>
+</div>
+<p>In this example the input image never changes so we never need to modify the input <code>Allocation</code> again. We can reuse it each time the <code>saturationLevel</code> changes to create a new output <code>Bitmap</code>.
+</p>
+<p>Creating the output <code>Allocation</code> is a little more complex. First we need to create what’s called a <code>Type</code>. A <code>Type</code> is used to tell an <code>Allocation</code> with what kind of data it’s dealing with. Usually one uses the <code>Type.Builder</code> class to quickly create an appropriate <code>Type</code>. Let’s take a look at the code first:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">final Type outputType = new Type.Builder(renderScript, Element.RGBA_8888(renderScript))
@@ -293,7 +454,12 @@ float saturationLevel = 0.0f;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We are working with a normal 32 bit (or in other words 4 byte) per pixel <code>Bitmap</code> with 4 color channels. That’s why we are choosing <code>Element.RGBA_8888</code> to create the <code>Type</code>. Then we use the methods <code>setX()</code> and <code>setY()</code> to set the width and height of the output image to the same size as the input image. The method <code>create()</code> then creates the <code>Type</code> with the parameters we specified.</p><p>Once we have the correct <code>Type</code> we can create the output <code>Allocation</code> with the static method <code>createTyped()</code>:</p>
+</div>
+<p>We are working with a normal 32 bit (or in other words 4 byte) per pixel <code>Bitmap</code> with 4 color channels. That’s why we are choosing <code>Element.RGBA_8888</code> to create the <code>Type</code>. Then we use the methods <code>setX()</code> and <code>setY()</code> to set the width and height of the output image to the same size as the input image. The method <code>create()</code> then creates the <code>Type</code> with the parameters we specified.
+</p>
+<p>Once we have the correct <code>Type</code> we can create the output <code>Allocation</code> with the static method <code>createTyped()</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">final Allocation outputAllocation = Allocation.createTyped(renderScript, outputType);</pre>
@@ -301,7 +467,10 @@ float saturationLevel = 0.0f;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we are almost done. We also need an output <code>Bitmap</code> in which we can copy the data from the output <code>Allocation</code>. To do this we use the static method <code>createBitmap()</code> to create a new empty <code>Bitmap</code> with the same size and configuration as the input <code>Bitmap</code>.</p>
+</div>
+<p>Now we are almost done. We also need an output <code>Bitmap</code> in which we can copy the data from the output <code>Allocation</code>. To do this we use the static method <code>createBitmap()</code> to create a new empty <code>Bitmap</code> with the same size and configuration as the input <code>Bitmap</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">final Bitmap outputBitmap = Bitmap.createBitmap(
@@ -313,7 +482,15 @@ float saturationLevel = 0.0f;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And with that we have all the puzzle pieces to execute our RenderScript.</p><h2 id="bec5ca28-2ea0-47ea-9849-e29677dce3b6" class="">Full example<a class="header-anchor" href="#bec5ca28-2ea0-47ea-9849-e29677dce3b6" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Now let’s put all this together in one example:</p>
+</div>
+<p>And with that we have all the puzzle pieces to execute our RenderScript.
+</p>
+  <h2 id="bec5ca28-2ea0-47ea-9849-e29677dce3b6" class="">Full example
+  <a class="header-anchor" href="#bec5ca28-2ea0-47ea-9849-e29677dce3b6" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Now let’s put all this together in one example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Create the RenderScript instance
@@ -356,7 +533,24 @@ someImageView.setImageBitmap(outputBitmap);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="ed3ad1f0-5462-49a1-bbb6-4944b420fb70" class="">Conclusion<a class="header-anchor" href="#ed3ad1f0-5462-49a1-bbb6-4944b420fb70" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>With this introduction you should be all set to write your own RenderScript Kernels for simple image manipulation. However there are a few things you have to keep in mind:</p><ul id="9ec100c1-51b1-46ec-855c-d81dd37ec9b3" class="bulleted-list"><li><strong>RenderScript only works in Application projects</strong>: Currently RenderScript files cannot be part of a library project.</li><li><strong>Watch out for memory</strong>: RenderScript is very fast, but it can also be memory intensive. There should never be more than one instance of <code>RenderScript</code> at any time. You should also reuse as much as possible. Normally you just need to create your <code>Allocation</code> instances once and can reuse them in the future. The same goes for output <code>Bitmaps</code> or your script instances. Reuse as much as possible.</li><li><strong>Do your work in the background</strong>: Again RenderScript is very fast, but not instant in any way. Any Kernel, especially complex ones should be executed off the UI thread in an <code>AsyncTask</code> or something similar. However for the most part you don’t have to worry about memory leaks. All RenderScript related classes only use the application <code>Context</code> and therefore don’t cause memory leaks. But you still have to worry about the usual stuff like leaking <code>View</code>, <code>Activity</code> or any <code>Context</code> instance which you use yourself!</li><li><strong>Use built in stuff</strong>: There are many predefined scripts which perform tasks like image blurring, blending, converting, resizing. And there are many more built in methods which help you implement your kernels. Chances are that if you want to do something there is either a script or method which already does what you are trying to do. Don’t reinvent the wheel.</li></ul><p>If you want to quickly get started and play around with actual code I recommend you take a look at the example GitHub project which implements the exact example talked about in this tutorial. You can find the project <a href="https://github.com/Wrdlbrnft/RenderScriptSample"><strong>here</strong></a>. Have fun with RenderScript!</p>
+</div>
+  <h1 id="ed3ad1f0-5462-49a1-bbb6-4944b420fb70" class="">Conclusion
+  <a class="header-anchor" href="#ed3ad1f0-5462-49a1-bbb6-4944b420fb70" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>With this introduction you should be all set to write your own RenderScript Kernels for simple image manipulation. However there are a few things you have to keep in mind:
+</p>
+  <ul id="9ec100c1-51b1-46ec-855c-d81dd37ec9b3" class="bulleted-list">
+    <li><strong>RenderScript only works in Application projects</strong>: Currently RenderScript files cannot be part of a library project.
+    </li>
+    <li><strong>Watch out for memory</strong>: RenderScript is very fast, but it can also be memory intensive. There should never be more than one instance of <code>RenderScript</code> at any time. You should also reuse as much as possible. Normally you just need to create your <code>Allocation</code> instances once and can reuse them in the future. The same goes for output <code>Bitmaps</code> or your script instances. Reuse as much as possible.
+    </li>
+    <li><strong>Do your work in the background</strong>: Again RenderScript is very fast, but not instant in any way. Any Kernel, especially complex ones should be executed off the UI thread in an <code>AsyncTask</code> or something similar. However for the most part you don’t have to worry about memory leaks. All RenderScript related classes only use the application <code>Context</code> and therefore don’t cause memory leaks. But you still have to worry about the usual stuff like leaking <code>View</code>, <code>Activity</code> or any <code>Context</code> instance which you use yourself!
+    </li>
+    <li><strong>Use built in stuff</strong>: There are many predefined scripts which perform tasks like image blurring, blending, converting, resizing. And there are many more built in methods which help you implement your kernels. Chances are that if you want to do something there is either a script or method which already does what you are trying to do. Don’t reinvent the wheel.
+    </li>
+  </ul>
+<p>If you want to quickly get started and play around with actual code I recommend you take a look at the example GitHub project which implements the exact example talked about in this tutorial. You can find the project <a href="https://github.com/Wrdlbrnft/RenderScriptSample"><strong>here</strong></a>. Have fun with RenderScript!
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

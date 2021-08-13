@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>The IEnumerable&lt;T&gt; interface is the base interface for all generic enumerators and is a quintessential part of understanding LINQ. At its core, it represents the sequence.</p><p>This underlying interface is inherited by all of the generic collections, such as <a href="https://msdn.microsoft.com/en-us/library/ms132397(v=vs.110).aspx">Collection&lt;T&gt;</a>, <a href="https://msdn.microsoft.com/en-us/library/system.array(v=vs.110).aspx">Array</a>, <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19(v=vs.110).aspx">List&lt;T&gt;</a>, <a href="https://msdn.microsoft.com/en-us/library/xfhwa508(v=vs.110).aspx">Dictionary&lt;TKey, TValue&gt; Class</a>, and <a href="https://msdn.microsoft.com/en-us/library/bb359438(v=vs.110).aspx">HashSet&lt;T&gt;</a>.</p><p>In addition to representing the sequence, any class that inherits from IEnumerable&lt;T&gt; must provide an IEnumerator&lt;T&gt;. The enumerator exposes the iterator for the enumerable, and these two interconnected interfaces and ideas are the source of the saying “enumerate the enumerable”.</p><p>“Enumerating the enumerable” is an important phrase. The enumerable is simply a structure for how to iterate, it does not hold any materialized objects. For example, when sorting, an enumerable may hold the criteria of the field to sort, but using <code>.OrderBy()</code> in itself will return an IEnumerable&lt;T&gt; which only knows <em>how</em> to sort. Using a call which will materialize the objects, as in iterate the set, is known as enumerating (for example <code>.ToList()</code>). The enumeration process will use the the enumerable definition of <em>how</em> in order to move through the series and return the relevant objects (in order, filtered, projected, etc.).</p><p>Only once the enumerable has been enumerated does it cause the materialization of the objects, which is when metrics like <a href="https://en.wikipedia.org/wiki/Time_complexity">time complexity</a> (how long it should take related to series size) and spacial complexity (how much space it should use related to series size) can be measured.</p><p>Creating your own class that inherits from IEnumerable&lt;T&gt; can be a little complicated depending on the underlying series that needs to be enumerable. In general it is best to use one of the existing generic collections. That said, it is also possible to inherit from the IEnumerable&lt;T&gt; interface without having a defined array as the underlying structure.</p><p>For example, using the Fibonacci series as the underlying sequence. Note that the call to <code>Where</code> simply builds an <code>IEnumerable</code>, and it is not until a call to enumerate that enumerable is made that any of the values are materialized.</p>
+      
+<p>The IEnumerable&lt;T&gt; interface is the base interface for all generic enumerators and is a quintessential part of understanding LINQ. At its core, it represents the sequence.
+</p>
+<p>This underlying interface is inherited by all of the generic collections, such as <a href="https://msdn.microsoft.com/en-us/library/ms132397(v=vs.110).aspx">Collection&lt;T&gt;</a>, <a href="https://msdn.microsoft.com/en-us/library/system.array(v=vs.110).aspx">Array</a>, <a href="https://msdn.microsoft.com/en-us/library/6sh2ey19(v=vs.110).aspx">List&lt;T&gt;</a>, <a href="https://msdn.microsoft.com/en-us/library/xfhwa508(v=vs.110).aspx">Dictionary&lt;TKey, TValue&gt; Class</a>, and <a href="https://msdn.microsoft.com/en-us/library/bb359438(v=vs.110).aspx">HashSet&lt;T&gt;</a>.
+</p>
+<p>In addition to representing the sequence, any class that inherits from IEnumerable&lt;T&gt; must provide an IEnumerator&lt;T&gt;. The enumerator exposes the iterator for the enumerable, and these two interconnected interfaces and ideas are the source of the saying “enumerate the enumerable”.
+</p>
+<p>“Enumerating the enumerable” is an important phrase. The enumerable is simply a structure for how to iterate, it does not hold any materialized objects. For example, when sorting, an enumerable may hold the criteria of the field to sort, but using <code>.OrderBy()</code> in itself will return an IEnumerable&lt;T&gt; which only knows <em>how</em> to sort. Using a call which will materialize the objects, as in iterate the set, is known as enumerating (for example <code>.ToList()</code>). The enumeration process will use the the enumerable definition of <em>how</em> in order to move through the series and return the relevant objects (in order, filtered, projected, etc.).
+</p>
+<p>Only once the enumerable has been enumerated does it cause the materialization of the objects, which is when metrics like <a href="https://en.wikipedia.org/wiki/Time_complexity">time complexity</a> (how long it should take related to series size) and spacial complexity (how much space it should use related to series size) can be measured.
+</p>
+<p>Creating your own class that inherits from IEnumerable&lt;T&gt; can be a little complicated depending on the underlying series that needs to be enumerable. In general it is best to use one of the existing generic collections. That said, it is also possible to inherit from the IEnumerable&lt;T&gt; interface without having a defined array as the underlying structure.
+</p>
+<p>For example, using the Fibonacci series as the underlying sequence. Note that the call to <code>Where</code> simply builds an <code>IEnumerable</code>, and it is not until a call to enumerate that enumerable is made that any of the values are materialized.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">void</span> <span class="n">Main</span><span class="p">()</span>
@@ -176,7 +191,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output</p>
+</div>
+<p>Output
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Enumerable built
@@ -191,7 +209,9 @@ Enumerating the Enumerable
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The strength in the second set (the fibMod612) is that even though we made the call to order our entire set of Fibonacci numbers, since only one value was taken using <code>.First()</code> the time complexity was O(n) as only 1 value needed to be compared during the ordering algorithm’s execution. This is because our enumerator only asked for 1 value, and so the entire enumerable did not have to be materialized. Had we used <code>.Take(5)</code> instead of <code>.First()</code> the enumerator would have asked for 5 values, and at most 5 values would need to be materialized. Compared to needing to order an entire set <em>and then</em> take the first 5 values, the principle of saves a lot of execution time and space.</p>
+</div>
+<p>The strength in the second set (the fibMod612) is that even though we made the call to order our entire set of Fibonacci numbers, since only one value was taken using <code>.First()</code> the time complexity was O(n) as only 1 value needed to be compared during the ordering algorithm’s execution. This is because our enumerator only asked for 1 value, and so the entire enumerable did not have to be materialized. Had we used <code>.Take(5)</code> instead of <code>.First()</code> the enumerator would have asked for 5 values, and at most 5 values would need to be materialized. Compared to needing to order an entire set <em>and then</em> take the first 5 values, the principle of saves a lot of execution time and space.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

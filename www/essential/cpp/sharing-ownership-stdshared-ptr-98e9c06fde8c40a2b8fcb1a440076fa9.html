@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>The class template <a href="http://en.cppreference.com/w/cpp/memory/shared_ptr"><code>std::shared_ptr</code></a> defines a shared pointer that is able to share ownership of an object with other shared pointers. This contrasts to <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr"><code>std::unique_ptr</code></a> which represents exclusive ownership.</p><p>The sharing behavior is implemented through a technique known as reference counting, where the number of shared pointers that point to the object is stored alongside it. When this count reaches zero, either through the destruction or reassignment of the last <code>std::shared_ptr</code> instance, the object is automatically destroyed.</p>
+      
+<p>The class template <a href="http://en.cppreference.com/w/cpp/memory/shared_ptr"><code>std::shared_ptr</code></a> defines a shared pointer that is able to share ownership of an object with other shared pointers. This contrasts to <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr"><code>std::unique_ptr</code></a> which represents exclusive ownership.
+</p>
+<p>The sharing behavior is implemented through a technique known as reference counting, where the number of shared pointers that point to the object is stored alongside it. When this count reaches zero, either through the destruction or reassignment of the last <code>std::shared_ptr</code> instance, the object is automatically destroyed.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="c1">// Creation: &#39;firstShared&#39; is a shared pointer for a new instance of &#39;Foo&#39; 
@@ -137,7 +142,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To create multiple smart pointers that share the same object, we need to create another <code>shared_ptr</code> that aliases the first shared pointer. Here are 2 ways of doing it:</p>
+</div>
+<p>To create multiple smart pointers that share the same object, we need to create another <code>shared_ptr</code> that aliases the first shared pointer. Here are 2 ways of doing it:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Foo</span><span class="o">&gt;</span> <span class="n">secondShared</span><span class="p">(</span><span class="n">firstShared</span><span class="p">);</span>  <span class="c1">// 1st way: Copy constructing
@@ -148,7 +156,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Either of the above ways makes <code>secondShared</code> a shared pointer that shares ownership of our instance of <code>Foo</code> with <code>firstShared</code>.</p><p>The smart pointer works just like a raw pointer. This means, you can use <code>\*</code> to dereference them. The regular <code>-&gt;</code> operator works as well:</p>
+</div>
+<p>Either of the above ways makes <code>secondShared</code> a shared pointer that shares ownership of our instance of <code>Foo</code> with <code>firstShared</code>.
+</p>
+<p>The smart pointer works just like a raw pointer. This means, you can use <code>\*</code> to dereference them. The regular <code>-&gt;</code> operator works as well:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">secondShared</span><span class="o">-&gt;</span><span class="n">test</span><span class="p">();</span> <span class="c1">// Calls Foo::test()
@@ -157,7 +170,20 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Finally, when the last aliased <code>shared_ptr</code> goes out of scope, the destructor of our <code>Foo</code> instance is called.</p><p><strong>Warning:</strong> Constructing a <code>shared_ptr</code> might throw a <code>bad_alloc</code> exception when extra data for shared ownership semantics needs to be allocated. If the constructor is passed a regular pointer it assumes to own the object pointed to and calls the deleter if an exception is thrown. This means <code>shared_ptr&lt;T&gt;(new T(args))</code> will not leak a <code>T</code> object if allocation of <code>shared_ptr&lt;T&gt;</code> fails. However, it is advisable to use <code>make_shared&lt;T&gt;(args)</code> or <code>allocate_shared&lt;T&gt;(alloc, args)</code>, which enable the implementation to optimize the memory allocation.</p><p><strong>Allocating Arrays([]) using shared_ptr</strong></p><p>Unfortunately, there is no direct way to allocate Arrays using <code>make_shared&lt;&gt;</code>.</p><p>It is possible to create arrays for <code>shared_ptr&lt;&gt;</code> using <code>new</code> and <code>std::default_delete</code>.</p><p>For example, to allocate an array of 10 integers, we can write the code as</p>
+</div>
+<p>Finally, when the last aliased <code>shared_ptr</code> goes out of scope, the destructor of our <code>Foo</code> instance is called.
+</p>
+<p><strong>Warning:</strong> Constructing a <code>shared_ptr</code> might throw a <code>bad_alloc</code> exception when extra data for shared ownership semantics needs to be allocated. If the constructor is passed a regular pointer it assumes to own the object pointed to and calls the deleter if an exception is thrown. This means <code>shared_ptr&lt;T&gt;(new T(args))</code> will not leak a <code>T</code> object if allocation of <code>shared_ptr&lt;T&gt;</code> fails. However, it is advisable to use <code>make_shared&lt;T&gt;(args)</code> or <code>allocate_shared&lt;T&gt;(alloc, args)</code>, which enable the implementation to optimize the memory allocation.
+</p>
+<p><strong>Allocating Arrays([]) using shared_ptr</strong>
+</p>
+<p>Unfortunately, there is no direct way to allocate Arrays using <code>make_shared&lt;&gt;</code>.
+</p>
+<p>It is possible to create arrays for <code>shared_ptr&lt;&gt;</code> using <code>new</code> and <code>std::default_delete</code>.
+</p>
+<p>For example, to allocate an array of 10 integers, we can write the code as
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">sh</span><span class="p">(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">std</span><span class="o">::</span><span class="n">default_delete</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">());</span>
@@ -166,7 +192,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Specifying <code>std::default_delete</code> is mandatory here to make sure that the allocated memory is correctly cleaned up using <code>delete[]</code>.</p><p>If we know the size at compile time, we can do it this way:</p>
+</div>
+<p>Specifying <code>std::default_delete</code> is mandatory here to make sure that the allocated memory is correctly cleaned up using <code>delete[]</code>.
+</p>
+<p>If we know the size at compile time, we can do it this way:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Arr</span><span class="o">&gt;</span>
@@ -188,7 +219,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>then <code>make_shared_array&lt;int[10]&gt;</code> returns a <code>shared_ptr&lt;int&gt;</code> pointing to 10 ints all default constructed.</p><p>With C++17, <code>shared_ptr</code> <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0414r2.html">gained special support</a> for array types. It is no longer necessary to specify the array-deleter explicitly, and the shared pointer can be dereferenced using the <code>[]</code> array index operator:</p>
+</div>
+<p>then <code>make_shared_array&lt;int[10]&gt;</code> returns a <code>shared_ptr&lt;int&gt;</code> pointing to 10 ints all default constructed.
+</p>
+<p>With C++17, <code>shared_ptr</code> <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0414r2.html">gained special support</a> for array types. It is no longer necessary to specify the array-deleter explicitly, and the shared pointer can be dereferenced using the <code>[]</code> array index operator:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[]</span><span class="o">&gt;</span> <span class="n">sh</span><span class="p">(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">10</span><span class="p">]);</span>
@@ -198,7 +234,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Shared pointers can point to a sub-object of the object it owns:</p>
+</div>
+<p>Shared pointers can point to a sub-object of the object it owns:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">struct</span> <span class="nc">Foo</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
@@ -209,7 +248,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Both <code>p2</code> and <code>p1</code> own the object of type <code>Foo</code>, but <code>p2</code> points to its <code>int</code> member <code>x</code>. This means that if <code>p1</code> goes out of scope or is reassigned, the underlying <code>Foo</code> object will still be alive, ensuring that <code>p2</code> does not dangle.</p><p></p><p><strong>Important:</strong> A <code>shared_ptr</code> only knows about itself and all other <code>shared_ptr</code> that were created with the alias constructor. It does not know about any other pointers, including all other <code>shared_ptr</code>s created with a reference to the same <code>Foo</code> instance:</p>
+</div>
+<p>Both <code>p2</code> and <code>p1</code> own the object of type <code>Foo</code>, but <code>p2</code> points to its <code>int</code> member <code>x</code>. This means that if <code>p1</code> goes out of scope or is reassigned, the underlying <code>Foo</code> object will still be alive, ensuring that <code>p2</code> does not dangle.
+</p>
+<p>
+</p>
+<p><strong>Important:</strong> A <code>shared_ptr</code> only knows about itself and all other <code>shared_ptr</code> that were created with the alias constructor. It does not know about any other pointers, including all other <code>shared_ptr</code>s created with a reference to the same <code>Foo</code> instance:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">Foo</span> <span class="o">*</span><span class="n">foo</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Foo</span><span class="p">;</span>
@@ -226,7 +272,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Ownership Transfer of shared_ptr</strong></p><p>By default, <code>shared_ptr</code> increments the reference count and doesn’t transfer the ownership. However, it can be made to transfer the ownership using <code>std::move</code>:</p>
+</div>
+<p><strong>Ownership Transfer of shared_ptr</strong>
+</p>
+<p>By default, <code>shared_ptr</code> increments the reference count and doesn’t transfer the ownership. However, it can be made to transfer the ownership using <code>std::move</code>:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">up</span> <span class="o">=</span> <span class="n">make_shared</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">();</span>

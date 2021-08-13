@@ -127,7 +127,30 @@
 </div>
 
 
-      <p>Under most circumstances, it is simpler from a code-design standpoint to use existing generic <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Exception.html"><code>Exception</code></a> classes when throwing exceptions. This is especially true if you only need the exception to carry a simple error message. In that case, <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/RuntimeException.html">RuntimeException</a> is usually preferred, since it is not a checked Exception. Other exception classes exist for common classes of errors:</p><ul id="8bd8806e-a8b4-475f-8f22-ac0d4cb04b83" class="bulleted-list"><li><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/UnsupportedOperationException.html">UnsupportedOperationException</a> - a certain operation is not supported</li><li><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html">IllegalArgumentException</a> - an invalid parameter value was passed to a method</li><li><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html">IllegalStateException</a> - your API has internally reached a condition that should never happen, or which occurs as a result of using your API in an invalid way</li></ul><p>Cases where you <strong>do</strong> want to use a custom exception class include the following:</p><ul id="6c60ea09-d784-43b2-b9ac-ba1c3848d5d7" class="bulleted-list"><li>You are writing an API or library for use by others, and you want to allow users of your API to be able to specifically catch and handle exceptions from your API, and <em>be able to differentiate those exceptions from other, more generic exceptions</em>.</li><li>You are throwing exceptions for a <strong>specific kind of error</strong> in one part of your program, which you want to catch and handle in another part of your program, and you want to be able to differentiate these errors from other, more generic errors.</li></ul><p>You can create your own custom exceptions by extending <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/RuntimeException.html"><code>RuntimeException</code></a> for an unchecked exception, or checked exception by extending any <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html"><code>Exception</code></a> <em>which is not also subclass of RuntimeException</em>, because:</p><blockquote id="c4de7bc0-b8a7-4f75-bae4-1ce456b9a832" class="">Subclasses of Exception that are not also subclasses of RuntimeException are checked exceptions</blockquote>
+      
+<p>Under most circumstances, it is simpler from a code-design standpoint to use existing generic <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Exception.html"><code>Exception</code></a> classes when throwing exceptions. This is especially true if you only need the exception to carry a simple error message. In that case, <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/RuntimeException.html">RuntimeException</a> is usually preferred, since it is not a checked Exception. Other exception classes exist for common classes of errors:
+</p>
+  <ul id="8bd8806e-a8b4-475f-8f22-ac0d4cb04b83" class="bulleted-list">
+    <li><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/UnsupportedOperationException.html">UnsupportedOperationException</a> - a certain operation is not supported
+    </li>
+    <li><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html">IllegalArgumentException</a> - an invalid parameter value was passed to a method
+    </li>
+    <li><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html">IllegalStateException</a> - your API has internally reached a condition that should never happen, or which occurs as a result of using your API in an invalid way
+    </li>
+  </ul>
+<p>Cases where you <strong>do</strong> want to use a custom exception class include the following:
+</p>
+  <ul id="6c60ea09-d784-43b2-b9ac-ba1c3848d5d7" class="bulleted-list">
+    <li>You are writing an API or library for use by others, and you want to allow users of your API to be able to specifically catch and handle exceptions from your API, and <em>be able to differentiate those exceptions from other, more generic exceptions</em>.
+    </li>
+    <li>You are throwing exceptions for a <strong>specific kind of error</strong> in one part of your program, which you want to catch and handle in another part of your program, and you want to be able to differentiate these errors from other, more generic errors.
+    </li>
+  </ul>
+<p>You can create your own custom exceptions by extending <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/RuntimeException.html"><code>RuntimeException</code></a> for an unchecked exception, or checked exception by extending any <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html"><code>Exception</code></a> <em>which is not also subclass of RuntimeException</em>, because:
+</p>
+<blockquote id="c4de7bc0-b8a7-4f75-bae4-1ce456b9a832" class="">Subclasses of Exception that are not also subclasses of RuntimeException are checked exceptions
+</blockquote>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class StringTooLongException extends RuntimeException {
@@ -147,7 +170,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Those can be used just as predefined exceptions:</p>
+</div>
+<p>Those can be used just as predefined exceptions:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void validateString(String value){
@@ -159,7 +185,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And the fields can be used where the exception is caught and handled:</p>
+</div>
+<p>And the fields can be used where the exception is caught and handled:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void anotherMethod(String value){
@@ -174,7 +203,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Keep in mind that, according to <a href="http://docs.oracle.com/javase/tutorial/essential/exceptions/runtime.html">Oracle’s Java Documentation</a>:</p><blockquote id="567e575a-1da8-4523-a203-1a9c4780a317" class="">[…] If a client can reasonably be expected to recover from an exception, make it a checked exception. If a client cannot do anything to recover from the exception, make it an unchecked exception.</blockquote><p>More:</p><ul id="000a078b-2cb1-4faf-901f-1ce6598ede9b" class="bulleted-list"><li><a href="http://stackoverflow.com/a/14995225/3502776">Why does RuntimeException not require an explicit exception handling?</a></li></ul>
+</div>
+<p>Keep in mind that, according to <a href="http://docs.oracle.com/javase/tutorial/essential/exceptions/runtime.html">Oracle’s Java Documentation</a>:
+</p>
+<blockquote id="567e575a-1da8-4523-a203-1a9c4780a317" class="">[…] If a client can reasonably be expected to recover from an exception, make it a checked exception. If a client cannot do anything to recover from the exception, make it an unchecked exception.
+</blockquote>
+<p>More:
+</p>
+  <ul id="000a078b-2cb1-4faf-901f-1ce6598ede9b" class="bulleted-list">
+    <li><a href="http://stackoverflow.com/a/14995225/3502776">Why does RuntimeException not require an explicit exception handling?</a>
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

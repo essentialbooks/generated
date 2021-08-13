@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>Build tags allow for limited conditional compilation i.e. compiling different versions of code based on some criteria.</p><p>Tags are specified per file, at the top of the file, followed by an empty line and the code.</p><p>A typical use case for tags is to provide to implementation of the same functionality and pick the one that is compiled with tags.</p><p>For example, if you have 3 files in the directory:</p><p><code>foo_alt.go</code></p>
+      
+<p>Build tags allow for limited conditional compilation i.e. compiling different versions of code based on some criteria.
+</p>
+<p>Tags are specified per file, at the top of the file, followed by an empty line and the code.
+</p>
+<p>A typical use case for tags is to provide to implementation of the same functionality and pick the one that is compiled with tags.
+</p>
+<p>For example, if you have 3 files in the directory:
+</p>
+<p><code>foo_alt.go</code>
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="c1">// +build alt
@@ -141,7 +152,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>foo.go</code></p>
+</div>
+<p><code>foo.go</code>
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="c1">// You can have other comments before build tags
@@ -157,7 +171,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>main.go</code></p>
+</div>
+<p><code>main.go</code>
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">main</span>
@@ -169,7 +186,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Compiling without any build tags:</p>
+</div>
+<p>Compiling without any build tags:
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">&gt; go build -o main .
@@ -179,7 +199,10 @@ This is non-alt foo</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Compiling with <code>alt</code> build tag:</p>
+</div>
+<p>Compiling with <code>alt</code> build tag:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt; go build -tags alt -o main_alt .
@@ -189,7 +212,21 @@ This is alternative foo</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When we specified <code>-tags alt</code>, we compiled <code>foo_alt.go</code> file, because it contains <code>// +build alt</code> directive which tells the build tool to compile the file if build tag <code>alt</code> is provided with <code>-tags</code> option. </p><p>We didn&#x27;t compile <code>foo.go</code> file because it contains <code>// build !alt</code> directive which tells the build to <strong>not</strong> compile the if build <code>alt</code> is provided.</p><p>Similarly, if we didn&#x27;t specify any build tags for <code>go build</code> command, file <code>foo.go</code> was compiled (because it only says to not compile if <code>alt</code> tag is provided) and <code>foo_alt.go</code> was not compiled.</p><p>Argument <code>-tags</code> applies to many commands e..g. <code>go run</code>, <code>go install</code>, <code>go test</code> etc.</p><h2 id="3dd6350b-e644-40c6-baa8-497b89a26b4c" class="">Specifying multiple tags<a class="header-anchor" href="#3dd6350b-e644-40c6-baa8-497b89a26b4c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>You can specify multiple build constraints (tags):</p>
+</div>
+<p>When we specified <code>-tags alt</code>, we compiled <code>foo_alt.go</code> file, because it contains <code>// +build alt</code> directive which tells the build tool to compile the file if build tag <code>alt</code> is provided with <code>-tags</code> option. 
+</p>
+<p>We didn&#x27;t compile <code>foo.go</code> file because it contains <code>// build !alt</code> directive which tells the build to <strong>not</strong> compile the if build <code>alt</code> is provided.
+</p>
+<p>Similarly, if we didn&#x27;t specify any build tags for <code>go build</code> command, file <code>foo.go</code> was compiled (because it only says to not compile if <code>alt</code> tag is provided) and <code>foo_alt.go</code> was not compiled.
+</p>
+<p>Argument <code>-tags</code> applies to many commands e..g. <code>go run</code>, <code>go install</code>, <code>go test</code> etc.
+</p>
+  <h2 id="3dd6350b-e644-40c6-baa8-497b89a26b4c" class="">Specifying multiple tags
+  <a class="header-anchor" href="#3dd6350b-e644-40c6-baa8-497b89a26b4c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>You can specify multiple build constraints (tags):
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="c1">// +build tag1,tag2 tag3,!tag4
@@ -200,7 +237,15 @@ This is alternative foo</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This encodes a condition <code>(tag1 </code><strong><code>AND</code></strong><code> tag2) </code><strong><code>OR</code></strong><code> (tag3 </code><strong><code>AND</code></strong><code> (</code><strong><code>NOT</code></strong><code> tag4)) AND tag5</code>.</p><p>Similarly, for the <code>go</code> command: <code>go build -tags &quot;tag1 tag2&quot;</code>.</p><h2 id="5232d827-9e74-4d2c-bc5a-c09b21613241" class="">Ignoring files (excluding from compilation)<a class="header-anchor" href="#5232d827-9e74-4d2c-bc5a-c09b21613241" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+</div>
+<p>This encodes a condition <code>(tag1 </code><strong><code>AND</code></strong><code> tag2) </code><strong><code>OR</code></strong><code> (tag3 </code><strong><code>AND</code></strong><code> (</code><strong><code>NOT</code></strong><code> tag4)) AND tag5</code>.
+</p>
+<p>Similarly, for the <code>go</code> command: <code>go build -tags &quot;tag1 tag2&quot;</code>.
+</p>
+  <h2 id="5232d827-9e74-4d2c-bc5a-c09b21613241" class="">Ignoring files (excluding from compilation)
+  <a class="header-anchor" href="#5232d827-9e74-4d2c-bc5a-c09b21613241" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="c1">// +build ignore
@@ -210,7 +255,35 @@ This is alternative foo</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="a5792475-8be7-4cf8-a3c7-e02713bb2ce3" class="">Predefined build tags<a class="header-anchor" href="#a5792475-8be7-4cf8-a3c7-e02713bb2ce3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Go toolchain uses several build tags:</p><ul id="223c47e5-706e-40b4-ab55-ddf6faff9a3a" class="bulleted-list"><li><code>arm</code>, <code>arm64</code>, <code>386</code>, <code>amd64</code>, <code>s390x</code> : for different processor architectures</li><li><code>windows</code>, <code>darwin</code>, <code>linux</code>, <code>dragonfly</code>, <code>freebsd</code>, <code>netbsd</code>, <code>openbsd</code>, <code>plan9</code>, <code>solaris</code>, <code>android</code> : for operating systems</li><li><code>cgo</code> : when cgo is enabled</li><li><code>gc</code> or <code>gccgo</code> : for gc and gccgo toolchains</li><li><code>go1.11</code> for Go version 1.11+, <code>go1.12</code> for Go version 1.12+ etc.</li></ul><h2 id="b7ec96ef-49f7-45d1-988f-fcc0a181a719" class="">Using file name in place of a build tag<a class="header-anchor" href="#b7ec96ef-49f7-45d1-988f-fcc0a181a719" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>An alternative to providing build tag directive in the file is using a file name suffix e.g. <code>foo_windows.go</code> is equivalent of including <code>// +build windows</code> in the file.</p><h2 id="14e05f2d-ec9f-4f4b-b33b-9c5b808cffb5" class="">Pitfalls<a class="header-anchor" href="#14e05f2d-ec9f-4f4b-b33b-9c5b808cffb5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>The following doesn&#x27;t work as expected:</p>
+</div>
+  <h2 id="a5792475-8be7-4cf8-a3c7-e02713bb2ce3" class="">Predefined build tags
+  <a class="header-anchor" href="#a5792475-8be7-4cf8-a3c7-e02713bb2ce3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Go toolchain uses several build tags:
+</p>
+  <ul id="223c47e5-706e-40b4-ab55-ddf6faff9a3a" class="bulleted-list">
+    <li><code>arm</code>, <code>arm64</code>, <code>386</code>, <code>amd64</code>, <code>s390x</code> : for different processor architectures
+    </li>
+    <li><code>windows</code>, <code>darwin</code>, <code>linux</code>, <code>dragonfly</code>, <code>freebsd</code>, <code>netbsd</code>, <code>openbsd</code>, <code>plan9</code>, <code>solaris</code>, <code>android</code> : for operating systems
+    </li>
+    <li><code>cgo</code> : when cgo is enabled
+    </li>
+    <li><code>gc</code> or <code>gccgo</code> : for gc and gccgo toolchains
+    </li>
+    <li><code>go1.11</code> for Go version 1.11+, <code>go1.12</code> for Go version 1.12+ etc.
+    </li>
+  </ul>
+  <h2 id="b7ec96ef-49f7-45d1-988f-fcc0a181a719" class="">Using file name in place of a build tag
+  <a class="header-anchor" href="#b7ec96ef-49f7-45d1-988f-fcc0a181a719" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>An alternative to providing build tag directive in the file is using a file name suffix e.g. <code>foo_windows.go</code> is equivalent of including <code>// +build windows</code> in the file.
+</p>
+  <h2 id="14e05f2d-ec9f-4f4b-b33b-9c5b808cffb5" class="">Pitfalls
+  <a class="header-anchor" href="#14e05f2d-ec9f-4f4b-b33b-9c5b808cffb5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>The following doesn&#x27;t work as expected:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="c1">// +build alt
@@ -223,7 +296,10 @@ This is alternative foo</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You need an empty line after build tag line:</p>
+</div>
+<p>You need an empty line after build tag line:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="c1">// +build alt
@@ -233,7 +309,9 @@ This is alternative foo</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p></p>
+</div>
+<p>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

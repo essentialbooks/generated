@@ -127,7 +127,16 @@
 </div>
 
 
-      <p><em>Before reading this example, it is required to have a brief idea on edge-relaxation. You can learn it from </em><a href="http://stackoverflow.com/documentation/algorithm/7151/dijkstra-s-algorithm#t=201610020826272688942"><em>here</em></a></p><p><a href="https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm">Bellman-Ford</a> Algorithm is computes the shortest paths from a single source vertex to all of the other vertices in a weighted digraph. Even though it is slower than <a href="http://stackoverflow.com/documentation/algorithm/7151/dijkstra-s-algorithm#t=201610020826272688942">Dijkstra’s Algorithm</a>, it works in the cases when the weight of the edge is negative and it also finds negative weight cycle in the graph. The problem with Dijkstra’s Algorithm is, if there’s a negative cycle, you keep going through the cycle again and again and keep reducing the distance between two vertices.</p><p>The idea of this algorithm is to go through all the edges of this graph one-by-one in some random order. It can be any random order. But you must ensure, if <strong>u-v</strong> (where <strong>u</strong> and <strong>v</strong> are two vertices in a graph) is one of your orders, then there must be an edge from <strong>u</strong> to <strong>v</strong>. Usually it is taken directly from the order of the input given. Again, any random order will work.</p><p>After selecting the order, we will <em>relax</em> the edges according to the relaxation formula. For a given edge <strong>u-v</strong> going from <strong>u</strong> to <strong>v</strong> the relaxation formula is:</p>
+      
+<p><em>Before reading this example, it is required to have a brief idea on edge-relaxation. You can learn it from </em><a href="http://stackoverflow.com/documentation/algorithm/7151/dijkstra-s-algorithm#t=201610020826272688942"><em>here</em></a>
+</p>
+<p><a href="https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm">Bellman-Ford</a> Algorithm is computes the shortest paths from a single source vertex to all of the other vertices in a weighted digraph. Even though it is slower than <a href="http://stackoverflow.com/documentation/algorithm/7151/dijkstra-s-algorithm#t=201610020826272688942">Dijkstra’s Algorithm</a>, it works in the cases when the weight of the edge is negative and it also finds negative weight cycle in the graph. The problem with Dijkstra’s Algorithm is, if there’s a negative cycle, you keep going through the cycle again and again and keep reducing the distance between two vertices.
+</p>
+<p>The idea of this algorithm is to go through all the edges of this graph one-by-one in some random order. It can be any random order. But you must ensure, if <strong>u-v</strong> (where <strong>u</strong> and <strong>v</strong> are two vertices in a graph) is one of your orders, then there must be an edge from <strong>u</strong> to <strong>v</strong>. Usually it is taken directly from the order of the input given. Again, any random order will work.
+</p>
+<p>After selecting the order, we will <em>relax</em> the edges according to the relaxation formula. For a given edge <strong>u-v</strong> going from <strong>u</strong> to <strong>v</strong> the relaxation formula is:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if distance[u] + cost[u][v] &lt; d[v]
@@ -136,7 +145,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>That is, if the distance from <strong>source</strong> to any vertex <strong>u</strong> + the weight of the <strong>edge u-v</strong> is less than the distance from <strong>source</strong> to another vertex <strong>v</strong>, we update the distance from <strong>source</strong> to <strong>v</strong>. We need to <em>relax</em> the edges at most <strong>(V-1)</strong> times where <strong>V</strong> is the number of edges in the graph. Why <strong>(V-1)</strong> you ask? We’ll explain it in another example. Also we are going to keep track of the parent vertex of any vertex, that is when we relax an edge, we will set:</p>
+</div>
+<p>That is, if the distance from <strong>source</strong> to any vertex <strong>u</strong> + the weight of the <strong>edge u-v</strong> is less than the distance from <strong>source</strong> to another vertex <strong>v</strong>, we update the distance from <strong>source</strong> to <strong>v</strong>. We need to <em>relax</em> the edges at most <strong>(V-1)</strong> times where <strong>V</strong> is the number of edges in the graph. Why <strong>(V-1)</strong> you ask? We’ll explain it in another example. Also we are going to keep track of the parent vertex of any vertex, that is when we relax an edge, we will set:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">parent[v] = u</pre>
@@ -144,7 +156,19 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It means we’ve found another shorter path to reach <strong>v</strong> via <strong>u</strong>. We will need this later to print the shortest path from <strong>source</strong> to the destined vertex.</p><p>Let’s look at an example. We have a graph:</p><img class="img" src="/img/9f151cd289fbba8d165bbf16a12abd55cb878fb4.png"><p>We have selected <strong>1</strong> as the <strong>source</strong> vertex. We want to find out the shortest path from the <strong>source</strong> to all other vertices.</p><p>At first, <strong>d[1] = 0</strong> because it is the source. And rest are <em>infinity</em>, because we don’t know their distance yet.</p><p>We will relax the edges in this sequence:</p>
+</div>
+<p>It means we’ve found another shorter path to reach <strong>v</strong> via <strong>u</strong>. We will need this later to print the shortest path from <strong>source</strong> to the destined vertex.
+</p>
+<p>Let’s look at an example. We have a graph:
+</p>
+<img class="img" src="/img/9f151cd289fbba8d165bbf16a12abd55cb878fb4.png">
+<p>We have selected <strong>1</strong> as the <strong>source</strong> vertex. We want to find out the shortest path from the <strong>source</strong> to all other vertices.
+</p>
+<p>At first, <strong>d[1] = 0</strong> because it is the source. And rest are <em>infinity</em>, because we don’t know their distance yet.
+</p>
+<p>We will relax the edges in this sequence:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+--------+--------+--------+--------+--------+--------+--------+
@@ -156,7 +180,51 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can take any sequence you want. If we <em>relax</em> the edges once, what do we get? We get the distance from <strong>source</strong> to all other vertices of the path that uses at most 1 edge. Now let’s relax the edges and update the values of <strong>d[]</strong>. We get:</p><ol id="70770ecc-c3cd-4a05-acd5-c55de3e1971f" class="numbered-list" start="1"><li><strong>d[4]</strong> + <strong>cost[4][5]</strong> = <strong>infinity</strong> + <strong>7</strong> = <strong>infinity</strong>. We can’t update this one.</li><li><strong>d[2]</strong> + <strong>cost[3][4]</strong> = <strong>infinity</strong>. We can’t update this one.</li><li><strong>d[1]</strong> + <strong>cost[1][2]</strong> = <strong>0</strong> + <strong>2</strong> = <strong>2</strong> &lt; <strong>d[2]</strong>. So <strong>d[2]</strong> = <strong>2</strong>. Also <strong>parent[2] = 1</strong>.</li><li><strong>d[1]</strong> + <strong>cost[1][4]</strong> = <strong>4</strong>. So <strong>d[4] = 4</strong> &lt; <strong>d[4]</strong>. <strong>parent[4]</strong> = <strong>1</strong>.</li><li><strong>d[4]</strong> + <strong>cost[4][6]</strong> = <strong>9</strong>. <strong>d[6]</strong> = <strong>9</strong> &lt; <strong>d[6]</strong>. <strong>parent[6]</strong> = <strong>4</strong>.</li><li><strong>d[2]</strong> + <strong>cost[2][2]</strong> = <strong>infinity</strong>. We can’t update this one.</li></ol><p>We couldn’t update some vertices, because the <code>d[u] + cost[u][v] &lt; d[v]</code> condition didn’t match. As we have said before, we found the paths from <strong>source</strong> to other nodes using maximum 1 edge.</p><img class="img" src="/img/1262386dd557d2fabf12300456c6b2573feb1946.png"><p>Our second iteration will provide us with the path using 2 nodes. We get:</p><ol id="5df8a43f-152f-47a1-9a11-ef248c43a51a" class="numbered-list" start="1"><li><strong>d[4]</strong> + <strong>cost[4][5]</strong> = <strong>12</strong> &lt; <strong>d[5]</strong>. <strong>d[5]</strong> = <strong>12</strong>. <strong>parent[5]</strong> = <strong>4</strong>.</li><li><strong>d[3]</strong> + <strong>cost[3][4]</strong> = <strong>1</strong> &lt; <strong>d[4]</strong>. <strong>d[4]</strong> = <strong>1</strong>. <strong>parent[4]</strong> = <strong>3</strong>.</li><li><strong>d[3]</strong> remains unchanged.</li><li><strong>d[4]</strong> remains unchanged.</li><li><strong>d[4]</strong> + <strong>cost[4][6]</strong> = <strong>6</strong> &lt; <strong>d[6]</strong>. <strong>d[6]</strong> = <strong>6</strong>. <strong>parent[6]</strong> = <strong>4</strong>.</li><li><strong>d[3]</strong> remains unchanged.</li></ol><p>Our graph will look like:</p><img class="img" src="/img/4eabf4cf0c7b033a001caf6a4ec520965dc2d400.png"><p>Our 3rd iteration will only update <strong>vertex 5</strong>, where <strong>d[5]</strong> will be <strong>8</strong>. Our graph will look like:</p><img class="img" src="/img/c1ea559c49782bb9e3ab944876836fc5bcbf45e7.png"><p>After this no matter how many iterations we do, we’ll have the same distances. So we will keep a flag that checks if any update takes place or not. If it doesn’t, we’ll simply break the loop. Our pseudo-code will be:</p>
+</div>
+<p>You can take any sequence you want. If we <em>relax</em> the edges once, what do we get? We get the distance from <strong>source</strong> to all other vertices of the path that uses at most 1 edge. Now let’s relax the edges and update the values of <strong>d[]</strong>. We get:
+</p>
+  <ol id="70770ecc-c3cd-4a05-acd5-c55de3e1971f" class="numbered-list" start="1">
+    <li><strong>d[4]</strong> + <strong>cost[4][5]</strong> = <strong>infinity</strong> + <strong>7</strong> = <strong>infinity</strong>. We can’t update this one.
+    </li>
+    <li><strong>d[2]</strong> + <strong>cost[3][4]</strong> = <strong>infinity</strong>. We can’t update this one.
+    </li>
+    <li><strong>d[1]</strong> + <strong>cost[1][2]</strong> = <strong>0</strong> + <strong>2</strong> = <strong>2</strong> &lt; <strong>d[2]</strong>. So <strong>d[2]</strong> = <strong>2</strong>. Also <strong>parent[2] = 1</strong>.
+    </li>
+    <li><strong>d[1]</strong> + <strong>cost[1][4]</strong> = <strong>4</strong>. So <strong>d[4] = 4</strong> &lt; <strong>d[4]</strong>. <strong>parent[4]</strong> = <strong>1</strong>.
+    </li>
+    <li><strong>d[4]</strong> + <strong>cost[4][6]</strong> = <strong>9</strong>. <strong>d[6]</strong> = <strong>9</strong> &lt; <strong>d[6]</strong>. <strong>parent[6]</strong> = <strong>4</strong>.
+    </li>
+    <li><strong>d[2]</strong> + <strong>cost[2][2]</strong> = <strong>infinity</strong>. We can’t update this one.
+    </li>
+  </ol>
+<p>We couldn’t update some vertices, because the <code>d[u] + cost[u][v] &lt; d[v]</code> condition didn’t match. As we have said before, we found the paths from <strong>source</strong> to other nodes using maximum 1 edge.
+</p>
+<img class="img" src="/img/1262386dd557d2fabf12300456c6b2573feb1946.png">
+<p>Our second iteration will provide us with the path using 2 nodes. We get:
+</p>
+  <ol id="5df8a43f-152f-47a1-9a11-ef248c43a51a" class="numbered-list" start="1">
+    <li><strong>d[4]</strong> + <strong>cost[4][5]</strong> = <strong>12</strong> &lt; <strong>d[5]</strong>. <strong>d[5]</strong> = <strong>12</strong>. <strong>parent[5]</strong> = <strong>4</strong>.
+    </li>
+    <li><strong>d[3]</strong> + <strong>cost[3][4]</strong> = <strong>1</strong> &lt; <strong>d[4]</strong>. <strong>d[4]</strong> = <strong>1</strong>. <strong>parent[4]</strong> = <strong>3</strong>.
+    </li>
+    <li><strong>d[3]</strong> remains unchanged.
+    </li>
+    <li><strong>d[4]</strong> remains unchanged.
+    </li>
+    <li><strong>d[4]</strong> + <strong>cost[4][6]</strong> = <strong>6</strong> &lt; <strong>d[6]</strong>. <strong>d[6]</strong> = <strong>6</strong>. <strong>parent[6]</strong> = <strong>4</strong>.
+    </li>
+    <li><strong>d[3]</strong> remains unchanged.
+    </li>
+  </ol>
+<p>Our graph will look like:
+</p>
+<img class="img" src="/img/4eabf4cf0c7b033a001caf6a4ec520965dc2d400.png">
+<p>Our 3rd iteration will only update <strong>vertex 5</strong>, where <strong>d[5]</strong> will be <strong>8</strong>. Our graph will look like:
+</p>
+<img class="img" src="/img/c1ea559c49782bb9e3ab944876836fc5bcbf45e7.png">
+<p>After this no matter how many iterations we do, we’ll have the same distances. So we will keep a flag that checks if any update takes place or not. If it doesn’t, we’ll simply break the loop. Our pseudo-code will be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure Bellman-Ford(Graph, source):
@@ -183,7 +251,10 @@ Return d</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To keep track of negative cycle, we can modify our code using the procedure described <a href="http://stackoverflow.com/documentation/algorithm/4791/bellman-ford-algorithm/24034/detecting-negative-cycle-in-a-graph">here</a>. Our completed pseudo-code will be:</p>
+</div>
+<p>To keep track of negative cycle, we can modify our code using the procedure described <a href="http://stackoverflow.com/documentation/algorithm/4791/bellman-ford-algorithm/24034/detecting-negative-cycle-in-a-graph">here</a>. Our completed pseudo-code will be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure Bellman-Ford-With-Negative-Cycle-Detection(Graph, source):
@@ -215,7 +286,12 @@ Return d</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Printing Path:</strong></p><p>To print the shortest path to a vertex, we’ll iterate back to its parent until we find <strong>NULL</strong> and then print the vertices. The pseudo-code will be:</p>
+</div>
+<p><strong>Printing Path:</strong>
+</p>
+<p>To print the shortest path to a vertex, we’ll iterate back to its parent until we find <strong>NULL</strong> and then print the vertices. The pseudo-code will be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure PathPrinting(u)
@@ -228,7 +304,11 @@ print -&gt; u</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Complexity:</strong></p><p>Since we need to relax the edges maximum <strong>(V-1)</strong> times, the time complexity of this algorithm will be equal to <strong>O(V * E)</strong> where <strong>E</strong> denotes the number of edges, if we use <code>adjacency list</code> to represent the graph. However, if <code>adjacency matrix</code> is used to represent the graph, time complexity will be <strong>O(V^3)</strong>. Reason is we can iterate through all edges in <strong>O(E)</strong> time when <code>adjacency list</code> is used, but it takes <strong>O(V^2)</strong> time when <code>adjacency matrix</code> is used.</p>
+</div>
+<p><strong>Complexity:</strong>
+</p>
+<p>Since we need to relax the edges maximum <strong>(V-1)</strong> times, the time complexity of this algorithm will be equal to <strong>O(V * E)</strong> where <strong>E</strong> denotes the number of edges, if we use <code>adjacency list</code> to represent the graph. However, if <code>adjacency matrix</code> is used to represent the graph, time complexity will be <strong>O(V^3)</strong>. Reason is we can iterate through all edges in <strong>O(E)</strong> time when <code>adjacency list</code> is used, but it takes <strong>O(V^2)</strong> time when <code>adjacency matrix</code> is used.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

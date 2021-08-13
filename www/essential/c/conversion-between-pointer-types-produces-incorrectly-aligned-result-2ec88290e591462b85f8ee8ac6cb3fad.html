@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The following <em>might</em> have undefined behavior due to incorrect pointer alignment:</p>
+      
+<p>The following <em>might</em> have undefined behavior due to incorrect pointer alignment:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">char *memory_block = calloc(sizeof(uint32_t) + 1, 1);
@@ -137,7 +140,18 @@ uint32_t mvalue = *intptr;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The undefined behavior happens as the pointer is converted. According to C11, if a <em>conversion between two pointer types produces a result that is incorrectly aligned (6.3.2.3), the behavior is undefined</em>. Here an <code>uint32_t</code> could require alignment of 2 or 4 for example.</p><p><code>calloc</code> on the other hand is required to return a pointer that is suitably aligned for any object type; thus <code>memory_block</code> is properly aligned to contain an <code>uint32_t</code> in its initial part. Then, on a system where <code>uint32_t</code> has required alignment of 2 or 4, <code>memory_block + 1</code> will be an <em>odd</em> address and thus not properly aligned.</p><p>Observe that the C standard requests that already the cast operation is undefined. This is imposed because on platforms where addresses are segmented, the byte address <code>memory_block + 1</code> may not even have a proper representation as an integer pointer.</p><p>Casting <code>char *</code> to pointers to other types without any concern to alignment requirements is sometimes incorrectly used for decoding packed structures such as file headers or network packets.</p><p>You can avoid the undefined behavior arising from misaligned pointer conversion by using <code>memcpy</code>:</p>
+</div>
+<p>The undefined behavior happens as the pointer is converted. According to C11, if a <em>conversion between two pointer types produces a result that is incorrectly aligned (6.3.2.3), the behavior is undefined</em>. Here an <code>uint32_t</code> could require alignment of 2 or 4 for example.
+</p>
+<p><code>calloc</code> on the other hand is required to return a pointer that is suitably aligned for any object type; thus <code>memory_block</code> is properly aligned to contain an <code>uint32_t</code> in its initial part. Then, on a system where <code>uint32_t</code> has required alignment of 2 or 4, <code>memory_block + 1</code> will be an <em>odd</em> address and thus not properly aligned.
+</p>
+<p>Observe that the C standard requests that already the cast operation is undefined. This is imposed because on platforms where addresses are segmented, the byte address <code>memory_block + 1</code> may not even have a proper representation as an integer pointer.
+</p>
+<p>Casting <code>char *</code> to pointers to other types without any concern to alignment requirements is sometimes incorrectly used for decoding packed structures such as file headers or network packets.
+</p>
+<p>You can avoid the undefined behavior arising from misaligned pointer conversion by using <code>memcpy</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">memcpy(&amp;mvalue, memory_block + 1, sizeof mvalue);</pre>
@@ -145,7 +159,19 @@ uint32_t mvalue = *intptr;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here no pointer conversion to <code>uint32_t*</code> takes place and the bytes are copied one by one.</p><p>This copy operation for our example only leads to valid value of <code>mvalue</code> because:</p><ul id="2e6d8e19-11f7-471e-8270-e6c635c7b3f4" class="bulleted-list"><li>We used <code>calloc</code>, so the bytes are properly initialized. In our case all bytes have value <code>0</code>, but any other proper initialization would do.</li><li><code>uint32_t</code> is an exact width type and has no padding bits</li><li>Any arbitrary bit pattern is a valid representation for any unsigned type.</li></ul>
+</div>
+<p>Here no pointer conversion to <code>uint32_t*</code> takes place and the bytes are copied one by one.
+</p>
+<p>This copy operation for our example only leads to valid value of <code>mvalue</code> because:
+</p>
+  <ul id="2e6d8e19-11f7-471e-8270-e6c635c7b3f4" class="bulleted-list">
+    <li>We used <code>calloc</code>, so the bytes are properly initialized. In our case all bytes have value <code>0</code>, but any other proper initialization would do.
+    </li>
+    <li><code>uint32_t</code> is an exact width type and has no padding bits
+    </li>
+    <li>Any arbitrary bit pattern is a valid representation for any unsigned type.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

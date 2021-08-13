@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Dependency Injection (DI) in the context of using a Dependency Injection Container (DIC) can be seen as a superset of constructor injection. A DIC will typically analyze a class constructor’s typehints and resolve its needs, effectively injecting the dependencies needed for the instance execution.</p><p>The exact implementation goes well beyond the scope of this document but at its very heart, a DIC relies on using the signature of a class…</p>
+      
+<p>Dependency Injection (DI) in the context of using a Dependency Injection Container (DIC) can be seen as a superset of constructor injection. A DIC will typically analyze a class constructor’s typehints and resolve its needs, effectively injecting the dependencies needed for the instance execution.
+</p>
+<p>The exact implementation goes well beyond the scope of this document but at its very heart, a DIC relies on using the signature of a class…
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">namespace Documentation;
@@ -145,7 +150,10 @@ class Example
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>… to automatically instantiate it, relying most of the time on an <a href="http://stackoverflow.com/documentation/php/504/classes-and-objects/13197/autoloading#t=201612130423298386785">autoloading system</a>.</p>
+</div>
+<p>… to automatically instantiate it, relying most of the time on an <a href="http://stackoverflow.com/documentation/php/504/classes-and-objects/13197/autoloading#t=201612130423298386785">autoloading system</a>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// older PHP versions
@@ -157,7 +165,25 @@ $container-&gt;make(\Documentation\Example::class);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you are using PHP in version at least 5.5 and want to get a name of a class in a way that’s being shown above, the correct way is the second approach. That way you can quickly find usages of the class using modern IDEs, which will greatly help you with potential refactoring. You do not want to rely on regular strings.</p><p>In this case, the <code>Documentation\Example</code> knows it needs a <code>Meaning</code>, and a DIC would in turn instantiate a <code>Meaning</code> type. The concrete implementation need not depend on the consuming instance.</p><p>Instead, we set rules in the container, prior to object creation, that instructs how specific types should be instantiated if need be.</p><p>This has a number of advantages, as a DIC can</p><ul id="e7dac997-d71f-46ef-aa90-f506095f4445" class="bulleted-list"><li>Share common instances</li><li>Provide a factory to resolve a type signature</li><li>Resolve an interface signature</li></ul><p>If we define rules about how specific type needs to be managed we can achieve fine control over which types are shared, instantiated, or created from a factory.</p>
+</div>
+<p>If you are using PHP in version at least 5.5 and want to get a name of a class in a way that’s being shown above, the correct way is the second approach. That way you can quickly find usages of the class using modern IDEs, which will greatly help you with potential refactoring. You do not want to rely on regular strings.
+</p>
+<p>In this case, the <code>Documentation\Example</code> knows it needs a <code>Meaning</code>, and a DIC would in turn instantiate a <code>Meaning</code> type. The concrete implementation need not depend on the consuming instance.
+</p>
+<p>Instead, we set rules in the container, prior to object creation, that instructs how specific types should be instantiated if need be.
+</p>
+<p>This has a number of advantages, as a DIC can
+</p>
+  <ul id="e7dac997-d71f-46ef-aa90-f506095f4445" class="bulleted-list">
+    <li>Share common instances
+    </li>
+    <li>Provide a factory to resolve a type signature
+    </li>
+    <li>Resolve an interface signature
+    </li>
+  </ul>
+<p>If we define rules about how specific type needs to be managed we can achieve fine control over which types are shared, instantiated, or created from a factory.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

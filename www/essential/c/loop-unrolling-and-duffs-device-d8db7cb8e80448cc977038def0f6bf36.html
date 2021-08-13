@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Sometimes, the straight forward loop cannot be entirely contained within the loop body. This is because, the loop needs to be primed by some statements <em><strong>B</strong></em>. Then, the iteration begins with some statements <em><strong>A</strong></em>, which are then followed by <em><strong>B</strong></em> again before looping.</p>
+      
+<p>Sometimes, the straight forward loop cannot be entirely contained within the loop body. This is because, the loop needs to be primed by some statements <em><strong>B</strong></em>. Then, the iteration begins with some statements <em><strong>A</strong></em>, which are then followed by <em><strong>B</strong></em> again before looping.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">do_B();
@@ -139,7 +142,10 @@ while (condition) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To avoid potential cut/paste problems with repeating <em><strong>B</strong></em> twice in the code, <a href="https://en.wikipedia.org/wiki/Duff&#x27;s_device">Duff’s Device</a> could be applied to start the loop from the middle of the <code>while</code> body, using a <a href="http://stackoverflow.com/documentation/c/3073/selection-statements/14987/switch-statements">switch statement</a> and fall through behavior.</p>
+</div>
+<p>To avoid potential cut/paste problems with repeating <em><strong>B</strong></em> twice in the code, <a href="https://en.wikipedia.org/wiki/Duff&#x27;s_device">Duff’s Device</a> could be applied to start the loop from the middle of the <code>while</code> body, using a <a href="http://stackoverflow.com/documentation/c/3073/selection-statements/14987/switch-statements">switch statement</a> and fall through behavior.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">switch (true) while (condition) {
@@ -150,7 +156,10 @@ default:    do_B(); /* FALL THROUGH */
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Duff’s Device was actually invented to implement loop unrolling. Imagine applying a mask to a block of memory, where <code>n</code> is a signed integral type with a positive value.</p>
+</div>
+<p>Duff’s Device was actually invented to implement loop unrolling. Imagine applying a mask to a block of memory, where <code>n</code> is a signed integral type with a positive value.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">do {
@@ -160,7 +169,10 @@ default:    do_B(); /* FALL THROUGH */
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If <code>n</code> were always divisible by 4, you could unroll this easily as:</p>
+</div>
+<p>If <code>n</code> were always divisible by 4, you could unroll this easily as:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">do {
@@ -173,7 +185,10 @@ default:    do_B(); /* FALL THROUGH */
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But, with Duff’s Device, the code can follow this unrolling idiom that jumps into the right place in the middle of the loop if <code>n</code> is not divisible by 4.</p>
+</div>
+<p>But, with Duff’s Device, the code can follow this unrolling idiom that jumps into the right place in the middle of the loop if <code>n</code> is not divisible by 4.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">switch (n % 4) do {
@@ -186,7 +201,9 @@ case 1: *ptr++ ^= mask; /* FALL THROUGH */
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This kind of manual unrolling is rarely required with modern compilers, since the compiler’s optimization engine can unroll loops on the programmer’s behalf.</p>
+</div>
+<p>This kind of manual unrolling is rarely required with modern compilers, since the compiler’s optimization engine can unroll loops on the programmer’s behalf.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

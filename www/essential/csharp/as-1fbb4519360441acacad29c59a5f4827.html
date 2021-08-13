@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>The <code>as</code> keyword is an operator similar to a <em>cast</em>. If a cast is not possible, using <code>as</code> produces <code>null</code> rather than resulting in an <code>InvalidCastException</code>.</p><p><code>expression as type</code> is equivalent to <code>expression is type ? (type)expression : (type)null</code> with the caveat that <code>as</code> is only valid on reference conversions, nullable conversions, and boxing conversions. User-defined conversions are <em>not</em> supported; a regular cast must be used instead.</p><p>For the expansion above, the compiler generates code such that <code>expression</code> will only be evaluated once and use single dynamic type check (unlike the two in the sample above).</p><p><code>as</code> can be useful when expecting an argument to facilitate several types. Specifically it grants the user multiple options - rather than checking every possibility with <code>is</code> before casting, or just casting and catching exceptions. It is best practice to use ‘as’ when casting/checking an object which will cause only one unboxing penalty. Using <code>is</code> to check, then casting will cause two unboxing penalties.</p><p>If an argument is expected to be an instance of a specific type, a regular cast is preferred as its purpose is more clear to the reader.</p><p>Because a call to <code>as</code> may produce <code>null</code>, always check the result to avoid a <code>NullReferenceException</code>.</p><p><strong>Example usage</strong></p>
+      
+<p>The <code>as</code> keyword is an operator similar to a <em>cast</em>. If a cast is not possible, using <code>as</code> produces <code>null</code> rather than resulting in an <code>InvalidCastException</code>.
+</p>
+<p><code>expression as type</code> is equivalent to <code>expression is type ? (type)expression : (type)null</code> with the caveat that <code>as</code> is only valid on reference conversions, nullable conversions, and boxing conversions. User-defined conversions are <em>not</em> supported; a regular cast must be used instead.
+</p>
+<p>For the expansion above, the compiler generates code such that <code>expression</code> will only be evaluated once and use single dynamic type check (unlike the two in the sample above).
+</p>
+<p><code>as</code> can be useful when expecting an argument to facilitate several types. Specifically it grants the user multiple options - rather than checking every possibility with <code>is</code> before casting, or just casting and catching exceptions. It is best practice to use ‘as’ when casting/checking an object which will cause only one unboxing penalty. Using <code>is</code> to check, then casting will cause two unboxing penalties.
+</p>
+<p>If an argument is expected to be an instance of a specific type, a regular cast is preferred as its purpose is more clear to the reader.
+</p>
+<p>Because a call to <code>as</code> may produce <code>null</code>, always check the result to avoid a <code>NullReferenceException</code>.
+</p>
+<p><strong>Example usage</strong>
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">object</span> <span class="n">something</span> <span class="p">=</span> <span class="s">&#34;Hello&#34;</span><span class="p">;</span>
@@ -143,7 +158,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://dotnetfiddle.net/b26q6N">Live Demo on .NET Fiddle</a></p><p>Equivalent example without using <code>as</code>:</p>
+</div>
+<p><a href="https://dotnetfiddle.net/b26q6N">Live Demo on .NET Fiddle</a>
+</p>
+<p>Equivalent example without using <code>as</code>:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">something</span> <span class="k">is</span> <span class="kt">string</span> <span class="p">?</span> <span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="n">something</span> <span class="p">:</span> <span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="k">null</span><span class="p">);</span>
@@ -152,7 +172,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is useful when overriding the <code>Equals</code> function in custom classes.</p>
+</div>
+<p>This is useful when overriding the <code>Equals</code> function in custom classes.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">MyCustomClass</span>
@@ -179,6 +202,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public override bool Equals(object obj)
@@ -189,6 +213,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// if it is null it may be really null
@@ -203,6 +228,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Other equality controls specific to class

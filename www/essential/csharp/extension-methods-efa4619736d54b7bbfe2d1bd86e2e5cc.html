@@ -127,7 +127,65 @@
 </div>
 
 
-      <h2 id="bec437ad-f7f7-4108-b37f-975c5de288e3" class="">Syntax<a class="header-anchor" href="#bec437ad-f7f7-4108-b37f-975c5de288e3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><ul id="d4a29774-7f84-4a5d-994a-5547df192d00" class="bulleted-list"><li><code>public static ReturnType MyExtensionMethod(this TargetType target)</code></li><li><code>public static ReturnType MyExtensionMethod(this TargetType target, TArg1 arg1, …)</code></li></ul><h2 id="5d7494a4-fdec-46e1-b1da-8cab5b9948ab" class="">Remarks<a class="header-anchor" href="#5d7494a4-fdec-46e1-b1da-8cab5b9948ab" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Extension methods are syntactic sugar that allow static methods to be invoked on object instances as if they were a member of the type itself.</p><p>Extension methods require an explicit target object. You will need to use the <code>this</code> keyword to access the method from within the extended type itself.</p><p>Extensions methods must be declared static, and must live in a static class.</p><p><strong>Which namespace?</strong></p><p>The choice of namespace for your extension method class is a trade-off between visibility and discoverability.</p><p>The most commonly mentioned <a href="http://stackoverflow.com/q/1226189">option</a> is to have a custom namespace for your extension methods. However this will involve a communication effort so that users of your code know that the extension methods exist, and where to find them.</p><p>An alternative is to choose a namespace such that developers will discover your extension methods via Intellisense. So if you want to extend the <code>Foo</code> class, it is logical to put the extension methods in the same namespace as <code>Foo</code>.</p><p>It is important to realise that <strong>nothing prevents you using “someone else’s” namespace</strong>: Thus if you want to extend <code>IEnumerable</code>, you can add your extension method in the <code>System.Linq</code> namespace.</p><p>This is not <em>always</em> a good idea. For example, in one specific case, you may want to extend a common type (<code>bool IsApproxEqualTo(this double value, double other)</code> for example), but not have that ‘pollute’ the whole of <code>System</code>. In this case it is preferable to chose a local, specific, namespace.</p><p>Finally, it is also possible to put the extension methods in <em>no namespace at all</em>!</p><p>A good reference question: <a href="http://stackoverflow.com/questions/2520446/how-do-you-manage-the-namespaces-of-your-extension-methods">How do you manage the namespaces of your extension methods?</a></p><p><strong>Applicability</strong></p><p>Care should be taken when creating extension methods to ensure that they are appropriate for all possible inputs and are not only relevant to specific situations. For example, it is possible to extend system classes such as <code>string</code>, which makes your new code available to <strong>any</strong> string. If your code needs to perform domain specific logic on a domain specific string format, an extension method would not be appropriate as its presence would confuse callers working with other strings in the system.</p><p><strong>The following list contains basic features and properties of extension methods</strong></p><ol id="a405d9f3-54f6-45a7-b646-34fd60cd4ce7" class="numbered-list" start="1"><li>It must be a static method.</li><li>It must be located in a static class.</li><li>It uses the “this” keyword as the first parameter with a type in .NET and this method will be called by a given type instance on the client side.</li><li>It also shown by VS intellisense. When we press the dot <code>.</code> after a type instance, then it comes in VS intellisense.</li><li>An extension method should be in the same namespace as it is used or you need to import the namespace of the class by a using statement.</li><li>You can give any name for the class that has an extension method but the class should be static.</li><li>If you want to add new methods to a type and you don’t have the source code for it, then the solution is to use and implement extension methods of that type.</li><li>If you create extension methods that have the same signature methods as the type you are extending, then the extension methods will never be called.</li></ol>
+      
+  <h2 id="bec437ad-f7f7-4108-b37f-975c5de288e3" class="">Syntax
+  <a class="header-anchor" href="#bec437ad-f7f7-4108-b37f-975c5de288e3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+  <ul id="d4a29774-7f84-4a5d-994a-5547df192d00" class="bulleted-list">
+    <li><code>public static ReturnType MyExtensionMethod(this TargetType target)</code>
+    </li>
+    <li><code>public static ReturnType MyExtensionMethod(this TargetType target, TArg1 arg1, …)</code>
+    </li>
+  </ul>
+  <h2 id="5d7494a4-fdec-46e1-b1da-8cab5b9948ab" class="">Remarks
+  <a class="header-anchor" href="#5d7494a4-fdec-46e1-b1da-8cab5b9948ab" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Extension methods are syntactic sugar that allow static methods to be invoked on object instances as if they were a member of the type itself.
+</p>
+<p>Extension methods require an explicit target object. You will need to use the <code>this</code> keyword to access the method from within the extended type itself.
+</p>
+<p>Extensions methods must be declared static, and must live in a static class.
+</p>
+<p><strong>Which namespace?</strong>
+</p>
+<p>The choice of namespace for your extension method class is a trade-off between visibility and discoverability.
+</p>
+<p>The most commonly mentioned <a href="http://stackoverflow.com/q/1226189">option</a> is to have a custom namespace for your extension methods. However this will involve a communication effort so that users of your code know that the extension methods exist, and where to find them.
+</p>
+<p>An alternative is to choose a namespace such that developers will discover your extension methods via Intellisense. So if you want to extend the <code>Foo</code> class, it is logical to put the extension methods in the same namespace as <code>Foo</code>.
+</p>
+<p>It is important to realise that <strong>nothing prevents you using “someone else’s” namespace</strong>: Thus if you want to extend <code>IEnumerable</code>, you can add your extension method in the <code>System.Linq</code> namespace.
+</p>
+<p>This is not <em>always</em> a good idea. For example, in one specific case, you may want to extend a common type (<code>bool IsApproxEqualTo(this double value, double other)</code> for example), but not have that ‘pollute’ the whole of <code>System</code>. In this case it is preferable to chose a local, specific, namespace.
+</p>
+<p>Finally, it is also possible to put the extension methods in <em>no namespace at all</em>!
+</p>
+<p>A good reference question: <a href="http://stackoverflow.com/questions/2520446/how-do-you-manage-the-namespaces-of-your-extension-methods">How do you manage the namespaces of your extension methods?</a>
+</p>
+<p><strong>Applicability</strong>
+</p>
+<p>Care should be taken when creating extension methods to ensure that they are appropriate for all possible inputs and are not only relevant to specific situations. For example, it is possible to extend system classes such as <code>string</code>, which makes your new code available to <strong>any</strong> string. If your code needs to perform domain specific logic on a domain specific string format, an extension method would not be appropriate as its presence would confuse callers working with other strings in the system.
+</p>
+<p><strong>The following list contains basic features and properties of extension methods</strong>
+</p>
+  <ol id="a405d9f3-54f6-45a7-b646-34fd60cd4ce7" class="numbered-list" start="1">
+    <li>It must be a static method.
+    </li>
+    <li>It must be located in a static class.
+    </li>
+    <li>It uses the “this” keyword as the first parameter with a type in .NET and this method will be called by a given type instance on the client side.
+    </li>
+    <li>It also shown by VS intellisense. When we press the dot <code>.</code> after a type instance, then it comes in VS intellisense.
+    </li>
+    <li>An extension method should be in the same namespace as it is used or you need to import the namespace of the class by a using statement.
+    </li>
+    <li>You can give any name for the class that has an extension method but the class should be static.
+    </li>
+    <li>If you want to add new methods to a type and you don’t have the source code for it, then the solution is to use and implement extension methods of that type.
+    </li>
+    <li>If you create extension methods that have the same signature methods as the type you are extending, then the extension methods will never be called.
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

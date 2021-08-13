@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>We can also specify that a <code>virtual</code> function is <em>pure virtual</em> (abstract), by appending <code>= 0</code> to the declaration. Classes with one or more pure virtual functions are considered to be abstract, and cannot be instantiated; only derived classes which define, or inherit definitions for, all pure virtual functions can be instantiated.</p>
+      
+<p>We can also specify that a <code>virtual</code> function is <em>pure virtual</em> (abstract), by appending <code>= 0</code> to the declaration. Classes with one or more pure virtual functions are considered to be abstract, and cannot be instantiated; only derived classes which define, or inherit definitions for, all pure virtual functions can be instantiated.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct Abstract {
@@ -144,7 +147,10 @@ Concrete c; // Good.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Even if a function is specified as pure virtual, it can be given a default implementation. Despite this, the function will still be considered abstract, and derived classes will have to define it before they can be instantiated. In this case, the derived class’ version of the function is even allowed to call the base class’ version.</p>
+</div>
+<p>Even if a function is specified as pure virtual, it can be given a default implementation. Despite this, the function will still be considered abstract, and derived classes will have to define it before they can be instantiated. In this case, the derived class’ version of the function is even allowed to call the base class’ version.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct DefaultAbstract {
@@ -159,7 +165,14 @@ struct WhyWouldWeDoThis : DefaultAbstract {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>There are a couple of reasons why we might want to do this:</p><ul id="8f9c25ae-1b48-4748-a997-92c64a6804e2" class="bulleted-list"><li>If we want to create a class that can’t itself be instantiated, but doesn’t prevent its derived classes from being instantiated, we can declare the destructor as pure virtual. Being the destructor, it must be defined anyways, if we want to be able to deallocate the instance. And <a href="http://stackoverflow.com/documentation/c%2B%2B/1717/polymorphism/20178/polymorphism-destructors">as the destructor is most likely already virtual to prevent memory leaks during polymorphic use</a>, we won’t incur an unnecessary performance hit from declaring another function <code>virtual</code>. This can be useful when making interfaces.</li></ul>
+</div>
+<p>There are a couple of reasons why we might want to do this:
+</p>
+  <ul id="8f9c25ae-1b48-4748-a997-92c64a6804e2" class="bulleted-list">
+    <li>If we want to create a class that can’t itself be instantiated, but doesn’t prevent its derived classes from being instantiated, we can declare the destructor as pure virtual. Being the destructor, it must be defined anyways, if we want to be able to deallocate the instance. And <a href="http://stackoverflow.com/documentation/c%2B%2B/1717/polymorphism/20178/polymorphism-destructors">as the destructor is most likely already virtual to prevent memory leaks during polymorphic use</a>, we won’t incur an unnecessary performance hit from declaring another function <code>virtual</code>. This can be useful when making interfaces.
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct Interface {
@@ -174,7 +187,12 @@ struct Implementation : Interface {};
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="ffc26804-b2b9-44e4-8f59-4c1ad9b985fd" class="bulleted-list"><li>If most or all implementations of the pure virtual function will contain duplicate code, that code can instead be moved to the base class version, making the code easier to maintain.</li></ul>
+</div>
+  <ul id="ffc26804-b2b9-44e4-8f59-4c1ad9b985fd" class="bulleted-list">
+    <li>If most or all implementations of the pure virtual function will contain duplicate code, that code can instead be moved to the base class version, making the code easier to maintain.
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class SharedBase {

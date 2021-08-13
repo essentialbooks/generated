@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>If you have only just popped it and the terminal is still open, you will still have the hash value printed by <code>git stash pop</code> on screen:</p>
+      
+<p>If you have only just popped it and the terminal is still open, you will still have the hash value printed by <code>git stash pop</code> on screen:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ git stash pop
@@ -137,7 +140,12 @@ Dropped refs/stash@{0} (2ca03e22256be97f9e40f08e6d6773c7d41dbfd1)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>(Note that git stash drop also produces the same line.)</p><p>Otherwise, you can find it using this:</p>
+</div>
+<p>(Note that git stash drop also produces the same line.)
+</p>
+<p>Otherwise, you can find it using this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">git fsck --no-reflog | awk &#39;/dangling commit/ {print $3}&#39;</pre>
@@ -145,7 +153,12 @@ Dropped refs/stash@{0} (2ca03e22256be97f9e40f08e6d6773c7d41dbfd1)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will show you all the commits at the tips of your commit graph which are no longer referenced from any branch or tag – every lost commit, including every stash commit you’ve ever created, will be somewhere in that graph.</p><p>The easiest way to find the stash commit you want is probably to pass that list to <code>gitk</code>:</p>
+</div>
+<p>This will show you all the commits at the tips of your commit graph which are no longer referenced from any branch or tag – every lost commit, including every stash commit you’ve ever created, will be somewhere in that graph.
+</p>
+<p>The easiest way to find the stash commit you want is probably to pass that list to <code>gitk</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">gitk --all $( git fsck --no-reflog | awk &#39;/dangling commit/ {print $3}&#39; )</pre>
@@ -153,7 +166,18 @@ Dropped refs/stash@{0} (2ca03e22256be97f9e40f08e6d6773c7d41dbfd1)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will launch a repository browser showing you <em>every single commit in the repository ever</em>, regardless of whether it is reachable or not.</p><p>You can replace <code>gitk</code> there with something like <code>git log --graph --oneline --decorate</code> if you prefer a nice graph on the console over a separate GUI app.</p><p>To spot stash commits, look for commit messages of this form:</p><p>WIP on somebranch: commithash Some old commit message</p><p>Once you know the hash of the commit you want, you can apply it as a stash:</p>
+</div>
+<p>This will launch a repository browser showing you <em>every single commit in the repository ever</em>, regardless of whether it is reachable or not.
+</p>
+<p>You can replace <code>gitk</code> there with something like <code>git log --graph --oneline --decorate</code> if you prefer a nice graph on the console over a separate GUI app.
+</p>
+<p>To spot stash commits, look for commit messages of this form:
+</p>
+<p>WIP on somebranch: commithash Some old commit message
+</p>
+<p>Once you know the hash of the commit you want, you can apply it as a stash:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">git stash apply $stash_hash</pre>
@@ -161,7 +185,9 @@ Dropped refs/stash@{0} (2ca03e22256be97f9e40f08e6d6773c7d41dbfd1)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Or you can use the context menu in <code>gitk</code> to create branches for any unreachable commits you are interested in. After that, you can do whatever you want with them with all the normal tools. When you’re done, just blow those branches away again.</p>
+</div>
+<p>Or you can use the context menu in <code>gitk</code> to create branches for any unreachable commits you are interested in. After that, you can do whatever you want with them with all the normal tools. When you’re done, just blow those branches away again.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

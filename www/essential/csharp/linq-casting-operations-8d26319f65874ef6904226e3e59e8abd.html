@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Suppose you have types like the following:</p>
+      
+<p>Suppose you have types like the following:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">interface</span> <span class="n">IThing</span> <span class="p">{</span>  <span class="p">}</span>
@@ -137,7 +140,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>LINQ allows you to create a projection that changes the compile-time generic type of an <code>IEnumerable&lt;&gt;</code> via the <code>Enumerable.Cast&lt;&gt;()</code> and <code>Enumerable.OfType&lt;&gt;()</code> extension methods.</p>
+</div>
+<p>LINQ allows you to create a projection that changes the compile-time generic type of an <code>IEnumerable&lt;&gt;</code> via the <code>Enumerable.Cast&lt;&gt;()</code> and <code>Enumerable.OfType&lt;&gt;()</code> extension methods.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">IThing</span><span class="p">&gt;</span> <span class="n">things</span> <span class="p">=</span> <span class="k">new</span> <span class="n">IThing</span><span class="p">[]</span> <span class="p">{</span><span class="k">new</span> <span class="n">Thing</span><span class="p">()};</span>
@@ -148,7 +154,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When <code>things2</code> is evaluated, the <code>Cast&lt;&gt;()</code> method will try to cast all of the values in <code>things</code> into <code>Thing</code>s. If it encounters a value that cannot be cast, an <code>InvalidCastException</code> will be thrown.</p><p>When <code>things3</code> is evaluated, the <code>OfType&lt;&gt;()</code> method will do the same, except that if it encounters a value that cannot be cast, it will simply omit that value rather than throw an exception.</p><p>Due to the generic type of these methods, they cannot invoke Conversion Operators or perform numeric conversions.</p>
+</div>
+<p>When <code>things2</code> is evaluated, the <code>Cast&lt;&gt;()</code> method will try to cast all of the values in <code>things</code> into <code>Thing</code>s. If it encounters a value that cannot be cast, an <code>InvalidCastException</code> will be thrown.
+</p>
+<p>When <code>things3</code> is evaluated, the <code>OfType&lt;&gt;()</code> method will do the same, except that if it encounters a value that cannot be cast, it will simply omit that value rather than throw an exception.
+</p>
+<p>Due to the generic type of these methods, they cannot invoke Conversion Operators or perform numeric conversions.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">double</span><span class="p">[]</span> <span class="n">doubles</span> <span class="p">=</span> <span class="k">new</span><span class="p">[]{</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">}.</span><span class="n">Cast</span><span class="p">&lt;</span><span class="kt">double</span><span class="p">&gt;().</span><span class="n">ToArray</span><span class="p">();</span> <span class="c1">// Throws InvalidCastException
@@ -157,7 +170,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can simply perform a cast inside a <code>.Select()</code> as a workaround:</p>
+</div>
+<p>You can simply perform a cast inside a <code>.Select()</code> as a workaround:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">double</span><span class="p">[]</span> <span class="n">doubles</span> <span class="p">=</span> <span class="k">new</span><span class="p">[]{</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">}.</span><span class="n">Select</span><span class="p">(</span><span class="n">i</span> <span class="p">=&gt;</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">i</span><span class="p">).</span><span class="n">ToArray</span><span class="p">();</span>

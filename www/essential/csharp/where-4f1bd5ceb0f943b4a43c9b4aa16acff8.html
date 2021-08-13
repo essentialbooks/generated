@@ -127,7 +127,12 @@
 </div>
 
 
-      <p><code>where</code> can serve two purposes in C#: type constraining in a generic argument, and filtering LINQ queries.</p><p>In a generic class, let’s consider</p>
+      
+<p><code>where</code> can serve two purposes in C#: type constraining in a generic argument, and filtering LINQ queries.
+</p>
+<p>In a generic class, let’s consider
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">Cup</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
@@ -139,7 +144,26 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>T is called a type parameter. The class definition can impose constraints on the actual types that can be supplied for T.</p><p>The following kinds of constraints can be applied:</p><ul id="5396194f-f23e-4d6c-a1a3-411da9f40496" class="bulleted-list"><li>value type</li><li>reference type</li><li>default constructor</li><li>inheritance and implementation</li></ul><p><strong>value type</strong></p><p>In this case only <code>struct</code>s (this includes ‘primitive’ data types such as <code>int</code>, <code>boolean</code> etc) can be supplied</p>
+</div>
+<p>T is called a type parameter. The class definition can impose constraints on the actual types that can be supplied for T.
+</p>
+<p>The following kinds of constraints can be applied:
+</p>
+  <ul id="5396194f-f23e-4d6c-a1a3-411da9f40496" class="bulleted-list">
+    <li>value type
+    </li>
+    <li>reference type
+    </li>
+    <li>default constructor
+    </li>
+    <li>inheritance and implementation
+    </li>
+  </ul>
+<p><strong>value type</strong>
+</p>
+<p>In this case only <code>struct</code>s (this includes ‘primitive’ data types such as <code>int</code>, <code>boolean</code> etc) can be supplied
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">Cup</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="k">struct</span>
@@ -151,7 +175,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>reference type</strong></p><p>In this case only class types can be supplied</p>
+</div>
+<p><strong>reference type</strong>
+</p>
+<p>In this case only class types can be supplied
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">Cup</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="k">class</span>
@@ -163,7 +192,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>hybrid value/reference type</strong></p><p>Occasionally it is desired to restrict type arguments to those available in a database, and these will usually map to value types and strings. As all type restrictions must be met, it is not possible to specify <code>where T : struct or string</code> (this is not valid syntax). A workaround is to restrict type arguments to <a href="https://msdn.microsoft.com/en-us/library/system.iconvertible(v=vs.110).aspx"><code>IConvertible</code></a> which has built in types of “… Boolean, SByte, Byte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Single, Double, Decimal, DateTime, Char, and String.” It is possible other objects will implement IConvertible, though this is rare in practice.</p>
+</div>
+<p><strong>hybrid value/reference type</strong>
+</p>
+<p>Occasionally it is desired to restrict type arguments to those available in a database, and these will usually map to value types and strings. As all type restrictions must be met, it is not possible to specify <code>where T : struct or string</code> (this is not valid syntax). A workaround is to restrict type arguments to <a href="https://msdn.microsoft.com/en-us/library/system.iconvertible(v=vs.110).aspx"><code>IConvertible</code></a> which has built in types of “… Boolean, SByte, Byte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Single, Double, Decimal, DateTime, Char, and String.” It is possible other objects will implement IConvertible, though this is rare in practice.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">Cup</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="n">IConvertible</span>
@@ -175,7 +209,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>default constructor</strong></p><p>Only types that contain a default constructor will be allowed. This includes value types and classes that contain a default (parameterless) constructor</p>
+</div>
+<p><strong>default constructor</strong>
+</p>
+<p>Only types that contain a default constructor will be allowed. This includes value types and classes that contain a default (parameterless) constructor
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">Cup</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="k">new</span>
@@ -187,7 +226,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>inheritance and implementation</strong></p><p>Only types that inherit from a certain base class or implement a certain interface can be supplied.</p>
+</div>
+<p><strong>inheritance and implementation</strong>
+</p>
+<p>Only types that inherit from a certain base class or implement a certain interface can be supplied.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">Cup</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="n">Beverage</span>
@@ -204,7 +248,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The constraint can even reference another type parameter:</p>
+</div>
+<p>The constraint can even reference another type parameter:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">Cup</span><span class="p">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">&gt;</span> <span class="k">where</span> <span class="n">U</span> <span class="p">:</span> <span class="n">T</span>
@@ -216,7 +263,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Multiple constraints can be specified for a type argument:</p>
+</div>
+<p>Multiple constraints can be specified for a type argument:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">Cup</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="n">class</span><span class="p">,</span> <span class="k">new</span><span class="p">()</span>
@@ -228,7 +278,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The previous examples show generic constraints on a class definition, but constraints can be used anywhere a type argument is supplied: classes, structs, interfaces, methods, etc.</p><p><code>where</code> can also be a LINQ clause. In this case it is analogous to <code>WHERE</code> in SQL:</p>
+</div>
+<p>The previous examples show generic constraints on a class definition, but constraints can be used anywhere a type argument is supplied: classes, structs, interfaces, methods, etc.
+</p>
+<p><code>where</code> can also be a LINQ clause. In this case it is analogous to <code>WHERE</code> in SQL:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">int</span><span class="p">[]</span> <span class="n">nums</span> <span class="p">=</span> <span class="p">{</span> <span class="m">5</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">9</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">0</span> <span class="p">};</span>

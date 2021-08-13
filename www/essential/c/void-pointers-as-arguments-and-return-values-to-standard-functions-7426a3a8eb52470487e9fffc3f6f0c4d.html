@@ -127,7 +127,10 @@
 </div>
 
 
-      <p><code>void*</code> is a catch all type for pointers to object types. An example of this in use is with the <code>malloc</code> function, which is declared as</p>
+      
+<p><code>void*</code> is a catch all type for pointers to object types. An example of this in use is with the <code>malloc</code> function, which is declared as
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void* malloc(size_t);</pre>
@@ -135,7 +138,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The pointer-to-void return type means that it is possible to assign the return value from <code>malloc</code> to a pointer to any other type of object:</p>
+</div>
+<p>The pointer-to-void return type means that it is possible to assign the return value from <code>malloc</code> to a pointer to any other type of object:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int* vector = malloc(10 * sizeof *vector);</pre>
@@ -143,7 +149,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It is generally considered good practice to <em>not</em> explicitly cast the values into and out of void pointers. In specific case of <code>malloc()</code> this is because with an explicit cast, the compiler may otherwise assume, but not warn about, an incorrect return type for <code>malloc()</code>, if you forget to include <code>stdlib.h</code>. It is also a case of using the correct behavior of void pointers to better conform to the DRY (don’t repeat yourself) principle; compare the above to the following, wherein the following code contains several needless additional places where a typo could cause issues:</p>
+</div>
+<p>It is generally considered good practice to <em>not</em> explicitly cast the values into and out of void pointers. In specific case of <code>malloc()</code> this is because with an explicit cast, the compiler may otherwise assume, but not warn about, an incorrect return type for <code>malloc()</code>, if you forget to include <code>stdlib.h</code>. It is also a case of using the correct behavior of void pointers to better conform to the DRY (don’t repeat yourself) principle; compare the above to the following, wherein the following code contains several needless additional places where a typo could cause issues:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int* vector = (int*)malloc(10 * sizeof int*);</pre>
@@ -151,7 +160,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Similarly, functions such as</p>
+</div>
+<p>Similarly, functions such as
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void* memcpy(void *restrict target, void const *restrict source, size_t size);</pre>
@@ -159,7 +171,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>have their arguments specified as <code>void *</code> because the address of any object, regardless of the type, can be passed in. Here also, a call should not use a cast</p>
+</div>
+<p>have their arguments specified as <code>void *</code> because the address of any object, regardless of the type, can be passed in. Here also, a call should not use a cast
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">unsigned char buffer[sizeof(int)];

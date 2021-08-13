@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>There are two steps that the code from example 1 carried out: one was <em>tokenizing</em> the input, which means it looked for symbols that constitute the arithmetic expression, and the second step was <em>parsing</em>, which involves analysing the extracted tokens and evaluating the result.</p><p>This section provides a simple example of how to <em>tokenize</em> user input, and then breaks it down line by line.</p>
+      
+<p>There are two steps that the code from example 1 carried out: one was <em>tokenizing</em> the input, which means it looked for symbols that constitute the arithmetic expression, and the second step was <em>parsing</em>, which involves analysing the extracted tokens and evaluating the result.
+</p>
+<p>This section provides a simple example of how to <em>tokenize</em> user input, and then breaks it down line by line.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import ply.lex as lex
@@ -186,7 +191,20 @@ while True:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Save this file as <code>calclex.py</code>. We’ll be using this when building our Yacc parser.</p><hr id="94d1f7d3-d744-4f2e-97da-1488e79d8269"/><h1 id="30fdad2b-8a44-4887-9aed-fa2e00500592" class="">Breakdown<a class="header-anchor" href="#30fdad2b-8a44-4887-9aed-fa2e00500592" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><ol id="7301d5e1-7de2-4db5-82c3-fe3810fcaeff" class="numbered-list" start="1"><li>Import the module using <code>import ply.lex</code></li><li>All lexers must provide a list called <code>tokens</code> that defines all of the possible token names that can be produced by the lexer. This list is always required.</li></ol>
+</div>
+<p>Save this file as <code>calclex.py</code>. We’ll be using this when building our Yacc parser.
+</p>
+<hr id="94d1f7d3-d744-4f2e-97da-1488e79d8269"/>
+  <h1 id="30fdad2b-8a44-4887-9aed-fa2e00500592" class="">Breakdown
+  <a class="header-anchor" href="#30fdad2b-8a44-4887-9aed-fa2e00500592" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <ol id="7301d5e1-7de2-4db5-82c3-fe3810fcaeff" class="numbered-list" start="1">
+    <li>Import the module using <code>import ply.lex</code>
+    </li>
+    <li>All lexers must provide a list called <code>tokens</code> that defines all of the possible token names that can be produced by the lexer. This list is always required.
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">tokens = [
@@ -202,7 +220,20 @@ while True:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>tokens</code> could also be a tuple of strings (rather than a string), where each string denotes a token as before.</p><ol id="7304cd1b-3db2-4b3d-827e-cfa20331f1f1" class="numbered-list" start="1"><li>The regex rule for each string may be defined either as a string or as a function. In either case, the variable name should be prefixed by t_ to denote it is a rule for matching tokens.</li></ol><ul id="3889a527-1574-4ede-972e-79fa3af21ed0" class="bulleted-list"><li>For simple tokens, the regular expression can be specified as strings: <code>t_PLUS = r&#x27;\+&#x27;</code></li><li>If some kind of action needs to be performed, a token rule can be specified as a function.</li></ul>
+</div>
+<p><code>tokens</code> could also be a tuple of strings (rather than a string), where each string denotes a token as before.
+</p>
+  <ol id="7304cd1b-3db2-4b3d-827e-cfa20331f1f1" class="numbered-list" start="1">
+    <li>The regex rule for each string may be defined either as a string or as a function. In either case, the variable name should be prefixed by t_ to denote it is a rule for matching tokens.
+    </li>
+  </ol>
+  <ul id="3889a527-1574-4ede-972e-79fa3af21ed0" class="bulleted-list">
+    <li>For simple tokens, the regular expression can be specified as strings: <code>t_PLUS = r&#x27;\+&#x27;</code>
+    </li>
+    <li>If some kind of action needs to be performed, a token rule can be specified as a function.
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def t_NUMBER(t):
@@ -234,7 +265,12 @@ def t_newline(t):
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="74be6da5-034f-472b-b68d-b34a79a8ab24" class="bulleted-list"><li>If nothing is returned from a regex rule function, the token is discarded. If you want to discard a token, you can alternatively add t_ignore_ prefix to a regex rule variable instead of defining a function for the same rule.</li></ul>
+</div>
+  <ul id="74be6da5-034f-472b-b68d-b34a79a8ab24" class="bulleted-list">
+    <li>If nothing is returned from a regex rule function, the token is discarded. If you want to discard a token, you can alternatively add t_ignore_ prefix to a regex rule variable instead of defining a function for the same rule.
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def t_COMMENT(t):
@@ -266,7 +302,10 @@ If you are matching `==` and `=` in the same file, take advantage of these rules
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Define a list of literals as such:</p>
+</div>
+<p>Define a list of literals as such:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">literals = [ &#39;+&#39;, &#39;-&#39;, &#39;*&#39;, &#39;/&#39; ]
@@ -299,7 +338,12 @@ In general, `t.lexer.skip(n)` skips n characters in the input string.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="16741000-9730-4123-936d-7dc58180b32d" class="numbered-list" start="1"><li>Final preparations:</li></ol>
+</div>
+  <ol id="16741000-9730-4123-936d-7dc58180b32d" class="numbered-list" start="1">
+    <li>Final preparations:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Build the lexer using `lexer = lex.lex()`.

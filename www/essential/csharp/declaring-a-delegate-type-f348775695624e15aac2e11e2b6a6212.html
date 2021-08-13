@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The following syntax creates a <code>delegate</code> type with name <code>NumberInOutDelegate</code>, representing a method which takes an <code>int</code> and returns an <code>int</code>.</p>
+      
+<p>The following syntax creates a <code>delegate</code> type with name <code>NumberInOutDelegate</code>, representing a method which takes an <code>int</code> and returns an <code>int</code>.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">delegate</span> <span class="kt">int</span> <span class="n">NumberInOutDelegate</span><span class="p">(</span><span class="kt">int</span> <span class="n">input</span><span class="p">);</span>
@@ -136,7 +139,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This can be used as follows:</p>
+</div>
+<p>This can be used as follows:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">Program</span>
@@ -170,7 +176,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>example</code> delegate instance is executed in the same way as the <code>Square</code> method. A delegate instance literally acts as a delegate for the caller: the caller invokes the delegate, and then the delegate calls the target method. This indirection decouples the caller from the target method.</p><hr id="1366a926-a934-4ba3-ae66-1781ef7609f3"/><p>You can declare a <strong>generic</strong> delegate type, and in that case you may specify that the type is covariant (<code>out</code>) or contravariant (<code>in</code>) in some of the type arguments. For example:</p>
+</div>
+<p>The <code>example</code> delegate instance is executed in the same way as the <code>Square</code> method. A delegate instance literally acts as a delegate for the caller: the caller invokes the delegate, and then the delegate calls the target method. This indirection decouples the caller from the target method.
+</p>
+<hr id="1366a926-a934-4ba3-ae66-1781ef7609f3"/>
+<p>You can declare a <strong>generic</strong> delegate type, and in that case you may specify that the type is covariant (<code>out</code>) or contravariant (<code>in</code>) in some of the type arguments. For example:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">delegate</span> <span class="n">TTo</span> <span class="n">Converter</span><span class="p">&lt;</span><span class="k">in</span> <span class="n">TFrom</span><span class="p">,</span> <span class="k">out</span> <span class="n">TTo</span><span class="p">&gt;(</span><span class="n">TFrom</span> <span class="n">input</span><span class="p">);</span>
@@ -179,7 +191,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Like other generic types, generic delegate types can have constraints, such as <code>where TFrom : struct, IConvertible where TTo : new()</code>.</p><p>Avoid co- and contravariance for delegate types that are meant to be used for multicast delegates, such as event handler types. This is because concatenation (<code>\+</code>) can fail if the run-time type is different from the compile-time type because of the variance. For example, avoid:</p>
+</div>
+<p>Like other generic types, generic delegate types can have constraints, such as <code>where TFrom : struct, IConvertible where TTo : new()</code>.
+</p>
+<p>Avoid co- and contravariance for delegate types that are meant to be used for multicast delegates, such as event handler types. This is because concatenation (<code>\+</code>) can fail if the run-time type is different from the compile-time type because of the variance. For example, avoid:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">delegate</span> <span class="k">void</span> <span class="n">EventHandler</span><span class="p">&lt;</span><span class="k">in</span> <span class="n">TEventArgs</span><span class="p">&gt;(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">TEventArgs</span> <span class="n">e</span><span class="p">);</span>
@@ -188,7 +205,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Instead, use an invariant generic type:</p>
+</div>
+<p>Instead, use an invariant generic type:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">delegate</span> <span class="k">void</span> <span class="n">EventHandler</span><span class="p">&lt;</span><span class="n">TEventArgs</span><span class="p">&gt;(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">TEventArgs</span> <span class="n">e</span><span class="p">);</span>
@@ -197,7 +217,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Also supported are delegates where some parameters are modified by <code>ref</code> or <code>out</code>, as in:</p>
+</div>
+<p>Also supported are delegates where some parameters are modified by <code>ref</code> or <code>out</code>, as in:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">delegate</span> <span class="kt">bool</span> <span class="n">TryParser</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="kt">string</span> <span class="n">input</span><span class="p">,</span> <span class="k">out</span> <span class="n">T</span> <span class="n">result</span><span class="p">);</span>
@@ -206,7 +229,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>(sample use <code>TryParser&lt;decimal&gt; example = decimal.TryParse;</code>), or delegates where the last parameter has the <code>params</code> modifier. Delegate types can have optional parameters (supply default values). Delegate types can use pointer types like <code>int*</code> or <code>char*</code> in their signatures or return types (use <code>unsafe</code> keyword). A delegate type and its parameters can carry custom attributes.</p>
+</div>
+<p>(sample use <code>TryParser&lt;decimal&gt; example = decimal.TryParse;</code>), or delegates where the last parameter has the <code>params</code> modifier. Delegate types can have optional parameters (supply default values). Delegate types can use pointer types like <code>int*</code> or <code>char*</code> in their signatures or return types (use <code>unsafe</code> keyword). A delegate type and its parameters can carry custom attributes.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

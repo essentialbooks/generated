@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>With generics, it’s possible to return whatever the caller expects:</p>
+      
+<p>With generics, it’s possible to return whatever the caller expects:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private Map&lt;String, Object&gt; data;
@@ -138,7 +141,10 @@ public &lt;T&gt; T get(String key) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The method will compile with a warning. The code is actually more safe than it looks because the Java runtime will do a cast when you use it:</p>
+</div>
+<p>The method will compile with a warning. The code is actually more safe than it looks because the Java runtime will do a cast when you use it:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Bar bar = foo.get(&#34;bar&#34;);</pre>
@@ -146,7 +152,10 @@ public &lt;T&gt; T get(String key) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It’s less safe when you use generic types:</p>
+</div>
+<p>It’s less safe when you use generic types:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">List&lt;Bar&gt; bars = foo.get(&#34;bars&#34;);</pre>
@@ -154,7 +163,12 @@ public &lt;T&gt; T get(String key) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, the cast will work when the returned type is any kind of <code>List</code> (i.e. returning <code>List&lt;String&gt;</code> would not trigger a <code>ClassCastException</code>; you’d eventually get it when taking elements out of the list).</p><p>To work around this problem, you can create an API which uses typed keys:</p>
+</div>
+<p>Here, the cast will work when the returned type is any kind of <code>List</code> (i.e. returning <code>List&lt;String&gt;</code> would not trigger a <code>ClassCastException</code>; you’d eventually get it when taking elements out of the list).
+</p>
+<p>To work around this problem, you can create an API which uses typed keys:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public final static Key&lt;List&lt;Bar&gt;&gt; BARS = new Key&lt;&gt;(&#34;BARS&#34;);</pre>
@@ -162,7 +176,10 @@ public &lt;T&gt; T get(String key) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>along with this <code>put()</code> method:</p>
+</div>
+<p>along with this <code>put()</code> method:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public &lt;T&gt; T put(Key&lt;T&gt; key, T value);</pre>
@@ -170,7 +187,15 @@ public &lt;T&gt; T get(String key) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With this approach, you can’t put the wrong type into the map, so the result will always be correct (unless you accidentally create two keys with the same name but different types).</p><p>Related:</p><ul id="2ed207d8-040e-4229-8cd2-4f28d66f674a" class="bulleted-list"><li><a href="https://blog.pdark.de/2010/05/28/type-safe-object-map/">Type-safe Map</a></li></ul>
+</div>
+<p>With this approach, you can’t put the wrong type into the map, so the result will always be correct (unless you accidentally create two keys with the same name but different types).
+</p>
+<p>Related:
+</p>
+  <ul id="2ed207d8-040e-4229-8cd2-4f28d66f674a" class="bulleted-list">
+    <li><a href="https://blog.pdark.de/2010/05/28/type-safe-object-map/">Type-safe Map</a>
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

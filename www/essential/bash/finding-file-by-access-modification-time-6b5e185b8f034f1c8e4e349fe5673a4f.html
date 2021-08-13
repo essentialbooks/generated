@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>On an <code>ext</code> filesystem, each file has a stored Access, Modification, and (Status) Change time associated with it - to view this information you can use <code>stat myFile.txt</code>; using flags within <em>find</em>, we can search for files that were modified within a certain time range.</p><p>To find files that <em>have</em> been modified within the last 2 hours:</p>
+      
+<p>On an <code>ext</code> filesystem, each file has a stored Access, Modification, and (Status) Change time associated with it - to view this information you can use <code>stat myFile.txt</code>; using flags within <em>find</em>, we can search for files that were modified within a certain time range.
+</p>
+<p>To find files that <em>have</em> been modified within the last 2 hours:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ find . -mmin -120</pre>
@@ -135,7 +140,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To find files that <em>have not</em> been modified within the last 2 hours:</p>
+</div>
+<p>To find files that <em>have not</em> been modified within the last 2 hours:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ find . -mmin +120</pre>
@@ -143,7 +151,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above example are searching only on the <em>modified</em> time - to search on <strong>a</strong>ccess times, or <strong>c</strong>hanged times, use <code>a</code>, or <code>c</code> accordingly.</p>
+</div>
+<p>The above example are searching only on the <em>modified</em> time - to search on <strong>a</strong>ccess times, or <strong>c</strong>hanged times, use <code>a</code>, or <code>c</code> accordingly.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ find . -amin -120
@@ -152,7 +163,15 @@ $ find . -cmin +120</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>General format:</p><p><code>-mmin n</code> : File was modified <em>n</em> minutes ago <code>-mmin -n</code> : File was modified less than <em>n</em> minutes ago <code>-mmin +n</code> : File was modified more than <em>n</em> minutes ago</p><hr id="2b211759-c944-4882-a42f-2ecc3d0daf85"/><p>Find files that <em>have</em> been modified within the last 2 days:</p>
+</div>
+<p>General format:
+</p>
+<p><code>-mmin n</code> : File was modified <em>n</em> minutes ago <code>-mmin -n</code> : File was modified less than <em>n</em> minutes ago <code>-mmin +n</code> : File was modified more than <em>n</em> minutes ago
+</p>
+<hr id="2b211759-c944-4882-a42f-2ecc3d0daf85"/>
+<p>Find files that <em>have</em> been modified within the last 2 days:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">find . -mtime -2</pre>
@@ -160,7 +179,10 @@ $ find . -cmin +120</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Find files that <em>have not</em> been modified within the last 2 days</p>
+</div>
+<p>Find files that <em>have not</em> been modified within the last 2 days
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">find . -mtime +2</pre>
@@ -168,7 +190,16 @@ $ find . -cmin +120</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Use <code>-atime</code> and <code>-ctime</code> for access time and status change time respectively.</p><p>General format:</p><p><code>-mtime n</code> : File was modified <em>nx24</em> hours ago <code>-mtime -n</code> : File was modified less than <em>nx24</em> hours ago <code>-mtime +n</code> : File was modified more than <em>nx24</em> hours ago</p><p>Find files modified in a <em><strong>range of dates</strong></em>, from 2007-06-07 to 2007-06-08:</p>
+</div>
+<p>Use <code>-atime</code> and <code>-ctime</code> for access time and status change time respectively.
+</p>
+<p>General format:
+</p>
+<p><code>-mtime n</code> : File was modified <em>nx24</em> hours ago <code>-mtime -n</code> : File was modified less than <em>nx24</em> hours ago <code>-mtime +n</code> : File was modified more than <em>nx24</em> hours ago
+</p>
+<p>Find files modified in a <em><strong>range of dates</strong></em>, from 2007-06-07 to 2007-06-08:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">find . -type f -newermt 2007-06-07 ! -newermt 2007-06-08</pre>
@@ -176,7 +207,10 @@ $ find . -cmin +120</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Find files accessed in a <em><strong>range of timestamps</strong></em> (using files as timestamp), from 1 hour ago to 10 minutes ago:</p>
+</div>
+<p>Find files accessed in a <em><strong>range of timestamps</strong></em> (using files as timestamp), from 1 hour ago to 10 minutes ago:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">touch -t $(date -d &#39;1 HOUR AGO&#39; +%Y%m%d%H%M.%S) start_date
@@ -186,7 +220,11 @@ timeout 10 find &#34;$LOCAL_FOLDER&#34; -newerat &#34;start_date&#34; ! -newerat
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>General format:</p><p><code>-newerXY reference</code> : Compares the timestamp of the current file with reference. <code>XY</code> could have one of the following values: <code>at</code> (access time), <code>mt</code> (modification time), <code>ct</code> (change time) and more. <code>reference</code> is the <em>name of a file</em> whe want to compare the timestamp specified (access, modification, change) or a <em>string</em> describing an absolute time.</p>
+</div>
+<p>General format:
+</p>
+<p><code>-newerXY reference</code> : Compares the timestamp of the current file with reference. <code>XY</code> could have one of the following values: <code>at</code> (access time), <code>mt</code> (modification time), <code>ct</code> (change time) and more. <code>reference</code> is the <em>name of a file</em> whe want to compare the timestamp specified (access, modification, change) or a <em>string</em> describing an absolute time.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

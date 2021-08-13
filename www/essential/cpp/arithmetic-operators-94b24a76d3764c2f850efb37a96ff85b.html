@@ -127,7 +127,34 @@
 </div>
 
 
-      <p>You can overload all basic arithmetic operators:</p><ul id="95423d1b-e07f-422f-aed5-aff320857592" class="bulleted-list"><li><code>\+</code> and <code>+=</code></li><li><code>\-</code> and <code>-=</code></li><li><code>\*</code> and <code>*=</code></li><li><code>/</code> and <code>/=</code></li><li><code>&amp;</code> and <code>&amp;=</code></li><li><code>|</code> and <code>|=</code></li><li><code>^</code> and <code>^=</code></li><li><code>&gt;&gt;</code> and <code>&gt;&gt;=</code></li><li><code>&lt;&lt;</code> and <code>&lt;&lt;=</code></li></ul><p>Overloading for all operators is the same. Scroll down for explanation</p><p>Overloading outside of <code>class</code>/<code>struct</code>:</p>
+      
+<p>You can overload all basic arithmetic operators:
+</p>
+  <ul id="95423d1b-e07f-422f-aed5-aff320857592" class="bulleted-list">
+    <li><code>\+</code> and <code>+=</code>
+    </li>
+    <li><code>\-</code> and <code>-=</code>
+    </li>
+    <li><code>\*</code> and <code>*=</code>
+    </li>
+    <li><code>/</code> and <code>/=</code>
+    </li>
+    <li><code>&amp;</code> and <code>&amp;=</code>
+    </li>
+    <li><code>|</code> and <code>|=</code>
+    </li>
+    <li><code>^</code> and <code>^=</code>
+    </li>
+    <li><code>&gt;&gt;</code> and <code>&gt;&gt;=</code>
+    </li>
+    <li><code>&lt;&lt;</code> and <code>&lt;&lt;=</code>
+    </li>
+  </ul>
+<p>Overloading for all operators is the same. Scroll down for explanation
+</p>
+<p>Overloading outside of <code>class</code>/<code>struct</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">//operator+ should be implemented in terms of operator+=
@@ -146,7 +173,10 @@ T&amp; operator+=(T&amp; lhs, const T&amp; rhs)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Overloading inside of <code>class</code>/<code>struct</code>:</p>
+</div>
+<p>Overloading inside of <code>class</code>/<code>struct</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">//operator+ should be implemented in terms of operator+=
@@ -165,7 +195,23 @@ T&amp; operator+=(const T&amp; rhs)
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="881ebbf9-87f6-4c91-9631-f02cc62d5117"/><p>Note: <code>operator+</code> should return by non-const value, as returning a reference wouldn’t make sense (it returns a new object) nor would returning a <code>const</code> value (you should generally not return by <code>const</code>). The first argument is passed by value, why? Because</p><ol id="121a104d-a765-4217-ab2c-d43e2ff4c785" class="numbered-list" start="1"><li>You can’t modify the original object (<code>Object foobar = foo + bar;</code> shouldn’t modify <code>foo</code> after all, it wouldn’t make sense)</li><li>You can’t make it <code>const</code>, because you will have to be able to modify the object (because <code>operator+</code> is implemented in terms of <code>operator+=</code>, which modifies the object)</li></ol><p>Passing by <code>const&amp;</code> would be an option, but then you will have to make a temporary copy of the passed object. By passing by value, the compiler does it for you.</p><hr id="64e18be1-4c22-46b3-84c4-874f62b38908"/><p><code>operator+=</code> returns a reference to the itself, because it is then possible to chain them (don’t use the same variable though, that would be undefined behavior due to sequence points).</p><p>The first argument is a reference (we want to modify it), but not <code>const</code>, because then you wouldn’t be able to modify it. The second argument should not be modified, and so for performance reason is passed by <code>const&amp;</code> (passing by const reference is faster than by value).</p>
+</div>
+<hr id="881ebbf9-87f6-4c91-9631-f02cc62d5117"/>
+<p>Note: <code>operator+</code> should return by non-const value, as returning a reference wouldn’t make sense (it returns a new object) nor would returning a <code>const</code> value (you should generally not return by <code>const</code>). The first argument is passed by value, why? Because
+</p>
+  <ol id="121a104d-a765-4217-ab2c-d43e2ff4c785" class="numbered-list" start="1">
+    <li>You can’t modify the original object (<code>Object foobar = foo + bar;</code> shouldn’t modify <code>foo</code> after all, it wouldn’t make sense)
+    </li>
+    <li>You can’t make it <code>const</code>, because you will have to be able to modify the object (because <code>operator+</code> is implemented in terms of <code>operator+=</code>, which modifies the object)
+    </li>
+  </ol>
+<p>Passing by <code>const&amp;</code> would be an option, but then you will have to make a temporary copy of the passed object. By passing by value, the compiler does it for you.
+</p>
+<hr id="64e18be1-4c22-46b3-84c4-874f62b38908"/>
+<p><code>operator+=</code> returns a reference to the itself, because it is then possible to chain them (don’t use the same variable though, that would be undefined behavior due to sequence points).
+</p>
+<p>The first argument is a reference (we want to modify it), but not <code>const</code>, because then you wouldn’t be able to modify it. The second argument should not be modified, and so for performance reason is passed by <code>const&amp;</code> (passing by const reference is faster than by value).
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

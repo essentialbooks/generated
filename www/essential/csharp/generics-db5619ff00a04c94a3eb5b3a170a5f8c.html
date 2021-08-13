@@ -127,7 +127,37 @@
 </div>
 
 
-      <h2 id="09e7cd13-dcd7-4b43-8057-1fd11d427e88" class="">Syntax<a class="header-anchor" href="#09e7cd13-dcd7-4b43-8057-1fd11d427e88" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><ul id="e3db8d82-ad6c-4bc9-92b0-8ac0193b2f1d" class="bulleted-list"><li><code>public void SomeMethod &lt;T&gt; () { }</code></li><li><code>public void SomeMethod&lt;T, V&gt;() { }</code></li><li><code>public T SomeMethod&lt;T&gt;(IEnumerable&lt;T&gt; sequence) { ... }</code></li><li><code>public void SomeMethod&lt;T&gt;() where T : new() { }</code></li><li><code>public void SomeMethod&lt;T, V&gt;() where T : new() where V : struct { }</code></li><li><code>public void SomeMethod&lt;T&gt;() where T: IDisposable { }</code></li><li><code>public void SomeMethod&lt;T&gt;() where T: Foo { }</code></li><li><code>public class MyClass&lt;T&gt; { public T Data {get; set; } }</code></li></ul><h2 id="ba3bc19e-e75a-40ef-aed8-176fc6477f2c" class="">Remarks<a class="header-anchor" href="#ba3bc19e-e75a-40ef-aed8-176fc6477f2c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Generics in C# are supported all the way down to the runtime: generic types built with C# will have their generic semantics preserved even after compiled to <a href="https://en.wikipedia.org/wiki/Common_Intermediate_Language">CIL</a>.</p><p>This effectively means that, in C#, it is possible to reflect on generic types and see them as they were declared or check if an object is an instance of a generic type, for example. This is in contrast with <a href="https://en.wikipedia.org/wiki/Type_erasure">type erasure</a>, where generic type information is removed during compilation. It is also in contrast with the template approach to generics, where multiple concrete generic types become multiple non-generic types at runtime, and any metadata required to further instantiate the original generic type definitions is lost.</p><p>Be careful, however, when reflecting on generic types: generic types’ names will be altered on compilation, substituting the angled brackets and the type parameters’ names by a backtick followed by the number of generic type parameters. Thus, a <code>Dictionary&lt;TKey, Tvalue&gt;</code> will be translated to <code>Dictionary</code>2`.</p>
+      
+  <h2 id="09e7cd13-dcd7-4b43-8057-1fd11d427e88" class="">Syntax
+  <a class="header-anchor" href="#09e7cd13-dcd7-4b43-8057-1fd11d427e88" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+  <ul id="e3db8d82-ad6c-4bc9-92b0-8ac0193b2f1d" class="bulleted-list">
+    <li><code>public void SomeMethod &lt;T&gt; () { }</code>
+    </li>
+    <li><code>public void SomeMethod&lt;T, V&gt;() { }</code>
+    </li>
+    <li><code>public T SomeMethod&lt;T&gt;(IEnumerable&lt;T&gt; sequence) { ... }</code>
+    </li>
+    <li><code>public void SomeMethod&lt;T&gt;() where T : new() { }</code>
+    </li>
+    <li><code>public void SomeMethod&lt;T, V&gt;() where T : new() where V : struct { }</code>
+    </li>
+    <li><code>public void SomeMethod&lt;T&gt;() where T: IDisposable { }</code>
+    </li>
+    <li><code>public void SomeMethod&lt;T&gt;() where T: Foo { }</code>
+    </li>
+    <li><code>public class MyClass&lt;T&gt; { public T Data {get; set; } }</code>
+    </li>
+  </ul>
+  <h2 id="ba3bc19e-e75a-40ef-aed8-176fc6477f2c" class="">Remarks
+  <a class="header-anchor" href="#ba3bc19e-e75a-40ef-aed8-176fc6477f2c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Generics in C# are supported all the way down to the runtime: generic types built with C# will have their generic semantics preserved even after compiled to <a href="https://en.wikipedia.org/wiki/Common_Intermediate_Language">CIL</a>.
+</p>
+<p>This effectively means that, in C#, it is possible to reflect on generic types and see them as they were declared or check if an object is an instance of a generic type, for example. This is in contrast with <a href="https://en.wikipedia.org/wiki/Type_erasure">type erasure</a>, where generic type information is removed during compilation. It is also in contrast with the template approach to generics, where multiple concrete generic types become multiple non-generic types at runtime, and any metadata required to further instantiate the original generic type definitions is lost.
+</p>
+<p>Be careful, however, when reflecting on generic types: generic types’ names will be altered on compilation, substituting the angled brackets and the type parameters’ names by a backtick followed by the number of generic type parameters. Thus, a <code>Dictionary&lt;TKey, Tvalue&gt;</code> will be translated to <code>Dictionary</code>2`.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

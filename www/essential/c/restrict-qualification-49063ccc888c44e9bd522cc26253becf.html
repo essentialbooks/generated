@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>If we have two pointer arguments of the same type, the compiler can’t make any assumption and will always have to assume that the change to <code>*e</code> may change <code>*f</code>:</p>
+      
+<p>If we have two pointer arguments of the same type, the compiler can’t make any assumption and will always have to assume that the change to <code>*e</code> may change <code>*f</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void fun(float* e, float* f) {
@@ -144,7 +147,18 @@ float eval = 77;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>all goes well and something like</p><blockquote id="3fc5ae90-3814-4abe-a12b-90ba0f376ae6" class="">is 4 equal to 4?</blockquote><p>is printed. If we pass the same pointer, the program will still do the right thing and print</p><blockquote id="90f0853f-fdfa-4654-9408-c7d1ba230b95" class="">is 4 equal to 22?</blockquote><p>This can turn out to be inefficient, if we <em>know</em> by some outside information that <code>e</code> and <code>f</code> will never point to the same data object. We can reflect that knowledge by adding <code>restrict</code> qualifiers to the pointer parameters:</p>
+</div>
+<p>all goes well and something like
+</p>
+<blockquote id="3fc5ae90-3814-4abe-a12b-90ba0f376ae6" class="">is 4 equal to 4?
+</blockquote>
+<p>is printed. If we pass the same pointer, the program will still do the right thing and print
+</p>
+<blockquote id="90f0853f-fdfa-4654-9408-c7d1ba230b95" class="">is 4 equal to 22?
+</blockquote>
+<p>This can turn out to be inefficient, if we <em>know</em> by some outside information that <code>e</code> and <code>f</code> will never point to the same data object. We can reflect that knowledge by adding <code>restrict</code> qualifiers to the pointer parameters:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void fan(float*restrict e, float*restrict f) {
@@ -157,7 +171,9 @@ float eval = 77;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then the compiler may always suppose that <code>e</code> and <code>f</code> point to different objects.</p>
+</div>
+<p>Then the compiler may always suppose that <code>e</code> and <code>f</code> point to different objects.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

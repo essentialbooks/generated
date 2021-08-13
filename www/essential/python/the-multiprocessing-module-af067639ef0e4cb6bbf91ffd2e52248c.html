@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">from __future__ import print_function
@@ -137,6 +138,7 @@ import multiprocessing</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def countdown(count):
@@ -158,7 +160,39 @@ if __name__ == &#34;__main__&#34;:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, each function is executed in a new process. Since a new instance of Python VM is running the code, there is no <code>GIL</code> and you get parallelism running on multiple cores.</p><p>The <code>Process.start</code> method launches this new process and run the function passed in the <code>target</code> argument with the arguments <code>args</code>. The <code>Process.join</code> method waits for the end of the execution of processes <code>p1</code> and <code>p2</code>.</p><p>The new processes are launched differently depending on the version of python and the plateform on which the code is running <em>e.g.</em>:</p><ul id="1b682e00-708f-4a71-ac17-76191aa3ccb5" class="bulleted-list"><li>Windows uses <code>spawn</code> to create the new process.</li><li>With unix systems and version earlier than 3.3, the processes are created using a <code>fork</code>.</li></ul><p>Note that this method does not respect the POSIX usage of fork and thus leads to unexpected behaviors, especially when interacting with other multiprocessing libraries.</p><ul id="6f47524f-8bd7-4cad-9768-a2f11543ab28" class="bulleted-list"><li>With unix system and version 3.4+, you can choose to start the new processes with either <code>fork</code>, <code>forkserver</code> or <code>spawn</code> using <code>multiprocessing.set_start_method</code> at the beginning of your program. <code>forkserver</code> and <code>spawn</code> methods are slower than forking but avoid some unexpected behaviors.</li></ul><p><strong>POSIX fork usage</strong>:</p><blockquote id="1024eada-9963-4165-80ea-28ba5d487bfb" class="">After a fork in a multithreaded program, the child can safely call only async-signal-safe functions until such time as it calls execve.</blockquote><p>(<a href="http://man7.org/linux/man-pages/man2/fork.2.html">see</a>)</p><p>Using fork, a new process will be launched with the exact same state for all the current mutex but only the <code>MainThread</code> will be launched. This is unsafe as it could lead to race conditions <em>e.g.</em>:</p><ul id="2da7f406-7b2a-4a01-aa8a-b835f74a5dd2" class="bulleted-list"><li>If you use a <code>Lock</code> in <code>MainThread</code> and pass it to an other thread which is suppose to lock it at some point. If the <code>fork</code> occures simultaneously, the new process will start with a locked lock which will never be released as the second thread does not exist in this new process.</li></ul><p>Actually, this kind of behavior should not occured in pure python as <code>multiprocessing</code> handles it properly but if you are interacting with other library, this kind of behavior can occures, leading to crash of your system (for instance with numpy/accelerated on macOS).</p>
+</div>
+<p>Here, each function is executed in a new process. Since a new instance of Python VM is running the code, there is no <code>GIL</code> and you get parallelism running on multiple cores.
+</p>
+<p>The <code>Process.start</code> method launches this new process and run the function passed in the <code>target</code> argument with the arguments <code>args</code>. The <code>Process.join</code> method waits for the end of the execution of processes <code>p1</code> and <code>p2</code>.
+</p>
+<p>The new processes are launched differently depending on the version of python and the plateform on which the code is running <em>e.g.</em>:
+</p>
+  <ul id="1b682e00-708f-4a71-ac17-76191aa3ccb5" class="bulleted-list">
+    <li>Windows uses <code>spawn</code> to create the new process.
+    </li>
+    <li>With unix systems and version earlier than 3.3, the processes are created using a <code>fork</code>.
+    </li>
+  </ul>
+<p>Note that this method does not respect the POSIX usage of fork and thus leads to unexpected behaviors, especially when interacting with other multiprocessing libraries.
+</p>
+  <ul id="6f47524f-8bd7-4cad-9768-a2f11543ab28" class="bulleted-list">
+    <li>With unix system and version 3.4+, you can choose to start the new processes with either <code>fork</code>, <code>forkserver</code> or <code>spawn</code> using <code>multiprocessing.set_start_method</code> at the beginning of your program. <code>forkserver</code> and <code>spawn</code> methods are slower than forking but avoid some unexpected behaviors.
+    </li>
+  </ul>
+<p><strong>POSIX fork usage</strong>:
+</p>
+<blockquote id="1024eada-9963-4165-80ea-28ba5d487bfb" class="">After a fork in a multithreaded program, the child can safely call only async-signal-safe functions until such time as it calls execve.
+</blockquote>
+<p>(<a href="http://man7.org/linux/man-pages/man2/fork.2.html">see</a>)
+</p>
+<p>Using fork, a new process will be launched with the exact same state for all the current mutex but only the <code>MainThread</code> will be launched. This is unsafe as it could lead to race conditions <em>e.g.</em>:
+</p>
+  <ul id="2da7f406-7b2a-4a01-aa8a-b835f74a5dd2" class="bulleted-list">
+    <li>If you use a <code>Lock</code> in <code>MainThread</code> and pass it to an other thread which is suppose to lock it at some point. If the <code>fork</code> occures simultaneously, the new process will start with a locked lock which will never be released as the second thread does not exist in this new process.
+    </li>
+  </ul>
+<p>Actually, this kind of behavior should not occured in pure python as <code>multiprocessing</code> handles it properly but if you are interacting with other library, this kind of behavior can occures, leading to crash of your system (for instance with numpy/accelerated on macOS).
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

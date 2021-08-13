@@ -127,7 +127,20 @@
 </div>
 
 
-      <p><a href="https://github.com/dotnet/roslyn/wiki/New-Language-Features-in-C%23-6#exception-filters">Exception filters</a> give developers the ability to add a condition (in the form of a <code>boolean</code> expression) to a <a href="http://stackoverflow.com/documentation/c%23/26/keywords/148/try-catch-finally-throw">catch</a> block, allowing the <code>catch</code> to execute only if the condition evaluates to <code>true</code>.</p><p>Exception filters allow the propagation of debug information in the original exception, where as using an <code>if</code> statement inside a <code>catch</code> block and re-throwing the exception stops the propagation of debug information in the original exception. With exception filters, the exception continues to propagate upwards in the call stack <em>unless</em> the condition is met. As a result, exception filters make the debugging experience much easier. Instead of stopping on the <code>throw</code> statement, the debugger will stop on the statement throwing the exception, with the current state and all local variables preserved. Crash dumps are affected in a similar way.</p><blockquote id="d2f33808-279e-447b-8190-83cdf0772d42" class="">Exception filters have been supported by the CLR since the beginning and they’ve been accessible from VB.NET and F# for over a decade by exposing a part of the CLR’s exception handling model. Only after the release of C# 6.0 has the functionality also been available for C# developers.</blockquote><hr id="0cb0ac32-8319-48db-a642-a07959eec66d"/><h2 id="670b50d7-5f57-4ff1-aa1a-bfca10966212" class="">Using exception filters<a class="header-anchor" href="#670b50d7-5f57-4ff1-aa1a-bfca10966212" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Exception filters are utilized by appending a <code>when</code> clause to the <code>catch</code> expression. It is possible to use any expression returning a <code>bool</code> in a <code>when</code> clause (except <a href="http://stackoverflow.com/documentation/c%23/26/keywords/5993/async-await">await</a>). The declared Exception variable <code>ex</code> is accessible from within the <code>when</code> clause:</p>
+      
+<p><a href="https://github.com/dotnet/roslyn/wiki/New-Language-Features-in-C%23-6#exception-filters">Exception filters</a> give developers the ability to add a condition (in the form of a <code>boolean</code> expression) to a <a href="http://stackoverflow.com/documentation/c%23/26/keywords/148/try-catch-finally-throw">catch</a> block, allowing the <code>catch</code> to execute only if the condition evaluates to <code>true</code>.
+</p>
+<p>Exception filters allow the propagation of debug information in the original exception, where as using an <code>if</code> statement inside a <code>catch</code> block and re-throwing the exception stops the propagation of debug information in the original exception. With exception filters, the exception continues to propagate upwards in the call stack <em>unless</em> the condition is met. As a result, exception filters make the debugging experience much easier. Instead of stopping on the <code>throw</code> statement, the debugger will stop on the statement throwing the exception, with the current state and all local variables preserved. Crash dumps are affected in a similar way.
+</p>
+<blockquote id="d2f33808-279e-447b-8190-83cdf0772d42" class="">Exception filters have been supported by the CLR since the beginning and they’ve been accessible from VB.NET and F# for over a decade by exposing a part of the CLR’s exception handling model. Only after the release of C# 6.0 has the functionality also been available for C# developers.
+</blockquote>
+<hr id="0cb0ac32-8319-48db-a642-a07959eec66d"/>
+  <h2 id="670b50d7-5f57-4ff1-aa1a-bfca10966212" class="">Using exception filters
+  <a class="header-anchor" href="#670b50d7-5f57-4ff1-aa1a-bfca10966212" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Exception filters are utilized by appending a <code>when</code> clause to the <code>catch</code> expression. It is possible to use any expression returning a <code>bool</code> in a <code>when</code> clause (except <a href="http://stackoverflow.com/documentation/c%23/26/keywords/5993/async-await">await</a>). The declared Exception variable <code>ex</code> is accessible from within the <code>when</code> clause:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">var</span> <span class="n">SqlErrorToIgnore</span> <span class="p">=</span> <span class="m">123</span><span class="p">;</span>
@@ -144,7 +157,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Multiple <code>catch</code> blocks with <code>when</code> clauses may be combined. The first <code>when</code> clause returning <code>true</code> will cause the exception to be caught. Its <code>catch</code> block will be entered, while the other <code>catch</code> clauses will be ignored (their <code>when</code> clauses won’t be evaluated). For example:</p>
+</div>
+<p>Multiple <code>catch</code> blocks with <code>when</code> clauses may be combined. The first <code>when</code> clause returning <code>true</code> will cause the exception to be caught. Its <code>catch</code> block will be entered, while the other <code>catch</code> clauses will be ignored (their <code>when</code> clauses won’t be evaluated). For example:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">try</span>
@@ -162,7 +178,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="b3e2b726-b0e8-44d7-b492-9fa4435d7eec"/><h2 id="723e953d-e583-4259-90c9-7618e931c545" class="">Risky when clause<a class="header-anchor" href="#723e953d-e583-4259-90c9-7618e931c545" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><blockquote id="a7275e35-e73c-4e4e-a7a6-72b3f3d46b48" class="">Caution</blockquote><p>It can be risky to use exception filters: when an <code>Exception</code> is thrown from within the <code>when</code> clause, the <code>Exception</code> from the <code>when</code> clause is ignored and is treated as <code>false</code>. This approach allows developers to write <code>when</code> clause without taking care of invalid cases.</p><p>The following example illustrates such a scenario:</p>
+</div>
+<hr id="b3e2b726-b0e8-44d7-b492-9fa4435d7eec"/>
+  <h2 id="723e953d-e583-4259-90c9-7618e931c545" class="">Risky when clause
+  <a class="header-anchor" href="#723e953d-e583-4259-90c9-7618e931c545" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<blockquote id="a7275e35-e73c-4e4e-a7a6-72b3f3d46b48" class="">Caution
+</blockquote>
+<p>It can be risky to use exception filters: when an <code>Exception</code> is thrown from within the <code>when</code> clause, the <code>Exception</code> from the <code>when</code> clause is ignored and is treated as <code>false</code>. This approach allows developers to write <code>when</code> clause without taking care of invalid cases.
+</p>
+<p>The following example illustrates such a scenario:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">()</span>
@@ -195,7 +222,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://dotnetfiddle.net/Iex6DP">View Demo</a></p><p>Note that exception filters avoid the confusing line number problems associated with using <code>throw</code> when failing code is within the same function. For example in this case the line number is reported as 6 instead of 3:</p>
+</div>
+<p><a href="https://dotnetfiddle.net/Iex6DP">View Demo</a>
+</p>
+<p>Note that exception filters avoid the confusing line number problems associated with using <code>throw</code> when failing code is within the same function. For example in this case the line number is reported as 6 instead of 3:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="m">1.</span> <span class="kt">int</span> <span class="n">a</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">b</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
@@ -210,7 +242,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The exception line number is reported as 6 because the error was caught and re-thrown with the <code>throw</code> statement on line 6.</p><p>The same does not happen with exception filters:</p>
+</div>
+<p>The exception line number is reported as 6 because the error was caught and re-thrown with the <code>throw</code> statement on line 6.
+</p>
+<p>The same does not happen with exception filters:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="m">1.</span> <span class="kt">int</span> <span class="n">a</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">b</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
@@ -225,7 +262,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this example <code>a</code> is 0 then <code>catch</code> clause is ignored but 3 is reported as line number. This is because they <strong>do not unwind the stack</strong>. More specifically, the exception <em>is not caught</em> on line 5 because <code>a</code> in fact does equal <code>0</code> and thus there is no opportunity for the exception to be re-thrown on line 6 because line 6 does not execute.</p><hr id="421a83ba-b05c-43c6-a66b-e64e4bc2d9dd"/><h2 id="451d304c-e0b2-45c8-be81-81f6e0acb7b2" class="">Logging as a side effect<a class="header-anchor" href="#451d304c-e0b2-45c8-be81-81f6e0acb7b2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Method calls in the condition can cause side effects, so exception filters can be used to run code on exceptions without catching them. A common example that takes advantage of this is a <code>Log</code> method that always returns <code>false</code>. This allows tracing log information while debugging without the need to re-throw the exception.</p><blockquote id="accd426a-0883-4ac7-a9bc-2d441d76a187" class="">Be aware that while this seems to be a comfortable way of logging, it can be risky, especially if 3rd party logging assemblies are used. These might throw exceptions while logging in non-obvious situations that may not be detected easily (see Risky when(...) clause above).</blockquote>
+</div>
+<p>In this example <code>a</code> is 0 then <code>catch</code> clause is ignored but 3 is reported as line number. This is because they <strong>do not unwind the stack</strong>. More specifically, the exception <em>is not caught</em> on line 5 because <code>a</code> in fact does equal <code>0</code> and thus there is no opportunity for the exception to be re-thrown on line 6 because line 6 does not execute.
+</p>
+<hr id="421a83ba-b05c-43c6-a66b-e64e4bc2d9dd"/>
+  <h2 id="451d304c-e0b2-45c8-be81-81f6e0acb7b2" class="">Logging as a side effect
+  <a class="header-anchor" href="#451d304c-e0b2-45c8-be81-81f6e0acb7b2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Method calls in the condition can cause side effects, so exception filters can be used to run code on exceptions without catching them. A common example that takes advantage of this is a <code>Log</code> method that always returns <code>false</code>. This allows tracing log information while debugging without the need to re-throw the exception.
+</p>
+<blockquote id="accd426a-0883-4ac7-a9bc-2d441d76a187" class="">Be aware that while this seems to be a comfortable way of logging, it can be risky, especially if 3rd party logging assemblies are used. These might throw exceptions while logging in non-obvious situations that may not be detected easily (see Risky when(...) clause above).
+</blockquote>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">try</span>
@@ -251,7 +299,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://dotnetfiddle.net/pqPc7B">View Demo</a></p><p>The common approach in previous versions of C# was to log and re-throw the exception.</p>
+</div>
+<p><a href="https://dotnetfiddle.net/pqPc7B">View Demo</a>
+</p>
+<p>The common approach in previous versions of C# was to log and re-throw the exception.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">try</span>
@@ -275,7 +328,21 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://dotnetfiddle.net/kEWLue">View Demo</a></p><h2 id="e38d4aad-bab4-4e44-b181-12b18965907b" class=""><a class="header-anchor" href="#e38d4aad-bab4-4e44-b181-12b18965907b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><h1 id="9456de57-69c7-46be-b16d-3a1bbe3090ec" class="">The <code>finally</code> block<a class="header-anchor" href="#9456de57-69c7-46be-b16d-3a1bbe3090ec" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>The <a href="https://stackoverflow.com/documentation/c%23/40/exception-handling/172/finally-block"><code>finally</code></a> block executes every time whether the exception is thrown or not. One subtlety with expressions in <code>when</code> is exception filters are executed further up the stack <em>before</em> entering the inner <code>finally</code> blocks. This can cause unexpected results and behaviors when code attempts to modify global state (like the current thread’s user or culture) and set it back in a <code>finally</code> block.</p><h2 id="f8d0abfb-1146-4161-a132-47eddeb7bd4d" class="">Example: <code>finally</code> block<a class="header-anchor" href="#f8d0abfb-1146-4161-a132-47eddeb7bd4d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+</div>
+<p><a href="https://dotnetfiddle.net/kEWLue">View Demo</a>
+</p>
+  <h2 id="e38d4aad-bab4-4e44-b181-12b18965907b" class="">
+  <a class="header-anchor" href="#e38d4aad-bab4-4e44-b181-12b18965907b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+  <h1 id="9456de57-69c7-46be-b16d-3a1bbe3090ec" class="">The <code>finally</code> block
+  <a class="header-anchor" href="#9456de57-69c7-46be-b16d-3a1bbe3090ec" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>The <a href="https://stackoverflow.com/documentation/c%23/40/exception-handling/172/finally-block"><code>finally</code></a> block executes every time whether the exception is thrown or not. One subtlety with expressions in <code>when</code> is exception filters are executed further up the stack <em>before</em> entering the inner <code>finally</code> blocks. This can cause unexpected results and behaviors when code attempts to modify global state (like the current thread’s user or culture) and set it back in a <code>finally</code> block.
+</p>
+  <h2 id="f8d0abfb-1146-4161-a132-47eddeb7bd4d" class="">Example: <code>finally</code> block
+  <a class="header-anchor" href="#f8d0abfb-1146-4161-a132-47eddeb7bd4d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">private</span> <span class="k">static</span> <span class="kt">bool</span> <span class="n">Flag</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
@@ -321,7 +388,24 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Produced Output:</p><blockquote id="89f33975-dca2-4b8c-9041-4f511e3e1062" class="">Start</blockquote><p>EvaluatesTo: True</p><p>Inner Finally</p><p>Catch</p><p>Outer Finally</p><p><a href="https://ideone.com/gxfBA8">View Demo</a></p><p>In the example above, if the method <code>SomeOperation</code> does not wish to “leak” the global state changes to caller’s <code>when</code> clauses, it should also contain a <code>catch</code> block to modify the state. For example:</p>
+</div>
+<p>Produced Output:
+</p>
+<blockquote id="89f33975-dca2-4b8c-9041-4f511e3e1062" class="">Start
+</blockquote>
+<p>EvaluatesTo: True
+</p>
+<p>Inner Finally
+</p>
+<p>Catch
+</p>
+<p>Outer Finally
+</p>
+<p><a href="https://ideone.com/gxfBA8">View Demo</a>
+</p>
+<p>In the example above, if the method <code>SomeOperation</code> does not wish to “leak” the global state changes to caller’s <code>when</code> clauses, it should also contain a <code>catch</code> block to modify the state. For example:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="n">SomeOperation</span><span class="p">()</span>
@@ -347,7 +431,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It is also common to see <a href="https://stackoverflow.com/documentation/c%23/1795/idisposable-interface"><code>IDisposable</code></a> helper classes leveraging the semantics of <a href="http://stackoverflow.com/documentation/c%23/26/keywords/5062/using">using</a> blocks to achieve the same goal, as <code>IDisposable.Dispose</code> will always be called before an exception called within a <code>using</code> block starts bubbling up the stack.</p>
+</div>
+<p>It is also common to see <a href="https://stackoverflow.com/documentation/c%23/1795/idisposable-interface"><code>IDisposable</code></a> helper classes leveraging the semantics of <a href="http://stackoverflow.com/documentation/c%23/26/keywords/5062/using">using</a> blocks to achieve the same goal, as <code>IDisposable.Dispose</code> will always be called before an exception called within a <code>using</code> block starts bubbling up the stack.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

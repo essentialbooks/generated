@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>All java <code>Collection&lt;E&gt;</code>s have <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html#stream--"><code>stream()</code></a> and <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html#parallelStream--"><code>parallelStream()</code></a> methods from which a <code>Stream&lt;E&gt;</code> can be constructed:</p>
+      
+<p>All java <code>Collection&lt;E&gt;</code>s have <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html#stream--"><code>stream()</code></a> and <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html#parallelStream--"><code>parallelStream()</code></a> methods from which a <code>Stream&lt;E&gt;</code> can be constructed:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Collection&lt;String&gt; stringList = new ArrayList&lt;&gt;();
@@ -136,7 +139,10 @@ Stream&lt;String&gt; stringStream = stringList.parallelStream();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A <code>Stream&lt;E&gt;</code> can be created from an array using one of two methods:</p>
+</div>
+<p>A <code>Stream&lt;E&gt;</code> can be created from an array using one of two methods:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String[] values = { &#34;aaa&#34;, &#34;bbbb&#34;, &#34;ddd&#34;, &#34;cccc&#34; };
@@ -146,7 +152,10 @@ Stream&lt;String&gt; stringStreamAlternative = Stream.of(values);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The difference between <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html#stream-T:A-"><code>Arrays.stream()</code></a> and <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#of-T...-"><code>Stream.of()</code></a> is that <code>Stream.of()</code> has a varargs parameter, so it can be used like:</p>
+</div>
+<p>The difference between <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html#stream-T:A-"><code>Arrays.stream()</code></a> and <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#of-T...-"><code>Stream.of()</code></a> is that <code>Stream.of()</code> has a varargs parameter, so it can be used like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Stream&lt;Integer&gt; integerStream = Stream.of(1, 2, 3);</pre>
@@ -154,7 +163,10 @@ Stream&lt;String&gt; stringStreamAlternative = Stream.of(values);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>There are also primitive <code>Stream</code>s that you can use. For example:</p>
+</div>
+<p>There are also primitive <code>Stream</code>s that you can use. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">IntStream intStream = IntStream.of(1, 2, 3);
@@ -163,7 +175,10 @@ DoubleStream doubleStream = DoubleStream.of(1.0, 2.0, 3.0);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>These primitive streams can also be constructed using the <code>Arrays.stream()</code> method:</p>
+</div>
+<p>These primitive streams can also be constructed using the <code>Arrays.stream()</code> method:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">IntStream intStream = Arrays.stream(new int[]{ 1, 2, 3 });</pre>
@@ -171,7 +186,10 @@ DoubleStream doubleStream = DoubleStream.of(1.0, 2.0, 3.0);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It is possible to create a <code>Stream</code> from an array with a specified range.</p>
+</div>
+<p>It is possible to create a <code>Stream</code> from an array with a specified range.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int[] values= new int[]{1, 2, 3, 4, 5};
@@ -180,7 +198,10 @@ IntStream intStram = Arrays.stream(values, 1, 3);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that any primitive stream can be converted to boxed type stream using the <code>boxed</code> method :</p>
+</div>
+<p>Note that any primitive stream can be converted to boxed type stream using the <code>boxed</code> method :
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Stream&lt;Integer&gt; integerStream = intStream.boxed();</pre>
@@ -188,7 +209,14 @@ IntStream intStram = Arrays.stream(values, 1, 3);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This can be useful in some case if you want to collect the data since primitive stream does not have any <code>collect</code> method that takes a <code>Collector</code> as argument.</p><p><strong>Reusing intermediate operations of a stream chain</strong></p><p>Stream is closed when ever terminal operation is called. Reusing the stream of intermediate operations, when only terminal operation is only varying. we could create a stream supplier to construct a new stream with all intermediate operations already set up.</p>
+</div>
+<p>This can be useful in some case if you want to collect the data since primitive stream does not have any <code>collect</code> method that takes a <code>Collector</code> as argument.
+</p>
+<p><strong>Reusing intermediate operations of a stream chain</strong>
+</p>
+<p>Stream is closed when ever terminal operation is called. Reusing the stream of intermediate operations, when only terminal operation is only varying. we could create a stream supplier to construct a new stream with all intermediate operations already set up.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Supplier&lt;Stream&lt;String&gt;&gt; streamSupplier = () -&gt; Stream.of(&#34;apple&#34;, &#34;banana&#34;,&#34;orange&#34;, &#34;grapes&#34;, &#34;melon&#34;,&#34;blueberry&#34;,&#34;blackberry&#34;)
@@ -207,7 +235,10 @@ IntStream intStram = Arrays.stream(values, 1, 3);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>int[]</code> arrays can be converted to <code>List&lt;Integer&gt;</code> using streams</p>
+</div>
+<p><code>int[]</code> arrays can be converted to <code>List&lt;Integer&gt;</code> using streams
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int[] ints = {1,2,3};

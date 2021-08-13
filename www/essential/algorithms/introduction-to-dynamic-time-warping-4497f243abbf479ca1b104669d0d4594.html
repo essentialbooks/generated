@@ -127,7 +127,12 @@
 </div>
 
 
-      <p><a href="https://en.wikipedia.org/wiki/Dynamic_time_warping">Dynamic Time Warping</a>(DTW) is an algorithm for measuring similarity between two temporal sequences which may vary in speed. For instance, similarities in walking could be detected using DTW, even if one person was walking faster than the other, or if there were accelerations and decelerations during the course of an observation. It can be used to match a sample voice command with others command, even if the person talks faster or slower than the prerecorded sample voice. DTW can be applied to temporal sequences of video, audio and graphics data-indeed, any data which can be turned into a linear sequence can be analyzed with DTW.</p><p>In general, DTW is a method that calculates an optimal match between two given sequences with certain restrictions. But let’s stick to the simpler points here. Let’s say, we have two voice sequences <strong>Sample</strong> and <strong>Test</strong>, and we want to check if these two sequences match or not. Here voice sequence refers to the converted digital signal of your voice. It might be the amplitude or frequency of your voice that denotes the words you say. Let’s assume:</p>
+      
+<p><a href="https://en.wikipedia.org/wiki/Dynamic_time_warping">Dynamic Time Warping</a>(DTW) is an algorithm for measuring similarity between two temporal sequences which may vary in speed. For instance, similarities in walking could be detected using DTW, even if one person was walking faster than the other, or if there were accelerations and decelerations during the course of an observation. It can be used to match a sample voice command with others command, even if the person talks faster or slower than the prerecorded sample voice. DTW can be applied to temporal sequences of video, audio and graphics data-indeed, any data which can be turned into a linear sequence can be analyzed with DTW.
+</p>
+<p>In general, DTW is a method that calculates an optimal match between two given sequences with certain restrictions. But let’s stick to the simpler points here. Let’s say, we have two voice sequences <strong>Sample</strong> and <strong>Test</strong>, and we want to check if these two sequences match or not. Here voice sequence refers to the converted digital signal of your voice. It might be the amplitude or frequency of your voice that denotes the words you say. Let’s assume:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Sample = {1, 2, 3, 5, 5, 5, 6}
@@ -136,7 +141,12 @@ Test   = {1, 1, 2, 2, 3, 5}</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We want to find out the optimal match between these two sequences.</p><p>At first, we define the distance between two points, <em>d(x, y)</em> where <strong>x</strong> and <strong>y</strong> represent the two points. Let,</p>
+</div>
+<p>We want to find out the optimal match between these two sequences.
+</p>
+<p>At first, we define the distance between two points, <em>d(x, y)</em> where <strong>x</strong> and <strong>y</strong> represent the two points. Let,
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">d(x, y) = |x - y|     //absolute difference</pre>
@@ -144,7 +154,10 @@ Test   = {1, 1, 2, 2, 3, 5}</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Let’s create a 2D matrix <strong>Table</strong> using these two sequences. We’ll calculate the distances between each point of <strong>Sample</strong> with every points of <strong>Test</strong> and find the optimal match between them.</p>
+</div>
+<p>Let’s create a 2D matrix <strong>Table</strong> using these two sequences. We’ll calculate the distances between each point of <strong>Sample</strong> with every points of <strong>Test</strong> and find the optimal match between them.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+------+------+------+------+------+------+------+------+
@@ -170,7 +183,12 @@ Test   = {1, 1, 2, 2, 3, 5}</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, <strong>Table[i][j]</strong> represents the optimal distance between two sequences if we consider the sequence up to <strong>Sample[i]</strong> and <strong>Test[j]</strong>, considering all the optimal distances we observed before.</p><p>For the first row, if we take no values from <strong>Sample</strong>, the distance between this and <strong>Test</strong> will be <em>infinity</em>. So we put <em>infinity</em> on the first row. Same goes for the first column. If we take no values from <strong>Test</strong>, the distance between this one and <strong>Sample</strong> will also be infinity. And the distance between <strong>0</strong> and <strong>0</strong> will simply be <strong>0</strong>. We get,</p>
+</div>
+<p>Here, <strong>Table[i][j]</strong> represents the optimal distance between two sequences if we consider the sequence up to <strong>Sample[i]</strong> and <strong>Test[j]</strong>, considering all the optimal distances we observed before.
+</p>
+<p>For the first row, if we take no values from <strong>Sample</strong>, the distance between this and <strong>Test</strong> will be <em>infinity</em>. So we put <em>infinity</em> on the first row. Same goes for the first column. If we take no values from <strong>Test</strong>, the distance between this one and <strong>Sample</strong> will also be infinity. And the distance between <strong>0</strong> and <strong>0</strong> will simply be <strong>0</strong>. We get,
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+------+------+------+------+------+------+------+------+
@@ -196,7 +214,10 @@ Test   = {1, 1, 2, 2, 3, 5}</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now for each step, we’ll consider the distance between each points in concern and add it with the minimum distance we found so far. This will give us the optimal distance of two sequences up to that position. Our formula will be,</p>
+</div>
+<p>Now for each step, we’ll consider the distance between each points in concern and add it with the minimum distance we found so far. This will give us the optimal distance of two sequences up to that position. Our formula will be,
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Table[i][j] := d(i, j) + min(Table[i-1][j], Table[i-1][j-1], Table[i][j-1])</pre>
@@ -204,7 +225,10 @@ Test   = {1, 1, 2, 2, 3, 5}</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For the first one, <strong>d(1, 1)</strong> = <strong>0</strong>, <strong>Table[0][0]</strong> represents the minimum. So the value of <strong>Table[1][1]</strong> will be <strong>0</strong> + <strong>0</strong> = <strong>0</strong>. For the second one, <strong>d(1, 2)</strong> = <strong>0</strong>. <strong>Table[1][1]</strong> represents the minimum. The value will be: <strong>Table[1][2]</strong> = <strong>0</strong> + <strong>0</strong> = <strong>0</strong>. If we continue this way, after finishing, the table will look like:</p>
+</div>
+<p>For the first one, <strong>d(1, 1)</strong> = <strong>0</strong>, <strong>Table[0][0]</strong> represents the minimum. So the value of <strong>Table[1][1]</strong> will be <strong>0</strong> + <strong>0</strong> = <strong>0</strong>. For the second one, <strong>d(1, 2)</strong> = <strong>0</strong>. <strong>Table[1][1]</strong> represents the minimum. The value will be: <strong>Table[1][2]</strong> = <strong>0</strong> + <strong>0</strong> = <strong>0</strong>. If we continue this way, after finishing, the table will look like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+------+------+------+------+------+------+------+------+
@@ -230,7 +254,12 @@ Test   = {1, 1, 2, 2, 3, 5}</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The value at <strong>Table[7][6]</strong> represents the maximum distance between these two given sequences. Here <strong>1</strong> represents the maximum distance between <strong>Sample</strong> and <strong>Test</strong> is <strong>1</strong>.</p><p>Now if we backtrack from the last point, all the way back towards the starting <strong>(0, 0)</strong> point, we get a long line that moves horizontally, vertically and diagonally. Our backtracking procedure will be:</p>
+</div>
+<p>The value at <strong>Table[7][6]</strong> represents the maximum distance between these two given sequences. Here <strong>1</strong> represents the maximum distance between <strong>Sample</strong> and <strong>Test</strong> is <strong>1</strong>.
+</p>
+<p>Now if we backtrack from the last point, all the way back towards the starting <strong>(0, 0)</strong> point, we get a long line that moves horizontally, vertically and diagonally. Our backtracking procedure will be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if Table[i-1][j-1] &lt;= Table[i-1][j] and Table[i-1][j-1] &lt;= Table[i][j-1]
@@ -245,7 +274,21 @@ end if</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We’ll continue this till we reach <strong>(0, 0)</strong>. Each move has its own meaning:</p><ul id="09861f79-deee-440f-90d1-cd79239505d4" class="bulleted-list"><li>A horizontal move represents deletion. That means our <strong>Test</strong> sequence accelerated during this interval.</li><li>A vertical move represents insertion. That means out <strong>Test</strong> sequence decelerated during this interval.</li><li>A diagonal move represents match. During this period <strong>Test</strong> and <strong>Sample</strong> were same.<img class="img" src="/img/537fe8cd5d3ef38a68456954c491e5045a4518e7.png"></li></ul><p>Our pseudo-code will be:</p>
+</div>
+<p>We’ll continue this till we reach <strong>(0, 0)</strong>. Each move has its own meaning:
+</p>
+  <ul id="09861f79-deee-440f-90d1-cd79239505d4" class="bulleted-list">
+    <li>A horizontal move represents deletion. That means our <strong>Test</strong> sequence accelerated during this interval.
+    </li>
+    <li>A vertical move represents insertion. That means out <strong>Test</strong> sequence decelerated during this interval.
+    </li>
+    <li>A diagonal move represents match. During this period <strong>Test</strong> and <strong>Sample</strong> were same.
+    <img class="img" src="/img/537fe8cd5d3ef38a68456954c491e5045a4518e7.png">
+    </li>
+  </ul>
+<p>Our pseudo-code will be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure DTW(Sample, Test):
@@ -272,7 +315,21 @@ Return Table[n + 1][m + 1]</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We can also add a locality constraint. That is, we require that if <code>Sample[i]</code> is matched with <code>Test[j]</code>, then <code>|i - j|</code> is no larger than <strong>w</strong>, a window parameter.</p><p><strong>Complexity:</strong></p><p>The complexity of computing DTW is <strong>O(m * n)</strong> where <strong>m</strong> and <strong>n</strong> represent the length of each sequence. Faster techniques for computing DTW include PrunedDTW, SparseDTW and FastDTW.</p><p><strong>Applications:</strong></p><ul id="0303a45d-085a-41b8-a8d8-f975ba0fd201" class="bulleted-list"><li>Spoken word recognition</li><li>Correlation Power Analysis</li></ul>
+</div>
+<p>We can also add a locality constraint. That is, we require that if <code>Sample[i]</code> is matched with <code>Test[j]</code>, then <code>|i - j|</code> is no larger than <strong>w</strong>, a window parameter.
+</p>
+<p><strong>Complexity:</strong>
+</p>
+<p>The complexity of computing DTW is <strong>O(m * n)</strong> where <strong>m</strong> and <strong>n</strong> represent the length of each sequence. Faster techniques for computing DTW include PrunedDTW, SparseDTW and FastDTW.
+</p>
+<p><strong>Applications:</strong>
+</p>
+  <ul id="0303a45d-085a-41b8-a8d8-f975ba0fd201" class="bulleted-list">
+    <li>Spoken word recognition
+    </li>
+    <li>Correlation Power Analysis
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

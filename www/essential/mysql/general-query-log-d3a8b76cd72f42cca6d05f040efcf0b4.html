@@ -127,7 +127,15 @@
 </div>
 
 
-      <p>The General Query Log contains a listing of general information from client connects, disconnects, and queries. It is invaluable for debugging, yet it poses as a hindrance to performance (citation?).</p><p>An example view of a General Query Log is seen below:</p><img class="img" src="/img/c05e72c4a4df99f0314dbe7dd3d8cfc0d546030e.jpg"><p>To determine if the General Log is currently being captured:</p>
+      
+<p>The General Query Log contains a listing of general information from client connects, disconnects, and queries. It is invaluable for debugging, yet it poses as a hindrance to performance (citation?).
+</p>
+<p>An example view of a General Query Log is seen below:
+</p>
+<img class="img" src="/img/c05e72c4a4df99f0314dbe7dd3d8cfc0d546030e.jpg">
+<p>To determine if the General Log is currently being captured:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT @@general_log; -- 1 = Capture is active; 0 = It is not.</pre>
@@ -135,7 +143,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To determine the filename of the capture file:</p>
+</div>
+<p>To determine the filename of the capture file:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT @@general_log_file; -- Full path to capture file</pre>
@@ -143,7 +154,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If the fullpath to the file is not shown, the file exists in the <code>datadir</code>.</p><p>Windows example:</p>
+</div>
+<p>If the fullpath to the file is not shown, the file exists in the <code>datadir</code>.
+</p>
+<p>Windows example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+----------------------------------------------------------+
@@ -155,7 +171,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Linux:</p>
+</div>
+<p>Linux:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+-----------------------------------+
@@ -167,7 +186,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When changes are made to the <code>general_log_file</code> GLOBAL variable, the new log is saved in the <code>datadir</code>. However, the fullpath may no longer be reflected by examining the variable.</p><p>In the case of no entry for <code>general_log_file</code> in the configuration file, it will default to <code>@@hostname</code>.log in the <code>datadir</code>.</p><p>Best practices are to turn OFF capture. Save the log file to a backup directory with a filename reflecting the begin/end datetime of the capture. Deleting the prior file if a filesystem <em>move</em> did not occur of that file. Establish a new filename for the log file and turn capture ON (all show below). Best practices also include a careful determination if you even want to capture at the moment. Typically, capture is ON for debugging purposes only.</p><p>A typical filesystem filename for a backed-up log might be:</p>
+</div>
+<p>When changes are made to the <code>general_log_file</code> GLOBAL variable, the new log is saved in the <code>datadir</code>. However, the fullpath may no longer be reflected by examining the variable.
+</p>
+<p>In the case of no entry for <code>general_log_file</code> in the configuration file, it will default to <code>@@hostname</code>.log in the <code>datadir</code>.
+</p>
+<p>Best practices are to turn OFF capture. Save the log file to a backup directory with a filename reflecting the begin/end datetime of the capture. Deleting the prior file if a filesystem <em>move</em> did not occur of that file. Establish a new filename for the log file and turn capture ON (all show below). Best practices also include a careful determination if you even want to capture at the moment. Typically, capture is ON for debugging purposes only.
+</p>
+<p>A typical filesystem filename for a backed-up log might be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/LogBackup/GeneralLog_20160802_1520_to_20160802_1815.log</pre>
@@ -175,7 +203,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>where the date and time are part to the filename as a range.</p><p>For Windows note the following sequence with setting changes.</p>
+</div>
+<p>where the date and time are part to the filename as a range.
+</p>
+<p>For Windows note the following sequence with setting changes.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT @@general_log; -- 0. Not being captured
@@ -188,7 +221,12 @@ SET GLOBAL general_log=0; -- Turn logging off</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Linux is similar. These would represent dynamic changes. Any restart of the server would pick up configuration file settings.</p><p>As for the configuration file, consider the following relevant variable settings:</p>
+</div>
+<p>Linux is similar. These would represent dynamic changes. Any restart of the server would pick up configuration file settings.
+</p>
+<p>As for the configuration file, consider the following relevant variable settings:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[mysqld]
@@ -198,7 +236,11 @@ general_log      = 1</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In addition, the variable <code>log_output</code> can be configured for <code>TABLE</code> output, not just <code>FILE</code>. For that, please see <a href="http://dev.mysql.com/doc/refman/5.7/en/log-destinations.html">Destinations</a>.</p><p>Please see the MySQL Manual Page <a href="http://dev.mysql.com/doc/refman/5.7/en/query-log.html">The General Query Log</a>.</p>
+</div>
+<p>In addition, the variable <code>log_output</code> can be configured for <code>TABLE</code> output, not just <code>FILE</code>. For that, please see <a href="http://dev.mysql.com/doc/refman/5.7/en/log-destinations.html">Destinations</a>.
+</p>
+<p>Please see the MySQL Manual Page <a href="http://dev.mysql.com/doc/refman/5.7/en/query-log.html">The General Query Log</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

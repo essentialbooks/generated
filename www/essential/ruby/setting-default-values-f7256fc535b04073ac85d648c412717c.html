@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>By default, attempting to lookup the value for a key which does not exist will return <code>nil</code>. You can optionally specify some other value to return (or an action to take) when the hash is accessed with a non-existent key. Although this is referred to as “the default value”, it need not be a single value; it could, for example, be a computed value such as the length of the key.</p><p>The default value of a hash can be passed to its constructor:</p>
+      
+<p>By default, attempting to lookup the value for a key which does not exist will return <code>nil</code>. You can optionally specify some other value to return (or an action to take) when the hash is accessed with a non-existent key. Although this is referred to as “the default value”, it need not be a single value; it could, for example, be a computed value such as the length of the key.
+</p>
+<p>The default value of a hash can be passed to its constructor:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">h = Hash.new(0)
@@ -139,7 +144,10 @@ puts h[:bye] # =&gt; 0 returns default value instead of nil</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A default can also be specified on an already constructed Hash:</p>
+</div>
+<p>A default can also be specified on an already constructed Hash:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">my_hash = { human: 2, animal: 1 }
@@ -149,7 +157,10 @@ my_hash[:plant] # =&gt; 0</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It is important to note that the <strong>default value is not copied</strong> each time a new key is accessed, which can lead to surprising results when the default value is a reference type:</p>
+</div>
+<p>It is important to note that the <strong>default value is not copied</strong> each time a new key is accessed, which can lead to surprising results when the default value is a reference type:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"># Use an empty array as the default value
@@ -164,7 +175,10 @@ authors[:plato] # =&gt; [&#39;The Odyssey&#39;]</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To circumvent this problem, the Hash constructor accepts a block which is executed each time a new key is accessed, and the returned value is used as the default:</p>
+</div>
+<p>To circumvent this problem, the Hash constructor accepts a block which is executed each time a new key is accessed, and the returned value is used as the default:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">authors = Hash.new { [] }
@@ -178,7 +192,10 @@ authors # =&gt; {:homer=&gt;[&#34;The Odyssey&#34;]}</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that above we had to use += instead of &lt;&lt; because the default value is not automatically assigned to the hash; using &lt;&lt; would have added to the array, but authors[:homer] would have remained undefined:</p>
+</div>
+<p>Note that above we had to use += instead of &lt;&lt; because the default value is not automatically assigned to the hash; using &lt;&lt; would have added to the array, but authors[:homer] would have remained undefined:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">authors[:homer] &lt;&lt; &#39;The Odyssey&#39; # [&#39;The Odyssey&#39;]
@@ -188,7 +205,10 @@ authors # =&gt; {}</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In order to be able to assign default values on access, as well as to compute more sophisticated defaults, the default block is passed both the hash and the key:</p>
+</div>
+<p>In order to be able to assign default values on access, as well as to compute more sophisticated defaults, the default block is passed both the hash and the key:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">authors = Hash.new { |hash, key| hash[key] = [] }
@@ -201,7 +221,10 @@ authors # =&gt; {:homer=&gt;[&#34;The Odyssey&#34;], :plato=&gt;[]}</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can also use a default block to take an action and/or return a value dependent on the key (or some other data):</p>
+</div>
+<p>You can also use a default block to take an action and/or return a value dependent on the key (or some other data):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">chars = Hash.new { |hash,key| key.length }
@@ -211,7 +234,10 @@ chars[:test] # =&gt; 4</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can even create more complex hashes:</p>
+</div>
+<p>You can even create more complex hashes:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">page_views = Hash.new { |hash, key| hash[key] = { count: 0, url: key } }
@@ -221,7 +247,10 @@ page_views # =&gt; {&#34;http://example.com&#34;=&gt;{:count=&gt;1, :url=&gt;&#3
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In order to set the default to a Proc on an <em>already-existing</em> hash, use <code>default_proc=</code>:</p>
+</div>
+<p>In order to set the default to a Proc on an <em>already-existing</em> hash, use <code>default_proc=</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">authors = {}

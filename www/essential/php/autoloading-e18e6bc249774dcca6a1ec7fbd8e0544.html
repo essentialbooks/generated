@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>Nobody wants to <code>require</code> or <code>include</code> every time a class or inheritance is used. Because it can be painful and is easy to forget, PHP is offering so called autoloading. If you are already using Composer, read about <a href="https://stackoverflow.com/documentation/php/1053/composer/3397/autoloading-with-composer#t=201607252107257288764">autoloading using Composer</a>.</p><p><strong>What exactly is autoloading?</strong></p><p>The name basically says it all. You do not have to get the file where the requested class is stored in, but PHP <em>auto</em>matically <em>load</em>s it.</p><p><strong>How can I do this in basic PHP without third party code?</strong></p><p>There is the function <a href="https://secure.php.net/manual/function.autoload.php"><code>__autoload</code></a>, but it is considered better practice to use <a href="https://secure.php.net/manual/function.spl-autoload-register.php"><code>spl_autoload_register</code></a>. These functions will be considered by PHP every time a class is not defined within the given space. So adding autoload to an existing project is no problem, as defined classes (via <code>require</code> i.e.) will work like before. For the sake of preciseness, the following examples will use anonymous functions, if you use PHP &lt; 5.3, you can define the function and pass it’s name as argument to <code>spl_autoload_register</code>.</p><p><strong>Examples</strong></p>
+      
+<p>Nobody wants to <code>require</code> or <code>include</code> every time a class or inheritance is used. Because it can be painful and is easy to forget, PHP is offering so called autoloading. If you are already using Composer, read about <a href="https://stackoverflow.com/documentation/php/1053/composer/3397/autoloading-with-composer#t=201607252107257288764">autoloading using Composer</a>.
+</p>
+<p><strong>What exactly is autoloading?</strong>
+</p>
+<p>The name basically says it all. You do not have to get the file where the requested class is stored in, but PHP <em>auto</em>matically <em>load</em>s it.
+</p>
+<p><strong>How can I do this in basic PHP without third party code?</strong>
+</p>
+<p>There is the function <a href="https://secure.php.net/manual/function.autoload.php"><code>__autoload</code></a>, but it is considered better practice to use <a href="https://secure.php.net/manual/function.spl-autoload-register.php"><code>spl_autoload_register</code></a>. These functions will be considered by PHP every time a class is not defined within the given space. So adding autoload to an existing project is no problem, as defined classes (via <code>require</code> i.e.) will work like before. For the sake of preciseness, the following examples will use anonymous functions, if you use PHP &lt; 5.3, you can define the function and pass it’s name as argument to <code>spl_autoload_register</code>.
+</p>
+<p><strong>Examples</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">spl_autoload_register(function ($className) {
@@ -142,7 +155,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The code above simply tries to include a filename with the class name and the appended extension “.php” using <a href="https://secure.php.net/sprintf"><code>sprintf</code></a>. If <code>FooBar</code> needs to be loaded, it looks if <code>FooBar.php</code> exists and if so includes it.</p><p>Of course this can be extended to fit the project’s individual need. If <code>\_</code> inside a class name is used to group, e.g. <code>User_Post</code> and <code>User_Image</code> both refer to <code>User</code>, both classes can be kept in a folder called “User” like so:</p>
+</div>
+<p>The code above simply tries to include a filename with the class name and the appended extension “.php” using <a href="https://secure.php.net/sprintf"><code>sprintf</code></a>. If <code>FooBar</code> needs to be loaded, it looks if <code>FooBar.php</code> exists and if so includes it.
+</p>
+<p>Of course this can be extended to fit the project’s individual need. If <code>\_</code> inside a class name is used to group, e.g. <code>User_Post</code> and <code>User_Image</code> both refer to <code>User</code>, both classes can be kept in a folder called “User” like so:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">spl_autoload_register(function ($className) {
@@ -158,7 +176,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The class <code>User_Post</code> will now be loaded from “User/Post.php”, etc.</p><p><code>spl_autoload_register</code> can be tailored to various needs. All your files with classes are named “class.CLASSNAME.php”? No problem. Various nesting (<code>User_Post_Content</code> =&gt; “User/Post/Content.php”)? No problem either.</p><p>If you want a more elaborate autoloading mechanism - and still don’t want to include Composer - you can work without adding third party libraries.</p>
+</div>
+<p>The class <code>User_Post</code> will now be loaded from “User/Post.php”, etc.
+</p>
+<p><code>spl_autoload_register</code> can be tailored to various needs. All your files with classes are named “class.CLASSNAME.php”? No problem. Various nesting (<code>User_Post_Content</code> =&gt; “User/Post/Content.php”)? No problem either.
+</p>
+<p>If you want a more elaborate autoloading mechanism - and still don’t want to include Composer - you can work without adding third party libraries.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">spl_autoload_register(function ($className) {
@@ -189,7 +214,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="2eded00f-c513-417c-bd72-4a562d3a09d4"/><p>Using autoloaders like this, you can happily write code like this:</p>
+</div>
+<hr id="2eded00f-c513-417c-bd72-4a562d3a09d4"/>
+<p>Using autoloaders like this, you can happily write code like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">require_once &#39;./autoload.php&#39;; // where spl_autoload_register is defined
@@ -199,7 +228,10 @@ $foo = new Foo_Bar(new Hello_World());</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Using classes:</p>
+</div>
+<p>Using classes:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Foo_Bar extends Foo {}</pre>
@@ -208,6 +240,7 @@ $foo = new Foo_Bar(new Hello_World());</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Hello_World implements Demo_Classes {}</pre>
@@ -215,7 +248,9 @@ $foo = new Foo_Bar(new Hello_World());</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>These examples will be include classes from <code>foo/bar.php</code>, <code>foo.php</code>, <code>hello/world.php</code> and <code>demo/classes.php</code>.</p>
+</div>
+<p>These examples will be include classes from <code>foo/bar.php</code>, <code>foo.php</code>, <code>hello/world.php</code> and <code>demo/classes.php</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

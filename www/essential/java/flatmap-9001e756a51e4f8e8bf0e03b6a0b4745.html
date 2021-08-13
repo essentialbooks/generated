@@ -127,7 +127,16 @@
 </div>
 
 
-      <p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html#flatMap-java.util.function.Function-"><code>flatMap</code></a> is similar to <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html#map-java.util.function.Function-"><code>map</code></a>. The difference is described by the javadoc as follows:</p><blockquote id="feb8931c-0038-4bdd-b474-baba501b4105" class="">This method is similar to map(Function), but the provided mapper is one whose result is already an Optional, and if invoked, flatMap does not wrap it with an additional Optional.</blockquote><p>In other words, when you chain a method call that returns an <code>Optional</code>, using <code>Optional.flatMap</code> avoids creating nested <code>Optionals</code>.</p><p>For example, given the following classes:</p>
+      
+<p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html#flatMap-java.util.function.Function-"><code>flatMap</code></a> is similar to <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html#map-java.util.function.Function-"><code>map</code></a>. The difference is described by the javadoc as follows:
+</p>
+<blockquote id="feb8931c-0038-4bdd-b474-baba501b4105" class="">This method is similar to map(Function), but the provided mapper is one whose result is already an Optional, and if invoked, flatMap does not wrap it with an additional Optional.
+</blockquote>
+<p>In other words, when you chain a method call that returns an <code>Optional</code>, using <code>Optional.flatMap</code> avoids creating nested <code>Optionals</code>.
+</p>
+<p>For example, given the following classes:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Foo {
@@ -142,7 +151,10 @@ public class Bar {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you use <code>Optional.map</code>, you will get a nested <code>Optional</code>; i.e. <code>Optional&lt;Optional&lt;Bar&gt;&gt;</code>.</p>
+</div>
+<p>If you use <code>Optional.map</code>, you will get a nested <code>Optional</code>; i.e. <code>Optional&lt;Optional&lt;Bar&gt;&gt;</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Optional&lt;Optional&lt;Bar&gt;&gt; nestedOptionalBar =
@@ -152,7 +164,10 @@ public class Bar {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, if you use <code>Optional.flatMap</code>, you will get a simple <code>Optional</code>; i.e. <code>Optional&lt;Bar&gt;</code>.</p>
+</div>
+<p>However, if you use <code>Optional.flatMap</code>, you will get a simple <code>Optional</code>; i.e. <code>Optional&lt;Bar&gt;</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Optional&lt;Bar&gt; optionalBar =

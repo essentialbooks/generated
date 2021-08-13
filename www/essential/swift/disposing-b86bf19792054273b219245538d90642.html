@@ -127,7 +127,24 @@
 </div>
 
 
-      <p>After the subscription was created, it is important to manage its correct deallocation.</p><p>The docs told us that</p><blockquote id="894a8c62-6a2b-44fc-a9c9-04b8b8d92329" class="">If a sequence terminates in finite time, not calling dispose or not using addDisposableTo(disposeBag) won’t cause any permanent resource leaks. However, those resources will be used until the sequence completes, either by finishing production of elements or returning an error.</blockquote><p>There are two ways of deallocate resources.</p><ol id="b8706c0a-c96f-46fc-bbaf-a84febfda69f" class="numbered-list" start="1"><li>Using <code>disposeBag</code>s and <code>addDisposableTo</code> operator.</li><li>Using <code>takeUntil</code> operator.</li></ol><p>In the first case you manually pass the subscription to the <code>DisposeBag</code> object, which correctly clears all taken memory.</p>
+      
+<p>After the subscription was created, it is important to manage its correct deallocation.
+</p>
+<p>The docs told us that
+</p>
+<blockquote id="894a8c62-6a2b-44fc-a9c9-04b8b8d92329" class="">If a sequence terminates in finite time, not calling dispose or not using addDisposableTo(disposeBag) won’t cause any permanent resource leaks. However, those resources will be used until the sequence completes, either by finishing production of elements or returning an error.
+</blockquote>
+<p>There are two ways of deallocate resources.
+</p>
+  <ol id="b8706c0a-c96f-46fc-bbaf-a84febfda69f" class="numbered-list" start="1">
+    <li>Using <code>disposeBag</code>s and <code>addDisposableTo</code> operator.
+    </li>
+    <li>Using <code>takeUntil</code> operator.
+    </li>
+  </ol>
+<p>In the first case you manually pass the subscription to the <code>DisposeBag</code> object, which correctly clears all taken memory.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let bag = DisposeBag()
@@ -138,7 +155,10 @@ Observable.just(1).subscribeNext {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You don’t actually need to create <code>DisposeBag</code>s in every class that you create, just take a look at <em>RxSwift Community</em>’s project named <a href="https://github.com/RxSwiftCommunity/NSObject-Rx">NSObject+Rx</a>. Using the framework the code above can be rewritten as follows:</p>
+</div>
+<p>You don’t actually need to create <code>DisposeBag</code>s in every class that you create, just take a look at <em>RxSwift Community</em>’s project named <a href="https://github.com/RxSwiftCommunity/NSObject-Rx">NSObject+Rx</a>. Using the framework the code above can be rewritten as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Observable.just(1).subscribeNext { 
@@ -148,7 +168,10 @@ Observable.just(1).subscribeNext {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In the second case, if the subscription time coincides with the <code>self</code> object lifetime, it is possible to implement disposing using <code>takeUntil(rx_deallocated)</code>:</p>
+</div>
+<p>In the second case, if the subscription time coincides with the <code>self</code> object lifetime, it is possible to implement disposing using <code>takeUntil(rx_deallocated)</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let _ = sequence

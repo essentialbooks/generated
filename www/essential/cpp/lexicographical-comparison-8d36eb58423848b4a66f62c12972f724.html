@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Two <code>std::string</code>s can be compared lexicographically using the operators <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, and <code>&gt;=</code>:</p>
+      
+<p>Two <code>std::string</code>s can be compared lexicographically using the operators <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, and <code>&gt;=</code>:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str1</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span><span class="p">;</span>
@@ -144,7 +147,36 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>All these functions use the underlying <code>std::string::compare()</code> method to perform the comparison, and return for convenience boolean values. The operation of these functions may be interpreted as follows, regardless of the actual implementation:</p><ul id="b00b1da9-236a-41b1-b65c-64602cedc979" class="bulleted-list"><li>operator<code>==</code>:</li></ul><p>If <code>str1.length() == str2.length()</code> and each character pair matches, then returns <code>true</code>, otherwise returns <code>false</code>.</p><ul id="9fb27032-bfa3-4e64-b7d7-aedc67823e14" class="bulleted-list"><li>operator<code>!=</code>:<p>If <code>str1.length() != str2.length()</code> or one character pair doesn&#x27;t match, returns <code>true</code>, otherwise it returns <code>false</code>.</p></li><li>operator<code>&lt;</code> or operator<code>&gt;</code>:</li></ul><p>Finds the first different character pair, compares them then returns the boolean result.</p><ul id="4c980c3f-cc03-4e01-940b-dbf1e19e9dc0" class="bulleted-list"><li>operator<code>&lt;=</code> or operator<code>&gt;=</code>:</li></ul><p>Finds the first different character pair, compares them then returns the boolean result.</p><p><em><strong>Note:</strong></em> The term <strong>character pair</strong> means the corresponding characters in both strings of the same positions. For better understanding, if two example strings are <code>str1</code> and <code>str2</code>, and their lengths are <code>n</code> and <code>m</code> respectively, then character pairs of both strings means each <code>str1[i]</code> and <code>str2[i]</code> pairs where <em>i = 0, 1, 2, …, max(n,m)</em>. If for any <em>i</em> where the corresponding character does not exist, that is, when <em>i</em> is greater than or equal to <code>n</code> or <code>m</code>, it would be considered as the lowest value.</p><p>Here is an example of using <code>\&lt;</code>:</p>
+</div>
+<p>All these functions use the underlying <code>std::string::compare()</code> method to perform the comparison, and return for convenience boolean values. The operation of these functions may be interpreted as follows, regardless of the actual implementation:
+</p>
+  <ul id="b00b1da9-236a-41b1-b65c-64602cedc979" class="bulleted-list">
+    <li>operator<code>==</code>:
+    </li>
+  </ul>
+<p>If <code>str1.length() == str2.length()</code> and each character pair matches, then returns <code>true</code>, otherwise returns <code>false</code>.
+</p>
+  <ul id="9fb27032-bfa3-4e64-b7d7-aedc67823e14" class="bulleted-list">
+    <li>operator<code>!=</code>:
+    <p>If <code>str1.length() != str2.length()</code> or one character pair doesn&#x27;t match, returns <code>true</code>, otherwise it returns <code>false</code>.
+    </p>
+    </li>
+    <li>operator<code>&lt;</code> or operator<code>&gt;</code>:
+    </li>
+  </ul>
+<p>Finds the first different character pair, compares them then returns the boolean result.
+</p>
+  <ul id="4c980c3f-cc03-4e01-940b-dbf1e19e9dc0" class="bulleted-list">
+    <li>operator<code>&lt;=</code> or operator<code>&gt;=</code>:
+    </li>
+  </ul>
+<p>Finds the first different character pair, compares them then returns the boolean result.
+</p>
+<p><em><strong>Note:</strong></em> The term <strong>character pair</strong> means the corresponding characters in both strings of the same positions. For better understanding, if two example strings are <code>str1</code> and <code>str2</code>, and their lengths are <code>n</code> and <code>m</code> respectively, then character pairs of both strings means each <code>str1[i]</code> and <code>str2[i]</code> pairs where <em>i = 0, 1, 2, …, max(n,m)</em>. If for any <em>i</em> where the corresponding character does not exist, that is, when <em>i</em> is greater than or equal to <code>n</code> or <code>m</code>, it would be considered as the lowest value.
+</p>
+<p>Here is an example of using <code>\&lt;</code>:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str1</span> <span class="o">=</span> <span class="s">&#34;Barr&#34;</span><span class="p">;</span>
@@ -156,7 +188,19 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The steps are as follows:</p><ol id="6e27e207-f428-4108-983f-281b8300d61d" class="numbered-list" start="1"><li>Compare the first characters, <code>&#x27;B&#x27; == &#x27;B&#x27;</code> - move on.</li><li>Compare the second characters, <code>&#x27;a&#x27; == &#x27;a&#x27;</code> - move on.</li><li>Compare the third characters, <code>&#x27;r&#x27; == &#x27;r&#x27;</code> - move on.</li><li>The <code>str2</code> range is now exhausted, while the <code>str1</code> range still has characters. Thus, <code>str2 &lt; str1</code>.</li></ol>
+</div>
+<p>The steps are as follows:
+</p>
+  <ol id="6e27e207-f428-4108-983f-281b8300d61d" class="numbered-list" start="1">
+    <li>Compare the first characters, <code>&#x27;B&#x27; == &#x27;B&#x27;</code> - move on.
+    </li>
+    <li>Compare the second characters, <code>&#x27;a&#x27; == &#x27;a&#x27;</code> - move on.
+    </li>
+    <li>Compare the third characters, <code>&#x27;r&#x27; == &#x27;r&#x27;</code> - move on.
+    </li>
+    <li>The <code>str2</code> range is now exhausted, while the <code>str1</code> range still has characters. Thus, <code>str2 &lt; str1</code>.
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

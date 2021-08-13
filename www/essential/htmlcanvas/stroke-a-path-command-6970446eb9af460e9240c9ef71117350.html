@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="nx">context</span><span class="p">.</span><span class="nx">stroke</span><span class="p">()</span>
@@ -136,7 +137,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Causes the perimeter of the Path to be stroked according to the current <code>context.strokeStyle</code> and the stroked Path is visually drawn onto the canvas.</p><p>Prior to executing <code>context.stroke</code> (or <code>context.fill</code>) the Path exists in memory and is not yet visually drawn on the canvas.</p><h1 id="af198083-d8b0-4e40-b780-e1026a9914e7" class="">The unusual way strokes are drawn<a class="header-anchor" href="#af198083-d8b0-4e40-b780-e1026a9914e7" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Consider this example Path that draws a 1 pixel black line from <code>[0,5]</code> to <code>[5,5]</code>:</p>
+</div>
+<p>Causes the perimeter of the Path to be stroked according to the current <code>context.strokeStyle</code> and the stroked Path is visually drawn onto the canvas.
+</p>
+<p>Prior to executing <code>context.stroke</code> (or <code>context.fill</code>) the Path exists in memory and is not yet visually drawn on the canvas.
+</p>
+  <h1 id="af198083-d8b0-4e40-b780-e1026a9914e7" class="">The unusual way strokes are drawn
+  <a class="header-anchor" href="#af198083-d8b0-4e40-b780-e1026a9914e7" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Consider this example Path that draws a 1 pixel black line from <code>[0,5]</code> to <code>[5,5]</code>:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="c1">// draw a 1 pixel black line from [0,5] to [5,5]
@@ -151,7 +162,30 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Question:</strong> What does the browser actually draw on the canvas?</p><p><em>You probably expect to get 6 black pixels on y=5</em></p><img class="img" src="/img/93d551ad8bf29b2c272c8d71b221212a339edc0d.png"><p>But(!) … Canvas always draws strokes half-way to either side of the it’s defined path!</p><p>So since the line is defined at <code>y==5.0</code> Canvas wants to draw the line between <code>y==4.5</code> and <code>y==5.5</code></p><img class="img" src="/img/e66ac28fc9706989b217d480b2d7af24156d5da7.png"><p>But, again(!) … The computer display cannot draw half-pixels!</p><p>So what is to be done with the undesired half-pixels (shown in blue below)?</p><img class="img" src="/img/4867064d6a64ada878c3dbb2f314545949bbb474.png"><p><strong>The answer</strong> is that Canvas actually orders the display to draw a 2 pixel wide line from <code>4.0</code> to <code>6.0</code>. It also colors the line lighter than the defined <code>black</code>. This strange drawing behavior is “anti-aliasing” and it helps Canvas avoid drawing strokes that look jagged.</p><img class="img" src="/img/57ee7f4fd58ceb50f6474a1658ad584990eaa0e6.png"><p><strong>An adjusting trick that ONLY works for exactly horizontal and vertical strokes</strong></p><p>You can get a 1 pixel solid black line by specifying the line be drawn on the half-pixel:</p>
+</div>
+<p><strong>Question:</strong> What does the browser actually draw on the canvas?
+</p>
+<p><em>You probably expect to get 6 black pixels on y=5</em>
+</p>
+<img class="img" src="/img/93d551ad8bf29b2c272c8d71b221212a339edc0d.png">
+<p>But(!) … Canvas always draws strokes half-way to either side of the it’s defined path!
+</p>
+<p>So since the line is defined at <code>y==5.0</code> Canvas wants to draw the line between <code>y==4.5</code> and <code>y==5.5</code>
+</p>
+<img class="img" src="/img/e66ac28fc9706989b217d480b2d7af24156d5da7.png">
+<p>But, again(!) … The computer display cannot draw half-pixels!
+</p>
+<p>So what is to be done with the undesired half-pixels (shown in blue below)?
+</p>
+<img class="img" src="/img/4867064d6a64ada878c3dbb2f314545949bbb474.png">
+<p><strong>The answer</strong> is that Canvas actually orders the display to draw a 2 pixel wide line from <code>4.0</code> to <code>6.0</code>. It also colors the line lighter than the defined <code>black</code>. This strange drawing behavior is “anti-aliasing” and it helps Canvas avoid drawing strokes that look jagged.
+</p>
+<img class="img" src="/img/57ee7f4fd58ceb50f6474a1658ad584990eaa0e6.png">
+<p><strong>An adjusting trick that ONLY works for exactly horizontal and vertical strokes</strong>
+</p>
+<p>You can get a 1 pixel solid black line by specifying the line be drawn on the half-pixel:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="nx">context</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">5.5</span><span class="p">);</span>
@@ -161,7 +195,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><img class="img" src="/img/689307dc8d0da75dda032a00a492d56ac4c64caa.png"><p>Example code using <code>context.stroke()</code> to draw a stroked Path on the canvas:</p><img class="img" src="/img/72148460e682322fe809dbf26d228922e15dab86.png">
+</div>
+<img class="img" src="/img/689307dc8d0da75dda032a00a492d56ac4c64caa.png">
+<p>Example code using <code>context.stroke()</code> to draw a stroked Path on the canvas:
+</p>
+<img class="img" src="/img/72148460e682322fe809dbf26d228922e15dab86.png">
+
 <div class="code-box lang-HTML">
 	<div>
 	<pre class="chroma"><span class="cp">&lt;!doctype html&gt;</span>

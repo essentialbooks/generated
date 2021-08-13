@@ -127,7 +127,50 @@
 </div>
 
 
-      <p>Static analysis is the technique in which on checks the code for patterns linked to known bugs. Using this technique is less time consuming than a code review, though, its checks are only limited to those programmed in the tool.</p><p>Checks can include the incorrect semi-colon behind the if-statement (<code>if (var);</code>) till advanced graph algorithms which determine if a variable is not initialized.</p><h2 id="4694368a-3eeb-41b8-834b-228161c62fdd" class="">Compiler warnings<a class="header-anchor" href="#4694368a-3eeb-41b8-834b-228161c62fdd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Enabling static analysis is easy, the most simplistic version is already build-in in your compiler:</p><ul id="7ec4313d-b114-4a87-a4d0-b85111c2bac7" class="bulleted-list"><li><a href="https://clang.llvm.org/docs/DiagnosticsReference.html"><code>clang++ -Wall -Weverything -Werror ...</code></a></li><li><a href="https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html"><code>g++ -Wall -Weverything -Werror ...</code></a></li><li><a href="https://docs.microsoft.com/en-us/cpp/build/reference/compiler-option-warning-level"><code>cl.exe /W4 /WX ...</code></a></li></ul><p>If you enable these options, you will notice that each compiler will find bugs the others don’t and that you will get errors on techniques which might be valid or valid in a specific context. <code>while (staticAtomicBool);</code> might be acceptable even if <code>while (localBool);</code> ain’t.</p><p>So unlike code review, you are fighting a tool which understands your code, tells you a lot of useful bugs and sometimes disagrees with you. In this last case, you might have to suppress the warning locally.</p><p>As the options above enable all warnings, they might enable warnings you don’t want. (Why should your code be C++98 compatible?) If so, you can simply disable that specific warning:</p><ul id="178feb62-c202-492c-96e6-2c8b0ebde387" class="bulleted-list"><li><code>clang++ -Wall -Weverything -Werror -Wno-errortoaccept ...</code></li><li><code>g++ -Wall -Weverything -Werror -Wno-errortoaccept ...</code></li><li><code>cl.exe /W4 /WX /wd&lt;no of warning&gt;...</code></li></ul><p>Where compiler warnings assist you during development, they slow down compilation quite a bit. That is why you might not always want to enable them by default. Either you run them by default or you enable some continuous integration with the more expensive checks (or all of them).</p><h2 id="3d1cb8c6-5fb6-48ea-90a3-3c0ac58d2f6e" class="">External tools<a class="header-anchor" href="#3d1cb8c6-5fb6-48ea-90a3-3c0ac58d2f6e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>If you decide to have some continuous integration, the use of other tools ain’t such a stretch. A tool like <a href="http://clang.llvm.org/extra/clang-tidy/">clang-tidy</a> has an <a href="http://clang.llvm.org/extra/clang-tidy/checks/list.html">list of checks</a> which covers a wide range of issues, some examples:</p><ul id="cb8f85a1-df32-4de0-b77e-cb7d530444bc" class="bulleted-list"><li>Actual bugs</li></ul>
+      
+<p>Static analysis is the technique in which on checks the code for patterns linked to known bugs. Using this technique is less time consuming than a code review, though, its checks are only limited to those programmed in the tool.
+</p>
+<p>Checks can include the incorrect semi-colon behind the if-statement (<code>if (var);</code>) till advanced graph algorithms which determine if a variable is not initialized.
+</p>
+  <h2 id="4694368a-3eeb-41b8-834b-228161c62fdd" class="">Compiler warnings
+  <a class="header-anchor" href="#4694368a-3eeb-41b8-834b-228161c62fdd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Enabling static analysis is easy, the most simplistic version is already build-in in your compiler:
+</p>
+  <ul id="7ec4313d-b114-4a87-a4d0-b85111c2bac7" class="bulleted-list">
+    <li><a href="https://clang.llvm.org/docs/DiagnosticsReference.html"><code>clang++ -Wall -Weverything -Werror ...</code></a>
+    </li>
+    <li><a href="https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html"><code>g++ -Wall -Weverything -Werror ...</code></a>
+    </li>
+    <li><a href="https://docs.microsoft.com/en-us/cpp/build/reference/compiler-option-warning-level"><code>cl.exe /W4 /WX ...</code></a>
+    </li>
+  </ul>
+<p>If you enable these options, you will notice that each compiler will find bugs the others don’t and that you will get errors on techniques which might be valid or valid in a specific context. <code>while (staticAtomicBool);</code> might be acceptable even if <code>while (localBool);</code> ain’t.
+</p>
+<p>So unlike code review, you are fighting a tool which understands your code, tells you a lot of useful bugs and sometimes disagrees with you. In this last case, you might have to suppress the warning locally.
+</p>
+<p>As the options above enable all warnings, they might enable warnings you don’t want. (Why should your code be C++98 compatible?) If so, you can simply disable that specific warning:
+</p>
+  <ul id="178feb62-c202-492c-96e6-2c8b0ebde387" class="bulleted-list">
+    <li><code>clang++ -Wall -Weverything -Werror -Wno-errortoaccept ...</code>
+    </li>
+    <li><code>g++ -Wall -Weverything -Werror -Wno-errortoaccept ...</code>
+    </li>
+    <li><code>cl.exe /W4 /WX /wd&lt;no of warning&gt;...</code>
+    </li>
+  </ul>
+<p>Where compiler warnings assist you during development, they slow down compilation quite a bit. That is why you might not always want to enable them by default. Either you run them by default or you enable some continuous integration with the more expensive checks (or all of them).
+</p>
+  <h2 id="3d1cb8c6-5fb6-48ea-90a3-3c0ac58d2f6e" class="">External tools
+  <a class="header-anchor" href="#3d1cb8c6-5fb6-48ea-90a3-3c0ac58d2f6e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>If you decide to have some continuous integration, the use of other tools ain’t such a stretch. A tool like <a href="http://clang.llvm.org/extra/clang-tidy/">clang-tidy</a> has an <a href="http://clang.llvm.org/extra/clang-tidy/checks/list.html">list of checks</a> which covers a wide range of issues, some examples:
+</p>
+  <ul id="cb8f85a1-df32-4de0-b77e-cb7d530444bc" class="bulleted-list">
+    <li>Actual bugs
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">- Prevention of slicing
@@ -136,7 +179,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="a14a80c7-1b4a-403e-9125-d25dc596ab7e" class="bulleted-list"><li>Readability checks</li></ul>
+</div>
+  <ul id="a14a80c7-1b4a-403e-9125-d25dc596ab7e" class="bulleted-list">
+    <li>Readability checks
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">- Misleading indentation
@@ -145,7 +193,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="2f697513-abac-4f3c-a71f-363ed141345f" class="bulleted-list"><li>Modernization checks</li></ul>
+</div>
+  <ul id="2f697513-abac-4f3c-a71f-363ed141345f" class="bulleted-list">
+    <li>Modernization checks
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">- Use make_unique()
@@ -154,7 +207,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="8ad8734a-252f-4fa1-90e9-0c57e24d5585" class="bulleted-list"><li>Performance checks</li></ul>
+</div>
+  <ul id="8ad8734a-252f-4fa1-90e9-0c57e24d5585" class="bulleted-list">
+    <li>Performance checks
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">- Find unneeded copies
@@ -163,7 +221,25 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The list might not be that large, as Clang already has a lot of compiler warnings, however it will bring you one step closer to a high quality code base.</p><h2 id="b3410609-c87b-4462-a642-99877e14c199" class="">Other tools<a class="header-anchor" href="#b3410609-c87b-4462-a642-99877e14c199" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Other tools with similar purpose exist, like:</p><ul id="c175222c-74cd-4f7c-9338-743a94ca7184" class="bulleted-list"><li><a href="https://blogs.msdn.microsoft.com/hkamel/2013/10/24/visual-studio-2013-static-code-analysis-in-depth-what-when-and-how/">the visual studio static analyzer</a> as external tool</li><li><a href="https://blogs.kde.org/2015/11/15/new-cqt-code-checks-clazy-static-analyzer">clazy</a>, a Clang compiler plugin for checking Qt code</li></ul><h2 id="ee3a694d-9985-4077-8bb1-84edb4891e34" class="">Conclusion<a class="header-anchor" href="#ee3a694d-9985-4077-8bb1-84edb4891e34" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>A lot static analysis tools exist for C++, both build-in in the compiler as external tools. Trying them out doesn’t take that much time for easy setups and they will find bugs you might miss in code review.</p>
+</div>
+<p>The list might not be that large, as Clang already has a lot of compiler warnings, however it will bring you one step closer to a high quality code base.
+</p>
+  <h2 id="b3410609-c87b-4462-a642-99877e14c199" class="">Other tools
+  <a class="header-anchor" href="#b3410609-c87b-4462-a642-99877e14c199" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Other tools with similar purpose exist, like:
+</p>
+  <ul id="c175222c-74cd-4f7c-9338-743a94ca7184" class="bulleted-list">
+    <li><a href="https://blogs.msdn.microsoft.com/hkamel/2013/10/24/visual-studio-2013-static-code-analysis-in-depth-what-when-and-how/">the visual studio static analyzer</a> as external tool
+    </li>
+    <li><a href="https://blogs.kde.org/2015/11/15/new-cqt-code-checks-clazy-static-analyzer">clazy</a>, a Clang compiler plugin for checking Qt code
+    </li>
+  </ul>
+  <h2 id="ee3a694d-9985-4077-8bb1-84edb4891e34" class="">Conclusion
+  <a class="header-anchor" href="#ee3a694d-9985-4077-8bb1-84edb4891e34" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>A lot static analysis tools exist for C++, both build-in in the compiler as external tools. Trying them out doesn’t take that much time for easy setups and they will find bugs you might miss in code review.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

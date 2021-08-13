@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>To prevent memory leaks, one should not forget to close an input stream or an output stream whose job is done. This is usually done with a <code>try</code>-<code>catch</code>-<code>finally</code> statement without the <code>catch</code> part:</p>
+      
+<p>To prevent memory leaks, one should not forget to close an input stream or an output stream whose job is done. This is usually done with a <code>try</code>-<code>catch</code>-<code>finally</code> statement without the <code>catch</code> part:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void writeNullBytesToAFile(int count, String filename) throws IOException {
@@ -144,7 +147,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>While the above code might look innocent, it has a flaw that can make debugging impossible. If the line where <code>out</code> is initialized (<code>out = new FileOutputStream(filename)</code>) throws an exception, then <code>out</code> will be <code>null</code> when <code>out.close()</code> is executed, resulting in a nasty <code>NullPointerException</code>!</p><p>To prevent this, simply make sure the stream isn’t <code>null</code> before trying to close it.</p>
+</div>
+<p>While the above code might look innocent, it has a flaw that can make debugging impossible. If the line where <code>out</code> is initialized (<code>out = new FileOutputStream(filename)</code>) throws an exception, then <code>out</code> will be <code>null</code> when <code>out.close()</code> is executed, resulting in a nasty <code>NullPointerException</code>!
+</p>
+<p>To prevent this, simply make sure the stream isn’t <code>null</code> before trying to close it.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void writeNullBytesToAFile(int count, String filename) throws IOException {
@@ -162,7 +170,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>An even better approach is to <code>try</code>-with-resources, since it’ll automatically close the stream with a probability of 0 to throw an NPE without the need of a <code>finally</code> block.</p>
+</div>
+<p>An even better approach is to <code>try</code>-with-resources, since it’ll automatically close the stream with a probability of 0 to throw an NPE without the need of a <code>finally</code> block.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void writeNullBytesToAFile(int count, String filename) throws IOException {

@@ -127,7 +127,32 @@
 </div>
 
 
-      <p>For the most printing clients, is extremely useful to know if a print job has finished or failed.</p><p>The Java Print Service API provide some functionalities to get informed about these scenarios. All we have to do is:</p><ul id="99e7bcf8-abd2-4921-818e-11747d2924d3" class="bulleted-list"><li>provide an implementation for <code>PrintJobListener</code> interface and</li><li>register this implementation at the print job.</li></ul><p>When the print job state changes, we will be notified. We can do anything is needed, for example:</p><ul id="84ce8538-44cf-421b-b412-343b83ca44bb" class="bulleted-list"><li>update a user interface,</li><li>start another business process,</li><li>record something in the database,</li><li>or simply log it.</li></ul><p>In the example bellow, we will log every print job status change:</p>
+      
+<p>For the most printing clients, is extremely useful to know if a print job has finished or failed.
+</p>
+<p>The Java Print Service API provide some functionalities to get informed about these scenarios. All we have to do is:
+</p>
+  <ul id="99e7bcf8-abd2-4921-818e-11747d2924d3" class="bulleted-list">
+    <li>provide an implementation for <code>PrintJobListener</code> interface and
+    </li>
+    <li>register this implementation at the print job.
+    </li>
+  </ul>
+<p>When the print job state changes, we will be notified. We can do anything is needed, for example:
+</p>
+  <ul id="84ce8538-44cf-421b-b412-343b83ca44bb" class="bulleted-list">
+    <li>update a user interface,
+    </li>
+    <li>start another business process,
+    </li>
+    <li>record something in the database,
+    </li>
+    <li>or simply log it.
+    </li>
+  </ul>
+<p>In the example bellow, we will log every print job status change:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import javax.print.event.PrintJobEvent;
@@ -142,6 +167,7 @@ public class LoggerPrintJobListener implements PrintJobListener {
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public void printDataTransferCompleted(PrintJobEvent pje) {
@@ -172,7 +198,10 @@ public void printJobRequiresAttention(PrintJobEvent pje) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Finally, we can add our print job listener implementation on the print job before the print request itself, as follows:</p>
+</div>
+<p>Finally, we can add our print job listener implementation on the print job before the print request itself, as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">DocPrintJob printJob = printService.createPrintJob();
@@ -184,7 +213,14 @@ printJob.print(doc, pras);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="2c4e4f5b-b0bd-4dea-9c26-c60df3cc542e"/><h1 id="8b6f5f91-6bb7-4238-abd1-b27adfb56d59" class="">The <em>PrintJobEvent pje</em> argument<a class="header-anchor" href="#8b6f5f91-6bb7-4238-abd1-b27adfb56d59" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Notice that every method has a <code>PrintJobEvent pje</code> argument. We don’t use it in this example for simplicity purposes, but you can use it to explore the status. For example:</p>
+</div>
+<hr id="2c4e4f5b-b0bd-4dea-9c26-c60df3cc542e"/>
+  <h1 id="8b6f5f91-6bb7-4238-abd1-b27adfb56d59" class="">The <em>PrintJobEvent pje</em> argument
+  <a class="header-anchor" href="#8b6f5f91-6bb7-4238-abd1-b27adfb56d59" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Notice that every method has a <code>PrintJobEvent pje</code> argument. We don’t use it in this example for simplicity purposes, but you can use it to explore the status. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">pje.getPrintJob().getAttributes();</pre>
@@ -192,7 +228,16 @@ printJob.print(doc, pras);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Will return a <code>PrintJobAttributeSet</code> object instance and you can run them in a for-each way.</p><hr id="b113a3f7-f017-4173-8979-c0a4dffbf456"/><h1 id="f238f0ca-df2a-42c5-9070-e5a4aaa5ed4d" class="">Another way to achieve the same goal<a class="header-anchor" href="#f238f0ca-df2a-42c5-9070-e5a4aaa5ed4d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Another option to achieve the same goal is extending the <code>PrintJobAdapter</code> class, as the name says, is an adapter for <code>PrintJobListener</code>. Implementing the interface we compulsorily have to implement all of them. The advantage of this way it’s we need to override only the methods we want. Let’s see how it works:</p>
+</div>
+<p>Will return a <code>PrintJobAttributeSet</code> object instance and you can run them in a for-each way.
+</p>
+<hr id="b113a3f7-f017-4173-8979-c0a4dffbf456"/>
+  <h1 id="f238f0ca-df2a-42c5-9070-e5a4aaa5ed4d" class="">Another way to achieve the same goal
+  <a class="header-anchor" href="#f238f0ca-df2a-42c5-9070-e5a4aaa5ed4d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Another option to achieve the same goal is extending the <code>PrintJobAdapter</code> class, as the name says, is an adapter for <code>PrintJobListener</code>. Implementing the interface we compulsorily have to implement all of them. The advantage of this way it’s we need to override only the methods we want. Let’s see how it works:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import javax.print.event.PrintJobEvent;
@@ -215,7 +260,12 @@ public class LoggerPrintJobAdapter extends PrintJobAdapter {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Notice that we override only some specific methods.</p><p>As the same way in the example implementing the interface <code>PrintJobListener</code>, we add the listener to the print job before sending it to print:</p>
+</div>
+<p>Notice that we override only some specific methods.
+</p>
+<p>As the same way in the example implementing the interface <code>PrintJobListener</code>, we add the listener to the print job before sending it to print:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">printJob.addPrintJobListener(new LoggerPrintJobAdapter());

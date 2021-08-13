@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>The <code>\+</code> symbol can mean three distinct operators in Java:</p><ul id="270ccab1-50b2-4b40-b03c-ffede9bd6c9d" class="bulleted-list"><li>If there is no operand before the <code>\+</code>, then it is the unary Plus operator.</li><li>If there are two operands, and they are both numeric. then it is the binary Addition operator.</li><li>If there are two operands, and at least one of them is a <code>String</code>, then it it the binary Concatenation operator.</li></ul><p>In the simple case, the Concatenation operator joins two strings to give a third string. For example:</p>
+      
+<p>The <code>\+</code> symbol can mean three distinct operators in Java:
+</p>
+  <ul id="270ccab1-50b2-4b40-b03c-ffede9bd6c9d" class="bulleted-list">
+    <li>If there is no operand before the <code>\+</code>, then it is the unary Plus operator.
+    </li>
+    <li>If there are two operands, and they are both numeric. then it is the binary Addition operator.
+    </li>
+    <li>If there are two operands, and at least one of them is a <code>String</code>, then it it the binary Concatenation operator.
+    </li>
+  </ul>
+<p>In the simple case, the Concatenation operator joins two strings to give a third string. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String s1 = &#34;a String&#34;;
@@ -136,7 +149,18 @@ String s2 = &#34;This is &#34; + s1;    // s2 contains &#34;This is a String&#34
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When one of the two operands is not a string, it is converted to a <code>String</code> as follows:</p><ul id="3b3adb4c-e1a4-401a-868a-37b12d8888d8" class="bulleted-list"><li>An operand whose type is a primitive type is converted <em>as if</em> by calling <code>toString()</code> on the boxed value.</li><li>An operand whose type is a reference type is converted by calling the operand’s <code>toString()</code> method. If the operand is <code>null</code>, or if the <code>toString()</code> method returns <code>null</code>, then the string literal <code>&quot;null&quot;</code> is used instead.</li></ul><p>For example:</p>
+</div>
+<p>When one of the two operands is not a string, it is converted to a <code>String</code> as follows:
+</p>
+  <ul id="3b3adb4c-e1a4-401a-868a-37b12d8888d8" class="bulleted-list">
+    <li>An operand whose type is a primitive type is converted <em>as if</em> by calling <code>toString()</code> on the boxed value.
+    </li>
+    <li>An operand whose type is a reference type is converted by calling the operand’s <code>toString()</code> method. If the operand is <code>null</code>, or if the <code>toString()</code> method returns <code>null</code>, then the string literal <code>&quot;null&quot;</code> is used instead.
+    </li>
+  </ul>
+<p>For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int one = 1;
@@ -148,7 +172,12 @@ String s5 = &#34;{1} is &#34; + new int[]{1}; // s5 contains something like
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The explanation for the <code>s5</code> example is that the <code>toString()</code> method on array types is inherited from <code>java.lang.Object</code>, and the behavior is to produce a string that consists of the type name, and the object’s identity hashcode.</p><p>The Concatenation operator is specified to create a new <code>String</code> object, except in the case where the expression is a Constant Expression. In the latter case, the expression is evaluated at compile type, and its runtime value is equivalent to a string literal. This means that there is no runtime overhead in splitting a long string literal like this:</p>
+</div>
+<p>The explanation for the <code>s5</code> example is that the <code>toString()</code> method on array types is inherited from <code>java.lang.Object</code>, and the behavior is to produce a string that consists of the type name, and the object’s identity hashcode.
+</p>
+<p>The Concatenation operator is specified to create a new <code>String</code> object, except in the case where the expression is a Constant Expression. In the latter case, the expression is evaluated at compile type, and its runtime value is equivalent to a string literal. This means that there is no runtime overhead in splitting a long string literal like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String typing = &#34;The quick brown fox &#34; +
@@ -158,7 +187,13 @@ String s5 = &#34;{1} is &#34; + new int[]{1}; // s5 contains something like
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="0c562a16-e9fc-4baa-82ac-229bd70a6e20" class="">Optimization and efficiency<a class="header-anchor" href="#0c562a16-e9fc-4baa-82ac-229bd70a6e20" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>As noted above, with the exception of constant expressions, each string concatenation expression creates a new <code>String</code> object. Consider this code:</p>
+</div>
+  <h2 id="0c562a16-e9fc-4baa-82ac-229bd70a6e20" class="">Optimization and efficiency
+  <a class="header-anchor" href="#0c562a16-e9fc-4baa-82ac-229bd70a6e20" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>As noted above, with the exception of constant expressions, each string concatenation expression creates a new <code>String</code> object. Consider this code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public String stars(int count) {
@@ -172,7 +207,20 @@ String s5 = &#34;{1} is &#34; + new int[]{1}; // s5 contains something like
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In the method above, each iteration of the loop will create a new <code>String</code> that is one character longer than the previous iteration. Each concatenation copies all of the characters in the operand strings to form the new <code>String</code>. Thus, <code>stars(N)</code> will:</p><ul id="350f20b4-267e-4ed0-a6a3-c93d471efd61" class="bulleted-list"><li>create <code>N</code> new <code>String</code> objects, and throw away all but the last one,</li><li>copy <code>N * (N + 1) / 2</code> characters, and</li><li>generate <code>O(N^2)</code> bytes of garbage.</li></ul><p>This is very expensive for large <code>N</code>. Indeed, any code that concatenates strings in a loop is liable to have this problem. A better way to write this would be as follows:</p>
+</div>
+<p>In the method above, each iteration of the loop will create a new <code>String</code> that is one character longer than the previous iteration. Each concatenation copies all of the characters in the operand strings to form the new <code>String</code>. Thus, <code>stars(N)</code> will:
+</p>
+  <ul id="350f20b4-267e-4ed0-a6a3-c93d471efd61" class="bulleted-list">
+    <li>create <code>N</code> new <code>String</code> objects, and throw away all but the last one,
+    </li>
+    <li>copy <code>N * (N + 1) / 2</code> characters, and
+    </li>
+    <li>generate <code>O(N^2)</code> bytes of garbage.
+    </li>
+  </ul>
+<p>This is very expensive for large <code>N</code>. Indeed, any code that concatenates strings in a loop is liable to have this problem. A better way to write this would be as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public String stars(int count) {
@@ -187,7 +235,12 @@ String s5 = &#34;{1} is &#34; + new int[]{1}; // s5 contains something like
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Ideally, you should set the capacity of the <code>StringBuilder</code>, but if this is not practical, the class will automatically <em>grow</em> the backing array that the builder uses to hold characters. (Note: the implementation expands the backing array exponentially. This strategy keeps that amount of character copying to a <code>O(N)</code> rather than <code>O(N^2)</code>.)</p><p>Some people apply this pattern to all string concatenations. However, this is unnecessary because the JLS <em>allows</em> a Java compiler to optimize string concatenations within a single expression. For example:</p>
+</div>
+<p>Ideally, you should set the capacity of the <code>StringBuilder</code>, but if this is not practical, the class will automatically <em>grow</em> the backing array that the builder uses to hold characters. (Note: the implementation expands the backing array exponentially. This strategy keeps that amount of character copying to a <code>O(N)</code> rather than <code>O(N^2)</code>.)
+</p>
+<p>Some people apply this pattern to all string concatenations. However, this is unnecessary because the JLS <em>allows</em> a Java compiler to optimize string concatenations within a single expression. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String s1 = ...;
@@ -197,7 +250,10 @@ String test = &#34;Hello &#34; + s1 + &#34;. Welcome to &#34; + s2 + &#34;\n&#34
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>will <em>typically</em> be optimized by the bytecode compiler to something like this;</p>
+</div>
+<p>will <em>typically</em> be optimized by the bytecode compiler to something like this;
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">StringBuilder tmp = new StringBuilder();
@@ -211,7 +267,17 @@ String test = tmp.toString();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>(The JIT compiler may optimize that further if it can deduce that <code>s1</code> or <code>s2</code> cannot be <code>null</code>.) But note that this optimization is only permitted within a single expression.</p><p>In short, if you are concerned about the efficiency of string concatenations:</p><ul id="81b07fb1-df29-4724-ae3c-3fb615553d2f" class="bulleted-list"><li>Do hand-optimize if you are doing repeated concatenation in a loop (or similar).</li><li>Don’t hand-optimize a single concatenation expression.</li></ul>
+</div>
+<p>(The JIT compiler may optimize that further if it can deduce that <code>s1</code> or <code>s2</code> cannot be <code>null</code>.) But note that this optimization is only permitted within a single expression.
+</p>
+<p>In short, if you are concerned about the efficiency of string concatenations:
+</p>
+  <ul id="81b07fb1-df29-4724-ae3c-3fb615553d2f" class="bulleted-list">
+    <li>Do hand-optimize if you are doing repeated concatenation in a loop (or similar).
+    </li>
+    <li>Don’t hand-optimize a single concatenation expression.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

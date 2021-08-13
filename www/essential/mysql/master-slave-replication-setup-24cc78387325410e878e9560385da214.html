@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>Consider 2 MySQL Servers for replication setup, one is a Master and the other is a Slave.</p><p>We are going to configure the Master that it should keep a log of every action performed on it. We are going to configure the Slave server that it should look at the log on the Master and whenever changes happens in log on the Master, it should do the same thing.</p><p><em><strong>Master Configuration</strong></em></p><p>First of all, we need to create a user on the Master. This user is going to be used by Slave to create a connection with the Master.</p>
+      
+<p>Consider 2 MySQL Servers for replication setup, one is a Master and the other is a Slave.
+</p>
+<p>We are going to configure the Master that it should keep a log of every action performed on it. We are going to configure the Slave server that it should look at the log on the Master and whenever changes happens in log on the Master, it should do the same thing.
+</p>
+<p><em><strong>Master Configuration</strong></em>
+</p>
+<p>First of all, we need to create a user on the Master. This user is going to be used by Slave to create a connection with the Master.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">CREATE USER &#39;user_name&#39;@&#39;%&#39; IDENTIFIED BY &#39;user_password&#39;;
@@ -137,7 +146,12 @@ FLUSH PRIVILEGES;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Change <code>user_name</code> and <code>user_password</code> according to your Username and Password.</p><p>Now <code>my.inf</code> (my.cnf in Linux) file should be edited. Include the following lines in [mysqld] section.</p>
+</div>
+<p>Change <code>user_name</code> and <code>user_password</code> according to your Username and Password.
+</p>
+<p>Now <code>my.inf</code> (my.cnf in Linux) file should be edited. Include the following lines in [mysqld] section.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">server-id = 1
@@ -147,7 +161,20 @@ binlog-do-db = your_database</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The first line is used to assign an ID to this MySQL server.</p><p>The second line tells MySQL to start writing a log in the specified log file. In Linux this can be configured like <code>log-bin = /home/mysql/logs/mysql-bin.log</code>. If you are starting replication in a MySQL server in which replication has already been used, make sure this directory is empty of all replication logs.</p><p>The third line is used to configure the database for which we are going to write log. You should replace <code>your_database</code> with your database name.</p><p>Make sure <code>skip-networking</code> has not been enabled and restart the MySQL server(Master)</p><p><em><strong>Slave Configuration</strong></em></p><p><code>my.inf</code> file should be edited in Slave also. Include the following lines in [mysqld] section.</p>
+</div>
+<p>The first line is used to assign an ID to this MySQL server.
+</p>
+<p>The second line tells MySQL to start writing a log in the specified log file. In Linux this can be configured like <code>log-bin = /home/mysql/logs/mysql-bin.log</code>. If you are starting replication in a MySQL server in which replication has already been used, make sure this directory is empty of all replication logs.
+</p>
+<p>The third line is used to configure the database for which we are going to write log. You should replace <code>your_database</code> with your database name.
+</p>
+<p>Make sure <code>skip-networking</code> has not been enabled and restart the MySQL server(Master)
+</p>
+<p><em><strong>Slave Configuration</strong></em>
+</p>
+<p><code>my.inf</code> file should be edited in Slave also. Include the following lines in [mysqld] section.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">server-id = 2
@@ -164,7 +191,26 @@ relay-log-index = slave-relay-log.index</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The first line is used to assign an ID to this MySQL server. This ID should be unique.</p><p>The second line is the I.P address of the Master server. Change this according to your Master system I.P.</p><p>The third line is used to set a retry limit in seconds.</p><p>The next two lines tell the username and password to the Slave, by using which it connect the Master.</p><p>Next line set the database it needs to replicate.</p><p>The last two lines used to assign <code>relay-log</code> and <code>relay-log-index</code> file names.</p><p>Make sure <code>skip-networking</code> has not been enabled and restart the MySQL server(Slave)</p><p><em><strong>Copy Data to Slave</strong></em></p><p>If data is constantly being added to the Master, we will have to prevent all database access on the Master so nothing can be added. This can be achieved by run the following statement in Master.</p>
+</div>
+<p>The first line is used to assign an ID to this MySQL server. This ID should be unique.
+</p>
+<p>The second line is the I.P address of the Master server. Change this according to your Master system I.P.
+</p>
+<p>The third line is used to set a retry limit in seconds.
+</p>
+<p>The next two lines tell the username and password to the Slave, by using which it connect the Master.
+</p>
+<p>Next line set the database it needs to replicate.
+</p>
+<p>The last two lines used to assign <code>relay-log</code> and <code>relay-log-index</code> file names.
+</p>
+<p>Make sure <code>skip-networking</code> has not been enabled and restart the MySQL server(Slave)
+</p>
+<p><em><strong>Copy Data to Slave</strong></em>
+</p>
+<p>If data is constantly being added to the Master, we will have to prevent all database access on the Master so nothing can be added. This can be achieved by run the following statement in Master.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">FLUSH TABLES WITH READ LOCK;</pre>
@@ -172,7 +218,12 @@ relay-log-index = slave-relay-log.index</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If no data is being added to the server, you can skip the above step.</p><p>We are going to take data backup of the Master by using <code>mysqldump</code></p>
+</div>
+<p>If no data is being added to the server, you can skip the above step.
+</p>
+<p>We are going to take data backup of the Master by using <code>mysqldump</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mysqldump your_database -u root -p &gt; D://Backup/backup.sql;</pre>
@@ -180,7 +231,12 @@ relay-log-index = slave-relay-log.index</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Change <code>your_database</code> and backup directory according to your setup. You wll now have a file called <code>backup.sql</code> in the given location.</p><p>If your database not exists in your Slave, create that by executing the following</p>
+</div>
+<p>Change <code>your_database</code> and backup directory according to your setup. You wll now have a file called <code>backup.sql</code> in the given location.
+</p>
+<p>If your database not exists in your Slave, create that by executing the following
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">CREATE DATABASE `your_database`;</pre>
@@ -188,7 +244,10 @@ relay-log-index = slave-relay-log.index</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we have to import backup into Slave MySQL server.</p>
+</div>
+<p>Now we have to import backup into Slave MySQL server.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mysql -u root -p your_database  &lt;D://Backup/backup.sql
@@ -197,7 +256,12 @@ relay-log-index = slave-relay-log.index</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em><strong>Start Replication</strong></em></p><p>To start replication, we need to find the log file name and log position in the Master. So, run the following in Master</p>
+</div>
+<p><em><strong>Start Replication</strong></em>
+</p>
+<p>To start replication, we need to find the log file name and log position in the Master. So, run the following in Master
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SHOW MASTER STATUS;</pre>
@@ -205,7 +269,10 @@ relay-log-index = slave-relay-log.index</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will give you an output like below</p>
+</div>
+<p>This will give you an output like below
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+---------------------+----------+-------------------------------+------------------+
@@ -217,7 +284,10 @@ relay-log-index = slave-relay-log.index</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then run the following in Slave</p>
+</div>
+<p>Then run the following in Slave
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SLAVE STOP;
@@ -228,7 +298,14 @@ SLAVE START;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>First we stop the Slave. Then we tell it exactly where to look in the Master log file. For <code>MASTER_LOG_FILE</code> name and <code>MASTER_LOG_POS</code>, use the values which we got by running <code>SHOW MASTER STATUS</code> command on the Master.</p><p>You should change the I.P of the Master in <code>MASTER_HOST</code>, and change the user and password accordingly.</p><p>The Slave will now be waiting. The status of the Slave can be viewed by run the following</p>
+</div>
+<p>First we stop the Slave. Then we tell it exactly where to look in the Master log file. For <code>MASTER_LOG_FILE</code> name and <code>MASTER_LOG_POS</code>, use the values which we got by running <code>SHOW MASTER STATUS</code> command on the Master.
+</p>
+<p>You should change the I.P of the Master in <code>MASTER_HOST</code>, and change the user and password accordingly.
+</p>
+<p>The Slave will now be waiting. The status of the Slave can be viewed by run the following
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SHOW SLAVE STATUS;</pre>
@@ -236,7 +313,10 @@ SLAVE START;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you previously executed <code>FLUSH TABLES WITH READ LOCK</code> in Master, release the tables from lock by run the following</p>
+</div>
+<p>If you previously executed <code>FLUSH TABLES WITH READ LOCK</code> in Master, release the tables from lock by run the following
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">UNLOCK TABLES;</pre>
@@ -244,7 +324,9 @@ SLAVE START;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now the Master keep a log for every action performed on it and the Slave server look at the log on the Master. Whenever changes happens in log on the Master, Slave replicate that.</p>
+</div>
+<p>Now the Master keep a log for every action performed on it and the Slave server look at the log on the Master. Whenever changes happens in log on the Master, Slave replicate that.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

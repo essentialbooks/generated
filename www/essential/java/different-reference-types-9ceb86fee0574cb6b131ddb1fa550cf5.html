@@ -127,7 +127,26 @@
 </div>
 
 
-      <p><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/ref/package-summary.html"><code>java.lang.ref</code></a> package provides reference-object classes, which support a limited degree of interaction with the garbage collector.</p><p>Java has four main different reference types. They are:</p><ul id="de8cb54f-4563-4897-87c9-b04736a90617" class="bulleted-list"><li>Strong Reference</li><li>Weak Reference</li><li>Soft Reference</li><li>Phantom Reference</li></ul><p><strong>1. Strong Reference</strong></p><p>This is the usual form of creating objects.</p>
+      
+<p><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/ref/package-summary.html"><code>java.lang.ref</code></a> package provides reference-object classes, which support a limited degree of interaction with the garbage collector.
+</p>
+<p>Java has four main different reference types. They are:
+</p>
+  <ul id="de8cb54f-4563-4897-87c9-b04736a90617" class="bulleted-list">
+    <li>Strong Reference
+    </li>
+    <li>Weak Reference
+    </li>
+    <li>Soft Reference
+    </li>
+    <li>Phantom Reference
+    </li>
+  </ul>
+<p><strong>1. Strong Reference</strong>
+</p>
+<p>This is the usual form of creating objects.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">MyObject myObject = new MyObject();</pre>
@@ -135,7 +154,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The variable holder is holding a strong reference to the object created. As long as this variable is live and holds this value, the <code>MyObject</code> instance will not be collected by the garbage collector.</p><p><strong>2. Weak Reference</strong></p><p>When you do not want to keep an object longer, and you need to clear/free the memory allocated for an object as soon as possible, this is the way to do so.</p>
+</div>
+<p>The variable holder is holding a strong reference to the object created. As long as this variable is live and holds this value, the <code>MyObject</code> instance will not be collected by the garbage collector.
+</p>
+<p><strong>2. Weak Reference</strong>
+</p>
+<p>When you do not want to keep an object longer, and you need to clear/free the memory allocated for an object as soon as possible, this is the way to do so.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">WeakReference myObjectRef = new WeakReference(MyObject);</pre>
@@ -143,7 +169,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Simply, a weak reference is a reference that isn’t strong enough to force an object to remain in memory. Weak references allow you to leverage the garbage collector’s ability to determine reachability for you, so you don’t have to do it yourself.</p><p>When you need the object you created, just use <code>.get()</code> method:</p>
+</div>
+<p>Simply, a weak reference is a reference that isn’t strong enough to force an object to remain in memory. Weak references allow you to leverage the garbage collector’s ability to determine reachability for you, so you don’t have to do it yourself.
+</p>
+<p>When you need the object you created, just use <code>.get()</code> method:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">myObjectRef.get();</pre>
@@ -151,7 +182,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Following code will exemplify this:</p>
+</div>
+<p>Following code will exemplify this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">WeakReference myObjectRef = new WeakReference(MyObject);
@@ -162,7 +196,12 @@ System.out.println(myObjectRef.get()); // This will print &#39;null&#39; if the 
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>3. Soft Reference</strong></p><p>Soft references are slightly stronger than weak references. You can create a soft referenced object as following:</p>
+</div>
+<p><strong>3. Soft Reference</strong>
+</p>
+<p>Soft references are slightly stronger than weak references. You can create a soft referenced object as following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SoftReference myObjectRef = new SoftReference(MyObject);</pre>
@@ -170,7 +209,12 @@ System.out.println(myObjectRef.get()); // This will print &#39;null&#39; if the 
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>They can hold onto the memory more strongly than the weak reference. If you have enough memory supply/resources, garbage collector will not clean the soft references as enthusiastically as weak references.</p><p>Soft references are handy to use in caching. You can create soft referenced objects as a cache, where they kept until your memory runs out. When your memory can’t supply enough resources, garbage collector will remove soft references.</p>
+</div>
+<p>They can hold onto the memory more strongly than the weak reference. If you have enough memory supply/resources, garbage collector will not clean the soft references as enthusiastically as weak references.
+</p>
+<p>Soft references are handy to use in caching. You can create soft referenced objects as a cache, where they kept until your memory runs out. When your memory can’t supply enough resources, garbage collector will remove soft references.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SoftReference myObjectRef = new SoftReference(MyObject);
@@ -181,7 +225,16 @@ System.out.println(myObjectRef.get()); // This may or may not print the referenc
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>4. Phantom Reference</strong></p><p>This is the weakest referencing type. If you created an object reference using Phantom Reference, the <code>get()</code> method will always return null!</p><p>The use of this referencing is that “Phantom reference objects, which are enqueued after the collector determines that their referents may otherwise be reclaimed. Phantom references are most often used for scheduling pre-mortem cleanup actions in a more flexible way than is possible with the Java finalization mechanism.” - From <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ref/PhantomReference.html">Phantom Reference Javadoc</a> from Oracle.</p><p>You can create an object of Phantom Reference as following:</p>
+</div>
+<p><strong>4. Phantom Reference</strong>
+</p>
+<p>This is the weakest referencing type. If you created an object reference using Phantom Reference, the <code>get()</code> method will always return null!
+</p>
+<p>The use of this referencing is that “Phantom reference objects, which are enqueued after the collector determines that their referents may otherwise be reclaimed. Phantom references are most often used for scheduling pre-mortem cleanup actions in a more flexible way than is possible with the Java finalization mechanism.” - From <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ref/PhantomReference.html">Phantom Reference Javadoc</a> from Oracle.
+</p>
+<p>You can create an object of Phantom Reference as following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">PhantomReference myObjectRef = new PhantomReference(MyObject);</pre>

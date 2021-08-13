@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>When the destructor for <code>std::thread</code> is invoked, a call to either <code>join()</code> or <code>detach()</code> <strong>must</strong> have been made. If a thread has not been joined or detached, then by default <code>std::terminate</code> will be called. Using <a href="http://en.cppreference.com/w/cpp/language/raii">RAII</a>, this is generally simple enough to accomplish:</p>
+      
+<p>When the destructor for <code>std::thread</code> is invoked, a call to either <code>join()</code> or <code>detach()</code> <strong>must</strong> have been made. If a thread has not been joined or detached, then by default <code>std::terminate</code> will be called. Using <a href="http://en.cppreference.com/w/cpp/language/raii">RAII</a>, this is generally simple enough to accomplish:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class thread_joiner
@@ -153,7 +156,10 @@ private:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is then used like so:</p>
+</div>
+<p>This is then used like so:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void perform_work()
@@ -170,7 +176,9 @@ void t()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This also provides exception safety; if we had created our thread normally and the work done in <code>t()</code> performing other calculations had thrown an exception, <code>join()</code> would never have been called on our thread and our process would have been terminated.</p>
+</div>
+<p>This also provides exception safety; if we had created our thread normally and the work done in <code>t()</code> performing other calculations had thrown an exception, <code>join()</code> would never have been called on our thread and our process would have been terminated.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

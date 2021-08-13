@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>You can overload all comparison operators:</p><ul id="a33a6958-b8b2-43a1-a408-eb5e2a358805" class="bulleted-list"><li><code>==</code> and <code>!=</code></li><li><code>\&gt;</code> and <code>\&lt;</code></li><li><code>&gt;=</code> and <code>&lt;=</code></li></ul><p>The recommended way to overload all those operators is by implementing only 2 operators (<code>==</code> and <code>\&lt;</code>) and then using those to define the rest. Scroll down for explanation</p><p>Overloading outside of <code>class</code>/<code>struct</code>:</p>
+      
+<p>You can overload all comparison operators:
+</p>
+  <ul id="a33a6958-b8b2-43a1-a408-eb5e2a358805" class="bulleted-list">
+    <li><code>==</code> and <code>!=</code>
+    </li>
+    <li><code>\&gt;</code> and <code>\&lt;</code>
+    </li>
+    <li><code>&gt;=</code> and <code>&lt;=</code>
+    </li>
+  </ul>
+<p>The recommended way to overload all those operators is by implementing only 2 operators (<code>==</code> and <code>\&lt;</code>) and then using those to define the rest. Scroll down for explanation
+</p>
+<p>Overloading outside of <code>class</code>/<code>struct</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">//Only implement those 2
@@ -143,7 +158,10 @@ bool operator&gt;=(const T&amp; lhs, const T&amp; rhs) { return !(lhs &lt; rhs);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Overloading inside of <code>class</code>/<code>struct</code>:</p>
+</div>
+<p>Overloading inside of <code>class</code>/<code>struct</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">//Note that the functions are const, because if they are not const, you wouldn&#39;t be able
@@ -162,7 +180,14 @@ bool operator&gt;=(const T&amp; rhs) const { return !(*this &lt; rhs); }</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="495738df-1446-424d-acaf-9340a2ec1417"/><p>The operators obviously return a <code>bool</code>, indicating <code>true</code> or <code>false</code> for the corresponding operation.</p><p>All of the operators take their arguments by <code>const&amp;</code>, because the only thing that does operators do is compare, so they shouldn’t modify the objects. Passing by <code>&amp;</code> (reference) is faster than by value, and to make sure that the operators don’t modify it, it is a <code>const</code>-reference.</p><p>Note that the operators inside the <code>class</code>/<code>struct</code> are defined as <code>const</code>, the reason for this is that without the functions being <code>const</code>, comparing <code>const</code> objects would not be possible, as the compiler doesn’t know that the operators don’t modify anything.</p>
+</div>
+<hr id="495738df-1446-424d-acaf-9340a2ec1417"/>
+<p>The operators obviously return a <code>bool</code>, indicating <code>true</code> or <code>false</code> for the corresponding operation.
+</p>
+<p>All of the operators take their arguments by <code>const&amp;</code>, because the only thing that does operators do is compare, so they shouldn’t modify the objects. Passing by <code>&amp;</code> (reference) is faster than by value, and to make sure that the operators don’t modify it, it is a <code>const</code>-reference.
+</p>
+<p>Note that the operators inside the <code>class</code>/<code>struct</code> are defined as <code>const</code>, the reason for this is that without the functions being <code>const</code>, comparing <code>const</code> objects would not be possible, as the compiler doesn’t know that the operators don’t modify anything.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

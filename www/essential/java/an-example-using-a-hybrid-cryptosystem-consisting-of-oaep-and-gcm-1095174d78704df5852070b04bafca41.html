@@ -127,7 +127,36 @@
 </div>
 
 
-      <p>The following example encrypts data by using a <a href="https://en.wikipedia.org/wiki/Hybrid_cryptosystem">hybrid cryptosystem</a> consisting of AES GCM and OAEP, using their default parameter sizes and an AES key size of 128 bits.</p><p>OAEP is less vulnerable to padding oracle attacks than PKCS#1 v1.5 padding. GCM is also protected against padding oracle attacks.</p><p>Decryption can be performed by first retrieving the length of the encapsulated key and then by retrieving the encapsulated key. The encapsulated key can then be decrypted using the RSA private key that forms a key pair with the public key. After that the AES/GCM encrypted ciphertext can be decrypted to the original plaintext.</p><p>The protocol consists of:</p><ol id="4c4166f0-efbd-4a97-974f-694c37772af3" class="numbered-list" start="1"><li>a length field for the wrapped key (<code>RSAPrivateKey</code> misses a <code>getKeySize()</code> method);</li><li>the wrapped/encapsulated key, of the same size as the RSA key size in bytes;</li><li>the GCM ciphertext and 128 bit authentication tag (automatically added by Java).</li></ol><p>Notes:</p><ul id="1fde8b3b-8201-4f0a-9f58-52ea7364cffb" class="bulleted-list"><li>To correctly use this code you should supply an RSA key of at least 2048 bits, bigger is better (but slower, especially during decryption);</li><li>To use AES-256 you should install the <a href="http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html">unlimited cryptography policy files</a> first;</li><li>Instead creating your own protocol you might want to use a container format such as the Cryptographic Message Syntax (CMS / PKCS#7) or PGP instead.</li></ul><p>So here’s the example:</p>
+      
+<p>The following example encrypts data by using a <a href="https://en.wikipedia.org/wiki/Hybrid_cryptosystem">hybrid cryptosystem</a> consisting of AES GCM and OAEP, using their default parameter sizes and an AES key size of 128 bits.
+</p>
+<p>OAEP is less vulnerable to padding oracle attacks than PKCS#1 v1.5 padding. GCM is also protected against padding oracle attacks.
+</p>
+<p>Decryption can be performed by first retrieving the length of the encapsulated key and then by retrieving the encapsulated key. The encapsulated key can then be decrypted using the RSA private key that forms a key pair with the public key. After that the AES/GCM encrypted ciphertext can be decrypted to the original plaintext.
+</p>
+<p>The protocol consists of:
+</p>
+  <ol id="4c4166f0-efbd-4a97-974f-694c37772af3" class="numbered-list" start="1">
+    <li>a length field for the wrapped key (<code>RSAPrivateKey</code> misses a <code>getKeySize()</code> method);
+    </li>
+    <li>the wrapped/encapsulated key, of the same size as the RSA key size in bytes;
+    </li>
+    <li>the GCM ciphertext and 128 bit authentication tag (automatically added by Java).
+    </li>
+  </ol>
+<p>Notes:
+</p>
+  <ul id="1fde8b3b-8201-4f0a-9f58-52ea7364cffb" class="bulleted-list">
+    <li>To correctly use this code you should supply an RSA key of at least 2048 bits, bigger is better (but slower, especially during decryption);
+    </li>
+    <li>To use AES-256 you should install the <a href="http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html">unlimited cryptography policy files</a> first;
+    </li>
+    <li>Instead creating your own protocol you might want to use a container format such as the Cryptographic Message Syntax (CMS / PKCS#7) or PGP instead.
+    </li>
+  </ul>
+<p>So here’s the example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/**
@@ -236,7 +265,10 @@ public static byte[] encryptData(PublicKey publicKey, byte[] plaintext)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Of course, encryption is not very useful without decryption. Note that this will return minimal information if decryption fails.</p>
+</div>
+<p>Of course, encryption is not very useful without decryption. Note that this will return minimal information if decryption fails.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/**

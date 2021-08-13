@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Ruby hashes use the methods <code>hash</code> and <code>eql?</code> to perform the hash operation and assign objects stored in the hash to internal hash bins. The default implementation of <code>hash</code> in Ruby is the <a href="https://en.wikipedia.org/wiki/MurmurHash">murmur hash function</a> <a href="https://github.com/ruby/ruby/blob/1b5acebef2d447a3dbed6cf5e146fda74b81f10d/st.c">over all member fields of the hashed object</a>. To override this behavior it is possible to override <code>hash</code> and <code>eql?</code> methods.</p><p>As with other hash implementations, two objects a and b, will be hashed to the same bucket if <code>a.hash == b.hash</code> and will be deemed identical if <code>a.eql?(b)</code>. Thus, when reimplementing <code>hash</code> and <code>eql?</code> one should take care to ensure that if <code>a</code> and <code>b</code> are equal under <code>eql?</code> they must return the same <code>hash</code> value. Otherwise this might result in duplicate entries in a hash. Conversely, a poor choice in <code>hash</code> implementation might lead many objects to share the same hash bucket, effectively destroying the O(1) look-up time and causing O(n) for calling <code>eql?</code> on all objects.</p><p>In the example below only the instance of class <code>A</code> is stored as a key, as it was added first:</p>
+      
+<p>Ruby hashes use the methods <code>hash</code> and <code>eql?</code> to perform the hash operation and assign objects stored in the hash to internal hash bins. The default implementation of <code>hash</code> in Ruby is the <a href="https://en.wikipedia.org/wiki/MurmurHash">murmur hash function</a> <a href="https://github.com/ruby/ruby/blob/1b5acebef2d447a3dbed6cf5e146fda74b81f10d/st.c">over all member fields of the hashed object</a>. To override this behavior it is possible to override <code>hash</code> and <code>eql?</code> methods.
+</p>
+<p>As with other hash implementations, two objects a and b, will be hashed to the same bucket if <code>a.hash == b.hash</code> and will be deemed identical if <code>a.eql?(b)</code>. Thus, when reimplementing <code>hash</code> and <code>eql?</code> one should take care to ensure that if <code>a</code> and <code>b</code> are equal under <code>eql?</code> they must return the same <code>hash</code> value. Otherwise this might result in duplicate entries in a hash. Conversely, a poor choice in <code>hash</code> implementation might lead many objects to share the same hash bucket, effectively destroying the O(1) look-up time and causing O(n) for calling <code>eql?</code> on all objects.
+</p>
+<p>In the example below only the instance of class <code>A</code> is stored as a key, as it was added first:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class A

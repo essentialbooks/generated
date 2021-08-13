@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Parameter pack unpacking traditionally requires writing a helper function for each time you want to do it.</p><p>In this toy example:</p>
+      
+<p>Parameter pack unpacking traditionally requires writing a helper function for each time you want to do it.
+</p>
+<p>In this toy example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;std::size_t...Is&gt;
@@ -145,7 +150,14 @@ void print_indexes_upto() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>print_indexes_upto</code> wants to create and unpack a parameter pack of indexes. In order to do so, it must call a helper function. Every time you want to unpack a parameter pack you created, you end up having to create a custom helper function to do it.</p><p>This can be avoided with lambdas.</p><p>You can unpack parameter packs into a set of invocations of a lambda, like this:</p>
+</div>
+<p>The <code>print_indexes_upto</code> wants to create and unpack a parameter pack of indexes. In order to do so, it must call a helper function. Every time you want to unpack a parameter pack you created, you end up having to create a custom helper function to do it.
+</p>
+<p>This can be avoided with lambdas.
+</p>
+<p>You can unpack parameter packs into a set of invocations of a lambda, like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;std::size_t I&gt;
@@ -171,7 +183,10 @@ auto index_over(index_t&lt;N&gt; = {}) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With fold expressions, <code>index_over()</code> can be simplified to:</p>
+</div>
+<p>With fold expressions, <code>index_over()</code> can be simplified to:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;class=void, std::size_t...Is&gt;
@@ -184,7 +199,10 @@ auto index_over( std::index_sequence&lt;Is...&gt; ) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Once you have done that, you can use this to replace having to manually unpack parameter packs with a second overload in other code, letting you unpack parameter packs “inline”:</p>
+</div>
+<p>Once you have done that, you can use this to replace having to manually unpack parameter packs with a second overload in other code, letting you unpack parameter packs “inline”:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;class Tup, class F&gt;
@@ -204,7 +222,12 @@ void for_each_tuple_element(Tup&amp;&amp; tup, F&amp;&amp; f) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>auto i</code> passed to the lambda by the <code>index_over</code> is a <code>std::integral_constant&lt;std::size_t, ???&gt;</code>. This has a <code>constexpr</code> conversion to <code>std::size_t</code> that does not depend on the state of <code>this</code>, so we can use it as a compile-time constant, such as when we pass it to <code>std::get&lt;i&gt;</code> above.</p><p>To go back to the toy example at the top, rewrite it as:</p>
+</div>
+<p>The <code>auto i</code> passed to the lambda by the <code>index_over</code> is a <code>std::integral_constant&lt;std::size_t, ???&gt;</code>. This has a <code>constexpr</code> conversion to <code>std::size_t</code> that does not depend on the state of <code>this</code>, so we can use it as a compile-time constant, such as when we pass it to <code>std::get&lt;i&gt;</code> above.
+</p>
+<p>To go back to the toy example at the top, rewrite it as:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;std::size_t I&gt;
@@ -217,7 +240,11 @@ void print_indexes_upto() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>which is much shorter, and keeps logic in the code that uses it.</p><p><a href="http://coliru.stacked-crooked.com/a/32c204301f7163c9">Live example</a> to play with.</p>
+</div>
+<p>which is much shorter, and keeps logic in the code that uses it.
+</p>
+<p><a href="http://coliru.stacked-crooked.com/a/32c204301f7163c9">Live example</a> to play with.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

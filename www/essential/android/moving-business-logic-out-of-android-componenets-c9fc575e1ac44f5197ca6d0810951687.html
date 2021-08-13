@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>A lot of the value from local JVM unit tests comes from the way you design your application. You have to design it in such a way where you can decouple your business logic from your Android Components. Here is an example of such a way using the <a href="https://codelabs.developers.google.com/codelabs/android-testing/#4">Model-View-Presenter pattern</a>. Lets practice this out by implementing a basic sign up screen that only takes a username and password. Our Android app is responsible for validating that the username the user supplies is not blank and that the password is at least eight characters long and contains at least one digit. If the username/password is valid we perform our sign up api call, otherwise we display an error message.</p><p><strong>Example where business logic is highly coupled with Android Component.</strong></p>
+      
+<p>A lot of the value from local JVM unit tests comes from the way you design your application. You have to design it in such a way where you can decouple your business logic from your Android Components. Here is an example of such a way using the <a href="https://codelabs.developers.google.com/codelabs/android-testing/#4">Model-View-Presenter pattern</a>. Lets practice this out by implementing a basic sign up screen that only takes a username and password. Our Android app is responsible for validating that the username the user supplies is not blank and that the password is at least eight characters long and contains at least one digit. If the username/password is valid we perform our sign up api call, otherwise we display an error message.
+</p>
+<p><strong>Example where business logic is highly coupled with Android Component.</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class LoginActivity extends Activity{
@@ -148,7 +153,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Example where business logic is decoupled from Android Component.</strong></p><p>Here we define in a single class, LoginContract, that will house the various interactions between our various classes.</p>
+</div>
+<p><strong>Example where business logic is decoupled from Android Component.</strong>
+</p>
+<p>Here we define in a single class, LoginContract, that will house the various interactions between our various classes.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public interface LoginContract {
@@ -164,7 +174,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Our LoginActivity is for the most part the same except that we have removed the responsibility of having to know how to validate a user’s sign up form (our business logic). The LoginActivity will now rely on our new LoginPresenter to perform validation.</p>
+</div>
+<p>Our LoginActivity is for the most part the same except that we have removed the responsibility of having to know how to validate a user’s sign up form (our business logic). The LoginActivity will now rely on our new LoginPresenter to perform validation.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class LoginActivity extends Activity implements LoginContract.View{
@@ -188,7 +201,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now your business logic will reside in your new LoginPresenter class.</p>
+</div>
+<p>Now your business logic will reside in your new LoginPresenter class.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class LoginPresenter implements LoginContract.Presenter{
@@ -212,7 +228,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And now we can create local JVM unit tests against your new LoginPresenter class.</p>
+</div>
+<p>And now we can create local JVM unit tests against your new LoginPresenter class.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class LoginPresenterTest {
@@ -264,7 +283,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As you can see, when we extracted our business logic out of the LoginActivity and placed it in the LoginPresenter <a href="https://en.wikipedia.org/wiki/Plain_Old_Java_Object">POJO</a>. We can now create local JVM unit tests against our business logic.</p><p>It should be noted that there are various other implications from our change in architecture such as we are close to adhering to each class having a single responsibility, additional classes, etc. These are just side effects of the way I choose to go about performing this decoupling via the MVP style. MVP is just one way to go about this but there are other alternatives that you may want to look at such as <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel">MVVM</a>. You just have to pick the best system that works for you.</p>
+</div>
+<p>As you can see, when we extracted our business logic out of the LoginActivity and placed it in the LoginPresenter <a href="https://en.wikipedia.org/wiki/Plain_Old_Java_Object">POJO</a>. We can now create local JVM unit tests against our business logic.
+</p>
+<p>It should be noted that there are various other implications from our change in architecture such as we are close to adhering to each class having a single responsibility, additional classes, etc. These are just side effects of the way I choose to go about performing this decoupling via the MVP style. MVP is just one way to go about this but there are other alternatives that you may want to look at such as <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel">MVVM</a>. You just have to pick the best system that works for you.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

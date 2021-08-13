@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>When you pass an argument to a function, and the argument is a <a href="http://stackoverflow.com/documentation/c%2B%2B/763/value-categories/2603/prvalue#t=201607301618015777687">prvalue expression</a> of the function’s parameter type, and this type is not a reference, then the prvalue’s construction can be elided.</p>
+      
+<p>When you pass an argument to a function, and the argument is a <a href="http://stackoverflow.com/documentation/c%2B%2B/763/value-categories/2603/prvalue#t=201607301618015777687">prvalue expression</a> of the function’s parameter type, and this type is not a reference, then the prvalue’s construction can be elided.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void func(std::string str) { ... }
@@ -137,7 +140,11 @@ func(std::string(&#34;foo&#34;));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This says to create a temporary <code>string</code>, then move it into the function parameter <code>str</code>. Copy elision permits this expression to directly create the object in <code>str</code>, rather than using a temporary+move.</p><p>This is a useful optimization for cases where a constructor is declared <code>explicit</code>. For example, we could have written the above as <code>func(&quot;foo&quot;)</code>, but only because <code>string</code> has an implicit constructor that converts from a <code>const char*</code> to a <code>string</code>. If that constructor was <code>explicit</code>, we would be forced to use a temporary to call the <code>explicit</code> constructor. Copy elision saves us from having to do a needless copy/move.</p>
+</div>
+<p>This says to create a temporary <code>string</code>, then move it into the function parameter <code>str</code>. Copy elision permits this expression to directly create the object in <code>str</code>, rather than using a temporary+move.
+</p>
+<p>This is a useful optimization for cases where a constructor is declared <code>explicit</code>. For example, we could have written the above as <code>func(&quot;foo&quot;)</code>, but only because <code>string</code> has an implicit constructor that converts from a <code>const char*</code> to a <code>string</code>. If that constructor was <code>explicit</code>, we would be forced to use a temporary to call the <code>explicit</code> constructor. Copy elision saves us from having to do a needless copy/move.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

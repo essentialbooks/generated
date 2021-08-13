@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>In PHP, a fatal error is a kind of error that cannot be caught, that is, after experiencing a fatal error a program does not resume. However, to log this error or somehow handle the crash you can use <code>register_shutdown_function</code> to register shutdown handler.</p>
+      
+<p>In PHP, a fatal error is a kind of error that cannot be caught, that is, after experiencing a fatal error a program does not resume. However, to log this error or somehow handle the crash you can use <code>register_shutdown_function</code> to register shutdown handler.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">function fatalErrorHandler() {// Let&#39;s get last error that was fatal.$error = error_get_last();// This is error-only handler for example purposes; no error means that// there were no error and shutdown was proper. Also ensure it will handle// only fatal errors.if (null === $error || E_ERROR != $error[&#39;type&#39;]) {return;}// Log last error to a log file.// let&#39;s naively assume that logs are in the folder inside the app folder.$logFile = fopen(&#34;./app/logs/error.log&#34;, &#34;a+&#34;);// Get useful info out of error.$type    = $error[&#34;type&#34;];$file    = $error[&#34;file&#34;];$line    = $error[&#34;line&#34;];$message = $error[&#34;message&#34;]fprintf($logFile,&#34;[%s] %s: %s in %s:%d\n&#34;,date(&#34;Y-m-d H:i:s&#34;),$type,$message,$file,$line);fclose($logFile);}register_shutdown_function(&#39;fatalErrorHandler&#39;);</pre>
@@ -135,7 +138,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Reference:</p><ul id="8fec4b70-d82f-48b8-b670-039f1149bce8" class="bulleted-list"><li>http://php.net/manual/en/function.register-shutdown-function.php</li><li>http://php.net/manual/en/function.error-get-last.php</li><li>http://php.net/manual/en/errorfunc.constants.php</li></ul>
+</div>
+<p>Reference:
+</p>
+  <ul id="8fec4b70-d82f-48b8-b670-039f1149bce8" class="bulleted-list">
+    <li>http://php.net/manual/en/function.register-shutdown-function.php
+    </li>
+    <li>http://php.net/manual/en/function.error-get-last.php
+    </li>
+    <li>http://php.net/manual/en/errorfunc.constants.php
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

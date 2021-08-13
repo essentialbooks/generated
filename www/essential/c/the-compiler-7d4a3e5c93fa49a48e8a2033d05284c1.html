@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>After the C pre-processor has included all the header files and expanded all macros, the compiler can compile the program. It does this by turning the C source code into an object code file, which is a file ending in <code>.o</code> which contains the binary version of the source code. Object code is not directly executable, though. In order to make an executable, you also have to add code for all of the library functions that were <code>#include</code>d into the file (this is not the same as including the declarations, which is what <code>#include</code> does). This is the job of <a href="http://stackoverflow.com/documentation/c/1337/compilation/4360/the-linker#t=201609061240486686348">the linker</a>.</p><p>In general, the exact sequence how to invoke a C compiler depends much on the system that you are using. Here we are using the GCC compiler, though it should be noted that many more compilers exist:</p>
+      
+<p>After the C pre-processor has included all the header files and expanded all macros, the compiler can compile the program. It does this by turning the C source code into an object code file, which is a file ending in <code>.o</code> which contains the binary version of the source code. Object code is not directly executable, though. In order to make an executable, you also have to add code for all of the library functions that were <code>#include</code>d into the file (this is not the same as including the declarations, which is what <code>#include</code> does). This is the job of <a href="http://stackoverflow.com/documentation/c/1337/compilation/4360/the-linker#t=201609061240486686348">the linker</a>.
+</p>
+<p>In general, the exact sequence how to invoke a C compiler depends much on the system that you are using. Here we are using the GCC compiler, though it should be noted that many more compilers exist:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">% gcc -Wall -c foo.c</pre>
@@ -135,7 +140,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>%</code> is the OS’ command prompt. This tells the compiler to run the pre-processor on the file <code>foo.c</code> and then compile it into the object code file <code>foo.o</code>. The <code>-c</code> option means to compile the source code file into an object file but not to invoke the linker. This option <code>-c</code> is available on POSIX systems, such as Linux or macOS; other systems may use different syntax.</p><p>If your entire program is in one source code file, you can instead do this:</p>
+</div>
+<p><code>%</code> is the OS’ command prompt. This tells the compiler to run the pre-processor on the file <code>foo.c</code> and then compile it into the object code file <code>foo.o</code>. The <code>-c</code> option means to compile the source code file into an object file but not to invoke the linker. This option <code>-c</code> is available on POSIX systems, such as Linux or macOS; other systems may use different syntax.
+</p>
+<p>If your entire program is in one source code file, you can instead do this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">% gcc -Wall foo.c -o foo</pre>
@@ -143,7 +153,28 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This tells the compiler to run the pre-processor on <code>foo.c</code>, compile it and then link it to create an executable called <code>foo</code>. The <code>-o</code> option states that the next word on the line is the name of the binary executable file (program). If you don’t specify the <code>-o</code>, (if you just type <code>gcc foo.c</code>), the executable will be named <code>a.out</code> for historical reasons.</p><p>In general the compiler takes four steps when converting a <code>.c</code> file into an executable:</p><ol id="465a3c96-169f-48c6-a3ae-e6526838b9d0" class="numbered-list" start="1"><li><strong>pre-processing</strong> - textually expands <code>#include</code> directives and <code>#define</code> macros in your <code>.c</code> file</li><li><strong>compilation</strong> - converts the program into assembly (you can stop the compiler at this step by adding the <code>-S</code> option)</li><li><strong>assembly</strong> - converts the assembly into machine code</li><li><strong>linkage</strong> - links the object code to external libraries to create an executable</li></ol><p>Note also that the name of the compiler we are using is GCC, which stands for both “GNU C compiler” and “GNU compiler collection”, depending on context. Other C compilers exist. For Unix-like operating systems, many of them have the name <code>cc</code>, for “C compiler”, which is often a symbolic link to some other compiler. On Linux systems, <code>cc</code> is often an alias for GCC. On macOS or OS-X, it points to clang.</p><p>The POSIX standards currently mandates <a href="http://pubs.opengroup.org/onlinepubs/9699919799/utilities/c99.html"><code>c99</code></a> as the name of a C compiler — it supports the C99 standard by default. Earlier versions of POSIX mandated <a href="http://pubs.opengroup.org/onlinepubs/7990989775/xcu/c89.html"><code>c89</code></a> as the compiler. POSIX also mandates that this compiler understands the options <code>-c</code> and <code>-o</code> that we used above.</p><hr id="5b69f85b-8e94-47cf-b0cd-b7f7af034f80"/><p><strong>Note:</strong> The <code>-Wall</code> option present in both <code>gcc</code> examples tells the compiler to print warnings about questionable constructions, which is strongly recommended. It is a also good idea to add other <a href="https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html">warning options</a>, e.g. <code>-Wextra</code>.</p>
+</div>
+<p>This tells the compiler to run the pre-processor on <code>foo.c</code>, compile it and then link it to create an executable called <code>foo</code>. The <code>-o</code> option states that the next word on the line is the name of the binary executable file (program). If you don’t specify the <code>-o</code>, (if you just type <code>gcc foo.c</code>), the executable will be named <code>a.out</code> for historical reasons.
+</p>
+<p>In general the compiler takes four steps when converting a <code>.c</code> file into an executable:
+</p>
+  <ol id="465a3c96-169f-48c6-a3ae-e6526838b9d0" class="numbered-list" start="1">
+    <li><strong>pre-processing</strong> - textually expands <code>#include</code> directives and <code>#define</code> macros in your <code>.c</code> file
+    </li>
+    <li><strong>compilation</strong> - converts the program into assembly (you can stop the compiler at this step by adding the <code>-S</code> option)
+    </li>
+    <li><strong>assembly</strong> - converts the assembly into machine code
+    </li>
+    <li><strong>linkage</strong> - links the object code to external libraries to create an executable
+    </li>
+  </ol>
+<p>Note also that the name of the compiler we are using is GCC, which stands for both “GNU C compiler” and “GNU compiler collection”, depending on context. Other C compilers exist. For Unix-like operating systems, many of them have the name <code>cc</code>, for “C compiler”, which is often a symbolic link to some other compiler. On Linux systems, <code>cc</code> is often an alias for GCC. On macOS or OS-X, it points to clang.
+</p>
+<p>The POSIX standards currently mandates <a href="http://pubs.opengroup.org/onlinepubs/9699919799/utilities/c99.html"><code>c99</code></a> as the name of a C compiler — it supports the C99 standard by default. Earlier versions of POSIX mandated <a href="http://pubs.opengroup.org/onlinepubs/7990989775/xcu/c89.html"><code>c89</code></a> as the compiler. POSIX also mandates that this compiler understands the options <code>-c</code> and <code>-o</code> that we used above.
+</p>
+<hr id="5b69f85b-8e94-47cf-b0cd-b7f7af034f80"/>
+<p><strong>Note:</strong> The <code>-Wall</code> option present in both <code>gcc</code> examples tells the compiler to print warnings about questionable constructions, which is strongly recommended. It is a also good idea to add other <a href="https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html">warning options</a>, e.g. <code>-Wextra</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

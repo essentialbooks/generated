@@ -127,7 +127,15 @@
 </div>
 
 
-      <p>Package <a href="https://golang.org/pkg/encoding/csv/"><code>encoding/csv</code></a> in standard library provides functionality for reading and writing CSV files.</p><h2 id="71941809-7ab3-4209-97b6-b6eec6d7b1a5" class="">Reading records from CSV file<a class="header-anchor" href="#71941809-7ab3-4209-97b6-b6eec6d7b1a5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Let’s read stock quotes from a CSV file:</p>
+      
+<p>Package <a href="https://golang.org/pkg/encoding/csv/"><code>encoding/csv</code></a> in standard library provides functionality for reading and writing CSV files.
+</p>
+  <h2 id="71941809-7ab3-4209-97b6-b6eec6d7b1a5" class="">Reading records from CSV file
+  <a class="header-anchor" href="#71941809-7ab3-4209-97b6-b6eec6d7b1a5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Let’s read stock quotes from a CSV file:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">date,open,high,low,close,volume,Name
@@ -140,6 +148,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="nx">buf</span> <span class="o">:=</span> <span class="nx">bytes</span><span class="p">.</span><span class="nf">NewBufferString</span><span class="p">(</span><span class="nx">csvData</span><span class="p">)</span>
@@ -174,6 +183,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">Record: []string{&#34;date&#34;, &#34;open&#34;, &#34;high&#34;, &#34;low&#34;, &#34;close&#34;, &#34;volume&#34;, &#34;Name&#34;}
@@ -186,7 +196,19 @@ Read 5 records
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As per Go best practices, CSV reader operates on <code>io.Reader</code> interface, which allows it to work on files, network connections, bytes in memory etc.</p><p><code>Read()</code> method reads one CSV line at a time and returns <code>[]string</code> slice with all fields in that line and an error.</p><p>Returning <code>io.EOF</code> as an error signifies successfully reaching end of file.</p><h2 id="f3b9a179-5896-475a-9dc5-2717f558270e" class="">Reading all records from CSV file<a class="header-anchor" href="#f3b9a179-5896-475a-9dc5-2717f558270e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Instead of calling <code>Read()</code> in a loop, we could read all records in one call:</p>
+</div>
+<p>As per Go best practices, CSV reader operates on <code>io.Reader</code> interface, which allows it to work on files, network connections, bytes in memory etc.
+</p>
+<p><code>Read()</code> method reads one CSV line at a time and returns <code>[]string</code> slice with all fields in that line and an error.
+</p>
+<p>Returning <code>io.EOF</code> as an error signifies successfully reaching end of file.
+</p>
+  <h2 id="f3b9a179-5896-475a-9dc5-2717f558270e" class="">Reading all records from CSV file
+  <a class="header-anchor" href="#f3b9a179-5896-475a-9dc5-2717f558270e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Instead of calling <code>Read()</code> in a loop, we could read all records in one call:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="nx">r</span> <span class="o">:=</span> <span class="nx">csv</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
@@ -200,7 +222,17 @@ Read 5 records
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This time we don’t have to special-case <code>io.EOF</code> as <code>ReadAll</code> does that for us.</p><p>Reading all records at once is simpler but will use more memory, especially for large CSV files.</p><h2 id="98f9a2ab-91b4-486c-b28e-f315fd515dd8" class="">Writing records to CSV file<a class="header-anchor" href="#98f9a2ab-91b4-486c-b28e-f315fd515dd8" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Let’s now write simplified stock quotes to a CSV file:</p>
+</div>
+<p>This time we don’t have to special-case <code>io.EOF</code> as <code>ReadAll</code> does that for us.
+</p>
+<p>Reading all records at once is simpler but will use more memory, especially for large CSV files.
+</p>
+  <h2 id="98f9a2ab-91b4-486c-b28e-f315fd515dd8" class="">Writing records to CSV file
+  <a class="header-anchor" href="#98f9a2ab-91b4-486c-b28e-f315fd515dd8" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Let’s now write simplified stock quotes to a CSV file:
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="kd">func</span> <span class="nf">writeCSV</span><span class="p">()</span> <span class="kt">error</span> <span class="p">{</span>
@@ -247,6 +279,7 @@ Read 5 records
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">date,price,name
@@ -258,7 +291,23 @@ Read 5 records
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Error handling here is not trivial.</p><p>We need to remember to <code>Flush()</code> at the end of writing, check if <code>Flush()</code> failed with <code>Error()</code> and also check that <code>Close()</code> didn’t fail.</p><p>The need to check <code>Close()</code> errors is why we didn’t use a simpler <code>defer f.Close()</code>. Correctness and robustness sometimes require more code.</p><p>Nalues that had <code>,</code> in them were quoted because comman is used as field separator.</p><p>In production code we would also delete the CSV file in case of errors. No need to keep corrupt file around.</p><h2 id="0fcb6b3c-2711-4a01-898b-639176c041db" class="">Writing all records to CSV file<a class="header-anchor" href="#0fcb6b3c-2711-4a01-898b-639176c041db" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Just like we can read all records at once, we can write multiple records at once:</p>
+</div>
+<p>Error handling here is not trivial.
+</p>
+<p>We need to remember to <code>Flush()</code> at the end of writing, check if <code>Flush()</code> failed with <code>Error()</code> and also check that <code>Close()</code> didn’t fail.
+</p>
+<p>The need to check <code>Close()</code> errors is why we didn’t use a simpler <code>defer f.Close()</code>. Correctness and robustness sometimes require more code.
+</p>
+<p>Nalues that had <code>,</code> in them were quoted because comman is used as field separator.
+</p>
+<p>In production code we would also delete the CSV file in case of errors. No need to keep corrupt file around.
+</p>
+  <h2 id="0fcb6b3c-2711-4a01-898b-639176c041db" class="">Writing all records to CSV file
+  <a class="header-anchor" href="#0fcb6b3c-2711-4a01-898b-639176c041db" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Just like we can read all records at once, we can write multiple records at once:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="nx">w</span> <span class="o">:=</span> <span class="nx">csv</span><span class="p">.</span><span class="nf">NewWriter</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>

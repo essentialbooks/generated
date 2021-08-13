@@ -127,7 +127,28 @@
 </div>
 
 
-      <p>“Fat Model, Skinny Controller” is a very good first step, but it doesn’t scale well once your codebase starts to grow.</p><p>Let’s think on the <a href="https://en.wikipedia.org/wiki/Single_responsibility_principle">Single Responsibility</a> of models. What is the single responsibility of models? Is it to hold business logic? Is it to hold non-response-related logic?</p><p>No. Its responsibility is to handle the persistence layer and its abstraction.</p><p>Business logic, as well as any non-response-related logic and non-persistence-related logic, should go in domain objects.</p><p>Domain objects are classes designed to have only one responsibility in the domain of the problem. Let your classes “<a href="https://8thlight.com/blog/uncle-bob/2011/09/30/Screaming-Architecture.html">Scream Their Architecture</a>” for the problems they solve.</p><p>In practice, you should strive towards skinny models, skinny views and skinny controllers. The architecture of your solution shouldn’t be influenced by the framework you’re choosing.</p><p><strong>For example</strong></p><p>Let’s say you’re a marketplace which charges a fixed 15% commission to your customers via Stripe. If you charge a fixed 15% commission, that means that your commission changes depending on the order’s amount because Stripe charges 2.9% + 30¢.</p><p>The amount you charge as commission should be: <code>amount*0.15 - (amount*0.029 + 0.30)</code>.</p><p>Don’t write this logic in the model:</p>
+      
+<p>“Fat Model, Skinny Controller” is a very good first step, but it doesn’t scale well once your codebase starts to grow.
+</p>
+<p>Let’s think on the <a href="https://en.wikipedia.org/wiki/Single_responsibility_principle">Single Responsibility</a> of models. What is the single responsibility of models? Is it to hold business logic? Is it to hold non-response-related logic?
+</p>
+<p>No. Its responsibility is to handle the persistence layer and its abstraction.
+</p>
+<p>Business logic, as well as any non-response-related logic and non-persistence-related logic, should go in domain objects.
+</p>
+<p>Domain objects are classes designed to have only one responsibility in the domain of the problem. Let your classes “<a href="https://8thlight.com/blog/uncle-bob/2011/09/30/Screaming-Architecture.html">Scream Their Architecture</a>” for the problems they solve.
+</p>
+<p>In practice, you should strive towards skinny models, skinny views and skinny controllers. The architecture of your solution shouldn’t be influenced by the framework you’re choosing.
+</p>
+<p><strong>For example</strong>
+</p>
+<p>Let’s say you’re a marketplace which charges a fixed 15% commission to your customers via Stripe. If you charge a fixed 15% commission, that means that your commission changes depending on the order’s amount because Stripe charges 2.9% + 30¢.
+</p>
+<p>The amount you charge as commission should be: <code>amount*0.15 - (amount*0.029 + 0.30)</code>.
+</p>
+<p>Don’t write this logic in the model:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"># app/models/order.rb
@@ -152,7 +173,14 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As soon as you integrate with a new payment method, you won’t be able to scale this functionality inside this model.</p><p>Also, as soon as you start to integrate more business logic, your <code>Order</code> object will start to lose <a href="https://thebojan.ninja/2015/04/08/high-cohesion-loose-coupling/">cohesion</a>.</p><p>Prefer domain objects, with the calculation of the commission completely abstracted from the responsibility of persisting orders:</p>
+</div>
+<p>As soon as you integrate with a new payment method, you won’t be able to scale this functionality inside this model.
+</p>
+<p>Also, as soon as you start to integrate more business logic, your <code>Order</code> object will start to lose <a href="https://thebojan.ninja/2015/04/08/high-cohesion-loose-coupling/">cohesion</a>.
+</p>
+<p>Prefer domain objects, with the calculation of the commission completely abstracted from the responsibility of persisting orders:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"># app/models/order.rb
@@ -201,7 +229,24 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Using domain objects has the following architectural advantages:</p><ul id="5c615249-f3ed-4531-b608-3c10faa806ac" class="bulleted-list"><li>it’s extremely easy to unit test, as no fixtures or factories are required to instantiate the objects with the logic.</li><li>works with everything that accepts the message <code>amount</code>.</li><li>keeps each domain object small, with clearly defined responsibilities, and with higher cohesion.</li><li>easily scales with new payment methods by <a href="https://en.wikipedia.org/wiki/Open/closed_principle">addition, not modification</a>.</li><li>stops the tendency to have an ever-growing <code>User</code> object in each Ruby on Rails application.</li></ul><p>I personally like to put domain objects in <code>lib</code>. If you do so, remember to add it to <code>autoload_paths</code>:</p>
+</div>
+<p>Using domain objects has the following architectural advantages:
+</p>
+  <ul id="5c615249-f3ed-4531-b608-3c10faa806ac" class="bulleted-list">
+    <li>it’s extremely easy to unit test, as no fixtures or factories are required to instantiate the objects with the logic.
+    </li>
+    <li>works with everything that accepts the message <code>amount</code>.
+    </li>
+    <li>keeps each domain object small, with clearly defined responsibilities, and with higher cohesion.
+    </li>
+    <li>easily scales with new payment methods by <a href="https://en.wikipedia.org/wiki/Open/closed_principle">addition, not modification</a>.
+    </li>
+    <li>stops the tendency to have an ever-growing <code>User</code> object in each Ruby on Rails application.
+    </li>
+  </ul>
+<p>I personally like to put domain objects in <code>lib</code>. If you do so, remember to add it to <code>autoload_paths</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"># config/application.rb
@@ -210,7 +255,9 @@ config.autoload_paths &lt;&lt; Rails.root.join(&#39;lib&#39;)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You may also prefer to create domain objects more action-oriented, following the Command/Query pattern. In such case, putting these objects in <code>app/commands</code> might be a better place as all <code>app</code> subdirectories are automatically added to the autoload path.</p>
+</div>
+<p>You may also prefer to create domain objects more action-oriented, following the Command/Query pattern. In such case, putting these objects in <code>app/commands</code> might be a better place as all <code>app</code> subdirectories are automatically added to the autoload path.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

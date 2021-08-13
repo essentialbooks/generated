@@ -127,7 +127,35 @@
 </div>
 
 
-      <p>The only way if your components does not have a parent-child relationship (or are related but too further such as a grand grand grand son) is to have some kind of a signal that one component subscribes to, and the other writes into.</p><p>Those are the 2 basic operations of any event system: <strong>subscribe/listen</strong> to an event to be notify, and <strong>send/trigger/publish/dispatch</strong> a event to notify the ones who wants.</p><p>There are at least 3 patterns to do that. You can find a <a href="https://github.com/millermedeiros/js-signals/wiki/Comparison-between-different-Observer-Pattern-implementations">comparison here</a>.</p><p>Here is a brief summary:</p><ul id="761cc627-b19e-4a10-a8b5-19fd2525277a" class="bulleted-list"><li>Pattern 1: <strong>Event Emitter/Target/Dispatcher</strong>: the listeners need to reference the source to subscribe.</li><li>to subscribe: <code>otherObject.addEventListener(&#x27;click&#x27;, () =&gt; { alert(&#x27;click!&#x27;); });</code></li><li>to dispatch: <code>this.dispatchEvent(&#x27;click&#x27;);</code></li><li>Pattern 2: <strong>Publish/Subscribe</strong>: you don’t need a specific reference to the source that triggers the event, there is a global object accessible everywhere that handles all the events.</li><li>to subscribe: <code>globalBroadcaster.subscribe(&#x27;click&#x27;, () =&gt; { alert(&#x27;click!&#x27;); });</code></li><li>to dispatch: <code>globalBroadcaster.publish(&#x27;click&#x27;);</code></li><li>Pattern 3: <strong>Signals</strong>: similar to Event Emitter/Target/Dispatcher but you don’t use any random strings here. Each object that could emit events needs to have a specific property with that name. This way, you know exactly what events can an object emit.</li><li>to subscribe: <code>otherObject.clicked.add( () =&gt; { alert(&#x27;click&#x27;); });</code></li><li>to dispatch: <code>this.clicked.dispatch();</code></li></ul>
+      
+<p>The only way if your components does not have a parent-child relationship (or are related but too further such as a grand grand grand son) is to have some kind of a signal that one component subscribes to, and the other writes into.
+</p>
+<p>Those are the 2 basic operations of any event system: <strong>subscribe/listen</strong> to an event to be notify, and <strong>send/trigger/publish/dispatch</strong> a event to notify the ones who wants.
+</p>
+<p>There are at least 3 patterns to do that. You can find a <a href="https://github.com/millermedeiros/js-signals/wiki/Comparison-between-different-Observer-Pattern-implementations">comparison here</a>.
+</p>
+<p>Here is a brief summary:
+</p>
+  <ul id="761cc627-b19e-4a10-a8b5-19fd2525277a" class="bulleted-list">
+    <li>Pattern 1: <strong>Event Emitter/Target/Dispatcher</strong>: the listeners need to reference the source to subscribe.
+    </li>
+    <li>to subscribe: <code>otherObject.addEventListener(&#x27;click&#x27;, () =&gt; { alert(&#x27;click!&#x27;); });</code>
+    </li>
+    <li>to dispatch: <code>this.dispatchEvent(&#x27;click&#x27;);</code>
+    </li>
+    <li>Pattern 2: <strong>Publish/Subscribe</strong>: you don’t need a specific reference to the source that triggers the event, there is a global object accessible everywhere that handles all the events.
+    </li>
+    <li>to subscribe: <code>globalBroadcaster.subscribe(&#x27;click&#x27;, () =&gt; { alert(&#x27;click!&#x27;); });</code>
+    </li>
+    <li>to dispatch: <code>globalBroadcaster.publish(&#x27;click&#x27;);</code>
+    </li>
+    <li>Pattern 3: <strong>Signals</strong>: similar to Event Emitter/Target/Dispatcher but you don’t use any random strings here. Each object that could emit events needs to have a specific property with that name. This way, you know exactly what events can an object emit.
+    </li>
+    <li>to subscribe: <code>otherObject.clicked.add( () =&gt; { alert(&#x27;click&#x27;); });</code>
+    </li>
+    <li>to dispatch: <code>this.clicked.dispatch();</code>
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

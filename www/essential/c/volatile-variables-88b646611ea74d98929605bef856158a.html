@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>The <code>volatile</code> keyword tells the compiler that the value of the variable may change at any time as a result of external conditions, not only as a result of program control flow.</p><p>The compiler will not optimize anything that has to do with the volatile variable.</p>
+      
+<p>The <code>volatile</code> keyword tells the compiler that the value of the variable may change at any time as a result of external conditions, not only as a result of program control flow.
+</p>
+<p>The compiler will not optimize anything that has to do with the volatile variable.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">volatile int foo; /* Different ways to declare a volatile variable */
@@ -139,7 +144,18 @@ uint8_t volatile * pReg;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>There are two main reasons to uses volatile variables:</p><ul id="a38d0a1c-58b5-44e4-abcb-ad1c30d2eb02" class="bulleted-list"><li>To interface with hardware that has memory-mapped I/O registers.</li><li>When using variables that are modified outside the program control flow (e.g., in an interrupt service routine)</li></ul><p>Let’s see this example:</p>
+</div>
+<p>There are two main reasons to uses volatile variables:
+</p>
+  <ul id="a38d0a1c-58b5-44e4-abcb-ad1c30d2eb02" class="bulleted-list">
+    <li>To interface with hardware that has memory-mapped I/O registers.
+    </li>
+    <li>When using variables that are modified outside the program control flow (e.g., in an interrupt service routine)
+    </li>
+  </ul>
+<p>Let’s see this example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int quit = false;
@@ -161,7 +177,14 @@ void interrupt_handler(void)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The compiler is allowed to notice the while loop does not modify the <code>quit</code> variable and convert the loop to a endless <code>while (true)</code> loop. Even if the <code>quit</code> variable is set on the signal handler for <code>SIGINT</code> and <code>SIGTERM</code>, the compiler does not know that.</p><p>Declaring <code>quit</code> as <code>volatile</code> will tell the compiler to not optimize the loop and the problem will be solved.</p><p>The same problem happens when accessing hardware, as we see in this example:</p>
+</div>
+<p>The compiler is allowed to notice the while loop does not modify the <code>quit</code> variable and convert the loop to a endless <code>while (true)</code> loop. Even if the <code>quit</code> variable is set on the signal handler for <code>SIGINT</code> and <code>SIGTERM</code>, the compiler does not know that.
+</p>
+<p>Declaring <code>quit</code> as <code>volatile</code> will tell the compiler to not optimize the loop and the problem will be solved.
+</p>
+<p>The same problem happens when accessing hardware, as we see in this example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">uint8_t * pReg = (uint8_t *) 0x1717;
@@ -172,7 +195,10 @@ while (*pReg == 0) { } // Do something else</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The behavior of the optimizer is to read the variable’s value once, there is no need to reread it, since the value will always be the same. So we end up with an infinite loop. To force the compiler to do what we want, we modify the declaration to:</p>
+</div>
+<p>The behavior of the optimizer is to read the variable’s value once, there is no need to reread it, since the value will always be the same. So we end up with an infinite loop. To force the compiler to do what we want, we modify the declaration to:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">uint8_t volatile * pReg = (uint8_t volatile *) 0x1717;</pre>

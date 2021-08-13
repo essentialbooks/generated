@@ -127,7 +127,12 @@
 </div>
 
 
-      <p><a href="https://en.wikipedia.org/wiki/C_signal_handling#Standard_signals">Signal numbers</a> can be synchronous (like <code>SIGSEGV</code> – segmentation fault) when they are triggered by a malfunctioning of the program itself or asynchronous (like <code>SIGINT</code> - interactive attention) when they are initiated from outside the program, e.g by a keypress as <code>Cntrl-C</code>.</p><p>The <code>signal()</code> function is part of the ISO C standard and can be used to assign a function to handle a specific signal</p>
+      
+<p><a href="https://en.wikipedia.org/wiki/C_signal_handling#Standard_signals">Signal numbers</a> can be synchronous (like <code>SIGSEGV</code> – segmentation fault) when they are triggered by a malfunctioning of the program itself or asynchronous (like <code>SIGINT</code> - interactive attention) when they are initiated from outside the program, e.g by a keypress as <code>Cntrl-C</code>.
+</p>
+<p>The <code>signal()</code> function is part of the ISO C standard and can be used to assign a function to handle a specific signal
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;  /* printf() */
@@ -157,6 +162,7 @@ void handler(int sig)
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/* quick_exit is safe to call */
@@ -166,6 +172,7 @@ quick_exit(EXIT_FAILURE);</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/* use _Exit in pre-C11 */
@@ -175,6 +182,7 @@ _Exit(EXIT_FAILURE);</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">default:
@@ -210,6 +218,7 @@ signal(SIGINT, SIG_IGN);</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/* Do something that takes some time here, and leaves
@@ -226,6 +235,7 @@ if (finished) {
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/* Try to force a segmentation fault, and raise a SIGSEGV */
@@ -241,7 +251,11 @@ return EXIT_SUCCESS;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Using <code>signal()</code> imposes important limitations what you are allowed to do inside the signal handlers, see the remarks for further information.</p><p><a href="http://stackoverflow.com/documentation/posix/4532/signals#t=201608081940432865722">POSIX</a> recommends the usage of <code>sigaction()</code> instead of <code>signal()</code>, due to its underspecified behavior and significant implementation variations. POSIX also defines <a href="https://en.wikipedia.org/wiki/Unix_signal#POSIX_signals">many more signals</a> than ISO C standard, including <code>SIGUSR1</code> and <code>SIGUSR2</code>, which can be used freely by the programmer for any purpose.</p>
+</div>
+<p>Using <code>signal()</code> imposes important limitations what you are allowed to do inside the signal handlers, see the remarks for further information.
+</p>
+<p><a href="http://stackoverflow.com/documentation/posix/4532/signals#t=201608081940432865722">POSIX</a> recommends the usage of <code>sigaction()</code> instead of <code>signal()</code>, due to its underspecified behavior and significant implementation variations. POSIX also defines <a href="https://en.wikipedia.org/wiki/Unix_signal#POSIX_signals">many more signals</a> than ISO C standard, including <code>SIGUSR1</code> and <code>SIGUSR2</code>, which can be used freely by the programmer for any purpose.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>If an object is defined with static, thread, or automatic storage duration, and it has a character type, either: <code>char</code>, <code>unsigned char</code>, or <code>signed char</code>, it may not be accessed by a non-character type. In the below example a <code>char</code> array is reinterpreted as the type <code>int</code>, and the behavior is undefined on every dereference of the <code>int</code> pointer <code>b</code>.</p>
+      
+<p>If an object is defined with static, thread, or automatic storage duration, and it has a character type, either: <code>char</code>, <code>unsigned char</code>, or <code>signed char</code>, it may not be accessed by a non-character type. In the below example a <code>char</code> array is reinterpreted as the type <code>int</code>, and the behavior is undefined on every dereference of the <code>int</code> pointer <code>b</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int main( void )
@@ -148,7 +151,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is undefined because it violates the “effective type” rule, no data object that has an effective type may be accessed through another type that is not a character type. Since the other type here is <code>int</code>, this is not allowed.</p><p>Even if alignment and pointer sizes would be known to fit, this would not exempt from this rule, behavior would still be undefined.</p><p>This means in particular that there is no way in standard C to reserve a buffer object of character type that can be used through pointers with different types, as you would use a buffer that was received by <code>malloc</code> or similar function.</p><p>A correct way to achieve the same goal as in the above example would be to use a <code>union</code>.</p>
+</div>
+<p>This is undefined because it violates the “effective type” rule, no data object that has an effective type may be accessed through another type that is not a character type. Since the other type here is <code>int</code>, this is not allowed.
+</p>
+<p>Even if alignment and pointer sizes would be known to fit, this would not exempt from this rule, behavior would still be undefined.
+</p>
+<p>This means in particular that there is no way in standard C to reserve a buffer object of character type that can be used through pointers with different types, as you would use a buffer that was received by <code>malloc</code> or similar function.
+</p>
+<p>A correct way to achieve the same goal as in the above example would be to use a <code>union</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">typedef union bufType bufType;
@@ -175,7 +187,9 @@ int main( void )
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, the <code>union</code> ensures that the compiler knows from the start that the buffer could be accessed through different views. This also has the advantage that now the buffer has a “view” <code>a.i</code> that already is of type <code>int</code> and no pointer conversion is needed.</p>
+</div>
+<p>Here, the <code>union</code> ensures that the compiler knows from the start that the buffer could be accessed through different views. This also has the advantage that now the buffer has a “view” <code>a.i</code> that already is of type <code>int</code> and no pointer conversion is needed.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

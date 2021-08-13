@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>The <a href="http://en.cppreference.com/w/cpp/header/algorithm"><code>&lt;algorithm&gt;</code></a> header provides a number of useful functions for working with sorted vectors.</p><p>An important prerequisite for working with sorted vectors is that the stored values are comparable with <code>\&lt;</code>.</p><p>An unsorted vector can be sorted by using the function <a href="http://en.cppreference.com/w/cpp/algorithm/sort"><code>std::sort()</code></a>:</p>
+      
+<p>The <a href="http://en.cppreference.com/w/cpp/header/algorithm"><code>&lt;algorithm&gt;</code></a> header provides a number of useful functions for working with sorted vectors.
+</p>
+<p>An important prerequisite for working with sorted vectors is that the stored values are comparable with <code>\&lt;</code>.
+</p>
+<p>An unsorted vector can be sorted by using the function <a href="http://en.cppreference.com/w/cpp/algorithm/sort"><code>std::sort()</code></a>:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
@@ -138,7 +145,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Sorted vectors allow efficient element lookup using the function <a href="http://en.cppreference.com/w/cpp/algorithm/lower_bound"><code>std::lower_bound()</code></a>. Unlike <a href="http://en.cppreference.com/w/cpp/algorithm/find"><code>std::find()</code></a>, this performs an efficient binary search on the vector. The downside is that it only gives valid results for sorted input ranges:</p>
+</div>
+<p>Sorted vectors allow efficient element lookup using the function <a href="http://en.cppreference.com/w/cpp/algorithm/lower_bound"><code>std::lower_bound()</code></a>. Unlike <a href="http://en.cppreference.com/w/cpp/algorithm/find"><code>std::find()</code></a>, this performs an efficient binary search on the vector. The downside is that it only gives valid results for sorted input ranges:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="c1">// search the vector for the first element with value 42
@@ -151,7 +161,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em><strong>Note:</strong></em> If the requested value is not part of the vector, <code>std::lower_bound()</code> will return an iterator to the first element that is <em>greater</em> than the requested value. This behavior allows us to insert a new element at its right place in an already sorted vector:</p>
+</div>
+<p><em><strong>Note:</strong></em> If the requested value is not part of the vector, <code>std::lower_bound()</code> will return an iterator to the first element that is <em>greater</em> than the requested value. This behavior allows us to insert a new element at its right place in an already sorted vector:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">int</span> <span class="k">const</span> <span class="n">new_element</span> <span class="o">=</span> <span class="mi">33</span><span class="p">;</span>
@@ -161,7 +174,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you need to insert a lot of elements at once, it might be more efficient to call <code>push_back()</code> for all them first and then call <code>std::sort()</code> once all elements have been inserted. In this case, the increased cost of the sorting can pay off against the reduced cost of inserting new elements at the end of the vector and not in the middle.</p><p>If your vector contains multiple elements of the same value, <code>std::lower_bound()</code> will try to return an iterator to the first element of the searched value. However, if you need to insert a new element <em>after</em> the last element of the searched value, you should use the function <a href="http://en.cppreference.com/w/cpp/algorithm/upper_bound"><code>std::upper_bound()</code></a> as this will cause less shifting around of elements:</p>
+</div>
+<p>If you need to insert a lot of elements at once, it might be more efficient to call <code>push_back()</code> for all them first and then call <code>std::sort()</code> once all elements have been inserted. In this case, the increased cost of the sorting can pay off against the reduced cost of inserting new elements at the end of the vector and not in the middle.
+</p>
+<p>If your vector contains multiple elements of the same value, <code>std::lower_bound()</code> will try to return an iterator to the first element of the searched value. However, if you need to insert a new element <em>after</em> the last element of the searched value, you should use the function <a href="http://en.cppreference.com/w/cpp/algorithm/upper_bound"><code>std::upper_bound()</code></a> as this will cause less shifting around of elements:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">v</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">upper_bound</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">new_element</span><span class="p">),</span> <span class="n">new_element</span><span class="p">);</span>
@@ -170,7 +188,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you need both the upper bound and the lower bound iterators, you can use the function <a href="http://en.cppreference.com/w/cpp/algorithm/equal_range"><code>std::equal_range()</code></a> to retrieve both of them efficiently with one call:</p>
+</div>
+<p>If you need both the upper bound and the lower bound iterators, you can use the function <a href="http://en.cppreference.com/w/cpp/algorithm/equal_range"><code>std::equal_range()</code></a> to retrieve both of them efficiently with one call:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span><span class="p">,</span>
@@ -182,7 +203,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In order to test whether an element exists in a sorted vector (although not specific to vectors), you can use the function <a href="http://en.cppreference.com/w/cpp/algorithm/binary_search"><code>std::binary_search()</code></a>:</p>
+</div>
+<p>In order to test whether an element exists in a sorted vector (although not specific to vectors), you can use the function <a href="http://en.cppreference.com/w/cpp/algorithm/binary_search"><code>std::binary_search()</code></a>:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">bool</span> <span class="n">exists</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">binary_search</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">value_to_find</span><span class="p">);</span>

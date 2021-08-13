@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>git does not recognice the concept of folders, it just works with files and their filepaths. This means git does not track empty folders. SVN, however, does. Using git-svn means that, by default, <em>any change you do involving empty folders with git will not be propagated to SVN</em>.</p><p>Using the <code>--rmdir</code> flag when issuing a comment corrects this issue, and removes an empty folder in SVN if you locally delete the last file inside it:</p><p><code>git svn dcommit --rmdir</code></p><p>Unfortunately <strong>it does not removes existing empty folders</strong>: you need to do it manually.</p><p>To avoid adding the flag each time you do a dcommit, or to play it safe if you are using a git GUI tool (like SourceTree) you can set this behaviour as default with the command:</p><p><code>git config --global svn.rmdir true</code></p><p>This changes your .gitconfig file and adds these lines:</p>
+      
+<p>git does not recognice the concept of folders, it just works with files and their filepaths. This means git does not track empty folders. SVN, however, does. Using git-svn means that, by default, <em>any change you do involving empty folders with git will not be propagated to SVN</em>.
+</p>
+<p>Using the <code>--rmdir</code> flag when issuing a comment corrects this issue, and removes an empty folder in SVN if you locally delete the last file inside it:
+</p>
+<p><code>git svn dcommit --rmdir</code>
+</p>
+<p>Unfortunately <strong>it does not removes existing empty folders</strong>: you need to do it manually.
+</p>
+<p>To avoid adding the flag each time you do a dcommit, or to play it safe if you are using a git GUI tool (like SourceTree) you can set this behaviour as default with the command:
+</p>
+<p><code>git config --global svn.rmdir true</code>
+</p>
+<p>This changes your .gitconfig file and adds these lines:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[svn]
@@ -136,7 +151,19 @@ rmdir = true</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To remove all untracked files and folders that should be kept empty for SVN use the git command:</p><p><code>git clean -fd</code></p><p>Please note: the previous command will remove all untracked files and empty folders, even the ones that should be tracked by SVN! If you need to generate againg the empty folders tracked by SVN use the command</p><p><code>git svn mkdirs</code></p><p>In practices this means that if you want to cleanup your workspace from untracked files and folders you should always use both commands to recreate the empty folders tracked by SVN:</p><p><code>git clean -fd &amp;&amp; git svn mkdirs</code></p>
+</div>
+<p>To remove all untracked files and folders that should be kept empty for SVN use the git command:
+</p>
+<p><code>git clean -fd</code>
+</p>
+<p>Please note: the previous command will remove all untracked files and empty folders, even the ones that should be tracked by SVN! If you need to generate againg the empty folders tracked by SVN use the command
+</p>
+<p><code>git svn mkdirs</code>
+</p>
+<p>In practices this means that if you want to cleanup your workspace from untracked files and folders you should always use both commands to recreate the empty folders tracked by SVN:
+</p>
+<p><code>git clean -fd &amp;&amp; git svn mkdirs</code>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

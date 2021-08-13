@@ -127,7 +127,12 @@
 </div>
 
 
-      <p><a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman code</a> is a particular type of optimal prefix code that is commonly used for lossless data compression. It compresses data very effectively saving from 20% to 90% memory, depending on the characteristics of the data being compressed. We consider the data to be a sequence of characters. Huffman’s greedy algorithm uses a table giving how often each character occurs (i.e., its frequency) to build up an optimal way of representing each character as a binary string. Huffman code was proposed by <a href="https://en.wikipedia.org/wiki/David_A._Huffman">David A. Huffman</a> in 1951.</p><p>Suppose we have a 100,000-character data file that we wish to store compactly. We assume that there are only 6 different characters in that file. The frequency of the characters are given by:</p>
+      
+<p><a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman code</a> is a particular type of optimal prefix code that is commonly used for lossless data compression. It compresses data very effectively saving from 20% to 90% memory, depending on the characteristics of the data being compressed. We consider the data to be a sequence of characters. Huffman’s greedy algorithm uses a table giving how often each character occurs (i.e., its frequency) to build up an optimal way of representing each character as a binary string. Huffman code was proposed by <a href="https://en.wikipedia.org/wiki/David_A._Huffman">David A. Huffman</a> in 1951.
+</p>
+<p>Suppose we have a 100,000-character data file that we wish to store compactly. We assume that there are only 6 different characters in that file. The frequency of the characters are given by:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+------------------------+-----+-----+-----+-----+-----+-----+
@@ -139,7 +144,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We have many options for how to represent such a file of information. Here, we consider the problem of designing a <em>Binary Character Code</em> in which each character is represented by a unique binary string, which we call a <strong>codeword</strong>.</p><img class="img" src="/img/c5813f8b966e210da383fcfebb9379ada9a6d1f0.png"><p>The constructed tree will provide us with:</p>
+</div>
+<p>We have many options for how to represent such a file of information. Here, we consider the problem of designing a <em>Binary Character Code</em> in which each character is represented by a unique binary string, which we call a <strong>codeword</strong>.
+</p>
+<img class="img" src="/img/c5813f8b966e210da383fcfebb9379ada9a6d1f0.png">
+<p>The constructed tree will provide us with:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+------------------------+-----+-----+-----+-----+-----+-----+
@@ -153,7 +164,26 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If we use a <strong>fixed-length code</strong>, we need three bits to represent 6 characters. This method requires 300,000 bits to code the entire file. Now the question is, can we do better?</p><p>A <strong>variable-length code</strong> can do considerably better than a fixed-length code, by giving frequent characters short codewords and infrequent characters long codewords. This code requires: (45 X 1 + 13 X 3 + 12 X 3 + 16 X 3 + 9 X 4 + 5 X 4) X 1000 = 224000 bits to represent the file, which saves approximately 25% of memory.</p><p>One thing to remember, we consider here only codes in which no codeword is also a prefix of some other codeword. These are called <em>prefix codes.</em> For variable-length coding, we code the 3-character file <em>abc</em> as 0.101.100 = 0101100, where “.” denotes the concatenation.</p><p>Prefix codes are desirable because they simplify decoding. Since no codeword is a prefix of any other, the codeword that begins an encoded file is unambiguous. We can simply identify the initial codeword, translate it back to the original character, and repeat the decoding process on the remainder of the encoded file. For example, 001011101 parses uniquely as 0.0.101.1101, which decodes to <em>aabe</em>. In short, all the combinations of binary representations are unique. Say for example, if one letter is denoted by 110, no other letter will be denoted by 1101 or 1100. This is because you might face confusion on whether to select 110 or to continue on concatenating the next bit and select that one.</p><p><strong>Compression Technique:</strong></p><p>The technique works by creating a <em>binary tree</em> of nodes. These can stored in a regular array, the size of which depends on the number of symbols, <strong>n</strong>. A node can either be a <em>leaf node</em> or an <em>internal node</em>. Initially all nodes are leaf nodes, which contain the symbol itself, its frequency and optionally, a link to its child nodes. As a convention, bit ‘0’ represents left child and bit ‘1’ represents right child. <em>Priority queue</em> is used to store the nodes, which provides the node with lowest frequency when popped. The process is described below:</p><ol id="cbd376ab-3953-42aa-9cb0-02dce1d1a0dd" class="numbered-list" start="1"><li>Create a leaf node for each symbol and add it to the priority queue.</li><li>While there is more than one node in the queue:</li></ol>
+</div>
+<p>If we use a <strong>fixed-length code</strong>, we need three bits to represent 6 characters. This method requires 300,000 bits to code the entire file. Now the question is, can we do better?
+</p>
+<p>A <strong>variable-length code</strong> can do considerably better than a fixed-length code, by giving frequent characters short codewords and infrequent characters long codewords. This code requires: (45 X 1 + 13 X 3 + 12 X 3 + 16 X 3 + 9 X 4 + 5 X 4) X 1000 = 224000 bits to represent the file, which saves approximately 25% of memory.
+</p>
+<p>One thing to remember, we consider here only codes in which no codeword is also a prefix of some other codeword. These are called <em>prefix codes.</em> For variable-length coding, we code the 3-character file <em>abc</em> as 0.101.100 = 0101100, where “.” denotes the concatenation.
+</p>
+<p>Prefix codes are desirable because they simplify decoding. Since no codeword is a prefix of any other, the codeword that begins an encoded file is unambiguous. We can simply identify the initial codeword, translate it back to the original character, and repeat the decoding process on the remainder of the encoded file. For example, 001011101 parses uniquely as 0.0.101.1101, which decodes to <em>aabe</em>. In short, all the combinations of binary representations are unique. Say for example, if one letter is denoted by 110, no other letter will be denoted by 1101 or 1100. This is because you might face confusion on whether to select 110 or to continue on concatenating the next bit and select that one.
+</p>
+<p><strong>Compression Technique:</strong>
+</p>
+<p>The technique works by creating a <em>binary tree</em> of nodes. These can stored in a regular array, the size of which depends on the number of symbols, <strong>n</strong>. A node can either be a <em>leaf node</em> or an <em>internal node</em>. Initially all nodes are leaf nodes, which contain the symbol itself, its frequency and optionally, a link to its child nodes. As a convention, bit ‘0’ represents left child and bit ‘1’ represents right child. <em>Priority queue</em> is used to store the nodes, which provides the node with lowest frequency when popped. The process is described below:
+</p>
+  <ol id="cbd376ab-3953-42aa-9cb0-02dce1d1a0dd" class="numbered-list" start="1">
+    <li>Create a leaf node for each symbol and add it to the priority queue.
+    </li>
+    <li>While there is more than one node in the queue:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">1. Remove the two nodes of highest priority from the queue.
@@ -163,7 +193,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="feb096b4-287b-42f8-a048-d5195075038e" class="numbered-list" start="1"><li>The remaining node is the root node and the Huffman tree is complete.</li></ol><p>For our example:</p><img class="img" src="/img/421924c9bcfb123d5c624d9cab030e040a75e286.png"><p>The pseudo-code looks like:</p>
+</div>
+  <ol id="feb096b4-287b-42f8-a048-d5195075038e" class="numbered-list" start="1">
+    <li>The remaining node is the root node and the Huffman tree is complete.
+    </li>
+  </ol>
+<p>For our example:
+</p>
+<img class="img" src="/img/421924c9bcfb123d5c624d9cab030e040a75e286.png">
+<p>The pseudo-code looks like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure Huffman(C):     // C is the set of n characters and related information
@@ -185,7 +225,16 @@ Return Q</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Although linear-time given sorted input, in general cases of arbitrary input, using this algorithm requires pre-sorting. Thus, since sorting takes <strong>O(nlogn)</strong> time in general cases, both methods have same complexity.</p><p>Since <strong>n</strong> here is the number of symbols in the alphabet, which is typically very small number (compared to the length of the message to be encoded), time complexity is not very important in the choice of this algorithm.</p><p><strong>Decompression Technique:</strong></p><p>The process of decompression is simply a matter of translating the stream of prefix codes to individual byte value, usually by traversing the Huffman tree node by node as each bit is read from the input stream. Reaching a leaf node necessarily terminates the search for that particular byte value. The leaf value represents the desired character. Usually the Huffman Tree is constructed using statistically adjusted data on each compression cycle, thus the reconstruction is fairly simple. Otherwise, the information to reconstruct the tree must be sent separately. The pseudo-code:</p>
+</div>
+<p>Although linear-time given sorted input, in general cases of arbitrary input, using this algorithm requires pre-sorting. Thus, since sorting takes <strong>O(nlogn)</strong> time in general cases, both methods have same complexity.
+</p>
+<p>Since <strong>n</strong> here is the number of symbols in the alphabet, which is typically very small number (compared to the length of the message to be encoded), time complexity is not very important in the choice of this algorithm.
+</p>
+<p><strong>Decompression Technique:</strong>
+</p>
+<p>The process of decompression is simply a matter of translating the stream of prefix codes to individual byte value, usually by traversing the Huffman tree node by node as each bit is read from the input stream. Reaching a leaf node necessarily terminates the search for that particular byte value. The leaf value represents the desired character. Usually the Huffman Tree is constructed using statistically adjusted data on each compression cycle, thus the reconstruction is fairly simple. Otherwise, the information to reconstruct the tree must be sent separately. The pseudo-code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure HuffmanDecompression(root, S):   // root represents the root of Huffman Tree
@@ -206,7 +255,21 @@ endfor</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Greedy Explanation:</strong></p><p>Huffman coding looks at the occurrence of each character and stores it as a binary string in an optimal way. The idea is to assign variable-length codes to input input characters, length of the assigned codes are based on the frequencies of corresponding characters. We create a binary tree and operate on it in bottom-up manner so that the least two frequent characters are as far as possible from the root. In this way, the most frequent character gets the smallest code and the least frequent character gets the largest code.</p><p><strong>References:</strong></p><ul id="ab3fff2f-e793-4c21-9820-012bcb103660" class="bulleted-list"><li>Introduction to Algorithms - Charles E. Leiserson, Clifford Stein, Ronald Rivest, and Thomas H. Cormen</li><li><a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman Coding</a> - Wikipedia</li><li>Discrete Mathematics and Its Applications - Kenneth H. Rosen</li></ul>
+</div>
+<p><strong>Greedy Explanation:</strong>
+</p>
+<p>Huffman coding looks at the occurrence of each character and stores it as a binary string in an optimal way. The idea is to assign variable-length codes to input input characters, length of the assigned codes are based on the frequencies of corresponding characters. We create a binary tree and operate on it in bottom-up manner so that the least two frequent characters are as far as possible from the root. In this way, the most frequent character gets the smallest code and the least frequent character gets the largest code.
+</p>
+<p><strong>References:</strong>
+</p>
+  <ul id="ab3fff2f-e793-4c21-9820-012bcb103660" class="bulleted-list">
+    <li>Introduction to Algorithms - Charles E. Leiserson, Clifford Stein, Ronald Rivest, and Thomas H. Cormen
+    </li>
+    <li><a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman Coding</a> - Wikipedia
+    </li>
+    <li>Discrete Mathematics and Its Applications - Kenneth H. Rosen
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

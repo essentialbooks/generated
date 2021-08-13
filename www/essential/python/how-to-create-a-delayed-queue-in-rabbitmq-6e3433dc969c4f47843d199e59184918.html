@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>First we need to set up two basic channels, one for the main queue, and one for the delay queue. In my example at the end, I include a couple of additional flags that are not required, but makes the code more reliable; such as <code>confirm delivery</code>, <code>delivery_mode</code> and <code>durable</code>. You can find more information on these in the RabbitMQ <a href="http://www.rabbitmq.com/tutorials/amqp-concepts.html">manual</a>.</p><p>After we have set up the channels we add a binding to the main channel that we can use to send messages from the delay channel to our main queue.</p>
+      
+<p>First we need to set up two basic channels, one for the main queue, and one for the delay queue. In my example at the end, I include a couple of additional flags that are not required, but makes the code more reliable; such as <code>confirm delivery</code>, <code>delivery_mode</code> and <code>durable</code>. You can find more information on these in the RabbitMQ <a href="http://www.rabbitmq.com/tutorials/amqp-concepts.html">manual</a>.
+</p>
+<p>After we have set up the channels we add a binding to the main channel that we can use to send messages from the delay channel to our main queue.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">channel.queue.bind(exchange=&#39;amq.direct&#39;, routing_key=&#39;hello&#39;, queue=&#39;hello&#39;)</pre>
@@ -135,7 +140,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Next we need to configure our delay channel to forward messages to the main queue once they have expired.</p>
+</div>
+<p>Next we need to configure our delay channel to forward messages to the main queue once they have expired.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">delay_channel.queue.declare(queue=&#39;hello_delay&#39;, durable=True, arguments={
@@ -147,7 +155,24 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="0850d144-ced1-4092-ba19-a121e1c5c159" class="bulleted-list"><li><a href="https://www.rabbitmq.com/ttl.html">x-message-ttl</a> <em>(Message - Time To Live)</em></li></ul><p>This is normally used to automatically remove old messages in the queue after a specific duration, but by adding two optional arguments we can change this behaviour, and instead have this parameter determine in milliseconds how long messages will stay in the delay queue.</p><ul id="6a681096-5558-4bd9-bc15-15a725f3d0f0" class="bulleted-list"><li><a href="http://www.rabbitmq.com/dlx.html">x-dead-letter-routing-key</a></li></ul><p>This variable allows us to transfer the message to a different queue once they have expired, instead of the default behaviour of removing it completely.</p><ul id="78f0255a-b0be-4f46-bfb9-988ae2c3726e" class="bulleted-list"><li><a href="http://www.rabbitmq.com/dlx.html">x-dead-letter-exchange</a></li></ul>
+</div>
+  <ul id="0850d144-ced1-4092-ba19-a121e1c5c159" class="bulleted-list">
+    <li><a href="https://www.rabbitmq.com/ttl.html">x-message-ttl</a> <em>(Message - Time To Live)</em>
+    </li>
+  </ul>
+<p>This is normally used to automatically remove old messages in the queue after a specific duration, but by adding two optional arguments we can change this behaviour, and instead have this parameter determine in milliseconds how long messages will stay in the delay queue.
+</p>
+  <ul id="6a681096-5558-4bd9-bc15-15a725f3d0f0" class="bulleted-list">
+    <li><a href="http://www.rabbitmq.com/dlx.html">x-dead-letter-routing-key</a>
+    </li>
+  </ul>
+<p>This variable allows us to transfer the message to a different queue once they have expired, instead of the default behaviour of removing it completely.
+</p>
+  <ul id="78f0255a-b0be-4f46-bfb9-988ae2c3726e" class="bulleted-list">
+    <li><a href="http://www.rabbitmq.com/dlx.html">x-dead-letter-exchange</a>
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">This variable determines which Exchange used to transfer the message from hello_delay to hello queue.</pre>
@@ -155,7 +180,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Publishing to the delay queue</strong></p><p>When we are done setting up all the basic Pika parameters you simply send a message to the delay queue using basic publish.</p>
+</div>
+<p><strong>Publishing to the delay queue</strong>
+</p>
+<p>When we are done setting up all the basic Pika parameters you simply send a message to the delay queue using basic publish.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">delay_channel.basic.publish(exchange=&#39;&#39;,
@@ -166,7 +196,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Once you have executed the script you should see the following queues created in your RabbitMQ management module.</p><img class="img" src="/img/d5557e34c60b03c0d5a84a5cad55eb054af172e0.png"><p><strong>Example.</strong></p>
+</div>
+<p>Once you have executed the script you should see the following queues created in your RabbitMQ management module.
+</p>
+<img class="img" src="/img/d5557e34c60b03c0d5a84a5cad55eb054af172e0.png">
+<p><strong>Example.</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">from amqpstorm import Connection

@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>For simple multi-threaded code, using <a href="http://stackoverflow.com/documentation/java/121/concurrent-programming-threads/7299/synchronization#t=201610211859175882372">synchronization</a> is acceptable. However, using synchronization does have a liveness impact, and as a codebase becomes more complex, the likelihood goes up that you will end up with <a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/deadlock.html">Deadlock</a>, <a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/starvelive.html">Starvation, or Livelock</a>.</p><p>In cases of more complex concurrency, using Atomic Variables is often a better alternative, as it allows an individual variable to be accessed in a thread-safe manner without the overhead of using synchronized methods or code blocks.</p><p>Creating an <code>AtomicInteger</code> type:</p>
+      
+<p>For simple multi-threaded code, using <a href="http://stackoverflow.com/documentation/java/121/concurrent-programming-threads/7299/synchronization#t=201610211859175882372">synchronization</a> is acceptable. However, using synchronization does have a liveness impact, and as a codebase becomes more complex, the likelihood goes up that you will end up with <a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/deadlock.html">Deadlock</a>, <a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/starvelive.html">Starvation, or Livelock</a>.
+</p>
+<p>In cases of more complex concurrency, using Atomic Variables is often a better alternative, as it allows an individual variable to be accessed in a thread-safe manner without the overhead of using synchronized methods or code blocks.
+</p>
+<p>Creating an <code>AtomicInteger</code> type:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">AtomicInteger aInt = new AtomicInteger() // Create with default value 0
@@ -137,7 +144,10 @@ AtomicInteger aInt = new AtomicInteger(1) // Create with initial value 1</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Similarly for other instance types.</p>
+</div>
+<p>Similarly for other instance types.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">AtomicIntegerArray aIntArray = new AtomicIntegerArray(10) // Create array of specific length
@@ -146,7 +156,13 @@ AtomicIntegerArray aIntArray = new AtomicIntegerArray(new int[] {1, 2, 3}) // In
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Similarly for other atomic types.</p><p>There is a notable exception that there is no <code>float</code> and <code>double</code> types. These can be simulated through the use of <code>Float.floatToIntBits(float)</code> and <code>Float.intBitsToFloat(int)</code> for <code>float</code> as well as <code>Double.doubleToLongBits(double)</code> and <code>Double.longBitsToDouble(long)</code> for doubles.</p><p>If you are willing to use <code>sun.misc.Unsafe</code> you can use any primitive variable as atomic by using the atomic operation in <code>sun.misc.Unsafe</code>. All primitive types should be converted or encoded in int or longs to so use it in this way. For more on this see: <a href="http://stackoverflow.com/documentation/java/6771/sun-misc-unsafe">sun.misc.Unsafe</a>.</p>
+</div>
+<p>Similarly for other atomic types.
+</p>
+<p>There is a notable exception that there is no <code>float</code> and <code>double</code> types. These can be simulated through the use of <code>Float.floatToIntBits(float)</code> and <code>Float.intBitsToFloat(int)</code> for <code>float</code> as well as <code>Double.doubleToLongBits(double)</code> and <code>Double.longBitsToDouble(long)</code> for doubles.
+</p>
+<p>If you are willing to use <code>sun.misc.Unsafe</code> you can use any primitive variable as atomic by using the atomic operation in <code>sun.misc.Unsafe</code>. All primitive types should be converted or encoded in int or longs to so use it in this way. For more on this see: <a href="http://stackoverflow.com/documentation/java/6771/sun-misc-unsafe">sun.misc.Unsafe</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,29 @@
 </div>
 
 
-      <p>(The following is a simplified version of what the Java Language Specification says. For a deeper understanding, you need to read the specification itself.)</p><p>Happens-before relationships are the part of the Memory Model that allow us to understand and reason about memory visibility. As the JLS says (<a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html#jls-17.4.5">JLS 17.4.5</a>):</p><blockquote id="d3154a6b-9c67-4e5b-8212-a348aafb7ef3" class="">“Two actions can be ordered by a happens-before relationship. If one action happens-before another, then the first is visible to and ordered before the second.”</blockquote><p>What does this mean?</p><h2 id="ac590912-ff03-4a23-ba9f-5fcf6c64f1cd" class="">Actions<a class="header-anchor" href="#ac590912-ff03-4a23-ba9f-5fcf6c64f1cd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>The actions that the above quote refers to are specified in <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html#jls-17.4.2">JLS 17.4.2</a>. There are 5 kinds of action listed defined by the spec:</p><ul id="b9d417b2-5dbb-46ef-b896-f5cdb1cec7ca" class="bulleted-list"><li>Read: Reading a non-volatile variable.</li><li>Write: Writing a non-volatile variable.</li><li>Synchronization actions:</li></ul>
+      
+<p>(The following is a simplified version of what the Java Language Specification says. For a deeper understanding, you need to read the specification itself.)
+</p>
+<p>Happens-before relationships are the part of the Memory Model that allow us to understand and reason about memory visibility. As the JLS says (<a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html#jls-17.4.5">JLS 17.4.5</a>):
+</p>
+<blockquote id="d3154a6b-9c67-4e5b-8212-a348aafb7ef3" class="">“Two actions can be ordered by a happens-before relationship. If one action happens-before another, then the first is visible to and ordered before the second.”
+</blockquote>
+<p>What does this mean?
+</p>
+  <h2 id="ac590912-ff03-4a23-ba9f-5fcf6c64f1cd" class="">Actions
+  <a class="header-anchor" href="#ac590912-ff03-4a23-ba9f-5fcf6c64f1cd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>The actions that the above quote refers to are specified in <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html#jls-17.4.2">JLS 17.4.2</a>. There are 5 kinds of action listed defined by the spec:
+</p>
+  <ul id="b9d417b2-5dbb-46ef-b896-f5cdb1cec7ca" class="bulleted-list">
+    <li>Read: Reading a non-volatile variable.
+    </li>
+    <li>Write: Writing a non-volatile variable.
+    </li>
+    <li>Synchronization actions:
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">- Volatile read: Reading a volatile variable.
@@ -145,7 +167,57 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="851c55b1-678d-4a7e-94cc-20667112fc2c" class="bulleted-list"><li>External Actions. An action that has a result that depends on the environment in which the program.</li><li>Thread divergence actions. These model the behavior of certain kinds of infinite loop.</li></ul><h2 id="2e81f5bb-ae1e-4e5b-aaa6-6ed31dad3823" class="">Program Order and Synchronization Order<a class="header-anchor" href="#2e81f5bb-ae1e-4e5b-aaa6-6ed31dad3823" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>These two orderings ( <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html#jls-17.4.3">JLS 17.4.3</a> and <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html#jls-17.4.4">JLS 17.4.4</a> ) govern the execution of statements in a Java</p><p>Program order describes the order of statement execution within a single thread.</p><p>Synchronization order describes the order of statement execution for two statements connected by a synchronization:</p><ul id="b531cbe9-1de7-4ccb-bec8-73030357dfdc" class="bulleted-list"><li>An unlock action on monitor <em>synchronizes-with</em> all subsequent lock actions on that monitor.</li><li>A write to a volatile variable <em>synchronizes-with</em> all subsequent reads of the same variable by any thread.</li><li>An action that starts a thread (i.e. the call to <code>Thread.start()</code>) <em>synchronizes-with</em> the first action in the thread it starts (i.e. the call to the thread’s <code>run()</code> method).</li><li>The default initialization of fields <em>synchronizes-with</em> the first action in every thread. (See the JLS for an explanation of this.)</li><li>The final action in a thread <em>synchronizes-with</em> any action in another thread that detects the termination; e.g. the return of a <code>join()</code> call or <code>isTerminated()</code> call that returns <code>true</code>.</li><li>If one thread interrupts another thread, the interrupt call in the first thread <em>synchronizes-with</em> the point where another thread detects that the thread was interrupted.</li></ul><h2 id="a5673a1f-34e2-4340-b959-0b7f82c17306" class="">Happens-before Order<a class="header-anchor" href="#a5673a1f-34e2-4340-b959-0b7f82c17306" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>This ordering ( <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html#jls-17.4.5">JLS 17.4.5</a> ) is what determines whether a memory write is guaranteed to be visible to a subsequent memory read.</p><p>More specifically, a read of a variable <code>v</code> is guaranteed to observe a write to <code>v</code> if and only if <code>write(v)</code> <em>happens-before</em> <code>read(v)</code> AND there is no intervening write to <code>v</code>. If there are intervening writes, then the <code>read(v)</code> may see the results of them rather than the earlier one.</p><p>The rules that define the <em>happens-before</em> ordering are as follows:</p><ul id="044ce15a-32c3-4837-8c1e-9f47efb51ff1" class="bulleted-list"><li><strong>Happens-Before Rule #1</strong> - If x and y are actions of the same thread and x comes before y in <em>program order</em>, then x <em>happens-before</em> y.</li><li><strong>Happens-Before Rule #2</strong> - There is a happens-before edge from the end of a constructor of an object to the start of a finalizer for that object.</li><li><strong>Happens-Before Rule #3</strong> - If an action x <em>synchronizes-with</em> a subsequent action y, then x <em>happens-before</em> y.</li><li><strong>Happens-Before Rule #4</strong> - If x <em>happens-before</em> y and y <em>happens-before</em> z then x <em>happens-before</em> z.</li></ul><p>In addition, various classes in the Java standard libraries are specified as defining <em>happens-before</em> relationships. You can interpret this as meaning that it happens <em>somehow</em>, without needing to know exactly how the guarantee is going to be met.</p>
+</div>
+  <ul id="851c55b1-678d-4a7e-94cc-20667112fc2c" class="bulleted-list">
+    <li>External Actions. An action that has a result that depends on the environment in which the program.
+    </li>
+    <li>Thread divergence actions. These model the behavior of certain kinds of infinite loop.
+    </li>
+  </ul>
+  <h2 id="2e81f5bb-ae1e-4e5b-aaa6-6ed31dad3823" class="">Program Order and Synchronization Order
+  <a class="header-anchor" href="#2e81f5bb-ae1e-4e5b-aaa6-6ed31dad3823" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>These two orderings ( <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html#jls-17.4.3">JLS 17.4.3</a> and <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html#jls-17.4.4">JLS 17.4.4</a> ) govern the execution of statements in a Java
+</p>
+<p>Program order describes the order of statement execution within a single thread.
+</p>
+<p>Synchronization order describes the order of statement execution for two statements connected by a synchronization:
+</p>
+  <ul id="b531cbe9-1de7-4ccb-bec8-73030357dfdc" class="bulleted-list">
+    <li>An unlock action on monitor <em>synchronizes-with</em> all subsequent lock actions on that monitor.
+    </li>
+    <li>A write to a volatile variable <em>synchronizes-with</em> all subsequent reads of the same variable by any thread.
+    </li>
+    <li>An action that starts a thread (i.e. the call to <code>Thread.start()</code>) <em>synchronizes-with</em> the first action in the thread it starts (i.e. the call to the thread’s <code>run()</code> method).
+    </li>
+    <li>The default initialization of fields <em>synchronizes-with</em> the first action in every thread. (See the JLS for an explanation of this.)
+    </li>
+    <li>The final action in a thread <em>synchronizes-with</em> any action in another thread that detects the termination; e.g. the return of a <code>join()</code> call or <code>isTerminated()</code> call that returns <code>true</code>.
+    </li>
+    <li>If one thread interrupts another thread, the interrupt call in the first thread <em>synchronizes-with</em> the point where another thread detects that the thread was interrupted.
+    </li>
+  </ul>
+  <h2 id="a5673a1f-34e2-4340-b959-0b7f82c17306" class="">Happens-before Order
+  <a class="header-anchor" href="#a5673a1f-34e2-4340-b959-0b7f82c17306" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>This ordering ( <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html#jls-17.4.5">JLS 17.4.5</a> ) is what determines whether a memory write is guaranteed to be visible to a subsequent memory read.
+</p>
+<p>More specifically, a read of a variable <code>v</code> is guaranteed to observe a write to <code>v</code> if and only if <code>write(v)</code> <em>happens-before</em> <code>read(v)</code> AND there is no intervening write to <code>v</code>. If there are intervening writes, then the <code>read(v)</code> may see the results of them rather than the earlier one.
+</p>
+<p>The rules that define the <em>happens-before</em> ordering are as follows:
+</p>
+  <ul id="044ce15a-32c3-4837-8c1e-9f47efb51ff1" class="bulleted-list">
+    <li><strong>Happens-Before Rule #1</strong> - If x and y are actions of the same thread and x comes before y in <em>program order</em>, then x <em>happens-before</em> y.
+    </li>
+    <li><strong>Happens-Before Rule #2</strong> - There is a happens-before edge from the end of a constructor of an object to the start of a finalizer for that object.
+    </li>
+    <li><strong>Happens-Before Rule #3</strong> - If an action x <em>synchronizes-with</em> a subsequent action y, then x <em>happens-before</em> y.
+    </li>
+    <li><strong>Happens-Before Rule #4</strong> - If x <em>happens-before</em> y and y <em>happens-before</em> z then x <em>happens-before</em> z.
+    </li>
+  </ul>
+<p>In addition, various classes in the Java standard libraries are specified as defining <em>happens-before</em> relationships. You can interpret this as meaning that it happens <em>somehow</em>, without needing to know exactly how the guarantee is going to be met.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

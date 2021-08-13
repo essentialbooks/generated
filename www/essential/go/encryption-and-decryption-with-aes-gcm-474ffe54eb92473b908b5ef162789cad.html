@@ -127,7 +127,24 @@
 </div>
 
 
-      <p>You have a file and a password and you want to encrypt the file with a password.</p><p>There are many encryption algorithms.</p><p>This chapter describes how to use symmetric algorithm AES (Advanced Encryption Standard) in GCM mode.</p><p>GCM mode provides both encryption and authentication. </p><p>Without authentication an attacker could change encrypted bytes which would result in successful decryption but corrupted data. By adding authentication, GCM mode detects that encrypted data were corrupted.</p><p>Symmetric means that we can use the same password to both encrypt and decrypt the data.</p><p>AES uses 16 bytes key as a password. Humans prefer passwords of arbitrary length.</p><p>To support humans we need to derive AES key from a human password. This is harder than it looks so you should use one of the methods that are well researched and considered cryptographically secure. One of those methods is scrypt key derivation function.</p>
+      
+<p>You have a file and a password and you want to encrypt the file with a password.
+</p>
+<p>There are many encryption algorithms.
+</p>
+<p>This chapter describes how to use symmetric algorithm AES (Advanced Encryption Standard) in GCM mode.
+</p>
+<p>GCM mode provides both encryption and authentication. 
+</p>
+<p>Without authentication an attacker could change encrypted bytes which would result in successful decryption but corrupted data. By adding authentication, GCM mode detects that encrypted data were corrupted.
+</p>
+<p>Symmetric means that we can use the same password to both encrypt and decrypt the data.
+</p>
+<p>AES uses 16 bytes key as a password. Humans prefer passwords of arbitrary length.
+</p>
+<p>To support humans we need to derive AES key from a human password. This is harder than it looks so you should use one of the methods that are well researched and considered cryptographically secure. One of those methods is scrypt key derivation function.
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">main</span>
@@ -231,7 +248,21 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Encryption is a tricky subject and it&#x27;s easy to make a mistake that would make it easy for the attacker to break encryption and decrypt the file.</p><p>It&#x27;s really important to convert a human-readable password to a random encryption key.</p><p>Humans tend to use only a subset of possible bytes for passwords which makes them much easier to break.</p><p>Scrypt is considered a good algorithm for generating encryption key from a human password. As you can see it also uses a salt value which you should keep secret.</p><p>There are several variants of AES algorithms. We chose GCM because it combines authentication with encryption. Authentication detects modification of encrypted data.</p><p>To make encryption stronger GCM modes requires additional random bytes. We chose to generate unique nonce for each file and store it at the beginning of encrypted data (the nonce doesn&#x27;t have to be secret).</p><p>An alternative would be to generate only one nonce and use it for all files.</p>
+</div>
+<p>Encryption is a tricky subject and it&#x27;s easy to make a mistake that would make it easy for the attacker to break encryption and decrypt the file.
+</p>
+<p>It&#x27;s really important to convert a human-readable password to a random encryption key.
+</p>
+<p>Humans tend to use only a subset of possible bytes for passwords which makes them much easier to break.
+</p>
+<p>Scrypt is considered a good algorithm for generating encryption key from a human password. As you can see it also uses a salt value which you should keep secret.
+</p>
+<p>There are several variants of AES algorithms. We chose GCM because it combines authentication with encryption. Authentication detects modification of encrypted data.
+</p>
+<p>To make encryption stronger GCM modes requires additional random bytes. We chose to generate unique nonce for each file and store it at the beginning of encrypted data (the nonce doesn&#x27;t have to be secret).
+</p>
+<p>An alternative would be to generate only one nonce and use it for all files.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

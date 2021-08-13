@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>We are going to be showing how to make a <code>GET</code> request to an API that responds with a <code>JSON</code> object or a <code>JSON</code> array. The first thing we need to do is add the Retrofit and <code>GSON</code> Converter dependencies to our module’s gradle file.</p><p><strong>Add the dependencies for retrofit library as described in the Remarks section.</strong></p><p><strong>Example of expected JSON object:</strong></p>
+      
+<p>We are going to be showing how to make a <code>GET</code> request to an API that responds with a <code>JSON</code> object or a <code>JSON</code> array. The first thing we need to do is add the Retrofit and <code>GSON</code> Converter dependencies to our module’s gradle file.
+</p>
+<p><strong>Add the dependencies for retrofit library as described in the Remarks section.</strong>
+</p>
+<p><strong>Example of expected JSON object:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">{
@@ -139,7 +146,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Example of JSON array:</strong></p>
+</div>
+<p><strong>Example of JSON array:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[
@@ -158,7 +168,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Example of corresponding model class:</strong></p>
+</div>
+<p><strong>Example of corresponding model class:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Device
@@ -176,7 +189,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>The </strong><code><strong>@SerializedName</strong></code><strong> annotations</strong> here are from the <code>GSON</code> library and allows us to <code>serialize</code> and <code>deserialize</code> this class to <code>JSON</code> using the serialized name as the keys. Now we can build the interface for the API that will actually fetch the data from the server.</p>
+</div>
+<p><strong>The </strong><code><strong>@SerializedName</strong></code><strong> annotations</strong> here are from the <code>GSON</code> library and allows us to <code>serialize</code> and <code>deserialize</code> this class to <code>JSON</code> using the serialized name as the keys. Now we can build the interface for the API that will actually fetch the data from the server.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public interface DeviceAPI
@@ -191,7 +207,28 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>There’s a lot going on here in a pretty compact space so let’s break it down:</strong></p><ul id="937d3626-f20a-40fa-bd17-a6d8da5a1bae" class="bulleted-list"><li>The <code>@GET</code> annotation comes from Retrofit and tells the library that we’re defining a GET request.</li><li>The path in the parentheses is the endpoint that our GET request should hit (we’ll set the base url a little later).</li><li>The curly-brackets allow us to replace parts of the path at run time so we can pass arguments.</li><li>The function we’re defining is called <code>getDevice</code> and takes the device id we want as an argument.</li><li>The <code>@PATH</code> annotation tells Retrofit that this argument should replace the “deviceId” placeholder in the path.</li><li>The function returns a <code>Call</code> object of type <code>Device</code>.</li></ul><p><strong>Creating a wrapper class:</strong></p><p>Now we will make a little wrapper class for our API to keep the Retrofit initialization code wrapped up nicely.</p>
+</div>
+<p><strong>There’s a lot going on here in a pretty compact space so let’s break it down:</strong>
+</p>
+  <ul id="937d3626-f20a-40fa-bd17-a6d8da5a1bae" class="bulleted-list">
+    <li>The <code>@GET</code> annotation comes from Retrofit and tells the library that we’re defining a GET request.
+    </li>
+    <li>The path in the parentheses is the endpoint that our GET request should hit (we’ll set the base url a little later).
+    </li>
+    <li>The curly-brackets allow us to replace parts of the path at run time so we can pass arguments.
+    </li>
+    <li>The function we’re defining is called <code>getDevice</code> and takes the device id we want as an argument.
+    </li>
+    <li>The <code>@PATH</code> annotation tells Retrofit that this argument should replace the “deviceId” placeholder in the path.
+    </li>
+    <li>The function returns a <code>Call</code> object of type <code>Device</code>.
+    </li>
+  </ul>
+<p><strong>Creating a wrapper class:</strong>
+</p>
+<p>Now we will make a little wrapper class for our API to keep the Retrofit initialization code wrapped up nicely.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class DeviceAPIHelper
@@ -213,7 +250,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This class creates a GSON instance to be able to parse the JSON response, creates a Retrofit instance with our base url and a GSONConverter and then creates an instance of our API.</p><p><strong>Calling the API:</strong></p>
+</div>
+<p>This class creates a GSON instance to be able to parse the JSON response, creates a Retrofit instance with our base url and a GSONConverter and then creates an instance of our API.
+</p>
+<p><strong>Calling the API:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Getting a JSON object
@@ -259,7 +301,11 @@ callArray.enqueue(new Callback&lt;Response&lt;List&lt;Device&gt;&gt;()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This uses our API interface to create a <code>Call&lt;Device&gt;</code> object and to create a <code>Call&lt;List&lt;Device&gt;&gt;</code> respectively. Calling <code>enqueue</code> tells Retrofit to make that call on a background thread and return the result to the callback that we’re creating here.</p><p><strong>Note:</strong> Parsing a JSON array of primitive objects (like <em>String, Integer, Boolean</em>, and <em>Double</em>) is similar to parsing a JSON array. However, you don’t need your own model class. You can get the array of Strings for example by having the return type of the call as <code>Call&lt;List&lt;String&gt;&gt;</code>.</p>
+</div>
+<p>This uses our API interface to create a <code>Call&lt;Device&gt;</code> object and to create a <code>Call&lt;List&lt;Device&gt;&gt;</code> respectively. Calling <code>enqueue</code> tells Retrofit to make that call on a background thread and return the result to the callback that we’re creating here.
+</p>
+<p><strong>Note:</strong> Parsing a JSON array of primitive objects (like <em>String, Integer, Boolean</em>, and <em>Double</em>) is similar to parsing a JSON array. However, you don’t need your own model class. You can get the array of Strings for example by having the return type of the call as <code>Call&lt;List&lt;String&gt;&gt;</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

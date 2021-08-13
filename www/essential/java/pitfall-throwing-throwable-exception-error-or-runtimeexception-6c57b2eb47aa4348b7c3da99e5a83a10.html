@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>While catching the <code>Throwable</code>, <code>Exception</code>, <code>Error</code> and <code>RuntimeException</code> exceptions is bad, throwing them is even worse.</p><p>The basic problem is that when your application needs to handle exceptions, the presence of the top level exceptions make it hard to discriminate between different error conditions. For example</p>
+      
+<p>While catching the <code>Throwable</code>, <code>Exception</code>, <code>Error</code> and <code>RuntimeException</code> exceptions is bad, throwing them is even worse.
+</p>
+<p>The basic problem is that when your application needs to handle exceptions, the presence of the top level exceptions make it hard to discriminate between different error conditions. For example
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">try {
@@ -145,7 +150,37 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The problem is that because we threw an <code>Exception</code> instance, we are forced to catch it. However as described in another example, catching <code>Exception</code> is bad. In this situation, it becomes difficult to discriminate between the “expected” case of an <code>Exception</code> that gets thrown if <code>somethingBad</code> is <code>true</code>, and the unexpected case where we actually catch an unchecked exception such as <code>NullPointerException</code>.</p><p>If the top-level exception is allowed to propagate, we run into other problems:</p><ul id="9be47043-2179-44c6-a7d6-24d3b3015b3c" class="bulleted-list"><li>We now have to remember all of the different reasons that we threw the top-level, and discriminate / handle them.</li><li>In the case of <code>Exception</code> and <code>Throwable</code> we also need to add these exceptions to the <code>throws</code> clause of methods if we want the exception to propagate. This is problematic, as described below.</li></ul><p>In short, don’t throw these exceptions. Throw a more specific exception that more closely describes the “exceptional event” that has happened. If you need to, define and use a custom exception class.</p><h2 id="b1ba6dbd-70c0-423d-9004-cf47884fece5" class="">Declaring Throwable or Exception in a method’s “throws” is problematic.<a class="header-anchor" href="#b1ba6dbd-70c0-423d-9004-cf47884fece5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>It is tempting to replace a long list of thrown exceptions in a method’s <code>throws</code> clause with <code>Exception</code> or even `Throwable. This is a bad idea:</p><ol id="b7738e4f-00ff-43db-853a-f8846459f5fb" class="numbered-list" start="1"><li>It forces the caller to handle (or propagate) <code>Exception</code>.</li><li>We can no longer rely on the compiler to tell us about specific checked exceptions that need to be handled.</li><li>Handling <code>Exception</code> properly is difficult. It is hard to know what actual exceptions may be caught, and if you don’t know what could be caught, it is hard to know what recovery strategy is appropriate.</li><li>Handling <code>Throwable</code> is even harder, since now you also have to cope with potential failures that should never be recovered from.</li></ol><p>This advice means that certain other patterns should be avoided. For example:</p>
+</div>
+<p>The problem is that because we threw an <code>Exception</code> instance, we are forced to catch it. However as described in another example, catching <code>Exception</code> is bad. In this situation, it becomes difficult to discriminate between the “expected” case of an <code>Exception</code> that gets thrown if <code>somethingBad</code> is <code>true</code>, and the unexpected case where we actually catch an unchecked exception such as <code>NullPointerException</code>.
+</p>
+<p>If the top-level exception is allowed to propagate, we run into other problems:
+</p>
+  <ul id="9be47043-2179-44c6-a7d6-24d3b3015b3c" class="bulleted-list">
+    <li>We now have to remember all of the different reasons that we threw the top-level, and discriminate / handle them.
+    </li>
+    <li>In the case of <code>Exception</code> and <code>Throwable</code> we also need to add these exceptions to the <code>throws</code> clause of methods if we want the exception to propagate. This is problematic, as described below.
+    </li>
+  </ul>
+<p>In short, don’t throw these exceptions. Throw a more specific exception that more closely describes the “exceptional event” that has happened. If you need to, define and use a custom exception class.
+</p>
+  <h2 id="b1ba6dbd-70c0-423d-9004-cf47884fece5" class="">Declaring Throwable or Exception in a method’s “throws” is problematic.
+  <a class="header-anchor" href="#b1ba6dbd-70c0-423d-9004-cf47884fece5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>It is tempting to replace a long list of thrown exceptions in a method’s <code>throws</code> clause with <code>Exception</code> or even `Throwable. This is a bad idea:
+</p>
+  <ol id="b7738e4f-00ff-43db-853a-f8846459f5fb" class="numbered-list" start="1">
+    <li>It forces the caller to handle (or propagate) <code>Exception</code>.
+    </li>
+    <li>We can no longer rely on the compiler to tell us about specific checked exceptions that need to be handled.
+    </li>
+    <li>Handling <code>Exception</code> properly is difficult. It is hard to know what actual exceptions may be caught, and if you don’t know what could be caught, it is hard to know what recovery strategy is appropriate.
+    </li>
+    <li>Handling <code>Throwable</code> is even harder, since now you also have to cope with potential failures that should never be recovered from.
+    </li>
+  </ol>
+<p>This advice means that certain other patterns should be avoided. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">try {
@@ -158,7 +193,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above attempts to log all exceptions as they pass, without definitively handling them. Unfortunately, prior to Java 7, the <code>throw ex;</code> statement caused the compiler to think that any <code>Exception</code> could be thrown. That could force you to declare the enclosing method as <code>throws Exception</code>. From Java 7 onwards, the compiler knows that the set of exceptions that could be (re-thrown) there is smaller.</p>
+</div>
+<p>The above attempts to log all exceptions as they pass, without definitively handling them. Unfortunately, prior to Java 7, the <code>throw ex;</code> statement caused the compiler to think that any <code>Exception</code> could be thrown. That could force you to declare the enclosing method as <code>throws Exception</code>. From Java 7 onwards, the compiler knows that the set of exceptions that could be (re-thrown) there is smaller.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,14 +127,27 @@
 </div>
 
 
-      <p>Imagine that you need sort records by lowest value of either one of two columns. Some databases could use a non-aggregated <code>MIN()</code> or <code>LEAST()</code> function for this (<code>... ORDER BY MIN(Date1, Date2)</code>), but in standard SQL, you have to use a <code>CASE</code> expression.</p><p>The <code>CASE</code> expression in the query below looks at the <code>Date1</code> and <code>Date2</code> columns, checks which column has the lower value, and sorts the records depending on this value.</p><h1 id="e4e9ade0-c9fe-4cce-b9fa-1815dfdb2905" class="">Sample data<a class="header-anchor" href="#e4e9ade0-c9fe-4cce-b9fa-1815dfdb2905" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Id | Date1 | Date2 |
+      
+<p>Imagine that you need sort records by lowest value of either one of two columns. Some databases could use a non-aggregated <code>MIN()</code> or <code>LEAST()</code> function for this (<code>... ORDER BY MIN(Date1, Date2)</code>), but in standard SQL, you have to use a <code>CASE</code> expression.
+</p>
+<p>The <code>CASE</code> expression in the query below looks at the <code>Date1</code> and <code>Date2</code> columns, checks which column has the lower value, and sorts the records depending on this value.
+</p>
+  <h1 id="e4e9ade0-c9fe-4cce-b9fa-1815dfdb2905" class="">Sample data
+  <a class="header-anchor" href="#e4e9ade0-c9fe-4cce-b9fa-1815dfdb2905" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Id | Date1 | Date2 |
 —— | —— | —— |
 1 | 2017-01-01| 2017-01-31|
 2 | 2017-01-31| 2017-01-03|
 3 | 2017-01-31| 2017-01-02|
 4 | 2017-01-06| 2017-01-31|
 5 | 2017-01-31| 2017-01-05|
-6 | 2017-01-04| 2017-01-31|</p><h1 id="02abe657-f213-4c67-8ef6-4914e7e84e90" class="">Query<a class="header-anchor" href="#02abe657-f213-4c67-8ef6-4914e7e84e90" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1>
+6 | 2017-01-04| 2017-01-31|
+</p>
+  <h1 id="02abe657-f213-4c67-8ef6-4914e7e84e90" class="">Query
+  <a class="header-anchor" href="#02abe657-f213-4c67-8ef6-4914e7e84e90" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT Id, Date1, Date2
@@ -147,7 +160,19 @@ ORDER BY CASE
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="9e1b1984-499d-4825-8932-f3770a942cac" class="">Results<a class="header-anchor" href="#9e1b1984-499d-4825-8932-f3770a942cac" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>|Id | Date1 | Date2 | | —— | —— | —— | |1 |<strong>2017-01-01</strong>| 2017-01-31 | |3 | 2017-01-31 |<strong>2017-01-02</strong>| |2 | 2017-01-31 |<strong>2017-01-03</strong>| |6 |<strong>2017-01-04</strong>| 2017-01-31 | |5 | 2017-01-31 |<strong>2017-01-05</strong>| |4 |<strong>2017-01-06</strong>| 2017-01-31 |</p><h1 id="4048cc57-706a-409c-a10a-1eb082b898da" class="">Explanation<a class="header-anchor" href="#4048cc57-706a-409c-a10a-1eb082b898da" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>As you see row with <code>Id = 1</code> is first, that because <code>Date1</code> have lowest record from entire table <code>2017-01-01</code>, row where <code>Id = 3</code> is second that because <code>Date2</code> equals to <code>2017-01-02</code> that is second lowest value from table and so on.</p><p>So we have sorted records from <code>2017-01-01</code> to <code>2017-01-06</code> ascending and no care on which one column <code>Date1</code> or <code>Date2</code> are those values.</p>
+</div>
+  <h1 id="9e1b1984-499d-4825-8932-f3770a942cac" class="">Results
+  <a class="header-anchor" href="#9e1b1984-499d-4825-8932-f3770a942cac" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>|Id | Date1 | Date2 | | —— | —— | —— | |1 |<strong>2017-01-01</strong>| 2017-01-31 | |3 | 2017-01-31 |<strong>2017-01-02</strong>| |2 | 2017-01-31 |<strong>2017-01-03</strong>| |6 |<strong>2017-01-04</strong>| 2017-01-31 | |5 | 2017-01-31 |<strong>2017-01-05</strong>| |4 |<strong>2017-01-06</strong>| 2017-01-31 |
+</p>
+  <h1 id="4048cc57-706a-409c-a10a-1eb082b898da" class="">Explanation
+  <a class="header-anchor" href="#4048cc57-706a-409c-a10a-1eb082b898da" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>As you see row with <code>Id = 1</code> is first, that because <code>Date1</code> have lowest record from entire table <code>2017-01-01</code>, row where <code>Id = 3</code> is second that because <code>Date2</code> equals to <code>2017-01-02</code> that is second lowest value from table and so on.
+</p>
+<p>So we have sorted records from <code>2017-01-01</code> to <code>2017-01-06</code> ascending and no care on which one column <code>Date1</code> or <code>Date2</code> are those values.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

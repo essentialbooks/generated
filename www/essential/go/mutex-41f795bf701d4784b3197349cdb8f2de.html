@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>In Go goroutines share memory.</p><p>It’s good for performance but modifying the same memory from multiple goroutines is not safe. It can lead to data races and crashes.</p><p>One way to avoid that is by using <a href="/essential/go/channels-and-select-4fac57c09168477aa12069484979f419">channels</a> to transfer exclusive ownership of data.</p><p>This is Go’s motto: <em>do not communicate by sharing memory; instead, share memory by communicating.</em></p><p>Another way to ensure exclusive access to data by goroutines is to use mutexes.</p><p>Here’s a basic pattern that uses a map for a cache and ensures exclusive access with mutex locking:</p>
+      
+<p>In Go goroutines share memory.
+</p>
+<p>It’s good for performance but modifying the same memory from multiple goroutines is not safe. It can lead to data races and crashes.
+</p>
+<p>One way to avoid that is by using <a href="/essential/go/channels-and-select-4fac57c09168477aa12069484979f419">channels</a> to transfer exclusive ownership of data.
+</p>
+<p>This is Go’s motto: <em>do not communicate by sharing memory; instead, share memory by communicating.</em>
+</p>
+<p>Another way to ensure exclusive access to data by goroutines is to use mutexes.
+</p>
+<p>Here’s a basic pattern that uses a map for a cache and ensures exclusive access with mutex locking:
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="kd">var</span> <span class="nx">cache</span> <span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">int</span>
@@ -175,6 +188,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">total: 30
@@ -184,7 +198,17 @@ total: 30
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Zero value of <code>sync.Mutex</code> is a valid mutex so you don’t need to explicitly initialize it.</p><p>For performance we want to minimize the time spent holding a lock.</p><p>Function <code>getCached</code> would be simpler if we kept the mutex locked for the duration of the function but we don’t want to keep cache locked when we’re executing <code>expensiveOperation()</code>.</p><p>Unlike many other languages, Go mutexes are non-recursive.</p><p>If the same goroutines tries to <code>Lock()</code> a mutex twice, the second <code>Lock()</code> will block forever.</p>
+</div>
+<p>Zero value of <code>sync.Mutex</code> is a valid mutex so you don’t need to explicitly initialize it.
+</p>
+<p>For performance we want to minimize the time spent holding a lock.
+</p>
+<p>Function <code>getCached</code> would be simpler if we kept the mutex locked for the duration of the function but we don’t want to keep cache locked when we’re executing <code>expensiveOperation()</code>.
+</p>
+<p>Unlike many other languages, Go mutexes are non-recursive.
+</p>
+<p>If the same goroutines tries to <code>Lock()</code> a mutex twice, the second <code>Lock()</code> will block forever.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

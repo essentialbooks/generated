@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Assuming the call to your web application’s login handler looks like this:</p>
+      
+<p>Assuming the call to your web application’s login handler looks like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">https://somepage.com/ajax/login.ashx?username=admin&amp;password=123</pre>
@@ -135,7 +138,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now in login.ashx, you read these values:</p>
+</div>
+<p>Now in login.ashx, you read these values:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">strUserName = getHttpsRequestParameterString(&#34;username&#34;);
@@ -144,7 +150,12 @@ strPassword = getHttpsRequestParameterString(&#34;password&#34;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>and query your database to determine whether a user with that password exists.</p><p>So you construct an SQL query string:</p>
+</div>
+<p>and query your database to determine whether a user with that password exists.
+</p>
+<p>So you construct an SQL query string:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">txtSQL = &#34;SELECT * FROM Users WHERE username = &#39;&#34; + strUserName + &#34;&#39; AND password = &#39;&#34;+ strPassword +&#34;&#39;&#34;;</pre>
@@ -152,7 +163,12 @@ strPassword = getHttpsRequestParameterString(&#34;password&#34;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will work if the username and password do not contain a quote.</p><p>However, if one of the parameters does contain a quote, the SQL that gets sent to the database will look like this:</p>
+</div>
+<p>This will work if the username and password do not contain a quote.
+</p>
+<p>However, if one of the parameters does contain a quote, the SQL that gets sent to the database will look like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">-- strUserName = &#34;d&#39;Alambert&#34;;
@@ -161,7 +177,12 @@ txtSQL = &#34;SELECT * FROM Users WHERE username = &#39;d&#39;Alambert&#39; AND 
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will result in a syntax error, because the quote after the <code>d</code> in <code>d&#x27;Alambert</code> ends the SQL string.</p><p>You could correct this by escaping quotes in username and password, e.g.:</p>
+</div>
+<p>This will result in a syntax error, because the quote after the <code>d</code> in <code>d&#x27;Alambert</code> ends the SQL string.
+</p>
+<p>You could correct this by escaping quotes in username and password, e.g.:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">strUserName = strUserName.Replace(&#34;&#39;&#34;, &#34;&#39;&#39;&#34;);
@@ -170,7 +191,10 @@ strPassword = strPassword.Replace(&#34;&#39;&#34;, &#34;&#39;&#39;&#34;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, it’s more appropriate to use parameters:</p>
+</div>
+<p>However, it’s more appropriate to use parameters:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cmd.CommandText = &#34;SELECT * FROM Users WHERE username = @username AND password = @password&#34;;
@@ -181,7 +205,12 @@ cmd.Parameters.Add(&#34;@password&#34;, strPassword);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you do not use parameters, and forget to replace quote in even one of the values, then a malicious user (aka hacker) can use this to execute SQL commands on your database.</p><p>For example, if an attacker is evil, he/she will set the password to</p>
+</div>
+<p>If you do not use parameters, and forget to replace quote in even one of the values, then a malicious user (aka hacker) can use this to execute SQL commands on your database.
+</p>
+<p>For example, if an attacker is evil, he/she will set the password to
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">lol&#39;; DROP DATABASE master; --</pre>
@@ -189,7 +218,10 @@ cmd.Parameters.Add(&#34;@password&#34;, strPassword);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>and then the SQL will look like this:</p>
+</div>
+<p>and then the SQL will look like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&#34;SELECT * FROM Users WHERE username = &#39;somebody&#39; AND password = &#39;lol&#39;; DROP DATABASE master; --&#39;&#34;;</pre>
@@ -197,7 +229,17 @@ cmd.Parameters.Add(&#34;@password&#34;, strPassword);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Unfortunately for you, this is valid SQL, and the DB will execute this!</p><p>This type of exploit is called an SQL injection.</p><p>There are many other things a malicious user could do, such as stealing every user’s email address, steal everyone’s password, steal credit card numbers, steal any amount of data in your database, etc.</p><p>This is why you always need to escape your strings.</p><p>And the fact that you’ll invariably forget to do so sooner or later is exactly why you should use parameters. Because if you use parameters, then your programming language framework will do any necessary escaping for you.</p>
+</div>
+<p>Unfortunately for you, this is valid SQL, and the DB will execute this!
+</p>
+<p>This type of exploit is called an SQL injection.
+</p>
+<p>There are many other things a malicious user could do, such as stealing every user’s email address, steal everyone’s password, steal credit card numbers, steal any amount of data in your database, etc.
+</p>
+<p>This is why you always need to escape your strings.
+</p>
+<p>And the fact that you’ll invariably forget to do so sooner or later is exactly why you should use parameters. Because if you use parameters, then your programming language framework will do any necessary escaping for you.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

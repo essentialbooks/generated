@@ -127,7 +127,16 @@
 </div>
 
 
-      <p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/n4527.pdf">The Standard (10.4)</a> states:</p><blockquote id="f70bf192-015f-4dfd-be43-7a51571ababd" class="">Member functions can be called from a constructor (or destructor) of an abstract class; the effect of making a virtual call (10.3) to a pure virtual function directly or indirectly for the object being created (or destroyed) from such a constructor (or destructor) is undefined.</blockquote><p>More generally, some C++ authorities, e.g. Scott Meyers, <a href="http://www.artima.com/cppsource/nevercall.html">suggest</a> never calling virtual functions (even non-pure ones) from constructors and dstructors.</p><p>Consider the following example, modified from the above link:</p>
+      
+<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/n4527.pdf">The Standard (10.4)</a> states:
+</p>
+<blockquote id="f70bf192-015f-4dfd-be43-7a51571ababd" class="">Member functions can be called from a constructor (or destructor) of an abstract class; the effect of making a virtual call (10.3) to a pure virtual function directly or indirectly for the object being created (or destroyed) from such a constructor (or destructor) is undefined.
+</blockquote>
+<p>More generally, some C++ authorities, e.g. Scott Meyers, <a href="http://www.artima.com/cppsource/nevercall.html">suggest</a> never calling virtual functions (even non-pure ones) from constructors and dstructors.
+</p>
+<p>Consider the following example, modified from the above link:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class transaction
@@ -146,7 +155,10 @@ public:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Suppose we create a <code>sell_transaction</code> object:</p>
+</div>
+<p>Suppose we create a <code>sell_transaction</code> object:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">sell_transaction s;</pre>
@@ -154,7 +166,17 @@ public:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This implicitly calls the constructor of <code>sell_transaction</code>, which first calls the constructor of <code>transaction</code>. When the constructor of <code>transaction</code> is called though, the object is not yet of the type <code>sell_transaction</code>, but rather only of the type <code>transaction</code>.</p><p>Consequently, the call in <code>transaction::transaction()</code> to <code>log_it</code>, won’t do what might seem to be the intuitive thing - namely call <code>sell_transaction::log_it</code>.</p><ul id="456f386e-58f5-4b1b-95dd-901811749509" class="bulleted-list"><li>If <code>log_it</code> is pure virtual, as in this example, the behaviour is undefined.</li><li>If <code>log_it</code> is non-pure virtual, <code>transaction::log_it</code> will be called.</li></ul>
+</div>
+<p>This implicitly calls the constructor of <code>sell_transaction</code>, which first calls the constructor of <code>transaction</code>. When the constructor of <code>transaction</code> is called though, the object is not yet of the type <code>sell_transaction</code>, but rather only of the type <code>transaction</code>.
+</p>
+<p>Consequently, the call in <code>transaction::transaction()</code> to <code>log_it</code>, won’t do what might seem to be the intuitive thing - namely call <code>sell_transaction::log_it</code>.
+</p>
+  <ul id="456f386e-58f5-4b1b-95dd-901811749509" class="bulleted-list">
+    <li>If <code>log_it</code> is pure virtual, as in this example, the behaviour is undefined.
+    </li>
+    <li>If <code>log_it</code> is non-pure virtual, <code>transaction::log_it</code> will be called.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

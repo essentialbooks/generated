@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Filters are methods that are run “before”, “after” or “around” a controller action. They are inherited, so if you set any in your <code>ApplicationController</code> they will be run for every request your application receives.</p><p><strong>Before Filter</strong></p><p>Before filters are executed before the controller action and can halt the request (and/or redirect). A common use is to verify if a user is logged in:</p>
+      
+<p>Filters are methods that are run “before”, “after” or “around” a controller action. They are inherited, so if you set any in your <code>ApplicationController</code> they will be run for every request your application receives.
+</p>
+<p><strong>Before Filter</strong>
+</p>
+<p>Before filters are executed before the controller action and can halt the request (and/or redirect). A common use is to verify if a user is logged in:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class ApplicationController &lt; ActionController::Base
@@ -141,7 +148,28 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Before filters are run on requests before the request gets to the controller’s action. It can return a response itself and completely bypass the action.</p><p>Other common uses of before filters is validating a user’s authentication before granting them access to the action designated to handle their request. I’ve also seen them used to load a resource from the database, check permissions on a resource, or manage redirects under other circumstances.</p><p><strong>After Filter</strong></p><p>After filters are similar to “before” ones, but as they get executed after the action run they have access the response object that’s about to be sent. So in short after filters are run after the action completes. It can modify the response. Most of the time if something is done in an after filter, it can be done in the action itself, but if there is some logic to be run after running any of a set of actions, then an after filter is a good place to do it.</p><p>Generally, I’ve seen after and around filters used for logging.</p><p><strong>Around Filter</strong></p><p>Around filters may have logic before and after the action being run. It simply yields to the action in whatever place is necessary. Note that it doesn’t need to yield to the action and may run without doing so like a before filter.</p><p>Around filters are responsible for running their associated actions by yielding, similar to how Rack middlewares work.</p><p>Around callbacks wrap the execution of actions. You can write an around callback in two different styles. In the first, the callback is a single chunk of code. That code is called before the action is executed. If the callback code invokes yield, the action is executed. When the action completes, the callback code continues executing. Thus, the code before the yield is like a before action callback and the code after the yield is the after action callback. If the callback code never invokes yield. the action is not run-this is the same as having a before action callback return false.</p><p>Here’s an example of the around filter:</p>
+</div>
+<p>Before filters are run on requests before the request gets to the controller’s action. It can return a response itself and completely bypass the action.
+</p>
+<p>Other common uses of before filters is validating a user’s authentication before granting them access to the action designated to handle their request. I’ve also seen them used to load a resource from the database, check permissions on a resource, or manage redirects under other circumstances.
+</p>
+<p><strong>After Filter</strong>
+</p>
+<p>After filters are similar to “before” ones, but as they get executed after the action run they have access the response object that’s about to be sent. So in short after filters are run after the action completes. It can modify the response. Most of the time if something is done in an after filter, it can be done in the action itself, but if there is some logic to be run after running any of a set of actions, then an after filter is a good place to do it.
+</p>
+<p>Generally, I’ve seen after and around filters used for logging.
+</p>
+<p><strong>Around Filter</strong>
+</p>
+<p>Around filters may have logic before and after the action being run. It simply yields to the action in whatever place is necessary. Note that it doesn’t need to yield to the action and may run without doing so like a before filter.
+</p>
+<p>Around filters are responsible for running their associated actions by yielding, similar to how Rack middlewares work.
+</p>
+<p>Around callbacks wrap the execution of actions. You can write an around callback in two different styles. In the first, the callback is a single chunk of code. That code is called before the action is executed. If the callback code invokes yield, the action is executed. When the action completes, the callback code continues executing. Thus, the code before the yield is like a before action callback and the code after the yield is the after action callback. If the callback code never invokes yield. the action is not run-this is the same as having a before action callback return false.
+</p>
+<p>Here’s an example of the around filter:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">around_filter :catch_exceptions
@@ -158,7 +186,14 @@ private
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will catch exception of any action and put the message in your log. You can use around filters for exception handling, setup and teardown, and a myriad of other cases.</p><p><strong>Only and Except</strong></p><p>All filters can be applied to specific actions, using <code>:only</code> and <code>:except</code>:</p>
+</div>
+<p>This will catch exception of any action and put the message in your log. You can use around filters for exception handling, setup and teardown, and a myriad of other cases.
+</p>
+<p><strong>Only and Except</strong>
+</p>
+<p>All filters can be applied to specific actions, using <code>:only</code> and <code>:except</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class ProductsController &lt; ApplicationController
@@ -177,7 +212,12 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Skipping Filter</strong></p><p>All filters (inherited ones too) can also be skipped for some specific actions:</p>
+</div>
+<p><strong>Skipping Filter</strong>
+</p>
+<p>All filters (inherited ones too) can also be skipped for some specific actions:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class ApplicationController &lt; ActionController::Base
@@ -198,7 +238,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As they’re inherited, filters can also be defined in a <code>namespace</code> “parent” controller. Say for example that you have an <code>admin</code> namespace, and you of course want only admin users to be able to access it. You could do something like this:</p>
+</div>
+<p>As they’re inherited, filters can also be defined in a <code>namespace</code> “parent” controller. Say for example that you have an <code>admin</code> namespace, and you of course want only admin users to be able to access it. You could do something like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"># config/routes.rb
@@ -225,7 +268,9 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Beware that in <strong>Rails 4.x</strong> you could use <code>before_filter</code> along with <code>before_action</code>, but <code>before_filter</code> is currently deprecated in <strong>Rails 5.0.0</strong> and will be removed in <strong>5.1</strong>.</p>
+</div>
+<p>Beware that in <strong>Rails 4.x</strong> you could use <code>before_filter</code> along with <code>before_action</code>, but <code>before_filter</code> is currently deprecated in <strong>Rails 5.0.0</strong> and will be removed in <strong>5.1</strong>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

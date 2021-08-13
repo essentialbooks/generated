@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The simple way to implement multi-threaded applications is to use Java’s built-in synchronization and locking primitives; e.g. the <code>synchronized</code> keyword. The following example shows how we might use <code>synchronized</code> to accumulate counts.</p>
+      
+<p>The simple way to implement multi-threaded applications is to use Java’s built-in synchronization and locking primitives; e.g. the <code>synchronized</code> keyword. The following example shows how we might use <code>synchronized</code> to accumulate counts.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Counters {
@@ -158,7 +161,35 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This implementation will work correctly. However, if you have a large number of threads making lots of simultaneous calls on the same <code>Counters</code> object, the synchronization is liable to be a bottleneck. Specifically:</p><ol id="66780fb6-355a-46f6-ac3e-f9565d92a8aa" class="numbered-list" start="1"><li>Each <code>synchronized</code> method call will start with the current thread acquiring the lock for the <code>Counters</code> instance.</li><li>The thread will hold the lock while it checks <code>number</code> value and updates the counter.</li><li>Finally, the it will release the lock, allowing other threads access.</li></ol><p>If one thread attempts to acquire the lock while another one holds it, the attempting thread will be blocked (stopped) at step 1 until the lock is released. If multiple threads are waiting, one of them will get it, and the others will continue to be blocked.</p><p>This can lead to a couple of problems:</p><ul id="6fe7edee-8c98-403c-ac00-ba05a64e3bc5" class="bulleted-list"><li>If there is a lot of <em>contention</em> for the lock (i.e. lots of thread try to acquire it), then some threads can be blocked for a long time.</li><li>When a thread is blocked waiting for the lock, the operating system will typically try switch execution to a different thread. This <em>context switching</em> incurs a relatively large performance impact on the processor.</li><li>When there are multiple threads blocked on the same lock, there are no guarantees that any one of them will be treated “fairly” (i.e. each thread is guaranteed to be scheduled to run). This can lead to <em>thread starvation</em>.</li></ul><h2 id="9416ba5a-eb15-4a9a-96b7-926f1e8717af" class="">How does one implement Atomic Types?<a class="header-anchor" href="#9416ba5a-eb15-4a9a-96b7-926f1e8717af" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Let us start by rewriting the example above using <code>AtomicInteger</code> counters:</p>
+</div>
+<p>This implementation will work correctly. However, if you have a large number of threads making lots of simultaneous calls on the same <code>Counters</code> object, the synchronization is liable to be a bottleneck. Specifically:
+</p>
+  <ol id="66780fb6-355a-46f6-ac3e-f9565d92a8aa" class="numbered-list" start="1">
+    <li>Each <code>synchronized</code> method call will start with the current thread acquiring the lock for the <code>Counters</code> instance.
+    </li>
+    <li>The thread will hold the lock while it checks <code>number</code> value and updates the counter.
+    </li>
+    <li>Finally, the it will release the lock, allowing other threads access.
+    </li>
+  </ol>
+<p>If one thread attempts to acquire the lock while another one holds it, the attempting thread will be blocked (stopped) at step 1 until the lock is released. If multiple threads are waiting, one of them will get it, and the others will continue to be blocked.
+</p>
+<p>This can lead to a couple of problems:
+</p>
+  <ul id="6fe7edee-8c98-403c-ac00-ba05a64e3bc5" class="bulleted-list">
+    <li>If there is a lot of <em>contention</em> for the lock (i.e. lots of thread try to acquire it), then some threads can be blocked for a long time.
+    </li>
+    <li>When a thread is blocked waiting for the lock, the operating system will typically try switch execution to a different thread. This <em>context switching</em> incurs a relatively large performance impact on the processor.
+    </li>
+    <li>When there are multiple threads blocked on the same lock, there are no guarantees that any one of them will be treated “fairly” (i.e. each thread is guaranteed to be scheduled to run). This can lead to <em>thread starvation</em>.
+    </li>
+  </ul>
+  <h2 id="9416ba5a-eb15-4a9a-96b7-926f1e8717af" class="">How does one implement Atomic Types?
+  <a class="header-anchor" href="#9416ba5a-eb15-4a9a-96b7-926f1e8717af" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Let us start by rewriting the example above using <code>AtomicInteger</code> counters:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Counters {
@@ -193,7 +224,27 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We have replaced the <code>int[]</code> with an <code>AtomicInteger[]</code>, and initialized it with an instance in each element. We have also added calls to <code>incrementAndGet()</code> and <code>get()</code> in place of operations on <code>int</code> values.</p><p>But the most important thing is that we can remove the <code>synchronized</code> keyword because locking is no longer required. This works because the <code>incrementAndGet()</code> and <code>get()</code> operations are <em>atomic</em> and <em>thread-safe</em>. In this context, it means that:</p><ul id="7546ef81-639c-444e-9390-6e3a54af4e42" class="bulleted-list"><li>Each counter in the array will only be <em>observable</em> in the either the “before” state for an operation (like an “increment”) or in the “after” state.</li><li>Assuming that the operation occurs at time <code>T</code>, no thread will be able to see the “before” state after time <code>T</code>.</li></ul><p>Furthermore, while two threads might actually attempt to update the same <code>AtomicInteger</code> instance at the same time, the implementations of the operations ensure that only one increment happens at a time on the given instance. This is done without locking, often resulting in better performance.</p><h2 id="42800962-67f8-458f-b4af-4e3bbddc6bdf" class="">How do Atomic Types work?<a class="header-anchor" href="#42800962-67f8-458f-b4af-4e3bbddc6bdf" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Atomic types typically rely on specialized hardware instructions in the instruction set of the target machine. For example, Intel-based instruction sets provide a <code>CAS</code> (<a href="https://en.wikipedia.org/wiki/Compare-and-swap">Compare and Swap</a>) instruction that will perform a specific sequence of memory operations atomically.</p><p>These low-level instructions are are used to implement higher-level operations in the APIs of the respective <code>AtomicXxx</code> classes. For example, (again, in C-like pseudocode):</p>
+</div>
+<p>We have replaced the <code>int[]</code> with an <code>AtomicInteger[]</code>, and initialized it with an instance in each element. We have also added calls to <code>incrementAndGet()</code> and <code>get()</code> in place of operations on <code>int</code> values.
+</p>
+<p>But the most important thing is that we can remove the <code>synchronized</code> keyword because locking is no longer required. This works because the <code>incrementAndGet()</code> and <code>get()</code> operations are <em>atomic</em> and <em>thread-safe</em>. In this context, it means that:
+</p>
+  <ul id="7546ef81-639c-444e-9390-6e3a54af4e42" class="bulleted-list">
+    <li>Each counter in the array will only be <em>observable</em> in the either the “before” state for an operation (like an “increment”) or in the “after” state.
+    </li>
+    <li>Assuming that the operation occurs at time <code>T</code>, no thread will be able to see the “before” state after time <code>T</code>.
+    </li>
+  </ul>
+<p>Furthermore, while two threads might actually attempt to update the same <code>AtomicInteger</code> instance at the same time, the implementations of the operations ensure that only one increment happens at a time on the given instance. This is done without locking, often resulting in better performance.
+</p>
+  <h2 id="42800962-67f8-458f-b4af-4e3bbddc6bdf" class="">How do Atomic Types work?
+  <a class="header-anchor" href="#42800962-67f8-458f-b4af-4e3bbddc6bdf" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Atomic types typically rely on specialized hardware instructions in the instruction set of the target machine. For example, Intel-based instruction sets provide a <code>CAS</code> (<a href="https://en.wikipedia.org/wiki/Compare-and-swap">Compare and Swap</a>) instruction that will perform a specific sequence of memory operations atomically.
+</p>
+<p>These low-level instructions are are used to implement higher-level operations in the APIs of the respective <code>AtomicXxx</code> classes. For example, (again, in C-like pseudocode):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private volatile num;
@@ -211,7 +262,11 @@ int increment() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If there is no contention on the <code>AtomicXxxx</code>, the <code>if</code> test will succeed and the loop will end immediately. If there is contention, then the <code>if</code> will fail for all but one of the threads, and they will “spin” in the loop for a small number of cycles of the loop. In practice, the spinning is orders of magnitude faster (except at <em>unrealistically high</em> levels of contention, where synchronized performs better than atomic classes because when the CAS operation fails, then the retry will only add more contention) than suspending the thread and switching to another one.</p><p>Incidentally, CAS instructions are typically used by the JVM to implement <em>uncontended locking</em>. If the JVM can see that a lock is not currently locked, it will attempt to use a CAS to acquire the lock. If the CAS succeeds, then there is no need to do the expensive thread scheduling, context switching and so on. For more information on the techniques used, see <a href="https://blogs.oracle.com/dave/entry/biased_locking_in_hotspot">Biased Locking in HotSpot</a>.</p>
+</div>
+<p>If there is no contention on the <code>AtomicXxxx</code>, the <code>if</code> test will succeed and the loop will end immediately. If there is contention, then the <code>if</code> will fail for all but one of the threads, and they will “spin” in the loop for a small number of cycles of the loop. In practice, the spinning is orders of magnitude faster (except at <em>unrealistically high</em> levels of contention, where synchronized performs better than atomic classes because when the CAS operation fails, then the retry will only add more contention) than suspending the thread and switching to another one.
+</p>
+<p>Incidentally, CAS instructions are typically used by the JVM to implement <em>uncontended locking</em>. If the JVM can see that a lock is not currently locked, it will attempt to use a CAS to acquire the lock. If the CAS succeeds, then there is no need to do the expensive thread scheduling, context switching and so on. For more information on the techniques used, see <a href="https://blogs.oracle.com/dave/entry/biased_locking_in_hotspot">Biased Locking in HotSpot</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

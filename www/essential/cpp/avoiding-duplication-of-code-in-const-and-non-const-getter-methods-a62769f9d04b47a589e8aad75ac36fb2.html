@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>In C++ methods that differs only by <code>const</code> qualifier can be overloaded. Sometimes there may be a need of two versions of getter that return a reference to some member.</p><p>Let <code>Foo</code> be a class, that has two methods that perform identical operations and returns a reference to an object of type <code>Bar</code>:</p>
+      
+<p>In C++ methods that differs only by <code>const</code> qualifier can be overloaded. Sometimes there may be a need of two versions of getter that return a reference to some member.
+</p>
+<p>Let <code>Foo</code> be a class, that has two methods that perform identical operations and returns a reference to an object of type <code>Bar</code>:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">Foo</span>
@@ -152,7 +157,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The only difference between them is that one method is non-const and return a non-const reference (that can be use to modify object) and the second is const and returns const reference.</p><p>To avoid the code duplication, there is a temptation to call one method from another. However, we can not call non-const method from the const one. But we can call const method from non-const one. That will require as to use ‘const_cast’ to remove the const qualifier.</p><p>The solution is:</p>
+</div>
+<p>The only difference between them is that one method is non-const and return a non-const reference (that can be use to modify object) and the second is const and returns const reference.
+</p>
+<p>To avoid the code duplication, there is a temptation to call one method from another. However, we can not call non-const method from the const one. But we can call const method from non-const one. That will require as to use ‘const_cast’ to remove the const qualifier.
+</p>
+<p>The solution is:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">struct</span> <span class="nc">Foo</span>
@@ -173,7 +185,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In code above, we call const version of <code>GetBar</code> from the non-const <code>GetBar</code> by casting this to const type: <code>const_cast&lt;const Foo*&gt;(this)</code>. Since we call const method from non-const, the object itself is non-const, and casting away the const is allowed.</p><p>Examine the following more complete example:</p>
+</div>
+<p>In code above, we call const version of <code>GetBar</code> from the non-const <code>GetBar</code> by casting this to const type: <code>const_cast&lt;const Foo*&gt;(this)</code>. Since we call const method from non-const, the object itself is non-const, and casting away the const is allowed.
+</p>
+<p>Examine the following more complete example:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">

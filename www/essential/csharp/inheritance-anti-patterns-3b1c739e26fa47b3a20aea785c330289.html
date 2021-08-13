@@ -127,7 +127,15 @@
 </div>
 
 
-      <h1 id="5887c71a-2fc6-4d3a-b92e-b26c87611d99" class="">Improper Inheritance<a class="header-anchor" href="#5887c71a-2fc6-4d3a-b92e-b26c87611d99" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Lets say there are 2 classes class <code>Foo</code> and <code>Bar</code>. <code>Foo</code> has two features <code>Do1</code> and <code>Do2</code>. <code>Bar</code> needs to use <code>Do1</code> from <code>Foo</code>, but it doesn’t need <code>Do2</code> or needs feature that is equivalent to <code>Do2</code> but does something completely different.</p><p><strong>Bad way</strong>: make <code>Do2()</code> on <code>Foo</code> virtual then override it in <code>Bar</code> or just <code>throw Exception</code> in <code>Bar</code> for <code>Do2()</code></p>
+      
+  <h1 id="5887c71a-2fc6-4d3a-b92e-b26c87611d99" class="">Improper Inheritance
+  <a class="header-anchor" href="#5887c71a-2fc6-4d3a-b92e-b26c87611d99" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Lets say there are 2 classes class <code>Foo</code> and <code>Bar</code>. <code>Foo</code> has two features <code>Do1</code> and <code>Do2</code>. <code>Bar</code> needs to use <code>Do1</code> from <code>Foo</code>, but it doesn’t need <code>Do2</code> or needs feature that is equivalent to <code>Do2</code> but does something completely different.
+</p>
+<p><strong>Bad way</strong>: make <code>Do2()</code> on <code>Foo</code> virtual then override it in <code>Bar</code> or just <code>throw Exception</code> in <code>Bar</code> for <code>Do2()</code>
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">Bar</span> <span class="p">:</span> <span class="n">Foo</span>
@@ -143,7 +151,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Good way</strong></p><p>Take out <code>Do1()</code> from <code>Foo</code> and put it into new class <code>Baz</code> then inherit both <code>Foo</code> and <code>Bar</code> from <code>Baz</code> and implement <code>Do2()</code> separately</p>
+</div>
+<p><strong>Good way</strong>
+</p>
+<p>Take out <code>Do1()</code> from <code>Foo</code> and put it into new class <code>Baz</code> then inherit both <code>Foo</code> and <code>Bar</code> from <code>Baz</code> and implement <code>Do2()</code> separately
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">Baz</span>
@@ -174,7 +187,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now why first example is bad and second is good: When developer nr2 has to do a change in <code>Foo</code>, chances are he will break implementation of <code>Bar</code> because <code>Bar</code> is now inseparable from <code>Foo</code>. When doing it by latter example <code>Foo</code> and <code>Bar</code> commonalty has been moved to <code>Baz</code> and they do not affect each other (like the shouldn’t).</p>
+</div>
+<p>Now why first example is bad and second is good: When developer nr2 has to do a change in <code>Foo</code>, chances are he will break implementation of <code>Bar</code> because <code>Bar</code> is now inseparable from <code>Foo</code>. When doing it by latter example <code>Foo</code> and <code>Bar</code> commonalty has been moved to <code>Baz</code> and they do not affect each other (like the shouldn’t).
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

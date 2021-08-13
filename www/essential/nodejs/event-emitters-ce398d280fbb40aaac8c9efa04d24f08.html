@@ -127,7 +127,13 @@
 </div>
 
 
-      <h2 id="c6755942-9e1e-4be9-a636-2a1612313918" class="">Remarks<a class="header-anchor" href="#c6755942-9e1e-4be9-a636-2a1612313918" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>When an event “fires” (which means the same as “publishing an event” or “emitting an event”), each listener will be called synchronously (<a href="https://nodejs.org/dist/latest-v6.x/docs/api/events.html#events_asynchronous_vs_synchronous">source</a>), along with any accompanying data that was passed in to <code>emit()</code>, no matter how many arguments you pass in:</p>
+      
+  <h2 id="c6755942-9e1e-4be9-a636-2a1612313918" class="">Remarks
+  <a class="header-anchor" href="#c6755942-9e1e-4be9-a636-2a1612313918" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>When an event “fires” (which means the same as “publishing an event” or “emitting an event”), each listener will be called synchronously (<a href="https://nodejs.org/dist/latest-v6.x/docs/api/events.html#events_asynchronous_vs_synchronous">source</a>), along with any accompanying data that was passed in to <code>emit()</code>, no matter how many arguments you pass in:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">myDog.on(&#39;bark&#39;, (howLoud, howLong, howIntense) =&gt; {// handle the event})myDog.emit(&#39;bark&#39;, &#39;loudly&#39;, &#39;5 seconds long&#39;, &#39;fiercely&#39;)</pre>
@@ -135,7 +141,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The listeners will be called in the order they were registered:</p>
+</div>
+<p>The listeners will be called in the order they were registered:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">myDog.on(&#39;urinate&#39;, () =&gt; console.log(&#39;My first thought was &#34;Oh-no&#34;&#39;))myDog.on(&#39;urinate&#39;, () =&gt; console.log(&#39;My second thought was &#34;Not my lawn :)&#34;&#39;))myDog.emit(&#39;urinate&#39;)// The console.logs will happen in the right order because they were registered in that order.</pre>
@@ -143,7 +152,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But if you need a listener to fire first, before all of the other listeners that have already been added, you can use <code>prependListener()</code> like so:</p>
+</div>
+<p>But if you need a listener to fire first, before all of the other listeners that have already been added, you can use <code>prependListener()</code> like so:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">myDog.prependListener(&#39;urinate&#39;, () =&gt; console.log(&#39;This happens before my first and second thoughts, even though it was registered after them&#39;))</pre>
@@ -151,7 +163,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you need to listen to an event, but you only want to hear about it once, you can use <code>once</code> instead of <code>on</code>, or <code>prependOnceListener</code> instead of <code>prependListener</code>. After the event is fired and the listener gets called, the listener will automatically be removed, and won’t be called again the next time the event is fired.</p><p>Finally, if you want to remove all of the listeners and start over, feel free to do just that:</p>
+</div>
+<p>If you need to listen to an event, but you only want to hear about it once, you can use <code>once</code> instead of <code>on</code>, or <code>prependOnceListener</code> instead of <code>prependListener</code>. After the event is fired and the listener gets called, the listener will automatically be removed, and won’t be called again the next time the event is fired.
+</p>
+<p>Finally, if you want to remove all of the listeners and start over, feel free to do just that:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">myDog.removeAllListeners()</pre>

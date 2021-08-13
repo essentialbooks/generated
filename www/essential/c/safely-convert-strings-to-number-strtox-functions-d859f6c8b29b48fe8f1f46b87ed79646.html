@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Since C99 the C library has a set of safe conversion functions that interpret a string as a number. Their names are of the form <code>strtoX</code>, where <code>X</code> is one of <code>l</code>, <code>ul</code>, <code>d</code>, etc to determine the target type of the conversion</p>
+      
+<p>Since C99 the C library has a set of safe conversion functions that interpret a string as a number. Their names are of the form <code>strtoX</code>, where <code>X</code> is one of <code>l</code>, <code>ul</code>, <code>d</code>, etc to determine the target type of the conversion
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">double strtod(char const* p, char** endptr);
@@ -136,7 +139,10 @@ long double strtold(char const* p, char** endptr);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>They provide checking that a conversion had an over- or underflow:</p>
+</div>
+<p>They provide checking that a conversion had an over- or underflow:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">double ret = strtod(argv[1], 0); /* attempt conversion */
@@ -152,7 +158,14 @@ else if (ret == HUGE_VAL &amp;&amp; errno == ERANGE)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If the string in fact contains no number at all, this usage of <code>strtod</code> returns <code>0.0</code>.</p><p>If this is not satisfactory, the additional parameter <code>endptr</code> can be used. It is a pointer to pointer that will be pointed to the end of the detected number in the string. If it is set to <code>0</code>, as above, or <code>NULL</code>, it is simply ignored.</p><p>This <code>endptr</code> parameter provides indicates if there has been a successful conversion and if so, where the number ended:</p>
+</div>
+<p>If the string in fact contains no number at all, this usage of <code>strtod</code> returns <code>0.0</code>.
+</p>
+<p>If this is not satisfactory, the additional parameter <code>endptr</code> can be used. It is a pointer to pointer that will be pointed to the end of the detected number in the string. If it is set to <code>0</code>, as above, or <code>NULL</code>, it is simply ignored.
+</p>
+<p>This <code>endptr</code> parameter provides indicates if there has been a successful conversion and if so, where the number ended:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">char *check = 0;
@@ -171,7 +184,10 @@ else if (ret == HUGE_VAL &amp;&amp; errno == ERANGE)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>There are analogous functions to convert to the wider integer types:</p>
+</div>
+<p>There are analogous functions to convert to the wider integer types:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">long strtol(char const* p, char** endptr, int nbase);
@@ -182,7 +198,10 @@ unsigned long long strtoull(char const* p, char** endptr, int nbase);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>These functions have a third parameter <code>nbase</code> that holds the number base in which the number is written.</p>
+</div>
+<p>These functions have a third parameter <code>nbase</code> that holds the number base in which the number is written.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">long a = strtol(&#34;101&#34;,   0, 2 ); /* a = 5L */
@@ -196,7 +215,12 @@ long g = strtol(&#34;0x101&#34;, 0, 0 ); /* g = 257L */</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The special value <code>0</code> for <code>nbase</code> means the string is interpreted in the same way as number literals are interpreted in a C program: a prefix of <code>0x</code> corresponds to a hexadecimal representation, otherwise a leading <code>0</code> is octal and all other numbers are seen as decimal.</p><p>Thus the most practical way to interpret a command-line argument as a number would be</p>
+</div>
+<p>The special value <code>0</code> for <code>nbase</code> means the string is interpreted in the same way as number literals are interpreted in a C program: a prefix of <code>0x</code> corresponds to a hexadecimal representation, otherwise a leading <code>0</code> is octal and all other numbers are seen as decimal.
+</p>
+<p>Thus the most practical way to interpret a command-line argument as a number would be
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int main(int argc, char* argv[] {
@@ -216,7 +240,9 @@ long g = strtol(&#34;0x101&#34;, 0, 0 ); /* g = 257L */</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This means that the program can be called with a parameter in octal, decimal or hexadecimal.</p>
+</div>
+<p>This means that the program can be called with a parameter in octal, decimal or hexadecimal.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>The Reflection API could be used to change values of private and final fields even in the JDK default library. This could be used to manipulate the behaviour of some well known classes as we will see.</p><p><strong>What is not possible</strong></p><p>Lets start first with the only limitation means the only field we can’t change with Reflection. That is the Java <code>SecurityManager</code>. It is declared in <a href="http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/8u40-b25/java/lang/System.java">java.lang.System</a> as</p>
+      
+<p>The Reflection API could be used to change values of private and final fields even in the JDK default library. This could be used to manipulate the behaviour of some well known classes as we will see.
+</p>
+<p><strong>What is not possible</strong>
+</p>
+<p>Lets start first with the only limitation means the only field we can’t change with Reflection. That is the Java <code>SecurityManager</code>. It is declared in <a href="http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/8u40-b25/java/lang/System.java">java.lang.System</a> as
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private static volatile SecurityManager security = null;</pre>
@@ -135,7 +142,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But it won’t be listed in the System class if we run this code</p>
+</div>
+<p>But it won’t be listed in the System class if we run this code
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for(Field f : System.class.getDeclaredFields())
@@ -144,7 +154,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Thats because of the <code>fieldFilterMap</code> in <a href="http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/8u40-b25/sun/reflect/Reflection.java"><code>sun.reflect.Reflection</code></a> that holds the map itself and the security field in the <code>System.class</code> and protects them against any access with Reflection. So we could not deactivate the <code>SecurityManager</code>.</p><p><strong>Crazy Strings</strong></p><p>Each Java String is represented by the JVM as an instance of the <code>String</code> class. However, in some situations the JVM saves heap space by using the same instance for Strings that are. This happens for string literals, and also for strings that have been “interned” by calling <code>String.intern()</code>. So if you have <code>&quot;hello&quot;</code> in your code multiple times it is always the same object instance.</p><p>Strings are supposed to be immutable, but it is possible to use “evil” reflection to change them. The example below show how we can change the characters in a String by replacing its <code>value</code> field.</p>
+</div>
+<p>Thats because of the <code>fieldFilterMap</code> in <a href="http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/8u40-b25/sun/reflect/Reflection.java"><code>sun.reflect.Reflection</code></a> that holds the map itself and the security field in the <code>System.class</code> and protects them against any access with Reflection. So we could not deactivate the <code>SecurityManager</code>.
+</p>
+<p><strong>Crazy Strings</strong>
+</p>
+<p>Each Java String is represented by the JVM as an instance of the <code>String</code> class. However, in some situations the JVM saves heap space by using the same instance for Strings that are. This happens for string literals, and also for strings that have been “interned” by calling <code>String.intern()</code>. So if you have <code>&quot;hello&quot;</code> in your code multiple times it is always the same object instance.
+</p>
+<p>Strings are supposed to be immutable, but it is possible to use “evil” reflection to change them. The example below show how we can change the characters in a String by replacing its <code>value</code> field.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class CrazyStrings {
@@ -164,7 +183,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So this code will print “you stink!”</p><p><strong>1 = 42</strong></p><p>The same idea could be used with the Integer Class</p>
+</div>
+<p>So this code will print “you stink!”
+</p>
+<p><strong>1 = 42</strong>
+</p>
+<p>The same idea could be used with the Integer Class
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class CrazyMath {
@@ -184,7 +210,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Everything is true</strong></p><p>And according to <a href="http://stackoverflow.com/questions/3301635/change-private-static-final-field-using-java-reflection">this stackoverflow post</a> we can use reflection to do something really evil.</p>
+</div>
+<p><strong>Everything is true</strong>
+</p>
+<p>And according to <a href="http://stackoverflow.com/questions/3301635/change-private-static-final-field-using-java-reflection">this stackoverflow post</a> we can use reflection to do something really evil.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Evil {    
@@ -207,7 +238,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that what we are doing here is going to cause the JVM to behave in inexplicable ways. This is very dangerous.</p>
+</div>
+<p>Note that what we are doing here is going to cause the JVM to behave in inexplicable ways. This is very dangerous.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

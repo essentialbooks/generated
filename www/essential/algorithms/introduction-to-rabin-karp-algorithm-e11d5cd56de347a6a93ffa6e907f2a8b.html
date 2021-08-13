@@ -127,7 +127,16 @@
 </div>
 
 
-      <p><a href="https://en.wikipedia.org/wiki/Rabin%E2%80%93Karp_algorithm">Rabin-Karp Algorithm</a> is a string searching algorithm created by <a href="https://en.wikipedia.org/wiki/Richard_M._Karp">Richard M. Karp</a> and <a href="https://en.wikipedia.org/wiki/Michael_O._Rabin">Michael O. Rabin</a> that uses hashing to find any one of a set of pattern strings in a text.</p><p>A substring of a string is another string that occurs in. For example, <em>ver</em> is a substring of <em>stackoverflow</em>. Not to be confused with subsequence because <em>cover</em> is a subsequence of the same string. In other words, any subset of consecutive letters in a string is a substring of the given string.</p><p>In Rabin-Karp algorithm, we’ll generate a hash of our <em>pattern</em> that we are looking for &amp; check if the rolling hash of our <em>text</em> matches the <em>pattern</em> or not. If it doesn’t match, we can guarantee that the <em>pattern</em> <strong>doesn’t exist</strong> in the <em>text</em>. However, if it does match, the <em>pattern</em> <strong>can</strong> be present in the <em>text</em>. Let’s look at an example:</p><p>Let’s say we have a text: <strong>yeminsajid</strong> and we want to find out if the pattern <strong>nsa</strong> exists in the text. To calculate the hash and rolling hash, we’ll need to use a prime number. This can be any prime number. Let’s take <strong>prime</strong> = <strong>11</strong> for this example. We’ll determine hash value using this formula:</p>
+      
+<p><a href="https://en.wikipedia.org/wiki/Rabin%E2%80%93Karp_algorithm">Rabin-Karp Algorithm</a> is a string searching algorithm created by <a href="https://en.wikipedia.org/wiki/Richard_M._Karp">Richard M. Karp</a> and <a href="https://en.wikipedia.org/wiki/Michael_O._Rabin">Michael O. Rabin</a> that uses hashing to find any one of a set of pattern strings in a text.
+</p>
+<p>A substring of a string is another string that occurs in. For example, <em>ver</em> is a substring of <em>stackoverflow</em>. Not to be confused with subsequence because <em>cover</em> is a subsequence of the same string. In other words, any subset of consecutive letters in a string is a substring of the given string.
+</p>
+<p>In Rabin-Karp algorithm, we’ll generate a hash of our <em>pattern</em> that we are looking for &amp; check if the rolling hash of our <em>text</em> matches the <em>pattern</em> or not. If it doesn’t match, we can guarantee that the <em>pattern</em> <strong>doesn’t exist</strong> in the <em>text</em>. However, if it does match, the <em>pattern</em> <strong>can</strong> be present in the <em>text</em>. Let’s look at an example:
+</p>
+<p>Let’s say we have a text: <strong>yeminsajid</strong> and we want to find out if the pattern <strong>nsa</strong> exists in the text. To calculate the hash and rolling hash, we’ll need to use a prime number. This can be any prime number. Let’s take <strong>prime</strong> = <strong>11</strong> for this example. We’ll determine hash value using this formula:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">(1st letter) X (prime) + (2nd letter) X (prime)¹ + (3rd letter) X (prime)² X + ......</pre>
@@ -135,7 +144,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We’ll denote:</p>
+</div>
+<p>We’ll denote:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">a -&gt; 1    g -&gt; 7    m -&gt; 13   s -&gt; 19   y -&gt; 25
@@ -148,7 +160,10 @@ f -&gt; 6    l -&gt; 12   r -&gt; 18   x -&gt; 24</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The hash value of <strong>nsa</strong> will be:</p>
+</div>
+<p>The hash value of <strong>nsa</strong> will be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">14 X 11⁰ + 19 X 11¹ + 1 X 11² = 344</pre>
@@ -156,7 +171,10 @@ f -&gt; 6    l -&gt; 12   r -&gt; 18   x -&gt; 24</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we find the rolling-hash of our text. If the rolling hash matches with the hash value of our pattern, we’ll check if the strings match or not. Since our pattern has <strong>3</strong> letters, we’ll take 1st <strong>3</strong> letters <strong>yem</strong> from our text and calculate hash value. We get:</p>
+</div>
+<p>Now we find the rolling-hash of our text. If the rolling hash matches with the hash value of our pattern, we’ll check if the strings match or not. Since our pattern has <strong>3</strong> letters, we’ll take 1st <strong>3</strong> letters <strong>yem</strong> from our text and calculate hash value. We get:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">25 X 11⁰ + 5 X 11¹ + 13 X 11² = 1653</pre>
@@ -164,7 +182,20 @@ f -&gt; 6    l -&gt; 12   r -&gt; 18   x -&gt; 24</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This value doesn’t match with our pattern’s hash value. So the string doesn’t exists here. Now we need to consider the next step. To calculate the hash value of our next string <strong>emi</strong>. We can calculate this using our formula. But that would be rather trivial and cost us more. Instead, we use another technique.</p><ul id="25f847f4-b57b-41c4-a53f-ba36168d1229" class="bulleted-list"><li>We subtract the value of the <strong>First Letter of Previous String</strong> from our current hash value. In this case, <strong>y</strong>. We get, <code>1653 - 25 = 1628</code>.</li><li>We divide the difference with our <strong>prime</strong>, which is <strong>11</strong> for this example. We get, <code>1628 / 11 = 148</code>.</li><li>We add <strong>new letter X (prime)ᵐ⁻¹</strong>, where <strong>m</strong> is the length of the pattern, with the quotient, which is <strong>i</strong> = <strong>9</strong>. We get, <code>148 + 9 X 11² = 1237</code>.</li></ul><p>The new hash value is not equal to our patterns hash value. Moving on, for <strong>n</strong> we get:</p>
+</div>
+<p>This value doesn’t match with our pattern’s hash value. So the string doesn’t exists here. Now we need to consider the next step. To calculate the hash value of our next string <strong>emi</strong>. We can calculate this using our formula. But that would be rather trivial and cost us more. Instead, we use another technique.
+</p>
+  <ul id="25f847f4-b57b-41c4-a53f-ba36168d1229" class="bulleted-list">
+    <li>We subtract the value of the <strong>First Letter of Previous String</strong> from our current hash value. In this case, <strong>y</strong>. We get, <code>1653 - 25 = 1628</code>.
+    </li>
+    <li>We divide the difference with our <strong>prime</strong>, which is <strong>11</strong> for this example. We get, <code>1628 / 11 = 148</code>.
+    </li>
+    <li>We add <strong>new letter X (prime)ᵐ⁻¹</strong>, where <strong>m</strong> is the length of the pattern, with the quotient, which is <strong>i</strong> = <strong>9</strong>. We get, <code>148 + 9 X 11² = 1237</code>.
+    </li>
+  </ul>
+<p>The new hash value is not equal to our patterns hash value. Moving on, for <strong>n</strong> we get:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Previous String: emi
@@ -178,7 +209,10 @@ New String: &#34;min&#34;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It doesn’t match. After that, for <strong>s</strong>, we get:</p>
+</div>
+<p>It doesn’t match. After that, for <strong>s</strong>, we get:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Previous String: min
@@ -192,7 +226,10 @@ New String: &#34;ins&#34;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It doesn’t match. Next, for <strong>a</strong>, we get:</p>
+</div>
+<p>It doesn’t match. Next, for <strong>a</strong>, we get:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Previous String: ins
@@ -206,7 +243,14 @@ New String: &#34;nsa&#34;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It’s a match! Now we compare our pattern with the current string. Since both the strings match, the substring exists in this string. And we return the starting position of our substring.</p><p>The pseudo-code will be:</p><p><em>Hash Calculation:</em></p>
+</div>
+<p>It’s a match! Now we compare our pattern with the current string. Since both the strings match, the substring exists in this string. And we return the starting position of our substring.
+</p>
+<p>The pseudo-code will be:
+</p>
+<p><em>Hash Calculation:</em>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure Calculate-Hash(String, Prime, x):
@@ -219,7 +263,10 @@ Return hash</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>Hash Recalculation:</em></p>
+</div>
+<p><em>Hash Recalculation:</em>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure Recalculate-Hash(String, Curr, Prime, Hash):
@@ -233,7 +280,10 @@ Return Hash</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>String Match:</em></p>
+</div>
+<p><em>String Match:</em>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure String-Match(Text, Pattern, m):
@@ -247,7 +297,10 @@ Return true</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>Rabin-Karp:</em></p>
+</div>
+<p><em>Rabin-Karp:</em>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure Rabin-Karp(Text, Pattern, Prime):
@@ -265,7 +318,13 @@ Return -1</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If the algorithm doesn’t find any match, it simply returns <strong>-1</strong>.</p><p>This algorithm is used in detecting plagiarism. Given source material, the algorithm can rapidly search through a paper for instances of sentences from the source material, ignoring details such as case and punctuation. Because of the abundance of the sought strings, single-string searching algorithms are impractical here. Again, <strong>Knuth-Morris-Pratt algorithm</strong> or <strong>Boyer-Moore String Search algorithm</strong> is faster single pattern string searching algorithm, than <strong>Rabin-Karp</strong>. However, it is an algorithm of choice for multiple pattern search. If we want to find any of the large number, say k, fixed length patterns in a text, we can create a simple variant of the Rabin-Karp algorithm.</p><p>For text of length <strong>n</strong> and <strong>p</strong> patterns of combined length <strong>m</strong>, its average and best case running time is <strong>O(n+m)</strong> in space <strong>O(p)</strong>, but its worst-case time is <strong>O(nm)</strong>.</p>
+</div>
+<p>If the algorithm doesn’t find any match, it simply returns <strong>-1</strong>.
+</p>
+<p>This algorithm is used in detecting plagiarism. Given source material, the algorithm can rapidly search through a paper for instances of sentences from the source material, ignoring details such as case and punctuation. Because of the abundance of the sought strings, single-string searching algorithms are impractical here. Again, <strong>Knuth-Morris-Pratt algorithm</strong> or <strong>Boyer-Moore String Search algorithm</strong> is faster single pattern string searching algorithm, than <strong>Rabin-Karp</strong>. However, it is an algorithm of choice for multiple pattern search. If we want to find any of the large number, say k, fixed length patterns in a text, we can create a simple variant of the Rabin-Karp algorithm.
+</p>
+<p>For text of length <strong>n</strong> and <strong>p</strong> patterns of combined length <strong>m</strong>, its average and best case running time is <strong>O(n+m)</strong> in space <strong>O(p)</strong>, but its worst-case time is <strong>O(nm)</strong>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

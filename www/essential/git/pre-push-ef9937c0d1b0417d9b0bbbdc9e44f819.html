@@ -127,7 +127,16 @@
 </div>
 
 
-      <p><em>Available in </em><a href="https://github.com/git/git/blob/master/Documentation/RelNotes/1.8.2.txt"><em>Git 1.8.2</em></a><em> and above.</em></p><p>Pre-push hooks can be used to prevent a push from going though. Reasons this is helpful include: blocking accidental manual pushes to specific branches, or blocking pushes if an established check fails (unit tests, syntax).</p><p>A pre-push hook is created by simply creating a file named <code>pre-push</code> under <code>.git/hooks/</code>, and (<strong>gotcha alert</strong>), making sure the file is executable: <code>chmod +x ./git/hooks/pre-push</code>.</p><p>Here’s an example from <a href="https://dev.ghost.org/prevent-master-push/">Hannah Wolfe</a> that blocks a push to master:</p>
+      
+<p><em>Available in </em><a href="https://github.com/git/git/blob/master/Documentation/RelNotes/1.8.2.txt"><em>Git 1.8.2</em></a><em> and above.</em>
+</p>
+<p>Pre-push hooks can be used to prevent a push from going though. Reasons this is helpful include: blocking accidental manual pushes to specific branches, or blocking pushes if an established check fails (unit tests, syntax).
+</p>
+<p>A pre-push hook is created by simply creating a file named <code>pre-push</code> under <code>.git/hooks/</code>, and (<strong>gotcha alert</strong>), making sure the file is executable: <code>chmod +x ./git/hooks/pre-push</code>.
+</p>
+<p>Here’s an example from <a href="https://dev.ghost.org/prevent-master-push/">Hannah Wolfe</a> that blocks a push to master:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"><span class="cp">#!/bin/bash
@@ -151,7 +160,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here’s an example from <a href="https://coderwall.com/p/k1hbyw/how-to-run-rspec-tests-before-pushing-with-a-git-pre-push-hook">Volkan Unsal</a> which makes sure RSpec tests pass before allowing the push:</p>
+</div>
+<p>Here’s an example from <a href="https://coderwall.com/p/k1hbyw/how-to-run-rspec-tests-before-pushing-with-a-git-pre-push-hook">Volkan Unsal</a> which makes sure RSpec tests pass before allowing the push:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#!/usr/bin/env ruby
@@ -196,7 +208,15 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As you can see, there are lots of possibilities, but the core piece is to <code>exit 0</code> if good things happened, and <code>exit 1</code> if bad things happened. Anytime you <code>exit 1</code> the push will be prevented and your code will be in the state it was before running <code>git push...</code>.</p><p>When using client side hooks, keep in mind that users can skip all client side hooks by using the option “–no-verify” on a push. If you’re relying on the hook to enforce process, you can get burned.</p><p>Documentation: https://git-scm.com/docs/githooks#_pre_push</p><p>Official Sample: https://github.com/git/git/blob/87c86dd14abe8db7d00b0df5661ef8cf147a72a3/templates/hooks–pre-push.sample</p>
+</div>
+<p>As you can see, there are lots of possibilities, but the core piece is to <code>exit 0</code> if good things happened, and <code>exit 1</code> if bad things happened. Anytime you <code>exit 1</code> the push will be prevented and your code will be in the state it was before running <code>git push...</code>.
+</p>
+<p>When using client side hooks, keep in mind that users can skip all client side hooks by using the option “–no-verify” on a push. If you’re relying on the hook to enforce process, you can get burned.
+</p>
+<p>Documentation: https://git-scm.com/docs/githooks#_pre_push
+</p>
+<p>Official Sample: https://github.com/git/git/blob/87c86dd14abe8db7d00b0df5661ef8cf147a72a3/templates/hooks–pre-push.sample
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

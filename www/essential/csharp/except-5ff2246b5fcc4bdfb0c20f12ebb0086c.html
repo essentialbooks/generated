@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>The Except method returns the set of items which are contained in the first collection but are not contained in the second. The default <a href="https://msdn.microsoft.com/en-us/library/ms132151(v=vs.110).aspx"><code>IEqualityComparer</code></a> is used to compare the items within the two sets. There is an overload which accepts an <a href="https://msdn.microsoft.com/en-us/library/ms132151(v=vs.110).aspx"><code>IEqualityComparer</code></a> as an argument.</p><p><strong>Example:</strong></p>
+      
+<p>The Except method returns the set of items which are contained in the first collection but are not contained in the second. The default <a href="https://msdn.microsoft.com/en-us/library/ms132151(v=vs.110).aspx"><code>IEqualityComparer</code></a> is used to compare the items within the two sets. There is an overload which accepts an <a href="https://msdn.microsoft.com/en-us/library/ms132151(v=vs.110).aspx"><code>IEqualityComparer</code></a> as an argument.
+</p>
+<p><strong>Example:</strong>
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">int</span><span class="p">[]</span> <span class="n">first</span> <span class="p">=</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span> <span class="p">};</span>
@@ -140,8 +145,19 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Output:</strong></p><blockquote id="2846b0a9-8117-445c-bf6b-3e814a493c5b" class="">1
-4</blockquote><p><a href="https://dotnetfiddle.net/m3EqTQ">Live Demo on .NET Fiddle</a></p><p>In this case <code>.Except(second)</code> excludes elements contained in the array <code>second</code>, namely 2 and 3 (0 and 5 are not contained in the <code>first</code> array and are skipped).</p><p>Note that <code>Except</code> implies <code>Distinct</code> (i.e., it removes repeated elements). For example:</p>
+</div>
+<p><strong>Output:</strong>
+</p>
+<blockquote id="2846b0a9-8117-445c-bf6b-3e814a493c5b" class="">1
+4
+</blockquote>
+<p><a href="https://dotnetfiddle.net/m3EqTQ">Live Demo on .NET Fiddle</a>
+</p>
+<p>In this case <code>.Except(second)</code> excludes elements contained in the array <code>second</code>, namely 2 and 3 (0 and 5 are not contained in the <code>first</code> array and are skipped).
+</p>
+<p>Note that <code>Except</code> implies <code>Distinct</code> (i.e., it removes repeated elements). For example:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">int</span><span class="p">[]</span> <span class="n">third</span> <span class="p">=</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span> <span class="p">};</span>
@@ -153,8 +169,21 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Output:</strong></p><blockquote id="dff25456-9235-4c24-86f5-ab39e39c2e89" class="">1
-4</blockquote><p><a href="https://dotnetfiddle.net/VlXBUp">Live Demo on .NET Fiddle</a></p><p>In this case, the elements 1 and 4 are returned only once.</p><p>Implementing <a href="https://msdn.microsoft.com/en-us/library/ms131187(v=vs.110).aspx"><code>IEquatable</code></a> or providing the function an <a href="https://msdn.microsoft.com/en-us/library/ms132151(v=vs.110).aspx"><code>IEqualityComparer</code></a> will allow using a different method to compare the elements. Note that the <a href="https://msdn.microsoft.com/en-us/library/system.object.gethashcode(v=vs.110).aspx"><code>GetHashCode</code></a> method should also be overridden so that it will return an identical hash code for <code>object</code> that are identical according to the <a href="https://msdn.microsoft.com/en-us/library/ms131187(v=vs.110).aspx"><code>IEquatable</code></a> implementation.</p><p><em><strong>Example With IEquatable:</strong></em></p>
+</div>
+<p><strong>Output:</strong>
+</p>
+<blockquote id="dff25456-9235-4c24-86f5-ab39e39c2e89" class="">1
+4
+</blockquote>
+<p><a href="https://dotnetfiddle.net/VlXBUp">Live Demo on .NET Fiddle</a>
+</p>
+<p>In this case, the elements 1 and 4 are returned only once.
+</p>
+<p>Implementing <a href="https://msdn.microsoft.com/en-us/library/ms131187(v=vs.110).aspx"><code>IEquatable</code></a> or providing the function an <a href="https://msdn.microsoft.com/en-us/library/ms132151(v=vs.110).aspx"><code>IEqualityComparer</code></a> will allow using a different method to compare the elements. Note that the <a href="https://msdn.microsoft.com/en-us/library/system.object.gethashcode(v=vs.110).aspx"><code>GetHashCode</code></a> method should also be overridden so that it will return an identical hash code for <code>object</code> that are identical according to the <a href="https://msdn.microsoft.com/en-us/library/ms131187(v=vs.110).aspx"><code>IEquatable</code></a> implementation.
+</p>
+<p><em><strong>Example With IEquatable:</strong></em>
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">Holiday</span> <span class="p">:</span> <span class="n">IEquatable</span><span class="p">&lt;</span><span class="n">Holiday</span><span class="p">&gt;</span>
@@ -205,7 +234,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output:</p><blockquote id="35cec142-84f1-404d-aa1b-925ff9dfe534" class="">Hanukkah</blockquote><p><a href="https://dotnetfiddle.net/9ilGqy">Live Demo on .NET Fiddle</a></p>
+</div>
+<p>Output:
+</p>
+<blockquote id="35cec142-84f1-404d-aa1b-925ff9dfe534" class="">Hanukkah
+</blockquote>
+<p><a href="https://dotnetfiddle.net/9ilGqy">Live Demo on .NET Fiddle</a>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

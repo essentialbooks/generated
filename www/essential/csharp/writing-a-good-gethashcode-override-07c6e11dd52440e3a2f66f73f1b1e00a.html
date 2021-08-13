@@ -127,7 +127,38 @@
 </div>
 
 
-      <p><code>GetHashCode</code> has major performance effects on Dictionary&lt;&gt; and HashTable.</p><p>Good <code>GetHashCode</code> Methods</p><ul id="0401cd23-b992-45c2-9ba9-613d380a506c" class="bulleted-list"><li>should have an even distribution<ul id="dcf80a6f-c55c-44f1-b66b-8c97d209ccaa" class="bulleted-list"><li>every integer should have a roughly equal chance of returning for a random instance</li><li>if your method returns the same integer (e.g. the constant ‘999’) for each instance, you’ll have bad performance</li></ul></li><li>should be quick<ul id="83b0575b-4987-4fcb-8a9d-f4d1196f0447" class="bulleted-list"><li>These are NOT cryptographic hashes, where slowness is a feature</li><li>the slower your hash function, the slower your dictionary</li></ul></li><li>must return the same HashCode on two instances that <code>Equals</code> evaluates to true<ul id="0be2e024-2c20-434e-bad4-ca1ce3df92a9" class="bulleted-list"><li>if they do not (e.g. because <code>GetHashCode</code> returns a random number), items may not be found in a <code>List</code>, <code>Dictionary</code>, or similar.</li></ul></li></ul><p>A good method to implement <code>GetHashCode</code> is to use one prime number as a starting value, and add the hashcodes of the fields of the type multiplied by other prime numbers to that:</p>
+      
+<p><code>GetHashCode</code> has major performance effects on Dictionary&lt;&gt; and HashTable.
+</p>
+<p>Good <code>GetHashCode</code> Methods
+</p>
+  <ul id="0401cd23-b992-45c2-9ba9-613d380a506c" class="bulleted-list">
+    <li>should have an even distribution
+      <ul id="dcf80a6f-c55c-44f1-b66b-8c97d209ccaa" class="bulleted-list">
+        <li>every integer should have a roughly equal chance of returning for a random instance
+        </li>
+        <li>if your method returns the same integer (e.g. the constant ‘999’) for each instance, you’ll have bad performance
+        </li>
+      </ul>
+    </li>
+    <li>should be quick
+      <ul id="83b0575b-4987-4fcb-8a9d-f4d1196f0447" class="bulleted-list">
+        <li>These are NOT cryptographic hashes, where slowness is a feature
+        </li>
+        <li>the slower your hash function, the slower your dictionary
+        </li>
+      </ul>
+    </li>
+    <li>must return the same HashCode on two instances that <code>Equals</code> evaluates to true
+      <ul id="0be2e024-2c20-434e-bad4-ca1ce3df92a9" class="bulleted-list">
+        <li>if they do not (e.g. because <code>GetHashCode</code> returns a random number), items may not be found in a <code>List</code>, <code>Dictionary</code>, or similar.
+        </li>
+      </ul>
+    </li>
+  </ul>
+<p>A good method to implement <code>GetHashCode</code> is to use one prime number as a starting value, and add the hashcodes of the fields of the type multiplied by other prime numbers to that:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">override</span> <span class="kt">int</span> <span class="n">GetHashCode</span><span class="p">()</span>
@@ -148,7 +179,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Only the fields which are used in the <code>Equals</code>-method should be used for the hash function.</p><p>If you have a need to treat the same type in different ways for Dictionary/HashTables, you can use IEqualityComparer.</p>
+</div>
+<p>Only the fields which are used in the <code>Equals</code>-method should be used for the hash function.
+</p>
+<p>If you have a need to treat the same type in different ways for Dictionary/HashTables, you can use IEqualityComparer.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>In order to compare Strings for equality, you should use the String object’s <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#equals-java.lang.Object-"><code>equals</code></a> or <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#equalsIgnoreCase-java.lang.String-"><code>equalsIgnoreCase</code></a> methods.</p><p>For example, the following snippet will determine if the two instances of <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html"><code>String</code></a> are equal on all characters:</p>
+      
+<p>In order to compare Strings for equality, you should use the String object’s <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#equals-java.lang.Object-"><code>equals</code></a> or <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#equalsIgnoreCase-java.lang.String-"><code>equalsIgnoreCase</code></a> methods.
+</p>
+<p>For example, the following snippet will determine if the two instances of <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html"><code>String</code></a> are equal on all characters:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String firstString = &#34;Test123&#34;;
@@ -140,7 +145,12 @@ if (firstString.equals(secondString)) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://ideone.com/TjaYMR">Live demo</a></p><p>This example will compare them, independent of their case:</p>
+</div>
+<p><a href="https://ideone.com/TjaYMR">Live demo</a>
+</p>
+<p>This example will compare them, independent of their case:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String firstString = &#34;Test123&#34;;
@@ -153,7 +163,12 @@ if (firstString.equalsIgnoreCase(secondString)) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://ideone.com/XxKmM1">Live demo</a></p><p><strong>Note that</strong> <code>equalsIgnoreCase</code> does not let you specify a <code>Locale</code>. For instance, if you compare the two words <code>&quot;Taki&quot;</code> and <code>&quot;TAKI&quot;</code> in English they are equal; however, in Turkish they are different (in Turkish, the lowercase <code>I</code> is <code>ı</code>). For cases like this, converting both strings to lowercase (or uppercase) with <code>Locale</code> and then comparing with <code>equals</code> is the solution.</p>
+</div>
+<p><a href="https://ideone.com/XxKmM1">Live demo</a>
+</p>
+<p><strong>Note that</strong> <code>equalsIgnoreCase</code> does not let you specify a <code>Locale</code>. For instance, if you compare the two words <code>&quot;Taki&quot;</code> and <code>&quot;TAKI&quot;</code> in English they are equal; however, in Turkish they are different (in Turkish, the lowercase <code>I</code> is <code>ı</code>). For cases like this, converting both strings to lowercase (or uppercase) with <code>Locale</code> and then comparing with <code>equals</code> is the solution.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String firstString = &#34;Taki&#34;;
@@ -169,7 +184,24 @@ System.out.println(firstString.toLowerCase(locale).equals(
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://ideone.com/uWc348">Live demo</a></p><hr id="fed05611-1581-443a-966e-6d4a4a14fea1"/><h1 id="d86a4861-5b74-4a89-8957-585ae871972b" class="">Do not use the == operator to compare Strings<a class="header-anchor" href="#d86a4861-5b74-4a89-8957-585ae871972b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Unless you can guarantee that all strings have been interned (see below), you <strong>should not</strong> use the <code>==</code> or <code>!=</code> operators to compare Strings. These operators actually test references, and since multiple <code>String</code> objects can represent the same String, this is liable to give the wrong answer.</p><p>Instead, use the <code>String.equals(Object)</code> method, which will compare the String objects based on their values. For a detailed explanation, please refer to http://stackoverflow.com/documentation/java/4388/java-pitfalls/16290/pitfall-using-to-compare-strings.</p><hr id="8cd9b108-6782-4c6d-a626-60a559f1aabb"/><h1 id="8c43422c-8bb6-43dd-96f4-fb8fcf1268ab" class="">Comparing Strings in a switch statement<a class="header-anchor" href="#8c43422c-8bb6-43dd-96f4-fb8fcf1268ab" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>As of Java 1.7, it is possible to compare a String variable to literals in a <code>switch</code> statement. Make sure that the String is not null, otherwise it will always throw a <a href="http://stackoverflow.com/documentation/java/1003/nullpointerexception#t=201608020755368222531"><code>NullPointerException</code></a>. Values are compared using <code>String.equals</code>, i.e. case sensitive.</p>
+</div>
+<p><a href="https://ideone.com/uWc348">Live demo</a>
+</p>
+<hr id="fed05611-1581-443a-966e-6d4a4a14fea1"/>
+  <h1 id="d86a4861-5b74-4a89-8957-585ae871972b" class="">Do not use the == operator to compare Strings
+  <a class="header-anchor" href="#d86a4861-5b74-4a89-8957-585ae871972b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Unless you can guarantee that all strings have been interned (see below), you <strong>should not</strong> use the <code>==</code> or <code>!=</code> operators to compare Strings. These operators actually test references, and since multiple <code>String</code> objects can represent the same String, this is liable to give the wrong answer.
+</p>
+<p>Instead, use the <code>String.equals(Object)</code> method, which will compare the String objects based on their values. For a detailed explanation, please refer to http://stackoverflow.com/documentation/java/4388/java-pitfalls/16290/pitfall-using-to-compare-strings.
+</p>
+<hr id="8cd9b108-6782-4c6d-a626-60a559f1aabb"/>
+  <h1 id="8c43422c-8bb6-43dd-96f4-fb8fcf1268ab" class="">Comparing Strings in a switch statement
+  <a class="header-anchor" href="#8c43422c-8bb6-43dd-96f4-fb8fcf1268ab" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>As of Java 1.7, it is possible to compare a String variable to literals in a <code>switch</code> statement. Make sure that the String is not null, otherwise it will always throw a <a href="http://stackoverflow.com/documentation/java/1003/nullpointerexception#t=201608020755368222531"><code>NullPointerException</code></a>. Values are compared using <code>String.equals</code>, i.e. case sensitive.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String stringToSwitch = &#34;A&#34;;
@@ -191,7 +223,15 @@ switch (stringToSwitch) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://ideone.com/fbWBUR">Live demo</a></p><h1 id="5866ab08-97df-4ff3-b277-0ce098b3383c" class="">Comparing Strings with constant values<a class="header-anchor" href="#5866ab08-97df-4ff3-b277-0ce098b3383c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>When comparing a <code>String</code> to a constant value, you can put the constant value on the left side of <code>equals</code> to ensure that you won’t get a <code>NullPointerException</code> if the other String is <code>null</code>.</p>
+</div>
+<p><a href="https://ideone.com/fbWBUR">Live demo</a>
+</p>
+  <h1 id="5866ab08-97df-4ff3-b277-0ce098b3383c" class="">Comparing Strings with constant values
+  <a class="header-anchor" href="#5866ab08-97df-4ff3-b277-0ce098b3383c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>When comparing a <code>String</code> to a constant value, you can put the constant value on the left side of <code>equals</code> to ensure that you won’t get a <code>NullPointerException</code> if the other String is <code>null</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&#34;baz&#34;.equals(foo)</pre>
@@ -199,7 +239,30 @@ switch (stringToSwitch) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>While <code>foo.equals(&quot;baz&quot;)</code> will throw a <code>NullPointerException</code> if <code>foo</code> is <code>null</code>, <code>&quot;baz&quot;.equals(foo)</code> will evaluate to <code>false</code>.</p><p>A more readable alternative is to use <code>Objects.equals()</code>, which does a null check on both parameters: <code>Objects.equals(foo, &quot;baz&quot;)</code>.</p><p>(<strong>Note:</strong> It is debatable as to whether it is better to avoid <code>NullPointerExceptions</code> in general, or let them happen and then fix the root cause; see <a href="http://stackoverflow.com/documentation/java/5680/java-pitfalls-nulls-and-nullpointerexception/20151/pitfall-making-good-unexpected-nulls">here</a> and <a href="http://stackoverflow.com/documentation/java/5680/java-pitfalls-nulls-and-nullpointerexception/23490/pitfall-using-yoda-conditions-to-avoid-nullpointerexception">here</a>. Certainly, calling the avoidance strategy “best practice” is not justifiable.)</p><h1 id="80c036a0-491b-4ec0-b95e-b785ea475f5b" class="">String orderings<a class="header-anchor" href="#80c036a0-491b-4ec0-b95e-b785ea475f5b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>The <code>String</code> class implements <code>Comparable&lt;String&gt;</code> with the <code>String.compareTo</code> method (as described at the start of this example). This makes the natural ordering of <code>String</code> objects case-sensitive order. The <code>String</code> class provide a <code>Comparator&lt;String&gt;</code> constant called <code>CASE_INSENSITIVE_ORDER</code> suitable for case-insensitive sorting.</p><h1 id="9ebdc82a-b331-4785-a25c-69e4802fff28" class="">Comparing with interned Strings<a class="header-anchor" href="#9ebdc82a-b331-4785-a25c-69e4802fff28" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>The Java Language Specification (<a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.10.5">JLS 3.10.6</a>) states the following:</p><blockquote id="48634ccc-00f6-47fc-a5f1-5ad11d30b79c" class="">“Moreover, a string literal always refers to the same instance of class String. This is because string literals - or, more generally, strings that are the values of constant expressions - are interned so as to share unique instances, using the method String.intern.”</blockquote><p>This means it is safe to compare references to two string <em>literals</em> using <code>==</code>. Moreover, the same is true for references to <code>String</code> objects that have been produced using the <code>String.intern()</code> method.</p><p>For example:</p>
+</div>
+<p>While <code>foo.equals(&quot;baz&quot;)</code> will throw a <code>NullPointerException</code> if <code>foo</code> is <code>null</code>, <code>&quot;baz&quot;.equals(foo)</code> will evaluate to <code>false</code>.
+</p>
+<p>A more readable alternative is to use <code>Objects.equals()</code>, which does a null check on both parameters: <code>Objects.equals(foo, &quot;baz&quot;)</code>.
+</p>
+<p>(<strong>Note:</strong> It is debatable as to whether it is better to avoid <code>NullPointerExceptions</code> in general, or let them happen and then fix the root cause; see <a href="http://stackoverflow.com/documentation/java/5680/java-pitfalls-nulls-and-nullpointerexception/20151/pitfall-making-good-unexpected-nulls">here</a> and <a href="http://stackoverflow.com/documentation/java/5680/java-pitfalls-nulls-and-nullpointerexception/23490/pitfall-using-yoda-conditions-to-avoid-nullpointerexception">here</a>. Certainly, calling the avoidance strategy “best practice” is not justifiable.)
+</p>
+  <h1 id="80c036a0-491b-4ec0-b95e-b785ea475f5b" class="">String orderings
+  <a class="header-anchor" href="#80c036a0-491b-4ec0-b95e-b785ea475f5b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>The <code>String</code> class implements <code>Comparable&lt;String&gt;</code> with the <code>String.compareTo</code> method (as described at the start of this example). This makes the natural ordering of <code>String</code> objects case-sensitive order. The <code>String</code> class provide a <code>Comparator&lt;String&gt;</code> constant called <code>CASE_INSENSITIVE_ORDER</code> suitable for case-insensitive sorting.
+</p>
+  <h1 id="9ebdc82a-b331-4785-a25c-69e4802fff28" class="">Comparing with interned Strings
+  <a class="header-anchor" href="#9ebdc82a-b331-4785-a25c-69e4802fff28" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>The Java Language Specification (<a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.10.5">JLS 3.10.6</a>) states the following:
+</p>
+<blockquote id="48634ccc-00f6-47fc-a5f1-5ad11d30b79c" class="">“Moreover, a string literal always refers to the same instance of class String. This is because string literals - or, more generally, strings that are the values of constant expressions - are interned so as to share unique instances, using the method String.intern.”
+</blockquote>
+<p>This means it is safe to compare references to two string <em>literals</em> using <code>==</code>. Moreover, the same is true for references to <code>String</code> objects that have been produced using the <code>String.intern()</code> method.
+</p>
+<p>For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String strObj = new String(&#34;Hello!&#34;);
@@ -226,7 +289,17 @@ if (internedStr == str) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Behind the scenes, the interning mechanism maintains a hash table that contains all interned strings that are still <em>reachable</em>. When you call <code>intern()</code> on a <code>String</code>, the method looks up the object in the hash table:</p><ul id="d7b4e2ff-ef63-4766-8671-acfc9d7e03f4" class="bulleted-list"><li>If the string is found, then that value is returned as the interned string.</li><li>Otherwise, a copy of the string is added to the hash table and that string is returned as the interned string.</li></ul><p>It is possible to use interning to allow strings to be compared using <code>==</code>. However, there are significant problems with doing this; see http://stackoverflow.com/documentation/java/5455/java-pitfalls-performance-issues/23991/pitfall-interning-strings-so-that-you-can-use-is-a-bad-idea#t=201610101338294726756 for details. It is not recommended in most cases.</p>
+</div>
+<p>Behind the scenes, the interning mechanism maintains a hash table that contains all interned strings that are still <em>reachable</em>. When you call <code>intern()</code> on a <code>String</code>, the method looks up the object in the hash table:
+</p>
+  <ul id="d7b4e2ff-ef63-4766-8671-acfc9d7e03f4" class="bulleted-list">
+    <li>If the string is found, then that value is returned as the interned string.
+    </li>
+    <li>Otherwise, a copy of the string is added to the hash table and that string is returned as the interned string.
+    </li>
+  </ul>
+<p>It is possible to use interning to allow strings to be compared using <code>==</code>. However, there are significant problems with doing this; see http://stackoverflow.com/documentation/java/5455/java-pitfalls-performance-issues/23991/pitfall-interning-strings-so-that-you-can-use-is-a-bad-idea#t=201610101338294726756 for details. It is not recommended in most cases.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

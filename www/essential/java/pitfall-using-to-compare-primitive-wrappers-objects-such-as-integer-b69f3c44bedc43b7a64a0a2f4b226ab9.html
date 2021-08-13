@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>(This pitfall applies equally to all primitive wrapper types, but we will illustrate it for <code>Integer</code> and <code>int</code>.)</p><p>When working with <code>Integer</code> objects, it is tempting to use <code>==</code> to compare values, because that is what you would do with <code>int</code> values. And in some cases this will seem to work:</p>
+      
+<p>(This pitfall applies equally to all primitive wrapper types, but we will illustrate it for <code>Integer</code> and <code>int</code>.)
+</p>
+<p>When working with <code>Integer</code> objects, it is tempting to use <code>==</code> to compare values, because that is what you would do with <code>int</code> values. And in some cases this will seem to work:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Integer int1_1 = Integer.valueOf(&#34;1&#34;);
@@ -139,7 +144,12 @@ System.out.println(&#34;int1_1 equals int1_2: &#34; + int1_1.equals(int1_2));   
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here we created two <code>Integer</code> objects with the value <code>1</code> and compare them (In this case we created one from a <code>String</code> and one from an <code>int</code> literal. There are other alternatives). Also, we observe that the two comparison methods (<code>==</code> and <code>equals</code>) both yield <code>true</code>.</p><p>This behavior changes when we choose different values:</p>
+</div>
+<p>Here we created two <code>Integer</code> objects with the value <code>1</code> and compare them (In this case we created one from a <code>String</code> and one from an <code>int</code> literal. There are other alternatives). Also, we observe that the two comparison methods (<code>==</code> and <code>equals</code>) both yield <code>true</code>.
+</p>
+<p>This behavior changes when we choose different values:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Integer int2_1 = Integer.valueOf(&#34;1000&#34;);
@@ -151,7 +161,15 @@ System.out.println(&#34;int2_1 equals int2_2: &#34; + int2_1.equals(int2_2));   
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this case, only the <code>equals</code> comparison yields the correct result.</p><p>The reason for this difference in behavior is, that the JVM maintains a cache of <code>Integer</code> objects for the range -128 to 127. (The upper value can be overridden with the system property “java.lang.Integer.IntegerCache.high” or the JVM argument “-XX:AutoBoxCacheMax=size”). For values in this range, the <code>Integer.valueOf()</code> will return the cached value rather than creating a new one.</p><p>Thus, in the first example the <code>Integer.valueOf(1)</code> and <code>Integer.valueOf(&quot;1&quot;)</code> calls returned the same cached <code>Integer</code> instance. By contrast, in the second example the <code>Integer.valueOf(1000)</code> and <code>Integer.valueOf(&quot;1000&quot;)</code> both created and returned new <code>Integer</code> objects.</p><p>The <code>==</code> operator for reference types tests for reference equality (i.e. the same object). Therefore, in the first example <code>int1_1 == int1_2</code> is <code>true</code> because the references are the same. In the second example <code>int2_1 == int2_2</code> is false because the references are different.</p>
+</div>
+<p>In this case, only the <code>equals</code> comparison yields the correct result.
+</p>
+<p>The reason for this difference in behavior is, that the JVM maintains a cache of <code>Integer</code> objects for the range -128 to 127. (The upper value can be overridden with the system property “java.lang.Integer.IntegerCache.high” or the JVM argument “-XX:AutoBoxCacheMax=size”). For values in this range, the <code>Integer.valueOf()</code> will return the cached value rather than creating a new one.
+</p>
+<p>Thus, in the first example the <code>Integer.valueOf(1)</code> and <code>Integer.valueOf(&quot;1&quot;)</code> calls returned the same cached <code>Integer</code> instance. By contrast, in the second example the <code>Integer.valueOf(1000)</code> and <code>Integer.valueOf(&quot;1000&quot;)</code> both created and returned new <code>Integer</code> objects.
+</p>
+<p>The <code>==</code> operator for reference types tests for reference equality (i.e. the same object). Therefore, in the first example <code>int1_1 == int1_2</code> is <code>true</code> because the references are the same. In the second example <code>int2_1 == int2_2</code> is false because the references are different.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

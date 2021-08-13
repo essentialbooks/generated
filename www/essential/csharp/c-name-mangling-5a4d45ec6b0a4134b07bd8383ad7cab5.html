@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>C++ compilers encode additional information in the names of exported functions, such as argument types, to make overloads with different arguments possible. This process is called <a href="https://en.wikipedia.org/wiki/Name_mangling">name mangling</a>. This causes problems with importing functions in C# (and interop with other languages in general), as the name of <code>int add(int a, int b)</code> function is no longer <code>add</code>, it can be <code>?add@@YAHHH@Z</code>, <code>_add@8</code> or anything else, depending on the compiler and the calling convention.</p><p>There’re several ways of solving the problem of name mangling:</p><ul id="fa4e9e45-319d-4238-96eb-5ff069040b96" class="bulleted-list"><li>Exporting functions using <code>extern &quot;C&quot;</code> to switch to C external linkage which uses C name mangling:</li></ul>
+      
+<p>C++ compilers encode additional information in the names of exported functions, such as argument types, to make overloads with different arguments possible. This process is called <a href="https://en.wikipedia.org/wiki/Name_mangling">name mangling</a>. This causes problems with importing functions in C# (and interop with other languages in general), as the name of <code>int add(int a, int b)</code> function is no longer <code>add</code>, it can be <code>?add@@YAHHH@Z</code>, <code>_add@8</code> or anything else, depending on the compiler and the calling convention.
+</p>
+<p>There’re several ways of solving the problem of name mangling:
+</p>
+  <ul id="fa4e9e45-319d-4238-96eb-5ff069040b96" class="bulleted-list">
+    <li>Exporting functions using <code>extern &quot;C&quot;</code> to switch to C external linkage which uses C name mangling:
+    </li>
+  </ul>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">extern</span> <span class="s">&#34;C&#34;</span> <span class="n">__declspec</span><span class="p">(</span><span class="n">dllexport</span><span class="p">)</span> <span class="kt">int</span> <span class="n">__stdcall</span> <span class="k">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
@@ -137,6 +146,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="na">[DllImport(&#34;myDLL.dll&#34;)]</span>
@@ -145,7 +155,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Function name will still be mangled (`_add@8`), but `StdCall`+`extern &quot;C&quot;` name mangling is recognized by C# compiler.</p><ul id="718c1910-0e0b-4937-ac1f-f15d1121fe29" class="bulleted-list"><li>Specifying exported function names in <code>myDLL.def</code> module definition file:</li></ul>
+</div>
+<p>Function name will still be mangled (`_add@8`), but `StdCall`+`extern &quot;C&quot;` name mangling is recognized by C# compiler.
+</p>
+  <ul id="718c1910-0e0b-4937-ac1f-f15d1121fe29" class="bulleted-list">
+    <li>Specifying exported function names in <code>myDLL.def</code> module definition file:
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">EXPORTS
@@ -155,6 +172,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">int</span> <span class="n">__stdcall</span> <span class="k">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
@@ -164,6 +182,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="na">[DllImport(&#34;myDLL.dll&#34;)]</span>
@@ -172,7 +191,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The function name will be pure <code>add</code> in this case.</p><ul id="3f552bb7-70c9-49eb-b898-d3ff393355de" class="bulleted-list"><li>Importing mangled name. You’ll need some DLL viewer to see the mangled name, then you can specify it explicitly:</li></ul>
+</div>
+<p>The function name will be pure <code>add</code> in this case.
+</p>
+  <ul id="3f552bb7-70c9-49eb-b898-d3ff393355de" class="bulleted-list">
+    <li>Importing mangled name. You’ll need some DLL viewer to see the mangled name, then you can specify it explicitly:
+    </li>
+  </ul>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">__declspec</span><span class="p">(</span><span class="n">dllexport</span><span class="p">)</span> <span class="kt">int</span> <span class="n">__stdcall</span> <span class="k">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
@@ -182,6 +208,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="na">[DllImport(&#34;myDLL.dll&#34;, EntryPoint = &#34;?add@@YGHHH@Z&#34;)]</span>

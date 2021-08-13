@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>A deadlock is what occurs when two or more threads are waiting for eachother to complete or to release a resource in such a way that they wait forever.</p><p>A typical scenario of two threads waiting on eachother to complete is when a Windows Forms GUI thread waits for a worker thread and the worker thread attempts to invoke an object managed by the GUI thread. Observe that with this code exmaple, clicking button1 will cause the program to hang.</p>
+      
+<p>A deadlock is what occurs when two or more threads are waiting for eachother to complete or to release a resource in such a way that they wait forever.
+</p>
+<p>A typical scenario of two threads waiting on eachother to complete is when a Windows Forms GUI thread waits for a worker thread and the worker thread attempts to invoke an object managed by the GUI thread. Observe that with this code exmaple, clicking button1 will cause the program to hang.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private void button1_Click(object sender, EventArgs e)
@@ -148,7 +153,12 @@ private void dowork()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>workerthread.Join()</code> is a call that blocks the calling thread until workerthread completes. <code>textBox1.Invoke(invoke_delegate)</code> is a call that blocks the calling thread until the GUI thread has processed invoke_delegate, but this call causes deadlocks if the GUI thread is already waiting for the calling thread to complete.</p><p>To get around this, one can use a non-blocking way of invoking the textbox instead:</p>
+</div>
+<p><code>workerthread.Join()</code> is a call that blocks the calling thread until workerthread completes. <code>textBox1.Invoke(invoke_delegate)</code> is a call that blocks the calling thread until the GUI thread has processed invoke_delegate, but this call causes deadlocks if the GUI thread is already waiting for the calling thread to complete.
+</p>
+<p>To get around this, one can use a non-blocking way of invoking the textbox instead:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">private</span> <span class="k">void</span> <span class="n">dowork</span><span class="p">()</span>
@@ -162,7 +172,10 @@ private void dowork()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, this will cause trouble if you need to run code that is dependent on the textbox being updated first. In that case, run that as part of the invoke, but be aware that this will make it run on the GUI thread.</p>
+</div>
+<p>However, this will cause trouble if you need to run code that is dependent on the textbox being updated first. In that case, run that as part of the invoke, but be aware that this will make it run on the GUI thread.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">private</span> <span class="k">void</span> <span class="n">dowork</span><span class="p">()</span>
@@ -180,7 +193,10 @@ private void dowork()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Alternatively start af whole new thread and let that one do the waiting on the GUI thread, so that workerthread might complete.</p>
+</div>
+<p>Alternatively start af whole new thread and let that one do the waiting on the GUI thread, so that workerthread might complete.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">private</span> <span class="k">void</span> <span class="n">dowork</span><span class="p">()</span>
@@ -200,7 +216,9 @@ private void dowork()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To minimize the risk of running into a deadlock of mutual waiting, always avoid circular references between threads when possible. A hierarchy of threads where lower-ranking threads only leave messages for higher-ranking threads and never waiting on them will not run into this kind of issue. However, it would still be vulnerable to deadlocks based on resource locking.</p>
+</div>
+<p>To minimize the risk of running into a deadlock of mutual waiting, always avoid circular references between threads when possible. A hierarchy of threads where lower-ranking threads only leave messages for higher-ranking threads and never waiting on them will not run into this kind of issue. However, it would still be vulnerable to deadlocks based on resource locking.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

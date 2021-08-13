@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">let</span> <span class="nx">pattern</span> <span class="o">=</span> <span class="nx">createPattern</span><span class="p">(</span><span class="nx">imageObject</span><span class="p">,</span><span class="nx">repeat</span><span class="p">);</span>
@@ -136,7 +137,55 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Creates a reusable pattern (object).</p><p>The object can be assigned to any <code>strokeStyle</code> and/or <code>fillStyle</code>.</p><p>Then stroke() or fill() will paint the Path with the pattern of the object.</p><p>Arguments:</p><ul id="00d1a757-933a-46a0-a70f-8b36c167844d" class="bulleted-list"><li><strong>imageObject</strong> is an image that will be used as a pattern. The source of the image can be:</li><li>HTMLImageElement — a img element or a new Image(),</li><li>HTMLCanvasElement — a canvas element,</li><li>HTMLVideoElement — a video element (will grab the current video frame)</li><li>ImageBitmap,</li><li>Blob.</li><li><strong>repeat</strong> determines how the imageObject will be repeated across the canvas (much like a CSS background). This argument must be quote delimited and valid values are:</li><li>“repeat” — the pattern will horizontally &amp; vertically fill the canvas</li><li>“repeat-x” — the pattern will only repeat horizontally (1 horizontal row)</li><li>“repeat-y” — the pattern will only repeat vertically (1 vertical row)</li><li>“repeat none” — the pattern appears only once (on the top left)</li></ul><p><strong>The pattern object</strong> is an object that you can use (and reuse!) to make your path strokes and fills become patterned.</p><p><em>Side Note:</em> The pattern object is not internal to the Canvas element nor it’s Context. It is a separate and reusable JavaScript object that you can assign to any Path you desire. You can even use this object to apply pattern to a Path on a different Canvas element(!)</p><p><strong>Important hint about Canvas patterns!</strong></p><p>When you create a pattern object, the entire canvas is “invisibly” filled with that pattern (subject to the <code>repeat</code> argument).</p><p>When you <code>stroke()</code> or <code>fill()</code> a path, the invisible pattern is revealed, but only revealed over that path being stroked or filled.</p><ol id="e86ed623-94f2-47be-a96d-8e506f24a9e7" class="numbered-list" start="1"><li>Start with an image that you want to use as a pattern. Important(!): Be sure your image has fully loaded (using <code>patternimage.onload</code>) before you attempt to use it to create your pattern.<img class="img" src="/img/b6f0f5af1a5be85adabf90f235ac82e8ce521c8a.png"></li><li>You create a pattern like this:
+</div>
+<p>Creates a reusable pattern (object).
+</p>
+<p>The object can be assigned to any <code>strokeStyle</code> and/or <code>fillStyle</code>.
+</p>
+<p>Then stroke() or fill() will paint the Path with the pattern of the object.
+</p>
+<p>Arguments:
+</p>
+  <ul id="00d1a757-933a-46a0-a70f-8b36c167844d" class="bulleted-list">
+    <li><strong>imageObject</strong> is an image that will be used as a pattern. The source of the image can be:
+    </li>
+    <li>HTMLImageElement — a img element or a new Image(),
+    </li>
+    <li>HTMLCanvasElement — a canvas element,
+    </li>
+    <li>HTMLVideoElement — a video element (will grab the current video frame)
+    </li>
+    <li>ImageBitmap,
+    </li>
+    <li>Blob.
+    </li>
+    <li><strong>repeat</strong> determines how the imageObject will be repeated across the canvas (much like a CSS background). This argument must be quote delimited and valid values are:
+    </li>
+    <li>“repeat” — the pattern will horizontally &amp; vertically fill the canvas
+    </li>
+    <li>“repeat-x” — the pattern will only repeat horizontally (1 horizontal row)
+    </li>
+    <li>“repeat-y” — the pattern will only repeat vertically (1 vertical row)
+    </li>
+    <li>“repeat none” — the pattern appears only once (on the top left)
+    </li>
+  </ul>
+<p><strong>The pattern object</strong> is an object that you can use (and reuse!) to make your path strokes and fills become patterned.
+</p>
+<p><em>Side Note:</em> The pattern object is not internal to the Canvas element nor it’s Context. It is a separate and reusable JavaScript object that you can assign to any Path you desire. You can even use this object to apply pattern to a Path on a different Canvas element(!)
+</p>
+<p><strong>Important hint about Canvas patterns!</strong>
+</p>
+<p>When you create a pattern object, the entire canvas is “invisibly” filled with that pattern (subject to the <code>repeat</code> argument).
+</p>
+<p>When you <code>stroke()</code> or <code>fill()</code> a path, the invisible pattern is revealed, but only revealed over that path being stroked or filled.
+</p>
+  <ol id="e86ed623-94f2-47be-a96d-8e506f24a9e7" class="numbered-list" start="1">
+    <li>Start with an image that you want to use as a pattern. Important(!): Be sure your image has fully loaded (using <code>patternimage.onload</code>) before you attempt to use it to create your pattern.
+      <img class="img" src="/img/b6f0f5af1a5be85adabf90f235ac82e8ce521c8a.png">
+    </li>
+    <li>You create a pattern like this:
+      
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="c1">// create a pattern
@@ -147,7 +196,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div></li><li>Then Canvas will “invisibly” see your pattern creation like this:<img class="img" src="/img/78a843fb2c316bc5ce9b4697dd136bc7f3d5cae8.png"></li><li>But until you <code>stroke()</code> or <code>fill()</code> with the pattern, you will see none of the pattern on the Canvas.</li><li>Finally, if you stroke or fill a path using the pattern, the “invisible” pattern becomes visible on the Canvas … but only where the path is drawn.</li></ol><img class="img" src="/img/2015491bef4b23ee54df57b83b5e59cf826ca348.png">
+</div>
+    </li>
+    <li>Then Canvas will “invisibly” see your pattern creation like this:
+      <img class="img" src="/img/78a843fb2c316bc5ce9b4697dd136bc7f3d5cae8.png">
+    </li>
+    <li>But until you <code>stroke()</code> or <code>fill()</code> with the pattern, you will see none of the pattern on the Canvas.
+    </li>
+    <li>Finally, if you stroke or fill a path using the pattern, the “invisible” pattern becomes visible on the Canvas … but only where the path is drawn.
+    </li>
+  </ol>
+<img class="img" src="/img/2015491bef4b23ee54df57b83b5e59cf826ca348.png">
+
 <div class="code-box lang-HTML">
 	<div>
 	<pre class="chroma"><span class="cp">&lt;!doctype html&gt;</span>

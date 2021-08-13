@@ -127,7 +127,17 @@
 </div>
 
 
-      <p>Improper use of pointers are frequently a source of bugs that can include security bugs or program crashes, most often due to segmentation faults.</p><h2 id="4ac225ff-f54a-4a4a-9f1c-8dc12adca88c" class="">Not checking for allocation failures<a class="header-anchor" href="#4ac225ff-f54a-4a4a-9f1c-8dc12adca88c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Memory allocation is not guaranteed to succeed, and may instead return a <code>NULL</code> pointer. Using the returned value, without checking if the allocation is successful, invokes <a href="http://stackoverflow.com/documentation/c/364/undefined-behavior">undefined behavior</a>. This usually leads to a crash, but there is no guarantee that a crash will happen so relying on that can also lead to problems.</p><p>For example, unsafe way:</p>
+      
+<p>Improper use of pointers are frequently a source of bugs that can include security bugs or program crashes, most often due to segmentation faults.
+</p>
+  <h2 id="4ac225ff-f54a-4a4a-9f1c-8dc12adca88c" class="">Not checking for allocation failures
+  <a class="header-anchor" href="#4ac225ff-f54a-4a4a-9f1c-8dc12adca88c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Memory allocation is not guaranteed to succeed, and may instead return a <code>NULL</code> pointer. Using the returned value, without checking if the allocation is successful, invokes <a href="http://stackoverflow.com/documentation/c/364/undefined-behavior">undefined behavior</a>. This usually leads to a crash, but there is no guarantee that a crash will happen so relying on that can also lead to problems.
+</p>
+<p>For example, unsafe way:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct SomeStruct *s = malloc(sizeof *s);
@@ -136,7 +146,10 @@ s-&gt;someValue = 0; /* UNSAFE, because s might be a null pointer */</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Safe way:</p>
+</div>
+<p>Safe way:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct SomeStruct *s = malloc(sizeof *s);
@@ -148,7 +161,15 @@ if (s)
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="7d2ac380-e9ab-427f-a2f9-855cd3dfc77e" class="">Using literal numbers instead of sizeof when requesting memory<a class="header-anchor" href="#7d2ac380-e9ab-427f-a2f9-855cd3dfc77e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>For a given compiler/machine configuration, types have a known size; however, there isn’t any standard which defines that the size of a given type (other than <code>char</code>) will be the same for all compiler/machine configurations. If the code uses 4 instead of <code>sizeof(int)</code> for memory allocation, it may work on the original machine, but the code isn’t necessarily portable to other machines or compilers. Fixed sizes for types should be replaced by <code>sizeof(that_type)</code> or <code>sizeof(*var_ptr_to_that_type)</code>.</p><p>Non-portable allocation:</p>
+</div>
+  <h2 id="7d2ac380-e9ab-427f-a2f9-855cd3dfc77e" class="">Using literal numbers instead of sizeof when requesting memory
+  <a class="header-anchor" href="#7d2ac380-e9ab-427f-a2f9-855cd3dfc77e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>For a given compiler/machine configuration, types have a known size; however, there isn’t any standard which defines that the size of a given type (other than <code>char</code>) will be the same for all compiler/machine configurations. If the code uses 4 instead of <code>sizeof(int)</code> for memory allocation, it may work on the original machine, but the code isn’t necessarily portable to other machines or compilers. Fixed sizes for types should be replaced by <code>sizeof(that_type)</code> or <code>sizeof(*var_ptr_to_that_type)</code>.
+</p>
+<p>Non-portable allocation:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int *intPtr = malloc(4*1000);    /* allocating storage for 1000 int */
@@ -157,7 +178,10 @@ long *longPtr = malloc(8*1000);  /* allocating storage for 1000 long */</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Portable allocation:</p>
+</div>
+<p>Portable allocation:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int *intPtr = malloc(sizeof(int)*1000);     /* allocating storage for 1000 int */
@@ -166,7 +190,10 @@ long *longPtr = malloc(sizeof(long)*1000);  /* allocating storage for 1000 long 
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Or, better still:</p>
+</div>
+<p>Or, better still:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int *intPtr = malloc(sizeof(*intPtr)*1000);     /* allocating storage for 1000 int */
@@ -175,7 +202,37 @@ long *longPtr = malloc(sizeof(*longPtr)*1000);  /* allocating storage for 1000 l
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="e8328cc8-e284-4d13-930e-45fb2768326d" class="">Memory leaks<a class="header-anchor" href="#e8328cc8-e284-4d13-930e-45fb2768326d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Failure to de-allocate memory using <code>free</code> leads to a buildup of non-reusable memory, which is no longer used by the program; this is called a <a href="https://en.wikipedia.org/wiki/Memory_leak">memory leak</a>. Memory leaks waste memory resources and can lead to allocation failures.</p><h2 id="b9829e0d-4e33-4301-ba15-4b41467e0400" class="">Logical errors<a class="header-anchor" href="#b9829e0d-4e33-4301-ba15-4b41467e0400" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>All allocations must follow the same pattern:</p><ol id="6efe847a-13d4-4e47-9844-5e67d7b028ac" class="numbered-list" start="1"><li>Allocation using <code>malloc</code> (or <code>calloc</code>)</li><li>Usage to store data</li><li>De-allocation using <code>free</code></li></ol><p>Failure to adhere to this pattern, such as using memory after a call to <code>free</code> (<a href="https://en.wikipedia.org/wiki/Dangling_pointer">dangling pointer</a>) or before a call to <code>malloc</code> (<a href="http://stackoverflow.com/questions/2583656/what-is-the-meaning-of-wild-pointer-in-c">wild pointer</a>), calling <code>free</code> twice (“double free”), etc., usually causes a segmentation fault and results in a crash of the program.</p><p>These errors can be transient and hard to debug – for example, freed memory is usually not immediately reclaimed by the OS, and thus dangling pointers may persist for a while and appear to work.</p><p>On systems where it works, <a href="http://valgrind.org/">Valgrind</a> is an invaluable tool for identifying what memory is leaked and where it was originally allocated.</p><h2 id="13b39136-ca17-46c8-83b4-3609600bf716" class="">Creating pointers to stack variables<a class="header-anchor" href="#13b39136-ca17-46c8-83b4-3609600bf716" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Creating a pointer does not extend the life of the variable being pointed to. For example:</p>
+</div>
+  <h2 id="e8328cc8-e284-4d13-930e-45fb2768326d" class="">Memory leaks
+  <a class="header-anchor" href="#e8328cc8-e284-4d13-930e-45fb2768326d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Failure to de-allocate memory using <code>free</code> leads to a buildup of non-reusable memory, which is no longer used by the program; this is called a <a href="https://en.wikipedia.org/wiki/Memory_leak">memory leak</a>. Memory leaks waste memory resources and can lead to allocation failures.
+</p>
+  <h2 id="b9829e0d-4e33-4301-ba15-4b41467e0400" class="">Logical errors
+  <a class="header-anchor" href="#b9829e0d-4e33-4301-ba15-4b41467e0400" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>All allocations must follow the same pattern:
+</p>
+  <ol id="6efe847a-13d4-4e47-9844-5e67d7b028ac" class="numbered-list" start="1">
+    <li>Allocation using <code>malloc</code> (or <code>calloc</code>)
+    </li>
+    <li>Usage to store data
+    </li>
+    <li>De-allocation using <code>free</code>
+    </li>
+  </ol>
+<p>Failure to adhere to this pattern, such as using memory after a call to <code>free</code> (<a href="https://en.wikipedia.org/wiki/Dangling_pointer">dangling pointer</a>) or before a call to <code>malloc</code> (<a href="http://stackoverflow.com/questions/2583656/what-is-the-meaning-of-wild-pointer-in-c">wild pointer</a>), calling <code>free</code> twice (“double free”), etc., usually causes a segmentation fault and results in a crash of the program.
+</p>
+<p>These errors can be transient and hard to debug – for example, freed memory is usually not immediately reclaimed by the OS, and thus dangling pointers may persist for a while and appear to work.
+</p>
+<p>On systems where it works, <a href="http://valgrind.org/">Valgrind</a> is an invaluable tool for identifying what memory is leaked and where it was originally allocated.
+</p>
+  <h2 id="13b39136-ca17-46c8-83b4-3609600bf716" class="">Creating pointers to stack variables
+  <a class="header-anchor" href="#13b39136-ca17-46c8-83b4-3609600bf716" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Creating a pointer does not extend the life of the variable being pointed to. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int* myFunction() 
@@ -187,7 +244,14 @@ long *longPtr = malloc(sizeof(*longPtr)*1000);  /* allocating storage for 1000 l
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, <code>x</code> has <em>automatic storage duration</em> (commonly known as <em>stack</em> allocation). Because it is allocated on the stack, its lifetime is only as long as <code>myFunction</code> is executing; after <code>myFunction</code> has exited, the variable <code>x</code> is destroyed. This function gets the address of <code>x</code> (using <code>&amp;x</code>), and returns it to the caller, leaving the caller with a pointer to a non-existent variable. Attempting to access this variable will then invoke <a href="http://stackoverflow.com/documentation/c/364/undefined-behavior">undefined behavior</a>.</p><p>Most compilers don’t actually clear a stack frame after the function exits, thus dereferencing the returned pointer often gives you the expected data. When another function is called however, the memory being pointed to may be overwritten, and it appears that the data being pointed to has been corrupted.</p><p>To resolve this, either <code>malloc</code> the storage for the variable to be returned, and return a pointer to the newly created storage, or require that a valid pointer is passed in to the function instead of returning one, for example:</p>
+</div>
+<p>Here, <code>x</code> has <em>automatic storage duration</em> (commonly known as <em>stack</em> allocation). Because it is allocated on the stack, its lifetime is only as long as <code>myFunction</code> is executing; after <code>myFunction</code> has exited, the variable <code>x</code> is destroyed. This function gets the address of <code>x</code> (using <code>&amp;x</code>), and returns it to the caller, leaving the caller with a pointer to a non-existent variable. Attempting to access this variable will then invoke <a href="http://stackoverflow.com/documentation/c/364/undefined-behavior">undefined behavior</a>.
+</p>
+<p>Most compilers don’t actually clear a stack frame after the function exits, thus dereferencing the returned pointer often gives you the expected data. When another function is called however, the memory being pointed to may be overwritten, and it appears that the data being pointed to has been corrupted.
+</p>
+<p>To resolve this, either <code>malloc</code> the storage for the variable to be returned, and return a pointer to the newly created storage, or require that a valid pointer is passed in to the function instead of returning one, for example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdlib.h&gt;
@@ -249,7 +313,18 @@ int main(void)
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="abe192f6-f26e-481f-b9ac-22217e2888c5" class="">Incrementing / decrementing and dereferencing<a class="header-anchor" href="#abe192f6-f26e-481f-b9ac-22217e2888c5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>If you write <code>*p++</code> to increment what is pointed by <code>p</code>, you are wrong.</p><p>Post incrementing / decrementing is executed before dereferencing. Therefore, this expression will increment the pointer <code>p</code> itself and return what was pointed by <code>p</code> before incrementing without changing it.</p><p>You should write <code>(*p)++</code> to increment what is pointed by <code>p</code>.</p><p>This rule also applies to post decrementing: <code>*p--</code> will decrement the pointer <code>p</code> itself, not what is pointed by <code>p</code>.</p>
+</div>
+  <h2 id="abe192f6-f26e-481f-b9ac-22217e2888c5" class="">Incrementing / decrementing and dereferencing
+  <a class="header-anchor" href="#abe192f6-f26e-481f-b9ac-22217e2888c5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>If you write <code>*p++</code> to increment what is pointed by <code>p</code>, you are wrong.
+</p>
+<p>Post incrementing / decrementing is executed before dereferencing. Therefore, this expression will increment the pointer <code>p</code> itself and return what was pointed by <code>p</code> before incrementing without changing it.
+</p>
+<p>You should write <code>(*p)++</code> to increment what is pointed by <code>p</code>.
+</p>
+<p>This rule also applies to post decrementing: <code>*p--</code> will decrement the pointer <code>p</code> itself, not what is pointed by <code>p</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

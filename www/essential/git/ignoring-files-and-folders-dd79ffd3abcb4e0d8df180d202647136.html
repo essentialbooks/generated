@@ -127,7 +127,44 @@
 </div>
 
 
-      <p>This chapter illustrates how to avoid adding unwanted files (or file changes) in a Git repo. There are several ways (global or local <code>.gitignore</code>, <code>.git/exclude</code>, <code>git update-index --assume-unchanged</code>, and <code>git update-index --skip-tree</code>), but keep in mind Git is managing <em>content</em>, which means: ignoring actually ignores a folder <em>content</em> (i.e. files). An empty folder would be ignored by default, since it cannot be added anyway.</p><h1 id="6a3877f3-2b59-4e0f-858a-6f7b38c3eb3d" class="">Ignoring files and directories with a .gitignore file<a class="header-anchor" href="#6a3877f3-2b59-4e0f-858a-6f7b38c3eb3d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>You can make Git ignore certain files and directories — that is, exclude them from being tracked by Git — by creating one or more <a href="https://git-scm.com/docs/gitignore"><code>.gitignore</code></a> files in your repository.</p><p>In software projects, <code>.gitignore</code> typically contains a listing of files and/or directories that are generated during the build process or at runtime. Entries in the <code>.gitignore</code> file may include names or paths pointing to:</p><ol id="b74762b1-4582-460a-928e-1b7a65a713b7" class="numbered-list" start="1"><li>temporary resources e.g. caches, log files, compiled code, etc.</li><li>local configuration files that should not be shared with other developers</li><li>files containing secret information, such as login passwords, keys and credentials</li></ol><p>When created in the top level directory, the rules will apply recursively to all files and sub-directories throughout the entire repository. When created in a sub-directory, the rules will apply to that specific directory and its sub-directories.</p><p>When a file or directory is ignored, it will not be:</p><ol id="eb93e3a6-5574-4d76-a716-302f5ee3eb66" class="numbered-list" start="1"><li>tracked by Git</li><li>reported by commands such as <code>git status</code> or <code>git diff</code></li><li>staged with commands such as <code>git add -A</code></li></ol><p>In the unusual case that you need to ignore tracked files, special care should be taken. See: <a href="http://stackoverflow.com/documentation/git/245/using-a-gitignore-file/1777/ignore-files-that-have-already-been-committed-to-a-git-repository#t=201607211343212958337">Ignore files that have already been committed to a Git repository</a>.</p><h1 id="7eb2d945-4b75-41d2-a055-aad5f349546b" class="">Examples<a class="header-anchor" href="#7eb2d945-4b75-41d2-a055-aad5f349546b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Here are some generic examples of rules in a <code>.gitignore</code> file, based on <a href="https://en.wikipedia.org/wiki/Glob_(programming)">glob file patterns</a>:</p>
+      
+<p>This chapter illustrates how to avoid adding unwanted files (or file changes) in a Git repo. There are several ways (global or local <code>.gitignore</code>, <code>.git/exclude</code>, <code>git update-index --assume-unchanged</code>, and <code>git update-index --skip-tree</code>), but keep in mind Git is managing <em>content</em>, which means: ignoring actually ignores a folder <em>content</em> (i.e. files). An empty folder would be ignored by default, since it cannot be added anyway.
+</p>
+  <h1 id="6a3877f3-2b59-4e0f-858a-6f7b38c3eb3d" class="">Ignoring files and directories with a .gitignore file
+  <a class="header-anchor" href="#6a3877f3-2b59-4e0f-858a-6f7b38c3eb3d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>You can make Git ignore certain files and directories — that is, exclude them from being tracked by Git — by creating one or more <a href="https://git-scm.com/docs/gitignore"><code>.gitignore</code></a> files in your repository.
+</p>
+<p>In software projects, <code>.gitignore</code> typically contains a listing of files and/or directories that are generated during the build process or at runtime. Entries in the <code>.gitignore</code> file may include names or paths pointing to:
+</p>
+  <ol id="b74762b1-4582-460a-928e-1b7a65a713b7" class="numbered-list" start="1">
+    <li>temporary resources e.g. caches, log files, compiled code, etc.
+    </li>
+    <li>local configuration files that should not be shared with other developers
+    </li>
+    <li>files containing secret information, such as login passwords, keys and credentials
+    </li>
+  </ol>
+<p>When created in the top level directory, the rules will apply recursively to all files and sub-directories throughout the entire repository. When created in a sub-directory, the rules will apply to that specific directory and its sub-directories.
+</p>
+<p>When a file or directory is ignored, it will not be:
+</p>
+  <ol id="eb93e3a6-5574-4d76-a716-302f5ee3eb66" class="numbered-list" start="1">
+    <li>tracked by Git
+    </li>
+    <li>reported by commands such as <code>git status</code> or <code>git diff</code>
+    </li>
+    <li>staged with commands such as <code>git add -A</code>
+    </li>
+  </ol>
+<p>In the unusual case that you need to ignore tracked files, special care should be taken. See: <a href="http://stackoverflow.com/documentation/git/245/using-a-gitignore-file/1777/ignore-files-that-have-already-been-committed-to-a-git-repository#t=201607211343212958337">Ignore files that have already been committed to a Git repository</a>.
+</p>
+  <h1 id="7eb2d945-4b75-41d2-a055-aad5f349546b" class="">Examples
+  <a class="header-anchor" href="#7eb2d945-4b75-41d2-a055-aad5f349546b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Here are some generic examples of rules in a <code>.gitignore</code> file, based on <a href="https://en.wikipedia.org/wiki/Glob_(programming)">glob file patterns</a>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"># Lines starting with `#` are comments.
@@ -210,7 +247,38 @@ DirectoryA/**/DirectoryB/
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Most <code>.gitignore</code> files are standard across various languages, so to get started, here is set of <a href="https://github.com/github/gitignore">sample </a><a href="https://github.com/github/gitignore"><code>.gitignore</code></a><a href="https://github.com/github/gitignore"> files</a> listed by language from which to clone or copy/modify into your project. Alternatively, for a fresh project you may consider auto-generating a starter file using an <a href="https://www.gitignore.io/">online tool</a>.</p><hr id="92b38bed-c03c-49bc-9a61-e7ddc600df4b"/><h1 id="82670d1e-9b1c-4db4-8233-82e19805fba0" class="">Other forms of .gitignore<a class="header-anchor" href="#82670d1e-9b1c-4db4-8233-82e19805fba0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p><code>.gitignore</code> files are intended to be committed as part of the repository. If you want to ignore certain files without committing the ignore rules, here are some options:</p><ul id="8ed137d9-e892-42da-93da-cccfa0cdfee5" class="bulleted-list"><li>Edit the <code>.git/info/exclude</code> file (using the same syntax as <code>.gitignore</code>). The rules will be global in the scope of the repository;</li><li>Set up <a href="http://stackoverflow.com/documentation/git/245/ignoring-files-and-folders/1222/a-global-gitignore-file">a global gitignore file</a> that will apply ignore rules to all your local repositories:</li></ul><p>Furthermore, you can ignore local changes to tracked files without changing the global git configuration with:</p><ul id="1b476f3e-f155-4ed2-a9d1-e0b5d7a58358" class="bulleted-list"><li><code>git update-index --skip-worktree [&lt;file&gt;...]</code>: for minor local modifications</li><li><code>git update-index --assume-unchanged [&lt;file&gt;...]</code>: for production ready, non-changing files upstream</li></ul><p>See <a href="http://stackoverflow.com/a/13631525/4531270">more details on differences between the latter flags</a> and the <a href="https://git-scm.com/docs/git-update-index"><code>git update-index</code></a><a href="https://git-scm.com/docs/git-update-index"> documentation</a> for further options.</p><hr id="dfe88bcd-da8c-440f-9798-e088c65febda"/><h1 id="e0640089-f1c6-4b72-8df4-6f0431ef949d" class="">Cleaning up ignored files<a class="header-anchor" href="#e0640089-f1c6-4b72-8df4-6f0431ef949d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>You can use <code>git clean -X</code> to cleanup ignored files:</p>
+</div>
+<p>Most <code>.gitignore</code> files are standard across various languages, so to get started, here is set of <a href="https://github.com/github/gitignore">sample </a><a href="https://github.com/github/gitignore"><code>.gitignore</code></a><a href="https://github.com/github/gitignore"> files</a> listed by language from which to clone or copy/modify into your project. Alternatively, for a fresh project you may consider auto-generating a starter file using an <a href="https://www.gitignore.io/">online tool</a>.
+</p>
+<hr id="92b38bed-c03c-49bc-9a61-e7ddc600df4b"/>
+  <h1 id="82670d1e-9b1c-4db4-8233-82e19805fba0" class="">Other forms of .gitignore
+  <a class="header-anchor" href="#82670d1e-9b1c-4db4-8233-82e19805fba0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p><code>.gitignore</code> files are intended to be committed as part of the repository. If you want to ignore certain files without committing the ignore rules, here are some options:
+</p>
+  <ul id="8ed137d9-e892-42da-93da-cccfa0cdfee5" class="bulleted-list">
+    <li>Edit the <code>.git/info/exclude</code> file (using the same syntax as <code>.gitignore</code>). The rules will be global in the scope of the repository;
+    </li>
+    <li>Set up <a href="http://stackoverflow.com/documentation/git/245/ignoring-files-and-folders/1222/a-global-gitignore-file">a global gitignore file</a> that will apply ignore rules to all your local repositories:
+    </li>
+  </ul>
+<p>Furthermore, you can ignore local changes to tracked files without changing the global git configuration with:
+</p>
+  <ul id="1b476f3e-f155-4ed2-a9d1-e0b5d7a58358" class="bulleted-list">
+    <li><code>git update-index --skip-worktree [&lt;file&gt;...]</code>: for minor local modifications
+    </li>
+    <li><code>git update-index --assume-unchanged [&lt;file&gt;...]</code>: for production ready, non-changing files upstream
+    </li>
+  </ul>
+<p>See <a href="http://stackoverflow.com/a/13631525/4531270">more details on differences between the latter flags</a> and the <a href="https://git-scm.com/docs/git-update-index"><code>git update-index</code></a><a href="https://git-scm.com/docs/git-update-index"> documentation</a> for further options.
+</p>
+<hr id="dfe88bcd-da8c-440f-9798-e088c65febda"/>
+  <h1 id="e0640089-f1c6-4b72-8df4-6f0431ef949d" class="">Cleaning up ignored files
+  <a class="header-anchor" href="#e0640089-f1c6-4b72-8df4-6f0431ef949d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>You can use <code>git clean -X</code> to cleanup ignored files:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">git clean -Xn #display a list of ignored files
@@ -219,7 +287,14 @@ git clean -Xf #remove the previously displayed files</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note: <code>-X</code> (caps) cleans up <em>only</em> ignored files. Use <code>-x</code> (no caps) to also remove untracked files.</p><p>See <a href="https://stackoverflow.com/documentation/git/1254/git-clean">the </a><a href="https://stackoverflow.com/documentation/git/1254/git-clean"><code>git clean</code></a><a href="https://stackoverflow.com/documentation/git/1254/git-clean"> documentation</a> for more details.</p><hr id="451f9603-7d1a-4391-8858-e44448c95723"/><p>See <a href="https://git-scm.com/docs/gitignore">the Git manual</a> for more details.</p>
+</div>
+<p>Note: <code>-X</code> (caps) cleans up <em>only</em> ignored files. Use <code>-x</code> (no caps) to also remove untracked files.
+</p>
+<p>See <a href="https://stackoverflow.com/documentation/git/1254/git-clean">the </a><a href="https://stackoverflow.com/documentation/git/1254/git-clean"><code>git clean</code></a><a href="https://stackoverflow.com/documentation/git/1254/git-clean"> documentation</a> for more details.
+</p>
+<hr id="451f9603-7d1a-4391-8858-e44448c95723"/>
+<p>See <a href="https://git-scm.com/docs/gitignore">the Git manual</a> for more details.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

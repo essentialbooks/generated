@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>In some cases, you might not want to use the default maps, Apple provides.</p><p>You can add an overlay to your <code>mapView</code> that contains custom tiles for example from <a href="http://openstreetmap.org/"><em>OpenStreetMap</em></a>.</p><p>Let’s assume, <code>self.mapView</code> is your <code>MKMapView</code> that you have already added to your <code>ViewController</code>.</p><p>At first, your <code>ViewController</code> needs to conform to the protocol <code>MKMapViewDelegate</code>.</p>
+      
+<p>In some cases, you might not want to use the default maps, Apple provides.
+</p>
+<p>You can add an overlay to your <code>mapView</code> that contains custom tiles for example from <a href="http://openstreetmap.org/"><em>OpenStreetMap</em></a>.
+</p>
+<p>Let’s assume, <code>self.mapView</code> is your <code>MKMapView</code> that you have already added to your <code>ViewController</code>.
+</p>
+<p>At first, your <code>ViewController</code> needs to conform to the protocol <code>MKMapViewDelegate</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class MyViewController: UIViewController, MKMapViewDelegate</pre>
@@ -135,7 +144,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then you have to set the <code>ViewController</code> as delegate of <code>mapView</code></p>
+</div>
+<p>Then you have to set the <code>ViewController</code> as delegate of <code>mapView</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mapView.delegate = self</pre>
@@ -143,7 +155,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Next, you configure the overlay for the map. You’ll need an URL-template for this. The URL should be similar to this on all tile-servers and even if you would store the map-data offline: <code>http://tile.openstreetmap.org/{z}/{x}/{y}.png</code></p>
+</div>
+<p>Next, you configure the overlay for the map. You’ll need an URL-template for this. The URL should be similar to this on all tile-servers and even if you would store the map-data offline: <code>http://tile.openstreetmap.org/{z}/{x}/{y}.png</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let urlTeplate = &#34;http://tile.openstreetmap.org/{z}/{x}/{y}.png&#34;
@@ -153,7 +168,10 @@ overlay.canReplaceMapContent = true</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>After you configured the overlay, you must add it to your <code>mapView</code>.</p>
+</div>
+<p>After you configured the overlay, you must add it to your <code>mapView</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mapView.add(overlay, level: .aboveLabels)</pre>
@@ -161,7 +179,15 @@ overlay.canReplaceMapContent = true</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To use custom maps, it is recommended to use <code>.aboveLabels</code> for <code>level</code>. Otherwise, the default labels would be visible on your custom map. If you want to see the default labels, you can choose <code>.aboveRoads</code> here.</p><p>If you would run your project now, you would recognize, that your map would still show the default map:</p><img class="img" src="/img/68860b61f73586eda8993790d07ac1aeceab9a12.png"><p>That’s because we haven’t told the <code>mapView</code> yet, how to render the overlay. This is the reason, why you had to set the delegate before. Now you can add <code>func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -&gt; MKOverlayRenderer</code> to your view controller:</p>
+</div>
+<p>To use custom maps, it is recommended to use <code>.aboveLabels</code> for <code>level</code>. Otherwise, the default labels would be visible on your custom map. If you want to see the default labels, you can choose <code>.aboveRoads</code> here.
+</p>
+<p>If you would run your project now, you would recognize, that your map would still show the default map:
+</p>
+<img class="img" src="/img/68860b61f73586eda8993790d07ac1aeceab9a12.png">
+<p>That’s because we haven’t told the <code>mapView</code> yet, how to render the overlay. This is the reason, why you had to set the delegate before. Now you can add <code>func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -&gt; MKOverlayRenderer</code> to your view controller:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -&gt; MKOverlayRenderer {
@@ -176,7 +202,12 @@ overlay.canReplaceMapContent = true</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will return the correct <code>MKOverlayRenderer</code> to your <code>mapView</code>. If you run your project now, you should see a map like this:</p><img class="img" src="/img/3e61bc944c0c53c5e5ce1bafb5424a7ae9205178.png"><p>If you want to display another map, you just have to change the URL-template. There is a <a href="http://wiki.openstreetmap.org/wiki/Tile_servers">list of tile-servers</a> in the OSM Wiki.</p>
+</div>
+<p>This will return the correct <code>MKOverlayRenderer</code> to your <code>mapView</code>. If you run your project now, you should see a map like this:
+</p>
+<img class="img" src="/img/3e61bc944c0c53c5e5ce1bafb5424a7ae9205178.png">
+<p>If you want to display another map, you just have to change the URL-template. There is a <a href="http://wiki.openstreetmap.org/wiki/Tile_servers">list of tile-servers</a> in the OSM Wiki.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

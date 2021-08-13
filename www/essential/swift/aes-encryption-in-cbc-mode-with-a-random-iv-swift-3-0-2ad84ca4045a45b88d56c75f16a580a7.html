@@ -127,7 +127,24 @@
 </div>
 
 
-      <p>The iv is prefixed to the encrypted data</p><p><code>aesCBC128Encrypt</code> will create a random IV and prefixed to the encrypted code.</p><p><code>aesCBC128Decrypt</code> will use the prefixed IV during decryption.</p><p>Inputs are the data and key are Data objects. If an encoded form such as Base64 if required convert to and/or from in the calling method.</p><p>The key should be exactly 128-bits (16-bytes), 192-bits (24-bytes) or 256-bits (32-bytes) in length. If another key size is used an error will be thrown.</p><p><a href="https://en.wikipedia.org/wiki/Padding_(cryptography)#PKCS7">PKCS#7 padding</a> is set by default.</p><p>This example requires Common Crypto</p><p>It is necessary to have a bridging header to the project:</p>
+      
+<p>The iv is prefixed to the encrypted data
+</p>
+<p><code>aesCBC128Encrypt</code> will create a random IV and prefixed to the encrypted code.
+</p>
+<p><code>aesCBC128Decrypt</code> will use the prefixed IV during decryption.
+</p>
+<p>Inputs are the data and key are Data objects. If an encoded form such as Base64 if required convert to and/or from in the calling method.
+</p>
+<p>The key should be exactly 128-bits (16-bytes), 192-bits (24-bytes) or 256-bits (32-bytes) in length. If another key size is used an error will be thrown.
+</p>
+<p><a href="https://en.wikipedia.org/wiki/Padding_(cryptography)#PKCS7">PKCS#7 padding</a> is set by default.
+</p>
+<p>This example requires Common Crypto
+</p>
+<p>It is necessary to have a bridging header to the project:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">`#import &lt;CommonCrypto/CommonCrypto.h&gt;`  
@@ -136,7 +153,10 @@ Add the `Security.framework` to the project.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is example, not production code.</p>
+</div>
+<p>This is example, not production code.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">enum AESError: Error {
@@ -235,7 +255,10 @@ func aesCBCDecrypt(data:Data, keyData:Data) throws -&gt; Data? {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Example usage:</p>
+</div>
+<p>Example usage:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let clearData = &#34;clearData0123456&#34;.data(using:String.Encoding.utf8)!
@@ -264,7 +287,10 @@ catch (let status) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Example Output:</p>
+</div>
+<p>Example Output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">clearData:   &lt;636c6561 72446174 61303132 33343536&gt;
@@ -275,7 +301,19 @@ decryptData: &lt;636c6561 72446174 61303132 33343536&gt;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Notes:</p><p>One typical problem with CBC mode example code is that it leaves the creation and sharing of the random IV to the user. This example includes generation of the IV, prefixed the encrypted data and uses the prefixed IV during decryption. This frees the casual user from the details that are necessary for <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_Block_Chaining_.28CBC.29">CBC mode</a>.</p><p>For security the encrypted data also should have authentication, this example code does not provide that in order to be small and allow better interoperability for other platforms.</p><p>Also missing is key derivation of the key from a password, it is suggested that <a href="https://en.wikipedia.org/wiki/PBKDF2">PBKDF2</a> be used is text passwords are used as keying material.</p><p>For robust production ready multi-platform encryption code see <a href="https://github.com/RNCryptor">RNCryptor</a>.</p><blockquote id="b15214f1-77e3-4f0f-a6da-f5d7f827b23e" class="">Updated to use throw/catch and multiple key sizes based on the provided key.</blockquote>
+</div>
+<p>Notes:
+</p>
+<p>One typical problem with CBC mode example code is that it leaves the creation and sharing of the random IV to the user. This example includes generation of the IV, prefixed the encrypted data and uses the prefixed IV during decryption. This frees the casual user from the details that are necessary for <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_Block_Chaining_.28CBC.29">CBC mode</a>.
+</p>
+<p>For security the encrypted data also should have authentication, this example code does not provide that in order to be small and allow better interoperability for other platforms.
+</p>
+<p>Also missing is key derivation of the key from a password, it is suggested that <a href="https://en.wikipedia.org/wiki/PBKDF2">PBKDF2</a> be used is text passwords are used as keying material.
+</p>
+<p>For robust production ready multi-platform encryption code see <a href="https://github.com/RNCryptor">RNCryptor</a>.
+</p>
+<blockquote id="b15214f1-77e3-4f0f-a6da-f5d7f827b23e" class="">Updated to use throw/catch and multiple key sizes based on the provided key.
+</blockquote>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

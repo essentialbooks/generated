@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>The whole ES6 spec is not yet implemented in its entirety so you will only be able to use some of the new features. You can see a list of the current supported ES6 features at http://node.green/</p><p>Since NodeJS v6 there has been pretty good support. So if you using NodeJS v6 or above you can enjoy using ES6. However, you may also want to use some of the unreleased features and some from beyond. For this you will need to use a transpiler</p><p>It is possible to run a transpiler at run time and build, to use all of the ES6 features and more. The most popular transpiler for JavaScript is called <a href="https://babeljs.io/">Babel</a></p><p>Babel allows you to use all of the features from the ES6 specification and some additional not-in-spec features with ‘stage-0’ such as <code>import thing from &#x27;thing</code> instead of <code>var thing = require(&#x27;thing&#x27;)</code></p><p>If we wanted to create a project where we use ‘stage-0’ features such as import we would need to add Babel as a transpiler. You’ll see projects using react and Vue and other commonJS based patterns implement stage-0 quite often.</p><p>create a new node project</p>
+      
+<p>The whole ES6 spec is not yet implemented in its entirety so you will only be able to use some of the new features. You can see a list of the current supported ES6 features at http://node.green/
+</p>
+<p>Since NodeJS v6 there has been pretty good support. So if you using NodeJS v6 or above you can enjoy using ES6. However, you may also want to use some of the unreleased features and some from beyond. For this you will need to use a transpiler
+</p>
+<p>It is possible to run a transpiler at run time and build, to use all of the ES6 features and more. The most popular transpiler for JavaScript is called <a href="https://babeljs.io/">Babel</a>
+</p>
+<p>Babel allows you to use all of the features from the ES6 specification and some additional not-in-spec features with ‘stage-0’ such as <code>import thing from &#x27;thing</code> instead of <code>var thing = require(&#x27;thing&#x27;)</code>
+</p>
+<p>If we wanted to create a project where we use ‘stage-0’ features such as import we would need to add Babel as a transpiler. You’ll see projects using react and Vue and other commonJS based patterns implement stage-0 quite often.
+</p>
+<p>create a new node project
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mkdir my-es6-app
@@ -137,7 +150,14 @@ npm init</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Install babel the ES6 preset and stage-0</p><p><code>npm install --save-dev babel-preset-es2015 babel-preset-stage-2 babel-cli babel-register</code></p><p>Create a new file called <code>server.js</code> and add a basic HTTP server.</p>
+</div>
+<p>Install babel the ES6 preset and stage-0
+</p>
+<p><code>npm install --save-dev babel-preset-es2015 babel-preset-stage-2 babel-cli babel-register</code>
+</p>
+<p>Create a new file called <code>server.js</code> and add a basic HTTP server.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import http from &#39;http&#39;
@@ -152,7 +172,14 @@ console.log(&#39;Server running at http://127.0.0.1:3000/&#39;)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that we use an <code>import http from &#x27;http&#x27;</code> this is a stage-0 feature and if it works it means we’ve got the transpiler working correctly.</p><p>If you run <code>node server.js</code> it will fail not knowing how to handle the import.</p><p>Creating a .babelrc file in the root of your directory and add the following settings</p>
+</div>
+<p>Note that we use an <code>import http from &#x27;http&#x27;</code> this is a stage-0 feature and if it works it means we’ve got the transpiler working correctly.
+</p>
+<p>If you run <code>node server.js</code> it will fail not knowing how to handle the import.
+</p>
+<p>Creating a .babelrc file in the root of your directory and add the following settings
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">{
@@ -163,7 +190,12 @@ console.log(&#39;Server running at http://127.0.0.1:3000/&#39;)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>you can now run the server with <code>node src/index.js --exec babel-node</code></p><p>Finishing off it is not a good idea to run a transpiler at runtime on a production app. We can however implement some scripts in our package.json to make it easier to work with.</p>
+</div>
+<p>you can now run the server with <code>node src/index.js --exec babel-node</code>
+</p>
+<p>Finishing off it is not a good idea to run a transpiler at runtime on a production app. We can however implement some scripts in our package.json to make it easier to work with.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&#34;scripts&#34;: {
@@ -176,7 +208,17 @@ console.log(&#39;Server running at http://127.0.0.1:3000/&#39;)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above will on <code>npm install</code> build the transpiled code to the dist directory allow <code>npm start</code> to use the transpiled code for our production app.</p><p><code>npm run dev</code> will boot the server and babel runtime which is fine and preferred when working on a project locally.</p><p>Going one further you could then install nodemon <code>npm install nodemon --save-dev</code> to watch for changes and then reboot the node app.</p><p>This really speeds up working with babel and NodeJS. In you package.json just update the “dev” script to use nodemon</p><p><code>&quot;dev&quot;: &quot;nodemon src/index.js --exec babel-node&quot;,</code></p>
+</div>
+<p>The above will on <code>npm install</code> build the transpiled code to the dist directory allow <code>npm start</code> to use the transpiled code for our production app.
+</p>
+<p><code>npm run dev</code> will boot the server and babel runtime which is fine and preferred when working on a project locally.
+</p>
+<p>Going one further you could then install nodemon <code>npm install nodemon --save-dev</code> to watch for changes and then reboot the node app.
+</p>
+<p>This really speeds up working with babel and NodeJS. In you package.json just update the “dev” script to use nodemon
+</p>
+<p><code>&quot;dev&quot;: &quot;nodemon src/index.js --exec babel-node&quot;,</code>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

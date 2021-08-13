@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>One of constraining function is to use trailing <code>decltype</code> to specify the return type:</p>
+      
+<p>One of constraining function is to use trailing <code>decltype</code> to specify the return type:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">namespace details {
@@ -160,7 +163,11 @@ std::string convert_to_string(T const&amp; val)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If I call <code>convert_to_string()</code> with an argument with which I can invoke <code>to_string()</code>, then I have two viable functions for <code>details::convert_to_string()</code>. The first is preferred since the conversion from <code>0</code> to <code>int</code> is a better implicit conversion sequence than the conversion from <code>0</code> to <code>...</code></p><p>If I call <code>convert_to_string()</code> with an argument from which I cannot invoke <code>to_string()</code>, then the first function template instantiation leads to substitution failure (there is no <code>decltype(to_string(val))</code>). As a result, that candidate is removed from the overload set. The second function template is unconstrained, so it is selected and we instead go through <code>operator&lt;&lt;(std::ostream&amp;, T)</code>. If that one is undefined, then we have a hard compile error with a template stack on the line <code>oss &lt;&lt; val</code>.</p>
+</div>
+<p>If I call <code>convert_to_string()</code> with an argument with which I can invoke <code>to_string()</code>, then I have two viable functions for <code>details::convert_to_string()</code>. The first is preferred since the conversion from <code>0</code> to <code>int</code> is a better implicit conversion sequence than the conversion from <code>0</code> to <code>...</code>
+</p>
+<p>If I call <code>convert_to_string()</code> with an argument from which I cannot invoke <code>to_string()</code>, then the first function template instantiation leads to substitution failure (there is no <code>decltype(to_string(val))</code>). As a result, that candidate is removed from the overload set. The second function template is unconstrained, so it is selected and we instead go through <code>operator&lt;&lt;(std::ostream&amp;, T)</code>. If that one is undefined, then we have a hard compile error with a template stack on the line <code>oss &lt;&lt; val</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

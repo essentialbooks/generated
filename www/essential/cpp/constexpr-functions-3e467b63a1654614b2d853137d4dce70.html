@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>A function that is declared <code>constexpr</code> is implicitly inline and calls to such a function potentially yield constant expressions. For example, the following function, if called with constant expression arguments, yields a constant expression too:</p>
+      
+<p>A function that is declared <code>constexpr</code> is implicitly inline and calls to such a function potentially yield constant expressions. For example, the following function, if called with constant expression arguments, yields a constant expression too:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">constexpr int Sum(int a, int b)
@@ -138,7 +141,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Thus, the result of the function call may be used as an array bound or a template argument, or to initialize a <code>constexpr</code> variable:</p>
+</div>
+<p>Thus, the result of the function call may be used as an array bound or a template argument, or to initialize a <code>constexpr</code> variable:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int main()
@@ -152,7 +158,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that if you remove <code>constexpr</code> from function’s return type specification, assignment to <code>S</code> will not work, as <code>S</code> is a <code>constexpr</code> variable, and must be assigned a compile-time const. Similarly, size of array will also not be a constant-expression, if function <code>Sum</code> is not <code>constexpr</code>.</p><p>Interesting thing about <code>constexpr</code> functions is that you may also use it like ordinary functions:</p>
+</div>
+<p>Note that if you remove <code>constexpr</code> from function’s return type specification, assignment to <code>S</code> will not work, as <code>S</code> is a <code>constexpr</code> variable, and must be assigned a compile-time const. Similarly, size of array will also not be a constant-expression, if function <code>Sum</code> is not <code>constexpr</code>.
+</p>
+<p>Interesting thing about <code>constexpr</code> functions is that you may also use it like ordinary functions:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int a = 20;
@@ -161,7 +172,12 @@ auto sum = Sum(a, abs(-20));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>Sum</code> will not be a <code>constexpr</code> function now, it will be compiled as an ordinary function, taking variable (non-constant) arguments, and returning non-constant value. You need not to write two functions.</p><p>It also means that if you try to assign such call to a non-const variable, it won’t compile:</p>
+</div>
+<p><code>Sum</code> will not be a <code>constexpr</code> function now, it will be compiled as an ordinary function, taking variable (non-constant) arguments, and returning non-constant value. You need not to write two functions.
+</p>
+<p>It also means that if you try to assign such call to a non-const variable, it won’t compile:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int a = 20;
@@ -170,7 +186,13 @@ constexpr auto sum = Sum(a, abs(-20));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The reason is simple: <code>constexpr</code> must only be assigned a compile-time constant. However, the above function call makes <code>Sum</code> a non-<code>constexpr</code> (R-value is non-const, but L-value is declaring itself to be <code>constexpr</code>).</p><hr id="c9cef561-9231-4514-b42d-ed99fd35f324"/><p>The <code>constexpr</code> function <strong>must</strong> also return a compile-time constant. Following will not compile:</p>
+</div>
+<p>The reason is simple: <code>constexpr</code> must only be assigned a compile-time constant. However, the above function call makes <code>Sum</code> a non-<code>constexpr</code> (R-value is non-const, but L-value is declaring itself to be <code>constexpr</code>).
+</p>
+<hr id="c9cef561-9231-4514-b42d-ed99fd35f324"/>
+<p>The <code>constexpr</code> function <strong>must</strong> also return a compile-time constant. Following will not compile:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">constexpr int Sum(int a, int b)
@@ -182,7 +204,10 @@ constexpr auto sum = Sum(a, abs(-20));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Because <code>a1</code> is a non-constexpr <em>variable</em>, and prohibits the function from being a true <code>constexpr</code> function. Making it <code>constexpr</code> and assigning it <code>a</code> will also not work - since value of <code>a</code> (incoming parameter) is still not yet known:</p>
+</div>
+<p>Because <code>a1</code> is a non-constexpr <em>variable</em>, and prohibits the function from being a true <code>constexpr</code> function. Making it <code>constexpr</code> and assigning it <code>a</code> will also not work - since value of <code>a</code> (incoming parameter) is still not yet known:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">constexpr int Sum(int a, int b)
@@ -193,7 +218,10 @@ constexpr auto sum = Sum(a, abs(-20));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Furthermore, following will also not compile:</p>
+</div>
+<p>Furthermore, following will also not compile:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">constexpr int Sum(int a, int b)
@@ -204,7 +232,12 @@ constexpr auto sum = Sum(a, abs(-20));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since <code>abs(a)</code> is not a constant expression (even <code>abs(10)</code> will not work, since <code>abs</code> is not returning a <code>constexpr int</code> !</p><p>What about this?</p>
+</div>
+<p>Since <code>abs(a)</code> is not a constant expression (even <code>abs(10)</code> will not work, since <code>abs</code> is not returning a <code>constexpr int</code> !
+</p>
+<p>What about this?
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">constexpr int Abs(int v)
@@ -220,7 +253,9 @@ constexpr int Sum(int a, int b)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We crafted our own <code>Abs</code> function which is a <code>constexpr</code>, and the body of <code>Abs</code> also doesn’t break any rule. Also, at the call site (inside <code>Sum</code>), the expression evaluates to a <code>constexpr</code>. Hence, the call to <code>Sum(-10, 20)</code> will be a compile-time constant expression resulting to <code>30</code>.</p>
+</div>
+<p>We crafted our own <code>Abs</code> function which is a <code>constexpr</code>, and the body of <code>Abs</code> also doesn’t break any rule. Also, at the call site (inside <code>Sum</code>), the expression evaluates to a <code>constexpr</code>. Hence, the call to <code>Sum(-10, 20)</code> will be a compile-time constant expression resulting to <code>30</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

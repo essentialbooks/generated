@@ -127,7 +127,27 @@
 </div>
 
 
-      <p>There are two primary ways of accessing elements in a <a href="http://en.cppreference.com/w/cpp/container/vector"><code>std::vector</code></a></p><ul id="facea50e-1c91-4293-a161-d8482897e53f" class="bulleted-list"><li>index-based access</li><li><a href="/essential/cpp/iterators-ee86edbe8dd9497aa24cfa516272404e">iterators</a></li></ul><h1 id="f8c1aaa8-f2c9-4f01-ae31-f6fce1cb1206" class="">Index-based access:<a class="header-anchor" href="#f8c1aaa8-f2c9-4f01-ae31-f6fce1cb1206" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>This can be done either with the subscript operator <a href="http://en.cppreference.com/w/cpp/container/vector/operator_at"><code>[]</code></a>, or the member function <a href="http://en.cppreference.com/w/cpp/container/vector/at"><code>at()</code></a>.</p><p>Both return a reference to the element at the respective position in the <code>std::vector</code> (unless it’s a <a href="http://stackoverflow.com/documentation/c%2B%2B/511/stdvector/2561/vectorbool-the-exception-to-many-many-rules#t=20160725190704070024"><code>vector&lt;bool&gt;</code></a>), so that it can be read as well as modified (if the vector is not <code>const</code>).</p><p><code>[]</code> and <code>at()</code> differ in that <code>[]</code> is not guaranteed to perform any bounds checking, while <code>at()</code> does. Accessing elements where <code>index &lt; 0</code> or <code>index &gt;= size</code> is <a href="http://stackoverflow.com/documentation/c%2B%2B/1812/undefined-behavior#t=201607221823520289181">undefined behavior</a> for <code>[]</code>, while <code>at()</code> throws a <a href="http://en.cppreference.com/w/cpp/error/out_of_range"><code>std::out_of_range</code></a> exception.</p><p><em><strong>Note:</strong></em> The examples below use C++11-style initialization for clarity, but the operators can be used with all versions (unless marked C++11).</p>
+      
+<p>There are two primary ways of accessing elements in a <a href="http://en.cppreference.com/w/cpp/container/vector"><code>std::vector</code></a>
+</p>
+  <ul id="facea50e-1c91-4293-a161-d8482897e53f" class="bulleted-list">
+    <li>index-based access
+    </li>
+    <li><a href="/essential/cpp/iterators-ee86edbe8dd9497aa24cfa516272404e">iterators</a>
+    </li>
+  </ul>
+  <h1 id="f8c1aaa8-f2c9-4f01-ae31-f6fce1cb1206" class="">Index-based access:
+  <a class="header-anchor" href="#f8c1aaa8-f2c9-4f01-ae31-f6fce1cb1206" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>This can be done either with the subscript operator <a href="http://en.cppreference.com/w/cpp/container/vector/operator_at"><code>[]</code></a>, or the member function <a href="http://en.cppreference.com/w/cpp/container/vector/at"><code>at()</code></a>.
+</p>
+<p>Both return a reference to the element at the respective position in the <code>std::vector</code> (unless it’s a <a href="http://stackoverflow.com/documentation/c%2B%2B/511/stdvector/2561/vectorbool-the-exception-to-many-many-rules#t=20160725190704070024"><code>vector&lt;bool&gt;</code></a>), so that it can be read as well as modified (if the vector is not <code>const</code>).
+</p>
+<p><code>[]</code> and <code>at()</code> differ in that <code>[]</code> is not guaranteed to perform any bounds checking, while <code>at()</code> does. Accessing elements where <code>index &lt; 0</code> or <code>index &gt;= size</code> is <a href="http://stackoverflow.com/documentation/c%2B%2B/1812/undefined-behavior#t=201607221823520289181">undefined behavior</a> for <code>[]</code>, while <code>at()</code> throws a <a href="http://en.cppreference.com/w/cpp/error/out_of_range"><code>std::out_of_range</code></a> exception.
+</p>
+<p><em><strong>Note:</strong></em> The examples below use C++11-style initialization for clarity, but the operators can be used with all versions (unless marked C++11).
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">};</span>
@@ -145,7 +165,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Because the <code>at()</code> method performs bounds checking and can throw exceptions, it is slower than <code>[]</code>. This makes <code>[]</code> preferred code where the semantics of the operation guarantee that the index is in bounds. In any case, accesses to elements of vectors are done in constant time. That means accessing to the first element of the vector has the same cost (in time) of accessing the second element, the third element and so on.</p><p>For example, consider this loop</p>
+</div>
+<p>Because the <code>at()</code> method performs bounds checking and can throw exceptions, it is slower than <code>[]</code>. This makes <code>[]</code> preferred code where the semantics of the operation guarantee that the index is in bounds. In any case, accesses to elements of vectors are done in constant time. That means accessing to the first element of the vector has the same cost (in time) of accessing the second element, the third element and so on.
+</p>
+<p>For example, consider this loop
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
@@ -156,7 +181,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here we know that the index variable <code>i</code> is always in bounds, so it would be a waste of CPU cycles to check that <code>i</code> is in bounds for every call to <code>operator[]</code>.</p><p>The <a href="http://en.cppreference.com/w/cpp/container/vector/front"><code>front()</code></a> and <a href="http://en.cppreference.com/w/cpp/container/vector/back"><code>back()</code></a> member functions allow easy reference access to the first and last element of the vector, respectively. These positions are frequently used, and the special accessors can be more readable than their alternatives using <code>[]</code>:</p>
+</div>
+<p>Here we know that the index variable <code>i</code> is always in bounds, so it would be a waste of CPU cycles to check that <code>i</code> is in bounds for every call to <code>operator[]</code>.
+</p>
+<p>The <a href="http://en.cppreference.com/w/cpp/container/vector/front"><code>front()</code></a> and <a href="http://en.cppreference.com/w/cpp/container/vector/back"><code>back()</code></a> member functions allow easy reference access to the first and last element of the vector, respectively. These positions are frequently used, and the special accessors can be more readable than their alternatives using <code>[]</code>:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">{</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span> <span class="p">};</span> <span class="c1">// In pre-C++11 this is more verbose
@@ -170,7 +200,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em><strong>Note</strong></em>: It is <a href="http://stackoverflow.com/documentation/c%2B%2B/1812/undefined-behavior#t=201608052302241671564">undefined behavior</a> to invoke <code>front()</code> or <code>back()</code> on an empty vector. You need to check that the container is not empty using the <a href="http://en.cppreference.com/w/cpp/container/vector/empty"><code>empty()</code></a> member function (which checks if the container is empty) before calling <code>front()</code> or <code>back()</code>. A simple example of the use of ‘empty()’ to test for an empty vector follows:</p>
+</div>
+<p><em><strong>Note</strong></em>: It is <a href="http://stackoverflow.com/documentation/c%2B%2B/1812/undefined-behavior#t=201608052302241671564">undefined behavior</a> to invoke <code>front()</code> or <code>back()</code> on an empty vector. You need to check that the container is not empty using the <a href="http://en.cppreference.com/w/cpp/container/vector/empty"><code>empty()</code></a> member function (which checks if the container is empty) before calling <code>front()</code> or <code>back()</code>. A simple example of the use of ‘empty()’ to test for an empty vector follows:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">int</span> <span class="nf">main</span> <span class="p">()</span>
@@ -195,7 +228,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The example above creates a vector with a sequence of numbers from 1 to 10. Then it pops the elements of the vector out until the vector is empty (using ‘empty()’) to prevent undefined behavior. Then the sum of the numbers in the vector is calculated and displayed to the user.</p><p>The <a href="http://en.cppreference.com/w/cpp/container/vector/data"><code>data()</code></a> method returns a pointer to the raw memory used by the <code>std::vector</code> to internally store its elements. This is most often used when passing the vector data to legacy code that expects a C-style array.</p>
+</div>
+<p>The example above creates a vector with a sequence of numbers from 1 to 10. Then it pops the elements of the vector out until the vector is empty (using ‘empty()’) to prevent undefined behavior. Then the sum of the numbers in the vector is calculated and displayed to the user.
+</p>
+<p>The <a href="http://en.cppreference.com/w/cpp/container/vector/data"><code>data()</code></a> method returns a pointer to the raw memory used by the <code>std::vector</code> to internally store its elements. This is most often used when passing the vector data to legacy code that expects a C-style array.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">};</span> <span class="c1">// v contains {1, 2, 3, 4}
@@ -210,7 +248,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Before C++11, the <code>data()</code> method can be simulated by calling <code>front()</code> and taking the address of the returned value:</p>
+</div>
+<p>Before C++11, the <code>data()</code> method can be simulated by calling <code>front()</code> and taking the address of the returned value:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
@@ -220,7 +261,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This works because vectors are always guaranteed to store their elements in contiguous memory locations, assuming the contents of the vector doesn’t override unary <code>operator&amp;</code>. If it does, you’ll have to re-implement <a href="http://en.cppreference.com/w/cpp/memory/addressof"><code>std::addressof</code></a> in pre-C++11. It also assumes that the vector isn’t empty.</p><h1 id="0978c579-dd7a-4368-9203-07fdef0ad75d" class="">Iterators:<a class="header-anchor" href="#0978c579-dd7a-4368-9203-07fdef0ad75d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Iterators are explained in more detail in the example “Iterating over <code>std::vector</code>” and the article <a href="https://stackoverflow.com/documentation/c%2B%2B/473/iterators/1709/overview#t=20160613174720948501">Iterators</a>. In short, they act similarly to pointers to the elements of the vector:</p>
+</div>
+<p>This works because vectors are always guaranteed to store their elements in contiguous memory locations, assuming the contents of the vector doesn’t override unary <code>operator&amp;</code>. If it does, you’ll have to re-implement <a href="http://en.cppreference.com/w/cpp/memory/addressof"><code>std::addressof</code></a> in pre-C++11. It also assumes that the vector isn’t empty.
+</p>
+  <h1 id="0978c579-dd7a-4368-9203-07fdef0ad75d" class="">Iterators:
+  <a class="header-anchor" href="#0978c579-dd7a-4368-9203-07fdef0ad75d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Iterators are explained in more detail in the example “Iterating over <code>std::vector</code>” and the article <a href="https://stackoverflow.com/documentation/c%2B%2B/473/iterators/1709/overview#t=20160613174720948501">Iterators</a>. In short, they act similarly to pointers to the elements of the vector:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">{</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span> <span class="p">};</span>
@@ -241,7 +290,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It is consistent with the standard that a <code>std::vector&lt;T&gt;</code>’s iterators actually <em>be</em> <code>T*</code>s, but most standard libraries do not do this. Not doing this both improves error messages, catches non-portable code, and can be used to instrument the iterators with debugging checks in non-release builds. Then, in release builds, the class wrapping around the underlying pointer is optimized away.</p><p>You can persist a reference or a pointer to an element of a vector for indirect access. These references or pointers to elements in the <code>vector</code> remain stable and access remains defined unless you add/remove elements at or before the element in the <code>vector</code>, or you cause the <code>vector</code> capacity to change. This is the same as the rule for invalidating iterators.</p>
+</div>
+<p>It is consistent with the standard that a <code>std::vector&lt;T&gt;</code>’s iterators actually <em>be</em> <code>T*</code>s, but most standard libraries do not do this. Not doing this both improves error messages, catches non-portable code, and can be used to instrument the iterators with debugging checks in non-release builds. Then, in release builds, the class wrapping around the underlying pointer is optimized away.
+</p>
+<p>You can persist a reference or a pointer to an element of a vector for indirect access. These references or pointers to elements in the <code>vector</code> remain stable and access remains defined unless you add/remove elements at or before the element in the <code>vector</code>, or you cause the <code>vector</code> capacity to change. This is the same as the rule for invalidating iterators.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">};</span>

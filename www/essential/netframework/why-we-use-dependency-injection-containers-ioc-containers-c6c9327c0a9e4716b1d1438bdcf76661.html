@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>Dependency injection means writing classes so that they do not control their dependencies - instead, their dependencies are provided to them (“injected.”)</p><p>This is not the same thing as using a dependency injection framework (often called a “DI container”, “IoC container”, or just “container”) like Castle Windsor, Autofac, SimpleInjector, Ninject, Unity, or others.</p><p>A container just makes dependency injection easier. For example, suppose you write a number of classes that rely on dependency injection. One class depends on several interfaces, the classes that implement those interfaces depend on other interfaces, and so on. Some depend on specific values. And just for fun, some of those classes implement <code>IDisposable</code> and need to be disposed.</p><p>Each individual class is well-written and easy to test. But now there’s a different problem: Creating an instance of a class has become much more complicated. Suppose we’re creating an instance of a <code>CustomerService</code> class. It has dependencies and its dependencies have dependencies. Constructing an instance might look something like this:</p>
+      
+<p>Dependency injection means writing classes so that they do not control their dependencies - instead, their dependencies are provided to them (“injected.”)
+</p>
+<p>This is not the same thing as using a dependency injection framework (often called a “DI container”, “IoC container”, or just “container”) like Castle Windsor, Autofac, SimpleInjector, Ninject, Unity, or others.
+</p>
+<p>A container just makes dependency injection easier. For example, suppose you write a number of classes that rely on dependency injection. One class depends on several interfaces, the classes that implement those interfaces depend on other interfaces, and so on. Some depend on specific values. And just for fun, some of those classes implement <code>IDisposable</code> and need to be disposed.
+</p>
+<p>Each individual class is well-written and easy to test. But now there’s a different problem: Creating an instance of a class has become much more complicated. Suppose we’re creating an instance of a <code>CustomerService</code> class. It has dependencies and its dependencies have dependencies. Constructing an instance might look something like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public CustomerData GetCustomerData(string customerNumber)
@@ -154,7 +163,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You might wonder, why not put the whole giant construction in a separate function that just returns <code>CustomerService</code>? One reason is that because the dependencies for each class are injected into it, a class isn’t responsible for knowing whether those dependencies are <code>IDisposable</code> or disposing them. It just uses them. So if a we had a <code>GetCustomerService()</code> function that returned a fully-constructed <code>CustomerService</code>, that class might contain a number of disposable resources and no way to access or dispose them.</p><p>And aside from disposing <code>IDisposable</code>, who wants to call a series of nested constructors like that, ever? That’s a short example. It could get much, much worse. Again, that doesn’t mean that we wrote the classes the wrong way. The classes might be individually perfect. The challenge is composing them together.</p><p>A dependency injection container simplifies that. It allows us to specify which class or value should be used to fulfill each dependency. This slightly oversimplified example uses Castle Windsor:</p>
+</div>
+<p>You might wonder, why not put the whole giant construction in a separate function that just returns <code>CustomerService</code>? One reason is that because the dependencies for each class are injected into it, a class isn’t responsible for knowing whether those dependencies are <code>IDisposable</code> or disposing them. It just uses them. So if a we had a <code>GetCustomerService()</code> function that returned a fully-constructed <code>CustomerService</code>, that class might contain a number of disposable resources and no way to access or dispose them.
+</p>
+<p>And aside from disposing <code>IDisposable</code>, who wants to call a series of nested constructors like that, ever? That’s a short example. It could get much, much worse. Again, that doesn’t mean that we wrote the classes the wrong way. The classes might be individually perfect. The challenge is composing them together.
+</p>
+<p>A dependency injection container simplifies that. It allows us to specify which class or value should be used to fulfill each dependency. This slightly oversimplified example uses Castle Windsor:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var container = new WindsorContainer()
@@ -171,7 +187,20 @@ container.Register(
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We call this “registering dependencies” or “configuring the container.” Translated, this tells our <code>WindsorContainer</code>:</p><ul id="335941c7-6265-4eb9-badd-6b6e49da53af" class="bulleted-list"><li>If a class requires <code>ILogWriter</code>, create an instance of <code>LogWriter</code>. <code>LogWriter</code> requires a file path. Use this value from <code>AppSettings</code>.</li><li>If a class requires <code>IAuthorizationRepository</code>, create an instance of <code>SqlAuthorizationRepository</code>. It requires a connection string. Use this value from the <code>ConnectionStrings</code> section.</li><li>If a class requires <code>ICustomerDataProvider</code>, create a <code>CustomerApiClient</code> and provide the string it needs from <code>AppSettings</code>.</li></ul><p>When we request a dependency from the container we call that “resolving” a dependency. It’s bad practice to do that directly using the container, but that’s a different story. For demonstration purposes, we could now do this:</p>
+</div>
+<p>We call this “registering dependencies” or “configuring the container.” Translated, this tells our <code>WindsorContainer</code>:
+</p>
+  <ul id="335941c7-6265-4eb9-badd-6b6e49da53af" class="bulleted-list">
+    <li>If a class requires <code>ILogWriter</code>, create an instance of <code>LogWriter</code>. <code>LogWriter</code> requires a file path. Use this value from <code>AppSettings</code>.
+    </li>
+    <li>If a class requires <code>IAuthorizationRepository</code>, create an instance of <code>SqlAuthorizationRepository</code>. It requires a connection string. Use this value from the <code>ConnectionStrings</code> section.
+    </li>
+    <li>If a class requires <code>ICustomerDataProvider</code>, create a <code>CustomerApiClient</code> and provide the string it needs from <code>AppSettings</code>.
+    </li>
+  </ul>
+<p>When we request a dependency from the container we call that “resolving” a dependency. It’s bad practice to do that directly using the container, but that’s a different story. For demonstration purposes, we could now do this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var customerService = container.Resolve&lt;CustomerService&gt;();
@@ -181,7 +210,19 @@ container.Release(customerService);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The container knows that <code>CustomerService</code> depends on <code>IAuthorizationRepository</code> and <code>ICustomerDataProvider</code>. It knows what classes it needs to create to fulfill those requirements. Those classes, in turn, have more dependencies, and the container knows how to fulfill those. It will create every class it needs to until it can return an instance of <code>CustomerService</code>.</p><p>If it gets to a point where a class requires a dependency that we haven’t registered, like <code>IDoesSomethingElse</code>, then when we try to resolve <code>CustomerService</code> it will throw a clear exception telling us that we haven’t registered anything to fulfill that requirement.</p><p>Each DI framework behaves a little differently, but typically they give us some control over how certain classes are instantiated. For example, do we want it to create one instance of <code>LogWriter</code> and provide it to every class that depends on <code>ILogWriter</code>, or do we want it to create a new one every time? Most containers have a way to specify that.</p><p>What about classes that implement <code>IDisposable</code>? That’s why we call <code>container.Release(customerService);</code> at the end. Most containers (including Windsor) will step back through all of the dependencies created and <code>Dispose</code> the ones that need disposing. If <code>CustomerService</code> is <code>IDisposable</code> it will dispose that too.</p><p>Registering dependencies as seen above might just look like more code to write. But when we have lots of classes with lots of dependencies then it really pays off. And if we had to write those same classes <em>without</em> using dependency injection then that same application with lots of classes would become difficult to maintain and test.</p><p>This scratches the surface of <em>why</em> we use dependency injection containers. <em>How</em> we configure our application to use one (and use it correctly) is not just one topic - it’s a number of topics, as the instructions and examples vary from one container to the next.</p>
+</div>
+<p>The container knows that <code>CustomerService</code> depends on <code>IAuthorizationRepository</code> and <code>ICustomerDataProvider</code>. It knows what classes it needs to create to fulfill those requirements. Those classes, in turn, have more dependencies, and the container knows how to fulfill those. It will create every class it needs to until it can return an instance of <code>CustomerService</code>.
+</p>
+<p>If it gets to a point where a class requires a dependency that we haven’t registered, like <code>IDoesSomethingElse</code>, then when we try to resolve <code>CustomerService</code> it will throw a clear exception telling us that we haven’t registered anything to fulfill that requirement.
+</p>
+<p>Each DI framework behaves a little differently, but typically they give us some control over how certain classes are instantiated. For example, do we want it to create one instance of <code>LogWriter</code> and provide it to every class that depends on <code>ILogWriter</code>, or do we want it to create a new one every time? Most containers have a way to specify that.
+</p>
+<p>What about classes that implement <code>IDisposable</code>? That’s why we call <code>container.Release(customerService);</code> at the end. Most containers (including Windsor) will step back through all of the dependencies created and <code>Dispose</code> the ones that need disposing. If <code>CustomerService</code> is <code>IDisposable</code> it will dispose that too.
+</p>
+<p>Registering dependencies as seen above might just look like more code to write. But when we have lots of classes with lots of dependencies then it really pays off. And if we had to write those same classes <em>without</em> using dependency injection then that same application with lots of classes would become difficult to maintain and test.
+</p>
+<p>This scratches the surface of <em>why</em> we use dependency injection containers. <em>How</em> we configure our application to use one (and use it correctly) is not just one topic - it’s a number of topics, as the instructions and examples vary from one container to the next.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

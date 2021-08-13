@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>An abstract class is a class that cannot be instantiated. Abstract classes can define abstract methods, which are methods without any body, only a definition:</p>
+      
+<p>An abstract class is a class that cannot be instantiated. Abstract classes can define abstract methods, which are methods without any body, only a definition:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">abstract class MyAbstractClass {
@@ -137,7 +140,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Abstract classes should be extended by a child class which can then provide the implementation of these abstract methods.</p><p>The main purpose of a class like this is to provide a kind of template that allows children classes to inherit from, “forcing” a structure to adhere to. Lets elaborate on this with an example:</p><p>In this example we will be implementing a <code>Worker</code> interface. First we define the interface:</p>
+</div>
+<p>Abstract classes should be extended by a child class which can then provide the implementation of these abstract methods.
+</p>
+<p>The main purpose of a class like this is to provide a kind of template that allows children classes to inherit from, “forcing” a structure to adhere to. Lets elaborate on this with an example:
+</p>
+<p>In this example we will be implementing a <code>Worker</code> interface. First we define the interface:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">interface Worker {
@@ -147,7 +157,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To ease the development of further Worker implementations, we will create an abstract worker class that already provides the <code>run()</code> method from the interface, but specifies some abstract methods that need to be filled in by any child class:</p>
+</div>
+<p>To ease the development of further Worker implementations, we will create an abstract worker class that already provides the <code>run()</code> method from the interface, but specifies some abstract methods that need to be filled in by any child class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">abstract class AbstractWorker implements Worker {
@@ -188,7 +201,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>First of all, we have provided an abstract method <code>getMemoryLimit()</code>. Any class extending from <code>AbstractWorker</code> needs to provide this method and return its memory limit. The <code>AbstractWorker</code> then sets the memory limit and logs it.</p><p>Secondly the <code>AbstractWorker</code> calls the <code>prepareMain()</code> and <code>main()</code> methods, after logging that they have been called.</p><p>Finally, all of these method calls have been grouped in a <code>try</code>-<code>catch</code> block. So if any of the abstract methods defined by the child class throws an exception, we will catch that exception, log it and rethrow it. This prevents all child classes from having to implement this themselves.</p><p>Now lets define a child class that extends from the <code>AbstractWorker</code>:</p>
+</div>
+<p>First of all, we have provided an abstract method <code>getMemoryLimit()</code>. Any class extending from <code>AbstractWorker</code> needs to provide this method and return its memory limit. The <code>AbstractWorker</code> then sets the memory limit and logs it.
+</p>
+<p>Secondly the <code>AbstractWorker</code> calls the <code>prepareMain()</code> and <code>main()</code> methods, after logging that they have been called.
+</p>
+<p>Finally, all of these method calls have been grouped in a <code>try</code>-<code>catch</code> block. So if any of the abstract methods defined by the child class throws an exception, we will catch that exception, log it and rethrow it. This prevents all child classes from having to implement this themselves.
+</p>
+<p>Now lets define a child class that extends from the <code>AbstractWorker</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class TranscactionProcessorWorker extends AbstractWorker {
@@ -216,7 +238,20 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As you can see, the <code>TransactionProcessorWorker</code> was rather easy to implement, as we only had to specify the memory limit and worry about the actual actions that it needed to perform. No error handling is needed in the <code>TransactionProcessorWorker</code> because that is handled in the <code>AbsractWorker</code>.</p><h1 id="e35bf2d3-acbc-43e2-bfb7-ebd4812a5fcd" class="">Important Note<a class="header-anchor" href="#e35bf2d3-acbc-43e2-bfb7-ebd4812a5fcd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><blockquote id="7a5365b7-3001-4d4a-8442-b9b3bd1d835f" class="">When inheriting from an abstract class, all methods marked abstract in the parent’s class declaration must be defined by the child (or the child itself must also be marked abstract); additionally, these methods must be defined with the same (or a less restricted) visibility. For example, if the abstract method is defined as protected, the function implementation must be defined as either protected or public, but not private.</blockquote><p><em>Taken from the </em><a href="http://php.net/manual/en/language.oop5.abstract.php"><em>PHP Documentation for Class Abstraction</em></a><em>.</em></p><p>If you <strong>do not</strong> define the parent abstract classes methods within the child class, you will be thrown a <strong>Fatal PHP Error</strong> like the following.</p><blockquote id="a2d42223-30cc-47f9-bc48-81346a001560" class="">Fatal error: Class X contains 1 abstract method and must therefore be declared abstract or implement the remaining methods (X::x) in</blockquote>
+</div>
+<p>As you can see, the <code>TransactionProcessorWorker</code> was rather easy to implement, as we only had to specify the memory limit and worry about the actual actions that it needed to perform. No error handling is needed in the <code>TransactionProcessorWorker</code> because that is handled in the <code>AbsractWorker</code>.
+</p>
+  <h1 id="e35bf2d3-acbc-43e2-bfb7-ebd4812a5fcd" class="">Important Note
+  <a class="header-anchor" href="#e35bf2d3-acbc-43e2-bfb7-ebd4812a5fcd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<blockquote id="7a5365b7-3001-4d4a-8442-b9b3bd1d835f" class="">When inheriting from an abstract class, all methods marked abstract in the parent’s class declaration must be defined by the child (or the child itself must also be marked abstract); additionally, these methods must be defined with the same (or a less restricted) visibility. For example, if the abstract method is defined as protected, the function implementation must be defined as either protected or public, but not private.
+</blockquote>
+<p><em>Taken from the </em><a href="http://php.net/manual/en/language.oop5.abstract.php"><em>PHP Documentation for Class Abstraction</em></a><em>.</em>
+</p>
+<p>If you <strong>do not</strong> define the parent abstract classes methods within the child class, you will be thrown a <strong>Fatal PHP Error</strong> like the following.
+</p>
+<blockquote id="a2d42223-30cc-47f9-bc48-81346a001560" class="">Fatal error: Class X contains 1 abstract method and must therefore be declared abstract or implement the remaining methods (X::x) in
+</blockquote>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

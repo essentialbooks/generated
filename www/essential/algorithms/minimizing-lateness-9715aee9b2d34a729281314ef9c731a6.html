@@ -127,7 +127,48 @@
 </div>
 
 
-      <p>There are numerous problems minimizing lateness, here we have a single resource which can only process one job at a time. Job <code>j</code> requires <code>tj</code> units of processing time and is due at time <code>dj</code>. if <code>j</code> starts at time <code>sj</code> it will finish at time <code>fj=sj+tj</code>. We define lateness <code>L=max{0,fj-dh}</code> for all <code>j</code>. The goal is to minimize the <strong>maximum lateness</strong> L.</p><p>| 1 | 2 | 3 | 4 | 5 | 6 |</p><p>|:—:|:-:|:-:|:-:|:-:|:–:|:–:| | <code>tj</code>| 3 | 2 | 1 | 4 | 3 | 2 | | <code>dj</code>| 6 | 8 | 9 | 9 | 10 | 11 |</p><p>|Job | 3 | 2 | 2 | 5 | 5 | 5 | 4 | 4 | 4 | 4 | 1 | 1 | 1 | 6 | 6 | |:-: |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:—:|:-:|:-:| | Time | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |10 |11 |12 |13 |14 |15 | | <code>Lj</code> |-8 | |-5 | | |-4 | | | | 1 | | |<strong>7</strong>| | 4 |</p><p>The solution <code>L=7</code> is obviously not optimal. Lets look at some greedy strategies:</p><ol id="b085b221-aaba-4053-868e-1058d0f72b0f" class="numbered-list" start="1"><li><strong>Shortest processing time first</strong>: schedule jobs in ascending order og processing time j`</li><li><strong>Earliest deadline first</strong>: Schedule jobs in ascending order of deadline <code>dj</code></li><li><strong>Smallest slack</strong>: schedule jobs in ascending order of slack <code>dj-tj</code></li></ol><p>Its easy to see that <strong>shortest processing time first</strong> is not optimal a good counter example is</p><p>| 1 | 2 |</p><p>|:—:|:-:|:-:| | <code>tj</code>| 1 | 5 | | <code>dj</code>|10 | 5 |</p><p>the <strong>smallest stack</strong> solution has simillar problems</p><p>| 1 | 2 |</p><p>|:—:|:-:|:-:| | <code>tj</code>| 1 | 5 | | <code>dj</code>| 3 | 5 |</p><p>the last strategy looks valid so we start with some pseudo code:</p><ol id="14c396a5-c6f3-446b-b188-2f97706a2a57" class="numbered-list" start="1"><li>Sort <code>n</code> jobs by due time so that <code>d1&lt;=d2&lt;=...&lt;=dn</code></li><li>Set <code>t=0</code></li><li>for <code>j=1</code> to <code>n</code></li></ol>
+      
+<p>There are numerous problems minimizing lateness, here we have a single resource which can only process one job at a time. Job <code>j</code> requires <code>tj</code> units of processing time and is due at time <code>dj</code>. if <code>j</code> starts at time <code>sj</code> it will finish at time <code>fj=sj+tj</code>. We define lateness <code>L=max{0,fj-dh}</code> for all <code>j</code>. The goal is to minimize the <strong>maximum lateness</strong> L.
+</p>
+<p>| 1 | 2 | 3 | 4 | 5 | 6 |
+</p>
+<p>|:—:|:-:|:-:|:-:|:-:|:–:|:–:| | <code>tj</code>| 3 | 2 | 1 | 4 | 3 | 2 | | <code>dj</code>| 6 | 8 | 9 | 9 | 10 | 11 |
+</p>
+<p>|Job | 3 | 2 | 2 | 5 | 5 | 5 | 4 | 4 | 4 | 4 | 1 | 1 | 1 | 6 | 6 | |:-: |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:—:|:-:|:-:| | Time | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |10 |11 |12 |13 |14 |15 | | <code>Lj</code> |-8 | |-5 | | |-4 | | | | 1 | | |<strong>7</strong>| | 4 |
+</p>
+<p>The solution <code>L=7</code> is obviously not optimal. Lets look at some greedy strategies:
+</p>
+  <ol id="b085b221-aaba-4053-868e-1058d0f72b0f" class="numbered-list" start="1">
+    <li><strong>Shortest processing time first</strong>: schedule jobs in ascending order og processing time j`
+    </li>
+    <li><strong>Earliest deadline first</strong>: Schedule jobs in ascending order of deadline <code>dj</code>
+    </li>
+    <li><strong>Smallest slack</strong>: schedule jobs in ascending order of slack <code>dj-tj</code>
+    </li>
+  </ol>
+<p>Its easy to see that <strong>shortest processing time first</strong> is not optimal a good counter example is
+</p>
+<p>| 1 | 2 |
+</p>
+<p>|:—:|:-:|:-:| | <code>tj</code>| 1 | 5 | | <code>dj</code>|10 | 5 |
+</p>
+<p>the <strong>smallest stack</strong> solution has simillar problems
+</p>
+<p>| 1 | 2 |
+</p>
+<p>|:—:|:-:|:-:| | <code>tj</code>| 1 | 5 | | <code>dj</code>| 3 | 5 |
+</p>
+<p>the last strategy looks valid so we start with some pseudo code:
+</p>
+  <ol id="14c396a5-c6f3-446b-b188-2f97706a2a57" class="numbered-list" start="1">
+    <li>Sort <code>n</code> jobs by due time so that <code>d1&lt;=d2&lt;=...&lt;=dn</code>
+    </li>
+    <li>Set <code>t=0</code>
+    </li>
+    <li>for <code>j=1</code> to <code>n</code>
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">- Assign job `j` to interval `[t,t+tj]`
@@ -137,7 +178,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="135105d5-2529-4a76-ad11-7df6dd7ed488" class="numbered-list" start="1"><li>return intervals <code>[s1,f1],[s2,f2],...,[sn,fn]</code></li></ol><p>And as implementation in C++:</p>
+</div>
+  <ol id="135105d5-2529-4a76-ad11-7df6dd7ed488" class="numbered-list" start="1">
+    <li>return intervals <code>[s1,f1],[s2,f2],...,[sn,fn]</code>
+    </li>
+  </ol>
+<p>And as implementation in C++:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;
@@ -202,7 +250,10 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And the output for this program is:</p>
+</div>
+<p>And the output for this program is:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Intervals:
@@ -223,7 +274,19 @@ maximal lateness is 8</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="e340291c-014e-403d-b1aa-e3fe4cdc7086"/><p>The runtime of the algorithm is obviously Θ(n log n) because sorting is the dominating operation of this algorithm. Now we need to show that it is optimal. Clearly an optimal schedule has no <strong>idle time</strong>. the <strong>earliest deadline first</strong> schedule has also no idle time.</p><p>Lets assume the jobs are numbered so that <code>d1&lt;=d2&lt;=...&lt;=dn</code>. We say a <strong>inversion</strong> of a schedule is a pair of jobs <code>i</code> and <code>j</code> so that <code>i&lt;j</code> but j is scheduled before <code>i</code>. Due to its definition the <strong>earliest deadline first</strong> schedule has no inversions. Of course if a schedule has an inversion it has one with a pair of inverted jobs scheduled consecutively.</p><p><strong>Proposition:</strong> Swapping two adjacent, inverted jobs reduces the number of inversions by <strong>one</strong> and <strong>does not increase</strong> the maximal lateness.</p><p><strong>Proof:</strong> Let <code>L</code> be the lateness before the swap and <code>M</code> the lateness afterwards. Because exchanging two adjacent jobs does not move the other jobs from their position it is <code>Lk=Mk</code> for all <code>k != i,j</code>.</p><p>Clearly it is <code>Mi&lt;=Li</code> since job <code>i</code> got scheduled earlier. if job <code>j</code> is late, so follows from the definition:</p>
+</div>
+<hr id="e340291c-014e-403d-b1aa-e3fe4cdc7086"/>
+<p>The runtime of the algorithm is obviously Θ(n log n) because sorting is the dominating operation of this algorithm. Now we need to show that it is optimal. Clearly an optimal schedule has no <strong>idle time</strong>. the <strong>earliest deadline first</strong> schedule has also no idle time.
+</p>
+<p>Lets assume the jobs are numbered so that <code>d1&lt;=d2&lt;=...&lt;=dn</code>. We say a <strong>inversion</strong> of a schedule is a pair of jobs <code>i</code> and <code>j</code> so that <code>i&lt;j</code> but j is scheduled before <code>i</code>. Due to its definition the <strong>earliest deadline first</strong> schedule has no inversions. Of course if a schedule has an inversion it has one with a pair of inverted jobs scheduled consecutively.
+</p>
+<p><strong>Proposition:</strong> Swapping two adjacent, inverted jobs reduces the number of inversions by <strong>one</strong> and <strong>does not increase</strong> the maximal lateness.
+</p>
+<p><strong>Proof:</strong> Let <code>L</code> be the lateness before the swap and <code>M</code> the lateness afterwards. Because exchanging two adjacent jobs does not move the other jobs from their position it is <code>Lk=Mk</code> for all <code>k != i,j</code>.
+</p>
+<p>Clearly it is <code>Mi&lt;=Li</code> since job <code>i</code> got scheduled earlier. if job <code>j</code> is late, so follows from the definition:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Mj = fi-dj    (definition)
@@ -233,7 +296,21 @@ maximal lateness is 8</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>That means the lateness after swap is less or equal than before. This concludes the proof.</p><hr id="dcaabd85-bcc7-4ead-aaee-45a3fdb63872"/><p><strong>Proposition:</strong> The <strong>earliest deadline first</strong> schedule <code>S</code> is optimal.</p><p><strong>Proof:</strong><em>(by contradiction)</em></p><p>Lets assume <code>S*</code> is optimal schedule with the <strong>fewest possible</strong> number of inversions. we can assume that <code>S*</code> has no idle time. If <code>S*</code> has no inversions, then <code>S=S*</code> and we are done. If <code>S*</code> has an inversion, than it has an adjacent inversion. The last Proposition states that we can swap the adjacent inversion without increasing lateness but with decreasing the number of inversions. This contradicts the definition of <code>S*</code>.</p><hr id="2d4861a0-987d-4197-b12f-881281238e6d"/><p>The minimizing lateness problem and its near related <strong>minimum makespan</strong> problem, where the question for a minimal schedule is asked have lots of applications in the real world. But usually you don’t have only one machine but many and they handle the same task at different rates. These problems get NP-complete really fast.</p><p>Another interesting question arises if we don’t look at the <strong>offline</strong> problem, where we have all tasks and data at hand but at the <strong>online</strong> variant, where tasks appear during execution.</p>
+</div>
+<p>That means the lateness after swap is less or equal than before. This concludes the proof.
+</p>
+<hr id="dcaabd85-bcc7-4ead-aaee-45a3fdb63872"/>
+<p><strong>Proposition:</strong> The <strong>earliest deadline first</strong> schedule <code>S</code> is optimal.
+</p>
+<p><strong>Proof:</strong><em>(by contradiction)</em>
+</p>
+<p>Lets assume <code>S*</code> is optimal schedule with the <strong>fewest possible</strong> number of inversions. we can assume that <code>S*</code> has no idle time. If <code>S*</code> has no inversions, then <code>S=S*</code> and we are done. If <code>S*</code> has an inversion, than it has an adjacent inversion. The last Proposition states that we can swap the adjacent inversion without increasing lateness but with decreasing the number of inversions. This contradicts the definition of <code>S*</code>.
+</p>
+<hr id="2d4861a0-987d-4197-b12f-881281238e6d"/>
+<p>The minimizing lateness problem and its near related <strong>minimum makespan</strong> problem, where the question for a minimal schedule is asked have lots of applications in the real world. But usually you don’t have only one machine but many and they handle the same task at different rates. These problems get NP-complete really fast.
+</p>
+<p>Another interesting question arises if we don’t look at the <strong>offline</strong> problem, where we have all tasks and data at hand but at the <strong>online</strong> variant, where tasks appear during execution.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

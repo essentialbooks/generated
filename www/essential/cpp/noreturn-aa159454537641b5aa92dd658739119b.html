@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>C++11 introduced the <code>[[noreturn]]</code> attribute. It can be used for a function to indicate that the function does not return to the caller by either executing a <em>return</em> statement, or by reaching the end if it’s body (it is important to note that this does not apply to <code>void</code> functions, since they do return to the caller, they just do not return any value). Such a function may end by calling <code>std::terminate</code> or <code>std::exit</code>, or by throwing an exception. It is also worth noting that such a function can return by executing <code>longjmp</code>.</p><p>For instance, the function below will always either throw an exception or call <code>std::terminate</code>, so it is a good candidate for <code>[[noreturn]]</code>:</p>
+      
+<p>C++11 introduced the <code>[[noreturn]]</code> attribute. It can be used for a function to indicate that the function does not return to the caller by either executing a <em>return</em> statement, or by reaching the end if it’s body (it is important to note that this does not apply to <code>void</code> functions, since they do return to the caller, they just do not return any value). Such a function may end by calling <code>std::terminate</code> or <code>std::exit</code>, or by throwing an exception. It is also worth noting that such a function can return by executing <code>longjmp</code>.
+</p>
+<p>For instance, the function below will always either throw an exception or call <code>std::terminate</code>, so it is a good candidate for <code>[[noreturn]]</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[[noreturn]] void ownAssertFailureHandler(std::string message) {
@@ -140,7 +145,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This kind of functionality allows the compiler to end a function without a return statement if it knows the code will never be executed. Here, because the call to <code>ownAssertFailureHandler</code> (defined above) in the code below will never return, the compiler does not need to add code below that call:</p>
+</div>
+<p>This kind of functionality allows the compiler to end a function without a return statement if it knows the code will never be executed. Here, because the call to <code>ownAssertFailureHandler</code> (defined above) in the code below will never return, the compiler does not need to add code below that call:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::vector&lt;int&gt; createSequence(int end) {
@@ -158,7 +166,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It is undefined behavior if the function will actually return, so the following is not allowed:</p>
+</div>
+<p>It is undefined behavior if the function will actually return, so the following is not allowed:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[[noreturn]] void assertPositive(int number) {
@@ -171,7 +182,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that the <code>[[noreturn]]</code> is mostly used in void functions. However, this is not a requirement, allowing the functions to be used in generic programming:</p>
+</div>
+<p>Note that the <code>[[noreturn]]</code> is mostly used in void functions. However, this is not a requirement, allowing the functions to be used in generic programming:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;class InconsistencyHandler&gt;
@@ -195,7 +209,27 @@ double unreachable = fortyTwoDivideBy&lt;InconsistencyThrower&gt;(0);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The following standard library functions have this attribute:</p><ul id="1f1b003e-1eed-4acf-b06e-244b706a8bd5" class="bulleted-list"><li>std::abort</li><li>std::exit</li><li>std::quick_exit</li><li>std::unexpected</li><li>std::terminate</li><li>std::rethrow_exception</li><li>std::throw_with_nested</li><li>std::nested_exception::rethrow_nested</li></ul>
+</div>
+<p>The following standard library functions have this attribute:
+</p>
+  <ul id="1f1b003e-1eed-4acf-b06e-244b706a8bd5" class="bulleted-list">
+    <li>std::abort
+    </li>
+    <li>std::exit
+    </li>
+    <li>std::quick_exit
+    </li>
+    <li>std::unexpected
+    </li>
+    <li>std::terminate
+    </li>
+    <li>std::rethrow_exception
+    </li>
+    <li>std::throw_with_nested
+    </li>
+    <li>std::nested_exception::rethrow_nested
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

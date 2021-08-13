@@ -127,7 +127,12 @@
 </div>
 
 
-      <p><strong>Motivational example</strong></p><p>When you have a variadic template pack in the template parameters list, like in the following code snippet:</p>
+      
+<p><strong>Motivational example</strong>
+</p>
+<p>When you have a variadic template pack in the template parameters list, like in the following code snippet:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;typename ...Args&gt; void func(Args &amp;&amp;...args) { //... };</pre>
@@ -135,7 +140,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The standard library (prior to C++17) offers no direct way to write <strong>enable_if</strong> to impose SFINAE constraints on <em><strong>all of the parameters</strong></em> in <code>Args</code> or <em><strong>any of the parameters</strong></em> in <code>Args</code>. C++17 offers <a href="http://en.cppreference.com/w/cpp/types/conjunction"><code>std::conjunction</code></a> and <a href="http://en.cppreference.com/w/cpp/types/disjunction"><code>std::disjunction</code></a> which solve this problem. For example:</p>
+</div>
+<p>The standard library (prior to C++17) offers no direct way to write <strong>enable_if</strong> to impose SFINAE constraints on <em><strong>all of the parameters</strong></em> in <code>Args</code> or <em><strong>any of the parameters</strong></em> in <code>Args</code>. C++17 offers <a href="http://en.cppreference.com/w/cpp/types/conjunction"><code>std::conjunction</code></a> and <a href="http://en.cppreference.com/w/cpp/types/disjunction"><code>std::disjunction</code></a> which solve this problem. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/// C++17: SFINAE constraints on all of the parameters in Args.
@@ -151,7 +159,18 @@ void func(Args &amp;&amp;...args) { //... };</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you do not have C++17 available, there are several solutions to achieve these. One of them is to use a base-case class and <strong>partial specializations</strong>, as demonstrated in answers of this <a href="http://stackoverflow.com/questions/26421104/how-do-i-enable-if-a-class-with-variadic-template-arguments">question</a>.</p><p>Alternatively, one may also implement by hand the behavior of <code>std::conjunction</code> and <code>std::disjunction</code> in a rather straight-forward way. In the following example I’ll demonstrate the implementations and combine them with <code>std::enable_if</code> to produce two alias: <code>enable_if_all</code> and <code>enable_if_any</code>, which do exactly what they are supposed to semantically. This may provide a more scalable solution.</p><hr id="f9fc9489-4a91-472b-b8b7-a28432cd15dc"/><p><strong>Implementation of</strong> <code>enable_if_all</code> <strong>and</strong> <code>enable_if_any</code></p><hr id="64b63566-829f-4eec-8f48-0760ad29a674"/><p>First let’s emulate <code>std::conjunction</code> and <code>std::disjunction</code> using customized <code>seq_and</code> and <code>seq_or</code> respectively:</p>
+</div>
+<p>If you do not have C++17 available, there are several solutions to achieve these. One of them is to use a base-case class and <strong>partial specializations</strong>, as demonstrated in answers of this <a href="http://stackoverflow.com/questions/26421104/how-do-i-enable-if-a-class-with-variadic-template-arguments">question</a>.
+</p>
+<p>Alternatively, one may also implement by hand the behavior of <code>std::conjunction</code> and <code>std::disjunction</code> in a rather straight-forward way. In the following example I’ll demonstrate the implementations and combine them with <code>std::enable_if</code> to produce two alias: <code>enable_if_all</code> and <code>enable_if_any</code>, which do exactly what they are supposed to semantically. This may provide a more scalable solution.
+</p>
+<hr id="f9fc9489-4a91-472b-b8b7-a28432cd15dc"/>
+<p><strong>Implementation of</strong> <code>enable_if_all</code> <strong>and</strong> <code>enable_if_any</code>
+</p>
+<hr id="64b63566-829f-4eec-8f48-0760ad29a674"/>
+<p>First let’s emulate <code>std::conjunction</code> and <code>std::disjunction</code> using customized <code>seq_and</code> and <code>seq_or</code> respectively:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/// Helper for prior to C++14.
@@ -173,7 +192,10 @@ struct seq_and&lt;B1,Bs...&gt;:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then the implementation is quite straight-forward:</p>
+</div>
+<p>Then the implementation is quite straight-forward:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;bool... Bs&gt;
@@ -185,7 +207,10 @@ using enable_if_all = std::enable_if&lt;seq_and&lt;Bs...&gt;::value&gt;;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Eventually some helpers:</p>
+</div>
+<p>Eventually some helpers:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;bool... Bs&gt;
@@ -197,7 +222,14 @@ using enable_if_all_t = typename enable_if_all&lt;Bs...&gt;::type;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="c795714a-dc75-44a0-bd8d-3a9ee33f66a7"/><p><strong>Usage</strong></p><hr id="95ec8b0d-a3c2-4fa2-8254-14127857f085"/><p>The usage is also straight-forward:</p>
+</div>
+<hr id="c795714a-dc75-44a0-bd8d-3a9ee33f66a7"/>
+<p><strong>Usage</strong>
+</p>
+<hr id="95ec8b0d-a3c2-4fa2-8254-14127857f085"/>
+<p>The usage is also straight-forward:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/// SFINAE constraints on all of the parameters in Args.

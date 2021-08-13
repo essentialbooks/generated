@@ -127,7 +127,24 @@
 </div>
 
 
-      <p>Node.js has 3 basic ways to handle exceptions/errors:</p><ol id="ded9c97c-bb1d-412e-8a27-013284134ba6" class="numbered-list" start="1"><li><strong>try</strong>-<strong>catch</strong> block</li><li><strong>error</strong> as the first argument to a <code>callback</code></li><li><code>emit</code> an <strong>error</strong> event using eventEmitter</li></ol><p><strong>try-catch</strong> is used to catch the exceptions thrown from the synchronous code execution. If the caller (or the caller’s caller, …) used try/catch, then they can catch the error. If none of the callers had try-catch than the program crashes.</p><p>If using try-catch on an async operation and exception was thrown from callback of async method than it will not get caught by try-catch. To catch an exception from async operation callback, it is preferred to use <em>promises</em>.</p><p>Example to understand it better</p>
+      
+<p>Node.js has 3 basic ways to handle exceptions/errors:
+</p>
+  <ol id="ded9c97c-bb1d-412e-8a27-013284134ba6" class="numbered-list" start="1">
+    <li><strong>try</strong>-<strong>catch</strong> block
+    </li>
+    <li><strong>error</strong> as the first argument to a <code>callback</code>
+    </li>
+    <li><code>emit</code> an <strong>error</strong> event using eventEmitter
+    </li>
+  </ol>
+<p><strong>try-catch</strong> is used to catch the exceptions thrown from the synchronous code execution. If the caller (or the caller’s caller, …) used try/catch, then they can catch the error. If none of the callers had try-catch than the program crashes.
+</p>
+<p>If using try-catch on an async operation and exception was thrown from callback of async method than it will not get caught by try-catch. To catch an exception from async operation callback, it is preferred to use <em>promises</em>.
+</p>
+<p>Example to understand it better
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// ** Example - 1  **
@@ -151,6 +168,7 @@ catch(e) {
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// ** Example - 2 **
@@ -175,7 +193,12 @@ try {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>callbacks</strong> are mostly used in Node.js as callback delivers an event asynchronously. The user passes you a function (the callback), and you invoke it sometime later when the asynchronous operation completes.</p><p>The usual pattern is that the callback is invoked as a <em>callback(err, result)</em>, where only one of err and result is non-null, depending on whether the operation succeeded or failed.</p>
+</div>
+<p><strong>callbacks</strong> are mostly used in Node.js as callback delivers an event asynchronously. The user passes you a function (the callback), and you invoke it sometime later when the asynchronous operation completes.
+</p>
+<p>The usual pattern is that the callback is invoked as a <em>callback(err, result)</em>, where only one of err and result is non-null, depending on whether the operation succeeded or failed.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">function doSomeAsynchronousOperation(req, res, callback) {
@@ -189,6 +212,7 @@ try {
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">doSomeAsynchronousOperation(req, res, function(err, result) {
@@ -203,7 +227,10 @@ try {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>emit</strong> For more complicated cases, instead of using a callback, the function itself can return an EventEmitter object, and the caller would be expected to listen for error events on the emitter.</p>
+</div>
+<p><strong>emit</strong> For more complicated cases, instead of using a callback, the function itself can return an EventEmitter object, and the caller would be expected to listen for error events on the emitter.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">const EventEmitter = require(&#39;events&#39;);

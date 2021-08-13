@@ -127,7 +127,36 @@
 </div>
 
 
-      <h2 id="56d98136-bf1e-4ebe-afee-6cf7e3814fdb" class="">Overview<a class="header-anchor" href="#56d98136-bf1e-4ebe-afee-6cf7e3814fdb" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>In this example 2 clients send information to each other through a server. One client sends the server a number which is relayed to the second client. The second client halves the number and sends it back to the first client through the server. The first client does the same. The server stops the communication when the number returned to it by any of the clients is less than 10. The return value from the server to the clients (the number it got converted to string representation) then backtracks the process.</p><ol id="04e86c94-8dbb-47da-8bbe-25c4e7df97d1" class="numbered-list" start="1"><li>A login server binds itself to a registry.</li><li>A client looks up the login server and calls the <code>login</code> method with its information. Then:</li></ol><ul id="2910565e-c41e-4866-a2c3-9dcb6e0e8cae" class="bulleted-list"><li>The login server stores the client information. It includes the client’s stub with the callback methods.</li><li>The login server creates and returns a server stub (“connection” or “session”) to the client to store. It includes the server’s stub with its methods including a <code>logout</code> method (unused in this example).</li></ul><ol id="bccef52a-e8c3-4210-886c-024c0c7f0c8a" class="numbered-list" start="1"><li>A client calls the server’s <code>passInt</code> with the name of the recipient client and an <code>int</code>.</li><li>The server calls the <code>half</code> on the recipient client with that <code>int</code>. This initiates a back-and-forth (calls and callbacks) communication until stopped by the server.</li></ol><h2 id="b5ab808b-4715-45dc-84d8-cd74a5ae51c8" class="">The shared remote interfaces<a class="header-anchor" href="#b5ab808b-4715-45dc-84d8-cd74a5ae51c8" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>The login server:</p>
+      
+  <h2 id="56d98136-bf1e-4ebe-afee-6cf7e3814fdb" class="">Overview
+  <a class="header-anchor" href="#56d98136-bf1e-4ebe-afee-6cf7e3814fdb" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>In this example 2 clients send information to each other through a server. One client sends the server a number which is relayed to the second client. The second client halves the number and sends it back to the first client through the server. The first client does the same. The server stops the communication when the number returned to it by any of the clients is less than 10. The return value from the server to the clients (the number it got converted to string representation) then backtracks the process.
+</p>
+  <ol id="04e86c94-8dbb-47da-8bbe-25c4e7df97d1" class="numbered-list" start="1">
+    <li>A login server binds itself to a registry.
+    </li>
+    <li>A client looks up the login server and calls the <code>login</code> method with its information. Then:
+    </li>
+  </ol>
+  <ul id="2910565e-c41e-4866-a2c3-9dcb6e0e8cae" class="bulleted-list">
+    <li>The login server stores the client information. It includes the client’s stub with the callback methods.
+    </li>
+    <li>The login server creates and returns a server stub (“connection” or “session”) to the client to store. It includes the server’s stub with its methods including a <code>logout</code> method (unused in this example).
+    </li>
+  </ul>
+  <ol id="bccef52a-e8c3-4210-886c-024c0c7f0c8a" class="numbered-list" start="1">
+    <li>A client calls the server’s <code>passInt</code> with the name of the recipient client and an <code>int</code>.
+    </li>
+    <li>The server calls the <code>half</code> on the recipient client with that <code>int</code>. This initiates a back-and-forth (calls and callbacks) communication until stopped by the server.
+    </li>
+  </ol>
+  <h2 id="b5ab808b-4715-45dc-84d8-cd74a5ae51c8" class="">The shared remote interfaces
+  <a class="header-anchor" href="#b5ab808b-4715-45dc-84d8-cd74a5ae51c8" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>The login server:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">callbackRemote</span><span class="p">;</span>
@@ -143,7 +172,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The server:</p>
+</div>
+<p>The server:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">callbackRemote</span><span class="p">;</span>
@@ -161,7 +193,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The client:</p>
+</div>
+<p>The client:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">callbackRemote</span><span class="p">;</span>
@@ -177,7 +212,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="f2ee23f5-7156-40e7-83bd-ca99bec0d2bd" class="">The implementations<a class="header-anchor" href="#f2ee23f5-7156-40e7-83bd-ca99bec0d2bd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>The login server:</p>
+</div>
+  <h2 id="f2ee23f5-7156-40e7-83bd-ca99bec0d2bd" class="">The implementations
+  <a class="header-anchor" href="#f2ee23f5-7156-40e7-83bd-ca99bec0d2bd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>The login server:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">callbackServer</span><span class="p">;</span>
@@ -222,7 +263,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The server:</p>
+</div>
+<p>The server:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">callbackServer</span><span class="p">;</span>
@@ -291,7 +335,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The client:</p>
+</div>
+<p>The client:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">callbackClient</span><span class="p">;</span>
@@ -349,7 +396,41 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Running the example:</p><ol id="597eef21-a571-496b-ab53-08a93da93869" class="numbered-list" start="1"><li>Run the login server.</li><li>Run a client with the arguments <code>Client2 Client1 1097</code>.</li><li>Run a client with the arguments <code>Client1 Client2 1098</code>.</li></ol><p>The outputs will appear in 3 consoles since there are 3 JVMs. here they are lumped together:</p><blockquote id="dc57c248-3cd1-4a3f-a1cf-7bc079061432" class="">Client2 logged in</blockquote><p>Client1 logged in</p><p>Server received from Client1:120</p><p>Server received from Client2:60</p><p>Server received from Client1:30</p><p>Server received from Client2:15</p><p>Server received from Client1:7</p><p>Client1 received: “7”</p><p>Client2 received: “15”</p><p>Client1 received: “30”</p><p>Client2 received: “60”</p>
+</div>
+<p>Running the example:
+</p>
+  <ol id="597eef21-a571-496b-ab53-08a93da93869" class="numbered-list" start="1">
+    <li>Run the login server.
+    </li>
+    <li>Run a client with the arguments <code>Client2 Client1 1097</code>.
+    </li>
+    <li>Run a client with the arguments <code>Client1 Client2 1098</code>.
+    </li>
+  </ol>
+<p>The outputs will appear in 3 consoles since there are 3 JVMs. here they are lumped together:
+</p>
+<blockquote id="dc57c248-3cd1-4a3f-a1cf-7bc079061432" class="">Client2 logged in
+</blockquote>
+<p>Client1 logged in
+</p>
+<p>Server received from Client1:120
+</p>
+<p>Server received from Client2:60
+</p>
+<p>Server received from Client1:30
+</p>
+<p>Server received from Client2:15
+</p>
+<p>Server received from Client1:7
+</p>
+<p>Client1 received: “7”
+</p>
+<p>Client2 received: “15”
+</p>
+<p>Client1 received: “30”
+</p>
+<p>Client2 received: “60”
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

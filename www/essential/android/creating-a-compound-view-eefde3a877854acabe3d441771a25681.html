@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>A <strong>compound view</strong> is a custom <code>ViewGroup</code> that’s treated as a single view by the surrounding program code. Such a ViewGroup can be really useful in <a href="https://en.wikipedia.org/wiki/Domain-driven_design">DDD</a>-like design, because it can correspond to an aggregate, in this example, a Contact. It can be reused everywhere that contact is displayed.</p><p>This means that the surrounding controller code, an Activity, Fragment or Adapter, can simply pass the data object to the view without picking it apart into a number of different UI widgets.</p><p>This facilitates code reuse and makes for a better design according to <a href="https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)">SOLID priciples</a>.</p><p><strong>The layout XML</strong></p><p>This is usually where you start. You have an existing bit of XML that you find yourself reusing, perhaps as an <code>&lt;include/&gt;</code>. Extract it into a separate XML file and wrap the root tag in a <code>&lt;merge&gt;</code> element:</p>
+      
+<p>A <strong>compound view</strong> is a custom <code>ViewGroup</code> that’s treated as a single view by the surrounding program code. Such a ViewGroup can be really useful in <a href="https://en.wikipedia.org/wiki/Domain-driven_design">DDD</a>-like design, because it can correspond to an aggregate, in this example, a Contact. It can be reused everywhere that contact is displayed.
+</p>
+<p>This means that the surrounding controller code, an Activity, Fragment or Adapter, can simply pass the data object to the view without picking it apart into a number of different UI widgets.
+</p>
+<p>This facilitates code reuse and makes for a better design according to <a href="https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)">SOLID priciples</a>.
+</p>
+<p><strong>The layout XML</strong>
+</p>
+<p>This is usually where you start. You have an existing bit of XML that you find yourself reusing, perhaps as an <code>&lt;include/&gt;</code>. Extract it into a separate XML file and wrap the root tag in a <code>&lt;merge&gt;</code> element:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
@@ -158,7 +169,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This XML file keeps working in the Layout Editor in Android Studio perfectly fine. You can treat it like any other layout.</p><p><strong>The compound ViewGroup</strong></p><p>Once you have the XML file, create the custom view group.</p>
+</div>
+<p>This XML file keeps working in the Layout Editor in Android Studio perfectly fine. You can treat it like any other layout.
+</p>
+<p><strong>The compound ViewGroup</strong>
+</p>
+<p>Once you have the XML file, create the custom view group.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import android.annotation.TargetApi;
@@ -233,7 +251,16 @@ public class ContactView extends RelativeLayout {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>init(Context, AttributeSet)</code> method is where you would read any custom XML attributes as explained in <a href="https://stackoverflow.com/documentation/android/1446/creating-custom-views/4726/adding-attributes-to-views#t=201607212055553085582">Adding Attributes to Views</a>.</p><p>With these pieces in place, you can use it in your app.</p><p><strong>Usage in XML</strong></p><p>Here’s an example <code>fragment_contact_info.xml</code> that illustrates how you’d put a single ContactView on top of a list of messages:</p>
+</div>
+<p>The <code>init(Context, AttributeSet)</code> method is where you would read any custom XML attributes as explained in <a href="https://stackoverflow.com/documentation/android/1446/creating-custom-views/4726/adding-attributes-to-views#t=201607212055553085582">Adding Attributes to Views</a>.
+</p>
+<p>With these pieces in place, you can use it in your app.
+</p>
+<p><strong>Usage in XML</strong>
+</p>
+<p>Here’s an example <code>fragment_contact_info.xml</code> that illustrates how you’d put a single ContactView on top of a list of messages:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
@@ -258,7 +285,12 @@ public class ContactView extends RelativeLayout {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Usage in Code</strong></p><p>Here’s an example <code>RecyclerView.Adapter</code> that shows a list of contacts. This example illustrates just how much cleaner the controller code gets when it’s completely free of View manipulation.</p>
+</div>
+<p><strong>Usage in Code</strong>
+</p>
+<p>Here’s an example <code>RecyclerView.Adapter</code> that shows a list of contacts. This example illustrates just how much cleaner the controller code gets when it’s completely free of View manipulation.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">myapp</span><span class="p">;</span>

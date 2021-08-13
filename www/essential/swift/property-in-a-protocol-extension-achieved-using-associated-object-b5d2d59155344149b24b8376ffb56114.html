@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>In Swift, protocol extensions cannot have true properties.</p><p>However, in practice you can use the “associated object” technique. The result is almost exactly like a “real” property.</p><p>Here is the exact technique for adding an “associated object” to a protocol extension:</p><p>Fundamentally, you use the objective-c “objc_getAssociatedObject” and _set calls.</p><p>The basic calls are:</p>
+      
+<p>In Swift, protocol extensions cannot have true properties.
+</p>
+<p>However, in practice you can use the “associated object” technique. The result is almost exactly like a “real” property.
+</p>
+<p>Here is the exact technique for adding an “associated object” to a protocol extension:
+</p>
+<p>Fundamentally, you use the objective-c “objc_getAssociatedObject” and _set calls.
+</p>
+<p>The basic calls are:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">get {
@@ -140,7 +151,18 @@ set {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here’s a full example. The two critical points are:</p><ol id="d18ccf9a-a83f-436d-9e00-96f1825116ed" class="numbered-list" start="1"><li>In the protocol, you must use “: class” to avoid the mutation problem.</li><li>In the extension, you must use “where Self:UIViewController” (or whatever appropriate class) to give the confirming type.</li></ol><p>So, for an example property “p”:</p>
+</div>
+<p>Here’s a full example. The two critical points are:
+</p>
+  <ol id="d18ccf9a-a83f-436d-9e00-96f1825116ed" class="numbered-list" start="1">
+    <li>In the protocol, you must use “: class” to avoid the mutation problem.
+    </li>
+    <li>In the extension, you must use “where Self:UIViewController” (or whatever appropriate class) to give the confirming type.
+    </li>
+  </ol>
+<p>So, for an example property “p”:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import Foundation
@@ -179,7 +201,12 @@ extension Able where Self:UIViewController {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In any conforming class, you have now “added” the property “p”:</p><p>You can use “p” just as you would use any ordinary property in the conforming class. Example:</p>
+</div>
+<p>In any conforming class, you have now “added” the property “p”:
+</p>
+<p>You can use “p” just as you would use any ordinary property in the conforming class. Example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Clock:UIViewController, Able {
@@ -202,7 +229,24 @@ extension Able where Self:UIViewController {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Note. You MUST initialize the pseudo-property.</strong></p><p>Xcode <strong>will </strong><em><strong>not</strong></em><strong> enforce</strong> you initializing “p” in the conforming class.</p><p>It is essential that you initialize “p”, perhaps in viewDidLoad of the confirming class.</p><p>It is worth remembering that p is actually just a <em><strong>computed property</strong></em>. p is actually just two functions, with syntactic sugar. There is no p “variable” anywhere: the compiler does not “assign some memory for p” in any sense. For this reason, it is meaningless to expect Xcode to enforce “initializing p”.</p><p>Indeed, to speak more accurately, you must remember to “use p for the first time, as if you were initializing it”. (Again, that would very likely be in your viewDidLoad code.)</p><p>Regarding the getter as such.</p><p>Note that it <strong>will crash</strong> if the getter is called before a value for “p” is set.</p><p>To avoid that, consider code such as:</p>
+</div>
+<p><strong>Note. You MUST initialize the pseudo-property.</strong>
+</p>
+<p>Xcode <strong>will </strong><em><strong>not</strong></em><strong> enforce</strong> you initializing “p” in the conforming class.
+</p>
+<p>It is essential that you initialize “p”, perhaps in viewDidLoad of the confirming class.
+</p>
+<p>It is worth remembering that p is actually just a <em><strong>computed property</strong></em>. p is actually just two functions, with syntactic sugar. There is no p “variable” anywhere: the compiler does not “assign some memory for p” in any sense. For this reason, it is meaningless to expect Xcode to enforce “initializing p”.
+</p>
+<p>Indeed, to speak more accurately, you must remember to “use p for the first time, as if you were initializing it”. (Again, that would very likely be in your viewDidLoad code.)
+</p>
+<p>Regarding the getter as such.
+</p>
+<p>Note that it <strong>will crash</strong> if the getter is called before a value for “p” is set.
+</p>
+<p>To avoid that, consider code such as:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">get {
@@ -217,7 +261,14 @@ extension Able where Self:UIViewController {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To repeat. Xcode <strong>will </strong><em><strong>not</strong></em><strong> enforce</strong> you initializing p in the conforming class. It is essential that you initialize p, say in viewDidLoad of the conforming class.</p><p><strong>Making the code simpler…</strong></p><p>You may wish to use these two global functions:</p>
+</div>
+<p>To repeat. Xcode <strong>will </strong><em><strong>not</strong></em><strong> enforce</strong> you initializing p in the conforming class. It is essential that you initialize p, say in viewDidLoad of the conforming class.
+</p>
+<p><strong>Making the code simpler…</strong>
+</p>
+<p>You may wish to use these two global functions:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">func _aoGet(_ ss: Any!, _ handlePointer: UnsafeRawPointer!, _ safeValue: Any!)-&gt;Any! {
@@ -236,7 +287,12 @@ func _aoSet(_ ss: Any!, _ handlePointer: UnsafeRawPointer!, _ val: Any!) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that they do nothing, whatsoever, other than save typing and make the code more readable. (They are essentially macros or inline functions.)</p><p>Your code then becomes:</p>
+</div>
+<p>Note that they do nothing, whatsoever, other than save typing and make the code more readable. (They are essentially macros or inline functions.)
+</p>
+<p>Your code then becomes:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">protocol PMable: class {
@@ -269,7 +325,9 @@ extension PMable where Self:UIViewController {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>(In the example at _aoGet, P is initalizable: instead of P() you could use “”, 0, or any default value.)</p>
+</div>
+<p>(In the example at _aoGet, P is initalizable: instead of P() you could use “”, 0, or any default value.)
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Some JavaScript engines (for example, the current version of Node.js and older versions of Chrome before Ignition+turbofan) don’t run the optimizer on functions that contain a try/catch block.</p><p>If you need to handle exceptions in performance-critical code, it can be faster in some cases to keep the try/catch in a separate function. For example, this function will not be optimized by some implementations:</p>
+      
+<p>Some JavaScript engines (for example, the current version of Node.js and older versions of Chrome before Ignition+turbofan) don’t run the optimizer on functions that contain a try/catch block.
+</p>
+<p>If you need to handle exceptions in performance-critical code, it can be faster in some cases to keep the try/catch in a separate function. For example, this function will not be optimized by some implementations:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">function</span> <span class="nx">myPerformanceCriticalFunction</span><span class="p">()</span> <span class="p">{</span>
@@ -142,7 +147,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, you can refactor to move the slow code into a separate function (that <em>can</em> be optimized) and call it from inside the <code>try</code> block.</p>
+</div>
+<p>However, you can refactor to move the slow code into a separate function (that <em>can</em> be optimized) and call it from inside the <code>try</code> block.
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="c1">// This function can be optimized
@@ -163,7 +171,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here’s a jsPerf benchmark showing the difference: https://jsperf.com/try-catch-deoptimization. In the current version of most browsers, there shouldn’t be much difference if any, but in less recent versions of Chrome and Firefox, or IE, the version that calls a helper function inside the try/catch is likely to be faster.</p><p>Note that optimizations like this should be made carefully and with actual evidence based on profiling your code. As JavaScript engines get better, it could end up hurting performance instead of helping, or making no difference at all (but complicating the code for no reason). Whether it helps, hurts, or makes no difference can depend on a lot of factors, so always measure the effects on your code. That’s true of all optimizations, but especially micro-optimizations like this that depend on low-level details of the compiler/runtime.</p>
+</div>
+<p>Here’s a jsPerf benchmark showing the difference: https://jsperf.com/try-catch-deoptimization. In the current version of most browsers, there shouldn’t be much difference if any, but in less recent versions of Chrome and Firefox, or IE, the version that calls a helper function inside the try/catch is likely to be faster.
+</p>
+<p>Note that optimizations like this should be made carefully and with actual evidence based on profiling your code. As JavaScript engines get better, it could end up hurting performance instead of helping, or making no difference at all (but complicating the code for no reason). Whether it helps, hurts, or makes no difference can depend on a lot of factors, so always measure the effects on your code. That’s true of all optimizations, but especially micro-optimizations like this that depend on low-level details of the compiler/runtime.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

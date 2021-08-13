@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>The <code>checked</code> and <code>unchecked</code> keywords define how operations handle mathematical overflow. “Overflow” in the context of the <code>checked</code> and <code>unchecked</code> keywords is when an integer arithmetic operation results in a value which is greater in magnitude than the target data type can represent.</p><p>When overflow occurs within a <code>checked</code> block (or when the compiler is set to globally use checked arithmetic), an exception is thrown to warn of undesired behavior. Meanwhile, in an <code>unchecked</code> block, overflow is silent: no exceptions are thrown, and the value will simply wrap around to the opposite boundary. This can lead to subtle, hard to find bugs.</p><p>Since most arithmetic operations are done on values that are not large or small enough to overflow, most of the time, there is no need to explicitly define a block as <code>checked</code>. Care needs to be taken when doing arithmetic on unbounded input that may cause overflow, for example when doing arithmetic in recursive functions or while taking user input.</p><p><em>Neither </em><code><em>checked</em></code><em> nor </em><code><em>unchecked</em></code><em> affect floating point arithmetic operations.</em></p><p>When a block or expression is declared as <code>unchecked</code>, any arithmetic operations inside it are allowed to overflow without causing an error. An example where this behavior is <em>desired</em> would be the calculation of a checksum, where the value is allowed to “wrap around” during calculation:</p>
+      
+<p>The <code>checked</code> and <code>unchecked</code> keywords define how operations handle mathematical overflow. “Overflow” in the context of the <code>checked</code> and <code>unchecked</code> keywords is when an integer arithmetic operation results in a value which is greater in magnitude than the target data type can represent.
+</p>
+<p>When overflow occurs within a <code>checked</code> block (or when the compiler is set to globally use checked arithmetic), an exception is thrown to warn of undesired behavior. Meanwhile, in an <code>unchecked</code> block, overflow is silent: no exceptions are thrown, and the value will simply wrap around to the opposite boundary. This can lead to subtle, hard to find bugs.
+</p>
+<p>Since most arithmetic operations are done on values that are not large or small enough to overflow, most of the time, there is no need to explicitly define a block as <code>checked</code>. Care needs to be taken when doing arithmetic on unbounded input that may cause overflow, for example when doing arithmetic in recursive functions or while taking user input.
+</p>
+<p><em>Neither </em><code><em>checked</em></code><em> nor </em><code><em>unchecked</em></code><em> affect floating point arithmetic operations.</em>
+</p>
+<p>When a block or expression is declared as <code>unchecked</code>, any arithmetic operations inside it are allowed to overflow without causing an error. An example where this behavior is <em>desired</em> would be the calculation of a checksum, where the value is allowed to “wrap around” during calculation:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">byte</span> <span class="n">Checksum</span><span class="p">(</span><span class="kt">byte</span><span class="p">[]</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
@@ -142,7 +153,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>One of the most common uses for <code>unchecked</code> is implementing a custom override for <code>object.GetHashCode()</code>, a type of checksum. You can see the keyword’s use in the answers to this question: http://stackoverflow.com/questions/263400/what-is-the-best-algorithm-for-an-overridden-system-object-gethashcode.</p><p>When a block or expression is declared as <code>checked</code>, any arithmetic operation that causes an overflow results in an <code>OverflowException</code> being thrown.</p>
+</div>
+<p>One of the most common uses for <code>unchecked</code> is implementing a custom override for <code>object.GetHashCode()</code>, a type of checksum. You can see the keyword’s use in the answers to this question: http://stackoverflow.com/questions/263400/what-is-the-best-algorithm-for-an-overridden-system-object-gethashcode.
+</p>
+<p>When a block or expression is declared as <code>checked</code>, any arithmetic operation that causes an overflow results in an <code>OverflowException</code> being thrown.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">int</span> <span class="n">SafeSum</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
@@ -155,7 +171,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Both checked and unchecked may be in block and expression form.</p><p>Checked and unchecked blocks do not affect called methods, only operators called directly in the current method. For example, <code>Enum.ToObject()</code>, <code>Convert.ToInt32()</code>, and user-defined operators are not affected by custom checked/unchecked contexts.</p><p><em><strong>Note</strong></em><em>: The default overflow default behavior (checked vs. unchecked) may be changed in the </em><em><strong>Project Properties</strong></em><em> or through the </em><em><strong>/checked[+|-]</strong></em><em> command line switch. It is common to default to checked operations for debug builds and unchecked for release builds. The </em><code><em>checked</em></code><em> and </em><code><em>unchecked</em></code><em> keywords would then be used only where a </em>default* approach does not apply and you need an explicit behavior to ensure correctness.*</p>
+</div>
+<p>Both checked and unchecked may be in block and expression form.
+</p>
+<p>Checked and unchecked blocks do not affect called methods, only operators called directly in the current method. For example, <code>Enum.ToObject()</code>, <code>Convert.ToInt32()</code>, and user-defined operators are not affected by custom checked/unchecked contexts.
+</p>
+<p><em><strong>Note</strong></em><em>: The default overflow default behavior (checked vs. unchecked) may be changed in the </em><em><strong>Project Properties</strong></em><em> or through the </em><em><strong>/checked[+|-]</strong></em><em> command line switch. It is common to default to checked operations for debug builds and unchecked for release builds. The </em><code><em>checked</em></code><em> and </em><code><em>unchecked</em></code><em> keywords would then be used only where a </em>default* approach does not apply and you need an explicit behavior to ensure correctness.*
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

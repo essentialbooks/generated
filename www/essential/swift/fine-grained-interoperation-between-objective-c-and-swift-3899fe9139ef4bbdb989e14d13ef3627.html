@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>When an API is marked with <code>NS_REFINED_FOR_SWIFT</code>, it will be prefixed with two underscores (<code>__</code>) when imported to Swift:</p>
+      
+<p>When an API is marked with <code>NS_REFINED_FOR_SWIFT</code>, it will be prefixed with two underscores (<code>__</code>) when imported to Swift:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">NS_REFINED_FOR_SWIFT</pre>
@@ -135,7 +138,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <a href="http://stackoverflow.com/documentation/swift/421/working-with-c-and-objective-c/1408/using-objective-c-classes-from-swift-code#t=201605140416386495969">generated interface</a> looks like this:</p>
+</div>
+<p>The <a href="http://stackoverflow.com/documentation/swift/421/working-with-c-and-objective-c/1408/using-objective-c-classes-from-swift-code#t=201605140416386495969">generated interface</a> looks like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">__indexOfObject</pre>
@@ -143,7 +149,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now you can <strong>replace the API</strong> with a more “Swifty” extension. In this case, we can use an <a href="http://stackoverflow.com/documentation/swift/247/optionals#t=201605140421116204067">optional</a> return value, filtering out <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_Constants/#//apple_ref/doc/constant_group/NSNotFound">NSNotFound</a>:</p>
+</div>
+<p>Now you can <strong>replace the API</strong> with a more “Swifty” extension. In this case, we can use an <a href="http://stackoverflow.com/documentation/swift/247/optionals#t=201605140421116204067">optional</a> return value, filtering out <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_Constants/#//apple_ref/doc/constant_group/NSNotFound">NSNotFound</a>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">indexOfObjectInt?</pre>
@@ -151,7 +160,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In most cases you might want to restrict whether or not an argument to an Objective-C function could be <code>nil</code>. This is done using <code>_Nonnull</code> keyword, which qualifies any pointer or block reference:</p>
+</div>
+<p>In most cases you might want to restrict whether or not an argument to an Objective-C function could be <code>nil</code>. This is done using <code>_Nonnull</code> keyword, which qualifies any pointer or block reference:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void
@@ -163,7 +175,10 @@ doStuff(const void *const _Nonnull data, void (^_Nonnull completion)())
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With that written, the compiler shall emit an error whenever we try to pass <code>nil</code> to that function from our Swift code:</p>
+</div>
+<p>With that written, the compiler shall emit an error whenever we try to pass <code>nil</code> to that function from our Swift code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">doStuff(
@@ -175,7 +190,12 @@ nil)  // error: nil is not compatible with expected argument type &#39;() -&gt; 
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The opposite of <code>_Nonnull</code> is <code>_Nullable</code>, which means that it is acceptable to pass <code>nil</code> in this argument. <code>_Nullable</code> is also the default; however, specifying it explicitly allows for more self-documented and future-proof code.</p><p>To further help the compiler with optimising your code, you also might want to specify if the block is escaping:</p>
+</div>
+<p>The opposite of <code>_Nonnull</code> is <code>_Nullable</code>, which means that it is acceptable to pass <code>nil</code> in this argument. <code>_Nullable</code> is also the default; however, specifying it explicitly allows for more self-documented and future-proof code.
+</p>
+<p>To further help the compiler with optimising your code, you also might want to specify if the block is escaping:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void
@@ -187,7 +207,9 @@ callNow(__attribute__((noescape)) void (^_Nonnull f)())
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With this attribute we promise not to save the block reference and not to call the block after the function has finished execution.</p>
+</div>
+<p>With this attribute we promise not to save the block reference and not to call the block after the function has finished execution.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

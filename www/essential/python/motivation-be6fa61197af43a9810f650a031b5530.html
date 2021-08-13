@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>So you’ve just created your first class in Python, a neat little class that encapsulates a playing card:</p>
+      
+<p>So you’ve just created your first class in Python, a neat little class that encapsulates a playing card:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Card:
@@ -138,7 +141,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Elsewhere in your code, you create a few instances of this class:</p>
+</div>
+<p>Elsewhere in your code, you create a few instances of this class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ace_of_spades = Card(&#39;Spades&#39;, 1)
@@ -148,7 +154,10 @@ six_of_hearts = Card(&#39;Hearts&#39;, 6)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You’ve even created a list of cards, in order to represent a “hand”:</p>
+</div>
+<p>You’ve even created a list of cards, in order to represent a “hand”:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">my_hand = [ace_of_spades, four_of_clubs, six_of_hearts]</pre>
@@ -156,7 +165,10 @@ six_of_hearts = Card(&#39;Hearts&#39;, 6)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, during debugging, you want to see what your hand looks like, so you do what comes naturally and write:</p>
+</div>
+<p>Now, during debugging, you want to see what your hand looks like, so you do what comes naturally and write:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">print(my_hand)</pre>
@@ -164,7 +176,10 @@ six_of_hearts = Card(&#39;Hearts&#39;, 6)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But what you get back is a bunch of gibberish:</p>
+</div>
+<p>But what you get back is a bunch of gibberish:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[&lt;__main__.Card instance at 0x0000000002533788&gt;, 
@@ -174,7 +189,10 @@ six_of_hearts = Card(&#39;Hearts&#39;, 6)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Confused, you try just printing a single card:</p>
+</div>
+<p>Confused, you try just printing a single card:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">print(ace_of_spades)</pre>
@@ -182,7 +200,10 @@ six_of_hearts = Card(&#39;Hearts&#39;, 6)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And again, you get this weird output:</p>
+</div>
+<p>And again, you get this weird output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;__main__.Card instance at 0x0000000002533788&gt;</pre>
@@ -190,7 +211,16 @@ six_of_hearts = Card(&#39;Hearts&#39;, 6)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Have no fear. We’re about to fix this.</p><p>First, however, it’s important to understand what’s going on here. When you wrote <code>print(ace_of_spades)</code> you told Python you wanted it to print information about the <code>Card</code> instance your code is calling <code>ace_of_spades</code>. And to be fair, it did.</p><p>That output is comprised of two important bits: the <a href="https://docs.python.org/3/library/functions.html#type"><code>type</code></a> of the object and the object’s <a href="https://docs.python.org/3/library/functions.html#id"><code>id</code></a>. The second part alone (the hexidecimal number) is enough to uniquely identify the object at the time of the <code>print</code> call.[1]</p><p>What really went on was that you asked Python to “put into words” the essence of that object and then display it to you. A more explicit version of the same machinery might be:</p>
+</div>
+<p>Have no fear. We’re about to fix this.
+</p>
+<p>First, however, it’s important to understand what’s going on here. When you wrote <code>print(ace_of_spades)</code> you told Python you wanted it to print information about the <code>Card</code> instance your code is calling <code>ace_of_spades</code>. And to be fair, it did.
+</p>
+<p>That output is comprised of two important bits: the <a href="https://docs.python.org/3/library/functions.html#type"><code>type</code></a> of the object and the object’s <a href="https://docs.python.org/3/library/functions.html#id"><code>id</code></a>. The second part alone (the hexidecimal number) is enough to uniquely identify the object at the time of the <code>print</code> call.[1]
+</p>
+<p>What really went on was that you asked Python to “put into words” the essence of that object and then display it to you. A more explicit version of the same machinery might be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">string_of_card = str(ace_of_spades)
@@ -199,7 +229,26 @@ print(string_of_card)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In the first line, you try to turn your <code>Card</code> instance into a string, and in the second you display it.</p><h1 id="79c99791-5042-413b-ad07-f45a04fb6075" class="">The Problem<a class="header-anchor" href="#79c99791-5042-413b-ad07-f45a04fb6075" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>The issue you’re encountering arises due to the fact that, while you told Python everything it needed to know about the <code>Card</code> class for you to <em>create</em> cards, you <em>didn’t</em> tell it how you wanted <code>Card</code> instances to be converted to strings.</p><p>And since it didn’t know, when you (implicitly) wrote <code>str(ace_of_spades)</code>, it gave you what you saw, a generic representation of the <code>Card</code> instance.</p><h1 id="415642ce-6bae-4b5e-94a3-ecfb54b27076" class="">The Solution (Part 1)<a class="header-anchor" href="#415642ce-6bae-4b5e-94a3-ecfb54b27076" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>But <em>we can</em> tell Python how we want instances of our custom classes to be converted to strings. And the way we do this is with the <code>__str__</code> “dunder” (for double-underscore) or “magic” method.</p><p>Whenever you tell Python to create a string from a class instance, it will look for a <code>__str__</code> method on the class, and call it.</p><p>Consider the following, updated version of our <code>Card</code> class:</p>
+</div>
+<p>In the first line, you try to turn your <code>Card</code> instance into a string, and in the second you display it.
+</p>
+  <h1 id="79c99791-5042-413b-ad07-f45a04fb6075" class="">The Problem
+  <a class="header-anchor" href="#79c99791-5042-413b-ad07-f45a04fb6075" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>The issue you’re encountering arises due to the fact that, while you told Python everything it needed to know about the <code>Card</code> class for you to <em>create</em> cards, you <em>didn’t</em> tell it how you wanted <code>Card</code> instances to be converted to strings.
+</p>
+<p>And since it didn’t know, when you (implicitly) wrote <code>str(ace_of_spades)</code>, it gave you what you saw, a generic representation of the <code>Card</code> instance.
+</p>
+  <h1 id="415642ce-6bae-4b5e-94a3-ecfb54b27076" class="">The Solution (Part 1)
+  <a class="header-anchor" href="#415642ce-6bae-4b5e-94a3-ecfb54b27076" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>But <em>we can</em> tell Python how we want instances of our custom classes to be converted to strings. And the way we do this is with the <code>__str__</code> “dunder” (for double-underscore) or “magic” method.
+</p>
+<p>Whenever you tell Python to create a string from a class instance, it will look for a <code>__str__</code> method on the class, and call it.
+</p>
+<p>Consider the following, updated version of our <code>Card</code> class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Card:
@@ -217,7 +266,16 @@ print(string_of_card)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, we’ve now defined the <code>__str__</code> method on our <code>Card</code> class which, after a simple dictionary lookup for face cards, <strong>returns</strong> a string formatted however we decide.</p><p>(Note that “returns” is in bold here, to stress the importance of returning a string, and not simply printing it. Printing it may seem to work, but then you’d have the card printed when you did something like <code>str(ace_of_spades)</code>, without even having a print function call in your main program. So to be clear, make sure that <code>__str__</code> returns a string.).</p><p>The <code>__str__</code> method is a method, so the first argument will be <code>self</code> and it should neither accept, nor be passed additonal arguments.</p><p>Returning to our problem of displaying the card in a more user-friendly manner, if we again run:</p>
+</div>
+<p>Here, we’ve now defined the <code>__str__</code> method on our <code>Card</code> class which, after a simple dictionary lookup for face cards, <strong>returns</strong> a string formatted however we decide.
+</p>
+<p>(Note that “returns” is in bold here, to stress the importance of returning a string, and not simply printing it. Printing it may seem to work, but then you’d have the card printed when you did something like <code>str(ace_of_spades)</code>, without even having a print function call in your main program. So to be clear, make sure that <code>__str__</code> returns a string.).
+</p>
+<p>The <code>__str__</code> method is a method, so the first argument will be <code>self</code> and it should neither accept, nor be passed additonal arguments.
+</p>
+<p>Returning to our problem of displaying the card in a more user-friendly manner, if we again run:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ace_of_spades = Card(&#39;Spades&#39;, 1)
@@ -226,7 +284,10 @@ print(ace_of_spades)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We’ll see that our output is much better:</p>
+</div>
+<p>We’ll see that our output is much better:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Ace of Spades</pre>
@@ -234,7 +295,14 @@ print(ace_of_spades)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So great, we’re done, right?</p><p>Well just to cover our bases, let’s double check that we’ve solved the first issue we encountered, printing the list of <code>Card</code> instances, the <code>hand</code>.</p><p>So we re-check the following code:</p>
+</div>
+<p>So great, we’re done, right?
+</p>
+<p>Well just to cover our bases, let’s double check that we’ve solved the first issue we encountered, printing the list of <code>Card</code> instances, the <code>hand</code>.
+</p>
+<p>So we re-check the following code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">my_hand = [ace_of_spades, four_of_clubs, six_of_hearts]
@@ -243,7 +311,10 @@ print(my_hand)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And, to our surprise, we get those funny hex codes again:</p>
+</div>
+<p>And, to our surprise, we get those funny hex codes again:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[&lt;__main__.Card instance at 0x00000000026F95C8&gt;, 
@@ -253,7 +324,21 @@ print(my_hand)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>What’s going on? We told Python how we wanted our <code>Card</code> instances to be displayed, why did it apparently seem to forget?</p><h1 id="ef4f71ef-883a-44cd-9efb-e0bbd00b0cd5" class="">The Solution (Part 2)<a class="header-anchor" href="#ef4f71ef-883a-44cd-9efb-e0bbd00b0cd5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Well, the behind-the-scenes machinery is a bit different when Python wants to get the string representation of items in a list. It turns out, Python doesn’t care about <code>__str__</code> for this purpose.</p><p>Instead, it looks for a different method, <code>__repr__</code>, and if <em>that’s</em> not found, it falls back on the “hexidecimal thing”.[2]</p><p><em>So you’re saying I have to make two methods to do the same thing? One for when I want to </em><code><em>print</em></code><em> my card by itself and another when it’s in some sort of container?</em></p><p>No, but first let’s look at what our class <em>would</em> be like if we were to implement both <code>__str__</code> and <code>__repr__</code> methods:</p>
+</div>
+<p>What’s going on? We told Python how we wanted our <code>Card</code> instances to be displayed, why did it apparently seem to forget?
+</p>
+  <h1 id="ef4f71ef-883a-44cd-9efb-e0bbd00b0cd5" class="">The Solution (Part 2)
+  <a class="header-anchor" href="#ef4f71ef-883a-44cd-9efb-e0bbd00b0cd5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Well, the behind-the-scenes machinery is a bit different when Python wants to get the string representation of items in a list. It turns out, Python doesn’t care about <code>__str__</code> for this purpose.
+</p>
+<p>Instead, it looks for a different method, <code>__repr__</code>, and if <em>that’s</em> not found, it falls back on the “hexidecimal thing”.[2]
+</p>
+<p><em>So you’re saying I have to make two methods to do the same thing? One for when I want to </em><code><em>print</em></code><em> my card by itself and another when it’s in some sort of container?</em>
+</p>
+<p>No, but first let’s look at what our class <em>would</em> be like if we were to implement both <code>__str__</code> and <code>__repr__</code> methods:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Card:
@@ -274,7 +359,14 @@ print(my_hand)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, the implementation of the two methods <code>__str__</code> and <code>__repr__</code> are exactly the same, except that, to differentiate between the two methods, <code>(S)</code> is added to strings returned by <code>__str__</code> and <code>(R)</code> is added to strings returned by <code>__repr__</code>.</p><p>Note that just like our <code>__str__</code> method, <code>__repr__</code> accepts no arguments and <strong>returns</strong> a string.</p><p>We can see now what method is responsible for each case:</p>
+</div>
+<p>Here, the implementation of the two methods <code>__str__</code> and <code>__repr__</code> are exactly the same, except that, to differentiate between the two methods, <code>(S)</code> is added to strings returned by <code>__str__</code> and <code>(R)</code> is added to strings returned by <code>__repr__</code>.
+</p>
+<p>Note that just like our <code>__str__</code> method, <code>__repr__</code> accepts no arguments and <strong>returns</strong> a string.
+</p>
+<p>We can see now what method is responsible for each case:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ace_of_spades = Card(&#39;Spades&#39;, 1)
@@ -290,7 +382,14 @@ print(ace_of_spades)     # Ace of Spades (S)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As was covered, the <code>__str__</code> method was called when we passed our <code>Card</code> instance to <code>print</code> and the <code>__repr__</code> method was called when we passed <em>a list of our instances</em> to <code>print</code>.</p><p>At this point it’s worth pointing out that just as we can explicitly create a string from a custom class instance using <a href="https://docs.python.org/3/library/functions.html#func-str"><code>str()</code></a> as we did earlier, we can also explicitly create a <strong>string representation</strong> of our class with a built-in function called <a href="https://docs.python.org/3/library/functions.html#repr"><code>repr()</code></a>.</p><p>For example:</p>
+</div>
+<p>As was covered, the <code>__str__</code> method was called when we passed our <code>Card</code> instance to <code>print</code> and the <code>__repr__</code> method was called when we passed <em>a list of our instances</em> to <code>print</code>.
+</p>
+<p>At this point it’s worth pointing out that just as we can explicitly create a string from a custom class instance using <a href="https://docs.python.org/3/library/functions.html#func-str"><code>str()</code></a> as we did earlier, we can also explicitly create a <strong>string representation</strong> of our class with a built-in function called <a href="https://docs.python.org/3/library/functions.html#repr"><code>repr()</code></a>.
+</p>
+<p>For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">str_card = str(four_of_clubs)
@@ -302,7 +401,10 @@ print(repr_card)                    # 4 of Clubs (R)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And additionally, if defined, we <em>could</em> call the methods directly (although it seems a bit unclear and unnecessary):</p>
+</div>
+<p>And additionally, if defined, we <em>could</em> call the methods directly (although it seems a bit unclear and unnecessary):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">print(four_of_clubs.__str__())     # 4 of Clubs (S)
@@ -312,7 +414,17 @@ print(four_of_clubs.__repr__())    # 4 of Clubs (R)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="54ea9068-78a1-44cd-a2b2-2e01f5cd32ed" class="">About those duplicated functions…<a class="header-anchor" href="#54ea9068-78a1-44cd-a2b2-2e01f5cd32ed" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Python developers realized, in the case you wanted identical strings to be returned from <code>str()</code> and <code>repr()</code> you might have to functionally-duplicate methods – something nobody likes.</p><p>So instead, there is a mechanism in place to eliminate the need for that. One I snuck you past up to this point. It turns out that if a class implements the <code>__repr__</code> method <em>but not</em> the <code>__str__</code> method, and you pass an instance of that class to <code>str()</code> (whether implicitly or explicitly), Python will fallback on your <code>__repr__</code> implementation and use that.</p><p>So, to be clear, consider the following version of the <code>Card</code> class:</p>
+</div>
+  <h1 id="54ea9068-78a1-44cd-a2b2-2e01f5cd32ed" class="">About those duplicated functions…
+  <a class="header-anchor" href="#54ea9068-78a1-44cd-a2b2-2e01f5cd32ed" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Python developers realized, in the case you wanted identical strings to be returned from <code>str()</code> and <code>repr()</code> you might have to functionally-duplicate methods – something nobody likes.
+</p>
+<p>So instead, there is a mechanism in place to eliminate the need for that. One I snuck you past up to this point. It turns out that if a class implements the <code>__repr__</code> method <em>but not</em> the <code>__str__</code> method, and you pass an instance of that class to <code>str()</code> (whether implicitly or explicitly), Python will fallback on your <code>__repr__</code> implementation and use that.
+</p>
+<p>So, to be clear, consider the following version of the <code>Card</code> class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Card:
@@ -329,7 +441,10 @@ print(four_of_clubs.__repr__())    # 4 of Clubs (R)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note this version <em>only</em> implements the <code>__repr__</code> method. Nonetheless, calls to <code>str()</code> result in the user-friendly version:</p>
+</div>
+<p>Note this version <em>only</em> implements the <code>__repr__</code> method. Nonetheless, calls to <code>str()</code> result in the user-friendly version:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">print(six_of_hearts)            # 6 of Hearts  (implicit conversion)
@@ -338,7 +453,10 @@ print(str(six_of_hearts))       # 6 of Hearts  (explicit conversion)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>as do calls to <code>repr()</code>:</p>
+</div>
+<p>as do calls to <code>repr()</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">print([six_of_hearts])          #[6 of Hearts] (implicit conversion)
@@ -347,7 +465,14 @@ print(repr(six_of_hearts))      # 6 of Hearts  (explicit conversion)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="35103782-3b1f-4573-a41b-ca27cb5c553e" class="">Summary<a class="header-anchor" href="#35103782-3b1f-4573-a41b-ca27cb5c553e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>In order for you to empower your class instances to “show themselves” in user-friendly ways, you’ll want to consider implementing at least your class’s <code>__repr__</code> method. If memory serves, during a talk Raymond Hettinger said that ensuring classes implement <code>__repr__</code> is one of the first things he looks for while doing Python code reviews, and by now it should be clear why. The amount of information you <em>could</em> have added to debugging statements, crash reports, or log files with a simple method is overwhelming when compared to the paltry, and often less-than-helpful (type, id) information that is given by default.</p><p>If you want <em>different</em> representations for when, for example, inside a container, you’ll want to implement both <code>__repr__</code> and <code>__str__</code> methods. (More on how you might use these two methods differently below).</p>
+</div>
+  <h1 id="35103782-3b1f-4573-a41b-ca27cb5c553e" class="">Summary
+  <a class="header-anchor" href="#35103782-3b1f-4573-a41b-ca27cb5c553e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>In order for you to empower your class instances to “show themselves” in user-friendly ways, you’ll want to consider implementing at least your class’s <code>__repr__</code> method. If memory serves, during a talk Raymond Hettinger said that ensuring classes implement <code>__repr__</code> is one of the first things he looks for while doing Python code reviews, and by now it should be clear why. The amount of information you <em>could</em> have added to debugging statements, crash reports, or log files with a simple method is overwhelming when compared to the paltry, and often less-than-helpful (type, id) information that is given by default.
+</p>
+<p>If you want <em>different</em> representations for when, for example, inside a container, you’ll want to implement both <code>__repr__</code> and <code>__str__</code> methods. (More on how you might use these two methods differently below).
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

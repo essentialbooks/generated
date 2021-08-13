@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The first thing we need to do it add EventBus to our module’s gradle file:</p>
+      
+<p>The first thing we need to do it add EventBus to our module’s gradle file:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">dependencies {
@@ -139,7 +142,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we need to create a model for our event. It can contain anything we want to pass along. For now we’ll just make an empty class.</p>
+</div>
+<p>Now we need to create a model for our event. It can contain anything we want to pass along. For now we’ll just make an empty class.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class DeviceConnectedEvent
@@ -149,7 +155,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we can add the code to our <code>Activity</code> that will register with EventBus and subscribe to the event.</p>
+</div>
+<p>Now we can add the code to our <code>Activity</code> that will register with EventBus and subscribe to the event.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MainActivity extends AppCompatActivity
@@ -189,7 +198,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this <code>Activity</code> we get an instance of <code>EventBus</code> in the <code>onCreate()</code> method. We register / unregister for events in <code>onStart()</code> / <code>onStop()</code>. It’s important to remember to unregister when your listener loses scope or you could leak your <code>Activity</code>.</p><p>Finally we define the method that we want called with the event. The <code>@Subscribe</code> annotation tells EventBus which methods it can look for to handle events. You have to have at least one methods annotated with <code>@Subscribe</code> to register with EventBus or it will throw an exception. In the annotation we define the thread mode. This tells EventBus which thread to call the method on. It is a very handy way of passing information from a background thread to the UI thread! That’s exactly what we’re doing here. <code>ThreadMode.MAIN</code> means that this method will be called on Android’s main UI thread so it’s safe to do any UI manipulations here that you need. The name of the method doesn’t matter. The only think, other that the <code>@Subscribe</code> annotation, that EventBus is looking for is the type of the argument. As long as the type matches it will be called when an event is posted.</p><p>The last thing we need to do it to post an event. This code will be in our <code>Service</code>.</p>
+</div>
+<p>In this <code>Activity</code> we get an instance of <code>EventBus</code> in the <code>onCreate()</code> method. We register / unregister for events in <code>onStart()</code> / <code>onStop()</code>. It’s important to remember to unregister when your listener loses scope or you could leak your <code>Activity</code>.
+</p>
+<p>Finally we define the method that we want called with the event. The <code>@Subscribe</code> annotation tells EventBus which methods it can look for to handle events. You have to have at least one methods annotated with <code>@Subscribe</code> to register with EventBus or it will throw an exception. In the annotation we define the thread mode. This tells EventBus which thread to call the method on. It is a very handy way of passing information from a background thread to the UI thread! That’s exactly what we’re doing here. <code>ThreadMode.MAIN</code> means that this method will be called on Android’s main UI thread so it’s safe to do any UI manipulations here that you need. The name of the method doesn’t matter. The only think, other that the <code>@Subscribe</code> annotation, that EventBus is looking for is the type of the argument. As long as the type matches it will be called when an event is posted.
+</p>
+<p>The last thing we need to do it to post an event. This code will be in our <code>Service</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">EventBus.getDefault().post(new DeviceConnectedEvent());</pre>
@@ -197,7 +213,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>That’s all there is to it! EventBus will take that DeviceConnectedEvent and look through its registered listeners, look through the methods that they’ve subscribed and find the ones that take a DeviceConnectedEvent as an argument and call them on the thread that they want to be called on.</p>
+</div>
+<p>That’s all there is to it! EventBus will take that DeviceConnectedEvent and look through its registered listeners, look through the methods that they’ve subscribed and find the ones that take a DeviceConnectedEvent as an argument and call them on the thread that they want to be called on.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

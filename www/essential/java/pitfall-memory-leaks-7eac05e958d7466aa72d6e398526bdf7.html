@@ -127,7 +127,24 @@
 </div>
 
 
-      <p>Java manages memory automatically. You are not required to free memory manually. An object’s memory on the heap may be freed by a garbage collector when the object is no longer <em>reachable</em> by a live thread.</p><p>However, you can prevent memory from being freed, by allowing objects to be reachable that are no longer needed. Whether you call this a memory leak or memory packratting, the result is the same – an unnecessary increase in allocated memory.</p><p>Memory leaks in Java can happen in various ways, but the most common reason is everlasting object references, because the garbage collector can’t remove objects from the heap while there are still references to them.</p><p><strong>Static fields</strong></p><p>One can create such a reference by defining class with a <code>static</code> field containing some collection of objects, and forgetting to set that <code>static</code> field to <code>null</code> after the collection is no longer needed. <code>static</code> fields are considered GC roots and are never collected. Another issue is leaks in non-heap memory when <a href="https://en.wikipedia.org/wiki/Java_Native_Interface">JNI</a> is used.</p><p><strong>Classloader leak</strong></p><p>By far, though, the most insidious type of memory leak is the <a href="https://zeroturnaround.com/rebellabs/rjc201/">classloader leak</a>. A classloader holds a reference to every class it has loaded, and every class holds a reference to its classloader. Every object holds a reference to its class as well. Therefore, if even a <em>single</em> object of a class loaded by a classloader is not garbage, not a single class that that classloader has loaded can be collected. Since each class also refers to its static fields, they cannot be collected either.</p><p><strong>Accumulation leak</strong> The accumulation leak example could look like the following:</p>
+      
+<p>Java manages memory automatically. You are not required to free memory manually. An object’s memory on the heap may be freed by a garbage collector when the object is no longer <em>reachable</em> by a live thread.
+</p>
+<p>However, you can prevent memory from being freed, by allowing objects to be reachable that are no longer needed. Whether you call this a memory leak or memory packratting, the result is the same – an unnecessary increase in allocated memory.
+</p>
+<p>Memory leaks in Java can happen in various ways, but the most common reason is everlasting object references, because the garbage collector can’t remove objects from the heap while there are still references to them.
+</p>
+<p><strong>Static fields</strong>
+</p>
+<p>One can create such a reference by defining class with a <code>static</code> field containing some collection of objects, and forgetting to set that <code>static</code> field to <code>null</code> after the collection is no longer needed. <code>static</code> fields are considered GC roots and are never collected. Another issue is leaks in non-heap memory when <a href="https://en.wikipedia.org/wiki/Java_Native_Interface">JNI</a> is used.
+</p>
+<p><strong>Classloader leak</strong>
+</p>
+<p>By far, though, the most insidious type of memory leak is the <a href="https://zeroturnaround.com/rebellabs/rjc201/">classloader leak</a>. A classloader holds a reference to every class it has loaded, and every class holds a reference to its classloader. Every object holds a reference to its class as well. Therefore, if even a <em>single</em> object of a class loaded by a classloader is not garbage, not a single class that that classloader has loaded can be collected. Since each class also refers to its static fields, they cannot be collected either.
+</p>
+<p><strong>Accumulation leak</strong> The accumulation leak example could look like the following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">final ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
@@ -155,7 +172,13 @@ try {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This example creates two scheduled tasks. The first task takes the last number from a deque called <code>numbers</code>, and, if the number is divisible by 51, it prints the number and the deque’s size. The second task puts numbers into the deque. Both tasks are scheduled at a fixed rate, and they run every 10 ms.</p><p>If the code is executed, you’ll see that the size of the deque is permanently increasing. This will eventually cause the deque to be filled with objects that consume all available heap memory.</p><p>To prevent this while preserving the semantics of this program, we can use a different method for taking numbers from the deque: <code>pollLast</code>. Contrary to the method <code>peekLast</code>, <code>pollLast</code> returns the element and removes it from the deque while <code>peekLast</code> only returns the last element.</p>
+</div>
+<p>This example creates two scheduled tasks. The first task takes the last number from a deque called <code>numbers</code>, and, if the number is divisible by 51, it prints the number and the deque’s size. The second task puts numbers into the deque. Both tasks are scheduled at a fixed rate, and they run every 10 ms.
+</p>
+<p>If the code is executed, you’ll see that the size of the deque is permanently increasing. This will eventually cause the deque to be filled with objects that consume all available heap memory.
+</p>
+<p>To prevent this while preserving the semantics of this program, we can use a different method for taking numbers from the deque: <code>pollLast</code>. Contrary to the method <code>peekLast</code>, <code>pollLast</code> returns the element and removes it from the deque while <code>peekLast</code> only returns the last element.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

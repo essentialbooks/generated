@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>The typical example is an abstract shape class, that can then be derived into squares, circles, and other concrete shapes.</p><p><strong>The parent class:</strong></p><p>Let’s start with the polymorphic class:</p>
+      
+<p>The typical example is an abstract shape class, that can then be derived into squares, circles, and other concrete shapes.
+</p>
+<p><strong>The parent class:</strong>
+</p>
+<p>Let’s start with the polymorphic class:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">Shape</span> <span class="p">{</span>
@@ -143,7 +150,26 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>How to read this definition ?</p><ul id="280a4178-8984-4d79-9601-18cbc4b94f0e" class="bulleted-list"><li>You can define polymorphic behavior by introduced member functions with the keyword <code>virtual</code>. Here <code>get_surface()</code> and <code>describe_object()</code> will obviously be implemented differently for a square than for a circle. When the function is invoked on an object, function corresponding to the real class of the object will be determined at runtime.</li><li>It makes no sense to define <code>get_surface()</code> for an abstract shape. This is why the function is followed by <code>= 0</code>. This means that the function is <em>pure virtual function</em>.</li><li>A polymorphic class should always define a virtual destructor.</li><li>You may define non virtual member functions. When these function will be invoked for an object, the function will be chosen depending on the class used at compile-time. Here <code>get_double_surface()</code> is defined in this way.</li><li>A class that contains at least one pure virtual function is an abstract class. Abstract classes cannot be instantiated. You may only have pointers or references of an abstract class type.</li></ul><p><strong>Derived classes</strong></p><p>Once a polymorphic base class is defined you can derive it. For example:</p>
+</div>
+<p>How to read this definition ?
+</p>
+  <ul id="280a4178-8984-4d79-9601-18cbc4b94f0e" class="bulleted-list">
+    <li>You can define polymorphic behavior by introduced member functions with the keyword <code>virtual</code>. Here <code>get_surface()</code> and <code>describe_object()</code> will obviously be implemented differently for a square than for a circle. When the function is invoked on an object, function corresponding to the real class of the object will be determined at runtime.
+    </li>
+    <li>It makes no sense to define <code>get_surface()</code> for an abstract shape. This is why the function is followed by <code>= 0</code>. This means that the function is <em>pure virtual function</em>.
+    </li>
+    <li>A polymorphic class should always define a virtual destructor.
+    </li>
+    <li>You may define non virtual member functions. When these function will be invoked for an object, the function will be chosen depending on the class used at compile-time. Here <code>get_double_surface()</code> is defined in this way.
+    </li>
+    <li>A class that contains at least one pure virtual function is an abstract class. Abstract classes cannot be instantiated. You may only have pointers or references of an abstract class type.
+    </li>
+  </ul>
+<p><strong>Derived classes</strong>
+</p>
+<p>Once a polymorphic base class is defined you can derive it. For example:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">Square</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Shape</span> <span class="p">{</span>
@@ -164,7 +190,20 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Some explanations:</p><ul id="f979d109-8678-4752-b241-d36f5f8e253b" class="bulleted-list"><li>You can define or override any of the virtual functions of the parent class. The fact that a function was virtual in the parent class makes it virtual in the derived class. No need to tell the compiler the keyword <code>virtual</code> again. But it’s recommended to add the keyword <code>override</code> at the end of the function declaration, in order to prevent subtle bugs caused by unnoticed variations in the function signature.</li><li>If all the pure virtual functions of the parent class are defined you can instantiate objects for this class, else it will also become an abstract class.</li><li>You are not obliged to override all the virtual functions. You can keep the version of the parent if it suits your need.</li></ul><p><strong>Example of instantiation</strong></p>
+</div>
+<p>Some explanations:
+</p>
+  <ul id="f979d109-8678-4752-b241-d36f5f8e253b" class="bulleted-list">
+    <li>You can define or override any of the virtual functions of the parent class. The fact that a function was virtual in the parent class makes it virtual in the derived class. No need to tell the compiler the keyword <code>virtual</code> again. But it’s recommended to add the keyword <code>override</code> at the end of the function declaration, in order to prevent subtle bugs caused by unnoticed variations in the function signature.
+    </li>
+    <li>If all the pure virtual functions of the parent class are defined you can instantiate objects for this class, else it will also become an abstract class.
+    </li>
+    <li>You are not obliged to override all the virtual functions. You can keep the version of the parent if it suits your need.
+    </li>
+  </ul>
+<p><strong>Example of instantiation</strong>
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>

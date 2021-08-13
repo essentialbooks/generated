@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Class constants provide a mechanism for holding fixed values in a program. That is, they provide a way of giving a name (and associated compile-time checking) to a value like <code>3.14</code> or <code>&quot;Apple&quot;</code>. Class constants can only be defined with the <code>const</code> keyword - the <a href="http://php.net/define">define</a> function cannot be used in this context.</p><p>As an example, it may be convenient to have a shorthand representation for the value of π throughout a program. A class with <code>const</code> values provides a simple way to hold such values.</p>
+      
+<p>Class constants provide a mechanism for holding fixed values in a program. That is, they provide a way of giving a name (and associated compile-time checking) to a value like <code>3.14</code> or <code>&quot;Apple&quot;</code>. Class constants can only be defined with the <code>const</code> keyword - the <a href="http://php.net/define">define</a> function cannot be used in this context.
+</p>
+<p>As an example, it may be convenient to have a shorthand representation for the value of π throughout a program. A class with <code>const</code> values provides a simple way to hold such values.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class MathValues {
@@ -140,7 +145,12 @@ $area = MathValues::PI * $radius * $radius;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Class constants may be accessed by using the double colon operator (so-called the scope resolution operator) on a class, much like static variables. Unlike static variables, however, class constants have their values fixed at compile time and cannot be reassigned to (e.g. <code>MathValues::PI = 7</code> would produce a fatal error).</p><p>Class constants are also useful for defining things internal to a class that might need changing later (but do not change frequently enough to warrant storing in, say, a database). We can reference this internally using the <code>self</code> scope resolutor (which works in both instanced and static implementations)</p>
+</div>
+<p>Class constants may be accessed by using the double colon operator (so-called the scope resolution operator) on a class, much like static variables. Unlike static variables, however, class constants have their values fixed at compile time and cannot be reassigned to (e.g. <code>MathValues::PI = 7</code> would produce a fatal error).
+</p>
+<p>Class constants are also useful for defining things internal to a class that might need changing later (but do not change frequently enough to warrant storing in, say, a database). We can reference this internally using the <code>self</code> scope resolutor (which works in both instanced and static implementations)
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Labor {
@@ -157,7 +167,12 @@ $area = MathValues::PI * $radius * $radius;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Class constants can only contain scalar values in versions &lt; 5.6</p><p>As of PHP 5.6 we can use expressions with constants, meaning math statements and strings with concatenation are acceptable constants</p>
+</div>
+<p>Class constants can only contain scalar values in versions &lt; 5.6
+</p>
+<p>As of PHP 5.6 we can use expressions with constants, meaning math statements and strings with concatenation are acceptable constants
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Labor {
@@ -172,7 +187,10 @@ $area = MathValues::PI * $radius * $radius;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As of PHP 7.0, constants declared with <code>define</code> may now contain arrays.</p>
+</div>
+<p>As of PHP 7.0, constants declared with <code>define</code> may now contain arrays.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">define(&#34;BAZ&#34;, array(&#39;baz&#39;));</pre>
@@ -180,7 +198,10 @@ $area = MathValues::PI * $radius * $radius;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Class constants are useful for more than just storing mathematical concepts. For example, if preparing a pie, it might be convenient to have a single <code>Pie</code> class capable of taking different kinds of fruit.</p>
+</div>
+<p>Class constants are useful for more than just storing mathematical concepts. For example, if preparing a pie, it might be convenient to have a single <code>Pie</code> class capable of taking different kinds of fruit.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Pie {
@@ -194,7 +215,10 @@ $area = MathValues::PI * $radius * $radius;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We can then use the <code>Pie</code> class like so</p>
+</div>
+<p>We can then use the <code>Pie</code> class like so
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$pie = new Pie(&#34;strawberry&#34;);</pre>
@@ -202,7 +226,10 @@ $area = MathValues::PI * $radius * $radius;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The problem that arises here is, when instantiating the <code>Pie</code> class, no guidance is provided as to the acceptable values. For example, when making a “boysenberry” pie, it might be misspelled “boisenberry”. Furthermore, we might not support a plum pie. Instead, it would be useful to have a list of acceptable fruit types already defined somewhere it would make sense to look for them. Say a class named <code>Fruit</code>:</p>
+</div>
+<p>The problem that arises here is, when instantiating the <code>Pie</code> class, no guidance is provided as to the acceptable values. For example, when making a “boysenberry” pie, it might be misspelled “boisenberry”. Furthermore, we might not support a plum pie. Instead, it would be useful to have a list of acceptable fruit types already defined somewhere it would make sense to look for them. Say a class named <code>Fruit</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Fruit {
@@ -216,7 +243,14 @@ $pie = new Pie(Fruit::STRAWBERRY);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Listing the acceptable values as class constants provides a valuable hint as to the acceptable values which a method accepts. It also ensures that misspellings cannot make it past the compiler. While <code>new Pie(&#x27;aple&#x27;)</code> and <code>new Pie(&#x27;apple&#x27;)</code> are both acceptable to the compiler, <code>new Pie(Fruit::APLE)</code> will produce a compiler error.</p><p>Finally, using class constants means that the actual value of the constant may be modified in a single place, and any code using the constant automatically has the effects of the modification.</p><p>Whilst the most common method to access a class constant is <code>MyClass::CONSTANT_NAME</code>, it may also be accessed by:</p>
+</div>
+<p>Listing the acceptable values as class constants provides a valuable hint as to the acceptable values which a method accepts. It also ensures that misspellings cannot make it past the compiler. While <code>new Pie(&#x27;aple&#x27;)</code> and <code>new Pie(&#x27;apple&#x27;)</code> are both acceptable to the compiler, <code>new Pie(Fruit::APLE)</code> will produce a compiler error.
+</p>
+<p>Finally, using class constants means that the actual value of the constant may be modified in a single place, and any code using the constant automatically has the effects of the modification.
+</p>
+<p>Whilst the most common method to access a class constant is <code>MyClass::CONSTANT_NAME</code>, it may also be accessed by:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">echo MyClass::CONSTANT;
@@ -227,7 +261,12 @@ echo $classname::CONSTANT; // As of PHP 5.3.0</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Class constants in PHP are conventionally named all in uppercase with underscores as word separators, although any valid label name may be used as a class constant name.</p><p>As of PHP 7.1, class constants may now be defined with different visibilities from the default public scope. This means that both protected and private constants can now be defined to prevent class constants from unnecessarily leaking into the public scope (see http://stackoverflow.com/documentation/php/504/classes-and-objects/6471/method-and-property-visibility ). For example:</p>
+</div>
+<p>Class constants in PHP are conventionally named all in uppercase with underscores as word separators, although any valid label name may be used as a class constant name.
+</p>
+<p>As of PHP 7.1, class constants may now be defined with different visibilities from the default public scope. This means that both protected and private constants can now be defined to prevent class constants from unnecessarily leaking into the public scope (see http://stackoverflow.com/documentation/php/504/classes-and-objects/6471/method-and-property-visibility ). For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Something {
@@ -240,7 +279,13 @@ echo $classname::CONSTANT; // As of PHP 5.3.0</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="1f96b7e3-da26-4f15-a213-b91e9c176de9" class="">define vs class constants<a class="header-anchor" href="#1f96b7e3-da26-4f15-a213-b91e9c176de9" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Although this is a valid construction:</p>
+</div>
+  <h1 id="1f96b7e3-da26-4f15-a213-b91e9c176de9" class="">define vs class constants
+  <a class="header-anchor" href="#1f96b7e3-da26-4f15-a213-b91e9c176de9" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Although this is a valid construction:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">function bar() { return 2; };
@@ -250,7 +295,10 @@ define(&#39;BAR&#39;, bar());</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you try to do the same with class constants, you’ll get an error:</p>
+</div>
+<p>If you try to do the same with class constants, you’ll get an error:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">function bar() { return 2; };
@@ -262,7 +310,10 @@ class Foo {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But you can do:</p>
+</div>
+<p>But you can do:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">function bar() { return 2; };
@@ -276,7 +327,15 @@ class Foo {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For more information, see <a href="http://php.net/manual/en/language.constants.php">constants in the manual</a>.</p><h1 id="e2b04b62-8ac7-40f5-95b8-09161c7e7560" class="">Using ::class to retrieve class’s name<a class="header-anchor" href="#e2b04b62-8ac7-40f5-95b8-09161c7e7560" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>PHP 5.5 introduced the <code>::class</code> syntax to retrieve the full class name, taking namespace scope and <code>use</code> statements into account.</p>
+</div>
+<p>For more information, see <a href="http://php.net/manual/en/language.constants.php">constants in the manual</a>.
+</p>
+  <h1 id="e2b04b62-8ac7-40f5-95b8-09161c7e7560" class="">Using ::class to retrieve class’s name
+  <a class="header-anchor" href="#e2b04b62-8ac7-40f5-95b8-09161c7e7560" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>PHP 5.5 introduced the <code>::class</code> syntax to retrieve the full class name, taking namespace scope and <code>use</code> statements into account.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">namespace foo;
@@ -288,7 +347,12 @@ echo json_encode(\Foo::class); // &#34;Foo&#34;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above works even if the classes are not even defined (i.e. this code snippet works alone).</p><p>This syntax is useful for functions that require a class name. For example, it can be used with <code>class_exists</code> to check a class exists. No errors will be generated regardless of return value in this snippet:</p>
+</div>
+<p>The above works even if the classes are not even defined (i.e. this code snippet works alone).
+</p>
+<p>This syntax is useful for functions that require a class name. For example, it can be used with <code>class_exists</code> to check a class exists. No errors will be generated regardless of return value in this snippet:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class_exists(ThisClass\Will\NeverBe\Loaded::class, false);</pre>

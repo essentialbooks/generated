@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>One of the most common errors in compilation happens during the linking stage. The error looks similar to this:</p>
+      
+<p>One of the most common errors in compilation happens during the linking stage. The error looks similar to this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ gcc undefined_reference.c 
@@ -139,7 +142,10 @@ $</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So let’s look at the code that generated this error:</p>
+</div>
+<p>So let’s look at the code that generated this error:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int foo(void);
@@ -154,7 +160,12 @@ int main(int argc, char **argv)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We see here a <em>declaration</em> of foo (<code>int foo();</code>) but no <em>definition</em> of it (actual function). So we provided the compiler with the function header, but there was no such function defined anywhere, so the compilation stage passes but the linker exits with an <code>Undefined reference</code> error.</p><p>To fix this error in our small program we would only have to add a <em>definition</em> for foo:</p>
+</div>
+<p>We see here a <em>declaration</em> of foo (<code>int foo();</code>) but no <em>definition</em> of it (actual function). So we provided the compiler with the function header, but there was no such function defined anywhere, so the compilation stage passes but the linker exits with an <code>Undefined reference</code> error.
+</p>
+<p>To fix this error in our small program we would only have to add a <em>definition</em> for foo:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/* Declaration of foo */
@@ -176,7 +187,10 @@ int main(int argc, char **argv)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now this code will compile. An alternative situation arises where the source for <code>foo()</code> is in a separate source file <code>foo.c</code> (and there’s a header <code>foo.h</code> to declare <code>foo()</code> that is included in both <code>foo.c</code> and <code>undefined_reference.c</code>). Then the fix is to link both the object file from <code>foo.c</code> and <code>undefined_reference.c</code>, or to compile both the source files:</p>
+</div>
+<p>Now this code will compile. An alternative situation arises where the source for <code>foo()</code> is in a separate source file <code>foo.c</code> (and there’s a header <code>foo.h</code> to declare <code>foo()</code> that is included in both <code>foo.c</code> and <code>undefined_reference.c</code>). Then the fix is to link both the object file from <code>foo.c</code> and <code>undefined_reference.c</code>, or to compile both the source files:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ gcc -c undefined_reference.c 
@@ -187,7 +201,10 @@ $</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Or:</p>
+</div>
+<p>Or:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ gcc -o working_program undefined_reference.c foo.c
@@ -196,7 +213,10 @@ $</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A more complex case is where libraries are involved, like in the code:</p>
+</div>
+<p>A more complex case is where libraries are involved, like in the code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -232,7 +252,10 @@ int main(int argc, char **argv)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The code is syntactically correct, declaration for <code>pow()</code> exists from <code>#include &lt;math.h&gt;</code>, so we try to compile and link but get an error like this:</p>
+</div>
+<p>The code is syntactically correct, declaration for <code>pow()</code> exists from <code>#include &lt;math.h&gt;</code>, so we try to compile and link but get an error like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ gcc no_library_in_link.c -o no_library_in_link
@@ -244,7 +267,12 @@ $</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This happens because the <em>definition</em> for <code>pow()</code> wasn’t found during the linking stage. To fix this we have to specify we want to link against the math library called <code>libm</code> by specifying the <code>-lm</code> flag. (Note that there are platforms such as macOS where <code>-lm</code> is not needed, but when you get the undefined reference, the library is needed.)</p><p>So we run the compilation stage again, this time specifying the library (after the source or object files):</p>
+</div>
+<p>This happens because the <em>definition</em> for <code>pow()</code> wasn’t found during the linking stage. To fix this we have to specify we want to link against the math library called <code>libm</code> by specifying the <code>-lm</code> flag. (Note that there are platforms such as macOS where <code>-lm</code> is not needed, but when you get the undefined reference, the library is needed.)
+</p>
+<p>So we run the compilation stage again, this time specifying the library (after the source or object files):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ gcc no_library_in_link.c -lm -o library_in_link_cmd
@@ -255,7 +283,9 @@ $</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And it works!</p>
+</div>
+<p>And it works!
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

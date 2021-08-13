@@ -127,7 +127,14 @@
 </div>
 
 
-      <p><code>malloc()</code> often calls underlying operating system functions to obtain pages of memory. But there is nothing special about the function and it can be implemented in straight C by declaring a large static array and allocating from it (there is a slight difficulty in ensuring correct alignment, in practice aligning to 8 bytes is almost always adequate).</p><p>To implement a simple scheme, a control block is stored in the region of memory immediately before the pointer to be returned from the call. This means that <code>free()</code> may be implemented by subtracting from the returned pointer and reading off the control information, which is typically the block size plus some information that allows it to be put back in the free list - a linked list of unallocated blocks.</p><p>When the user requests an allocation, the free list is searched until a block of identical or larger size to the amount requested is found, then if necessary it is split. This can lead to memory fragmentation if the user is continually making many allocations and frees of unpredictable size and and at unpredictable intervals (not all real programs behave like that, the simple scheme is often adequate for small programs).</p>
+      
+<p><code>malloc()</code> often calls underlying operating system functions to obtain pages of memory. But there is nothing special about the function and it can be implemented in straight C by declaring a large static array and allocating from it (there is a slight difficulty in ensuring correct alignment, in practice aligning to 8 bytes is almost always adequate).
+</p>
+<p>To implement a simple scheme, a control block is stored in the region of memory immediately before the pointer to be returned from the call. This means that <code>free()</code> may be implemented by subtracting from the returned pointer and reading off the control information, which is typically the block size plus some information that allows it to be put back in the free list - a linked list of unallocated blocks.
+</p>
+<p>When the user requests an allocation, the free list is searched until a block of identical or larger size to the amount requested is found, then if necessary it is split. This can lead to memory fragmentation if the user is continually making many allocations and frees of unpredictable size and and at unpredictable intervals (not all real programs behave like that, the simple scheme is often adequate for small programs).
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/* typical control block */
@@ -145,7 +152,10 @@ static struct block *firstfree;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Many programs require large numbers of allocations of small objects of the same size. This is very easy to implement. Simply use a block with a next pointer. So if a block of 32 bytes is required:</p>
+</div>
+<p>Many programs require large numbers of allocations of small objects of the same size. This is very easy to implement. Simply use a block with a next pointer. So if a block of 32 bytes is required:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">union block
@@ -177,6 +187,7 @@ void *block_alloc()
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void block_free(void *ptr)
@@ -189,7 +200,9 @@ void *block_alloc()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This scheme is extremely fast and efficient, and can be made generic with a certain loss of clarity.</p>
+</div>
+<p>This scheme is extremely fast and efficient, and can be made generic with a certain loss of clarity.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

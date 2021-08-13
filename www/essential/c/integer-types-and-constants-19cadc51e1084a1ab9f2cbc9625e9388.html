@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Signed integers can be of these types (the <code>int</code> after <code>short</code>, or <code>long</code> is optional):</p>
+      
+<p>Signed integers can be of these types (the <code>int</code> after <code>short</code>, or <code>long</code> is optional):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">signed char c = 127; /* required to be 1 byte, see remarks for further information. */
@@ -139,6 +142,7 @@ signed long int li = 2147483647; /* required to be at least 32 bits. */</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">signed long long int li = 2147483647; /* required to be at least 64 bits */</pre>
@@ -146,7 +150,10 @@ signed long int li = 2147483647; /* required to be at least 32 bits. */</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Each of these signed integer types has an unsigned version.</p>
+</div>
+<p>Each of these signed integer types has an unsigned version.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">unsigned int i = 65535;
@@ -156,7 +163,12 @@ unsigned char = 255;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For all types but <code>char</code> the <code>signed</code> version is assumed if the <code>signed</code> or <code>unsigned</code> part is omitted. The type <code>char</code> constitutes a third character type, different from <code>signed char</code> and <code>unsigned char</code> and the signedness (or not) depends on the platform.</p><p>Different types of integer constants (called <em>literals</em> in C jargon) can be written in different bases, and different width, based on their prefix or suffix.</p>
+</div>
+<p>For all types but <code>char</code> the <code>signed</code> version is assumed if the <code>signed</code> or <code>unsigned</code> part is omitted. The type <code>char</code> constitutes a third character type, different from <code>signed char</code> and <code>unsigned char</code> and the signedness (or not) depends on the platform.
+</p>
+<p>Different types of integer constants (called <em>literals</em> in C jargon) can be written in different bases, and different width, based on their prefix or suffix.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/* the following variables are initialized to the same value: */
@@ -168,7 +180,10 @@ int X = 0XAf; /* (letters &#39;a&#39; through &#39;f&#39; (case insensitive) rep
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Decimal constants are always <code>signed</code>. Hexadecimal constants start with <code>0x</code> or <code>0X</code> and octal constants start just with a <code>0</code>. The latter two are <code>signed</code> or <code>unsigned</code> depending on whether the value fits into the signed type or not.</p>
+</div>
+<p>Decimal constants are always <code>signed</code>. Hexadecimal constants start with <code>0x</code> or <code>0X</code> and octal constants start just with a <code>0</code>. The latter two are <code>signed</code> or <code>unsigned</code> depending on whether the value fits into the signed type or not.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/* suffixes to describe width and signedness : */
@@ -179,7 +194,19 @@ long int li = 65536l; /* l or L represent long int */</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Without a suffix the constant has the first type that fits its value, that is a decimal constant that is larger than <code>INT_MAX</code> is of type <code>long</code> if possible, or <code>long long</code> otherwise.</p><p>The header file <code>&lt;limits.h&gt;</code> describes the limits of integers as follows. Their implementation-defined values shall be equal or greater in magnitude (absolute value) to those shown below, with the same sign.</p><p>Macro | Type | Value —— | —— | —— <code>CHAR_BIT</code> | smallest object that is not a bit-field (byte) | 8 <code>SCHAR_MIN</code> | <code>signed char</code> | -127 / -(27 - 1) <code>SCHAR_MAX</code> | <code>signed char</code> | +127 / 27 - 1 <code>UCHAR_MAX</code> | <code>unsigned char</code> | 255 / 28 - 1 <code>CHAR_MIN</code> | <code>char</code> | see below <code>CHAR_MAX</code> | <code>char</code> | see below <code>SHRT_MIN</code> | <code>short int</code> | -32767 / -(215 - 1) <code>SHRT_MAX</code> | <code>short int</code> | +32767 / 215 - 1 <code>USHRT_MAX</code> | <code>unsigned short int</code> | 65535 / 216 - 1 <code>INT_MIN</code> | <code>int</code> | -32767 / -(215 - 1) <code>INT_MAX</code> | <code>int</code> | +32767 / 215 - 1 <code>UINT_MAX</code> | <code>unsigned int</code> | 65535 / 216 - 1 <code>LONG_MIN</code> | <code>long int</code> | -2147483647 / -(231 - 1) <code>LONG_MAX</code> | <code>long int</code> | +2147483647 / 231 - 1 <code>ULONG_MAX</code> | <code>unsigned long int</code> | 4294967295 / 232 - 1</p><p>Macro | Type | Value —— | —— | —— <code>LLONG_MIN</code> | <code>long long int</code> | -9223372036854775807 / -(263 - 1) <code>LLONG_MAX</code> | <code>long long int</code> | +9223372036854775807 / 263 - 1 <code>ULLONG_MAX</code> | <code>unsigned long long int</code> | 18446744073709551615 / 264 - 1</p><p>If the value of an object of type <code>char</code> sign-extends when used in an expression, the value of <code>CHAR_MIN</code> shall be the same as that of <code>SCHAR_MIN</code> and the value of <code>CHAR_MAX</code> shall be the same as that of <code>SCHAR_MAX</code> . If the value of an object of type <code>char</code> does not sign-extend when used in an expression, the value of <code>CHAR_MIN</code> shall be 0 and the value of <code>CHAR_MAX</code> shall be the same as that of <code>UCHAR_MAX</code>.</p><p>The C99 standard added a new header, <code>&lt;stdint.h&gt;</code>, which contains definitions for fixed width integers. See the fixed width integer example for a more in-depth explanation.</p>
+</div>
+<p>Without a suffix the constant has the first type that fits its value, that is a decimal constant that is larger than <code>INT_MAX</code> is of type <code>long</code> if possible, or <code>long long</code> otherwise.
+</p>
+<p>The header file <code>&lt;limits.h&gt;</code> describes the limits of integers as follows. Their implementation-defined values shall be equal or greater in magnitude (absolute value) to those shown below, with the same sign.
+</p>
+<p>Macro | Type | Value —— | —— | —— <code>CHAR_BIT</code> | smallest object that is not a bit-field (byte) | 8 <code>SCHAR_MIN</code> | <code>signed char</code> | -127 / -(27 - 1) <code>SCHAR_MAX</code> | <code>signed char</code> | +127 / 27 - 1 <code>UCHAR_MAX</code> | <code>unsigned char</code> | 255 / 28 - 1 <code>CHAR_MIN</code> | <code>char</code> | see below <code>CHAR_MAX</code> | <code>char</code> | see below <code>SHRT_MIN</code> | <code>short int</code> | -32767 / -(215 - 1) <code>SHRT_MAX</code> | <code>short int</code> | +32767 / 215 - 1 <code>USHRT_MAX</code> | <code>unsigned short int</code> | 65535 / 216 - 1 <code>INT_MIN</code> | <code>int</code> | -32767 / -(215 - 1) <code>INT_MAX</code> | <code>int</code> | +32767 / 215 - 1 <code>UINT_MAX</code> | <code>unsigned int</code> | 65535 / 216 - 1 <code>LONG_MIN</code> | <code>long int</code> | -2147483647 / -(231 - 1) <code>LONG_MAX</code> | <code>long int</code> | +2147483647 / 231 - 1 <code>ULONG_MAX</code> | <code>unsigned long int</code> | 4294967295 / 232 - 1
+</p>
+<p>Macro | Type | Value —— | —— | —— <code>LLONG_MIN</code> | <code>long long int</code> | -9223372036854775807 / -(263 - 1) <code>LLONG_MAX</code> | <code>long long int</code> | +9223372036854775807 / 263 - 1 <code>ULLONG_MAX</code> | <code>unsigned long long int</code> | 18446744073709551615 / 264 - 1
+</p>
+<p>If the value of an object of type <code>char</code> sign-extends when used in an expression, the value of <code>CHAR_MIN</code> shall be the same as that of <code>SCHAR_MIN</code> and the value of <code>CHAR_MAX</code> shall be the same as that of <code>SCHAR_MAX</code> . If the value of an object of type <code>char</code> does not sign-extend when used in an expression, the value of <code>CHAR_MIN</code> shall be 0 and the value of <code>CHAR_MAX</code> shall be the same as that of <code>UCHAR_MAX</code>.
+</p>
+<p>The C99 standard added a new header, <code>&lt;stdint.h&gt;</code>, which contains definitions for fixed width integers. See the fixed width integer example for a more in-depth explanation.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

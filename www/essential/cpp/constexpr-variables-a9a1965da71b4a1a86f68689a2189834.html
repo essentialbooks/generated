@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>A variable declared <code>constexpr</code> is implicitly <code>const</code> and its value may be used as a constant expression.</p><p><strong>Comparison with </strong><code><strong>#define</strong></code></p><p>A <code>constexpr</code> is type-safe replacement for <code>#define</code> based compile-time expressions. With <code>constexpr</code> the compile-time evaluated expression is replaced with the result. For example:</p>
+      
+<p>A variable declared <code>constexpr</code> is implicitly <code>const</code> and its value may be used as a constant expression.
+</p>
+<p><strong>Comparison with </strong><code><strong>#define</strong></code>
+</p>
+<p>A <code>constexpr</code> is type-safe replacement for <code>#define</code> based compile-time expressions. With <code>constexpr</code> the compile-time evaluated expression is replaced with the result. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int main()
@@ -139,7 +146,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>will produce the following code:</p>
+</div>
+<p>will produce the following code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cout &lt;&lt; 12;</pre>
@@ -147,7 +157,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A pre-processor based compile-time macro would be different. Consider:</p>
+</div>
+<p>A pre-processor based compile-time macro would be different. Consider:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define N 10 + 2
@@ -160,7 +173,10 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>will produce:</p>
+</div>
+<p>will produce:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cout &lt;&lt; 10 + 2;</pre>
@@ -168,7 +184,12 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>which will obviously be converted to <code>cout &lt;&lt; 10 + 2;</code>. However, the compiler would have to do more work. Also, it creates a problem if not used correctly.</p><p>For example (with <code>#define</code>):</p>
+</div>
+<p>which will obviously be converted to <code>cout &lt;&lt; 10 + 2;</code>. However, the compiler would have to do more work. Also, it creates a problem if not used correctly.
+</p>
+<p>For example (with <code>#define</code>):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cout &lt;&lt; N * 2;</pre>
@@ -176,7 +197,10 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>forms:</p>
+</div>
+<p>forms:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cout &lt;&lt; 10 + 2 * 2; // 14</pre>
@@ -184,7 +208,14 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But a pre-evaluated <code>constexpr</code> would correctly give <code>24</code>.</p><p><strong>Comparison with </strong><code><strong>const</strong></code></p><p>A <code>const</code> variable is a <strong>variable</strong> which needs memory for its storage. A <code>constexpr</code> does not. A <code>constexpr</code> produces compile time constant, which cannot be changed. You may argue that <code>const</code> may also not be changed. But consider:</p>
+</div>
+<p>But a pre-evaluated <code>constexpr</code> would correctly give <code>24</code>.
+</p>
+<p><strong>Comparison with </strong><code><strong>const</strong></code>
+</p>
+<p>A <code>const</code> variable is a <strong>variable</strong> which needs memory for its storage. A <code>constexpr</code> does not. A <code>constexpr</code> produces compile time constant, which cannot be changed. You may argue that <code>const</code> may also not be changed. But consider:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int main()
@@ -199,7 +230,14 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With most compilers the second statement will fail (may work with GCC, for example). The size of any array, as you might know, has to be a constant expression (i.e. results in compile-time value). The second variable <code>size2</code> is assigned some value that is decided at runtime (even though you know it is <code>10</code>, for the compiler it is not compile-time).</p><p>This means that a <code>const</code> may or may not be a true compile-time constant. You cannot guarantee or enforce that a particular <code>const</code> value is absolutely compile-time. You may use <code>#define</code> but it has its own pitfalls.</p><p>Therefore simply use:</p>
+</div>
+<p>With most compilers the second statement will fail (may work with GCC, for example). The size of any array, as you might know, has to be a constant expression (i.e. results in compile-time value). The second variable <code>size2</code> is assigned some value that is decided at runtime (even though you know it is <code>10</code>, for the compiler it is not compile-time).
+</p>
+<p>This means that a <code>const</code> may or may not be a true compile-time constant. You cannot guarantee or enforce that a particular <code>const</code> value is absolutely compile-time. You may use <code>#define</code> but it has its own pitfalls.
+</p>
+<p>Therefore simply use:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int main()
@@ -212,7 +250,10 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A <code>constexpr</code> expression must evaluate to a compile-time value. Thus, you cannot use:</p>
+</div>
+<p>A <code>constexpr</code> expression must evaluate to a compile-time value. Thus, you cannot use:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">constexpr int size = abs(10);</pre>
@@ -220,7 +261,12 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Unless the function (<code>abs</code>) is itself returning a <code>constexpr</code>.</p><p>All basic types can be initialized with <code>constexpr</code>.</p>
+</div>
+<p>Unless the function (<code>abs</code>) is itself returning a <code>constexpr</code>.
+</p>
+<p>All basic types can be initialized with <code>constexpr</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">constexpr bool FailFatal = true;
@@ -230,7 +276,10 @@ constexpr char* site= &#34;StackOverflow&#34;;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Interestingly, and conveniently, you may also use <code>auto</code>:</p>
+</div>
+<p>Interestingly, and conveniently, you may also use <code>auto</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">constexpr auto domain = &#34;.COM&#34;;  // const char * const domain = &#34;.COM&#34;

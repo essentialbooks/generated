@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>We can use <code>typedef</code> to simplify the usage of function pointers. Imagine we have some functions, all having the same signature, that use their argument to print out something in different ways:</p>
+      
+<p>We can use <code>typedef</code> to simplify the usage of function pointers. Imagine we have some functions, all having the same signature, that use their argument to print out something in different ways:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include&lt;stdio.h&gt;
@@ -146,7 +149,10 @@ void print_n(int n)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we can use a <code>typedef</code> to create a named function pointer type called printer:</p>
+</div>
+<p>Now we can use a <code>typedef</code> to create a named function pointer type called printer:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">typedef void (*printer_t)(int);</pre>
@@ -154,7 +160,10 @@ void print_n(int n)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This creates a type, named <code>printer_t</code> for a pointer to a function that takes a single <code>int</code> argument and returns nothing, which matches the signature of the functions we have above. To use it we create a variable of the created type and assign it a pointer to one of the functions in question:</p>
+</div>
+<p>This creates a type, named <code>printer_t</code> for a pointer to a function that takes a single <code>int</code> argument and returns nothing, which matches the signature of the functions we have above. To use it we create a variable of the created type and assign it a pointer to one of the functions in question:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">printer_t p = &amp;print_to_n;
@@ -163,7 +172,10 @@ void (*p)(int) = &amp;print_to_n; // This would be required without the type</pr
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then to call the function pointed to by the function pointer variable:</p>
+</div>
+<p>Then to call the function pointed to by the function pointer variable:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">p(5);           // Prints 1 2 3 4 5 on separate lines
@@ -172,7 +184,12 @@ void (*p)(int) = &amp;print_to_n; // This would be required without the type</pr
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Thus the <code>typedef</code> allows a simpler syntax when dealing with function pointers. This becomes more apparent when function pointers are used in more complex situations, such as arguments to functions.</p><p>If you are using a function that takes a function pointer as a parameter without a function pointer type defined the function definition would be,</p>
+</div>
+<p>Thus the <code>typedef</code> allows a simpler syntax when dealing with function pointers. This becomes more apparent when function pointers are used in more complex situations, such as arguments to functions.
+</p>
+<p>If you are using a function that takes a function pointer as a parameter without a function pointer type defined the function definition would be,
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void foo (void (*printer)(int), int y){
@@ -184,7 +201,10 @@ void (*p)(int) = &amp;print_to_n; // This would be required without the type</pr
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, with the <code>typedef</code> it is:</p>
+</div>
+<p>However, with the <code>typedef</code> it is:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void foo (printer_t printer, int y){
@@ -196,7 +216,12 @@ void (*p)(int) = &amp;print_to_n; // This would be required without the type</pr
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Likewise functions can return function pointers and again, the use of a <code>typedef</code> can make the syntax simpler when doing so.</p><p>A classic example is the <code>signal</code> function from <code>&lt;signal.h&gt;</code>. The declaration for it (from the C standard) is:</p>
+</div>
+<p>Likewise functions can return function pointers and again, the use of a <code>typedef</code> can make the syntax simpler when doing so.
+</p>
+<p>A classic example is the <code>signal</code> function from <code>&lt;signal.h&gt;</code>. The declaration for it (from the C standard) is:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void (*signal(int sig, void (*func)(int)))(int);</pre>
@@ -204,7 +229,12 @@ void (*p)(int) = &amp;print_to_n; // This would be required without the type</pr
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>That’s a function that takes two arguments — an <code>int</code> and a pointer to a function which takes an <code>int</code> as an argument and returns nothing — and which returns a pointer to function like its second argument.</p><p>If we defined a type <code>SigCatcher</code> as an alias for the pointer to function type:</p>
+</div>
+<p>That’s a function that takes two arguments — an <code>int</code> and a pointer to a function which takes an <code>int</code> as an argument and returns nothing — and which returns a pointer to function like its second argument.
+</p>
+<p>If we defined a type <code>SigCatcher</code> as an alias for the pointer to function type:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">typedef void (*SigCatcher)(int);</pre>
@@ -212,7 +242,10 @@ void (*p)(int) = &amp;print_to_n; // This would be required without the type</pr
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>then we could declare <code>signal()</code> using:</p>
+</div>
+<p>then we could declare <code>signal()</code> using:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SigCatcher signal(int sig, SigCatcher func);</pre>
@@ -220,7 +253,11 @@ void (*p)(int) = &amp;print_to_n; // This would be required without the type</pr
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>On the whole, this is easier to understand (even though the C standard did not elect to define a type to do the job). The <code>signal</code> function takes two arguments, an <code>int</code> and a <code>SigCatcher</code>, and it returns a <code>SigCatcher</code> — where a <code>SigCatcher</code> is a pointer to a function that takes an <code>int</code> argument and returns nothing.</p><p>Although using <code>typedef</code> names for pointer to function types makes life easier, it can also lead to confusion for others who will maintain your code later on, so use with caution and proper documentation. See also https://stackoverflow.com/documentation/c/250/function-pointers.</p>
+</div>
+<p>On the whole, this is easier to understand (even though the C standard did not elect to define a type to do the job). The <code>signal</code> function takes two arguments, an <code>int</code> and a <code>SigCatcher</code>, and it returns a <code>SigCatcher</code> — where a <code>SigCatcher</code> is a pointer to a function that takes an <code>int</code> argument and returns nothing.
+</p>
+<p>Although using <code>typedef</code> names for pointer to function types makes life easier, it can also lead to confusion for others who will maintain your code later on, so use with caution and proper documentation. See also https://stackoverflow.com/documentation/c/250/function-pointers.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,28 @@
 </div>
 
 
-      <p>When using interop methods, you can use <strong>GetLastError</strong> API to get additional information on you API calls.</p><p><strong>DllImport Attribute SetLastError Attribute</strong></p><p><em>SetLastError=true</em></p><p>Indicates that the callee will call SetLastError (Win32 API function).</p><p><em>SetLastError=false</em></p><p>Indicates that the callee <strong>will not</strong> call SetLastError (Win32 API function), therefore you will not get an error information.</p><ul id="88a2c4da-7b6b-4ef8-8cda-a7a2a132a214" class="bulleted-list"><li>When SetLastError isn’t set, it is set to false (Default value).</li><li>You can obtain the error code using Marshal.GetLastWin32Error Method:</li></ul><p><em>Example:</em></p>
+      
+<p>When using interop methods, you can use <strong>GetLastError</strong> API to get additional information on you API calls.
+</p>
+<p><strong>DllImport Attribute SetLastError Attribute</strong>
+</p>
+<p><em>SetLastError=true</em>
+</p>
+<p>Indicates that the callee will call SetLastError (Win32 API function).
+</p>
+<p><em>SetLastError=false</em>
+</p>
+<p>Indicates that the callee <strong>will not</strong> call SetLastError (Win32 API function), therefore you will not get an error information.
+</p>
+  <ul id="88a2c4da-7b6b-4ef8-8cda-a7a2a132a214" class="bulleted-list">
+    <li>When SetLastError isn’t set, it is set to false (Default value).
+    </li>
+    <li>You can obtain the error code using Marshal.GetLastWin32Error Method:
+    </li>
+  </ul>
+<p><em>Example:</em>
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="na">[DllImport(&#34;kernel32.dll&#34;, SetLastError=true)]</span>
@@ -137,7 +158,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you trying to open mutex which does not exist, GetLastError will return <strong>ERROR_FILE_NOT_FOUND</strong>.</p>
+</div>
+<p>If you trying to open mutex which does not exist, GetLastError will return <strong>ERROR_FILE_NOT_FOUND</strong>.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">var</span> <span class="n">lastErrorCode</span> <span class="p">=</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">GetLastWin32Error</span><span class="p">();</span>
@@ -151,7 +175,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>System Error Codes can be found here:</p><p>https://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx</p><p><strong>GetLastError API</strong></p><p>There is a native <strong>GetLastError</strong> API which you can use as well :</p>
+</div>
+<p>System Error Codes can be found here:
+</p>
+<p>https://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx
+</p>
+<p><strong>GetLastError API</strong>
+</p>
+<p>There is a native <strong>GetLastError</strong> API which you can use as well :
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="na">[DllImport(&#34;coredll.dll&#34;, SetLastError=true)]</span>
@@ -161,7 +194,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="ea9d191b-782e-4bb9-ae3b-c749b20e4957" class="bulleted-list"><li>When calling Win32 API from managed code, you must always use the <strong>Marshal.GetLastWin32Error</strong>.</li></ul><p>Here’s why:</p><p>Between your Win32 call which sets the error (calls SetLastError), the CLR can call other Win32 calls which could call <strong>SetLastError</strong> as well, this behavior can override your error value. In this scenario, if you call <strong>GetLastError</strong> you can obtain an invalid error.</p><p>Setting <strong>SetLastError = true</strong>, makes sure that the CLR retrieves the error code before it executes other Win32 calls.</p>
+</div>
+  <ul id="ea9d191b-782e-4bb9-ae3b-c749b20e4957" class="bulleted-list">
+    <li>When calling Win32 API from managed code, you must always use the <strong>Marshal.GetLastWin32Error</strong>.
+    </li>
+  </ul>
+<p>Here’s why:
+</p>
+<p>Between your Win32 call which sets the error (calls SetLastError), the CLR can call other Win32 calls which could call <strong>SetLastError</strong> as well, this behavior can override your error value. In this scenario, if you call <strong>GetLastError</strong> you can obtain an invalid error.
+</p>
+<p>Setting <strong>SetLastError = true</strong>, makes sure that the CLR retrieves the error code before it executes other Win32 calls.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

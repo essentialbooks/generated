@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>A <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html"><code>Stream</code></a> will only be traversed when there is a <em>terminal operation</em>, like <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#count--"><code>count()</code></a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#collect-java.util.stream.Collector-"><code>collect()</code></a> or <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#forEach-java.util.function.Consumer-"><code>forEach()</code></a>. Otherwise, no operation on the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html"><code>Stream</code></a> will be performed.</p><p>In the following example, no terminal operation is added to the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html"><code>Stream</code></a>, so the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#filter-java.util.function.Predicate-"><code>filter()</code></a> operation will not be invoked and no output will be produced because <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#peek-java.util.function.Consumer-"><code>peek()</code></a> is NOT a <em>terminal operation</em>.</p>
+      
+<p>A <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html"><code>Stream</code></a> will only be traversed when there is a <em>terminal operation</em>, like <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#count--"><code>count()</code></a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#collect-java.util.stream.Collector-"><code>collect()</code></a> or <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#forEach-java.util.function.Consumer-"><code>forEach()</code></a>. Otherwise, no operation on the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html"><code>Stream</code></a> will be performed.
+</p>
+<p>In the following example, no terminal operation is added to the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html"><code>Stream</code></a>, so the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#filter-java.util.function.Predicate-"><code>filter()</code></a> operation will not be invoked and no output will be produced because <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#peek-java.util.function.Consumer-"><code>peek()</code></a> is NOT a <em>terminal operation</em>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">IntStream.range(1, 10).filter(a -&gt; a % 2 == 0).peek(System.out::println);</pre>
@@ -135,7 +140,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://ideone.com/YDijRj">Live on Ideone</a></p><p>This is a <code>Stream</code> sequence with a valid <em>terminal operation</em>, thus an output is produced.</p><p>You could also use <code>forEach</code> instead of <code>peek</code>:</p>
+</div>
+<p><a href="https://ideone.com/YDijRj">Live on Ideone</a>
+</p>
+<p>This is a <code>Stream</code> sequence with a valid <em>terminal operation</em>, thus an output is produced.
+</p>
+<p>You could also use <code>forEach</code> instead of <code>peek</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">IntStream.range(1, 10).filter(a -&gt; a % 2 == 0).forEach(System.out::println);</pre>
@@ -143,7 +155,19 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://ideone.com/LzUoM6">Live on Ideone</a></p><p>Output:</p><blockquote id="ad3a6217-43ee-42a2-ba9a-90ed84a0a6c7" class="">2 4 6 8</blockquote><p>After the terminal operation is performed, the <code>Stream</code> is consumed and cannot be reused.</p><hr id="74cd007e-2e0a-45d9-8e71-2f836919eedf"/><p>Although a given stream object cannot be reused, it’s easy to create a reusable <code>Iterable</code> that delegates to a stream pipeline. This can be useful for returning a modified view of a live data set without having to collect results into a temporary structure.</p>
+</div>
+<p><a href="https://ideone.com/LzUoM6">Live on Ideone</a>
+</p>
+<p>Output:
+</p>
+<blockquote id="ad3a6217-43ee-42a2-ba9a-90ed84a0a6c7" class="">2 4 6 8
+</blockquote>
+<p>After the terminal operation is performed, the <code>Stream</code> is consumed and cannot be reused.
+</p>
+<hr id="74cd007e-2e0a-45d9-8e71-2f836919eedf"/>
+<p>Although a given stream object cannot be reused, it’s easy to create a reusable <code>Iterable</code> that delegates to a stream pipeline. This can be useful for returning a modified view of a live data set without having to collect results into a temporary structure.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">List&lt;String&gt; list = Arrays.asList(&#34;FOO&#34;, &#34;BAR&#34;);
@@ -159,7 +183,23 @@ for (String str : iterable) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output:</p><blockquote id="fd0e0448-e167-468c-9d65-e77a7c6e49c2" class="">foo bar foo bar</blockquote><p>This works because <code>Iterable</code> declares a single abstract method <code>Iterator&lt;T&gt; iterator()</code>. That makes it effectively a functional interface, implemented by a lambda that creates a new stream on each call.</p><hr id="f277ab8f-c0dc-48f9-9297-e4c38b34ef32"/><p>In general, a <code>Stream</code> operates as shown in the following image:</p><h2 id="c13552c7-0c94-4862-9e42-73366570d95a" class=""><a class="header-anchor" href="#c13552c7-0c94-4862-9e42-73366570d95a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><img class="img" src="/img/071af59434ea96484148579305154bba620f6f2b.jpg"><p><strong>NOTE</strong>: Argument checks are always performed, even without a <em>terminal operation</em>:</p>
+</div>
+<p>Output:
+</p>
+<blockquote id="fd0e0448-e167-468c-9d65-e77a7c6e49c2" class="">foo bar foo bar
+</blockquote>
+<p>This works because <code>Iterable</code> declares a single abstract method <code>Iterator&lt;T&gt; iterator()</code>. That makes it effectively a functional interface, implemented by a lambda that creates a new stream on each call.
+</p>
+<hr id="f277ab8f-c0dc-48f9-9297-e4c38b34ef32"/>
+<p>In general, a <code>Stream</code> operates as shown in the following image:
+</p>
+  <h2 id="c13552c7-0c94-4862-9e42-73366570d95a" class="">
+  <a class="header-anchor" href="#c13552c7-0c94-4862-9e42-73366570d95a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<img class="img" src="/img/071af59434ea96484148579305154bba620f6f2b.jpg">
+<p><strong>NOTE</strong>: Argument checks are always performed, even without a <em>terminal operation</em>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">try {
@@ -171,7 +211,13 @@ for (String str : iterable) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://ideone.com/zrkoRz">Live on Ideone</a></p><p>Output:</p><blockquote id="33aa3036-8c8b-4cbf-b639-6428fb82b869" class="">We got a NullPointerException as null was passed as an argument to filter()</blockquote>
+</div>
+<p><a href="https://ideone.com/zrkoRz">Live on Ideone</a>
+</p>
+<p>Output:
+</p>
+<blockquote id="33aa3036-8c8b-4cbf-b639-6428fb82b869" class="">We got a NullPointerException as null was passed as an argument to filter()
+</blockquote>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

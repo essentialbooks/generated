@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The simplest form of macro replacement is to define a <code>manifest constant</code>, as in</p>
+      
+<p>The simplest form of macro replacement is to define a <code>manifest constant</code>, as in
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define ARRSIZE 100
@@ -136,7 +139,10 @@ int array[ARRSIZE];</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This defines a <em>function-like</em> macro that multiplies a variable by <code>10</code> and stores the new value:</p>
+</div>
+<p>This defines a <em>function-like</em> macro that multiplies a variable by <code>10</code> and stores the new value:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define TIMES10(A) ((A) *= 10)
@@ -151,7 +157,10 @@ TIMES10(5);   // bad:  ((5) *= 10);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The replacement is done before any other interpretation of the program text. In the first call to <code>TIMES10</code> the name <code>A</code> from the definition is replaced by <code>b</code> and the so expanded text is then put in place of the call. Note that this definition of <code>TIMES10</code> is not equivalent to</p>
+</div>
+<p>The replacement is done before any other interpretation of the program text. In the first call to <code>TIMES10</code> the name <code>A</code> from the definition is replaced by <code>b</code> and the so expanded text is then put in place of the call. Note that this definition of <code>TIMES10</code> is not equivalent to
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define TIMES10(A) ((A) = (A) * 10)</pre>
@@ -159,7 +168,12 @@ TIMES10(5);   // bad:  ((5) *= 10);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>because this could evaluate the replacement of <code>A</code>, twice, which can have unwanted side effects.</p><p>The following defines a function-like macro which value is the maximum of its arguments. It has the advantages of working for any compatible types of the arguments and of generating in-line code without the overhead of function calling. It has the disadvantages of evaluating one or the other of its arguments a second time (including side effects) and of generating more code than a function if invoked several times.</p>
+</div>
+<p>because this could evaluate the replacement of <code>A</code>, twice, which can have unwanted side effects.
+</p>
+<p>The following defines a function-like macro which value is the maximum of its arguments. It has the advantages of working for any compatible types of the arguments and of generating in-line code without the overhead of function calling. It has the disadvantages of evaluating one or the other of its arguments a second time (including side effects) and of generating more code than a function if invoked several times.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define max(a, b) ((a) &gt; (b) ? (a) : (b))
@@ -174,7 +188,11 @@ int sideEffect = max(++i, ++j);       /* i == 4 */</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Because of this, such macros that evaluate their arguments multiple times are usually avoided in production code. Since C11 there is the <code>_Generic</code> feature that allows to avoid such multiple invocations.</p><p>The abundant parentheses in the macro expansions (right hand side of the definition) ensure that the arguments and the resulting expression are bound properly and fit well into the context in which the macro is called.</p>
+</div>
+<p>Because of this, such macros that evaluate their arguments multiple times are usually avoided in production code. Since C11 there is the <code>_Generic</code> feature that allows to avoid such multiple invocations.
+</p>
+<p>The abundant parentheses in the macro expansions (right hand side of the definition) ensure that the arguments and the resulting expression are bound properly and fit well into the context in which the macro is called.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

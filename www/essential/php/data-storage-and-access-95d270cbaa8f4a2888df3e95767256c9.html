@@ -127,7 +127,32 @@
 </div>
 
 
-      <blockquote id="823dcbe9-544c-41cc-945b-30072e091220" class="">This topic specifically talks about UTF-8 and considerations for using it with a database. If you want more information about using databases in PHP then checkout this topic.</blockquote><p><strong>Storing Data in a MySQL Database:</strong></p><ul id="03f7675e-9ca4-4990-9c42-99aa3857cd41" class="bulleted-list"><li>Specify the <code>utf8mb4</code> character set on all tables and text columns in your database. This makes MySQL physically store and retrieve values encoded natively in UTF-8.</li></ul><blockquote id="535e9699-6223-4a96-873f-8b4026582fd1" class="">MySQL will implicitly use utf8mb4 encoding if a utf8mb4_* collation is specified (without any explicit character set).</blockquote><ul id="a49d919d-c381-4d77-a6e6-eb53cd848061" class="bulleted-list"><li>Older versions of MySQL (&lt; 5.5.3) do not support <code>utf8mb4</code> so you’ll be forced to use <code>utf8</code>, which only supports a subset of Unicode characters.</li></ul><p><strong>Accessing Data in a MySQL Database:</strong></p><ul id="e6663bda-4c3d-4f56-aa66-7d01a870a3b8" class="bulleted-list"><li>In your application code (e.g. PHP), in whatever DB access method you use, you’ll need to set the connection charset to <code>utf8mb4</code>. This way, MySQL does no conversion from its native UTF-8 when it hands data off to your application and vice versa.</li><li>Some drivers provide their own mechanism for configuring the connection character set, which both updates its own internal state and informs MySQL of the encoding to be used on the connection. This is usually the preferred approach.</li></ul><p>For Example (The same consideration regarding <code>utf8mb4</code>/<code>utf8</code> applies as above):</p>
+      
+<blockquote id="823dcbe9-544c-41cc-945b-30072e091220" class="">This topic specifically talks about UTF-8 and considerations for using it with a database. If you want more information about using databases in PHP then checkout this topic.
+</blockquote>
+<p><strong>Storing Data in a MySQL Database:</strong>
+</p>
+  <ul id="03f7675e-9ca4-4990-9c42-99aa3857cd41" class="bulleted-list">
+    <li>Specify the <code>utf8mb4</code> character set on all tables and text columns in your database. This makes MySQL physically store and retrieve values encoded natively in UTF-8.
+    </li>
+  </ul>
+<blockquote id="535e9699-6223-4a96-873f-8b4026582fd1" class="">MySQL will implicitly use utf8mb4 encoding if a utf8mb4_* collation is specified (without any explicit character set).
+</blockquote>
+  <ul id="a49d919d-c381-4d77-a6e6-eb53cd848061" class="bulleted-list">
+    <li>Older versions of MySQL (&lt; 5.5.3) do not support <code>utf8mb4</code> so you’ll be forced to use <code>utf8</code>, which only supports a subset of Unicode characters.
+    </li>
+  </ul>
+<p><strong>Accessing Data in a MySQL Database:</strong>
+</p>
+  <ul id="e6663bda-4c3d-4f56-aa66-7d01a870a3b8" class="bulleted-list">
+    <li>In your application code (e.g. PHP), in whatever DB access method you use, you’ll need to set the connection charset to <code>utf8mb4</code>. This way, MySQL does no conversion from its native UTF-8 when it hands data off to your application and vice versa.
+    </li>
+    <li>Some drivers provide their own mechanism for configuring the connection character set, which both updates its own internal state and informs MySQL of the encoding to be used on the connection. This is usually the preferred approach.
+    </li>
+  </ul>
+<p>For Example (The same consideration regarding <code>utf8mb4</code>/<code>utf8</code> applies as above):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">- If you&#39;re using the [PDO][1] abstraction layer with PHP &amp;ge; 5.3.6, you can specify `charset` in the [DSN][2]:

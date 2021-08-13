@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>First why we should use depedency injection in our code ? We want to decouple other components from other classes in our program. For example we have class AnimalController which have code like this :</p>
+      
+<p>First why we should use depedency injection in our code ? We want to decouple other components from other classes in our program. For example we have class AnimalController which have code like this :
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">AnimalController</span><span class="p">()</span>
@@ -143,7 +146,22 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We look at this code and we think everything is ok but now our AnimalController is reliant on object _SantaAndHisReindeer. Automatically my Controller is bad to testing and reusability of my code will be very hard.</p><p>Very good explanation why we should use Depedency Injection and interfaces <a href="http://stackoverflow.com/questions/14301389/why-does-one-use-dependency-injection">here</a>.</p><p>If we want Unity to handle DI, the road to achieve this is very simple :) With NuGet( package manager) we can easily import unity to our code.</p><blockquote id="661eb557-bca2-40d4-b0c8-4aee37b3b96e" class="">in Visual Studio Tools -&gt; NuGet Package Manager -&gt; Manage Packages for Solution -&gt; in search input write unity -&gt; choose our project-&gt; click install</blockquote><p>Now two files with nice comments will be created.</p><blockquote id="03ebb34b-3346-442d-b6b8-bf8cbde79069" class="">in App-Data folder UnityConfig.cs and UnityMvcActivator.cs</blockquote><blockquote id="0cb46560-0d39-49fc-ba9f-1f448db21b80" class="">UnityConfig - in RegisterTypes method, we can see type that will be injection in our constructors.</blockquote>
+</div>
+<p>We look at this code and we think everything is ok but now our AnimalController is reliant on object _SantaAndHisReindeer. Automatically my Controller is bad to testing and reusability of my code will be very hard.
+</p>
+<p>Very good explanation why we should use Depedency Injection and interfaces <a href="http://stackoverflow.com/questions/14301389/why-does-one-use-dependency-injection">here</a>.
+</p>
+<p>If we want Unity to handle DI, the road to achieve this is very simple :) With NuGet( package manager) we can easily import unity to our code.
+</p>
+<blockquote id="661eb557-bca2-40d4-b0c8-4aee37b3b96e" class="">in Visual Studio Tools -&gt; NuGet Package Manager -&gt; Manage Packages for Solution -&gt; in search input write unity -&gt; choose our project-&gt; click install
+</blockquote>
+<p>Now two files with nice comments will be created.
+</p>
+<blockquote id="03ebb34b-3346-442d-b6b8-bf8cbde79069" class="">in App-Data folder UnityConfig.cs and UnityMvcActivator.cs
+</blockquote>
+<blockquote id="0cb46560-0d39-49fc-ba9f-1f448db21b80" class="">UnityConfig - in RegisterTypes method, we can see type that will be injection in our constructors.
+</blockquote>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">namespace</span> <span class="nn">Vegan.WebUi.App_Start</span>
@@ -190,7 +208,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="71ed369d-4d7a-4083-8139-20cacba5ed76" class="">UnityMvcActivator - &gt; also with nice comments which say that this class integrates Unity with ASP.NET MVC</blockquote>
+</div>
+<blockquote id="71ed369d-4d7a-4083-8139-20cacba5ed76" class="">UnityMvcActivator - &gt; also with nice comments which say that this class integrates Unity with ASP.NET MVC
+</blockquote>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">using</span> <span class="nn">System.Linq</span><span class="p">;</span>
@@ -232,7 +253,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we can decouple our Controller from class SantAndHisReindeer :)</p>
+</div>
+<p>Now we can decouple our Controller from class SantAndHisReindeer :)
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">AnimalController</span><span class="p">()</span>
@@ -249,7 +273,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="60de07a9-fbb7-49b5-88b1-c734751d0c39" class="">There is one final thing we must do before running our application.</blockquote><p>In Global.asax.cs we must add new line: UnityWebActivator.Start() which will start, configure Unity and register our types.</p>
+</div>
+<blockquote id="60de07a9-fbb7-49b5-88b1-c734751d0c39" class="">There is one final thing we must do before running our application.
+</blockquote>
+<p>In Global.asax.cs we must add new line: UnityWebActivator.Start() which will start, configure Unity and register our types.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>

@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Plenty has been <a href="https://en.wikipedia.org/wiki/Global_interpreter_lock">written</a> <a href="https://wiki.python.org/moin/GlobalInterpreterLock">about</a> <a href="https://docs.python.org/3/glossary.html#term-global-interpreter-lock">Python’s</a> <a href="http://python-notes.curiousefficiency.org/en/latest/python3/multicore_python.html">GIL</a>. It can sometimes cause confusion when dealing with multi-threaded (not to be confused with multiprocess) applications.</p><p>Here’s an example:</p>
+      
+<p>Plenty has been <a href="https://en.wikipedia.org/wiki/Global_interpreter_lock">written</a> <a href="https://wiki.python.org/moin/GlobalInterpreterLock">about</a> <a href="https://docs.python.org/3/glossary.html#term-global-interpreter-lock">Python’s</a> <a href="http://python-notes.curiousefficiency.org/en/latest/python3/multicore_python.html">GIL</a>. It can sometimes cause confusion when dealing with multi-threaded (not to be confused with multiprocess) applications.
+</p>
+<p>Here’s an example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import math
@@ -147,7 +152,12 @@ print(&#34;Calculated&#34;)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You would expect to see <code>Calculating...</code> printed out immediately after the thread is started, we wanted the calculation to happen in a new thread after all! But in actuality, you see it get printed after the calculation is complete. That is because the new thread relies on a C function (<code>math.factorial</code>) which will lock the GIL while it executes.</p><p>There are a couple ways around this. The first is to implement your factorial function in native Python. This will allow the main thread to grab control while you are inside your loop. The downside is that this solution will be <strong>a lot</strong> slower, since we’re not using the C function anymore.</p>
+</div>
+<p>You would expect to see <code>Calculating...</code> printed out immediately after the thread is started, we wanted the calculation to happen in a new thread after all! But in actuality, you see it get printed after the calculation is complete. That is because the new thread relies on a C function (<code>math.factorial</code>) which will lock the GIL while it executes.
+</p>
+<p>There are a couple ways around this. The first is to implement your factorial function in native Python. This will allow the main thread to grab control while you are inside your loop. The downside is that this solution will be <strong>a lot</strong> slower, since we’re not using the C function anymore.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def calc_fact(num):
@@ -161,7 +171,10 @@ print(&#34;Calculated&#34;)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can also <code>sleep</code> for a period of time before starting your execution. Note: this won’t actually allow your program to interrupt the computation happening inside the C function, but it will allow your main thread to continue after the spawn, which is what you may expect.</p>
+</div>
+<p>You can also <code>sleep</code> for a period of time before starting your execution. Note: this won’t actually allow your program to interrupt the computation happening inside the C function, but it will allow your main thread to continue after the spawn, which is what you may expect.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def calc_fact(num):

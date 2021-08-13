@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>If your computation produces some return value which later is required, a simple Runnable task isn’t sufficient. For such cases you can use <code>ExecutorService.submit(</code><a href="http://stackoverflow.com/documentation/java/121/concurrent-programming-threads/18630/callable-and-future#t=201609161547021506502"><code>Callable</code></a><code>&lt;T&gt;)</code> which returns a value after execution completes.</p><p>The Service will return a <a href="http://stackoverflow.com/documentation/java/121/concurrent-programming-threads/18630/callable-and-future#t=201609161547021506502"><code>Future</code></a> which you can use to retrieve the result of the task execution.</p>
+      
+<p>If your computation produces some return value which later is required, a simple Runnable task isn’t sufficient. For such cases you can use <code>ExecutorService.submit(</code><a href="http://stackoverflow.com/documentation/java/121/concurrent-programming-threads/18630/callable-and-future#t=201609161547021506502"><code>Callable</code></a><code>&lt;T&gt;)</code> which returns a value after execution completes.
+</p>
+<p>The Service will return a <a href="http://stackoverflow.com/documentation/java/121/concurrent-programming-threads/18630/callable-and-future#t=201609161547021506502"><code>Future</code></a> which you can use to retrieve the result of the task execution.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Submit a callable for execution
@@ -143,7 +148,14 @@ Future&lt;Integer&gt; future = pool.submit(new Callable&lt;Integer&gt;() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When you need to get the result of the future, call <code>future.get()</code></p><ul id="4632feb0-1300-49a8-b570-8f250ae1e507" class="bulleted-list"><li>Wait indefinitely for future to finish with a result.</li></ul>
+</div>
+<p>When you need to get the result of the future, call <code>future.get()</code>
+</p>
+  <ul id="4632feb0-1300-49a8-b570-8f250ae1e507" class="bulleted-list">
+    <li>Wait indefinitely for future to finish with a result.
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">try {
@@ -156,7 +168,12 @@ catch (InterruptedException || ExecutionException e) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="5791860c-372a-49f6-88b3-fcc400967bdc" class="bulleted-list"><li>Wait for future to finish, but no longer than specified time.</li></ul>
+</div>
+  <ul id="5791860c-372a-49f6-88b3-fcc400967bdc" class="bulleted-list">
+    <li>Wait for future to finish, but no longer than specified time.
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">try {
@@ -171,7 +188,15 @@ catch (InterruptedException || ExecutionException || TimeoutException e) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If the result of a scheduled or running task is no longer required, you can call <code>Future.cancel(boolean)</code> to cancel it.</p><ul id="b4caa495-0b14-47e0-867a-0cf50788f18d" class="bulleted-list"><li>Calling <code>cancel(false)</code> will just remove the task from the queue of tasks to be run.</li><li>Calling <code>cancel(true)</code> will <em>also</em> interrupt the task if it is currently running.</li></ul>
+</div>
+<p>If the result of a scheduled or running task is no longer required, you can call <code>Future.cancel(boolean)</code> to cancel it.
+</p>
+  <ul id="b4caa495-0b14-47e0-867a-0cf50788f18d" class="bulleted-list">
+    <li>Calling <code>cancel(false)</code> will just remove the task from the queue of tasks to be run.
+    </li>
+    <li>Calling <code>cancel(true)</code> will <em>also</em> interrupt the task if it is currently running.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

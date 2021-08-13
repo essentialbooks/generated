@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>You may want to nest cached fragments inside other cached fragments. This is called <code>Russian doll caching</code>.</p><p>The advantage of <code>Russian doll caching</code> is that if a single product is updated, all the other inner fragments can be reused when regenerating the outer fragment.</p><p>As explained in the previous section, a cached file will expire if the value of <code>updated_at</code> changes for a record on which the cached file directly depends. However, this will not expire any cache the fragment is nested within.</p><p>For example, take the following view:</p>
+      
+<p>You may want to nest cached fragments inside other cached fragments. This is called <code>Russian doll caching</code>.
+</p>
+<p>The advantage of <code>Russian doll caching</code> is that if a single product is updated, all the other inner fragments can be reused when regenerating the outer fragment.
+</p>
+<p>As explained in the previous section, a cached file will expire if the value of <code>updated_at</code> changes for a record on which the cached file directly depends. However, this will not expire any cache the fragment is nested within.
+</p>
+<p>For example, take the following view:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;% cache product do %&gt;
@@ -137,7 +146,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Which in turn renders this view:</p>
+</div>
+<p>Which in turn renders this view:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;% cache game do %&gt;
@@ -147,7 +159,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If any attribute of game is changed, the <code>updated_at</code> value will be set to the current time, thereby expiring the cache.</p><p>However, because <code>updated_at</code> will not be changed for the product object, that cache will not be expired and your app will serve stale data. To fix this, we tie the models together with the touch method:</p>
+</div>
+<p>If any attribute of game is changed, the <code>updated_at</code> value will be set to the current time, thereby expiring the cache.
+</p>
+<p>However, because <code>updated_at</code> will not be changed for the product object, that cache will not be expired and your app will serve stale data. To fix this, we tie the models together with the touch method:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Product &lt; ApplicationRecord
@@ -158,6 +175,7 @@ end</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Game &lt; ApplicationRecord

@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>You can overload the 2 unary operators:</p><ul id="96eb903f-8c95-4226-9713-0363d5f5c6da" class="bulleted-list"><li><code>++foo</code> and <code>foo++</code></li><li><code>--foo</code> and <code>foo--</code></li></ul><p>Overloading is the same for both types (<code>++</code> and <code>--</code>). Scroll down for explanation</p><p>Overloading outside of <code>class</code>/<code>struct</code>:</p>
+      
+<p>You can overload the 2 unary operators:
+</p>
+  <ul id="96eb903f-8c95-4226-9713-0363d5f5c6da" class="bulleted-list">
+    <li><code>++foo</code> and <code>foo++</code>
+    </li>
+    <li><code>--foo</code> and <code>foo--</code>
+    </li>
+  </ul>
+<p>Overloading is the same for both types (<code>++</code> and <code>--</code>). Scroll down for explanation
+</p>
+<p>Overloading outside of <code>class</code>/<code>struct</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">//Prefix operator ++foo
@@ -149,7 +162,10 @@ T operator++(T&amp; lhs, int)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Overloading inside of <code>class</code>/<code>struct</code>:</p>
+</div>
+<p>Overloading inside of <code>class</code>/<code>struct</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">//Prefix operator ++foo
@@ -171,7 +187,18 @@ T operator++(int)
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="525c5ebc-40f8-4dab-8fc6-9dd447ea09cf"/><p>Note: The prefix operator returns a reference to itself, so that you can continue operations on it. The first argument is a reference, as the prefix operator changes the object, that’s also the reason why it isn’t <code>const</code> (you wouldn’t be able to modify it otherwise).</p><hr id="fd286224-8ac9-498b-83e6-92ad891c227e"/><p>The postfix operator returns by value a temporary (the previous value), and so it cannot be a reference, as it would be a reference to a temporary, which would be garbage value at the end of the function, because the temporary variable goes out of scope). It also cannot be <code>const</code>, because you should be able to modify it directly.</p><p>The first argument is a non-<code>const</code> reference to the “calling” object, because if it were <code>const</code>, you wouldn’t be able to modify it, and if it weren’t a reference, you wouldn’t change the original value.</p><p>It is because of the copying needed in postfix operator overloads that it’s better to make it a habit to use prefix ++ instead of postfix ++ in <code>for</code> loops. From the <code>for</code> loop perspective, they’re usually functionally equivalent, but there might be a slight performance advantage to using prefix ++, especially with “fat” classes with a lot of members to copy. Example of using prefix ++ in a for loop:</p>
+</div>
+<hr id="525c5ebc-40f8-4dab-8fc6-9dd447ea09cf"/>
+<p>Note: The prefix operator returns a reference to itself, so that you can continue operations on it. The first argument is a reference, as the prefix operator changes the object, that’s also the reason why it isn’t <code>const</code> (you wouldn’t be able to modify it otherwise).
+</p>
+<hr id="fd286224-8ac9-498b-83e6-92ad891c227e"/>
+<p>The postfix operator returns by value a temporary (the previous value), and so it cannot be a reference, as it would be a reference to a temporary, which would be garbage value at the end of the function, because the temporary variable goes out of scope). It also cannot be <code>const</code>, because you should be able to modify it directly.
+</p>
+<p>The first argument is a non-<code>const</code> reference to the “calling” object, because if it were <code>const</code>, you wouldn’t be able to modify it, and if it weren’t a reference, you wouldn’t change the original value.
+</p>
+<p>It is because of the copying needed in postfix operator overloads that it’s better to make it a habit to use prefix ++ instead of postfix ++ in <code>for</code> loops. From the <code>for</code> loop perspective, they’re usually functionally equivalent, but there might be a slight performance advantage to using prefix ++, especially with “fat” classes with a lot of members to copy. Example of using prefix ++ in a for loop:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for (list&lt;string&gt;::const_iterator it = tokens.begin();

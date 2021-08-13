@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Before starting with the example I’d recommend to create a Singleton with a delegate class member so you could achieve a use case of uploading a file in the background and let the user keep using your app while the files are being uploaded even when the app is the background.</p><p>Let’s start, first, we should create an enum that represent the S3 configuration:</p>
+      
+<p>Before starting with the example I’d recommend to create a Singleton with a delegate class member so you could achieve a use case of uploading a file in the background and let the user keep using your app while the files are being uploaded even when the app is the background.
+</p>
+<p>Let’s start, first, we should create an enum that represent the S3 configuration:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">enum S3Configuration : String
@@ -142,7 +147,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, we should set the credentials when your app launch for the first time, thus, we should set them inside the <code>AppDelegate</code> at the <code>didFinishLaunchingWithOptions</code> method (pay attention that you should set your region at the <code>regionType</code> param):</p>
+</div>
+<p>Now, we should set the credentials when your app launch for the first time, thus, we should set them inside the <code>AppDelegate</code> at the <code>didFinishLaunchingWithOptions</code> method (pay attention that you should set your region at the <code>regionType</code> param):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&gt; Bool
@@ -155,7 +163,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since we are already inside the AppDelegate, we should implement the background callback that is handled by the AWS SDK:</p>
+</div>
+<p>Since we are already inside the AppDelegate, we should implement the background callback that is handled by the AWS SDK:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -&gt; Void)
@@ -171,7 +182,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, when the user will move the app to the background your upload will continue the actual upload.</p><p>In order to upload the file using the AWS SDK we will have to write the file to the device and give the SDK the actual path. For the sake of the example, imagine we have a UIImage (could be a video also..) and we will write it to a temp folder:</p>
+</div>
+<p>Now, when the user will move the app to the background your upload will continue the actual upload.
+</p>
+<p>In order to upload the file using the AWS SDK we will have to write the file to the device and give the SDK the actual path. For the sake of the example, imagine we have a UIImage (could be a video also..) and we will write it to a temp folder:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Some image....
@@ -184,7 +200,20 @@ imageData!.writeToFile(filePath, atomically: true)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>FileURL and fileName will be used for the actual uploading later.</p><p>There are 2 closures we will have to define that are provided by the AWS SDK,</p><ol id="c6fbc0e5-e3f9-4e67-aabe-c94c1d231e49" class="numbered-list" start="1"><li><code>AWSS3TransferUtilityUploadCompletionHandlerBlock</code> - A closure that notifies when the upload is done (or not)</li><li><code>AWSS3TransferUtilityUploadProgressBlock</code> - A closure that notifies each byte sent</li></ol><p>If you plan to have a Singleton you should define those types as class members. The implementation should look like this:</p>
+</div>
+<p>FileURL and fileName will be used for the actual uploading later.
+</p>
+<p>There are 2 closures we will have to define that are provided by the AWS SDK,
+</p>
+  <ol id="c6fbc0e5-e3f9-4e67-aabe-c94c1d231e49" class="numbered-list" start="1">
+    <li><code>AWSS3TransferUtilityUploadCompletionHandlerBlock</code> - A closure that notifies when the upload is done (or not)
+    </li>
+    <li><code>AWSS3TransferUtilityUploadProgressBlock</code> - A closure that notifies each byte sent
+    </li>
+  </ol>
+<p>If you plan to have a Singleton you should define those types as class members. The implementation should look like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var completionHandler : AWSS3TransferUtilityUploadCompletionHandlerBlock? =
@@ -210,7 +239,10 @@ var progressBlock : AWSS3TransferUtilityUploadProgressBlock? =
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>NOTE:</strong> If you are using a Singleton you might want to define a delegate that will report back with progress or when the file is done. If you are not using a Singleton you can create a static method that would have the relevant types:</p>
+</div>
+<p><strong>NOTE:</strong> If you are using a Singleton you might want to define a delegate that will report back with progress or when the file is done. If you are not using a Singleton you can create a static method that would have the relevant types:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">static func uploadImageToS3(fileURL : NSURL,
@@ -226,7 +258,16 @@ var progressBlock : AWSS3TransferUtilityUploadProgressBlock? =
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="8d55d3bc-0b2d-4974-adb8-77cc79c44b20" class="numbered-list" start="1"><li><code>progressFunctionUpdater</code> - will report back to a function with progress.</li><li><code>resultBlock</code> - If you return nil then upload was successfully else, you send the error object</li></ol><p>Ladies and gentlemen, the actual upload:</p>
+</div>
+  <ol id="8d55d3bc-0b2d-4974-adb8-77cc79c44b20" class="numbered-list" start="1">
+    <li><code>progressFunctionUpdater</code> - will report back to a function with progress.
+    </li>
+    <li><code>resultBlock</code> - If you return nil then upload was successfully else, you send the error object
+    </li>
+  </ol>
+<p>Ladies and gentlemen, the actual upload:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let fileData = NSData(contentsOfFile: fileURL.relativePath!)
@@ -263,7 +304,9 @@ transferUtility?.uploadData(fileData!,
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Happy S3 uploading :)</p>
+</div>
+<p>Happy S3 uploading :)
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

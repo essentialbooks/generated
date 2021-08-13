@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Making an app <strong>adaptive</strong> – that is, responding to size class changes by changing your layout – often involves lots of help from the Auto Layout system. One of the primary ways apps become adaptive is by updating the active Auto Layout constraints when a view’s size class changes.</p><p>For example, consider an app that uses a UIStackView to arrange two UILabels. We might want these labels to stack on top of each other in horizontally compact environments, but sit next to each other when we have a little more room in horizontally regular environments.</p>
+      
+<p>Making an app <strong>adaptive</strong> – that is, responding to size class changes by changing your layout – often involves lots of help from the Auto Layout system. One of the primary ways apps become adaptive is by updating the active Auto Layout constraints when a view’s size class changes.
+</p>
+<p>For example, consider an app that uses a UIStackView to arrange two UILabels. We might want these labels to stack on top of each other in horizontally compact environments, but sit next to each other when we have a little more room in horizontally regular environments.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class ViewController: UIViewController {</pre>
@@ -135,7 +140,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>var stackView: UIStackView!</p><p>override func viewDidLoad() { super.viewDidLoad()</p>
+</div>
+<p>var stackView: UIStackView!
+</p>
+<p>override func viewDidLoad() { super.viewDidLoad()
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">stackView = UIStackView()
@@ -154,7 +164,16 @@ stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true<
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>}</p><p>override func viewDidAppear(_ animated: Bool) { super.viewDidAppear(animated) updateAxis(forTraitCollection: traitCollection) }</p><p>override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) { super.traitCollectionDidChange(previousTraitCollection) updateAxis(forTraitCollection: traitCollection) }</p><p>private func updateAxis(forTraitCollection traitCollection: UITraitCollection) { switch traitCollection.horizontalSizeClass { case .regular: stackView.axis = .horizontal case .compact: stackView.axis = .vertical case .unspecified: print(“Unspecified size class!”) stackView.axis = .horizontal } }</p>
+</div>
+<p>}
+</p>
+<p>override func viewDidAppear(_ animated: Bool) { super.viewDidAppear(animated) updateAxis(forTraitCollection: traitCollection) }
+</p>
+<p>override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) { super.traitCollectionDidChange(previousTraitCollection) updateAxis(forTraitCollection: traitCollection) }
+</p>
+<p>private func updateAxis(forTraitCollection traitCollection: UITraitCollection) { switch traitCollection.horizontalSizeClass { case .regular: stackView.axis = .horizontal case .compact: stackView.axis = .vertical case .unspecified: print(“Unspecified size class!”) stackView.axis = .horizontal } }
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">}</pre>

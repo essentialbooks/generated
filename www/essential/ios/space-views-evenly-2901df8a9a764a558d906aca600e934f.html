@@ -127,7 +127,17 @@
 </div>
 
 
-      <img class="img" src="/img/60826d7a463a31cffa3ee827965dd6bda6686510.png"><p>It is common to want two views to be side by side, centered in their superview. The common answer given on Stack Overflow is to embed these two views in a <code>UIView</code> and center the <code>UIView</code>. This is not necessary or recommended. From the <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UILayoutGuide_Class_Reference/index.html">UILayoutGuide</a> docs:</p><blockquote id="ed8dbd5b-a0e5-4a74-867e-9921242c1272" class="">There are a number of costs associated with adding dummy views to your view hierarchy. First, there is the cost of creating and maintaining the view itself. Second, the dummy view is a full member of the view hierarchy, which means that it adds overhead to every task the hierarchy performs. Worst of all, the invisible dummy view can intercept messages that are intended for other views, causing problems that are very difficult to find.</blockquote><p>You can use <code>UILayoutGuide</code> to do this, instead of adding the buttons into an unnecessary <code>UIView</code>. A <code>UILayoutGuide</code> is essentially a rectangular space that can interact with Auto Layout. You put a <code>UILayoutGuide</code> on the left and right sides of the buttons and set their widths to be equal. This will center the buttons. Here is how to do it in code:</p><p><em>Visual Format Language style</em></p>
+      
+<img class="img" src="/img/60826d7a463a31cffa3ee827965dd6bda6686510.png">
+<p>It is common to want two views to be side by side, centered in their superview. The common answer given on Stack Overflow is to embed these two views in a <code>UIView</code> and center the <code>UIView</code>. This is not necessary or recommended. From the <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UILayoutGuide_Class_Reference/index.html">UILayoutGuide</a> docs:
+</p>
+<blockquote id="ed8dbd5b-a0e5-4a74-867e-9921242c1272" class="">There are a number of costs associated with adding dummy views to your view hierarchy. First, there is the cost of creating and maintaining the view itself. Second, the dummy view is a full member of the view hierarchy, which means that it adds overhead to every task the hierarchy performs. Worst of all, the invisible dummy view can intercept messages that are intended for other views, causing problems that are very difficult to find.
+</blockquote>
+<p>You can use <code>UILayoutGuide</code> to do this, instead of adding the buttons into an unnecessary <code>UIView</code>. A <code>UILayoutGuide</code> is essentially a rectangular space that can interact with Auto Layout. You put a <code>UILayoutGuide</code> on the left and right sides of the buttons and set their widths to be equal. This will center the buttons. Here is how to do it in code:
+</p>
+<p><em>Visual Format Language style</em>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">view.addSubview(button1)
@@ -157,7 +167,10 @@ leftSpace.widthAnchor.constraintEqualToAnchor(rightSpace.widthAnchor).active = t
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>Anchor Style</em></p>
+</div>
+<p><em>Anchor Style</em>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let leadingSpace = UILayoutGuide()
@@ -176,7 +189,13 @@ trailingSpace.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor).active
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You will need to add vertical constraints to this as well, but this will center the buttons in the view without adding any “dummy” views! This will save the system from wasting CPU time on displaying those “dummy” views. This example uses buttons, but you can swap buttons out for any view you want to put constraints on.</p><p>If you are supporting iOS 8 or earlier the easiest way to create this layout is to add hidden dummy views. With iOS 9 you can replace dummy views with layout guides.</p><p>Note: Interface Builder does not support layout guides yet (Xcode 7.2.1). So if you want to use them you must create your constraints in code. <a href="http://useyourloaf.com/blog/goodbye-spacer-views-hello-layout-guides/">Source</a>.</p>
+</div>
+<p>You will need to add vertical constraints to this as well, but this will center the buttons in the view without adding any “dummy” views! This will save the system from wasting CPU time on displaying those “dummy” views. This example uses buttons, but you can swap buttons out for any view you want to put constraints on.
+</p>
+<p>If you are supporting iOS 8 or earlier the easiest way to create this layout is to add hidden dummy views. With iOS 9 you can replace dummy views with layout guides.
+</p>
+<p>Note: Interface Builder does not support layout guides yet (Xcode 7.2.1). So if you want to use them you must create your constraints in code. <a href="http://useyourloaf.com/blog/goodbye-spacer-views-hello-layout-guides/">Source</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Here we have a simple class to be tested that returns a <code>Promise</code> based on the results of an external <code>ResponseProcessor</code> that takes time to execute.</p><p>For simplicty we’ll assume that the <code>processResponse</code> method won’t ever fail.</p>
+      
+<p>Here we have a simple class to be tested that returns a <code>Promise</code> based on the results of an external <code>ResponseProcessor</code> that takes time to execute.
+</p>
+<p>For simplicty we’ll assume that the <code>processResponse</code> method won’t ever fail.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import {processResponse} from &#39;../utils/response_processor&#39;;
@@ -144,7 +149,24 @@ module.exports = ping;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To test this we can leverage the following tools.</p><ol id="cc9e4711-0562-4ffd-beac-267fa64317ce" class="numbered-list" start="1"><li><a href="https://mochajs.org/"><code>mocha</code></a></li><li><a href="http://chaijs.com/"><code>chai</code></a></li><li><a href="http://sinonjs.org/"><code>sinon</code></a></li><li><a href="https://github.com/thlorenz/proxyquire"><code>proxyquire</code></a></li><li><a href="https://github.com/domenic/chai-as-promised"><code>chai-as-promised</code></a></li></ol><p>I use the following <code>test</code> script in my <code>package.json</code> file.</p>
+</div>
+<p>To test this we can leverage the following tools.
+</p>
+  <ol id="cc9e4711-0562-4ffd-beac-267fa64317ce" class="numbered-list" start="1">
+    <li><a href="https://mochajs.org/"><code>mocha</code></a>
+    </li>
+    <li><a href="http://chaijs.com/"><code>chai</code></a>
+    </li>
+    <li><a href="http://sinonjs.org/"><code>sinon</code></a>
+    </li>
+    <li><a href="https://github.com/thlorenz/proxyquire"><code>proxyquire</code></a>
+    </li>
+    <li><a href="https://github.com/domenic/chai-as-promised"><code>chai-as-promised</code></a>
+    </li>
+  </ol>
+<p>I use the following <code>test</code> script in my <code>package.json</code> file.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&#34;test&#34;: &#34;NODE_ENV=test mocha --compilers js:babel-core/register --require ./test/unit/test_helper.js  --recursive test/**/*_spec.js&#34;</pre>
@@ -152,7 +174,10 @@ module.exports = ping;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This allows me to use <code>es6</code> syntax. It references a <code>test_helper</code> that will look like</p>
+</div>
+<p>This allows me to use <code>es6</code> syntax. It references a <code>test_helper</code> that will look like
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import chai from &#39;chai&#39;;
@@ -168,7 +193,10 @@ sinonStubPromise(sinon);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>Proxyquire</code> allows us to inject our own stub in the place of the external <code>ResponseProcessor</code>. We can then use <code>sinon</code> to spy on that stub’s methods. We use the extensions to <code>chai</code> that <code>chai-as-promised</code> injects to check that the <code>ping()</code> method’s promise is <code>fullfilled</code>, and that it <code>eventually</code> returns the required response.</p>
+</div>
+<p><code>Proxyquire</code> allows us to inject our own stub in the place of the external <code>ResponseProcessor</code>. We can then use <code>sinon</code> to spy on that stub’s methods. We use the extensions to <code>chai</code> that <code>chai-as-promised</code> injects to check that the <code>ping()</code> method’s promise is <code>fullfilled</code>, and that it <code>eventually</code> returns the required response.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import {expect}       from &#39;chai&#39;;
@@ -208,7 +236,10 @@ describe(&#39;ping&#39;, () =&gt; {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now instead let’s assume you wish to test something that uses the response from <code>ping</code>.</p>
+</div>
+<p>Now instead let’s assume you wish to test something that uses the response from <code>ping</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import {ping} from &#39;./ping&#39;;
@@ -224,7 +255,20 @@ module.exports = pingWrapper;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To test the <code>pingWrapper</code> we leverage</p><ol id="a163ca9c-7a74-4155-93ac-a7191f1a489c" class="numbered-list" start="1"><li><a href="http://sinonjs.org/"><code>sinon</code></a></li><li><a href="https://github.com/thlorenz/proxyquire"><code>proxyquire</code></a></li><li><a href="https://github.com/substantial/sinon-stub-promise"><code>sinon-stub-promise</code></a></li></ol><p>As before, <code>Proxyquire</code> allows us to inject our own stub in the place of the external dependency, in this case the <code>ping</code> method we tested previously. We can then use <code>sinon</code> to spy on that stub’s methods and leverage <code>sinon-stub-promise</code> to allow us to <code>returnsPromise</code>. This promise can then be resolved or rejected as we wish in the test, in order to test the wrapper’s response to that.</p>
+</div>
+<p>To test the <code>pingWrapper</code> we leverage
+</p>
+  <ol id="a163ca9c-7a74-4155-93ac-a7191f1a489c" class="numbered-list" start="1">
+    <li><a href="http://sinonjs.org/"><code>sinon</code></a>
+    </li>
+    <li><a href="https://github.com/thlorenz/proxyquire"><code>proxyquire</code></a>
+    </li>
+    <li><a href="https://github.com/substantial/sinon-stub-promise"><code>sinon-stub-promise</code></a>
+    </li>
+  </ol>
+<p>As before, <code>Proxyquire</code> allows us to inject our own stub in the place of the external dependency, in this case the <code>ping</code> method we tested previously. We can then use <code>sinon</code> to spy on that stub’s methods and leverage <code>sinon-stub-promise</code> to allow us to <code>returnsPromise</code>. This promise can then be resolved or rejected as we wish in the test, in order to test the wrapper’s response to that.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import {expect}   from &#39;chai&#39;;

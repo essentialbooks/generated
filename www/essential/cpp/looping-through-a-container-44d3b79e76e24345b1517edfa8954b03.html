@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>In C++, looping through a sequence container <code>c</code> can be done using indexes as follows:</p>
+      
+<p>In C++, looping through a sequence container <code>c</code> can be done using indexes as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for(size_t i = 0; i &lt; c.size(); ++i) c[i] = 0;</pre>
@@ -135,7 +138,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>While simple, such writings are subject to common semantic errors, like wrong comparison operator, or wrong indexing variable:</p>
+</div>
+<p>While simple, such writings are subject to common semantic errors, like wrong comparison operator, or wrong indexing variable:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for(size_t i = 0; i &lt;= c.size(); ++j) c[i] = 0;
@@ -144,7 +150,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Looping can also be achieved for all containers using iterators, with similar drawbacks:</p>
+</div>
+<p>Looping can also be achieved for all containers using iterators, with similar drawbacks:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for(iterator it = c.begin(); it != c.end(); ++it) (*it) = 0;</pre>
@@ -152,7 +161,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>C++11 introduced range-based for loops and <code>auto</code> keyword, allowing the code to become:</p>
+</div>
+<p>C++11 introduced range-based for loops and <code>auto</code> keyword, allowing the code to become:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for(auto&amp; x : c) x = 0;</pre>
@@ -160,7 +172,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here the only parameters are the container <code>c</code>, and a variable <code>x</code> to hold the current value. This prevents the semantics errors previously pointed.</p><p>According to the C++11 standard, the underlying implementation is equivalent to:</p>
+</div>
+<p>Here the only parameters are the container <code>c</code>, and a variable <code>x</code> to hold the current value. This prevents the semantics errors previously pointed.
+</p>
+<p>According to the C++11 standard, the underlying implementation is equivalent to:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for(auto begin = c.begin(), end = c.end(); begin != end; ++begin)
@@ -171,7 +188,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In such implementation, the expression <code>auto begin = c.begin(), end = c.end();</code> forces <code>begin</code> and <code>end</code> to be of the same type, while <code>end</code> is never incremented, nor dereferenced. So the range-based for loop only works for containers defined by a pair iterator/iterator. The C++17 standard relaxes this constraint by changing the implementation to:</p>
+</div>
+<p>In such implementation, the expression <code>auto begin = c.begin(), end = c.end();</code> forces <code>begin</code> and <code>end</code> to be of the same type, while <code>end</code> is never incremented, nor dereferenced. So the range-based for loop only works for containers defined by a pair iterator/iterator. The C++17 standard relaxes this constraint by changing the implementation to:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto begin = c.begin();
@@ -184,7 +204,9 @@ for(; begin != end; ++begin)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here <code>begin</code> and <code>end</code> are allowed to be of different types, as long as they can be compared for inequality. This allows to loop through more containers, e.g. a container defined by a pair iterator/sentinel.</p>
+</div>
+<p>Here <code>begin</code> and <code>end</code> are allowed to be of different types, as long as they can be compared for inequality. This allows to loop through more containers, e.g. a container defined by a pair iterator/sentinel.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

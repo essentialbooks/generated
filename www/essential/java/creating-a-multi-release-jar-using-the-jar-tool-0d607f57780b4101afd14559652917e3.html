@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The <code>jar</code> command can be used to create a multi-release Jar containing two versions of the same class compiled for both Java 8 and Java 9, albeit with a warning telling that the classes are identical:</p>
+      
+<p>The <code>jar</code> command can be used to create a multi-release Jar containing two versions of the same class compiled for both Java 8 and Java 9, albeit with a warning telling that the classes are identical:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">C:\Users\manouti&gt;jar --create --file MR.jar -C sampleproject-base demo --release 9 -C sampleproject-9 demo
@@ -137,7 +140,10 @@ is identical to an entry already in the jar</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>--release 9</code> option tells <code>jar</code> to include everything that follows (the <code>demo</code> package inside the <code>sampleproject-9</code> directory) inside a versioned entry in the MRJAR, namely under <code>root/META-INF/versions/9</code>. The result is the following contents:</p>
+</div>
+<p>The <code>--release 9</code> option tells <code>jar</code> to include everything that follows (the <code>demo</code> package inside the <code>sampleproject-9</code> directory) inside a versioned entry in the MRJAR, namely under <code>root/META-INF/versions/9</code>. The result is the following contents:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">jar root
@@ -152,7 +158,10 @@ is identical to an entry already in the jar</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Let us now create a class called Main that prints the URL of the <code>SampleClass</code>, and add it for the Java 9 version:</p>
+</div>
+<p>Let us now create a class called Main that prints the URL of the <code>SampleClass</code>, and add it for the Java 9 version:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">demo</span><span class="p">;</span>
@@ -170,7 +179,10 @@ is identical to an entry already in the jar</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If we compile this class and re-run the jar command, we get an error:</p>
+</div>
+<p>If we compile this class and re-run the jar command, we get an error:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">C:\Users\manouti&gt;jar --create --file MR.jar -C sampleproject-base demo --release 9 -C sampleproject-9 demoentry: META-INF/versions/9/demo/Main.class, contains a new public class not found in base entries
@@ -182,7 +194,12 @@ invalid multi-release jar file MR.jar deleted</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The reason is that the <code>jar</code> tool prevents adding public classes to versioned entries if they are not added to the base entries as well. This is done so that the MRJAR exposes the same public API for the different Java versions. Note that at runtime, this rule is not required. It may be only applied by tools like <code>jar</code>. In this particular case, the purpose of <code>Main</code> is to run sample code, so we can simply add a copy in the base entry. If the class were part of a newer implementation that we only need for Java 9, it could be made non-public.</p><p>To add <code>Main</code> to the root entry, we first need to compile it to target a pre-Java 9 release. This can be done using the new <code>--release</code> option of <code>javac</code>:</p>
+</div>
+<p>The reason is that the <code>jar</code> tool prevents adding public classes to versioned entries if they are not added to the base entries as well. This is done so that the MRJAR exposes the same public API for the different Java versions. Note that at runtime, this rule is not required. It may be only applied by tools like <code>jar</code>. In this particular case, the purpose of <code>Main</code> is to run sample code, so we can simply add a copy in the base entry. If the class were part of a newer implementation that we only need for Java 9, it could be made non-public.
+</p>
+<p>To add <code>Main</code> to the root entry, we first need to compile it to target a pre-Java 9 release. This can be done using the new <code>--release</code> option of <code>javac</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">C:\Users\manouti\sampleproject-base\demo&gt;javac --release 8 Main.java
@@ -192,7 +209,10 @@ C:\Users\manouti&gt;jar --create --file MR.jar -C sampleproject-base demo --rele
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Running the Main class shows that the SampleClass gets loaded from the versioned directory:</p>
+</div>
+<p>Running the Main class shows that the SampleClass gets loaded from the versioned directory:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">C:\Users\manouti&gt;java --class-path MR.jar demo.Main

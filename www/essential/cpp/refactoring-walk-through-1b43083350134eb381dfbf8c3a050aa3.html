@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Here’s a program which might benefit from refactoring. It’s a simple program using C++11 which is intended to calculate and print all prime numbers from 1 to 100 and is based on a program that was posted on <a href="https://codereview.stackexchange.com/">CodeReview</a> for review.</p>
+      
+<p>Here’s a program which might benefit from refactoring. It’s a simple program using C++11 which is intended to calculate and print all prime numbers from 1 to 100 and is based on a program that was posted on <a href="https://codereview.stackexchange.com/">CodeReview</a> for review.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;
@@ -162,7 +165,14 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The output from this program looks like this:</p><blockquote id="0bf16207-8fa2-42e8-a2e3-5be2d49ad48b" class="">3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97</blockquote><p>The first thing we notice is that the program fails to print <code>2</code> which is a prime number. We could simply add a line of code to simply print that one constant without modifying the rest of the program, but it might be neater to <em>refactor</em> the program to split it into two parts - one that creates the prime number list an another that prints them. Here’s how that might look:</p>
+</div>
+<p>The output from this program looks like this:
+</p>
+<blockquote id="0bf16207-8fa2-42e8-a2e3-5be2d49ad48b" class="">3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97
+</blockquote>
+<p>The first thing we notice is that the program fails to print <code>2</code> which is a prime number. We could simply add a line of code to simply print that one constant without modifying the rest of the program, but it might be neater to <em>refactor</em> the program to split it into two parts - one that creates the prime number list an another that prints them. Here’s how that might look:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;
@@ -203,7 +213,14 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Trying this version, we see that it does indeed work correctly now:</p><blockquote id="1e12f0d8-503c-46d3-af40-1983643e9373" class="">2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97</blockquote><p>The next step is to notice that the second <code>if</code> clause is not really needed. The logic in the loop looks for prime factors of each given number up to the square root of that number. This works because if there are any prime factors of a number at least one of them must be less than or equal to the square root of that number. Reworking just that function (the rest of the program remains the same) we get this result:</p>
+</div>
+<p>Trying this version, we see that it does indeed work correctly now:
+</p>
+<blockquote id="1e12f0d8-503c-46d3-af40-1983643e9373" class="">2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97
+</blockquote>
+<p>The next step is to notice that the second <code>if</code> clause is not really needed. The logic in the loop looks for prime factors of each given number up to the square root of that number. This works because if there are any prime factors of a number at least one of them must be less than or equal to the square root of that number. Reworking just that function (the rest of the program remains the same) we get this result:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::vector&lt;int&gt; prime_list(int limit)
@@ -229,7 +246,10 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We can go further, changing variable names to be a bit more descriptive. For example <code>primecount</code> isn’t really a count of primes. Instead it’s an index variable into the vector of known primes. Also, while <code>no</code> is sometimes used as an abbreviation for “number”, in mathematical writing, it’s more common to use <code>n</code>. We can also make some modifications by eliminating the <code>break</code>, and by declaring variables closer to where they’re used.</p>
+</div>
+<p>We can go further, changing variable names to be a bit more descriptive. For example <code>primecount</code> isn’t really a count of primes. Instead it’s an index variable into the vector of known primes. Also, while <code>no</code> is sometimes used as an abbreviation for “number”, in mathematical writing, it’s more common to use <code>n</code>. We can also make some modifications by eliminating the <code>break</code>, and by declaring variables closer to where they’re used.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::vector&lt;int&gt; prime_list(int limit)
@@ -250,7 +270,10 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We can also refactor <code>main</code> to use a “range-for” to make it a bit neater:</p>
+</div>
+<p>We can also refactor <code>main</code> to use a “range-for” to make it a bit neater:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int main() 
@@ -265,7 +288,9 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is just one way refactoring might be done. Others might make different choices. However, the purpose for refactoring remains the same, which is to improve the readability and possibly the performance of the code without necessarily adding features.</p>
+</div>
+<p>This is just one way refactoring might be done. Others might make different choices. However, the purpose for refactoring remains the same, which is to improve the readability and possibly the performance of the code without necessarily adding features.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

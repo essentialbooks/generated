@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int a; 
@@ -136,7 +137,12 @@ printf(&#34;%d&#34;, a);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The variable <code>a</code> is an <code>int</code> with automatic storage duration. The example code above is trying to print the value of an uninitialized variable (<code>a</code> was never initialized). Automatic variables which are not initialized have indeterminate values; accessing these can lead to undefined behavior.</p><p><strong>Note:</strong> Variables with static or thread local storage, including <a href="http://stackoverflow.com/a/16016164">global variables</a> without the <code>static</code> keyword, are initialized to either zero, or their initialized value. Hence the following is legal.</p>
+</div>
+<p>The variable <code>a</code> is an <code>int</code> with automatic storage duration. The example code above is trying to print the value of an uninitialized variable (<code>a</code> was never initialized). Automatic variables which are not initialized have indeterminate values; accessing these can lead to undefined behavior.
+</p>
+<p><strong>Note:</strong> Variables with static or thread local storage, including <a href="http://stackoverflow.com/a/16016164">global variables</a> without the <code>static</code> keyword, are initialized to either zero, or their initialized value. Hence the following is legal.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">static int b;
@@ -145,7 +151,13 @@ printf(&#34;%d&#34;, b);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="bc5dad72-003b-4097-b373-7c7737b2a2b2"/><p>A very common mistake is to not initialize the variables that serve as counters to 0. You add values to them, but since the initial value is garbage, you will invoke <strong>Undefined Behavior</strong>, such as in the question <a href="http://stackoverflow.com/questions/38881622/">Compilation on terminal gives off pointer warning and strange symbols</a>.</p><p>Example:</p>
+</div>
+<hr id="bc5dad72-003b-4097-b373-7c7737b2a2b2"/>
+<p>A very common mistake is to not initialize the variables that serve as counters to 0. You add values to them, but since the initial value is garbage, you will invoke <strong>Undefined Behavior</strong>, such as in the question <a href="http://stackoverflow.com/questions/38881622/">Compilation on terminal gives off pointer warning and strange symbols</a>.
+</p>
+<p>Example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -161,7 +173,10 @@ int main(void) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output:</p>
+</div>
+<p>Output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">C02QT2UBFVH6-lm:~ gsamaras$ gcc main.c -Wall -o main
@@ -179,7 +194,10 @@ C02QT2UBFVH6-lm:~ gsamaras$ ./main
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above rules are applicable for pointers as well. For example, the following results in undefined behavior</p>
+</div>
+<p>The above rules are applicable for pointers as well. For example, the following results in undefined behavior
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int main(void)
@@ -191,7 +209,9 @@ C02QT2UBFVH6-lm:~ gsamaras$ ./main
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that the above code on its own might not cause an error or segmentation fault, but trying to dereference this pointer later would cause the undefined behavior.</p>
+</div>
+<p>Note that the above code on its own might not cause an error or segmentation fault, but trying to dereference this pointer later would cause the undefined behavior.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

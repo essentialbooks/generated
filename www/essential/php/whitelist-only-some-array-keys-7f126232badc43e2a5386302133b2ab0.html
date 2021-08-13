@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>When you want to allow only certain keys in your arrays, especially when the array comes from request parameters, you can use <code>array_intersect_key</code> together with <code>array_flip</code>.</p>
+      
+<p>When you want to allow only certain keys in your arrays, especially when the array comes from request parameters, you can use <code>array_intersect_key</code> together with <code>array_flip</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$parameters = [&#39;foo&#39; =&gt; &#39;bar&#39;, &#39;bar&#39; =&gt; &#39;baz&#39;, &#39;boo&#39; =&gt; &#39;bam&#39;];$allowedKeys = [&#39;foo&#39;, &#39;bar&#39;];$filteredParameters = array_intersect_key($parameters, array_flip($allowedKeys));// $filteredParameters contains [&#39;foo&#39; =&gt; &#39;bar&#39;, &#39;bar&#39; =&gt; &#39;baz]</pre>
@@ -135,7 +138,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If the <code>parameters</code> variable doesn’t contain any allowed key, then the <code>filteredParameters</code> variable will consist of an empty array.</p><p>Since PHP 5.6 you can use <a href="http://php.net/manual/en/function.array-filter.php#refsect1-function.array-filter-changelog"><code>array_filter</code></a> for this task too, passing the <a href="http://php.net/manual/en/array.constants.php#constant.array-filter-use-key"><code>ARRAY_FILTER_USE_KEY</code></a> flag as the third parameter:</p>
+</div>
+<p>If the <code>parameters</code> variable doesn’t contain any allowed key, then the <code>filteredParameters</code> variable will consist of an empty array.
+</p>
+<p>Since PHP 5.6 you can use <a href="http://php.net/manual/en/function.array-filter.php#refsect1-function.array-filter-changelog"><code>array_filter</code></a> for this task too, passing the <a href="http://php.net/manual/en/array.constants.php#constant.array-filter-use-key"><code>ARRAY_FILTER_USE_KEY</code></a> flag as the third parameter:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$parameters  = [&#39;foo&#39; =&gt; 1, &#39;hello&#39; =&gt; &#39;world&#39;];$allowedKeys = [&#39;foo&#39;, &#39;bar&#39;];$filteredParameters = array_filter($parameters,function ($key) use ($allowedKeys) {return in_array($key, $allowedKeys);},ARRAY_FILTER_USE_KEY);</pre>
@@ -143,7 +151,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Using <code>array_filter</code> gives the additional flexibility of performing an arbitrary test against the key, e.g. <code>$allowedKeys</code> could contain regex patterns instead of plain strings. It also more explicitly states the intention of the code than <code>array_intersect_key()</code> combined with <code>array_flip()</code>.</p>
+</div>
+<p>Using <code>array_filter</code> gives the additional flexibility of performing an arbitrary test against the key, e.g. <code>$allowedKeys</code> could contain regex patterns instead of plain strings. It also more explicitly states the intention of the code than <code>array_intersect_key()</code> combined with <code>array_flip()</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

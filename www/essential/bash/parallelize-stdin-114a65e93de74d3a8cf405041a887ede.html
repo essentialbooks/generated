@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Now, let’s imagine we have 1 large file (e.g. 30 GB) that needs to be converted, line by line. Say we have a script, <code>convert.sh</code>, that does this <code>&lt;task&gt;</code>. We can pipe contents of this file to stdin for parallel to take in and work with in <em>chunks</em> such as</p>
+      
+<p>Now, let’s imagine we have 1 large file (e.g. 30 GB) that needs to be converted, line by line. Say we have a script, <code>convert.sh</code>, that does this <code>&lt;task&gt;</code>. We can pipe contents of this file to stdin for parallel to take in and work with in <em>chunks</em> such as
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;stdin&gt; | parallel --pipe --block &lt;block size&gt; -k &lt;task&gt; &gt; output.txt</pre>
@@ -135,7 +138,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>where <code>&lt;stdin&gt;</code> can originate from anything such as <code>cat &lt;file&gt;</code>.</p><p>As a reproducible example, our task will be <code>nl -n rz</code>. Take any file, mine will be <code>data.bz2</code>, and pass it to <code>&lt;stdin&gt;</code></p>
+</div>
+<p>where <code>&lt;stdin&gt;</code> can originate from anything such as <code>cat &lt;file&gt;</code>.
+</p>
+<p>As a reproducible example, our task will be <code>nl -n rz</code>. Take any file, mine will be <code>data.bz2</code>, and pass it to <code>&lt;stdin&gt;</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">bzcat data.bz2 | nl | parallel --pipe --block 10M -k nl -n rz | gzip &gt; ouptput.gz</pre>
@@ -143,7 +151,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above example takes <code>&lt;stdin&gt;</code> from <code>bzcat data.bz2 | nl</code>, where I included <code>nl</code> just as a proof of concept that the final output <code>output.gz</code> will be saved in the order it was received. Then, <code>parallel</code> divides the <code>&lt;stdin&gt;</code> into chunks of size 10 MB, and for each chunk it passes it through <code>nl -n rz</code> where it just appends a numbers rightly justified (see <code>nl --help</code> for further details). The options <code>--pipe</code> tells <code>parallel</code> to split <code>&lt;stdin&gt;</code> into multiple jobs and <code>-- block</code> specifies the size of the blocks. The option <code>-k</code> specifies that ordering must be maintained.</p><p>Your final output should look something like</p>
+</div>
+<p>The above example takes <code>&lt;stdin&gt;</code> from <code>bzcat data.bz2 | nl</code>, where I included <code>nl</code> just as a proof of concept that the final output <code>output.gz</code> will be saved in the order it was received. Then, <code>parallel</code> divides the <code>&lt;stdin&gt;</code> into chunks of size 10 MB, and for each chunk it passes it through <code>nl -n rz</code> where it just appends a numbers rightly justified (see <code>nl --help</code> for further details). The options <code>--pipe</code> tells <code>parallel</code> to split <code>&lt;stdin&gt;</code> into multiple jobs and <code>-- block</code> specifies the size of the blocks. The option <code>-k</code> specifies that ordering must be maintained.
+</p>
+<p>Your final output should look something like
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">000001       1  &lt;data&gt;
@@ -161,7 +174,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>My original file had 552,413 lines. The first column represents the parallel jobs, and the second column represents the original line numbering that was passed to <code>parallel</code> in chunks. You should notice that the order in the second column (and rest of the file) is maintained.</p>
+</div>
+<p>My original file had 552,413 lines. The first column represents the parallel jobs, and the second column represents the original line numbering that was passed to <code>parallel</code> in chunks. You should notice that the order in the second column (and rest of the file) is maintained.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

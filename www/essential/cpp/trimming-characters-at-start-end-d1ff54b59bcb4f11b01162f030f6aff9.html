@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>This example requires the headers <a href="http://en.cppreference.com/w/cpp/header/algorithm"><code>&lt;algorithm&gt;</code></a>, <a href="http://en.cppreference.com/w/cpp/header/locale"><code>&lt;locale&gt;</code></a>, and <a href="http://en.cppreference.com/w/cpp/header/utility"><code>&lt;utility&gt;</code></a>.</p><p>To <em>trim</em> a sequence or string means to remove all leading and trailing elements (or characters) matching a certain predicate. We first trim the trailing elements, because it doesn’t involve moving any elements, and then trim the leading elements. Note that the generalizations below work for all types of <code>std::basic_string</code> (e.g. <code>std::string</code> and <code>std::wstring</code>), and accidentally also for sequence containers (e.g. <code>std::vector</code> and <code>std::list</code>).</p>
+      
+<p>This example requires the headers <a href="http://en.cppreference.com/w/cpp/header/algorithm"><code>&lt;algorithm&gt;</code></a>, <a href="http://en.cppreference.com/w/cpp/header/locale"><code>&lt;locale&gt;</code></a>, and <a href="http://en.cppreference.com/w/cpp/header/utility"><code>&lt;utility&gt;</code></a>.
+</p>
+<p>To <em>trim</em> a sequence or string means to remove all leading and trailing elements (or characters) matching a certain predicate. We first trim the trailing elements, because it doesn’t involve moving any elements, and then trim the leading elements. Note that the generalizations below work for all types of <code>std::basic_string</code> (e.g. <code>std::string</code> and <code>std::wstring</code>), and accidentally also for sequence containers (e.g. <code>std::vector</code> and <code>std::list</code>).
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Sequence</span><span class="p">,</span> <span class="c1">// any basic_string, vector, list etc.
@@ -140,7 +145,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Trimming the trailing elements involves finding the <em>last</em> element not matching the predicate, and erasing from there on:</p>
+</div>
+<p>Trimming the trailing elements involves finding the <em>last</em> element not matching the predicate, and erasing from there on:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Sequence</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Pred</span><span class="o">&gt;</span>
@@ -156,7 +164,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Trimming the leading elements involves finding the <em>first</em> element not matching the predicate and erasing up to there:</p>
+</div>
+<p>Trimming the leading elements involves finding the <em>first</em> element not matching the predicate and erasing up to there:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Sequence</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Pred</span><span class="o">&gt;</span>
@@ -172,7 +183,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To specialize the above for trimming whitespace in a <code>std::string</code> we can use the <a href="http://en.cppreference.com/w/cpp/locale/isspace"><code>std::isspace()</code></a> function as a predicate:</p>
+</div>
+<p>To specialize the above for trimming whitespace in a <code>std::string</code> we can use the <a href="http://en.cppreference.com/w/cpp/locale/isspace"><code>std::isspace()</code></a> function as a predicate:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">trim</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">locale</span><span class="o">&amp;</span> <span class="n">loc</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">locale</span><span class="p">())</span> <span class="p">{</span>
@@ -191,7 +205,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Similarly, we can use the <a href="http://en.cppreference.com/w/cpp/string/wide/iswspace"><code>std::iswspace()</code></a> function for <code>std::wstring</code> etc.</p><p>If you wish to create a <em>new</em> sequence that is a trimmed copy, then you can use a separate function:</p>
+</div>
+<p>Similarly, we can use the <a href="http://en.cppreference.com/w/cpp/string/wide/iswspace"><code>std::iswspace()</code></a> function for <code>std::wstring</code> etc.
+</p>
+<p>If you wish to create a <em>new</em> sequence that is a trimmed copy, then you can use a separate function:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Sequence</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Pred</span><span class="o">&gt;</span>

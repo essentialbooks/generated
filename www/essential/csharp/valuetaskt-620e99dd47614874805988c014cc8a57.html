@@ -127,7 +127,25 @@
 </div>
 
 
-      <p><code>Task&lt;T&gt;</code> is a <strong>class</strong> and causes the unnecessary overhead of its allocation when the result is immediately available.</p><p><code>ValueTask&lt;T&gt;</code> is a <strong>structure</strong> and has been introduced to prevent the allocation of a <code>Task</code> object in case the result of the <strong>async</strong> operation is already available at the time of awaiting.</p><p>So <code>ValueTask&lt;T&gt;</code> provides two benefits:</p><h1 id="e5cc32dd-27d7-48a7-b8d4-d92c7477ba32" class="">1. Performance increase<a class="header-anchor" href="#e5cc32dd-27d7-48a7-b8d4-d92c7477ba32" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Here’s a <code>Task&lt;T&gt;</code> example:</p><ul id="a5be9746-dbdf-465a-af7d-ef7815094826" class="bulleted-list"><li>Requires heap allocation</li><li>Takes 120ns with JIT</li></ul>
+      
+<p><code>Task&lt;T&gt;</code> is a <strong>class</strong> and causes the unnecessary overhead of its allocation when the result is immediately available.
+</p>
+<p><code>ValueTask&lt;T&gt;</code> is a <strong>structure</strong> and has been introduced to prevent the allocation of a <code>Task</code> object in case the result of the <strong>async</strong> operation is already available at the time of awaiting.
+</p>
+<p>So <code>ValueTask&lt;T&gt;</code> provides two benefits:
+</p>
+  <h1 id="e5cc32dd-27d7-48a7-b8d4-d92c7477ba32" class="">1. Performance increase
+  <a class="header-anchor" href="#e5cc32dd-27d7-48a7-b8d4-d92c7477ba32" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Here’s a <code>Task&lt;T&gt;</code> example:
+</p>
+  <ul id="a5be9746-dbdf-465a-af7d-ef7815094826" class="bulleted-list">
+    <li>Requires heap allocation
+    </li>
+    <li>Takes 120ns with JIT
+    </li>
+  </ul>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">TestTask</span><span class="p">(</span><span class="kt">int</span> <span class="n">d</span><span class="p">)</span>
@@ -140,7 +158,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here’s the analog <code>ValueTask&lt;T&gt;</code> example:</p><ul id="2f186a50-481a-413c-b4f8-164fe8c16d53" class="bulleted-list"><li>No heap allocation if the result is known synchronously (which it is not in this case because of the <code>Task.Delay</code>, but often is in many real-world <code>async</code>/<code>await</code> scenarios)</li><li>Takes 65ns with JIT</li></ul>
+</div>
+<p>Here’s the analog <code>ValueTask&lt;T&gt;</code> example:
+</p>
+  <ul id="2f186a50-481a-413c-b4f8-164fe8c16d53" class="bulleted-list">
+    <li>No heap allocation if the result is known synchronously (which it is not in this case because of the <code>Task.Delay</code>, but often is in many real-world <code>async</code>/<code>await</code> scenarios)
+    </li>
+    <li>Takes 65ns with JIT
+    </li>
+  </ul>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">async</span> <span class="n">ValueTask</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">TestValueTask</span><span class="p">(</span><span class="kt">int</span> <span class="n">d</span><span class="p">)</span>
@@ -153,7 +180,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="4be4c035-ad08-480c-bd10-873e0ad2d9f6" class="">2. Increased implementation flexibility<a class="header-anchor" href="#4be4c035-ad08-480c-bd10-873e0ad2d9f6" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Implementations of an async interface wishing to be synchronous would otherwise be forced to use either <code>Task.Run</code> or <code>Task.FromResult</code> (resulting in the performance penalty discussed above). Thus there’s some pressure against synchronous implementations.</p><p>But with <code>ValueTask&lt;T&gt;</code>, implementations are more free to choose between being synchronous or asynchronous without impacting callers.</p><p>For example, here’s an interface with an asynchronous method:</p>
+</div>
+  <h1 id="4be4c035-ad08-480c-bd10-873e0ad2d9f6" class="">2. Increased implementation flexibility
+  <a class="header-anchor" href="#4be4c035-ad08-480c-bd10-873e0ad2d9f6" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Implementations of an async interface wishing to be synchronous would otherwise be forced to use either <code>Task.Run</code> or <code>Task.FromResult</code> (resulting in the performance penalty discussed above). Thus there’s some pressure against synchronous implementations.
+</p>
+<p>But with <code>ValueTask&lt;T&gt;</code>, implementations are more free to choose between being synchronous or asynchronous without impacting callers.
+</p>
+<p>For example, here’s an interface with an asynchronous method:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">interface</span> <span class="n">IFoo</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
@@ -165,7 +202,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>…and here’s how that method might be called:</p>
+</div>
+<p>…and here’s how that method might be called:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">IFoo</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">thing</span> <span class="p">=</span> <span class="n">getThing</span><span class="p">();</span>
@@ -175,7 +215,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With <code>ValueTask</code>, the above code will work with <strong>either synchronous or asynchronous implementations</strong>:</p><h2 id="3c3e04e9-f3ec-4b2f-9bba-52df2c6c8b66" class="">Synchronous implementation:<a class="header-anchor" href="#3c3e04e9-f3ec-4b2f-9bba-52df2c6c8b66" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+</div>
+<p>With <code>ValueTask</code>, the above code will work with <strong>either synchronous or asynchronous implementations</strong>:
+</p>
+  <h2 id="3c3e04e9-f3ec-4b2f-9bba-52df2c6c8b66" class="">Synchronous implementation:
+  <a class="header-anchor" href="#3c3e04e9-f3ec-4b2f-9bba-52df2c6c8b66" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">SynchronousFoo</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">IFoo</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
@@ -191,7 +237,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="b6ff0fd1-6bb3-4f17-ba29-944edd2a9b7d" class="">Asynchronous implementation<a class="header-anchor" href="#b6ff0fd1-6bb3-4f17-ba29-944edd2a9b7d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+</div>
+  <h2 id="b6ff0fd1-6bb3-4f17-ba29-944edd2a9b7d" class="">Asynchronous implementation
+  <a class="header-anchor" href="#b6ff0fd1-6bb3-4f17-ba29-944edd2a9b7d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">AsynchronousFoo</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">IFoo</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
@@ -208,7 +258,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="cd0f9a35-dd23-4aa5-9def-696366dd647a" class="">Notes<a class="header-anchor" href="#cd0f9a35-dd23-4aa5-9def-696366dd647a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Although <code>ValueTask</code> struct was being planned to be added to <a href="https://blogs.msdn.microsoft.com/dotnet/2016/08/24/whats-new-in-csharp-7-0/">C# 7.0</a>, it has been kept as another library for the time being. http://stackoverflow.com/documentation/c%23/1936/c-sharp-7-0-features/28612/valuetaskt# <code>System.Threading.Tasks.Extensions</code> package can be downloaded from <a href="https://www.nuget.org/packages/System.Threading.Tasks.Extensions/">Nuget Gallery</a></p>
+</div>
+  <h1 id="cd0f9a35-dd23-4aa5-9def-696366dd647a" class="">Notes
+  <a class="header-anchor" href="#cd0f9a35-dd23-4aa5-9def-696366dd647a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Although <code>ValueTask</code> struct was being planned to be added to <a href="https://blogs.msdn.microsoft.com/dotnet/2016/08/24/whats-new-in-csharp-7-0/">C# 7.0</a>, it has been kept as another library for the time being. http://stackoverflow.com/documentation/c%23/1936/c-sharp-7-0-features/28612/valuetaskt# <code>System.Threading.Tasks.Extensions</code> package can be downloaded from <a href="https://www.nuget.org/packages/System.Threading.Tasks.Extensions/">Nuget Gallery</a>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

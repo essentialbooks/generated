@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>If your class doesn’t implement a specific overloaded operator for the argument types provided, it should <code>return NotImplemented</code> (<strong>note</strong> that this is a <a href="https://docs.python.org/3/library/constants.html#NotImplemented">special constant</a>, not the same as <code>NotImplementedError</code>). This will allow Python to fall back to trying other methods to make the operation work:</p><blockquote id="8e00113c-1395-414e-a4ab-ecbdb227be4d" class="">When NotImplemented is returned, the interpreter will then try the reflected operation on the other type, or some other fallback, depending on the operator. If all attempted operations return NotImplemented, the interpreter will raise an appropriate exception.</blockquote><p>For example, given <code>x + y</code>, if <code>x.__add__(y)</code> returns unimplemented, <code>y.__radd__(x)</code> is attempted instead.</p>
+      
+<p>If your class doesn’t implement a specific overloaded operator for the argument types provided, it should <code>return NotImplemented</code> (<strong>note</strong> that this is a <a href="https://docs.python.org/3/library/constants.html#NotImplemented">special constant</a>, not the same as <code>NotImplementedError</code>). This will allow Python to fall back to trying other methods to make the operation work:
+</p>
+<blockquote id="8e00113c-1395-414e-a4ab-ecbdb227be4d" class="">When NotImplemented is returned, the interpreter will then try the reflected operation on the other type, or some other fallback, depending on the operator. If all attempted operations return NotImplemented, the interpreter will raise an appropriate exception.
+</blockquote>
+<p>For example, given <code>x + y</code>, if <code>x.__add__(y)</code> returns unimplemented, <code>y.__radd__(x)</code> is attempted instead.
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">NotAddable</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -148,7 +155,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As this is the <em>reflected</em> method we have to implement <code>__add__</code> <strong>and</strong> <code>__radd__</code> to get the expected behaviour in all cases; fortunately, as they are both doing the same thing in this simple example, we can take a shortcut.</p><p>In use:</p>
+</div>
+<p>As this is the <em>reflected</em> method we have to implement <code>__add__</code> <strong>and</strong> <code>__radd__</code> to get the expected behaviour in all cases; fortunately, as they are both doing the same thing in this simple example, we can take a shortcut.
+</p>
+<p>In use:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; x = NotAddable(1)

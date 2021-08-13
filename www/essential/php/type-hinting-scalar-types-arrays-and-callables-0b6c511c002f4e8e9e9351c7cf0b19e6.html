@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>Support for type hinting array parameters (and return values after PHP 7.1) was added in PHP 5.1 with the keyword <code>array</code>. Any arrays of any dimensions and types, as well as empty arrays, are valid values.</p><p>Support for type hinting callables was added in PHP 5.4. Any value that <code>is_callable()</code> is valid for parameters and return values hinted <code>callable</code>, i.e. <code>Closure</code> objects, function name strings and <code>array(class_name|object, method_name)</code>.</p><p>If a typo occurs in the function name such that it is not <code>is_callable()</code>, a less obvious error message would be displayed:</p><blockquote id="93078da9-51d6-4016-92c5-66e09883fc49" class="">Fatal error: Uncaught TypeError: Argument 1 passed to foo() must be of the type callable, string/array given</blockquote>
+      
+<p>Support for type hinting array parameters (and return values after PHP 7.1) was added in PHP 5.1 with the keyword <code>array</code>. Any arrays of any dimensions and types, as well as empty arrays, are valid values.
+</p>
+<p>Support for type hinting callables was added in PHP 5.4. Any value that <code>is_callable()</code> is valid for parameters and return values hinted <code>callable</code>, i.e. <code>Closure</code> objects, function name strings and <code>array(class_name|object, method_name)</code>.
+</p>
+<p>If a typo occurs in the function name such that it is not <code>is_callable()</code>, a less obvious error message would be displayed:
+</p>
+<blockquote id="93078da9-51d6-4016-92c5-66e09883fc49" class="">Fatal error: Uncaught TypeError: Argument 1 passed to foo() must be of the type callable, string/array given
+</blockquote>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">function foo(callable $c) {}
@@ -142,7 +151,12 @@ foo(&#34;no_such_function&#34;); // callable expected, string given</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Nonstatic methods can also be passed as callables in static format, resulting in a deprecation warning and level E_STRICT error in PHP 7 and 5 respectively.</p><p>Method visibility is taken into account. If the <em>context of the method with the </em><code><em>callable</em></code><em> parameter</em> does not have access to the callable provided, it will end up as if the method does not exist.</p>
+</div>
+<p>Nonstatic methods can also be passed as callables in static format, resulting in a deprecation warning and level E_STRICT error in PHP 7 and 5 respectively.
+</p>
+<p>Method visibility is taken into account. If the <em>context of the method with the </em><code><em>callable</em></code><em> parameter</em> does not have access to the callable provided, it will end up as if the method does not exist.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Foo{
@@ -163,7 +177,14 @@ r([&#34;Foo&#34;, &#34;f&#34;]);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output:</p><blockquote id="4775fae7-a79f-4df2-89dc-6a52c9410c1d" class="">Fatal error: Uncaught TypeError: Argument 1 passed to r() must be callable, array given</blockquote><p>Support for type hinting scalar types was added in PHP 7. This means that we gain type hinting support for <code>boolean</code>s, <code>integer</code>s, <code>float</code>s and <code>string</code>s.</p>
+</div>
+<p>Output:
+</p>
+<blockquote id="4775fae7-a79f-4df2-89dc-6a52c9410c1d" class="">Fatal error: Uncaught TypeError: Argument 1 passed to r() must be callable, array given
+</blockquote>
+<p>Support for type hinting scalar types was added in PHP 7. This means that we gain type hinting support for <code>boolean</code>s, <code>integer</code>s, <code>float</code>s and <code>string</code>s.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;?php
@@ -177,7 +198,12 @@ var_dump(add(1, 2)); // Outputs &#34;int(3)&#34;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>By default, PHP will attempt to cast any provided argument to match its type hint. Changing the call to <code>add(1.5, 2)</code> gives exactly the same output, since the float <code>1.5</code> was cast to <code>int</code> by PHP.</p><p>To stop this behavior, one must add <code>declare(strict_types=1);</code> to the top of every PHP source file that requires it.</p>
+</div>
+<p>By default, PHP will attempt to cast any provided argument to match its type hint. Changing the call to <code>add(1.5, 2)</code> gives exactly the same output, since the float <code>1.5</code> was cast to <code>int</code> by PHP.
+</p>
+<p>To stop this behavior, one must add <code>declare(strict_types=1);</code> to the top of every PHP source file that requires it.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;?php
@@ -193,7 +219,20 @@ var_dump(add(1.5, 2));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above script now produces a fatal error:</p><blockquote id="b8b7150f-ba8a-4006-bb6f-56e166647098" class="">Fatal error: Uncaught TypeError: Argument 1 passed to add() must be of the type integer, float given</blockquote><h1 id="6241c307-126e-423f-aec4-0d13cad3c77b" class="">An Exception: Special Types<a class="header-anchor" href="#6241c307-126e-423f-aec4-0d13cad3c77b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Some PHP functions may return a value of type <code>resource</code>. Since this is not a scalar type, but a special type, it is not possible to type hint it.</p><p>As an example, <code>curl_init()</code> will return a <code>resource</code>, as well as <code>fopen()</code>. Of course, those two resources aren’t compatible to each other. Because of that, PHP 7 will <em>always</em> throw the following TypeError when type hinting <code>resource</code> explicitly:</p><blockquote id="4622459d-0691-4d23-b059-bcaf3dfaa37d" class="">TypeError: Argument 1 passed to sample() must be an instance of resource, resource given</blockquote>
+</div>
+<p>The above script now produces a fatal error:
+</p>
+<blockquote id="b8b7150f-ba8a-4006-bb6f-56e166647098" class="">Fatal error: Uncaught TypeError: Argument 1 passed to add() must be of the type integer, float given
+</blockquote>
+  <h1 id="6241c307-126e-423f-aec4-0d13cad3c77b" class="">An Exception: Special Types
+  <a class="header-anchor" href="#6241c307-126e-423f-aec4-0d13cad3c77b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Some PHP functions may return a value of type <code>resource</code>. Since this is not a scalar type, but a special type, it is not possible to type hint it.
+</p>
+<p>As an example, <code>curl_init()</code> will return a <code>resource</code>, as well as <code>fopen()</code>. Of course, those two resources aren’t compatible to each other. Because of that, PHP 7 will <em>always</em> throw the following TypeError when type hinting <code>resource</code> explicitly:
+</p>
+<blockquote id="4622459d-0691-4d23-b059-bcaf3dfaa37d" class="">TypeError: Argument 1 passed to sample() must be an instance of resource, resource given
+</blockquote>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

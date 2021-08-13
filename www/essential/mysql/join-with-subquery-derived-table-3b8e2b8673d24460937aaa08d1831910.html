@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">SELECT</span> <span class="n">x</span><span class="p">,</span> <span class="p">...</span>
@@ -138,7 +139,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will evaluate the subquery into a temp table, then <code>JOIN</code> that to <code>tbl</code>.</p><p>Prior to 5.6, there could not be an index on the temp table. So, this was potentially very inefficient:</p>
+</div>
+<p>This will evaluate the subquery into a temp table, then <code>JOIN</code> that to <code>tbl</code>.
+</p>
+<p>Prior to 5.6, there could not be an index on the temp table. So, this was potentially very inefficient:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">SELECT</span> <span class="p">...</span>
@@ -149,7 +155,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With 5.6, the optimizer figures out the best index and creates it on the fly. (This has some overhead, so it is still not ‘perfect’.)</p><p>Another common paradigm is to have a subquery to initialize something:</p>
+</div>
+<p>With 5.6, the optimizer figures out the best index and creates it on the fly. (This has some overhead, so it is still not ‘perfect’.)
+</p>
+<p>Another common paradigm is to have a subquery to initialize something:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">SELECT</span> 
@@ -162,7 +173,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>(Note: this is technically a <code>CROSS JOIN</code> (Cartesian product), as indicated by the lack of <code>ON</code>. However it is efficient because the subquery returns only one row that has to be matched to the n rows in <code>the_real_table</code>.)</p>
+</div>
+<p>(Note: this is technically a <code>CROSS JOIN</code> (Cartesian product), as indicated by the lack of <code>ON</code>. However it is efficient because the subquery returns only one row that has to be matched to the n rows in <code>the_real_table</code>.)
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

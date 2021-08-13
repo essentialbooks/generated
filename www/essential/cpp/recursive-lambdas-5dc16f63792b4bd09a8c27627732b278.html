@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Let’s say we wish to write Euclid’s <code>gcd()</code> as a lambda. As a function, it is:</p>
+      
+<p>Let’s say we wish to write Euclid’s <code>gcd()</code> as a lambda. As a function, it is:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int gcd(int a, int b) {
@@ -137,7 +140,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But a lambda cannot be recursive, it has no way to invoke itself. A lambda has no name and using <code>this</code> within the body of a lambda refers to a captured <code>this</code> (assuming the lambda is created in the body of a member function, otherwise it is an error). So how do we solve this problem?</p><h3 id="3622d17f-d348-456b-aed3-6e65c3359ebc" class="">Use <code>std::function</code><a class="header-anchor" href="#3622d17f-d348-456b-aed3-6e65c3359ebc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>We can have a lambda capture a reference to a not-yet constructed <code>std::function</code>:</p>
+</div>
+<p>But a lambda cannot be recursive, it has no way to invoke itself. A lambda has no name and using <code>this</code> within the body of a lambda refers to a captured <code>this</code> (assuming the lambda is created in the body of a member function, otherwise it is an error). So how do we solve this problem?
+</p>
+  <h3 id="3622d17f-d348-456b-aed3-6e65c3359ebc" class="">Use <code>std::function</code>
+  <a class="header-anchor" href="#3622d17f-d348-456b-aed3-6e65c3359ebc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p>We can have a lambda capture a reference to a not-yet constructed <code>std::function</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::function&lt;int(int, int)&gt; gcd = [&amp;](int a, int b){
@@ -147,7 +158,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This works, but should be used sparingly. It’s slow (we’re using type erasure now instead of a direct function call), it’s fragile (copying <code>gcd</code> or returning <code>gcd</code> will break since the lambda refers to the original object), and it won’t work with generic lambdas.</p><h3 id="c2fba03d-eceb-4ae2-b398-5dad1b24ebb1" class="">Using two smart pointers:<a class="header-anchor" href="#c2fba03d-eceb-4ae2-b398-5dad1b24ebb1" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3>
+</div>
+<p>This works, but should be used sparingly. It’s slow (we’re using type erasure now instead of a direct function call), it’s fragile (copying <code>gcd</code> or returning <code>gcd</code> will break since the lambda refers to the original object), and it won’t work with generic lambdas.
+</p>
+  <h3 id="c2fba03d-eceb-4ae2-b398-5dad1b24ebb1" class="">Using two smart pointers:
+  <a class="header-anchor" href="#c2fba03d-eceb-4ae2-b398-5dad1b24ebb1" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto gcd_self = std::make_shared&lt;std::unique_ptr&lt; std::function&lt;int(int, int)&gt; &gt;&gt;();
@@ -160,7 +177,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This adds a lot of indirection (which is overhead), but it can be copied/returned, and all copies share state. It does let you return the lambda, and is otherwise less fragile than the above solution.</p><h3 id="16871cd6-a086-402a-89d1-d5262c1f0a78" class="">Use a Y-combinator<a class="header-anchor" href="#16871cd6-a086-402a-89d1-d5262c1f0a78" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>With the help of a short utility struct, we can solve all of these problems:</p>
+</div>
+<p>This adds a lot of indirection (which is overhead), but it can be copied/returned, and all copies share state. It does let you return the lambda, and is otherwise less fragile than the above solution.
+</p>
+  <h3 id="16871cd6-a086-402a-89d1-d5262c1f0a78" class="">Use a Y-combinator
+  <a class="header-anchor" href="#16871cd6-a086-402a-89d1-d5262c1f0a78" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p>With the help of a short utility struct, we can solve all of these problems:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template &lt;class F&gt;
@@ -185,7 +210,10 @@ y_combinator&lt;std::decay_t&lt;F&gt;&gt; make_y_combinator(F&amp;&amp; f) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>we can implement our <code>gcd</code> as:</p>
+</div>
+<p>we can implement our <code>gcd</code> as:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto gcd = make_y_combinator(
@@ -197,7 +225,16 @@ y_combinator&lt;std::decay_t&lt;F&gt;&gt; make_y_combinator(F&amp;&amp; f) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>y_combinator</code> is a concept from the lambda calculus that lets you have recursion without being able to name yourself until you are defined. This is exactly the problem lambdas have.</p><p>You create a lambda that takes “recurse” as its first argument. When you want to recurse, you pass the arguments to recurse.</p><p>The <code>y_combinator</code> then returns a function object that calls that function with its arguments, but with a suitable “recurse” object (namely the <code>y_combinator</code> itself) as its first argument. It forwards the rest of the arguments you call the <code>y_combinator</code> with to the lambda as well.</p><p>In short:</p>
+</div>
+<p>The <code>y_combinator</code> is a concept from the lambda calculus that lets you have recursion without being able to name yourself until you are defined. This is exactly the problem lambdas have.
+</p>
+<p>You create a lambda that takes “recurse” as its first argument. When you want to recurse, you pass the arguments to recurse.
+</p>
+<p>The <code>y_combinator</code> then returns a function object that calls that function with its arguments, but with a suitable “recurse” object (namely the <code>y_combinator</code> itself) as its first argument. It forwards the rest of the arguments you call the <code>y_combinator</code> with to the lambda as well.
+</p>
+<p>In short:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto foo = make_y_combinator( [&amp;](auto&amp;&amp; recurse, some arguments) {
@@ -208,7 +245,9 @@ y_combinator&lt;std::decay_t&lt;F&gt;&gt; make_y_combinator(F&amp;&amp; f) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>and you have recursion in a lambda with no serious restrictions or significant overhead.</p>
+</div>
+<p>and you have recursion in a lambda with no serious restrictions or significant overhead.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

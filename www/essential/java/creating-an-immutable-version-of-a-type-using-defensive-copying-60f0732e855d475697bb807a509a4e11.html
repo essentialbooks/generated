@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Some basic types and classes in Java are fundamentally mutable. For example, all array types are mutable, and so are classes like <code>java.util.Data</code>. This can be awkward in situations where an immutable type is mandated.</p><p>One way to deal with this is to create an immutable wrapper for the mutable type. Here is a simple wrapper for an array of integers</p>
+      
+<p>Some basic types and classes in Java are fundamentally mutable. For example, all array types are mutable, and so are classes like <code>java.util.Data</code>. This can be awkward in situations where an immutable type is mandated.
+</p>
+<p>One way to deal with this is to create an immutable wrapper for the mutable type. Here is a simple wrapper for an array of integers
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class ImmutableIntArray {
@@ -145,7 +150,19 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This class works by using <em>defensive copying</em> to isolate the mutable state (the <code>int[]</code>) from any code that might mutate it:</p><ul id="957a5a31-c63e-43b6-b932-29a8b33ab596" class="bulleted-list"><li>The constructor uses <code>clone()</code> to create a distinct copy of the parameter array. If the caller of the constructor subsequent changed the parameter array, it would not affect the state of the <code>ImmutableIntArray</code>.</li><li>The <code>getValue()</code> method also uses <code>clone()</code> to create the array that is returned. If the caller were to change the result array, it would not affect the state of the <code>ImmutableIntArray</code>.</li></ul><p>We could also add methods to <code>ImmutableIntArray</code> to perform read-only operations on the wrapped array; e.g. get its length, get the value at a particular index, and so on.</p><p>Note that an immutable wrapper type implemented this way is not type compatible with the original type. You cannot simply substitute the former for the latter.</p>
+</div>
+<p>This class works by using <em>defensive copying</em> to isolate the mutable state (the <code>int[]</code>) from any code that might mutate it:
+</p>
+  <ul id="957a5a31-c63e-43b6-b932-29a8b33ab596" class="bulleted-list">
+    <li>The constructor uses <code>clone()</code> to create a distinct copy of the parameter array. If the caller of the constructor subsequent changed the parameter array, it would not affect the state of the <code>ImmutableIntArray</code>.
+    </li>
+    <li>The <code>getValue()</code> method also uses <code>clone()</code> to create the array that is returned. If the caller were to change the result array, it would not affect the state of the <code>ImmutableIntArray</code>.
+    </li>
+  </ul>
+<p>We could also add methods to <code>ImmutableIntArray</code> to perform read-only operations on the wrapped array; e.g. get its length, get the value at a particular index, and so on.
+</p>
+<p>Note that an immutable wrapper type implemented this way is not type compatible with the original type. You cannot simply substitute the former for the latter.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

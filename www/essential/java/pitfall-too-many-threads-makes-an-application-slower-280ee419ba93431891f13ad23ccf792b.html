@@ -127,7 +127,35 @@
 </div>
 
 
-      <p>A lot of people who are new to multi-threading think that using threads automatically make an application go faster. In fact, it is a lot more complicated than that. But one thing that we can state with certainty is that for any computer there is a limit on the number of threads that can be run at the same time:</p><ul id="90e0ef9c-b4c0-48e8-9918-713f26a96909" class="bulleted-list"><li>A computer has a fixed number of <em>cores</em> (or <em>hyperthreads</em>).</li><li>A Java thread has to be <em>scheduled</em> to a core or hyperthread in order to run.</li><li>If there are more runnable Java threads than (available) cores / hyperthreads, some of them must wait.</li></ul><p>This tells us that simply creating more and more Java threads <em>cannot</em> make the application go faster and faster. But there are other considerations as well:</p><ul id="d7fa18cc-fd7f-451f-8bf5-9f7ac7794095" class="bulleted-list"><li>Each thread requires an off-heap memory region for its thread stack. The typical (default) thread stack size is 512Kbytes or 1Mbytes. If you have a significant number of threads, the memory usage can be significant.</li><li>Each active thread will refer to a number of objects in the heap. That increases the working set of <em>reachable</em> objects, which impacts on garbage collection and on physical memory usage.</li><li>The overheads of switching between threads is non-trivial. It typically entails a switch into the OS kernel space to make a thread scheduling decision.</li><li>The overheads of thread synchronization and inter-thread signaling (e.g. wait(), notify() / notifyAll) <em>can be</em> significant.</li></ul><p>Depending on the details of your application, these factors generally mean that there is a “sweet spot” for the number of threads. Beyond that, adding more threads gives minimal performance improvement, and can make performance worse.</p><p>If your application create for each new task, then an unexpected increase in the workload (e.g. a high request rate) can lead to catastrophic behavior.</p><p>A better way to deal with this is to use bounded thread pool whose size you can control (statically or dynamically). When there is too much work to do, the application needs to queue the requests. If you use an <code>ExecutorService</code>, it will take care of the thread pool management and task queuing.</p>
+      
+<p>A lot of people who are new to multi-threading think that using threads automatically make an application go faster. In fact, it is a lot more complicated than that. But one thing that we can state with certainty is that for any computer there is a limit on the number of threads that can be run at the same time:
+</p>
+  <ul id="90e0ef9c-b4c0-48e8-9918-713f26a96909" class="bulleted-list">
+    <li>A computer has a fixed number of <em>cores</em> (or <em>hyperthreads</em>).
+    </li>
+    <li>A Java thread has to be <em>scheduled</em> to a core or hyperthread in order to run.
+    </li>
+    <li>If there are more runnable Java threads than (available) cores / hyperthreads, some of them must wait.
+    </li>
+  </ul>
+<p>This tells us that simply creating more and more Java threads <em>cannot</em> make the application go faster and faster. But there are other considerations as well:
+</p>
+  <ul id="d7fa18cc-fd7f-451f-8bf5-9f7ac7794095" class="bulleted-list">
+    <li>Each thread requires an off-heap memory region for its thread stack. The typical (default) thread stack size is 512Kbytes or 1Mbytes. If you have a significant number of threads, the memory usage can be significant.
+    </li>
+    <li>Each active thread will refer to a number of objects in the heap. That increases the working set of <em>reachable</em> objects, which impacts on garbage collection and on physical memory usage.
+    </li>
+    <li>The overheads of switching between threads is non-trivial. It typically entails a switch into the OS kernel space to make a thread scheduling decision.
+    </li>
+    <li>The overheads of thread synchronization and inter-thread signaling (e.g. wait(), notify() / notifyAll) <em>can be</em> significant.
+    </li>
+  </ul>
+<p>Depending on the details of your application, these factors generally mean that there is a “sweet spot” for the number of threads. Beyond that, adding more threads gives minimal performance improvement, and can make performance worse.
+</p>
+<p>If your application create for each new task, then an unexpected increase in the workload (e.g. a high request rate) can lead to catastrophic behavior.
+</p>
+<p>A better way to deal with this is to use bounded thread pool whose size you can control (statically or dynamically). When there is too much work to do, the application needs to queue the requests. If you use an <code>ExecutorService</code>, it will take care of the thread pool management and task queuing.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Express passes a <code>next</code> callback to every route handler and middleware function that can be used to break logic for single routes across multiple handlers. Calling <code>next()</code> with no arguments tells express to continue to the next matching middleware or route handler. Calling <code>next(err)</code> with an error will trigger any error handler middleware. Calling <code>next(&#x27;route&#x27;)</code> will bypass any subsequent middleware on the current route and jump to the next matching route. This allows domain logic to be decoupled into reusable components that are self-contained, simpler to test, and easier to maintain and change.</p><p><strong>Multiple matching routes</strong></p><p>Requests to <code>/api/foo</code> or to <code>/api/bar</code> will run the initial handler to look up the member and then pass control to the actual handler for each route.</p>
+      
+<p>Express passes a <code>next</code> callback to every route handler and middleware function that can be used to break logic for single routes across multiple handlers. Calling <code>next()</code> with no arguments tells express to continue to the next matching middleware or route handler. Calling <code>next(err)</code> with an error will trigger any error handler middleware. Calling <code>next(&#x27;route&#x27;)</code> will bypass any subsequent middleware on the current route and jump to the next matching route. This allows domain logic to be decoupled into reusable components that are self-contained, simpler to test, and easier to maintain and change.
+</p>
+<p><strong>Multiple matching routes</strong>
+</p>
+<p>Requests to <code>/api/foo</code> or to <code>/api/bar</code> will run the initial handler to look up the member and then pass control to the actual handler for each route.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">app.get(&#39;/api&#39;, function(req, res, next) {
@@ -152,7 +159,12 @@ app.get(&#39;/api/bar&#39;, function(req, res, next) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Error handler</strong></p><p>Error handlers are middleware with the signature <code>function(err, req, res, next)</code>. They could be set up per route (e.g. <code>app.get(&#x27;/foo&#x27;, function(err, req, res, next)</code>) but typically, a single error handler that renders an error page is sufficient.</p>
+</div>
+<p><strong>Error handler</strong>
+</p>
+<p>Error handlers are middleware with the signature <code>function(err, req, res, next)</code>. They could be set up per route (e.g. <code>app.get(&#x27;/foo&#x27;, function(err, req, res, next)</code>) but typically, a single error handler that renders an error page is sufficient.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">app.get(&#39;/foo&#39;, function(req, res, next) {
@@ -172,7 +184,12 @@ app.use(function(err, req, res, next) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Middleware</strong></p><p>Each of the functions above is actually a middleware function that is run whenever a request matches the route defined, but any number of middleware functions can be defined on a single route. This allows middleware to be defined in separate files and common logic to be reused across multiple routes.</p>
+</div>
+<p><strong>Middleware</strong>
+</p>
+<p>Each of the functions above is actually a middleware function that is run whenever a request matches the route defined, but any number of middleware functions can be defined on a single route. This allows middleware to be defined in separate files and common logic to be reused across multiple routes.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">app.get(&#39;/bananas&#39;, function(req, res, next) {
@@ -209,7 +226,9 @@ app.get(&#39;/bananas&#39;, function(req, res, next) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this example, each middleware function would be either in it’s own file or in a variable elsewhere in the file so that it could be reused in other routes.</p>
+</div>
+<p>In this example, each middleware function would be either in it’s own file or in a variable elsewhere in the file so that it could be reused in other routes.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

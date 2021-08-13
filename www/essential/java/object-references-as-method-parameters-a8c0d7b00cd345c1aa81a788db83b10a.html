@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>This topic explains the concept of an <em>object reference</em>; it is targeted at people who are new to programming in Java. You should already be familiar with some terms and meanings: class definition, main method, object instance, and the calling of methods “on” an object, and passing parameters to methods.</p>
+      
+<p>This topic explains the concept of an <em>object reference</em>; it is targeted at people who are new to programming in Java. You should already be familiar with some terms and meanings: class definition, main method, object instance, and the calling of methods “on” an object, and passing parameters to methods.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Person {
@@ -157,7 +160,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To be fully competent in Java programming, you should be able to explain this example to someone else off the top of your head. Its concepts are fundamental to understanding how Java works.</p><p>As you can see, we have a <code>main</code> that instantiates an object to the variable <code>person</code>, and calls a method to set the <code>name</code> field in that object to <code>&quot;Bob&quot;</code>. Then it calls another method, and passes <code>person</code> as one of two parameters; the other parameter is an integer variable, set to 5.</p><p>The method called sets the <code>name</code> value on the passed object to “Linda’, and sets the integer variable passed to 99, then returns.</p><p>So what would get printed?</p>
+</div>
+<p>To be fully competent in Java programming, you should be able to explain this example to someone else off the top of your head. Its concepts are fundamental to understanding how Java works.
+</p>
+<p>As you can see, we have a <code>main</code> that instantiates an object to the variable <code>person</code>, and calls a method to set the <code>name</code> field in that object to <code>&quot;Bob&quot;</code>. Then it calls another method, and passes <code>person</code> as one of two parameters; the other parameter is an integer variable, set to 5.
+</p>
+<p>The method called sets the <code>name</code> value on the passed object to “Linda’, and sets the integer variable passed to 99, then returns.
+</p>
+<p>So what would get printed?
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Linda 5</pre>
@@ -165,7 +177,22 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So why does the change made to <code>person</code> take effect in <code>main</code>, but the change made to the integer does not?</p><p>When the call is made, the main method passes an <em>object reference</em> for <code>person</code> to the <code>setPersonName</code> method; any change that <code>setAnotherName</code> makes to that object is part of that object, and so those changes are still part of that object when the method returns.</p><p>Another way of saying the same thing: <code>person</code> points to an object (stored on the heap, if you’re interested). Any change the method makes to that object are made “on that object”, and are not affected by whether the method making the change is still active or has returned. When the method returns, any changes made to the object are still stored on that object.</p><p>Contrast this with the integer that is passed. Since this is a <a href="http://stackoverflow.com/documentation/java/148/primitive-data-types#t=201609241023157023623"><em>primitive</em></a> int (and not an Integer object instance), it is passed “by value”, meaning its value is provided to the method, not a pointer to the original integer passed in. The method can change it for the method’s own purposes, but that does not affect the variable used when the method call is made.</p><p>In Java, all primitives are passed by value. Objects are passed by reference, which means that a pointer to the object is passed as the parameter to any methods that take them.</p><p>One less-obvious thing this means: it is not possible for a called method to create a <em>new</em> object and return it as one of the parameters. The only way for a method to return an object that is created, directly or indirectly, by the method call, is as a return value from the method. Let’s first see how that would not work, and then how it would work.</p><p>Let’s add another method to our little example here:</p>
+</div>
+<p>So why does the change made to <code>person</code> take effect in <code>main</code>, but the change made to the integer does not?
+</p>
+<p>When the call is made, the main method passes an <em>object reference</em> for <code>person</code> to the <code>setPersonName</code> method; any change that <code>setAnotherName</code> makes to that object is part of that object, and so those changes are still part of that object when the method returns.
+</p>
+<p>Another way of saying the same thing: <code>person</code> points to an object (stored on the heap, if you’re interested). Any change the method makes to that object are made “on that object”, and are not affected by whether the method making the change is still active or has returned. When the method returns, any changes made to the object are still stored on that object.
+</p>
+<p>Contrast this with the integer that is passed. Since this is a <a href="http://stackoverflow.com/documentation/java/148/primitive-data-types#t=201609241023157023623"><em>primitive</em></a> int (and not an Integer object instance), it is passed “by value”, meaning its value is provided to the method, not a pointer to the original integer passed in. The method can change it for the method’s own purposes, but that does not affect the variable used when the method call is made.
+</p>
+<p>In Java, all primitives are passed by value. Objects are passed by reference, which means that a pointer to the object is passed as the parameter to any methods that take them.
+</p>
+<p>One less-obvious thing this means: it is not possible for a called method to create a <em>new</em> object and return it as one of the parameters. The only way for a method to return an object that is created, directly or indirectly, by the method call, is as a return value from the method. Let’s first see how that would not work, and then how it would work.
+</p>
+<p>Let’s add another method to our little example here:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private static void getAnotherObjectNot(Person person) {
@@ -176,7 +203,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And, back in the <code>main</code>, below the call to <code>setAnotherName</code>, let’s put a call to this method and another println call:</p>
+</div>
+<p>And, back in the <code>main</code>, below the call to <code>setAnotherName</code>, let’s put a call to this method and another println call:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">getAnotherObjectNot(person);
@@ -185,7 +215,10 @@ System.out.println(person.getName());</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now the program would print out:</p>
+</div>
+<p>Now the program would print out:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Linda 5
@@ -194,7 +227,12 @@ Linda</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>What happened to the object that had George? Well, the parameter that was passed in was a pointer to Linda; when the <code>getAnotherObjectNot</code> method created a new object, it replaced the reference to the Linda object with a reference to the George object. The Linda object still exists (on the heap), the <code>main</code> method can still access it, but the <code>getAnotherObjectNot</code> method wouldn’t be able to do anything with it after that, because it has no reference to it. It would appear that the writer of the code intended for the method to create a new object and pass it back, but if so, it didn’t work.</p><p>If that is what the writer wanted to do, he would need to return the newly created object from the method, something like this:</p>
+</div>
+<p>What happened to the object that had George? Well, the parameter that was passed in was a pointer to Linda; when the <code>getAnotherObjectNot</code> method created a new object, it replaced the reference to the Linda object with a reference to the George object. The Linda object still exists (on the heap), the <code>main</code> method can still access it, but the <code>getAnotherObjectNot</code> method wouldn’t be able to do anything with it after that, because it has no reference to it. It would appear that the writer of the code intended for the method to create a new object and pass it back, but if so, it didn’t work.
+</p>
+<p>If that is what the writer wanted to do, he would need to return the newly created object from the method, something like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private static Person getAnotherObject() {
@@ -206,7 +244,10 @@ Linda</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then call it like this:</p>
+</div>
+<p>Then call it like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Person mary;
@@ -216,7 +257,10 @@ System.out.println(mary.getName());</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And the entire program output would now be:</p>
+</div>
+<p>And the entire program output would now be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Linda 5
@@ -226,7 +270,10 @@ Mary</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here is the entire program, with both additions:</p>
+</div>
+<p>Here is the entire program, with both additions:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Person {

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Consider a basic class containing an object with getters and setters in Java:</p>
+      
+<p>Consider a basic class containing an object with getters and setters in Java:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class CountHolder {
@@ -140,7 +143,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We can’t access the <code>count</code> variable because it’s private. But we can access the <code>getCount()</code> and the <code>setCount(int)</code> methods because they are public. To some, this might raise the question; why introduce the middleman? Why not just simply make they count public?</p>
+</div>
+<p>We can’t access the <code>count</code> variable because it’s private. But we can access the <code>getCount()</code> and the <code>setCount(int)</code> methods because they are public. To some, this might raise the question; why introduce the middleman? Why not just simply make they count public?
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class CountHolder {
@@ -150,7 +156,20 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For all intents and purposes, these two are exactly the same, functionality-wise. The difference between them is the extensibility. Consider what each class says:</p><ul id="675aba6b-1623-4d11-9cb5-c28347f0dad7" class="bulleted-list"><li><strong>First</strong>: “I have a method that will give you an <code>int</code> value, and a method that will set that value to another <code>int</code>”.</li><li><strong>Second</strong>: “I have an <code>int</code> that you can set and get as you please.”</li></ul><p>These might sound similar, but the first is actually much more guarded in its nature; it only lets you interact with its internal nature as <strong>it</strong> dictates. This leaves the ball in its court; it gets to choose how the internal interactions occur. The second has exposed its internal implementation externally, and is now not only prone to external users, but, in the case of an API, <strong>committed</strong> to maintaining that implementation (or otherwise releasing a non-backward-compatible API).</p><p>Lets consider if we want to synchronize access to modifying and accessing the count. In the first, this is simple:</p>
+</div>
+<p>For all intents and purposes, these two are exactly the same, functionality-wise. The difference between them is the extensibility. Consider what each class says:
+</p>
+  <ul id="675aba6b-1623-4d11-9cb5-c28347f0dad7" class="bulleted-list">
+    <li><strong>First</strong>: “I have a method that will give you an <code>int</code> value, and a method that will set that value to another <code>int</code>”.
+    </li>
+    <li><strong>Second</strong>: “I have an <code>int</code> that you can set and get as you please.”
+    </li>
+  </ul>
+<p>These might sound similar, but the first is actually much more guarded in its nature; it only lets you interact with its internal nature as <strong>it</strong> dictates. This leaves the ball in its court; it gets to choose how the internal interactions occur. The second has exposed its internal implementation externally, and is now not only prone to external users, but, in the case of an API, <strong>committed</strong> to maintaining that implementation (or otherwise releasing a non-backward-compatible API).
+</p>
+<p>Lets consider if we want to synchronize access to modifying and accessing the count. In the first, this is simple:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class CountHolder {
@@ -163,7 +182,21 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>but in the second example, this is now nearly impossible without going through and modifying each place where the <code>count</code> variable is referenced. Worse still, if this is an item that you’re providing in a library to be consumed by others, you do <strong>not</strong> have a way of performing that modification, and are forced to make the hard choice mentioned above.</p><p>So it begs the question; are public variables ever a good thing (or, at least, not evil)?</p><p>I’m unsure. On one hand, you can see examples of public variables that have stood the test of time (IE: the <code>out</code> variable referenced in <code>System.out</code>). On the other, providing a public variable gives no benefit outside of extremely minimal overhead and potential reduction in wordiness. My guideline here would be that, if you’re planning on making a variable public, you should judge it against these criteria with <strong>extreme</strong> prejudice:</p><ol id="5afbd9cb-4a27-4eee-a13a-d45f91d25b00" class="numbered-list" start="1"><li>The variable should have no conceivable reason to <strong>ever</strong> change in its implementation. This is something that’s extremely easy to screw up (and, even if you do get it right, requirements can change), which is why getters/setters are the common approach. If you’re going to have a public variable, this really needs to be thought through, especially if released in a library/framework/API.</li><li>The variable needs to be referenced frequently enough that the minimal gains from reducing verbosity warrants it. I don’t even think the overhead for using a method versus directly referencing should be considered here. It’s far too negligible for what I’d conservatively estimate to be 99.9% of applications.</li></ol><p>There’s probably more than I haven’t considered off the top of my head. If you’re ever in doubt, always use getters/setters.</p>
+</div>
+<p>but in the second example, this is now nearly impossible without going through and modifying each place where the <code>count</code> variable is referenced. Worse still, if this is an item that you’re providing in a library to be consumed by others, you do <strong>not</strong> have a way of performing that modification, and are forced to make the hard choice mentioned above.
+</p>
+<p>So it begs the question; are public variables ever a good thing (or, at least, not evil)?
+</p>
+<p>I’m unsure. On one hand, you can see examples of public variables that have stood the test of time (IE: the <code>out</code> variable referenced in <code>System.out</code>). On the other, providing a public variable gives no benefit outside of extremely minimal overhead and potential reduction in wordiness. My guideline here would be that, if you’re planning on making a variable public, you should judge it against these criteria with <strong>extreme</strong> prejudice:
+</p>
+  <ol id="5afbd9cb-4a27-4eee-a13a-d45f91d25b00" class="numbered-list" start="1">
+    <li>The variable should have no conceivable reason to <strong>ever</strong> change in its implementation. This is something that’s extremely easy to screw up (and, even if you do get it right, requirements can change), which is why getters/setters are the common approach. If you’re going to have a public variable, this really needs to be thought through, especially if released in a library/framework/API.
+    </li>
+    <li>The variable needs to be referenced frequently enough that the minimal gains from reducing verbosity warrants it. I don’t even think the overhead for using a method versus directly referencing should be considered here. It’s far too negligible for what I’d conservatively estimate to be 99.9% of applications.
+    </li>
+  </ol>
+<p>There’s probably more than I haven’t considered off the top of my head. If you’re ever in doubt, always use getters/setters.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

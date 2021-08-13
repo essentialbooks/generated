@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>To generalize type_trait creation:based on SFINAE there are experimental traits <code>detected_or</code>, <code>detected_t</code>, <code>is_detected</code>.</p><p>With template parameters <code>typename Default</code>, <code>template &lt;typename...&gt; Op</code> and <code>typename ... Args</code>:</p><ul id="89658694-5e61-4672-8e3d-39887d17ccea" class="bulleted-list"><li><code>is_detected</code>: alias of <code>std::true_type</code> or <code>std::false_type</code> depending of the validity of <code>Op&lt;Args...&gt;</code></li><li><code>detected_t</code>: alias of <code>Op&lt;Args...&gt;</code> or <code>nonesuch</code> depending of validity of <code>Op&lt;Args...&gt;</code>.</li><li><code>detected_or</code>: alias of a struct with <code>value_t</code> which is <code>is_detected</code>, and <code>type</code> which is <code>Op&lt;Args...&gt;</code> or <code>Default</code> depending of validity of <code>Op&lt;Args...&gt;</code></li></ul><p>which can be implemented using <code>std::void_t</code> for SFINAE as following:</p>
+      
+<p>To generalize type_trait creation:based on SFINAE there are experimental traits <code>detected_or</code>, <code>detected_t</code>, <code>is_detected</code>.
+</p>
+<p>With template parameters <code>typename Default</code>, <code>template &lt;typename...&gt; Op</code> and <code>typename ... Args</code>:
+</p>
+  <ul id="89658694-5e61-4672-8e3d-39887d17ccea" class="bulleted-list">
+    <li><code>is_detected</code>: alias of <code>std::true_type</code> or <code>std::false_type</code> depending of the validity of <code>Op&lt;Args...&gt;</code>
+    </li>
+    <li><code>detected_t</code>: alias of <code>Op&lt;Args...&gt;</code> or <code>nonesuch</code> depending of validity of <code>Op&lt;Args...&gt;</code>.
+    </li>
+    <li><code>detected_or</code>: alias of a struct with <code>value_t</code> which is <code>is_detected</code>, and <code>type</code> which is <code>Op&lt;Args...&gt;</code> or <code>Default</code> depending of validity of <code>Op&lt;Args...&gt;</code>
+    </li>
+  </ul>
+<p>which can be implemented using <code>std::void_t</code> for SFINAE as following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">namespace detail {
@@ -169,7 +184,10 @@ using detected_or = detail::detector&lt;Default, void, Op, Args...&gt;;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Traits to detect presence of method can then be simply implemented:</p>
+</div>
+<p>Traits to detect presence of method can then be simply implemented:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">typename &lt;typename T, typename ...Ts&gt;

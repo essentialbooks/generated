@@ -127,7 +127,20 @@
 </div>
 
 
-      <p><em><strong>Debugging by raising exceptions</strong></em> is <em>far easier</em> than squinting through <code>print</code> log statements, and for most bugs, its generally <em>much faster</em> than opening up an irb debugger like <code>pry</code> or <code>byebug</code>. Those tools should not be your first step.</p><p>—</p><h1 id="91037537-c0e3-4a13-8baa-f2dc8710ffa3" class="">Debugging Ruby/Rails Quickly:<a class="header-anchor" href="#91037537-c0e3-4a13-8baa-f2dc8710ffa3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><h2 id="17be55f8-f550-4f08-a614-e3f942c5c38b" class="">Fast Method: Raise an <code>Exception</code> then and <code>.inspect</code> its result<a class="header-anchor" href="#17be55f8-f550-4f08-a614-e3f942c5c38b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>The <em>fastest</em> way to debug Ruby (especially Rails) code is to <code>raise</code> an exception along the execution path of your code while calling <code>.inspect</code> on the method or object (e.g. <code>foo</code>):</p>
+      
+<p><em><strong>Debugging by raising exceptions</strong></em> is <em>far easier</em> than squinting through <code>print</code> log statements, and for most bugs, its generally <em>much faster</em> than opening up an irb debugger like <code>pry</code> or <code>byebug</code>. Those tools should not be your first step.
+</p>
+<p>—
+</p>
+  <h1 id="91037537-c0e3-4a13-8baa-f2dc8710ffa3" class="">Debugging Ruby/Rails Quickly:
+  <a class="header-anchor" href="#91037537-c0e3-4a13-8baa-f2dc8710ffa3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <h2 id="17be55f8-f550-4f08-a614-e3f942c5c38b" class="">Fast Method: Raise an <code>Exception</code> then and <code>.inspect</code> its result
+  <a class="header-anchor" href="#17be55f8-f550-4f08-a614-e3f942c5c38b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>The <em>fastest</em> way to debug Ruby (especially Rails) code is to <code>raise</code> an exception along the execution path of your code while calling <code>.inspect</code> on the method or object (e.g. <code>foo</code>):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">raise foo.inspect</pre>
@@ -135,7 +148,58 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In the above code, <code><em>raise</em></code> triggers an <code><em>Exception</em></code> that <em>halts execution of your code</em>, and returns an error message that conveniently contains <code>.inspect</code> information about the object/method (i.e. <code>foo</code>) on the line that you’re trying to debug.</p><p>This technique is useful for <em>quickly</em> examining an object or method (<em>e.g. is it </em><code><em>nil</em></code><em>?</em>) and for immediately confirming whether a line of code is even getting executed at all within a given context.</p><h2 id="91202266-2d86-4097-94e8-16fcbe2b6726" class="">Fallback: Use a ruby IRB debugger like <code>byebug</code> or <code>pry</code><a class="header-anchor" href="#91202266-2d86-4097-94e8-16fcbe2b6726" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Only after you have information about the state of your codes execution flow should you consider moving to a ruby gem irb debugger like <code>pry</code> or <code>byebug</code> where you can delve more deeply into the state of objects within your execution path.</p><p>To use the <code>byebug</code> gem for debugging in Rails:</p><ol id="a27c6e47-1f0e-4304-953b-928ba4ece7a0" class="numbered-list" start="1"><li>Add <code>gem &#x27;byebug&#x27;</code> inside the <em>development</em> group in your <em>Gemfile</em></li><li>Run <code>bundle install</code></li><li>Then to use, insert the phrase <code>byebug</code> inside the execution path of the code you want examined.</li></ol><p>This <code>byebug</code> variable when executed will open up an ruby IRB session of your code, giving you direct access to the state of objects as they are at that point in the code’s execution.</p><p>IRB debuggers like Byebug are useful for deeply analyzing the state of your code as it executes. However, they are more time consuming procedure compared to raising errors, so in most situations they should not be your first step.</p><p>—</p><h1 id="316b1a3b-8f6c-4714-8ad3-c12f490f2d96" class="">General Beginner Advice<a class="header-anchor" href="#316b1a3b-8f6c-4714-8ad3-c12f490f2d96" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>When you are trying to debug a problem, good advice is to always: <strong>Read The !@#$ing Error Message (RTFM)</strong></p><p>That means reading error messages <em>carefully</em> and <em>completely</em> before acting so that you <em>understand what it’s trying to tell you.</em> When you debug, ask the following mental questions, <em>in this order</em>, when reading an error message:</p><ol id="1f8a0194-9f96-4ba4-8296-e60a4f256988" class="numbered-list" start="1"><li>What <em><strong>class</strong></em> does the error reference? (i.e. <em>do I have the correct object class or is my object </em><code><em>nil</em></code><em>?</em>)</li><li>What <em><strong>method</strong></em> does the error reference? (i.e. <em>is their a type in the method; can I call this method on this type/class of object?</em>)</li><li>Finally, using what I can infer from my last two questions, what <em><strong>lines of code</strong></em> should I investigate? (remember: the last line of code in the stack trace is not necessarily where the problem lies.)</li></ol><p>In the stack trace pay particular attention to lines of code that come from your project (e.g. lines starting with <code>app/...</code> if you are using Rails). 99% of the time the problem is with your own code.</p><hr id="f87b4802-2c25-4340-ad11-251bfc8a3ccf"/><p>To illustrate why interpreting <em>in this order</em> is important…</p><h3 id="9f0190f4-5bd2-41e7-a2ec-ec91bf5f9fda" class="">E.g. a Ruby error message that confuses many beginners:<a class="header-anchor" href="#9f0190f4-5bd2-41e7-a2ec-ec91bf5f9fda" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>You execute code that at some point executes as such:</p>
+</div>
+<p>In the above code, <code><em>raise</em></code> triggers an <code><em>Exception</em></code> that <em>halts execution of your code</em>, and returns an error message that conveniently contains <code>.inspect</code> information about the object/method (i.e. <code>foo</code>) on the line that you’re trying to debug.
+</p>
+<p>This technique is useful for <em>quickly</em> examining an object or method (<em>e.g. is it </em><code><em>nil</em></code><em>?</em>) and for immediately confirming whether a line of code is even getting executed at all within a given context.
+</p>
+  <h2 id="91202266-2d86-4097-94e8-16fcbe2b6726" class="">Fallback: Use a ruby IRB debugger like <code>byebug</code> or <code>pry</code>
+  <a class="header-anchor" href="#91202266-2d86-4097-94e8-16fcbe2b6726" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Only after you have information about the state of your codes execution flow should you consider moving to a ruby gem irb debugger like <code>pry</code> or <code>byebug</code> where you can delve more deeply into the state of objects within your execution path.
+</p>
+<p>To use the <code>byebug</code> gem for debugging in Rails:
+</p>
+  <ol id="a27c6e47-1f0e-4304-953b-928ba4ece7a0" class="numbered-list" start="1">
+    <li>Add <code>gem &#x27;byebug&#x27;</code> inside the <em>development</em> group in your <em>Gemfile</em>
+    </li>
+    <li>Run <code>bundle install</code>
+    </li>
+    <li>Then to use, insert the phrase <code>byebug</code> inside the execution path of the code you want examined.
+    </li>
+  </ol>
+<p>This <code>byebug</code> variable when executed will open up an ruby IRB session of your code, giving you direct access to the state of objects as they are at that point in the code’s execution.
+</p>
+<p>IRB debuggers like Byebug are useful for deeply analyzing the state of your code as it executes. However, they are more time consuming procedure compared to raising errors, so in most situations they should not be your first step.
+</p>
+<p>—
+</p>
+  <h1 id="316b1a3b-8f6c-4714-8ad3-c12f490f2d96" class="">General Beginner Advice
+  <a class="header-anchor" href="#316b1a3b-8f6c-4714-8ad3-c12f490f2d96" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>When you are trying to debug a problem, good advice is to always: <strong>Read The !@#$ing Error Message (RTFM)</strong>
+</p>
+<p>That means reading error messages <em>carefully</em> and <em>completely</em> before acting so that you <em>understand what it’s trying to tell you.</em> When you debug, ask the following mental questions, <em>in this order</em>, when reading an error message:
+</p>
+  <ol id="1f8a0194-9f96-4ba4-8296-e60a4f256988" class="numbered-list" start="1">
+    <li>What <em><strong>class</strong></em> does the error reference? (i.e. <em>do I have the correct object class or is my object </em><code><em>nil</em></code><em>?</em>)
+    </li>
+    <li>What <em><strong>method</strong></em> does the error reference? (i.e. <em>is their a type in the method; can I call this method on this type/class of object?</em>)
+    </li>
+    <li>Finally, using what I can infer from my last two questions, what <em><strong>lines of code</strong></em> should I investigate? (remember: the last line of code in the stack trace is not necessarily where the problem lies.)
+    </li>
+  </ol>
+<p>In the stack trace pay particular attention to lines of code that come from your project (e.g. lines starting with <code>app/...</code> if you are using Rails). 99% of the time the problem is with your own code.
+</p>
+<hr id="f87b4802-2c25-4340-ad11-251bfc8a3ccf"/>
+<p>To illustrate why interpreting <em>in this order</em> is important…
+</p>
+  <h3 id="9f0190f4-5bd2-41e7-a2ec-ec91bf5f9fda" class="">E.g. a Ruby error message that confuses many beginners:
+  <a class="header-anchor" href="#9f0190f4-5bd2-41e7-a2ec-ec91bf5f9fda" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p>You execute code that at some point executes as such:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@foo = Foo.new
@@ -147,7 +211,25 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>and you get an error that states:</p><p><code><strong>undefined method &quot;bar&quot; for Nil:nilClass</strong></code></p><p>Beginners see this error and think the problem is that the method <code>bar</code> is <em>undefined</em>. <strong>It’s not.</strong> In this error the real part that matters is:</p><p><code>for Nil:nilClass</code></p><p><code><strong>for Nil:nilClass</strong></code><strong> means that </strong><code><strong>@foo</strong></code><strong> is Nil!</strong> <code>@foo</code> is not a <code>Foo</code> instance variable! You have an object that is <code>Nil</code>. When you see this error, it’s simply ruby trying to tell you that the method <code>bar</code> doesn’t exist for objects of the class <code>Nil</code>. (well duh! since we are trying to use a method for an object of the class <code>Foo</code> not <code>Nil</code>).</p><p>Unfortunately, due to how this error is written (<code>undefined method &quot;bar&quot; for Nil:nilClass</code>) its easy to get tricked into thinking this error has to do with <code>bar</code> being <code>undefined</code>. When not read carefully this error causes beginners to mistakenly go digging into the details of the <code>bar</code> method on <code>Foo</code>, entirely missing the part of the error that hints that the object is of the wrong class (in this case: nil). It’s a mistake that’s easily avoided by reading error messages in their entirety.</p><p><strong>Summary:</strong></p><p>Always carefully <strong>read the </strong><em><strong>entire</strong></em><strong> error message</strong> before beginning any debugging. That means: Always check the <em><strong>class</strong></em> type of an object in an error message <em>first</em>, then its <em><strong>methods</strong></em>, <em>before</em> you begin sleuthing into any stacktrace or line of code where you think the error may be occurring. Those 5 seconds can save you 5 hours of frustration.</p><p><strong>tl;dr:</strong> Don’t squint at print logs: raise exceptions instead. Avoid rabbit holes by reading errors carefully before debugging.</p>
+</div>
+<p>and you get an error that states:
+</p>
+<p><code><strong>undefined method &quot;bar&quot; for Nil:nilClass</strong></code>
+</p>
+<p>Beginners see this error and think the problem is that the method <code>bar</code> is <em>undefined</em>. <strong>It’s not.</strong> In this error the real part that matters is:
+</p>
+<p><code>for Nil:nilClass</code>
+</p>
+<p><code><strong>for Nil:nilClass</strong></code><strong> means that </strong><code><strong>@foo</strong></code><strong> is Nil!</strong> <code>@foo</code> is not a <code>Foo</code> instance variable! You have an object that is <code>Nil</code>. When you see this error, it’s simply ruby trying to tell you that the method <code>bar</code> doesn’t exist for objects of the class <code>Nil</code>. (well duh! since we are trying to use a method for an object of the class <code>Foo</code> not <code>Nil</code>).
+</p>
+<p>Unfortunately, due to how this error is written (<code>undefined method &quot;bar&quot; for Nil:nilClass</code>) its easy to get tricked into thinking this error has to do with <code>bar</code> being <code>undefined</code>. When not read carefully this error causes beginners to mistakenly go digging into the details of the <code>bar</code> method on <code>Foo</code>, entirely missing the part of the error that hints that the object is of the wrong class (in this case: nil). It’s a mistake that’s easily avoided by reading error messages in their entirety.
+</p>
+<p><strong>Summary:</strong>
+</p>
+<p>Always carefully <strong>read the </strong><em><strong>entire</strong></em><strong> error message</strong> before beginning any debugging. That means: Always check the <em><strong>class</strong></em> type of an object in an error message <em>first</em>, then its <em><strong>methods</strong></em>, <em>before</em> you begin sleuthing into any stacktrace or line of code where you think the error may be occurring. Those 5 seconds can save you 5 hours of frustration.
+</p>
+<p><strong>tl;dr:</strong> Don’t squint at print logs: raise exceptions instead. Avoid rabbit holes by reading errors carefully before debugging.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

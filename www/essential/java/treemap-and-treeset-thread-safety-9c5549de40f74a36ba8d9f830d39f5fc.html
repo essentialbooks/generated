@@ -127,7 +127,18 @@
 </div>
 
 
-      <p><code>TreeMap</code> and <code>TreeSet</code> are <strong>not</strong> thread-safe collections, so care must be taken to ensure when used in multi-threaded programs.</p><p>Both <code>TreeMap</code> and <code>TreeSet</code> are safe when read, even concurrently, by multiple threads. So if they have been created and populated by a single thread (say, at the start of the program), and only then read, but not modified by multiple threads, there’s no reason for synchronization or locking.</p><p>However, if read and modified concurrently, or modified concurrently by more than one thread, the collection might throw a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/ConcurrentModificationException.html">ConcurrentModificationException</a> or behave unexpectedly. In these cases, it’s imperative to synchronize/lock access to the collection using one of the following approaches:</p><ol id="7f22da62-66e1-43cf-9635-4d3cfb12a4af" class="numbered-list" start="1"><li>Using <code>Collections.synchronizedSorted..</code>:</li></ol>
+      
+<p><code>TreeMap</code> and <code>TreeSet</code> are <strong>not</strong> thread-safe collections, so care must be taken to ensure when used in multi-threaded programs.
+</p>
+<p>Both <code>TreeMap</code> and <code>TreeSet</code> are safe when read, even concurrently, by multiple threads. So if they have been created and populated by a single thread (say, at the start of the program), and only then read, but not modified by multiple threads, there’s no reason for synchronization or locking.
+</p>
+<p>However, if read and modified concurrently, or modified concurrently by more than one thread, the collection might throw a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/ConcurrentModificationException.html">ConcurrentModificationException</a> or behave unexpectedly. In these cases, it’s imperative to synchronize/lock access to the collection using one of the following approaches:
+</p>
+  <ol id="7f22da62-66e1-43cf-9635-4d3cfb12a4af" class="numbered-list" start="1">
+    <li>Using <code>Collections.synchronizedSorted..</code>:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SortedSet&lt;Integer&gt; set = Collections.synchronizedSortedSet(new TreeSet&lt;Integer&gt;());
@@ -136,7 +147,14 @@ SortedMap&lt;Integer,String&gt; map = Collections.synchronizedSortedMap(new Tree
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will provide a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/SortedSet.html">SortedSet</a>/<a href="https://docs.oracle.com/javase/8/docs/api/java/util/SortedMap.html">SortedMap</a> implementation backed by the actual collection, and synchronized on some mutex object. Note that this will synchronize all read and write access to the collection on a single lock, so even concurrent reads would not be possible.</p><ol id="a372ea94-8402-4ed8-90a6-02e56ec21000" class="numbered-list" start="1"><li>By manually synchronizing on some object, like the collection itself:</li></ol>
+</div>
+<p>This will provide a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/SortedSet.html">SortedSet</a>/<a href="https://docs.oracle.com/javase/8/docs/api/java/util/SortedMap.html">SortedMap</a> implementation backed by the actual collection, and synchronized on some mutex object. Note that this will synchronize all read and write access to the collection on a single lock, so even concurrent reads would not be possible.
+</p>
+  <ol id="a372ea94-8402-4ed8-90a6-02e56ec21000" class="numbered-list" start="1">
+    <li>By manually synchronizing on some object, like the collection itself:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">TreeSet&lt;Integer&gt; set = new TreeSet&lt;&gt;(); 
@@ -156,7 +174,12 @@ synchronized (set) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="d607eff7-b0f9-4a0a-889a-a132ac066c52" class="numbered-list" start="1"><li>By using a lock, such as a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/locks/ReentrantReadWriteLock.html">ReentrantReadWriteLock</a>:</li></ol>
+</div>
+  <ol id="d607eff7-b0f9-4a0a-889a-a132ac066c52" class="numbered-list" start="1">
+    <li>By using a lock, such as a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/locks/ReentrantReadWriteLock.html">ReentrantReadWriteLock</a>:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">TreeSet&lt;Integer&gt; set = new TreeSet&lt;&gt;(); 
@@ -177,7 +200,9 @@ lock.readLock().unlock();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As opposed to the previous synchronization methods, using a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/locks/ReadWriteLock.html">ReadWriteLock</a> allows multiple threads to read from the map concurrently.</p>
+</div>
+<p>As opposed to the previous synchronization methods, using a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/locks/ReadWriteLock.html">ReadWriteLock</a> allows multiple threads to read from the map concurrently.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

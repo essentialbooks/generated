@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>Firstly the classes from the jar need to be loaded. We’ll use three methods for this process:</p><ul id="028ba7e7-e08e-4cf8-9f8d-55091e83619b" class="bulleted-list"><li>loadClasses(File)</li><li>readJar(JarFile, JarEntry, Map)</li><li>getNode(byte[])</li></ul>
+      
+<p>Firstly the classes from the jar need to be loaded. We’ll use three methods for this process:
+</p>
+  <ul id="028ba7e7-e08e-4cf8-9f8d-55091e83619b" class="bulleted-list">
+    <li>loadClasses(File)
+    </li>
+    <li>readJar(JarFile, JarEntry, Map)
+    </li>
+    <li>getNode(byte[])
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Map&lt;String, ClassNode&gt; loadClasses(File jarFile) throws IOException {
@@ -177,7 +188,10 @@ return cn;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With these methods loading and changing a jar file becomes a simple matter of changing ClassNodes in a map. In this example we will replace all Strings in the jar with capitalized ones using the Tree API.</p>
+</div>
+<p>With these methods loading and changing a jar file becomes a simple matter of changing ClassNodes in a map. In this example we will replace all Strings in the jar with capitalized ones using the Tree API.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">File jarFile = new File(&#34;sample.jar&#34;);
@@ -204,7 +218,30 @@ for (ClassNode cn : nodes.values()){
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now that all of the ClassNode’s strings have been modified we need to save the changes. In order to save the changes and have a working output a few things have to be done:</p><ul id="ec83c2e7-5fc5-4329-b980-f87c67585165" class="bulleted-list"><li>Export ClassNodes to bytes</li><li>Load non-class jar entries <em>(Ex: Manifest.mf / other binary resources in jar)</em> as bytes</li><li>Save all bytes to a new jar</li></ul><p>From the last portion above, we’ll create three methods.</p><ul id="f62f9455-f514-449e-a2c7-221d6ca8fa7f" class="bulleted-list"><li>processNodes(Map&lt;String, ClassNode&gt; nodes)</li><li>loadNonClasses(File jarFile)</li><li>saveAsJar(Map&lt;String, byte[]&gt; outBytes, String fileName)</li></ul><p>Usage:</p>
+</div>
+<p>Now that all of the ClassNode’s strings have been modified we need to save the changes. In order to save the changes and have a working output a few things have to be done:
+</p>
+  <ul id="ec83c2e7-5fc5-4329-b980-f87c67585165" class="bulleted-list">
+    <li>Export ClassNodes to bytes
+    </li>
+    <li>Load non-class jar entries <em>(Ex: Manifest.mf / other binary resources in jar)</em> as bytes
+    </li>
+    <li>Save all bytes to a new jar
+    </li>
+  </ul>
+<p>From the last portion above, we’ll create three methods.
+</p>
+  <ul id="f62f9455-f514-449e-a2c7-221d6ca8fa7f" class="bulleted-list">
+    <li>processNodes(Map&lt;String, ClassNode&gt; nodes)
+    </li>
+    <li>loadNonClasses(File jarFile)
+    </li>
+    <li>saveAsJar(Map&lt;String, byte[]&gt; outBytes, String fileName)
+    </li>
+  </ul>
+<p>Usage:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Map&lt;String, byte[]&gt; out = process(nodes, new HashMap&lt;String, MappedClass&gt;());
@@ -214,7 +251,10 @@ saveAsJar(out, &#34;sample-edit.jar&#34;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The methods used:</p>
+</div>
+<p>The methods used:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">static Map&lt;String, byte[]&gt; processNodes(Map&lt;String, ClassNode&gt; nodes, Map&lt;String, MappedClass&gt; mappings) {
@@ -274,7 +314,9 @@ static void saveAsJar(Map&lt;String, byte[]&gt; outBytes, String fileName) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>That’s it. All the changes will be saved to “sample-edit.jar”.</p>
+</div>
+<p>That’s it. All the changes will be saved to “sample-edit.jar”.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

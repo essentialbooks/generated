@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Parsing into a struct is convenient but requires a lot of memory to hold the whole decoded document in memory.</p><p>In some cases XML files are so large that it’s not possible to decode the whole file into memory. For example XML dumps of Wikipedia content are several gigabytes in size.</p><p>Pull parsing is more efficient but API is harder to use.</p>
+      
+<p>Parsing into a struct is convenient but requires a lot of memory to hold the whole decoded document in memory.
+</p>
+<p>In some cases XML files are so large that it’s not possible to decode the whole file into memory. For example XML dumps of Wikipedia content are several gigabytes in size.
+</p>
+<p>Pull parsing is more efficient but API is harder to use.
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="o">//</span> <span class="p">:</span><span class="nx">g</span></pre>
@@ -135,7 +142,24 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Pull parsing requests next token from stream of XML tokens.</p><p>For start tag like <code>&lt;person&gt;</code> we get <code>xml.StartElement</code> token.</p><p>For end tag like <code>&lt;/person&gt;</code> we get <code>xml.EndElemnt</code> token.</p><p>For data inside the element <code>&lt;person&gt;data&lt;/person&gt;</code> we get <code>xml.CharData</code> token.</p><p>When decoder reaches the end, it returns error <code>io.EOF</code>.</p><p>In the above example we print <code>age</code> attribute of <code>&lt;person&gt;</code> element and char data inside <code>&lt;city&gt;</code> element.</p><p>This is a very basic example. In real programs you might need to remember more state.</p><p>For example, if your XML is:</p>
+</div>
+<p>Pull parsing requests next token from stream of XML tokens.
+</p>
+<p>For start tag like <code>&lt;person&gt;</code> we get <code>xml.StartElement</code> token.
+</p>
+<p>For end tag like <code>&lt;/person&gt;</code> we get <code>xml.EndElemnt</code> token.
+</p>
+<p>For data inside the element <code>&lt;person&gt;data&lt;/person&gt;</code> we get <code>xml.CharData</code> token.
+</p>
+<p>When decoder reaches the end, it returns error <code>io.EOF</code>.
+</p>
+<p>In the above example we print <code>age</code> attribute of <code>&lt;person&gt;</code> element and char data inside <code>&lt;city&gt;</code> element.
+</p>
+<p>This is a very basic example. In real programs you might need to remember more state.
+</p>
+<p>For example, if your XML is:
+</p>
+
 <div class="code-box lang-XML">
 	<div>
 	<pre class="chroma"><span class="nt">&lt;foo&gt;</span>
@@ -147,7 +171,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you look just at the <code>xml.StartElement</code> token, you don’t know if <code>foo</code> is for the top-level element or is it a child of <code>&lt;bar&gt;</code> element.</p>
+</div>
+<p>If you look just at the <code>xml.StartElement</code> token, you don’t know if <code>foo</code> is for the top-level element or is it a child of <code>&lt;bar&gt;</code> element.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

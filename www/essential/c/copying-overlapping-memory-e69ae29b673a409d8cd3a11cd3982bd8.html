@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>A wide variety of standard library functions have among their effects copying byte sequences from one memory region to another. Most of these functions have undefined behavior when the source and destination regions overlap.</p><p>For example, this …</p>
+      
+<p>A wide variety of standard library functions have among their effects copying byte sequences from one memory region to another. Most of these functions have undefined behavior when the source and destination regions overlap.
+</p>
+<p>For example, this …
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;string.h&gt; /* for memcpy() */
@@ -138,7 +143,10 @@ memcpy(str + 7, str, 10);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>… attempts to copy 10 bytes where the source and destination memory areas overlap by three bytes. To visualize:</p>
+</div>
+<p>… attempts to copy 10 bytes where the source and destination memory areas overlap by three bytes. To visualize:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">overlapping area
@@ -156,7 +164,17 @@ source</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Because of the overlap, the resulting behavior is undefined.</p><p>Among the standard library functions with a limitation of this kind are <code>memcpy()</code>, <code>strcpy()</code>, <code>strcat()</code>, <code>sprintf()</code>, and <code>sscanf()</code>. The standard says of these and several other functions:</p><blockquote id="22bc280b-5d2f-4823-a4dc-3441329bf12b" class="">If copying takes place between objects that overlap, the behavior is undefined.</blockquote><p>The <code>memmove()</code> function is the principal exception to this rule. Its definition specifies that the function behaves as if the source data were first copied into a temporary buffer and then written to the destination address. There is no exception for overlapping source and destination regions, nor any need for one, so <code>memmove()</code> has well-defined behavior in such cases.</p><p>The distinction reflects an efficiency <em>vs</em>. generality tradeoff. Copying such as these functions perform usually occurs between disjoint regions of memory, and often it is possible to know at development time whether a particular instance of memory copying will be in that category. Assuming non-overlap affords comparatively more efficient implementations that do not reliably produce correct results when the assumption does not hold. Most C library functions are allowed the more efficient implementations, and <code>memmove()</code> fills in the gaps, serving the cases where the source and destination may or do overlap. To produce the correct effect in all cases, however, it must perform additional tests and / or employ a comparatively less efficient implementation.</p>
+</div>
+<p>Because of the overlap, the resulting behavior is undefined.
+</p>
+<p>Among the standard library functions with a limitation of this kind are <code>memcpy()</code>, <code>strcpy()</code>, <code>strcat()</code>, <code>sprintf()</code>, and <code>sscanf()</code>. The standard says of these and several other functions:
+</p>
+<blockquote id="22bc280b-5d2f-4823-a4dc-3441329bf12b" class="">If copying takes place between objects that overlap, the behavior is undefined.
+</blockquote>
+<p>The <code>memmove()</code> function is the principal exception to this rule. Its definition specifies that the function behaves as if the source data were first copied into a temporary buffer and then written to the destination address. There is no exception for overlapping source and destination regions, nor any need for one, so <code>memmove()</code> has well-defined behavior in such cases.
+</p>
+<p>The distinction reflects an efficiency <em>vs</em>. generality tradeoff. Copying such as these functions perform usually occurs between disjoint regions of memory, and often it is possible to know at development time whether a particular instance of memory copying will be in that category. Assuming non-overlap affords comparatively more efficient implementations that do not reliably produce correct results when the assumption does not hold. Most C library functions are allowed the more efficient implementations, and <code>memmove()</code> fills in the gaps, serving the cases where the source and destination may or do overlap. To produce the correct effect in all cases, however, it must perform additional tests and / or employ a comparatively less efficient implementation.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

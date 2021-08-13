@@ -127,7 +127,17 @@
 </div>
 
 
-      <h2 id="f881acbc-248c-4e0d-80c4-3c11ebfafe95" class=""><code>window.isNaN()</code><a class="header-anchor" href="#f881acbc-248c-4e0d-80c4-3c11ebfafe95" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>The global function <code>isNaN()</code> can be used to check if a certain value or expression evaluates to <code>NaN</code>. This function (in short) first checks if the value is a number, if not tries to convert it (*), and then checks if the resulting value is <code>NaN</code>. For this reason, <strong>this testing method may cause confusion</strong>.</p><p>(*) The &quot;conversion&quot; method is not that simple, see <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-isnan-number">ECMA-262 18.2.3</a> for a detailed explanation of the algorithm.</p><p>These examples will help you better understand the <code>isNaN()</code> behavior:</p>
+      
+  <h2 id="f881acbc-248c-4e0d-80c4-3c11ebfafe95" class=""><code>window.isNaN()</code>
+  <a class="header-anchor" href="#f881acbc-248c-4e0d-80c4-3c11ebfafe95" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>The global function <code>isNaN()</code> can be used to check if a certain value or expression evaluates to <code>NaN</code>. This function (in short) first checks if the value is a number, if not tries to convert it (*), and then checks if the resulting value is <code>NaN</code>. For this reason, <strong>this testing method may cause confusion</strong>.
+</p>
+<p>(*) The &quot;conversion&quot; method is not that simple, see <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-isnan-number">ECMA-262 18.2.3</a> for a detailed explanation of the algorithm.
+</p>
+<p>These examples will help you better understand the <code>isNaN()</code> behavior:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">isNaN(NaN);          // true
@@ -154,7 +164,23 @@ isNaN([1, 2]);       // true : converted to &#34;1, 2&#34;, which can&#39;t be c
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This last one is a bit tricky: checking if an <code>Array</code> is <code>NaN</code>. To do this, the <code>Number()</code> constructor first converts the array to a string, then to a number; this is the reason why <code>isNaN([])</code> and <code>isNaN([34])</code> both return <code>false</code>, but <code>isNaN([1, 2])</code> and <code>isNaN([true])</code> both return <code>true</code>: because they get converted to <code>&quot;&quot;</code>, <code>&quot;34&quot;</code>, <code>&quot;1,2&quot;</code> and <code>&quot;true&quot;</code> respectively. In general, <strong>an array is considered </strong><code><strong>NaN</strong></code><strong> by </strong><code><strong>isNaN()</strong></code><strong> unless it only holds one element whose string representation can be converted to a valid number</strong>.</p><p>6</p><h2 id="658ac93d-e4c2-4cd5-97c7-4b2f5a50bcf3" class=""><code>Number.isNaN()</code><a class="header-anchor" href="#658ac93d-e4c2-4cd5-97c7-4b2f5a50bcf3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>In ECMAScript 6, the <code>Number.isNaN()</code> function has been implemented primarily to avoid the problem of <code>window.isNaN()</code> of forcefully converting the parameter to a number. <code>Number.isNaN()</code>, indeed, <strong>doesn&#x27;t try to convert</strong> the value to a number before testing. This also means that <strong>only values of the type number, that are also </strong><code><strong>NaN</strong></code><strong>, return </strong><code><strong>true</strong></code> (which basically means only <code>Number.isNaN(NaN)</code>).</p><p>From <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-number.isnan">ECMA-262 20.1.2.4</a>:</p><blockquote id="b8845006-940e-4ceb-b7fa-3928f4aaff01" class="">When the Number.isNaN is called with one argument number, the following steps are taken:If Type(number) is not Number, return false.If number is NaN, return true.Otherwise, return false.</blockquote><p>Some examples:</p>
+</div>
+<p>This last one is a bit tricky: checking if an <code>Array</code> is <code>NaN</code>. To do this, the <code>Number()</code> constructor first converts the array to a string, then to a number; this is the reason why <code>isNaN([])</code> and <code>isNaN([34])</code> both return <code>false</code>, but <code>isNaN([1, 2])</code> and <code>isNaN([true])</code> both return <code>true</code>: because they get converted to <code>&quot;&quot;</code>, <code>&quot;34&quot;</code>, <code>&quot;1,2&quot;</code> and <code>&quot;true&quot;</code> respectively. In general, <strong>an array is considered </strong><code><strong>NaN</strong></code><strong> by </strong><code><strong>isNaN()</strong></code><strong> unless it only holds one element whose string representation can be converted to a valid number</strong>.
+</p>
+<p>6
+</p>
+  <h2 id="658ac93d-e4c2-4cd5-97c7-4b2f5a50bcf3" class=""><code>Number.isNaN()</code>
+  <a class="header-anchor" href="#658ac93d-e4c2-4cd5-97c7-4b2f5a50bcf3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>In ECMAScript 6, the <code>Number.isNaN()</code> function has been implemented primarily to avoid the problem of <code>window.isNaN()</code> of forcefully converting the parameter to a number. <code>Number.isNaN()</code>, indeed, <strong>doesn&#x27;t try to convert</strong> the value to a number before testing. This also means that <strong>only values of the type number, that are also </strong><code><strong>NaN</strong></code><strong>, return </strong><code><strong>true</strong></code> (which basically means only <code>Number.isNaN(NaN)</code>).
+</p>
+<p>From <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-number.isnan">ECMA-262 20.1.2.4</a>:
+</p>
+<blockquote id="b8845006-940e-4ceb-b7fa-3928f4aaff01" class="">When the Number.isNaN is called with one argument number, the following steps are taken:If Type(number) is not Number, return false.If number is NaN, return true.Otherwise, return false.
+</blockquote>
+<p>Some examples:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="c1">// The one and only 

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>PHP is a loosely typed language. This means that, by default, it doesn’t require operands in an expression to be of the same (or compatible) types. For example, you can append a number to a string and expect it to work.</p>
+      
+<p>PHP is a loosely typed language. This means that, by default, it doesn’t require operands in an expression to be of the same (or compatible) types. For example, you can append a number to a string and expect it to work.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var_dump (&#34;This is example number &#34; . 1);</pre>
@@ -135,7 +138,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The output will be:</p><blockquote id="93cb01cf-1b50-40f2-86ed-a6a0242d51b9" class="">string(24) “This is example number 1”</blockquote><p>PHP accomplishes this by automatically casting incompatible variable types into types that allow the requested operation to take place. In the case above, it will cast the integer literal 1 into a string, meaning that it can be concatenated onto the preceding string literal. This is referred to as type juggling. This is a very powerful feature of PHP, but it is also a feature that can lead you to a lot of hair-pulling if you are not aware of it, and can even lead to security problems.</p><p>Consider the following:</p>
+</div>
+<p>The output will be:
+</p>
+<blockquote id="93cb01cf-1b50-40f2-86ed-a6a0242d51b9" class="">string(24) “This is example number 1”
+</blockquote>
+<p>PHP accomplishes this by automatically casting incompatible variable types into types that allow the requested operation to take place. In the case above, it will cast the integer literal 1 into a string, meaning that it can be concatenated onto the preceding string literal. This is referred to as type juggling. This is a very powerful feature of PHP, but it is also a feature that can lead you to a lot of hair-pulling if you are not aware of it, and can even lead to security problems.
+</p>
+<p>Consider the following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if (1 == $variable) {
@@ -145,7 +157,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The intent appears to be that the programmer is checking that a variable has a value of 1. But what happens if $variable has a value of “1 and a half” instead? The answer might surprise you.</p>
+</div>
+<p>The intent appears to be that the programmer is checking that a variable has a value of 1. But what happens if $variable has a value of “1 and a half” instead? The answer might surprise you.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$variable = &#34;1 and a half&#34;;
@@ -154,7 +169,15 @@ var_dump (1 == $variable);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The result is:</p><blockquote id="1138c1f2-d0ff-43bd-9279-bfb40d8b0cc7" class="">bool(true)</blockquote><p>Why has this happened? It’s because PHP realised that the string “1 and a half” isn’t an integer, but it needs to be in order to compare it to integer 1. Instead of failing, PHP initiates type juggling and, attempts to convert the variable into an integer. It does this by taking all the characters at the start of the string that can be cast to integer and casting them. It stops as soon as it encounters a character that can’t be treated as a number. Therefore “1 and a half” gets cast to integer 1.</p><p>Granted, this is a very contrived example, but it serves to demonstrate the issue. The next few examples will cover some cases where I’ve run into errors caused by type juggling that happened in real software.</p>
+</div>
+<p>The result is:
+</p>
+<blockquote id="1138c1f2-d0ff-43bd-9279-bfb40d8b0cc7" class="">bool(true)
+</blockquote>
+<p>Why has this happened? It’s because PHP realised that the string “1 and a half” isn’t an integer, but it needs to be in order to compare it to integer 1. Instead of failing, PHP initiates type juggling and, attempts to convert the variable into an integer. It does this by taking all the characters at the start of the string that can be cast to integer and casting them. It stops as soon as it encounters a character that can’t be treated as a number. Therefore “1 and a half” gets cast to integer 1.
+</p>
+<p>Granted, this is a very contrived example, but it serves to demonstrate the issue. The next few examples will cover some cases where I’ve run into errors caused by type juggling that happened in real software.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>In Java, it’s too “easy” to create many String instances which are not needed. That and other reasons might cause your program to have lots of Strings that the GC is busy cleaning up.</p><p>Some ways you might be creating String instances:</p>
+      
+<p>In Java, it’s too “easy” to create many String instances which are not needed. That and other reasons might cause your program to have lots of Strings that the GC is busy cleaning up.
+</p>
+<p>Some ways you might be creating String instances:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">myString += &#34;foo&#34;;</pre>
@@ -135,7 +140,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Or worse, in a loop or recursion:</p>
+</div>
+<p>Or worse, in a loop or recursion:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for (int i = 0; i &lt; N; i++) {
@@ -145,7 +153,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The problem is that each <code>\+</code> creates a new String (usually, since new compilers optimize some cases). A possible optimization can be made using <code>StringBuilder</code> or <code>StringBuffer</code>:</p>
+</div>
+<p>The problem is that each <code>\+</code> creates a new String (usually, since new compilers optimize some cases). A possible optimization can be made using <code>StringBuilder</code> or <code>StringBuffer</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">StringBuffer sb = new StringBuffer(myString);
@@ -157,7 +168,23 @@ myString = sb.toString();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you build long Strings often (SQLs for example), use a String building API.</p><p>Other things to consider:</p><ul id="fcb050f9-85f8-49fd-8e55-33b932e99be0" class="bulleted-list"><li>Reduce usage of <code>replace</code>, <code>substring</code> etc.</li><li>Avoid <code>String.toArray()</code>, especially in frequently accessed code.</li><li>Log prints which are destined to be filtered (due to log level for example) should not be generated (log level should be checked in advance).</li><li>Use libraries like <a href="https://commons.apache.org/proper/commons-lang/">this</a> if necessary.</li><li>StringBuilder is better if the variable is used in a non-shared manner (across threads).</li></ul>
+</div>
+<p>If you build long Strings often (SQLs for example), use a String building API.
+</p>
+<p>Other things to consider:
+</p>
+  <ul id="fcb050f9-85f8-49fd-8e55-33b932e99be0" class="bulleted-list">
+    <li>Reduce usage of <code>replace</code>, <code>substring</code> etc.
+    </li>
+    <li>Avoid <code>String.toArray()</code>, especially in frequently accessed code.
+    </li>
+    <li>Log prints which are destined to be filtered (due to log level for example) should not be generated (log level should be checked in advance).
+    </li>
+    <li>Use libraries like <a href="https://commons.apache.org/proper/commons-lang/">this</a> if necessary.
+    </li>
+    <li>StringBuilder is better if the variable is used in a non-shared manner (across threads).
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>By default, a <code>Date</code> object is created as local time. This is not always desirable, for example when communicating a date between a server and a client that do not reside in the same timezone. In this scenario, one doesn’t want to worry about timezones at all until the date needs to be displayed in local time, if that is even required at all.</p><h2 id="e8f5d11e-02ce-41f5-bd1f-946545028f65" class="">The problem<a class="header-anchor" href="#e8f5d11e-02ce-41f5-bd1f-946545028f65" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>In this problem we want to communicate a specific date (day, month, year) with someone in a different timezone. The first implementation naively uses local times, which results in wrong results. The second implementation uses UTC dates to avoid timezones where they are not needed.</p><h3 id="e1353de6-626f-41e8-97d2-4bbeb00d3017" class="">Naive approach with WRONG results<a class="header-anchor" href="#e1353de6-626f-41e8-97d2-4bbeb00d3017" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3>
+      
+<p>By default, a <code>Date</code> object is created as local time. This is not always desirable, for example when communicating a date between a server and a client that do not reside in the same timezone. In this scenario, one doesn’t want to worry about timezones at all until the date needs to be displayed in local time, if that is even required at all.
+</p>
+  <h2 id="e8f5d11e-02ce-41f5-bd1f-946545028f65" class="">The problem
+  <a class="header-anchor" href="#e8f5d11e-02ce-41f5-bd1f-946545028f65" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>In this problem we want to communicate a specific date (day, month, year) with someone in a different timezone. The first implementation naively uses local times, which results in wrong results. The second implementation uses UTC dates to avoid timezones where they are not needed.
+</p>
+  <h3 id="e1353de6-626f-41e8-97d2-4bbeb00d3017" class="">Naive approach with WRONG results
+  <a class="header-anchor" href="#e1353de6-626f-41e8-97d2-4bbeb00d3017" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">function</span> <span class="nx">formatDate</span><span class="p">(</span><span class="nx">dayOfWeek</span><span class="p">,</span> <span class="nx">day</span><span class="p">,</span> <span class="nx">month</span><span class="p">,</span> <span class="nx">year</span><span class="p">)</span> <span class="p">{</span>
@@ -147,7 +158,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="0b2ca44d-63e5-44ef-95a1-55597c30c3b8" class="">Sample output: Foo was born on: Sat Jan 1 2000</blockquote>
+</div>
+<blockquote id="0b2ca44d-63e5-44ef-95a1-55597c30c3b8" class="">Sample output: Foo was born on: Sat Jan 1 2000
+</blockquote>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="c1">// Meanwhile somewhere else...
@@ -161,7 +175,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="dd667f0a-1be0-484f-be1d-210d5bea5064" class="">Sample output: Foo was born on: Fri Dec 31 1999</blockquote><p>And thus, Bar would always believe Foo was born on the last day of 1999.</p><h3 id="0f676aa2-e7ce-42de-acd0-a56b148d2b01" class="">Correct approach<a class="header-anchor" href="#0f676aa2-e7ce-42de-acd0-a56b148d2b01" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3>
+</div>
+<blockquote id="dd667f0a-1be0-484f-be1d-210d5bea5064" class="">Sample output: Foo was born on: Fri Dec 31 1999
+</blockquote>
+<p>And thus, Bar would always believe Foo was born on the last day of 1999.
+</p>
+  <h3 id="0f676aa2-e7ce-42de-acd0-a56b148d2b01" class="">Correct approach
+  <a class="header-anchor" href="#0f676aa2-e7ce-42de-acd0-a56b148d2b01" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">function</span> <span class="nx">formatDate</span><span class="p">(</span><span class="nx">dayOfWeek</span><span class="p">,</span> <span class="nx">day</span><span class="p">,</span> <span class="nx">month</span><span class="p">,</span> <span class="nx">year</span><span class="p">)</span> <span class="p">{</span>
@@ -181,7 +203,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="ce7244ec-f191-4ca4-abbe-5193639edee7" class="">Sample output: Foo was born on: Sat Jan 1 2000</blockquote>
+</div>
+<blockquote id="ce7244ec-f191-4ca4-abbe-5193639edee7" class="">Sample output: Foo was born on: Sat Jan 1 2000
+</blockquote>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="c1">// Meanwhile somewhere else...
@@ -195,7 +220,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="41b99746-2917-4987-8a02-e674d807d9ef" class="">Sample output: Foo was born on: Sat Jan 1 2000</blockquote><h2 id="0fabed09-bfd5-4de5-a580-14b118e3c8bd" class="">Creating a Date from UTC<a class="header-anchor" href="#0fabed09-bfd5-4de5-a580-14b118e3c8bd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>If one wants to create a <code>Date</code> object based on UTC or GMT, the <code>Date.UTC(...)</code> method can be used. It uses the same arguments as the longest <code>Date</code> constructor. This method will return a number representing the time that has passed since January 1, 1970, 00:00:00 UTC.</p>
+</div>
+<blockquote id="41b99746-2917-4987-8a02-e674d807d9ef" class="">Sample output: Foo was born on: Sat Jan 1 2000
+</blockquote>
+  <h2 id="0fabed09-bfd5-4de5-a580-14b118e3c8bd" class="">Creating a Date from UTC
+  <a class="header-anchor" href="#0fabed09-bfd5-4de5-a580-14b118e3c8bd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>If one wants to create a <code>Date</code> object based on UTC or GMT, the <code>Date.UTC(...)</code> method can be used. It uses the same arguments as the longest <code>Date</code> constructor. This method will return a number representing the time that has passed since January 1, 1970, 00:00:00 UTC.
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">UTC</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">31</span><span class="p">,</span><span class="mi">12</span><span class="p">));</span>
@@ -204,7 +237,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="3d4e76c8-4406-4848-9d0e-dcfb79d094f8" class="">Sample output: 949320000000</blockquote>
+</div>
+<blockquote id="3d4e76c8-4406-4848-9d0e-dcfb79d094f8" class="">Sample output: 949320000000
+</blockquote>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">var</span> <span class="nx">utcDate</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">UTC</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">31</span><span class="p">,</span><span class="mi">12</span><span class="p">));</span>
@@ -214,7 +250,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="53c4e998-ff06-4da9-aab8-72f96f8b0b8f" class="">Sample output: Mon Jan 31 2000 13:00:00 GMT+0100 (West-Europa (standaardtijd))</blockquote><p>Unsurprisingly, the difference between UTC time and local time is, in fact, the timezone offset converted to milliseconds.</p>
+</div>
+<blockquote id="53c4e998-ff06-4da9-aab8-72f96f8b0b8f" class="">Sample output: Mon Jan 31 2000 13:00:00 GMT+0100 (West-Europa (standaardtijd))
+</blockquote>
+<p>Unsurprisingly, the difference between UTC time and local time is, in fact, the timezone offset converted to milliseconds.
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">var</span> <span class="nx">utcDate</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">UTC</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">31</span><span class="p">,</span><span class="mi">12</span><span class="p">));</span>
@@ -226,7 +267,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="3fcfa653-5590-4852-a7ef-d033e79092a7" class="">Sample output: true</blockquote><h2 id="5650377b-7f1d-4d1f-b8b8-585927c7044f" class="">Changing a Date object<a class="header-anchor" href="#5650377b-7f1d-4d1f-b8b8-585927c7044f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>All <code>Date</code> object modifiers, such as <code>setDate(...)</code> and <code>setFullYear(...)</code> have an equivalent takes an argument in UTC time rather than in local time.</p>
+</div>
+<blockquote id="3fcfa653-5590-4852-a7ef-d033e79092a7" class="">Sample output: true
+</blockquote>
+  <h2 id="5650377b-7f1d-4d1f-b8b8-585927c7044f" class="">Changing a Date object
+  <a class="header-anchor" href="#5650377b-7f1d-4d1f-b8b8-585927c7044f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>All <code>Date</code> object modifiers, such as <code>setDate(...)</code> and <code>setFullYear(...)</code> have an equivalent takes an argument in UTC time rather than in local time.
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">var</span> <span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
@@ -238,7 +287,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="e410730d-d093-446c-bec9-b8efa612a0af" class="">Sample output: Mon Jan 31 2000 13:00:00 GMT+0100 (West-Europa (standaardtijd))</blockquote><p>The other UTC-specific modifiers are <code>.setUTCMonth()</code>, <code>.setUTCDate()</code> (for the day of the month), <code>.setUTCMinutes()</code>, <code>.setUTCSeconds()</code> and <code>.setUTCMilliseconds()</code>.</p><h2 id="80bce0a2-be9e-48b0-b082-1607f8dab746" class="">Avoiding ambiguity with getTime() and setTime()<a class="header-anchor" href="#80bce0a2-be9e-48b0-b082-1607f8dab746" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Where the methods above are required to differentiate between ambiguity in dates, it is usually easier to communicate a date as the amount of time that has passed since January 1, 1970, 00:00:00 UTC. This single number represents a single point in time, and can be converted to local time whenever necessary.</p>
+</div>
+<blockquote id="e410730d-d093-446c-bec9-b8efa612a0af" class="">Sample output: Mon Jan 31 2000 13:00:00 GMT+0100 (West-Europa (standaardtijd))
+</blockquote>
+<p>The other UTC-specific modifiers are <code>.setUTCMonth()</code>, <code>.setUTCDate()</code> (for the day of the month), <code>.setUTCMinutes()</code>, <code>.setUTCSeconds()</code> and <code>.setUTCMilliseconds()</code>.
+</p>
+  <h2 id="80bce0a2-be9e-48b0-b082-1607f8dab746" class="">Avoiding ambiguity with getTime() and setTime()
+  <a class="header-anchor" href="#80bce0a2-be9e-48b0-b082-1607f8dab746" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Where the methods above are required to differentiate between ambiguity in dates, it is usually easier to communicate a date as the amount of time that has passed since January 1, 1970, 00:00:00 UTC. This single number represents a single point in time, and can be converted to local time whenever necessary.
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">var</span> <span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">UTC</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">31</span><span class="p">,</span><span class="mi">12</span><span class="p">));</span>
@@ -251,7 +310,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="28c00292-a173-43b2-bba8-892efd30e8b6" class="">Sample output: true</blockquote>
+</div>
+<blockquote id="28c00292-a173-43b2-bba8-892efd30e8b6" class="">Sample output: true
+</blockquote>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="c1">// And when constructing a date from it elsewhere...
@@ -266,7 +328,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="28bcf948-dbbd-4369-b774-46d664a72aa1" class="">Sample output: Mon, 31 Jan 2000 12:00:00 GMT Mon Jan 31 2000 13:00:00 GMT+0100 (West-Europa (standaardtijd))</blockquote>
+</div>
+<blockquote id="28bcf948-dbbd-4369-b774-46d664a72aa1" class="">Sample output: Mon, 31 Jan 2000 12:00:00 GMT Mon Jan 31 2000 13:00:00 GMT+0100 (West-Europa (standaardtijd))
+</blockquote>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>Extension methods were introduced in C# 3.0. Extension methods extend and add behavior to existing types without creating a new derived type, recompiling, or otherwise modifying the original type. <em>They are especially helpful when you cannot modify the source of a type you are looking to enhance.</em> Extension methods may be created for system types, types defined by third parties, and types that you have defined yourself. The extension method can be invoked as though it were a member method of the original type. This allows for <strong>Method Chaining</strong> used to implement a <strong>Fluent Interface</strong>.</p><p>An extension method is created by adding a <strong>static method</strong> to a <strong>static class</strong> which is distinct from the original type being extended. The static class holding the extension method is often created for the sole purpose of holding extension methods.</p><p>Extension methods take a special first parameter that designates the original type being extended. This first parameter is decorated with the keyword <code>this</code> (which constitutes a special and distinct use of <code>this</code> in C#—it should be understood as different from the use of <code>this</code> which allows referring to members of the current object instance).</p><p>In the following example, the original type being extended is the class <code>string</code>. <code>String</code> has been extended by a method <code>Shorten()</code>, which provides the additional functionality of shortening. The static class <code>StringExtensions</code> has been created to hold the extension method. The extension method <code>Shorten()</code> shows that it is an extension of <code>string</code> via the specially marked first parameter. To show that the <code>Shorten()</code> method extends <code>string</code>, the first parameter is marked with <code>this</code>. Therefore, the full signature of the first parameter is <code>this string text</code>, where <code>string</code> is the original type being extended and <code>text</code> is the chosen parameter name.</p>
+      
+<p>Extension methods were introduced in C# 3.0. Extension methods extend and add behavior to existing types without creating a new derived type, recompiling, or otherwise modifying the original type. <em>They are especially helpful when you cannot modify the source of a type you are looking to enhance.</em> Extension methods may be created for system types, types defined by third parties, and types that you have defined yourself. The extension method can be invoked as though it were a member method of the original type. This allows for <strong>Method Chaining</strong> used to implement a <strong>Fluent Interface</strong>.
+</p>
+<p>An extension method is created by adding a <strong>static method</strong> to a <strong>static class</strong> which is distinct from the original type being extended. The static class holding the extension method is often created for the sole purpose of holding extension methods.
+</p>
+<p>Extension methods take a special first parameter that designates the original type being extended. This first parameter is decorated with the keyword <code>this</code> (which constitutes a special and distinct use of <code>this</code> in C#—it should be understood as different from the use of <code>this</code> which allows referring to members of the current object instance).
+</p>
+<p>In the following example, the original type being extended is the class <code>string</code>. <code>String</code> has been extended by a method <code>Shorten()</code>, which provides the additional functionality of shortening. The static class <code>StringExtensions</code> has been created to hold the extension method. The extension method <code>Shorten()</code> shows that it is an extension of <code>string</code> via the specially marked first parameter. To show that the <code>Shorten()</code> method extends <code>string</code>, the first parameter is marked with <code>this</code>. Therefore, the full signature of the first parameter is <code>this string text</code>, where <code>string</code> is the original type being extended and <code>text</code> is the chosen parameter name.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">static</span> <span class="k">class</span> <span class="nc">StringExtensions</span>
@@ -158,7 +167,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://dotnetfiddle.net/uiPhpP">Live Demo on .NET Fiddle</a></p><hr id="04391f3e-591d-4b84-b8d1-28cce2b1a407"/><p>The object passed as the <em>first argument of an extension method</em> (which is accompanied by the <code>this</code> keyword) is the instance the extension method is called upon.</p><p>For example, when this code is executed:</p>
+</div>
+<p><a href="https://dotnetfiddle.net/uiPhpP">Live Demo on .NET Fiddle</a>
+</p>
+<hr id="04391f3e-591d-4b84-b8d1-28cce2b1a407"/>
+<p>The object passed as the <em>first argument of an extension method</em> (which is accompanied by the <code>this</code> keyword) is the instance the extension method is called upon.
+</p>
+<p>For example, when this code is executed:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="s">&#34;some string&#34;</span><span class="p">.</span><span class="n">Shorten</span><span class="p">(</span><span class="m">5</span><span class="p">);</span>
@@ -167,7 +184,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The values of the arguments are as below:</p>
+</div>
+<p>The values of the arguments are as below:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">text</span><span class="p">:</span> <span class="s">&#34;some string&#34;</span>
@@ -177,7 +197,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>Note that extension methods are only usable if they are in the same namespace as their definition, if the namespace is imported explicitly by the code using the extension method, or if the extension class is namespace-less.</em> The .NET framework guidelines recommend putting extension classes in their own namespace. However, this may lead to discovery issues.</p><p>This results in no conflicts between the extension methods and the libraries being used, unless namespaces which might conflict are explicitly pulled in. For example <a href="http://stackoverflow.com/documentation/c%23/68/linq-queries">LINQ Extensions</a>:</p>
+</div>
+<p><em>Note that extension methods are only usable if they are in the same namespace as their definition, if the namespace is imported explicitly by the code using the extension method, or if the extension class is namespace-less.</em> The .NET framework guidelines recommend putting extension classes in their own namespace. However, this may lead to discovery issues.
+</p>
+<p>This results in no conflicts between the extension methods and the libraries being used, unless namespaces which might conflict are explicitly pulled in. For example <a href="http://stackoverflow.com/documentation/c%23/68/linq-queries">LINQ Extensions</a>:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">using</span> <span class="nn">System.Linq</span><span class="p">;</span> <span class="c1">// Allows use of extension methods from the System.Linq namespace
@@ -197,7 +222,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://dotnetfiddle.net/IF223c">Live Demo on .NET Fiddle</a></p><hr id="646ee0f0-10a9-46b4-a50e-df1ce3a72d32"/><p>Since C# 6.0, it is also possible to put a <code>using static</code> directive to the <em>class</em> containing the extension methods. For example, <code>using static System.Linq.Enumerable;</code>. This makes extension methods from that particular class available without bringing other types from the same namespace into scope.</p><hr id="7dfe2a19-9de5-4015-a3f0-4846f73c48b4"/><p>When a class method with the same signature is available, the compiler prioritizes it over the extension method call. For example:</p>
+</div>
+<p><a href="https://dotnetfiddle.net/IF223c">Live Demo on .NET Fiddle</a>
+</p>
+<hr id="646ee0f0-10a9-46b4-a50e-df1ce3a72d32"/>
+<p>Since C# 6.0, it is also possible to put a <code>using static</code> directive to the <em>class</em> containing the extension methods. For example, <code>using static System.Linq.Enumerable;</code>. This makes extension methods from that particular class available without bringing other types from the same namespace into scope.
+</p>
+<hr id="7dfe2a19-9de5-4015-a3f0-4846f73c48b4"/>
+<p>When a class method with the same signature is available, the compiler prioritizes it over the extension method call. For example:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">Test</span>
@@ -229,7 +263,20 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://dotnetfiddle.net/fI3sCJ">Live demo on .NET Fiddle</a></p><hr id="46325f48-c804-41c6-bfb9-29417d1f01d6"/><p>Note that if there are two extension functions with the same signature, and one of them is in the same namespace, then that one will be prioritized. On the other hand, if both of them are accessed by <code>using</code>, then a compile time error will ensue with the message:</p><blockquote id="0e0ebde5-79a7-4ebb-82eb-750299c4a912" class="">The call is ambiguous between the following methods or properties</blockquote><hr id="a151e08a-8c8d-4d88-901b-941d17394042"/><p>Note that the syntactic convenience of calling an extension method via <code>originalTypeInstance.ExtensionMethod()</code> is an optional convenience. The method can also be called in the traditional manner, so that the special first parameter is used as a parameter to the method.</p><p>I.e., both of the following work:</p>
+</div>
+<p><a href="https://dotnetfiddle.net/fI3sCJ">Live demo on .NET Fiddle</a>
+</p>
+<hr id="46325f48-c804-41c6-bfb9-29417d1f01d6"/>
+<p>Note that if there are two extension functions with the same signature, and one of them is in the same namespace, then that one will be prioritized. On the other hand, if both of them are accessed by <code>using</code>, then a compile time error will ensue with the message:
+</p>
+<blockquote id="0e0ebde5-79a7-4ebb-82eb-750299c4a912" class="">The call is ambiguous between the following methods or properties
+</blockquote>
+<hr id="a151e08a-8c8d-4d88-901b-941d17394042"/>
+<p>Note that the syntactic convenience of calling an extension method via <code>originalTypeInstance.ExtensionMethod()</code> is an optional convenience. The method can also be called in the traditional manner, so that the special first parameter is used as a parameter to the method.
+</p>
+<p>I.e., both of the following work:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="c1">//Calling as though method belongs to string--it seamlessly extends string

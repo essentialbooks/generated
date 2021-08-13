@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>C# developers get a lot of null reference exceptions to deal with. F# developers don’t because they have the Option type. An Option&lt;&gt; type (some prefer Maybe&lt;&gt; as a name) provides a Some and a None return type. It makes it explicit that a method may be about to return a null record.</p><p>For instance, you can’t read the following and know if you will have to deal with a null value.</p>
+      
+<p>C# developers get a lot of null reference exceptions to deal with. F# developers don’t because they have the Option type. An Option&lt;&gt; type (some prefer Maybe&lt;&gt; as a name) provides a Some and a None return type. It makes it explicit that a method may be about to return a null record.
+</p>
+<p>For instance, you can’t read the following and know if you will have to deal with a null value.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">var</span> <span class="n">user</span> <span class="p">=</span> <span class="n">_repository</span><span class="p">.</span><span class="n">GetUser</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
@@ -136,7 +141,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you do know about the possible null you can introduce some boilerplate code to deal with it.</p>
+</div>
+<p>If you do know about the possible null you can introduce some boilerplate code to deal with it.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">var</span> <span class="n">username</span> <span class="p">=</span> <span class="n">user</span> <span class="p">!=</span> <span class="k">null</span> <span class="p">?</span> <span class="n">user</span><span class="p">.</span><span class="n">Name</span> <span class="p">:</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">;</span>
@@ -145,7 +153,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>What if we have an Option&lt;&gt; returned instead?</p>
+</div>
+<p>What if we have an Option&lt;&gt; returned instead?
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">Option</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;</span> <span class="n">maybeUser</span> <span class="p">=</span> <span class="n">_repository</span><span class="p">.</span><span class="n">GetUser</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
@@ -154,7 +165,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The code now makes it explicit that we may have a None record returned and the boilerplate code to check for Some or None is required:</p>
+</div>
+<p>The code now makes it explicit that we may have a None record returned and the boilerplate code to check for Some or None is required:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">var</span> <span class="n">username</span> <span class="p">=</span> <span class="n">maybeUser</span><span class="p">.</span><span class="n">HasValue</span> <span class="p">?</span> <span class="n">maybeUser</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">Name</span> <span class="p">:</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">;</span>
@@ -163,7 +177,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The following method shows how to return an Option&lt;&gt;</p>
+</div>
+<p>The following method shows how to return an Option&lt;&gt;
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="n">Option</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;</span> <span class="n">GetUser</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
@@ -183,7 +200,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here is a minimal implementation of Option&lt;&gt;.</p>
+</div>
+<p>Here is a minimal implementation of Option&lt;&gt;.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">struct</span> <span class="nc">Option</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
@@ -221,7 +241,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To demonstrate the above <a href="https://gist.github.com/Boggin/d53660f32aeaa35e0b028919ddc465e3">avoidNull.csx</a> can be run with the C# REPL.</p><p>As stated, this is a minimal implementation. A search for <a href="https://www.nuget.org/packages?q=maybe">“Maybe” NuGet packages</a> will turn up a number of good libraries.</p>
+</div>
+<p>To demonstrate the above <a href="https://gist.github.com/Boggin/d53660f32aeaa35e0b028919ddc465e3">avoidNull.csx</a> can be run with the C# REPL.
+</p>
+<p>As stated, this is a minimal implementation. A search for <a href="https://www.nuget.org/packages?q=maybe">“Maybe” NuGet packages</a> will turn up a number of good libraries.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

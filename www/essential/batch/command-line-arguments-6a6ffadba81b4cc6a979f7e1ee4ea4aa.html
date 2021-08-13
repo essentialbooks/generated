@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>The command-line arguments AKA command-line parameters passed to a batch script are accessible as <code>%1</code>, <code>%2</code>, ..., <code>%9</code>. There can be more than nine arguments; to access them, see how to loop over all of them below.</p><p>The syntax <code>%0</code> does not refer to a command-line argument but rather to the name of the batch file.</p><p>Testing for whether the first command-line argument has been provided:</p>
+      
+<p>The command-line arguments AKA command-line parameters passed to a batch script are accessible as <code>%1</code>, <code>%2</code>, ..., <code>%9</code>. There can be more than nine arguments; to access them, see how to loop over all of them below.
+</p>
+<p>The syntax <code>%0</code> does not refer to a command-line argument but rather to the name of the batch file.
+</p>
+<p>Testing for whether the first command-line argument has been provided:
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma"><span class="k">if</span> not -%1-<span class="o">==</span>-- <span class="nb">echo</span> Argument one provided
@@ -136,7 +143,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A robust looping over all command-line arguments using <code>SHIFT</code> (for each command-line argument, ...):</p>
+</div>
+<p>A robust looping over all command-line arguments using <code>SHIFT</code> (for each command-line argument, ...):
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">:argactionstart
@@ -149,7 +159,10 @@ goto argactionstart
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A robust looping over all command-line arguments using <code>SHIFT</code> without modifying <code>%1</code>, <code>%2</code>, etc.:</p>
+</div>
+<p>A robust looping over all command-line arguments using <code>SHIFT</code> without modifying <code>%1</code>, <code>%2</code>, etc.:
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">call :argactionstart %*
@@ -167,7 +180,10 @@ goto argactionstart
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Transferring command-line arguments to environment variables:</p>
+</div>
+<p>Transferring command-line arguments to environment variables:
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">setlocal EnableDelayedExpansion
@@ -193,7 +209,10 @@ goto loopstart
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Looping over all command-line arguments, albeit not a robust one:</p>
+</div>
+<p>Looping over all command-line arguments, albeit not a robust one:
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma"><span class="k">for</span> %%i in <span class="o">(</span>%*<span class="o">)</span> <span class="k">do</span> <span class="o">(</span>
@@ -203,7 +222,12 @@ goto loopstart
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This looks elegant but is non-robust, maltreating arguments containing wildcards (<code>*</code>, <code>?</code>). In particular, the above for command replaces arguments that contain wildcards (<code>*</code>, <code>?</code>) with file names that match them, or drops them if no files match. Nonetheless, the above loop works as expected as long as the passed arguments do not contain wildcards.</p><p>Finding the number of command-line arguments, in a non-robust way:</p>
+</div>
+<p>This looks elegant but is non-robust, maltreating arguments containing wildcards (<code>*</code>, <code>?</code>). In particular, the above for command replaces arguments that contain wildcards (<code>*</code>, <code>?</code>) with file names that match them, or drops them if no files match. Nonetheless, the above loop works as expected as long as the passed arguments do not contain wildcards.
+</p>
+<p>Finding the number of command-line arguments, in a non-robust way:
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma"><span class="nb">set</span> <span class="nv">argcount</span><span class="o">=</span><span class="m">0</span>
@@ -212,7 +236,103 @@ goto loopstart
 	<div class="code-box-nav">
 		
 	</div>
-</div><p></p><p>Again, this does not work with arguments containing wildcards.</p><p>The maximum possible number of arguments is greater than 4000, as empirically determined on a Windows Vista machine. The number can differ on Windows XP and Windows 7.</p><p>In passing arguments to a batch script, characters used for argument separation are the following ones:</p><ul id="01fea828-b1d2-4694-83df-02ec7ae227d3" class="bulleted-list"><li>space</li><li>comma</li><li>semicolon</li><li>equal sign</li><li>tab character</li></ul><p>Thus, the following lines pass the same four arguments:</p><ul id="131cc76c-6461-4e83-bea7-d40d42519d2c" class="bulleted-list"><li><code>test.bat a b c d</code></li><li><code>test.bat a,b,c,d</code></li><li><code>test.bat a, b, c, d</code></li><li><code>test.bat a;b;c;d</code></li><li><code>test.bat a=b=c=d</code></li><li><code>test.bat a b,c;,;=d</code></li></ul><p>Yes, even the line with <code>a b,c;,;=d</code> passes four arguments, since a sequence of separating characters is considered a single separator.</p><p>To have a space, comma or semicolon in the argument value, you can pass the value enclosed in quotation marks. However, the quotation marks become part of the argument value. To get rid of the enclosing quotation marks when referring to the argument in the script, you can use <code>%~&lt;number&gt;</code> described in <a href="/essential/batch/percent-tilde-f4263820c2db41e399c77259970464f1">percent tilde</a>.</p><p>When passing arguments to an invoked command rather than a batch script, you usually need to separate the command from the first argument using a space. However, for internal commands, that separation is not necessary if the first character after the command name is one of a couple of symbols, including <code>.\/</code>, and more:</p><ul id="c872a1fe-ac43-4e5a-bd99-9e1ff823a531" class="bulleted-list"><li><code>echo.</code><ul id="5c7d6d7a-2b63-46e3-b0cb-4d05c7618c4e" class="bulleted-list"><li>Outputs a newline.</li></ul></li><li><code>tree.</code><ul id="c0bea190-2663-471d-97e0-a99794247f60" class="bulleted-list"><li>Fails: &quot;tree.&quot; not found. tree is an external command.</li></ul></li><li><code>dir..</code><ul id="1034b2a6-974d-430a-98ba-9429c7c3ee89" class="bulleted-list"><li>Lists the content of the parent directory.</li></ul></li><li><code>cd..</code><ul id="08438c91-1ae4-4ea5-bb85-46d8c6532c85" class="bulleted-list"><li>Changes the current directory to the parent one.</li></ul></li><li><code>cd\</code><ul id="e5213af8-340b-4f5e-af94-c79420b364ec" class="bulleted-list"><li>Changes the current directory to the root one.</li></ul></li><li><code>start.</code><ul id="58778373-1fa6-4073-9b28-69a1b1fe3a74" class="bulleted-list"><li>Opens Windows Explorer from the current directory.</li></ul></li><li><code>dir/b/s</code><ul id="b0385688-ede4-4adb-ae7f-b83bff92b589" class="bulleted-list"><li>Lists directory content recursively, showing full paths.</li></ul></li></ul><p>Links:</p><ul id="0f319f8b-964b-4258-9d58-a4cb3346061a" class="bulleted-list"><li><a href="http://ss64.com/nt/syntax-args.html">Parameters / Arguments at ss64</a></li><li><a href="http://ss64.com/nt/syntax-esc.html">Escape Characters, Delimiters and Quotes at ss64</a></li><li><a href="http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/percent.mspx">Using batch parameters at Microsoft</a></li></ul>
+</div>
+<p>
+</p>
+<p>Again, this does not work with arguments containing wildcards.
+</p>
+<p>The maximum possible number of arguments is greater than 4000, as empirically determined on a Windows Vista machine. The number can differ on Windows XP and Windows 7.
+</p>
+<p>In passing arguments to a batch script, characters used for argument separation are the following ones:
+</p>
+  <ul id="01fea828-b1d2-4694-83df-02ec7ae227d3" class="bulleted-list">
+    <li>space
+    </li>
+    <li>comma
+    </li>
+    <li>semicolon
+    </li>
+    <li>equal sign
+    </li>
+    <li>tab character
+    </li>
+  </ul>
+<p>Thus, the following lines pass the same four arguments:
+</p>
+  <ul id="131cc76c-6461-4e83-bea7-d40d42519d2c" class="bulleted-list">
+    <li><code>test.bat a b c d</code>
+    </li>
+    <li><code>test.bat a,b,c,d</code>
+    </li>
+    <li><code>test.bat a, b, c, d</code>
+    </li>
+    <li><code>test.bat a;b;c;d</code>
+    </li>
+    <li><code>test.bat a=b=c=d</code>
+    </li>
+    <li><code>test.bat a b,c;,;=d</code>
+    </li>
+  </ul>
+<p>Yes, even the line with <code>a b,c;,;=d</code> passes four arguments, since a sequence of separating characters is considered a single separator.
+</p>
+<p>To have a space, comma or semicolon in the argument value, you can pass the value enclosed in quotation marks. However, the quotation marks become part of the argument value. To get rid of the enclosing quotation marks when referring to the argument in the script, you can use <code>%~&lt;number&gt;</code> described in <a href="/essential/batch/percent-tilde-f4263820c2db41e399c77259970464f1">percent tilde</a>.
+</p>
+<p>When passing arguments to an invoked command rather than a batch script, you usually need to separate the command from the first argument using a space. However, for internal commands, that separation is not necessary if the first character after the command name is one of a couple of symbols, including <code>.\/</code>, and more:
+</p>
+  <ul id="c872a1fe-ac43-4e5a-bd99-9e1ff823a531" class="bulleted-list">
+    <li><code>echo.</code>
+      <ul id="5c7d6d7a-2b63-46e3-b0cb-4d05c7618c4e" class="bulleted-list">
+        <li>Outputs a newline.
+        </li>
+      </ul>
+    </li>
+    <li><code>tree.</code>
+      <ul id="c0bea190-2663-471d-97e0-a99794247f60" class="bulleted-list">
+        <li>Fails: &quot;tree.&quot; not found. tree is an external command.
+        </li>
+      </ul>
+    </li>
+    <li><code>dir..</code>
+      <ul id="1034b2a6-974d-430a-98ba-9429c7c3ee89" class="bulleted-list">
+        <li>Lists the content of the parent directory.
+        </li>
+      </ul>
+    </li>
+    <li><code>cd..</code>
+      <ul id="08438c91-1ae4-4ea5-bb85-46d8c6532c85" class="bulleted-list">
+        <li>Changes the current directory to the parent one.
+        </li>
+      </ul>
+    </li>
+    <li><code>cd\</code>
+      <ul id="e5213af8-340b-4f5e-af94-c79420b364ec" class="bulleted-list">
+        <li>Changes the current directory to the root one.
+        </li>
+      </ul>
+    </li>
+    <li><code>start.</code>
+      <ul id="58778373-1fa6-4073-9b28-69a1b1fe3a74" class="bulleted-list">
+        <li>Opens Windows Explorer from the current directory.
+        </li>
+      </ul>
+    </li>
+    <li><code>dir/b/s</code>
+      <ul id="b0385688-ede4-4adb-ae7f-b83bff92b589" class="bulleted-list">
+        <li>Lists directory content recursively, showing full paths.
+        </li>
+      </ul>
+    </li>
+  </ul>
+<p>Links:
+</p>
+  <ul id="0f319f8b-964b-4258-9d58-a4cb3346061a" class="bulleted-list">
+    <li><a href="http://ss64.com/nt/syntax-args.html">Parameters / Arguments at ss64</a>
+    </li>
+    <li><a href="http://ss64.com/nt/syntax-esc.html">Escape Characters, Delimiters and Quotes at ss64</a>
+    </li>
+    <li><a href="http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/percent.mspx">Using batch parameters at Microsoft</a>
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

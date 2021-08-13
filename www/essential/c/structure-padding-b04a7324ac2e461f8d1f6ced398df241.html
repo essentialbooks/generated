@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Suppose this <code>struct</code> is defined and compiled with a 32 bit compiler:</p>
+      
+<p>Suppose this <code>struct</code> is defined and compiled with a 32 bit compiler:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct test_32 {
@@ -139,7 +142,29 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We might expect this <code>struct</code> to occupy only 10 bytes of memory, but by printing <code>sizeof(str_32)</code> we see it uses 12 bytes.</p><p>This happened because the compiler aligns variables for fast access. A common pattern is that when the base type occupies N bytes (where N is a power of 2 such as 1, 2, 4, 8, 16 — and seldom any bigger), the variable should be aligned on an N-byte boundary (a multiple of N bytes).</p><p>For the structure shown with <code>sizeof(int) == 4</code> and <code>sizeof(short) == 2</code>, a common layout is:</p><ul id="76cc4360-6511-49b8-b4e7-43724fbbc4c5" class="bulleted-list"><li><code>int a;</code> stored at offset 0; size 4.</li><li><code>short b;</code> stored at offset 4; size 2.</li><li>unnamed padding at offset 6; size 2.</li><li><code>int c;</code> stored at offset 8; size 4.</li></ul><p>Thus <code>struct test_32</code> occupies 12 bytes of memory. In this example, there is no trailing padding.</p><p>The compiler will ensure that any <code>struct test_32</code> variables are stored starting on a 4-byte boundary, so that the members within the structure will be properly aligned for fast access. Memory allocation functions such as <code>malloc()</code>, <code>calloc()</code> and <code>realloc()</code> are required to ensure that the pointer returned is sufficiently well aligned for use with any data type, so dynamically allocated structures will be properly aligned too.</p><p>You can end up with odd situations such as on a 64-bit Intel x86_64 processor (e.g. Intel Core i7 — a Mac running macOS Sierra or Mac OS X), where when compiling in 32-bit mode, the compilers place <code>double</code> aligned on a 4-byte boundary; but, on the same hardware, when compiling in 64-bit mode, the compilers place <code>double</code> aligned on an 8-byte boundary.</p>
+</div>
+<p>We might expect this <code>struct</code> to occupy only 10 bytes of memory, but by printing <code>sizeof(str_32)</code> we see it uses 12 bytes.
+</p>
+<p>This happened because the compiler aligns variables for fast access. A common pattern is that when the base type occupies N bytes (where N is a power of 2 such as 1, 2, 4, 8, 16 — and seldom any bigger), the variable should be aligned on an N-byte boundary (a multiple of N bytes).
+</p>
+<p>For the structure shown with <code>sizeof(int) == 4</code> and <code>sizeof(short) == 2</code>, a common layout is:
+</p>
+  <ul id="76cc4360-6511-49b8-b4e7-43724fbbc4c5" class="bulleted-list">
+    <li><code>int a;</code> stored at offset 0; size 4.
+    </li>
+    <li><code>short b;</code> stored at offset 4; size 2.
+    </li>
+    <li>unnamed padding at offset 6; size 2.
+    </li>
+    <li><code>int c;</code> stored at offset 8; size 4.
+    </li>
+  </ul>
+<p>Thus <code>struct test_32</code> occupies 12 bytes of memory. In this example, there is no trailing padding.
+</p>
+<p>The compiler will ensure that any <code>struct test_32</code> variables are stored starting on a 4-byte boundary, so that the members within the structure will be properly aligned for fast access. Memory allocation functions such as <code>malloc()</code>, <code>calloc()</code> and <code>realloc()</code> are required to ensure that the pointer returned is sufficiently well aligned for use with any data type, so dynamically allocated structures will be properly aligned too.
+</p>
+<p>You can end up with odd situations such as on a 64-bit Intel x86_64 processor (e.g. Intel Core i7 — a Mac running macOS Sierra or Mac OS X), where when compiling in 32-bit mode, the compilers place <code>double</code> aligned on a 4-byte boundary; but, on the same hardware, when compiling in 64-bit mode, the compilers place <code>double</code> aligned on an 8-byte boundary.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

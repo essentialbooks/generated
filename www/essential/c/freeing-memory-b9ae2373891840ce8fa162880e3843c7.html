@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>It is possible to release dynamically allocated memory by calling <a href="http://linux.die.net/man/3/free">free()</a>.</p>
+      
+<p>It is possible to release dynamically allocated memory by calling <a href="http://linux.die.net/man/3/free">free()</a>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int *p = malloc(10 * sizeof *p); /* allocation of memory */
@@ -148,7 +151,24 @@ p = &amp;i; /* This is valid, has defined behaviour */</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The memory pointed to by <code>p</code> is reclaimed (either by the libc implementation or by the underlying OS) after the call to <code>free()</code>, so accessing that freed memory block via <code>p</code> will lead to <a href="http://stackoverflow.com/documentation/c/364/undefined-behavior#t=201607290847035891683">undefined behavior</a>. Pointers that reference memory elements that have been freed are commonly called <a href="https://en.wikipedia.org/wiki/Dangling_pointer">dangling pointers</a>, and present a security risk. Furthermore, the C standard states that even <a href="http://stackoverflow.com/documentation/c/364/undefined-behavior/2775/read-value-of-pointer-that-was-freed#t=201608050732042665317">accessing the value</a> of a dangling pointer has undefined behavior. Note that the pointer <code>p</code> itself can be re-purposed as shown above.</p><p>Please note that you can only call <code>free()</code> on pointers that have directly been returned from the <code>malloc()</code>, <code>calloc()</code>, <code>realloc()</code> and <code>aligned_alloc()</code> functions, or where documentation tells you the memory has been allocated that way (functions like <code>strdup ()</code> are notable examples). Freeing a pointer that is,</p><ul id="821cae74-389f-46dd-a008-e58be4ab2a4d" class="bulleted-list"><li>obtained by using the <code>&amp;</code> operator on a variable, or</li><li>in the middle of an allocated block,</li></ul><p>is forbidden. Such an error will usually not be diagnosed by your compiler but will lead the program execution in an undefined state.</p><p>There are two common strategies to prevent such instances of undefined behavior.</p><p>The first and preferable is simple - have <code>p</code> itself cease to exist when it is no longer needed, for example:</p>
+</div>
+<p>The memory pointed to by <code>p</code> is reclaimed (either by the libc implementation or by the underlying OS) after the call to <code>free()</code>, so accessing that freed memory block via <code>p</code> will lead to <a href="http://stackoverflow.com/documentation/c/364/undefined-behavior#t=201607290847035891683">undefined behavior</a>. Pointers that reference memory elements that have been freed are commonly called <a href="https://en.wikipedia.org/wiki/Dangling_pointer">dangling pointers</a>, and present a security risk. Furthermore, the C standard states that even <a href="http://stackoverflow.com/documentation/c/364/undefined-behavior/2775/read-value-of-pointer-that-was-freed#t=201608050732042665317">accessing the value</a> of a dangling pointer has undefined behavior. Note that the pointer <code>p</code> itself can be re-purposed as shown above.
+</p>
+<p>Please note that you can only call <code>free()</code> on pointers that have directly been returned from the <code>malloc()</code>, <code>calloc()</code>, <code>realloc()</code> and <code>aligned_alloc()</code> functions, or where documentation tells you the memory has been allocated that way (functions like <code>strdup ()</code> are notable examples). Freeing a pointer that is,
+</p>
+  <ul id="821cae74-389f-46dd-a008-e58be4ab2a4d" class="bulleted-list">
+    <li>obtained by using the <code>&amp;</code> operator on a variable, or
+    </li>
+    <li>in the middle of an allocated block,
+    </li>
+  </ul>
+<p>is forbidden. Such an error will usually not be diagnosed by your compiler but will lead the program execution in an undefined state.
+</p>
+<p>There are two common strategies to prevent such instances of undefined behavior.
+</p>
+<p>The first and preferable is simple - have <code>p</code> itself cease to exist when it is no longer needed, for example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if (something_is_needed())
@@ -169,7 +189,12 @@ p = &amp;i; /* This is valid, has defined behaviour */</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>By calling <code>free()</code> directly before the end of the containing block (i.e. the <code>\}</code>), <code>p</code> itself ceases to exist. The compiler will give a compilation error on any attempt to use <code>p</code> after that.</p><p>A second approach is to also invalidate the pointer itself after releasing the memory to which it points:</p>
+</div>
+<p>By calling <code>free()</code> directly before the end of the containing block (i.e. the <code>\}</code>), <code>p</code> itself ceases to exist. The compiler will give a compilation error on any attempt to use <code>p</code> after that.
+</p>
+<p>A second approach is to also invalidate the pointer itself after releasing the memory to which it points:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">free(p);
@@ -178,7 +203,27 @@ p = NULL;     // you may also use 0 instead of NULL</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Arguments for this approach:</p><ul id="c91b6ac2-8161-4aa8-8f1d-015a3d5855bb" class="bulleted-list"><li>On many platforms, an attempt to dereference a null pointer will cause instant crash: Segmentation fault. Here, we get at least a stack trace pointing to the variable that was used after being freed.</li></ul><p>Without setting pointer to <code>NULL</code> we have dangling pointer. The program will very likely still crash, but later, because the memory to which the pointer points will silently be corrupted. Such bugs are difficult to trace because they can result in a call stack that completely unrelated to the initial problem.</p><p>This approach hence follows the <a href="https://en.wikipedia.org/wiki/Fail-fast">fail-fast concept</a>.</p><ul id="21edf4a7-c4c2-44a6-a54e-b22ecc5aba7c" class="bulleted-list"><li>It is safe to free a null pointer. The <a href="http://port70.net/~nsz/c/c89/c89-draft.html#4.10.3.2">C Standard specifies</a> that <code>free(NULL)</code> has no effect:</li></ul><blockquote id="9c238730-721f-48c8-b495-e9a18f3b777e" class="">The free function causes the space pointed to by ptr to be deallocated, that is, made available for further allocation. If ptr is a null pointer, no action occurs. Otherwise, if the argument does not match a pointer earlier returned by the calloc, malloc, or realloc function, or if the space has been deallocated by a call to free or realloc, the behavior is undefined.</blockquote><ul id="a8649bd7-741f-452f-bc3a-c3e130c31bd6" class="bulleted-list"><li>Sometimes the first approach cannot be used (e.g. memory is allocated in one function, and deallocated much later in a completely different function)</li></ul>
+</div>
+<p>Arguments for this approach:
+</p>
+  <ul id="c91b6ac2-8161-4aa8-8f1d-015a3d5855bb" class="bulleted-list">
+    <li>On many platforms, an attempt to dereference a null pointer will cause instant crash: Segmentation fault. Here, we get at least a stack trace pointing to the variable that was used after being freed.
+    </li>
+  </ul>
+<p>Without setting pointer to <code>NULL</code> we have dangling pointer. The program will very likely still crash, but later, because the memory to which the pointer points will silently be corrupted. Such bugs are difficult to trace because they can result in a call stack that completely unrelated to the initial problem.
+</p>
+<p>This approach hence follows the <a href="https://en.wikipedia.org/wiki/Fail-fast">fail-fast concept</a>.
+</p>
+  <ul id="21edf4a7-c4c2-44a6-a54e-b22ecc5aba7c" class="bulleted-list">
+    <li>It is safe to free a null pointer. The <a href="http://port70.net/~nsz/c/c89/c89-draft.html#4.10.3.2">C Standard specifies</a> that <code>free(NULL)</code> has no effect:
+    </li>
+  </ul>
+<blockquote id="9c238730-721f-48c8-b495-e9a18f3b777e" class="">The free function causes the space pointed to by ptr to be deallocated, that is, made available for further allocation. If ptr is a null pointer, no action occurs. Otherwise, if the argument does not match a pointer earlier returned by the calloc, malloc, or realloc function, or if the space has been deallocated by a call to free or realloc, the behavior is undefined.
+</blockquote>
+  <ul id="a8649bd7-741f-452f-bc3a-c3e130c31bd6" class="bulleted-list">
+    <li>Sometimes the first approach cannot be used (e.g. memory is allocated in one function, and deallocated much later in a completely different function)
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

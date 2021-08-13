@@ -127,7 +127,12 @@
 </div>
 
 
-      <p><strong>Suggested max len</strong></p><p>First, I will mention some common strings that are always hex, or otherwise limited to ASCII. For these, you should specify <code>CHARACTER SET ascii</code> (<code>latin1</code> is ok) so that it will not waste space:</p>
+      
+<p><strong>Suggested max len</strong>
+</p>
+<p>First, I will mention some common strings that are always hex, or otherwise limited to ASCII. For these, you should specify <code>CHARACTER SET ascii</code> (<code>latin1</code> is ok) so that it will not waste space:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">UUID CHAR(36) CHARACTER SET ascii -- or pack into BINARY(16)
@@ -144,7 +149,31 @@ name VARCHAR(64) -- probably adequate; more than some government agencies allow<
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Why not simply 255?</strong> There are two reasons to avoid the common practice of using (255) for everything.</p><ul id="68f1ea11-6581-490d-9cb2-275162ec67dc" class="bulleted-list"><li>When a complex <code>SELECT</code> needs to create temporary table (for a subquery, <code>UNION</code>, <code>GROUP BY</code>, etc), the preferred choice is to use the <code>MEMORY</code> engine, which puts the data in RAM. But <code>VARCHARs</code> are turned into <code>CHAR</code> in the process. This makes <code>VARCHAR(255) CHARACTER SET utf8mb4</code> take 1020 bytes. That can lead to needing to spill to disk, which is slower.</li><li>In certain situations, InnoDB will look at the potential size of the columns in a table and decide that it will be too big, aborting a <code>CREATE TABLE</code>.</li></ul><p><strong>VARCHAR</strong> versus <strong>TEXT</strong></p><p>Usage hints for <code>*TEXT</code>, <code>CHAR</code>, and <code>VARCHAR</code>, plus some Best Practice:</p><ul id="0a91d55c-1dcd-4c85-98fb-5b094621dbaa" class="bulleted-list"><li>Never use <code>TINYTEXT</code>.</li><li>Almost never use <code>CHAR</code> – it is fixed length; each character is the max length of the <code>CHARACTER SET</code> (eg, 4 bytes/character for utf8mb4).</li><li>With <code>CHAR</code>, use <code>CHARACTER SET ascii</code> unless you know otherwise.</li><li><code>VARCHAR(n)</code> will truncate at n <em>characters</em>; <code>TEXT</code> will truncate at some number of <em>bytes</em>. (But, do you want truncation?)</li><li><code>*TEXT</code> <em>may</em> slow down complex <code>SELECTs</code> due to how temp tables are handled.</li></ul>
+</div>
+<p><strong>Why not simply 255?</strong> There are two reasons to avoid the common practice of using (255) for everything.
+</p>
+  <ul id="68f1ea11-6581-490d-9cb2-275162ec67dc" class="bulleted-list">
+    <li>When a complex <code>SELECT</code> needs to create temporary table (for a subquery, <code>UNION</code>, <code>GROUP BY</code>, etc), the preferred choice is to use the <code>MEMORY</code> engine, which puts the data in RAM. But <code>VARCHARs</code> are turned into <code>CHAR</code> in the process. This makes <code>VARCHAR(255) CHARACTER SET utf8mb4</code> take 1020 bytes. That can lead to needing to spill to disk, which is slower.
+    </li>
+    <li>In certain situations, InnoDB will look at the potential size of the columns in a table and decide that it will be too big, aborting a <code>CREATE TABLE</code>.
+    </li>
+  </ul>
+<p><strong>VARCHAR</strong> versus <strong>TEXT</strong>
+</p>
+<p>Usage hints for <code>*TEXT</code>, <code>CHAR</code>, and <code>VARCHAR</code>, plus some Best Practice:
+</p>
+  <ul id="0a91d55c-1dcd-4c85-98fb-5b094621dbaa" class="bulleted-list">
+    <li>Never use <code>TINYTEXT</code>.
+    </li>
+    <li>Almost never use <code>CHAR</code> – it is fixed length; each character is the max length of the <code>CHARACTER SET</code> (eg, 4 bytes/character for utf8mb4).
+    </li>
+    <li>With <code>CHAR</code>, use <code>CHARACTER SET ascii</code> unless you know otherwise.
+    </li>
+    <li><code>VARCHAR(n)</code> will truncate at n <em>characters</em>; <code>TEXT</code> will truncate at some number of <em>bytes</em>. (But, do you want truncation?)
+    </li>
+    <li><code>*TEXT</code> <em>may</em> slow down complex <code>SELECTs</code> due to how temp tables are handled.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

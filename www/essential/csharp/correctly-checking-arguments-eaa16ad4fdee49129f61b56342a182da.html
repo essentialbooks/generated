@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>An iterator method is not executed until the return value is enumerated. It’s therefore advantageous to assert preconditions outside of the iterator.</p>
+      
+<p>An iterator method is not executed until the return value is enumerated. It’s therefore advantageous to assert preconditions outside of the iterator.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">static</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">Count</span><span class="p">(</span><span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">count</span><span class="p">)</span>
@@ -154,7 +157,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Calling Side Code (Usage):</strong></p>
+</div>
+<p><strong>Calling Side Code (Usage):</strong>
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="c1">// Get the count
@@ -169,10 +175,22 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Output:</strong></p><blockquote id="2bb42240-f996-42c0-93f1-2514a5c7d144" class="">1
+</div>
+<p><strong>Output:</strong>
+</p>
+<blockquote id="2bb42240-f996-42c0-93f1-2514a5c7d144" class="">1
 2
 3
-4</blockquote><p><a href="https://dotnetfiddle.net/yIYxo6">Live Demo on .NET Fiddle</a></p><p>When a method uses <code>yield</code> to generate an enumerable the compiler creates a state machine that when iterated over will run code up to a <code>yield</code>. It then returns the yielded item, and saves its state.</p><p>This means you won’t find out about invalid arguments (passing <code>null</code> etc.) when you first call the method (because that creates the state machine), only when you try and access the first element (because only then does the code within the method get ran by the state machine). By wrapping it in a normal method that first checks arguments you can check them when the method is called. This is an example of failing fast.</p><p>When using C# 7+, the <code>CountCore</code> function can be conveniently hidden into the <code>Count</code> function as a <em>local function</em>. See example <a href="http://stackoverflow.com/documentation/c%23/1936/c-sharp-7-0-features/6330/local-functions#t=201607251321358412005#t=201607251057101259341">here</a>.</p>
+4
+</blockquote>
+<p><a href="https://dotnetfiddle.net/yIYxo6">Live Demo on .NET Fiddle</a>
+</p>
+<p>When a method uses <code>yield</code> to generate an enumerable the compiler creates a state machine that when iterated over will run code up to a <code>yield</code>. It then returns the yielded item, and saves its state.
+</p>
+<p>This means you won’t find out about invalid arguments (passing <code>null</code> etc.) when you first call the method (because that creates the state machine), only when you try and access the first element (because only then does the code within the method get ran by the state machine). By wrapping it in a normal method that first checks arguments you can check them when the method is called. This is an example of failing fast.
+</p>
+<p>When using C# 7+, the <code>CountCore</code> function can be conveniently hidden into the <code>Count</code> function as a <em>local function</em>. See example <a href="http://stackoverflow.com/documentation/c%23/1936/c-sharp-7-0-features/6330/local-functions#t=201607251321358412005#t=201607251057101259341">here</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

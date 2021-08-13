@@ -127,7 +127,12 @@
 </div>
 
 
-      <p><code><em>const</em></code><em> correctness</em> is the practice of designing code so that only code that <em>needs</em> to modify an instance is <em>able</em> to modify an instance (i.e. has write access), and conversely, that any code that doesn’t need to modify an instance is unable to do so (i.e. only has read access). This prevents the instance from being modified unintentionally, making code less errorprone, and documents whether the code is intended to change the instance’s state or not. It also allows instances to be treated as <code>const</code> whenever they don’t need to be modified, or defined as <code>const</code> if they don’t need to be changed after initialisation, without losing any functionality.</p><p>This is done by giving member functions <a href="http://stackoverflow.com/documentation/c%2B%2B/7146/the-this-pointer/24492/this-pointer-cv-qualifiers#t=201610191445574282562"><code>const</code></a><a href="http://stackoverflow.com/documentation/c%2B%2B/7146/the-this-pointer/24492/this-pointer-cv-qualifiers#t=201610191445574282562"> CV-qualifiers</a>, and by making pointer/reference parameters <code>const</code>, except in the case that they need write access.</p>
+      
+<p><code><em>const</em></code><em> correctness</em> is the practice of designing code so that only code that <em>needs</em> to modify an instance is <em>able</em> to modify an instance (i.e. has write access), and conversely, that any code that doesn’t need to modify an instance is unable to do so (i.e. only has read access). This prevents the instance from being modified unintentionally, making code less errorprone, and documents whether the code is intended to change the instance’s state or not. It also allows instances to be treated as <code>const</code> whenever they don’t need to be modified, or defined as <code>const</code> if they don’t need to be changed after initialisation, without losing any functionality.
+</p>
+<p>This is done by giving member functions <a href="http://stackoverflow.com/documentation/c%2B%2B/7146/the-this-pointer/24492/this-pointer-cv-qualifiers#t=201610191445574282562"><code>const</code></a><a href="http://stackoverflow.com/documentation/c%2B%2B/7146/the-this-pointer/24492/this-pointer-cv-qualifiers#t=201610191445574282562"> CV-qualifiers</a>, and by making pointer/reference parameters <code>const</code>, except in the case that they need write access.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class ConstCorrectClass {
@@ -162,7 +167,9 @@ const_correct_writer(invariant); // Error.  Calling modifying function on const 
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Due to the nature of const correctness, this starts with the class’ member functions, and works its way outwards; if you try to call a non-<code>const</code> member function from a <code>const</code> instance, or from a non-<code>const</code> instance being treated as <code>const</code>, the compiler will give you an error about it losing cv-qualifiers.</p>
+</div>
+<p>Due to the nature of const correctness, this starts with the class’ member functions, and works its way outwards; if you try to call a non-<code>const</code> member function from a <code>const</code> instance, or from a non-<code>const</code> instance being treated as <code>const</code>, the compiler will give you an error about it losing cv-qualifiers.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

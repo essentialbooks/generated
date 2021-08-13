@@ -127,7 +127,28 @@
 </div>
 
 
-      <p><code>Channel</code> uses a <code>Buffer</code> to read/write data. A buffer is a fixed sized container where we can write a block of data at once. <code>Channel</code> is a quite faster than stream-based I/O.</p><p>To read data from a file using <code>Channel</code> we need to have the following steps-</p><ol id="9a785200-1749-4dac-9eeb-2a1b74ee4218" class="numbered-list" start="1"><li>We need an instance of <code>FileInputStream</code>. <code>FileInputStream</code>has a method named <code>getChannel()</code> which returns a Channel.</li><li>Call the <code>getChannel()</code> method of FileInputStream and acquire Channel.</li><li>Create a ByteBuffer. ByteBuffer is a fixed size container of bytes.</li><li>Channel has a read method and we have to provide a ByteBuffer as an argument to this read method. ByteBuffer has two modes - read-only mood and write-only mood. We can change the mode using <code>flip()</code> method call. Buffer has a position, limit, and capacity. Once a buffer is created with a fixed size, its limit and capacity are the same as the size and the position starts from zero. While a buffer is written with data, its position gradually increases. Changing mode means, changing the position. To read data from the beginning of a buffer, we have to set the position to zero. flip() method change the position</li><li>When we call the read method of the <code>Channel</code>, it fills up the buffer using data.</li><li>If we need to read the data from the <code>ByteBuffer</code>, we need to flip the buffer to change its mode to write-only to read-only mode and then keep reading data from the buffer.</li><li>When there is no longer data to read, the <code>read()</code> method of channel returns 0 or -1.</li></ol>
+      
+<p><code>Channel</code> uses a <code>Buffer</code> to read/write data. A buffer is a fixed sized container where we can write a block of data at once. <code>Channel</code> is a quite faster than stream-based I/O.
+</p>
+<p>To read data from a file using <code>Channel</code> we need to have the following steps-
+</p>
+  <ol id="9a785200-1749-4dac-9eeb-2a1b74ee4218" class="numbered-list" start="1">
+    <li>We need an instance of <code>FileInputStream</code>. <code>FileInputStream</code>has a method named <code>getChannel()</code> which returns a Channel.
+    </li>
+    <li>Call the <code>getChannel()</code> method of FileInputStream and acquire Channel.
+    </li>
+    <li>Create a ByteBuffer. ByteBuffer is a fixed size container of bytes.
+    </li>
+    <li>Channel has a read method and we have to provide a ByteBuffer as an argument to this read method. ByteBuffer has two modes - read-only mood and write-only mood. We can change the mode using <code>flip()</code> method call. Buffer has a position, limit, and capacity. Once a buffer is created with a fixed size, its limit and capacity are the same as the size and the position starts from zero. While a buffer is written with data, its position gradually increases. Changing mode means, changing the position. To read data from the beginning of a buffer, we have to set the position to zero. flip() method change the position
+    </li>
+    <li>When we call the read method of the <code>Channel</code>, it fills up the buffer using data.
+    </li>
+    <li>If we need to read the data from the <code>ByteBuffer</code>, we need to flip the buffer to change its mode to write-only to read-only mode and then keep reading data from the buffer.
+    </li>
+    <li>When there is no longer data to read, the <code>read()</code> method of channel returns 0 or -1.
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import java.io.File;

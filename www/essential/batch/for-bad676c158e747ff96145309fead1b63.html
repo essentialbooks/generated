@@ -127,7 +127,154 @@
 </div>
 
 
-      <p>Iterates over a series of values, executing a command.</p><p>In the following examples, <code>%i</code> is to be used from the command line while <code>%%i</code> is to be used from a batch. The index (e.g., <code>%i</code>) must be a single character variable name.</p><p>Examples:</p><ul id="af6fc96c-16b1-4f0b-ac0e-a89e443e14e6" class="bulleted-list"><li><code>for %%i in (1,2,3) do echo %%i</code><p>In a batch, echoes 1, 2, and 3. In a batch, the command must use a double percent sign.</p><p>The remaining examples are intended to be directly pasted into a command line, so they use a single percent sign and include <code>@</code> to prevent repetitive display.</p></li><li><code>for %i in (1,2,3) do @echo %i</code><p>From a command line, echoes 1, 2, and 3.</p><p>The for command tries to interpret the items as file names and as patterns of file names containing wildcards.</p><p>It does not complain if the items do not match existing file names, though.</p></li><li><code>for %i in (1,2,a*d*c*e*t) do @echo %i</code><p>Unless you happen to have a file matching the third pattern, echoes 1 and 2, discarding the third item.</p></li><li><code>for %i in (1 2,3;4) do @echo %i</code><p>Echoes 1, 2, 3, and 4. Yes, a mixture of item separators is used.</p></li><li><code>for %i in (*.txt) do @echo %i</code><p>Echoes file names of files located in the current folder and having the <code>.txt</code> extension.</p></li><li><code>for %i in (&quot;C:\Windows\system32\*.exe&quot;) do @echo %i</code><p>Echoes file names matching the pattern.</p></li><li><code>for /r %i in (*.txt) do @echo %i</code><p>Echoes file names with full paths, of files having the extension <code>.txt</code> located anywhere in the current folder including nested folders.</p></li><li><code>for /d %i in (*) do @echo %i</code><p>Echoes the names of all folders in the current folder.</p></li><li><code>for /r /d %i in (*) do @echo %i</code><p>Echoes the names including full paths of all folders in the current folder, including nested folders.</p></li><li><code>for /r %i in (*) do @if %~zi geq 1000000 echo %~zi %i</code><p>For each file in the current folder and its sub-folders that has the size greater than or equal to 1,000,000 bytes, outputs the file size in bytes and the full path of the file. For the syntax in <code>%~zi</code>, see <a href="/essential/batch/percent-tilde-f4263820c2db41e399c77259970464f1">percent tilde</a>.</p></li><li><code>for /l %i in (1,1,10) do @echo %i</code><p>Echoes the numbers from 1 to 10.</p></li><li><code>for /f &quot;tokens=*&quot; %i in (list.txt) do @echo %i</code><ul id="80825a52-6e1e-4c67-af45-61c2225747fc" class="bulleted-list"><li>For each line in a file, echoes the line.</li></ul></li><li><code>for /f &quot;tokens=*&quot; %i in (list1.txt list2.txt) do @echo %i</code><ul id="3da8c2e0-715f-46b9-b950-54b331d10b7e" class="bulleted-list"><li>For each line in the files, echoes the line.</li></ul></li><li><code>for /f &quot;tokens=*&quot; %i in (*.txt) do @echo %i</code><ul id="1428465b-3b82-4443-877d-ab3c7c96aafe" class="bulleted-list"><li>Does nothing. Does not accept wildcards to match file names.</li></ul></li><li><code>for /f &quot;tokens=1-3 delims=:&quot; %a in (&quot;First:Second::Third&quot;) do @echo %c-%b-%a</code><ul id="cf0f106b-ad0f-4397-9ff7-24d3803bbc5a" class="bulleted-list"><li>Parses a string into tokens delimited by <code>:</code>.</li><li>The quotation marks indicate the string is not a file name.</li><li>The second and third tokens are stored in <code>%b</code> and <code>%c</code> even though <code>%b</code> and <code>%c</code> are not expressly mentioned in the part of the command before &quot;do&quot;.</li><li>The two consecutive colons are treated as one separator; <code>%c</code> is not &quot;&quot; but rather &quot;Third&quot;.</li><li>Does some of the job of the cut command from other operating systems.</li></ul></li><li><code>for /f &quot;tokens=1-3* delims=:&quot; %a in (&quot;First:Second::Third:Fourth:Fifth&quot;) do @echo %c-%b-%a: %d</code><ul id="a19bfaca-ff85-4a80-a985-42756da3a248" class="bulleted-list"><li>As above, just that the 4th and 5th items get captured in <code>%d</code> as &quot;Fourth:Fifth&quot;, including the separator.</li></ul></li><li><code>for /f &quot;tokens=1-3* delims=:,&quot; %a in (&quot;First,Second,:Third:Fourth:Fifth&quot;) do @echo %c-%b-%a: %d</code><ul id="ef7910c8-2ab5-463b-a2f5-0b574086d75d" class="bulleted-list"><li>Multiple delimiters are possible.</li></ul></li><li><code>for /f &quot;tokens=1-3&quot; %a in (&quot;First Second Third,item&quot;) do @echo %c-%b-%a</code><ul id="fe367b69-aa32-488a-b715-80b235d12737" class="bulleted-list"><li>The default delimiters are space and tab. Thus, they differ from the separators used to separate arguments passed to a batch.</li></ul></li><li><code>for /f &quot;tokens=*&quot; %i in (&#x27;cd&#x27;) do @echo %i</code><ul id="e238f70a-c090-496f-a10a-f64a73e3cab9" class="bulleted-list"><li>For each line of the result of a command, echoes the line.</li></ul></li><li><code>for /f &quot;tokens=*&quot; %i in (&#x27;dir /b /a-d-h&#x27;) do @echo %~nxai</code><ul id="cd96aaf8-5056-42c3-b475-4a3c42f7f3b6" class="bulleted-list"><li>For each non-hidden file in the current folder, displays the file attributes followed by the file name. In the string <code>%~nxai</code>, uses the syntax described at <a href="/essential/batch/percent-tilde-f4263820c2db41e399c77259970464f1">percent tilde</a>.</li></ul></li><li><code>for /f &quot;usebackq tokens=*&quot; %i in (`dir /b /a-d-h`) do @echo %~nxai</code><ul id="725bceb0-9362-4882-a742-98f8cecad899" class="bulleted-list"><li>As above, but using the back-quote character (<code>`</code>) around the command to be executed.</li></ul></li><li><code>for /f &quot;tokens=*&quot; %i in (&#x27;tasklist ^| sort ^&amp; echo End&#x27;) do @echo %i</code><ul id="015428a0-d8c4-424b-ba52-ae40f137ee63" class="bulleted-list"><li>Pipes and ampersands in the command to be executed must be escaped using caret (<code>^</code>).</li></ul></li><li><code>(for %i in (1,2,3) do @echo %i) &gt; anyoldtemp.txt</code><ul id="72910f09-3d39-48ca-b721-785dfd573817" class="bulleted-list"><li>To redirect the entire result of a for loop, place the entire loop inside brackets before redirecting. Otherwise, the redirection will tie to the body of the loop, so each new iteration of the body of the loop will override the results of the previous iterations.</li></ul></li><li><code>for %i in (1,2,3) do @echo %i &gt; anyoldtemp.txt</code><ul id="dade93c3-be18-4a53-bacb-dd80ee3af917" class="bulleted-list"><li>An example related to the one above. It shows the consequence of failing to put the loop inside brackets.</li></ul></li></ul><p>Continue: To jump to the next iteration of the loop and thus emulate the continue statement known from many languages, you can use <code><a href="/essential/batch/goto-987419c9b64d4421bfe238f9db65d492">goto</a></code> provided you put the loop body in a subroutine, as shown in the following:</p>
+      
+<p>Iterates over a series of values, executing a command.
+</p>
+<p>In the following examples, <code>%i</code> is to be used from the command line while <code>%%i</code> is to be used from a batch. The index (e.g., <code>%i</code>) must be a single character variable name.
+</p>
+<p>Examples:
+</p>
+  <ul id="af6fc96c-16b1-4f0b-ac0e-a89e443e14e6" class="bulleted-list">
+    <li><code>for %%i in (1,2,3) do echo %%i</code>
+    <p>In a batch, echoes 1, 2, and 3. In a batch, the command must use a double percent sign.
+    </p>
+    <p>The remaining examples are intended to be directly pasted into a command line, so they use a single percent sign and include <code>@</code> to prevent repetitive display.
+    </p>
+    </li>
+    <li><code>for %i in (1,2,3) do @echo %i</code>
+    <p>From a command line, echoes 1, 2, and 3.
+    </p>
+    <p>The for command tries to interpret the items as file names and as patterns of file names containing wildcards.
+    </p>
+    <p>It does not complain if the items do not match existing file names, though.
+    </p>
+    </li>
+    <li><code>for %i in (1,2,a*d*c*e*t) do @echo %i</code>
+    <p>Unless you happen to have a file matching the third pattern, echoes 1 and 2, discarding the third item.
+    </p>
+    </li>
+    <li><code>for %i in (1 2,3;4) do @echo %i</code>
+    <p>Echoes 1, 2, 3, and 4. Yes, a mixture of item separators is used.
+    </p>
+    </li>
+    <li><code>for %i in (*.txt) do @echo %i</code>
+    <p>Echoes file names of files located in the current folder and having the <code>.txt</code> extension.
+    </p>
+    </li>
+    <li><code>for %i in (&quot;C:\Windows\system32\*.exe&quot;) do @echo %i</code>
+    <p>Echoes file names matching the pattern.
+    </p>
+    </li>
+    <li><code>for /r %i in (*.txt) do @echo %i</code>
+    <p>Echoes file names with full paths, of files having the extension <code>.txt</code> located anywhere in the current folder including nested folders.
+    </p>
+    </li>
+    <li><code>for /d %i in (*) do @echo %i</code>
+    <p>Echoes the names of all folders in the current folder.
+    </p>
+    </li>
+    <li><code>for /r /d %i in (*) do @echo %i</code>
+    <p>Echoes the names including full paths of all folders in the current folder, including nested folders.
+    </p>
+    </li>
+    <li><code>for /r %i in (*) do @if %~zi geq 1000000 echo %~zi %i</code>
+    <p>For each file in the current folder and its sub-folders that has the size greater than or equal to 1,000,000 bytes, outputs the file size in bytes and the full path of the file. For the syntax in <code>%~zi</code>, see <a href="/essential/batch/percent-tilde-f4263820c2db41e399c77259970464f1">percent tilde</a>.
+    </p>
+    </li>
+    <li><code>for /l %i in (1,1,10) do @echo %i</code>
+    <p>Echoes the numbers from 1 to 10.
+    </p>
+    </li>
+    <li><code>for /f &quot;tokens=*&quot; %i in (list.txt) do @echo %i</code>
+      <ul id="80825a52-6e1e-4c67-af45-61c2225747fc" class="bulleted-list">
+        <li>For each line in a file, echoes the line.
+        </li>
+      </ul>
+    </li>
+    <li><code>for /f &quot;tokens=*&quot; %i in (list1.txt list2.txt) do @echo %i</code>
+      <ul id="3da8c2e0-715f-46b9-b950-54b331d10b7e" class="bulleted-list">
+        <li>For each line in the files, echoes the line.
+        </li>
+      </ul>
+    </li>
+    <li><code>for /f &quot;tokens=*&quot; %i in (*.txt) do @echo %i</code>
+      <ul id="1428465b-3b82-4443-877d-ab3c7c96aafe" class="bulleted-list">
+        <li>Does nothing. Does not accept wildcards to match file names.
+        </li>
+      </ul>
+    </li>
+    <li><code>for /f &quot;tokens=1-3 delims=:&quot; %a in (&quot;First:Second::Third&quot;) do @echo %c-%b-%a</code>
+      <ul id="cf0f106b-ad0f-4397-9ff7-24d3803bbc5a" class="bulleted-list">
+        <li>Parses a string into tokens delimited by <code>:</code>.
+        </li>
+        <li>The quotation marks indicate the string is not a file name.
+        </li>
+        <li>The second and third tokens are stored in <code>%b</code> and <code>%c</code> even though <code>%b</code> and <code>%c</code> are not expressly mentioned in the part of the command before &quot;do&quot;.
+        </li>
+        <li>The two consecutive colons are treated as one separator; <code>%c</code> is not &quot;&quot; but rather &quot;Third&quot;.
+        </li>
+        <li>Does some of the job of the cut command from other operating systems.
+        </li>
+      </ul>
+    </li>
+    <li><code>for /f &quot;tokens=1-3* delims=:&quot; %a in (&quot;First:Second::Third:Fourth:Fifth&quot;) do @echo %c-%b-%a: %d</code>
+      <ul id="a19bfaca-ff85-4a80-a985-42756da3a248" class="bulleted-list">
+        <li>As above, just that the 4th and 5th items get captured in <code>%d</code> as &quot;Fourth:Fifth&quot;, including the separator.
+        </li>
+      </ul>
+    </li>
+    <li><code>for /f &quot;tokens=1-3* delims=:,&quot; %a in (&quot;First,Second,:Third:Fourth:Fifth&quot;) do @echo %c-%b-%a: %d</code>
+      <ul id="ef7910c8-2ab5-463b-a2f5-0b574086d75d" class="bulleted-list">
+        <li>Multiple delimiters are possible.
+        </li>
+      </ul>
+    </li>
+    <li><code>for /f &quot;tokens=1-3&quot; %a in (&quot;First Second Third,item&quot;) do @echo %c-%b-%a</code>
+      <ul id="fe367b69-aa32-488a-b715-80b235d12737" class="bulleted-list">
+        <li>The default delimiters are space and tab. Thus, they differ from the separators used to separate arguments passed to a batch.
+        </li>
+      </ul>
+    </li>
+    <li><code>for /f &quot;tokens=*&quot; %i in (&#x27;cd&#x27;) do @echo %i</code>
+      <ul id="e238f70a-c090-496f-a10a-f64a73e3cab9" class="bulleted-list">
+        <li>For each line of the result of a command, echoes the line.
+        </li>
+      </ul>
+    </li>
+    <li><code>for /f &quot;tokens=*&quot; %i in (&#x27;dir /b /a-d-h&#x27;) do @echo %~nxai</code>
+      <ul id="cd96aaf8-5056-42c3-b475-4a3c42f7f3b6" class="bulleted-list">
+        <li>For each non-hidden file in the current folder, displays the file attributes followed by the file name. In the string <code>%~nxai</code>, uses the syntax described at <a href="/essential/batch/percent-tilde-f4263820c2db41e399c77259970464f1">percent tilde</a>.
+        </li>
+      </ul>
+    </li>
+    <li><code>for /f &quot;usebackq tokens=*&quot; %i in (`dir /b /a-d-h`) do @echo %~nxai</code>
+      <ul id="725bceb0-9362-4882-a742-98f8cecad899" class="bulleted-list">
+        <li>As above, but using the back-quote character (<code>`</code>) around the command to be executed.
+        </li>
+      </ul>
+    </li>
+    <li><code>for /f &quot;tokens=*&quot; %i in (&#x27;tasklist ^| sort ^&amp; echo End&#x27;) do @echo %i</code>
+      <ul id="015428a0-d8c4-424b-ba52-ae40f137ee63" class="bulleted-list">
+        <li>Pipes and ampersands in the command to be executed must be escaped using caret (<code>^</code>).
+        </li>
+      </ul>
+    </li>
+    <li><code>(for %i in (1,2,3) do @echo %i) &gt; anyoldtemp.txt</code>
+      <ul id="72910f09-3d39-48ca-b721-785dfd573817" class="bulleted-list">
+        <li>To redirect the entire result of a for loop, place the entire loop inside brackets before redirecting. Otherwise, the redirection will tie to the body of the loop, so each new iteration of the body of the loop will override the results of the previous iterations.
+        </li>
+      </ul>
+    </li>
+    <li><code>for %i in (1,2,3) do @echo %i &gt; anyoldtemp.txt</code>
+      <ul id="dade93c3-be18-4a53-bacb-dd80ee3af917" class="bulleted-list">
+        <li>An example related to the one above. It shows the consequence of failing to put the loop inside brackets.
+        </li>
+      </ul>
+    </li>
+  </ul>
+<p>Continue: To jump to the next iteration of the loop and thus emulate the continue statement known from many languages, you can use <code><a href="/essential/batch/goto-987419c9b64d4421bfe238f9db65d492">goto</a></code> provided you put the loop body in a subroutine, as shown in the following:
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma"><span class="k">for</span> %%i in <span class="o">(</span>a b c<span class="o">)</span> <span class="k">do</span> call :for_body %%i
@@ -143,7 +290,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you use <a href="/essential/batch/goto-987419c9b64d4421bfe238f9db65d492"><code>goto</code></a><a href="/essential/batch/goto-987419c9b64d4421bfe238f9db65d492"> </a>directly inside the for loop, the use of <a href="/essential/batch/goto-987419c9b64d4421bfe238f9db65d492"><code>goto</code></a><a href="/essential/batch/goto-987419c9b64d4421bfe238f9db65d492"> </a>breaks the loop bookkeeping. The following fails:</p>
+</div>
+<p>If you use <a href="/essential/batch/goto-987419c9b64d4421bfe238f9db65d492"><code>goto</code></a><a href="/essential/batch/goto-987419c9b64d4421bfe238f9db65d492"> </a>directly inside the for loop, the use of <a href="/essential/batch/goto-987419c9b64d4421bfe238f9db65d492"><code>goto</code></a><a href="/essential/batch/goto-987419c9b64d4421bfe238f9db65d492"> </a>breaks the loop bookkeeping. The following fails:
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma"><span class="k">for</span> %%i in <span class="o">(</span>a b c<span class="o">)</span> <span class="k">do</span> <span class="o">(</span>
@@ -157,7 +307,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Links:</p><ul id="907294de-7009-4218-ab57-7b8d10d89808" class="bulleted-list"><li><a href="http://ss64.com/nt/for.html">for at ss64.com</a></li><li><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/for">for at Microsoft</a></li></ul><p></p>
+</div>
+<p>Links:
+</p>
+  <ul id="907294de-7009-4218-ab57-7b8d10d89808" class="bulleted-list">
+    <li><a href="http://ss64.com/nt/for.html">for at ss64.com</a>
+    </li>
+    <li><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/for">for at Microsoft</a>
+    </li>
+  </ul>
+<p>
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">$ <span class="k">for</span> /?

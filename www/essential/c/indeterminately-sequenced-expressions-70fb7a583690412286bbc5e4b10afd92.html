@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Function calls as <code>f(a)</code> always imply a sequence point between the evaluation of the arguments and the designator (here <code>f</code> and <code>a</code>) and the actual call. If two such calls are unsequenced, the two function calls are indeterminately sequenced, that is, one is executed before the other, and order is unspecified.</p>
+      
+<p>Function calls as <code>f(a)</code> always imply a sequence point between the evaluation of the arguments and the designator (here <code>f</code> and <code>a</code>) and the actual call. If two such calls are unsequenced, the two function calls are indeterminately sequenced, that is, one is executed before the other, and order is unspecified.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">unsigned counter = 0;
@@ -143,7 +146,18 @@ int main(void) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This implicit twofold modification of <code>counter</code> during the evaluation of the <code>printf</code> arguments is valid, we just don’t know which of the calls comes first. As the order is unspecified, it may vary and cannot be depended on. So the printout could be:</p><blockquote id="daf166eb-fa6f-456b-a424-6b9208b879a1" class="">the order is 0 1</blockquote><p>or</p><blockquote id="76e8edf4-48e0-490b-bd41-bcd241306dd9" class="">the order is 1 0</blockquote><p>The analogous statement to the above without intermediate function call</p>
+</div>
+<p>This implicit twofold modification of <code>counter</code> during the evaluation of the <code>printf</code> arguments is valid, we just don’t know which of the calls comes first. As the order is unspecified, it may vary and cannot be depended on. So the printout could be:
+</p>
+<blockquote id="daf166eb-fa6f-456b-a424-6b9208b879a1" class="">the order is 0 1
+</blockquote>
+<p>or
+</p>
+<blockquote id="76e8edf4-48e0-490b-bd41-bcd241306dd9" class="">the order is 1 0
+</blockquote>
+<p>The analogous statement to the above without intermediate function call
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">printf(&#34;the order is %u %u\n&#34;, counter++, counter++); // undefined behavior</pre>
@@ -151,7 +165,9 @@ int main(void) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>has undefined behavior because there is no sequence point between the two modifications of <code>counter</code>.</p>
+</div>
+<p>has undefined behavior because there is no sequence point between the two modifications of <code>counter</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

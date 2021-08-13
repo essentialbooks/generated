@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>You can even overload the array subscript operator <code>[]</code>.</p><p>You should always (99.98% of the time) implement 2 versions, a <code>const</code> and a not-<code>const</code> version, because if the object is <code>const</code>, it should not be able to modify the object returned by <code>[]</code>.</p><p>The arguments are passed by <code>const&amp;</code> instead of by value because passing by reference is faster than by value, and <code>const</code> so that the operator doesn’t change the index accidentally.</p><p>The operators return by reference, because by design you can modify the object <code>[]</code> return, i.e:</p>
+      
+<p>You can even overload the array subscript operator <code>[]</code>.
+</p>
+<p>You should always (99.98% of the time) implement 2 versions, a <code>const</code> and a not-<code>const</code> version, because if the object is <code>const</code>, it should not be able to modify the object returned by <code>[]</code>.
+</p>
+<p>The arguments are passed by <code>const&amp;</code> instead of by value because passing by reference is faster than by value, and <code>const</code> so that the operator doesn’t change the index accidentally.
+</p>
+<p>The operators return by reference, because by design you can modify the object <code>[]</code> return, i.e:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::vector&lt;int&gt; v{ 1 };
@@ -137,7 +146,10 @@ v[0] = 2; //Changes value of 1 to 2
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can only overload inside a <code>class</code>/<code>struct</code>:</p>
+</div>
+<p>You can only overload inside a <code>class</code>/<code>struct</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">//I is the index type, normally an int
@@ -157,7 +169,10 @@ const T&amp; operator[](const I&amp; index) const
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Multiple subscript operators, <code>[][]...</code>, can be achieved via proxy objects. The following example of a simple row-major matrix class demonstrates this:</p>
+</div>
+<p>Multiple subscript operators, <code>[][]...</code>, can be achieved via proxy objects. The following example of a simple row-major matrix class demonstrates this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;class T&gt;

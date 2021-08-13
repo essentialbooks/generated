@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>Type aliases were introduced in Go 1.9 to make <a href="https://talks.golang.org/2016/refactor.article">code refactoring</a> easier.</p><p>Imagine you have a package <code>foo</code> that exports type <code>Bar</code>.</p><p>You want to rename type <code>Bar</code> to <code>NewBar</code>.</p><p>Without type aliases you would have to change all the packages that use <code>foo.Bar</code> to use <code>foo.NewBar</code> at the same time you’re renaming the type.</p><p>With type aliases you can split this into a 2 step process.</p><p>First update dependencies by introducing an alias for <code>foo.Bar</code> and replacing all uses of <code>foo.Bar</code> with the alias.</p>
+      
+<p>Type aliases were introduced in Go 1.9 to make <a href="https://talks.golang.org/2016/refactor.article">code refactoring</a> easier.
+</p>
+<p>Imagine you have a package <code>foo</code> that exports type <code>Bar</code>.
+</p>
+<p>You want to rename type <code>Bar</code> to <code>NewBar</code>.
+</p>
+<p>Without type aliases you would have to change all the packages that use <code>foo.Bar</code> to use <code>foo.NewBar</code> at the same time you’re renaming the type.
+</p>
+<p>With type aliases you can split this into a 2 step process.
+</p>
+<p>First update dependencies by introducing an alias for <code>foo.Bar</code> and replacing all uses of <code>foo.Bar</code> with the alias.
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kn">import</span> <span class="s">&#34;foo&#34;</span>
@@ -136,7 +149,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now you can rename <code>foo.Bar</code> to <code>foo.NewBar</code> and update the alias:</p>
+</div>
+<p>Now you can rename <code>foo.Bar</code> to <code>foo.NewBar</code> and update the alias:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kn">import</span> <span class="s">&#34;foo&#34;</span>
@@ -145,7 +161,19 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is a much smaller change.</p><p>You can now gradually get rid of the alias and use the new <code>foo.NewBar</code> type directly.</p><p>The process sounds like a hassle, but in large code bases it can be a better approach than renaming everything at once.</p><p>It’s tempting to use type aliases for other things, but you should resist.</p><p>Type aliases add a layer of indirection, which hurts readability of the code. There should be a good reason to use them.</p><p>To learn more, you can <a href="https://github.com/golang/proposal/blob/master/design/18130-type-alias.md">read the spec</a>.</p>
+</div>
+<p>This is a much smaller change.
+</p>
+<p>You can now gradually get rid of the alias and use the new <code>foo.NewBar</code> type directly.
+</p>
+<p>The process sounds like a hassle, but in large code bases it can be a better approach than renaming everything at once.
+</p>
+<p>It’s tempting to use type aliases for other things, but you should resist.
+</p>
+<p>Type aliases add a layer of indirection, which hurts readability of the code. There should be a good reason to use them.
+</p>
+<p>To learn more, you can <a href="https://github.com/golang/proposal/blob/master/design/18130-type-alias.md">read the spec</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Interfaces can seem abstract until you seem them in practice. The <code>IComparable</code> and <code>IComparable&lt;T&gt;</code> are great examples of why interfaces can be helpful to us.</p><p>Let’s say that in a program for a online store, we have a variety of items you can buy. Each item has a name, an ID number, and a price.</p>
+      
+<p>Interfaces can seem abstract until you seem them in practice. The <code>IComparable</code> and <code>IComparable&lt;T&gt;</code> are great examples of why interfaces can be helpful to us.
+</p>
+<p>Let’s say that in a program for a online store, we have a variety of items you can buy. Each item has a name, an ID number, and a price.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">Item</span> <span class="p">{</span>
@@ -144,7 +149,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We have our <code>Item</code>s stored inside of a <code>List&lt;Item&gt;</code>, and in our program somewhere, we want to sort our list by ID number from smallest to largest. Instead of writing our own sorting algorithm, we can instead use the <code>Sort()</code> method that <code>List&lt;T&gt;</code> already has. However, as our <code>Item</code> class is right now, there is no way for the <code>List&lt;T&gt;</code> to understand what order to sort the list. Here is where the <code>IComparable</code> interface comes in.</p><p>To correctly implement the <code>CompareTo</code> method, <code>CompareTo</code> should return a positive number if the parameter is “less than” the current one, zero if they are equal, and a negative number if the parameter is “greater than”.</p>
+</div>
+<p>We have our <code>Item</code>s stored inside of a <code>List&lt;Item&gt;</code>, and in our program somewhere, we want to sort our list by ID number from smallest to largest. Instead of writing our own sorting algorithm, we can instead use the <code>Sort()</code> method that <code>List&lt;T&gt;</code> already has. However, as our <code>Item</code> class is right now, there is no way for the <code>List&lt;T&gt;</code> to understand what order to sort the list. Here is where the <code>IComparable</code> interface comes in.
+</p>
+<p>To correctly implement the <code>CompareTo</code> method, <code>CompareTo</code> should return a positive number if the parameter is “less than” the current one, zero if they are equal, and a negative number if the parameter is “greater than”.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">Item</span> <span class="n">apple</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Item</span><span class="p">();</span>
@@ -164,7 +174,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here’s the example <code>Item</code>’s implementation of the interface:</p>
+</div>
+<p>Here’s the example <code>Item</code>’s implementation of the interface:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">Item</span> <span class="p">:</span> <span class="n">IComparable</span><span class="p">&lt;</span><span class="n">Item</span><span class="p">&gt;</span> <span class="p">{</span>
@@ -187,7 +200,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>On a surface level, the <code>CompareTo</code> method in our item simply returns the difference in their ID numbers, but what does the above do in practice?</p><p>Now, when we call <code>Sort()</code> on a <code>List&lt;Item&gt;</code> object, the <code>List</code> will automatically call the <code>Item</code>’s <code>CompareTo</code> method when it needs to determine what order to put objects in. Furthermore, besides <code>List&lt;T&gt;</code>, any other objects that need the ability to compare two objects will work with the <code>Item</code> because we have defined the ability for two different <code>Item</code>s to be compared with one another.</p>
+</div>
+<p>On a surface level, the <code>CompareTo</code> method in our item simply returns the difference in their ID numbers, but what does the above do in practice?
+</p>
+<p>Now, when we call <code>Sort()</code> on a <code>List&lt;Item&gt;</code> object, the <code>List</code> will automatically call the <code>Item</code>’s <code>CompareTo</code> method when it needs to determine what order to put objects in. Furthermore, besides <code>List&lt;T&gt;</code>, any other objects that need the ability to compare two objects will work with the <code>Item</code> because we have defined the ability for two different <code>Item</code>s to be compared with one another.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

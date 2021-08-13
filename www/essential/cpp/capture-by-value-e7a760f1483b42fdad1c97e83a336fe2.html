@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>If you specify the variable’s name in the capture list, the lambda will capture it by value. This means that the generated closure type for the lambda stores a copy of the variable. This also requires that the variable’s type be <em>copy-constructible</em>:</p>
+      
+<p>If you specify the variable’s name in the capture list, the lambda will capture it by value. This means that the generated closure type for the lambda stores a copy of the variable. This also requires that the variable’s type be <em>copy-constructible</em>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int a = 0;
@@ -140,6 +143,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto p = std::unique_ptr&lt;T&gt;(...);
@@ -151,7 +155,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>From C++14 on, it is possible to initialize variables on the spot. This allows move only types to be captured in the lambda.</p>
+</div>
+<p>From C++14 on, it is possible to initialize variables on the spot. This allows move only types to be captured in the lambda.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto p = std::make_unique&lt;T&gt;(...);
@@ -163,7 +170,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Even though a lambda captures variables by value when they are given by their name, such variables cannot be modified within the lambda body by default. This is because the closure type puts the lambda body in a declaration of <code>operator() const</code>.</p><p>The <code>const</code> applies to accesses to member variables of the closure type, and captured variables that are members of the closure (all appearances to the contrary):</p>
+</div>
+<p>Even though a lambda captures variables by value when they are given by their name, such variables cannot be modified within the lambda body by default. This is because the closure type puts the lambda body in a declaration of <code>operator() const</code>.
+</p>
+<p>The <code>const</code> applies to accesses to member variables of the closure type, and captured variables that are members of the closure (all appearances to the contrary):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int a = 0;
@@ -178,7 +190,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To remove the <code>const</code>, you have to specify the keyword <code>mutable</code> on the lambda:</p>
+</div>
+<p>To remove the <code>const</code>, you have to specify the keyword <code>mutable</code> on the lambda:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int a = 0;
@@ -191,7 +206,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Because <code>a</code> was captured by value, any modifications done by calling the lambda will not affect <code>a</code>. The value of <code>a</code> was copied into the lambda when it was constructed, so the lambda’s copy of <code>a</code> is separate from the external <code>a</code> variable.</p>
+</div>
+<p>Because <code>a</code> was captured by value, any modifications done by calling the lambda will not affect <code>a</code>. The value of <code>a</code> was copied into the lambda when it was constructed, so the lambda’s copy of <code>a</code> is separate from the external <code>a</code> variable.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int a = 5 ; 

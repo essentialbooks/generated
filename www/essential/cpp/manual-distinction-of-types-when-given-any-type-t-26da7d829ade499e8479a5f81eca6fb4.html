@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>When implementing <a href="/essential/cpp/sfinae-0b17f7b911d14229931e966fb51d1ba9">SFINAE</a> using <a href="http://stackoverflow.com/documentation/c%2B%2B/1169/sfinae-substitution-failure-is-not-an-error/3777/enable-if"><code>std::enable_if</code></a>, it is often useful to have access to helper templates that determines if a given type <code>T</code> matches a set of criteria.</p><p>To help us with that, the standard already provides two types analog to <code>true</code> and <code>false</code> which are <code>std::true_type</code> and <code>std::false_type</code>.</p><p>The following example show how to detect if a type <code>T</code> is a pointer or not, the <code>is_pointer</code> template mimic the behavior of the standard <code>std::is_pointer</code> helper:</p>
+      
+<p>When implementing <a href="/essential/cpp/sfinae-0b17f7b911d14229931e966fb51d1ba9">SFINAE</a> using <a href="http://stackoverflow.com/documentation/c%2B%2B/1169/sfinae-substitution-failure-is-not-an-error/3777/enable-if"><code>std::enable_if</code></a>, it is often useful to have access to helper templates that determines if a given type <code>T</code> matches a set of criteria.
+</p>
+<p>To help us with that, the standard already provides two types analog to <code>true</code> and <code>false</code> which are <code>std::true_type</code> and <code>std::false_type</code>.
+</p>
+<p>The following example show how to detect if a type <code>T</code> is a pointer or not, the <code>is_pointer</code> template mimic the behavior of the standard <code>std::is_pointer</code> helper:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -143,7 +150,28 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>There are three steps in the above code (sometimes you only need two):</p><ol id="8f4ee1eb-8e64-43ba-887e-9be67d562c7f" class="numbered-list" start="1"><li>The first declaration of <code>is_pointer_</code> is the <em>default case</em>, and inherits from <code>std::false_type</code>. The <em>default</em> case should always inherit from <code>std::false_type</code> since it is analogous to a “<code>false</code> condition”.</li><li>The second declaration specialize the <code>is_pointer_</code> template for pointer <code>T*</code> without caring about what <code>T</code> is really. This version inherits from <code>std::true_type</code>.</li><li>The third declaration (the real one) simply remove any unnecessary information from <code>T</code> (in this case we remove <code>const</code> and <code>volatile</code> qualifiers) and then fall backs to one of the two previous declarations.</li></ol><p>Since <code>is_pointer&lt;T&gt;</code> is a class, to access its value you need to either:</p><ul id="81822a5f-9b44-427f-88e8-b712b4e69c65" class="bulleted-list"><li>Use <code>::value</code>, e.g. <code>is_pointer&lt;int&gt;::value</code> – <code>value</code> is a static class member of type <code>bool</code> inherited from <code>std::true_type</code> or <code>std::false_type</code>;</li><li>Construct an object of this type, e.g. <code>is_pointer&lt;int&gt;{}</code> – This works because <code>std::is_pointer</code> inherits its default constructor from <code>std::true_type</code> or <code>std::false_type</code> (which have <code>constexpr</code> constructors) and both <code>std::true_type</code> and <code>std::false_type</code> have <code>constexpr</code> conversion operators to <code>bool</code>.</li></ul><p>It is a good habit to provides “helper helper templates” that let you directly access the value:</p>
+</div>
+<p>There are three steps in the above code (sometimes you only need two):
+</p>
+  <ol id="8f4ee1eb-8e64-43ba-887e-9be67d562c7f" class="numbered-list" start="1">
+    <li>The first declaration of <code>is_pointer_</code> is the <em>default case</em>, and inherits from <code>std::false_type</code>. The <em>default</em> case should always inherit from <code>std::false_type</code> since it is analogous to a “<code>false</code> condition”.
+    </li>
+    <li>The second declaration specialize the <code>is_pointer_</code> template for pointer <code>T*</code> without caring about what <code>T</code> is really. This version inherits from <code>std::true_type</code>.
+    </li>
+    <li>The third declaration (the real one) simply remove any unnecessary information from <code>T</code> (in this case we remove <code>const</code> and <code>volatile</code> qualifiers) and then fall backs to one of the two previous declarations.
+    </li>
+  </ol>
+<p>Since <code>is_pointer&lt;T&gt;</code> is a class, to access its value you need to either:
+</p>
+  <ul id="81822a5f-9b44-427f-88e8-b712b4e69c65" class="bulleted-list">
+    <li>Use <code>::value</code>, e.g. <code>is_pointer&lt;int&gt;::value</code> – <code>value</code> is a static class member of type <code>bool</code> inherited from <code>std::true_type</code> or <code>std::false_type</code>;
+    </li>
+    <li>Construct an object of this type, e.g. <code>is_pointer&lt;int&gt;{}</code> – This works because <code>std::is_pointer</code> inherits its default constructor from <code>std::true_type</code> or <code>std::false_type</code> (which have <code>constexpr</code> constructors) and both <code>std::true_type</code> and <code>std::false_type</code> have <code>constexpr</code> conversion operators to <code>bool</code>.
+    </li>
+  </ul>
+<p>It is a good habit to provides “helper helper templates” that let you directly access the value:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -153,7 +181,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In C++17 and above, most helper templates already provide a <code>_v</code> version, e.g.:</p>
+</div>
+<p>In C++17 and above, most helper templates already provide a <code>_v</code> version, e.g.:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span><span class="o">&lt;</span> <span class="k">class</span> <span class="nc">T</span> <span class="o">&gt;</span> <span class="k">constexpr</span> <span class="kt">bool</span> <span class="n">is_pointer_v</span> <span class="o">=</span> <span class="n">is_pointer</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>When using inheritance, you can specify the <code>virtual</code> keyword:</p>
+      
+<p>When using inheritance, you can specify the <code>virtual</code> keyword:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">struct</span> <span class="nc">A</span><span class="p">{};</span>
@@ -137,7 +140,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When class <code>B</code> has virtual base <code>A</code> it means that <code>A</code> <strong>will reside in most derived class</strong> of inheritance tree, and thus that most derived class is also responsible for initializing that virtual base:</p>
+</div>
+<p>When class <code>B</code> has virtual base <code>A</code> it means that <code>A</code> <strong>will reside in most derived class</strong> of inheritance tree, and thus that most derived class is also responsible for initializing that virtual base:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">struct</span> <span class="nc">A</span>
@@ -168,7 +174,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If we un-comment <code>/*A(88)*/</code> we won’t get any error since <code>C</code> is now initializing it’s indirect virtual base <code>A</code>.</p><p>Also note that when we’re creating variable <code>object</code>, most derived class is <code>C</code>, so <code>C</code> is responsible for creating(calling constructor of) <code>A</code> and thus value of <code>A::member</code> is <code>88</code>, not <code>5</code> (as it would be if we were creating object of type <code>B</code>).</p><p>It is useful when solving the <a href="https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem">diamond problem</a>.:</p>
+</div>
+<p>If we un-comment <code>/*A(88)*/</code> we won’t get any error since <code>C</code> is now initializing it’s indirect virtual base <code>A</code>.
+</p>
+<p>Also note that when we’re creating variable <code>object</code>, most derived class is <code>C</code>, so <code>C</code> is responsible for creating(calling constructor of) <code>A</code> and thus value of <code>A::member</code> is <code>88</code>, not <code>5</code> (as it would be if we were creating object of type <code>B</code>).
+</p>
+<p>It is useful when solving the <a href="https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem">diamond problem</a>.:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">A                                        A   A
@@ -181,7 +194,12 @@ virtual inheritance                   normal inheritance</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>B</code> and <code>C</code> both inherit from <code>A</code>, and <code>D</code> inherits from <code>B</code> and <code>C</code>, so there are 2 instances of <code>A</code> in <code>D</code>! This results in ambiguity when you’re accessing member of <code>A</code> through <code>D</code>, as the compiler has no way of knowing from which class do you want to access that member (the one which <code>B</code> inherits, or the one that is inherited by<code>C</code>?).</p><p>Virtual inheritance solves this problem: Since virtual base resides only in most derived object, there will be only one instance of <code>A</code> in <code>D</code>.</p>
+</div>
+<p><code>B</code> and <code>C</code> both inherit from <code>A</code>, and <code>D</code> inherits from <code>B</code> and <code>C</code>, so there are 2 instances of <code>A</code> in <code>D</code>! This results in ambiguity when you’re accessing member of <code>A</code> through <code>D</code>, as the compiler has no way of knowing from which class do you want to access that member (the one which <code>B</code> inherits, or the one that is inherited by<code>C</code>?).
+</p>
+<p>Virtual inheritance solves this problem: Since virtual base resides only in most derived object, there will be only one instance of <code>A</code> in <code>D</code>.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">struct</span> <span class="nc">A</span>
@@ -204,7 +222,9 @@ virtual inheritance                   normal inheritance</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Removing the comments resolves the ambiguity.</p>
+</div>
+<p>Removing the comments resolves the ambiguity.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

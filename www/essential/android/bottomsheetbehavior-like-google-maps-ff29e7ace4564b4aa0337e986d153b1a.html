@@ -127,7 +127,40 @@
 </div>
 
 
-      <p>This example depends on Support Library 23.4.0.+.</p><p>BottomSheetBehavior is characterized by :</p><ol id="614f882d-2c66-4a48-b579-47f8b6cb425f" class="numbered-list" start="1"><li>Two toolbars with animations that respond to the bottom sheet movements.</li><li>A FAB that hides when it is near to the “modal toolbar” (the one that appears when you are sliding up).</li><li>A backdrop image behind bottom sheet with some kind of parallax effect.</li><li>A Title (TextView) in Toolbar that appears when bottom sheet reach it.</li><li>The notification satus bar can turn its background to transparent or full color.</li><li>A custom bottom sheet behavior with an “anchor” state.</li></ol><p>Now let’s check them one by one:</p><p><strong>ToolBars</strong> When you open that view in Google Maps, you can see a toolbar in where you can search, it’s the only one that I’m not doing exactly like Google Maps, because I wanted to do it more generic. Anyway that <code>ToolBar</code> is inside an <code>AppBarLayout</code> and it got hidden when you start dragging the BottomSheet and it appears again when the BottomSheet reach the <code>COLLAPSED</code> state. To achieve it you need to:</p><ul id="e2c3abf6-e43f-45b9-9d21-8faefeb1e059" class="bulleted-list"><li>create a <code>Behavior</code> and extend it from <code>AppBarLayout.ScrollingViewBehavior</code></li><li>override <code>layoutDependsOn</code> and <code>onDependentViewChanged</code> methods. Doing it you will listen for bottomSheet movements.</li><li>create some methods to hide and unhide the AppBarLayout/ToolBar with animations.</li></ul><p>This is how I did it for first toolbar or ActionBar:</p>
+      
+<p>This example depends on Support Library 23.4.0.+.
+</p>
+<p>BottomSheetBehavior is characterized by :
+</p>
+  <ol id="614f882d-2c66-4a48-b579-47f8b6cb425f" class="numbered-list" start="1">
+    <li>Two toolbars with animations that respond to the bottom sheet movements.
+    </li>
+    <li>A FAB that hides when it is near to the “modal toolbar” (the one that appears when you are sliding up).
+    </li>
+    <li>A backdrop image behind bottom sheet with some kind of parallax effect.
+    </li>
+    <li>A Title (TextView) in Toolbar that appears when bottom sheet reach it.
+    </li>
+    <li>The notification satus bar can turn its background to transparent or full color.
+    </li>
+    <li>A custom bottom sheet behavior with an “anchor” state.
+    </li>
+  </ol>
+<p>Now let’s check them one by one:
+</p>
+<p><strong>ToolBars</strong> When you open that view in Google Maps, you can see a toolbar in where you can search, it’s the only one that I’m not doing exactly like Google Maps, because I wanted to do it more generic. Anyway that <code>ToolBar</code> is inside an <code>AppBarLayout</code> and it got hidden when you start dragging the BottomSheet and it appears again when the BottomSheet reach the <code>COLLAPSED</code> state. To achieve it you need to:
+</p>
+  <ul id="e2c3abf6-e43f-45b9-9d21-8faefeb1e059" class="bulleted-list">
+    <li>create a <code>Behavior</code> and extend it from <code>AppBarLayout.ScrollingViewBehavior</code>
+    </li>
+    <li>override <code>layoutDependsOn</code> and <code>onDependentViewChanged</code> methods. Doing it you will listen for bottomSheet movements.
+    </li>
+    <li>create some methods to hide and unhide the AppBarLayout/ToolBar with animations.
+    </li>
+  </ul>
+<p>This is how I did it for first toolbar or ActionBar:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -194,7 +227,26 @@ private void showAppBar(View child) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://github.com/miguelhincapie/CustomBottomSheetBehavior/blob/master/app/src/main/java/co/com/parsoniisolutions/custombottomsheetbehavior/lib/ScrollingAppBarLayoutBehavior.java">Here is the complete file if you need it</a></p><p>The second Toolbar or “Modal” toolbar: You have to override the same methods, but in this one you have to take care of more behaviors:</p><ul id="5be467a9-d0b5-46d9-8eee-f94f091b61a0" class="bulleted-list"><li>show/hide the ToolBar with animations</li><li>change status bar color/background</li><li>show/hide the BottomSheet title in the ToolBar</li><li>close the bottomSheet or send it to collapsed state</li></ul><p>The code for this one is a little extensive, so I will let <a href="https://github.com/miguelhincapie/CustomBottomSheetBehavior/blob/master/app/src/main/java/co/com/parsoniisolutions/custombottomsheetbehavior/lib/MergedAppBarLayoutBehavior.java">the link</a></p><p><strong>The FAB</strong> This is a Custom Behavior too, but extends from <code>FloatingActionButton.Behavior</code>. In <code>onDependentViewChanged</code> you have to look when it reach the “offSet” or point in where you want to hide it. In my case I want to hide it when it’s near to the second toolbar, so I dig into FAB parent (a CoordinatorLayout) looking for the AppBarLayout that contains the ToolBar, then I use the ToolBar position like <code>OffSet</code>:</p>
+</div>
+<p><a href="https://github.com/miguelhincapie/CustomBottomSheetBehavior/blob/master/app/src/main/java/co/com/parsoniisolutions/custombottomsheetbehavior/lib/ScrollingAppBarLayoutBehavior.java">Here is the complete file if you need it</a>
+</p>
+<p>The second Toolbar or “Modal” toolbar: You have to override the same methods, but in this one you have to take care of more behaviors:
+</p>
+  <ul id="5be467a9-d0b5-46d9-8eee-f94f091b61a0" class="bulleted-list">
+    <li>show/hide the ToolBar with animations
+    </li>
+    <li>change status bar color/background
+    </li>
+    <li>show/hide the BottomSheet title in the ToolBar
+    </li>
+    <li>close the bottomSheet or send it to collapsed state
+    </li>
+  </ul>
+<p>The code for this one is a little extensive, so I will let <a href="https://github.com/miguelhincapie/CustomBottomSheetBehavior/blob/master/app/src/main/java/co/com/parsoniisolutions/custombottomsheetbehavior/lib/MergedAppBarLayoutBehavior.java">the link</a>
+</p>
+<p><strong>The FAB</strong> This is a Custom Behavior too, but extends from <code>FloatingActionButton.Behavior</code>. In <code>onDependentViewChanged</code> you have to look when it reach the “offSet” or point in where you want to hide it. In my case I want to hide it when it’s near to the second toolbar, so I dig into FAB parent (a CoordinatorLayout) looking for the AppBarLayout that contains the ToolBar, then I use the ToolBar position like <code>OffSet</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -217,7 +269,12 @@ public boolean onDependentViewChanged(CoordinatorLayout parent, FloatingActionBu
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://github.com/miguelhincapie/CustomBottomSheetBehavior/blob/master/app/src/main/java/co/com/parsoniisolutions/custombottomsheetbehavior/lib/ScrollAwareFABBehavior.java">Complete Custom FAB Behavior link</a></p><p><strong>The image behind the BottomSheet with parallax effect</strong>: Like the others, it’s a custom behavior, the only “complicated” thing in this one is the little algorithm that keeps the image anchored to the BottomSheet and avoid the image collapse like default parallax effect:</p>
+</div>
+<p><a href="https://github.com/miguelhincapie/CustomBottomSheetBehavior/blob/master/app/src/main/java/co/com/parsoniisolutions/custombottomsheetbehavior/lib/ScrollAwareFABBehavior.java">Complete Custom FAB Behavior link</a>
+</p>
+<p><strong>The image behind the BottomSheet with parallax effect</strong>: Like the others, it’s a custom behavior, the only “complicated” thing in this one is the little algorithm that keeps the image anchored to the BottomSheet and avoid the image collapse like default parallax effect:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -250,7 +307,20 @@ public boolean onDependentViewChanged(CoordinatorLayout parent, View child,
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://github.com/miguelhincapie/CustomBottomSheetBehavior/blob/master/app/src/main/java/co/com/parsoniisolutions/custombottomsheetbehavior/lib/BackdropBottomSheetBehavior.java">The complete file for backdrop image with parallax effect</a></p><p>Now for the end: <strong>The Custom BottomSheet Behavior</strong> To achieve the 3 steps, first you need to understand that default BottomSheetBehavior has 5 states: <code>STATE_DRAGGING, STATE_SETTLING, STATE_EXPANDED, STATE_COLLAPSED, STATE_HIDDEN</code> and for the Google Maps behavior you need to add a middle state between collapsed and expanded: <code>STATE_ANCHOR_POINT</code>. I tried to extend the default bottomSheetBehavior with no success, so I just copy pasted all the code and modified what I need. To achieve what I’m talking about follow the next steps:</p><ol id="36199ff9-7e08-46d1-9683-d88ad9165c75" class="numbered-list" start="1"><li>Create a Java class and extend it from <code>CoordinatorLayout.Behavior&lt;V&gt;</code></li><li>Copy paste code from default <code>BottomSheetBehavior</code> file to your new one.</li><li>Modify the method <code>clampViewPositionVertical</code> with the following code:</li></ol>
+</div>
+<p><a href="https://github.com/miguelhincapie/CustomBottomSheetBehavior/blob/master/app/src/main/java/co/com/parsoniisolutions/custombottomsheetbehavior/lib/BackdropBottomSheetBehavior.java">The complete file for backdrop image with parallax effect</a>
+</p>
+<p>Now for the end: <strong>The Custom BottomSheet Behavior</strong> To achieve the 3 steps, first you need to understand that default BottomSheetBehavior has 5 states: <code>STATE_DRAGGING, STATE_SETTLING, STATE_EXPANDED, STATE_COLLAPSED, STATE_HIDDEN</code> and for the Google Maps behavior you need to add a middle state between collapsed and expanded: <code>STATE_ANCHOR_POINT</code>. I tried to extend the default bottomSheetBehavior with no success, so I just copy pasted all the code and modified what I need. To achieve what I’m talking about follow the next steps:
+</p>
+  <ol id="36199ff9-7e08-46d1-9683-d88ad9165c75" class="numbered-list" start="1">
+    <li>Create a Java class and extend it from <code>CoordinatorLayout.Behavior&lt;V&gt;</code>
+    </li>
+    <li>Copy paste code from default <code>BottomSheetBehavior</code> file to your new one.
+    </li>
+    <li>Modify the method <code>clampViewPositionVertical</code> with the following code:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -264,7 +334,18 @@ int constrain(int amount, int low, int high) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="06c413aa-bd57-47b7-994d-0a00d1147401" class="numbered-list" start="1"><li>Add a new state</li></ol><p>public static final int STATE_ANCHOR_POINT = X;</p><ol id="3288faa7-9c85-49ee-95df-afeedea5346b" class="numbered-list" start="1"><li>Modify the next methods: <code>onLayoutChild</code>, <code>onStopNestedScroll</code>, <code>BottomSheetBehavior&lt;V&gt; from(V view)</code> and <code>setState</code> (optional)</li></ol>
+</div>
+  <ol id="06c413aa-bd57-47b7-994d-0a00d1147401" class="numbered-list" start="1">
+    <li>Add a new state
+    </li>
+  </ol>
+<p>public static final int STATE_ANCHOR_POINT = X;
+</p>
+  <ol id="3288faa7-9c85-49ee-95df-afeedea5346b" class="numbered-list" start="1">
+    <li>Modify the next methods: <code>onLayoutChild</code>, <code>onStopNestedScroll</code>, <code>BottomSheetBehavior&lt;V&gt; from(V view)</code> and <code>setState</code> (optional)
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public boolean onLayoutChild(CoordinatorLayout parent, V child, int layoutDirection) {
@@ -305,6 +386,7 @@ int constrain(int amount, int low, int high) {
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public void onStopNestedScroll(CoordinatorLayout coordinatorLayout, V child, View target) {
@@ -405,6 +487,7 @@ public final void setState(@State int state) {
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public static &lt;V extends View&gt; BottomSheetBehaviorGoogleMapsLike&lt;V&gt; from(V view) {
@@ -424,7 +507,16 @@ public final void setState(@State int state) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://github.com/miguelhincapie/CustomBottomSheetBehavior">Link to the whole project</a> where you can see all the Custom Behaviors</p><p><strong>And here it is how it looks like:</strong></p><p>[</p><img class="img" src="/img/a87bd62d5327de90384fe3a25871a43b450f9a72.gif"><p>]</p>
+</div>
+<p><a href="https://github.com/miguelhincapie/CustomBottomSheetBehavior">Link to the whole project</a> where you can see all the Custom Behaviors
+</p>
+<p><strong>And here it is how it looks like:</strong>
+</p>
+<p>[
+</p>
+<img class="img" src="/img/a87bd62d5327de90384fe3a25871a43b450f9a72.gif">
+<p>]
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

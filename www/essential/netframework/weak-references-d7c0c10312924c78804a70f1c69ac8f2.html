@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Weak references are… references, to other objects (aka “targets”), but “weak” as they do not prevent those objects from being garbage-collected. In other words, weak references do not count when the Garbage Collector evaluates objects as “live” or “dead”.</p><p>The following code:</p>
+      
+<p>Weak references are… references, to other objects (aka “targets”), but “weak” as they do not prevent those objects from being garbage-collected. In other words, weak references do not count when the Garbage Collector evaluates objects as “live” or “dead”.
+</p>
+<p>The following code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var weak = new WeakReference&lt;FinalizableObject&gt;(new FinalizableObject());
@@ -136,7 +141,10 @@ GC.Collect();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Produces the output:</p>
+</div>
+<p>Produces the output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;namespace&gt;.FinalizableObject initialized
@@ -145,7 +153,14 @@ GC.Collect();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The object is freed from the managed heap despite being referenced by the WeakReference variable (still in scope when the Garbage collector was invoked).</p><p>Consequence #1: at any time, it is unsafe to assume whether a WeakReference target is still allocated on the managed heap or not.</p><p>Consequence #2: whenever a program needs to access the target of a Weakreference, code should be provided for both cases, of the target being still allocated or not. The method to access the target is TryGetTarget:</p>
+</div>
+<p>The object is freed from the managed heap despite being referenced by the WeakReference variable (still in scope when the Garbage collector was invoked).
+</p>
+<p>Consequence #1: at any time, it is unsafe to assume whether a WeakReference target is still allocated on the managed heap or not.
+</p>
+<p>Consequence #2: whenever a program needs to access the target of a Weakreference, code should be provided for both cases, of the target being still allocated or not. The method to access the target is TryGetTarget:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var target = new object(); // Any object will do as target
@@ -169,7 +184,10 @@ else
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The generic version of WeakReference is available since .Net 4.5. All framework versions provide a non-generic, untyped version that is built in the same way and checked as follows:</p>
+</div>
+<p>The generic version of WeakReference is available since .Net 4.5. All framework versions provide a non-generic, untyped version that is built in the same way and checked as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var target = new object(); // Any object will do as target

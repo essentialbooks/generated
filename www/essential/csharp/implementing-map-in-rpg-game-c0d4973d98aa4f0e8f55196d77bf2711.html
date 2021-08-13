@@ -127,7 +127,40 @@
 </div>
 
 
-      <p>Flyweight is one of structural design patterns. It is used to decrease the amount of used memory by sharing as much data as possible with similiar objects. This document will teach you how to use Flyweight DP properly.</p><p>Let me explain the idea of it to you on a simple example. Imagine you’re working on a RPG game and you need to load huge file that contains some characters. For example:</p><ul id="ff875504-b881-45a4-9c19-31f78a401aa8" class="bulleted-list"><li><code>\#</code> is grass. You can walk on it.</li><li><code>$</code> is starting point</li><li><code>@</code> is rock. You can’t walk on it.</li><li><code>%</code> is treasure chest</li></ul><p>Sample of a map:</p><p><code>@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</code></p><p><code>@############@@@@@######@#$@@@</code></p><p><code>@#############@@@######@###@@@</code></p><p><code>@#######%######@###########@@@</code></p><p><code>@############################@</code></p><p><code>@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</code></p><p>Since those objects have similiar characteristic, you don’t need to create separate object for each map field. I will show you how to use flyweight.</p><p>Let’s define an interface which our fields will implement:</p>
+      
+<p>Flyweight is one of structural design patterns. It is used to decrease the amount of used memory by sharing as much data as possible with similiar objects. This document will teach you how to use Flyweight DP properly.
+</p>
+<p>Let me explain the idea of it to you on a simple example. Imagine you’re working on a RPG game and you need to load huge file that contains some characters. For example:
+</p>
+  <ul id="ff875504-b881-45a4-9c19-31f78a401aa8" class="bulleted-list">
+    <li><code>\#</code> is grass. You can walk on it.
+    </li>
+    <li><code>$</code> is starting point
+    </li>
+    <li><code>@</code> is rock. You can’t walk on it.
+    </li>
+    <li><code>%</code> is treasure chest
+    </li>
+  </ul>
+<p>Sample of a map:
+</p>
+<p><code>@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</code>
+</p>
+<p><code>@############@@@@@######@#$@@@</code>
+</p>
+<p><code>@#############@@@######@###@@@</code>
+</p>
+<p><code>@#######%######@###########@@@</code>
+</p>
+<p><code>@############################@</code>
+</p>
+<p><code>@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</code>
+</p>
+<p>Since those objects have similiar characteristic, you don’t need to create separate object for each map field. I will show you how to use flyweight.
+</p>
+<p>Let’s define an interface which our fields will implement:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">interface</span> <span class="n">IField</span>
@@ -142,7 +175,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we can create classes that represent our fields. We also have to identify them somehow (I used an enumeration):</p>
+</div>
+<p>Now we can create classes that represent our fields. We also have to identify them somehow (I used an enumeration):
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">enum</span> <span class="n">FieldType</span>
@@ -185,7 +221,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Like I said, we don’t need to create separate instance for each field. We have to create a <strong>repository</strong> of fields. The essence of Flyweight DP is that we dynamically create an object only if we need it and it doesn’t exist yet in our repo, or return it if it already exists. Let’s write simple class that will handle this for us:</p>
+</div>
+<p>Like I said, we don’t need to create separate instance for each field. We have to create a <strong>repository</strong> of fields. The essence of Flyweight DP is that we dynamically create an object only if we need it and it doesn’t exist yet in our repo, or return it if it already exists. Let’s write simple class that will handle this for us:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">FieldRepository</span>
@@ -219,7 +258,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Great! Now we can test our code:</p>
+</div>
+<p>Great! Now we can test our code:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">Program</span>
@@ -237,9 +279,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The result in the console should be:</p><blockquote id="1c3ed19b-4c30-424b-8a78-4c7a7597c801" class="">Created a new instance of Grass
+</div>
+<p>The result in the console should be:
+</p>
+<blockquote id="1c3ed19b-4c30-424b-8a78-4c7a7597c801" class="">Created a new instance of Grass
 
-Created a new instance of Rock</blockquote><p>But why grass appears only one time if we wanted to get it twice? That’s because first time we call <code>GetField</code> grass instance does not exist in our <strong>repository</strong>, so it’s created, but next time we need grass it already exist, so we only return it.</p>
+Created a new instance of Rock
+</blockquote>
+<p>But why grass appears only one time if we wanted to get it twice? That’s because first time we call <code>GetField</code> grass instance does not exist in our <strong>repository</strong>, so it’s created, but next time we need grass it already exist, so we only return it.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

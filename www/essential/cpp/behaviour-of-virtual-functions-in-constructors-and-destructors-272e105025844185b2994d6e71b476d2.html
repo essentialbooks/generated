@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The behaviour of virtual functions in constructors and destructors is often confusing when first encountered.</p>
+      
+<p>The behaviour of virtual functions in constructors and destructors is often confusing when first encountered.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;
@@ -161,7 +164,22 @@ int main() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Output:</strong></p><blockquote id="85ec29df-8af9-4e76-9daa-24acafb25d87" class="">When called from base constructor, base::v() gets called.</blockquote><p>When called from derived constructor, derived::v() gets called.</p><p>When called from derived destructor, derived::v() gets called.</p><p>When called from base destructor, base::v() gets called.</p><p>The reasoning behind this is that the derived class may define additional members which are not yet initialized (in the constructor case) or already destroyed (in the destructor case), and calling its member functions would be unsafe. Therefore during construction and destruction of C++ objects, the <em>dynamic</em> type of <code>*this</code> is considered to be the constructor’s or destructor’s class and not a more-derived class.</p><p><strong>Example:</strong></p>
+</div>
+<p><strong>Output:</strong>
+</p>
+<blockquote id="85ec29df-8af9-4e76-9daa-24acafb25d87" class="">When called from base constructor, base::v() gets called.
+</blockquote>
+<p>When called from derived constructor, derived::v() gets called.
+</p>
+<p>When called from derived destructor, derived::v() gets called.
+</p>
+<p>When called from base destructor, base::v() gets called.
+</p>
+<p>The reasoning behind this is that the derived class may define additional members which are not yet initialized (in the constructor case) or already destroyed (in the destructor case), and calling its member functions would be unsafe. Therefore during construction and destruction of C++ objects, the <em>dynamic</em> type of <code>*this</code> is considered to be the constructor’s or destructor’s class and not a more-derived class.
+</p>
+<p><strong>Example:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;

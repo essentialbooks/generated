@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The first to thing to have: a model that contains a <code>has_many</code> relation with another model.</p>
+      
+<p>The first to thing to have: a model that contains a <code>has_many</code> relation with another model.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Project &lt; ApplicationRecord
@@ -141,7 +144,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In <code>ProjectsController</code>:</p>
+</div>
+<p>In <code>ProjectsController</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class ProjectsController &lt; ApplicationController
@@ -153,7 +159,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In a nested form, you can create child objects with a parent object at the same time.</p>
+</div>
+<p>In a nested form, you can create child objects with a parent object at the same time.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;%= nested_form_for @project do |f| %&gt;
@@ -164,6 +173,7 @@ end</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;% # Now comes the part for `Todo` object %&gt;
@@ -176,7 +186,18 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As we initialized <code>@project</code> with <code>Project.new</code> to have something for creating a new <code>Project</code> object, same way for creating a <code>Todo</code> object, we have to have something like this, and there are multiple ways to do so:</p><ol id="aa409226-6842-4f65-9e1d-651943a578e7" class="numbered-list" start="1"><li>In <code>Projectscontroller</code>, in <code>new</code> method, you can write: <code>@todo = @project.todos.build</code> or <code>@todo = @project.todos.new</code> to instantiate a new <code>Todo</code> object.</li><li>You can also do this in view: <code>&lt;%= f.fields_for :todos, @project.todos.build %&gt;</code></li></ol><p>For strong params, you can include them in the following way:</p>
+</div>
+<p>As we initialized <code>@project</code> with <code>Project.new</code> to have something for creating a new <code>Project</code> object, same way for creating a <code>Todo</code> object, we have to have something like this, and there are multiple ways to do so:
+</p>
+  <ol id="aa409226-6842-4f65-9e1d-651943a578e7" class="numbered-list" start="1">
+    <li>In <code>Projectscontroller</code>, in <code>new</code> method, you can write: <code>@todo = @project.todos.build</code> or <code>@todo = @project.todos.new</code> to instantiate a new <code>Todo</code> object.
+    </li>
+    <li>You can also do this in view: <code>&lt;%= f.fields_for :todos, @project.todos.build %&gt;</code>
+    </li>
+  </ol>
+<p>For strong params, you can include them in the following way:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def project_params
@@ -186,7 +207,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since, the <code>Todo</code> objects will be created through the creation of a <code>Project</code> object, so you have to specify this thing in <code>Project</code> model by adding the following line:</p>
+</div>
+<p>Since, the <code>Todo</code> objects will be created through the creation of a <code>Project</code> object, so you have to specify this thing in <code>Project</code> model by adding the following line:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">accepts_nested_attributes_for :todos</pre>

@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>If you want to change an attribute of a control such as a textbox or label from another thread than the GUI thread that created the control, you will have to invoke it or else you might get an error message stating:</p><blockquote id="683572cc-a0bf-4bd6-8daf-b144896e97fd" class="">“Cross-thread operation not valid: Control ‘control_name’ accessed from a thread other than the thread it was created on.”</blockquote><p>Using this example code on a system.windows.forms form will cast an exception with that message:</p>
+      
+<p>If you want to change an attribute of a control such as a textbox or label from another thread than the GUI thread that created the control, you will have to invoke it or else you might get an error message stating:
+</p>
+<blockquote id="683572cc-a0bf-4bd6-8daf-b144896e97fd" class="">“Cross-thread operation not valid: Control ‘control_name’ accessed from a thread other than the thread it was created on.”
+</blockquote>
+<p>Using this example code on a system.windows.forms form will cast an exception with that message:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private void button4_Click(object sender, EventArgs e)
@@ -144,7 +151,10 @@ private void updatetextbox()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Instead when you want to change a textbox’s text from within a thread that doesn’t own it use Control.Invoke or Control.BeginInvoke. You can also use Control.InvokeRequired to check if invoking the control is necessary.</p>
+</div>
+<p>Instead when you want to change a textbox’s text from within a thread that doesn’t own it use Control.Invoke or Control.BeginInvoke. You can also use Control.InvokeRequired to check if invoking the control is necessary.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private void updatetextbox()
@@ -158,7 +168,10 @@ private void updatetextbox()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you need to do this often, you can write an extension for invokeable objects to reduce the amount of code necessary to make this check:</p>
+</div>
+<p>If you need to do this often, you can write an extension for invokeable objects to reduce the amount of code necessary to make this check:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public static class Extensions
@@ -175,7 +188,10 @@ private void updatetextbox()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And updating the textbox from any thread becomes a bit simpler:</p>
+</div>
+<p>And updating the textbox from any thread becomes a bit simpler:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private void updatetextbox()
@@ -186,7 +202,11 @@ private void updatetextbox()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Be aware that Control.BeginInvoke as used in this example is asynchronous, meaning that code coming after a call to Control.BeginInvoke can be run immedeately after, whether or not the passed delegate has been executed yet.</p><p>If you need to be sure that textBox1 is updated before continuing, use Control.Invoke instead, which will block the calling thread until your delegate has been executed. Do note that this approach can slow your code down significantly if you make many invoke calls and note that it will deadlock your application if your GUI thread is waiting for the calling thread to complete or release a held resource.</p>
+</div>
+<p>Be aware that Control.BeginInvoke as used in this example is asynchronous, meaning that code coming after a call to Control.BeginInvoke can be run immedeately after, whether or not the passed delegate has been executed yet.
+</p>
+<p>If you need to be sure that textBox1 is updated before continuing, use Control.Invoke instead, which will block the calling thread until your delegate has been executed. Do note that this approach can slow your code down significantly if you make many invoke calls and note that it will deadlock your application if your GUI thread is waiting for the calling thread to complete or release a held resource.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

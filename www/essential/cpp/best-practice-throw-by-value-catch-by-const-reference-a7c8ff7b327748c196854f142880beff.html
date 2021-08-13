@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>In general, it is considered good practice to throw by value (rather than by pointer), but catch by (const) reference.</p>
+      
+<p>In general, it is considered good practice to throw by value (rather than by pointer), but catch by (const) reference.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">try {
@@ -145,7 +148,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>One reason why catching by reference is a good practice is that it eliminates the need to reconstruct the object when being passed to the catch block (or when propagating through to other catch blocks). Catching by reference also allows the exceptions to be handled polymorphically and avoids object slicing. However, if you are rethrowing an exception (like <code>throw e;</code>, see example below), you can still get object slicing because the <code>throw e;</code> statement makes a copy of the exception as whatever type is declared:</p>
+</div>
+<p>One reason why catching by reference is a good practice is that it eliminates the need to reconstruct the object when being passed to the catch block (or when propagating through to other catch blocks). Catching by reference also allows the exceptions to be handled polymorphically and avoids object slicing. However, if you are rethrowing an exception (like <code>throw e;</code>, see example below), you can still get object slicing because the <code>throw e;</code> statement makes a copy of the exception as whatever type is declared:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;
@@ -180,7 +186,11 @@ int main(int argc, char** argv) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you are sure that you are not going to do anything to change the exception (like add information or modify the message), catching by const reference allows the compiler to make optimizations and can improve performance. But this can still cause object splicing (as seen in the example above).</p><p><strong>Warning:</strong> Beware of throwing unintended exceptions in <code>catch</code> blocks, especially related to allocating extra memory or resources. For example, constructing <code>logic_error</code>, <code>runtime_error</code> or their subclasses might throw <code>bad_alloc</code> due to memory running out when copying the exception string, I/O streams might throw during logging with respective exception masks set, etc.</p>
+</div>
+<p>If you are sure that you are not going to do anything to change the exception (like add information or modify the message), catching by const reference allows the compiler to make optimizations and can improve performance. But this can still cause object splicing (as seen in the example above).
+</p>
+<p><strong>Warning:</strong> Beware of throwing unintended exceptions in <code>catch</code> blocks, especially related to allocating extra memory or resources. For example, constructing <code>logic_error</code>, <code>runtime_error</code> or their subclasses might throw <code>bad_alloc</code> due to memory running out when copying the exception string, I/O streams might throw during logging with respective exception masks set, etc.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

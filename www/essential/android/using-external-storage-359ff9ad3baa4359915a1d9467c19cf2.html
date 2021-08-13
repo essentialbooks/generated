@@ -127,7 +127,28 @@
 </div>
 
 
-      <p>“External” Storage is another type of storage that we can use to save files to the user’s device. It has some key differences from “Internal” Storage, namely:</p><ul id="5dbd666c-242b-491e-b57e-5f494b474771" class="bulleted-list"><li>It is not always available. In the case of a removable medium (SD card), the user can simply remove the storage.</li><li>It is not private. The user (and other applications) have access to these files.</li><li>If the user uninstalls the app, the files you save in the directory retrieved with <code>getExternalFilesDir()</code> will be removed.</li></ul><p>To use External Storage, we need to first obtain the proper permissions. You will need to use:</p><ul id="a1080b24-5bea-48ce-97d9-f817e38e89d4" class="bulleted-list"><li><a href="https://developer.android.com/reference/android/Manifest.permission.html#WRITE_EXTERNAL_STORAGE"><code>android.permission.WRITE_EXTERNAL_STORAGE</code></a> for reading and writing</li><li><a href="https://developer.android.com/reference/android/Manifest.permission.html#READ_EXTERNAL_STORAGE"><code>android.permission.READ_EXTERNAL_STORAGE</code></a> for just reading</li></ul><p>To grant these permissions, you will need to identify them in your <code>AndroidManifest.xml</code> as such</p>
+      
+<p>“External” Storage is another type of storage that we can use to save files to the user’s device. It has some key differences from “Internal” Storage, namely:
+</p>
+  <ul id="5dbd666c-242b-491e-b57e-5f494b474771" class="bulleted-list">
+    <li>It is not always available. In the case of a removable medium (SD card), the user can simply remove the storage.
+    </li>
+    <li>It is not private. The user (and other applications) have access to these files.
+    </li>
+    <li>If the user uninstalls the app, the files you save in the directory retrieved with <code>getExternalFilesDir()</code> will be removed.
+    </li>
+  </ul>
+<p>To use External Storage, we need to first obtain the proper permissions. You will need to use:
+</p>
+  <ul id="a1080b24-5bea-48ce-97d9-f817e38e89d4" class="bulleted-list">
+    <li><a href="https://developer.android.com/reference/android/Manifest.permission.html#WRITE_EXTERNAL_STORAGE"><code>android.permission.WRITE_EXTERNAL_STORAGE</code></a> for reading and writing
+    </li>
+    <li><a href="https://developer.android.com/reference/android/Manifest.permission.html#READ_EXTERNAL_STORAGE"><code>android.permission.READ_EXTERNAL_STORAGE</code></a> for just reading
+    </li>
+  </ul>
+<p>To grant these permissions, you will need to identify them in your <code>AndroidManifest.xml</code> as such
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;uses-permission android:name=&#34;android.permission.WRITE_EXTERNAL_STORAGE&#34; /&gt;</pre>
@@ -135,7 +156,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="4598b90e-dec0-4657-8e84-5d7e8fafb763" class="">NOTE: Since they are Dangerous permissions if you are using API Level 23 or above, you will need to request the permissions at runtime.</blockquote><p>Before attempting to write or read from External Storage, you should always check that the storage medium is available.</p>
+</div>
+<blockquote id="4598b90e-dec0-4657-8e84-5d7e8fafb763" class="">NOTE: Since they are Dangerous permissions if you are using API Level 23 or above, you will need to request the permissions at runtime.
+</blockquote>
+<p>Before attempting to write or read from External Storage, you should always check that the storage medium is available.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String state = Environment.getExternalStorageState();
@@ -150,7 +176,18 @@ if (state.equals(Environment.MEDIA_MOUNTED) ||
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When writing files to the External Storage, you should decide if the file should be recognized as Public or Private. While both of these types of files are still accessible to the user and other applications on the device, there is a key distinction between them.</p><p>Public files should remain on the device when the user uninstalls the app. An example of a file that should be saved as Public would be photos that are taken through your application.</p><p>Private files should all be removed when the user uninstalls the app. These types of files would be app specific, and not be of use to the user or other applications. Ex. temporary files downloaded/used by your application.</p><p>Here’s how to get access to the <code>Documents</code> directory for both Public and Private files.</p><p><strong>Public</strong></p>
+</div>
+<p>When writing files to the External Storage, you should decide if the file should be recognized as Public or Private. While both of these types of files are still accessible to the user and other applications on the device, there is a key distinction between them.
+</p>
+<p>Public files should remain on the device when the user uninstalls the app. An example of a file that should be saved as Public would be photos that are taken through your application.
+</p>
+<p>Private files should all be removed when the user uninstalls the app. These types of files would be app specific, and not be of use to the user or other applications. Ex. temporary files downloaded/used by your application.
+</p>
+<p>Here’s how to get access to the <code>Documents</code> directory for both Public and Private files.
+</p>
+<p><strong>Public</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Access your app&#39;s directory in the device&#39;s Public documents directory
@@ -162,7 +199,10 @@ myDocs.mkdirs();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Private</strong></p>
+</div>
+<p><strong>Private</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Access your app&#39;s Private documents directory

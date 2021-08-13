@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>project/jni/main.c</p>
+      
+<p>project/jni/main.c
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -141,7 +144,10 @@ int main(void) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>project/jni/Android.mk</p>
+</div>
+<p>project/jni/Android.mk
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">LOCAL_PATH := $(call my-dir)
@@ -154,7 +160,10 @@ include $(BUILD_EXECUTABLE)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>project/jni/Application.mk</p>
+</div>
+<p>project/jni/Application.mk
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">APP_ABI := all
@@ -163,7 +172,16 @@ APP_PLATFORM := android-21</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you want to support devices running Android versions lower than 5.0 (API 21), you need to compile your binary with <code>APP_PLATFORM</code> set to an older API, e.g. <code>android-8</code>. This is a consequence of Android 5.0 enforcing <em>Position Independent Binaries</em> (PIE), whereas older devices do not necessarily support PIEs. Therefore, you need to use either the PIE or the non-PIE, depending on the device version. If you want to use the binary from within your Android application, you need to check the API level and extract the correct binary.</p><p><code>APP_ABI</code> can be changed to specific platforms such as <code>armeabi</code> to build the binary for those architectures only.</p><p>In the worst case, you will have both a PIE and a non-PIE binary for each architecture (about 14 different binaries using ndk-r10e).</p><p>To build the executable:</p>
+</div>
+<p>If you want to support devices running Android versions lower than 5.0 (API 21), you need to compile your binary with <code>APP_PLATFORM</code> set to an older API, e.g. <code>android-8</code>. This is a consequence of Android 5.0 enforcing <em>Position Independent Binaries</em> (PIE), whereas older devices do not necessarily support PIEs. Therefore, you need to use either the PIE or the non-PIE, depending on the device version. If you want to use the binary from within your Android application, you need to check the API level and extract the correct binary.
+</p>
+<p><code>APP_ABI</code> can be changed to specific platforms such as <code>armeabi</code> to build the binary for those architectures only.
+</p>
+<p>In the worst case, you will have both a PIE and a non-PIE binary for each architecture (about 14 different binaries using ndk-r10e).
+</p>
+<p>To build the executable:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cd project
@@ -172,7 +190,11 @@ ndk-build</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You will find the binaries at <code>project/libs/&lt;architecture&gt;/hello_world</code>. You can use them via <code>ADB</code> (<code>push</code> and <code>chmod</code> it with executable permission) or from your application (extract and <code>chmod</code> it with executable permission).</p><p>To determine the architecture of the CPU, retrieve the build property <code>ro.product.cpu.abi</code> for the primary architecture or <code>ro.product.cpu.abilist</code> (on newer devices) for a complete list of supported architectures. You can do this using the <code>android.os.Build</code> class from within your application or using <code>getprop &lt;name&gt;</code> via ADB.</p>
+</div>
+<p>You will find the binaries at <code>project/libs/&lt;architecture&gt;/hello_world</code>. You can use them via <code>ADB</code> (<code>push</code> and <code>chmod</code> it with executable permission) or from your application (extract and <code>chmod</code> it with executable permission).
+</p>
+<p>To determine the architecture of the CPU, retrieve the build property <code>ro.product.cpu.abi</code> for the primary architecture or <code>ro.product.cpu.abilist</code> (on newer devices) for a complete list of supported architectures. You can do this using the <code>android.os.Build</code> class from within your application or using <code>getprop &lt;name&gt;</code> via ADB.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

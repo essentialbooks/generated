@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>In a <code>const</code>-correct class, all member functions which don’t change logical state have <code>this</code> cv-qualified as <code>const</code>, indicating that they don’t modify the object (apart from any <a href="http://stackoverflow.com/documentation/c%2B%2B/2705/mutable-keyword/9058/non-static-class-member-modifier#t=201610041643529340028"><code>mutable</code></a> fields, which can freely be modified even in <code>const</code> instances); if a <code>const</code> cv-qualified function returns a reference, that reference should also be <code>const</code>. This allows them to be called on both constant and non-cv-qualified instances, as a <code>const T*</code> is capable of binding to either a <code>T*</code> or a <code>const T*</code>. This, in turn, allows functions to declare their passed-by-reference parameters as <code>const</code> when they don’t need to be modified, without losing any functionality.</p><p>Furthermore, in a <code>const</code> correct class, all passed-by-reference function parameters will be <code>const</code> correct, as discussed in <code>Const Correct Function Parameters</code>, so that they can only be modified when the function explicitly <em>needs</em> to modify them.</p><p>First, let’s look at <code>this</code> cv-qualifiers:</p>
+      
+<p>In a <code>const</code>-correct class, all member functions which don’t change logical state have <code>this</code> cv-qualified as <code>const</code>, indicating that they don’t modify the object (apart from any <a href="http://stackoverflow.com/documentation/c%2B%2B/2705/mutable-keyword/9058/non-static-class-member-modifier#t=201610041643529340028"><code>mutable</code></a> fields, which can freely be modified even in <code>const</code> instances); if a <code>const</code> cv-qualified function returns a reference, that reference should also be <code>const</code>. This allows them to be called on both constant and non-cv-qualified instances, as a <code>const T*</code> is capable of binding to either a <code>T*</code> or a <code>const T*</code>. This, in turn, allows functions to declare their passed-by-reference parameters as <code>const</code> when they don’t need to be modified, without losing any functionality.
+</p>
+<p>Furthermore, in a <code>const</code> correct class, all passed-by-reference function parameters will be <code>const</code> correct, as discussed in <code>Const Correct Function Parameters</code>, so that they can only be modified when the function explicitly <em>needs</em> to modify them.
+</p>
+<p>First, let’s look at <code>this</code> cv-qualifiers:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Assume class Field, with member function &#34;void insert_value(int);&#34;.
@@ -158,6 +165,7 @@ void ConstIncorrect::doNothing() {}                  // Doesn&#39;t modify.</pre
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class ConstCorrectCVQ {
@@ -199,7 +207,10 @@ void const_correct_func(const ConstCorrectCVQ&amp; c) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We can then combine this with <code>Const Correct Function Parameters</code>, causing the class to be fully <code>const</code>-correct.</p>
+</div>
+<p>We can then combine this with <code>Const Correct Function Parameters</code>, causing the class to be fully <code>const</code>-correct.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class ConstCorrect {
@@ -227,7 +238,11 @@ void ConstCorrect::doNothing() const {}</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="619c7a32-18f0-46f5-8b08-d73ce206042a"/><p>This can also be combined with overloading based on <code>const</code>ness, in the case that we want one behaviour if the instance is <code>const</code>, and a different behaviour if it isn’t; a common use for this is constainers providing accessors that only allow modification if the container itself is non-<code>const</code>.</p>
+</div>
+<hr id="619c7a32-18f0-46f5-8b08-d73ce206042a"/>
+<p>This can also be combined with overloading based on <code>const</code>ness, in the case that we want one behaviour if the instance is <code>const</code>, and a different behaviour if it isn’t; a common use for this is constainers providing accessors that only allow modification if the container itself is non-<code>const</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class ConstCorrectContainer {
@@ -245,7 +260,9 @@ void ConstCorrect::doNothing() const {}</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is commonly used in the standard library, with most containers providing overloads to take <code>const</code>ness into account.</p>
+</div>
+<p>This is commonly used in the standard library, with most containers providing overloads to take <code>const</code>ness into account.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

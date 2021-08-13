@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Template may accept both lvalue and rvalue references using <em>forwarding reference</em>:</p>
+      
+<p>Template may accept both lvalue and rvalue references using <em>forwarding reference</em>:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -137,7 +140,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this case, the real type of <code>t</code> will be deduced depending on the context:</p>
+</div>
+<p>In this case, the real type of <code>t</code> will be deduced depending on the context:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span> <span class="p">};</span>
@@ -150,7 +156,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In the first case, the type <code>T</code> is deduced as <em>reference to </em><code><em>X</em></code> (<code>X&amp;</code>), and the type of <code>t</code> is <em>lvalue reference to </em><code><em>X</em></code>, while in the second case the type of <code>T</code> is deduced as <code>X</code> and the type of <code>t</code> as <em>rvalue reference to </em><code><em>X</em></code> (<code>X&amp;&amp;</code>).</p><p><strong>Note:</strong> It is worth noticing that in the first case, <code>decltype(t)</code> is the same as <code>T</code>, but not in the second.</p><p>In order to perfectly forward <code>t</code> to another function ,whether it is an lvalue or rvalue reference, one must use <code>std::forward</code>:</p>
+</div>
+<p>In the first case, the type <code>T</code> is deduced as <em>reference to </em><code><em>X</em></code> (<code>X&amp;</code>), and the type of <code>t</code> is <em>lvalue reference to </em><code><em>X</em></code>, while in the second case the type of <code>T</code> is deduced as <code>X</code> and the type of <code>t</code> as <em>rvalue reference to </em><code><em>X</em></code> (<code>X&amp;&amp;</code>).
+</p>
+<p><strong>Note:</strong> It is worth noticing that in the first case, <code>decltype(t)</code> is the same as <code>T</code>, but not in the second.
+</p>
+<p>In order to perfectly forward <code>t</code> to another function ,whether it is an lvalue or rvalue reference, one must use <code>std::forward</code>:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -162,7 +175,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Forwarding references may be used with variadic templates:</p>
+</div>
+<p>Forwarding references may be used with variadic templates:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
@@ -174,7 +190,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Note:</strong> Forwarding references can only be used for template parameters, for instance, in the following code, <code>v</code> is a rvalue reference, not a forwarding reference:</p>
+</div>
+<p><strong>Note:</strong> Forwarding references can only be used for template parameters, for instance, in the following code, <code>v</code> is a rvalue reference, not a forwarding reference:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">

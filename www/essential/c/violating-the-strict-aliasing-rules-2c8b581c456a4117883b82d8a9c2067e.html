@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>In the following code let us assume for simplicity that <code>float</code> and <code>uint32_t</code> have the same size.</p>
+      
+<p>In the following code let us assume for simplicity that <code>float</code> and <code>uint32_t</code> have the same size.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void fun(uint32_t* u, float* f) {
@@ -140,7 +143,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>u</code> and <code>f</code> have different base type, and thus the compiler can assume that they point to different objects. There is no possibility that <code>*f</code> could have changed between the two initializations of <code>a</code> and <code>b</code>, and so the compiler may optimize the code to something equivalent to</p>
+</div>
+<p><code>u</code> and <code>f</code> have different base type, and thus the compiler can assume that they point to different objects. There is no possibility that <code>*f</code> could have changed between the two initializations of <code>a</code> and <code>b</code>, and so the compiler may optimize the code to something equivalent to
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void fun(uint32_t* u, float* f) {
@@ -152,7 +158,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>That is, the second load operation of <code>*f</code> can be optimized out completely.</p><p>If we call this function “normally”</p>
+</div>
+<p>That is, the second load operation of <code>*f</code> can be optimized out completely.
+</p>
+<p>If we call this function “normally”
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">float fval = 4;
@@ -162,7 +173,14 @@ fun(&amp;uval, &amp;fval);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>all goes well and something like</p><blockquote id="4f1c5e23-d864-42cc-9ddc-216f6e1d0f31" class="">4 should equal 4</blockquote><p>is printed. But if we cheat and pass the same pointer, after converting it,</p>
+</div>
+<p>all goes well and something like
+</p>
+<blockquote id="4f1c5e23-d864-42cc-9ddc-216f6e1d0f31" class="">4 should equal 4
+</blockquote>
+<p>is printed. But if we cheat and pass the same pointer, after converting it,
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">float fval = 4;
@@ -172,7 +190,9 @@ fun(up, &amp;fval);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>we violate the strict aliasing rule. Then the behavior becomes undefined. The output could be as above, if the compiler had optimized the second access, or something completely different, and so your program ends up in a completely unreliable state.</p>
+</div>
+<p>we violate the strict aliasing rule. Then the behavior becomes undefined. The output could be as above, if the compiler had optimized the second access, or something completely different, and so your program ends up in a completely unreliable state.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>String concatenation can be performed using the <code>\+</code> operator. For example:</p>
+      
+<p>String concatenation can be performed using the <code>\+</code> operator. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String s1 = &#34;a&#34;;
@@ -138,7 +141,10 @@ String s = s1 + s2 + s3; // abc</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Normally a compiler implementation will perform the above concatenation using methods involving a <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuilder.html"><code>StringBuilder</code></a> under the hood. When compiled, the code would look similar to the below:</p>
+</div>
+<p>Normally a compiler implementation will perform the above concatenation using methods involving a <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuilder.html"><code>StringBuilder</code></a> under the hood. When compiled, the code would look similar to the below:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">StringBuilder sb = new StringBuilder(&#34;a&#34;);
@@ -147,7 +153,10 @@ String s = sb.append(&#34;b&#34;).append(&#34;c&#34;).toString();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>StringBuilder</code> has several overloaded methods for appending different types, for example, to append an <code>int</code> instead of a <code>String</code>. For example, an implementation can convert:</p>
+</div>
+<p><code>StringBuilder</code> has several overloaded methods for appending different types, for example, to append an <code>int</code> instead of a <code>String</code>. For example, an implementation can convert:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String s1 = &#34;a&#34;;
@@ -157,7 +166,10 @@ String s = s1 + s2 + 2; // ab2</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>to the following:</p>
+</div>
+<p>to the following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">StringBuilder sb = new StringBuilder(&#34;a&#34;);
@@ -166,7 +178,10 @@ String s = sb.append(&#34;b&#34;).append(2).toString();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above examples illustrate a simple concatenation operation that is effectively done in a single place in the code. The concatenation involves a single instance of the <code>StringBuilder</code>. In some cases, a concatenation is carried out in a cumulative way such as in a loop:</p>
+</div>
+<p>The above examples illustrate a simple concatenation operation that is effectively done in a single place in the code. The concatenation involves a single instance of the <code>StringBuilder</code>. In some cases, a concatenation is carried out in a cumulative way such as in a loop:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String result = &#34;&#34;;
@@ -178,7 +193,10 @@ return result;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In such cases, the compiler optimization is usually not applied, and each iteration will create a new <code>StringBuilder</code> object. This can be optimized by explicitly transforming the code to use a single <code>StringBuilder</code>:</p>
+</div>
+<p>In such cases, the compiler optimization is usually not applied, and each iteration will create a new <code>StringBuilder</code> object. This can be optimized by explicitly transforming the code to use a single <code>StringBuilder</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">StringBuilder result = new StringBuilder();
@@ -190,7 +208,10 @@ return result.toString();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A <code>StringBuilder</code> will be initialized with an empty space of only 16 characters. If you know in advance that you will be building larger strings, it can be beneficial to initialize it with sufficient size in advance, so that the internal buffer does not need to be resized:</p>
+</div>
+<p>A <code>StringBuilder</code> will be initialized with an empty space of only 16 characters. If you know in advance that you will be building larger strings, it can be beneficial to initialize it with sufficient size in advance, so that the internal buffer does not need to be resized:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">StringBuilder buf = new StringBuilder(30); // Default is 16 characters
@@ -201,7 +222,10 @@ String result = buf.toString(); // Produces a 20-chars copy of the string</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you are producing many strings, it is advisable to reuse <code>StringBuilder</code>s:</p>
+</div>
+<p>If you are producing many strings, it is advisable to reuse <code>StringBuilder</code>s:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">StringBuilder buf = new StringBuilder(100);
@@ -214,7 +238,12 @@ for (int i = 0; i &lt; 100; i++) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If (and only if) multiple threads are writing to the <em>same</em> buffer, use <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuffer.html">StringBuffer</a>, which is a <code>synchronized</code> version of <code>StringBuilder</code>. But because usually only a single thread writes to a buffer, it is usually faster to use <code>StringBuilder</code> without synchronization.</p><p><strong>Using concat() method:</strong></p>
+</div>
+<p>If (and only if) multiple threads are writing to the <em>same</em> buffer, use <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuffer.html">StringBuffer</a>, which is a <code>synchronized</code> version of <code>StringBuilder</code>. But because usually only a single thread writes to a buffer, it is usually faster to use <code>StringBuilder</code> without synchronization.
+</p>
+<p><strong>Using concat() method:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String string1 = &#34;Hello &#34;;
@@ -224,7 +253,10 @@ String string3 = string1.concat(string2);  // &#34;Hello world&#34;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This returns a new string that is string1 with string2 added to it at the end. You can also use the concat() method with string literals, as in:</p>
+</div>
+<p>This returns a new string that is string1 with string2 added to it at the end. You can also use the concat() method with string literals, as in:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&#34;My name is &#34;.concat(&#34;Buyya&#34;);</pre>

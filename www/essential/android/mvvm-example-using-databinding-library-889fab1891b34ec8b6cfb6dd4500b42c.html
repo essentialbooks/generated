@@ -127,7 +127,30 @@
 </div>
 
 
-      <p>The whole point of MVVM is to separate layers containing logic from the view layer.</p><p>On Android we can use the <a href="https://developer.android.com/topic/libraries/data-binding/index.html">DataBinding Library</a> to help us with this and make most of our logic Unit-testable without worrying about Android dependencies.</p><p>In this example I’ll show the central components for a stupid simple App that does the following:</p><ul id="e0821ad3-89fc-4372-8bbb-21ed3cb1f20c" class="bulleted-list"><li>At start up fake a network call and show a loading spinner</li><li>Show a view with a click counter TextView, a message TextView, and a button to increment the counter</li><li>On button click update counter and update counter color and message text if counter reaches some number</li></ul><p>Let’s start with the view layer:</p><p><code>activity_main.xml</code>:</p><p>If you’re unfamiliar with how DataBinding works you should probably <a href="https://developer.android.com/topic/libraries/data-binding/index.html">take 10 minutes</a> to make yourself familiar with it. As you can see, all fields you would usually update with setters are bound to functions on the viewModel variable.</p><p>If you’ve got a question about the <code>android:visibility</code> or <code>app:textColor</code> properties check the ‘Remarks’ section.</p>
+      
+<p>The whole point of MVVM is to separate layers containing logic from the view layer.
+</p>
+<p>On Android we can use the <a href="https://developer.android.com/topic/libraries/data-binding/index.html">DataBinding Library</a> to help us with this and make most of our logic Unit-testable without worrying about Android dependencies.
+</p>
+<p>In this example I’ll show the central components for a stupid simple App that does the following:
+</p>
+  <ul id="e0821ad3-89fc-4372-8bbb-21ed3cb1f20c" class="bulleted-list">
+    <li>At start up fake a network call and show a loading spinner
+    </li>
+    <li>Show a view with a click counter TextView, a message TextView, and a button to increment the counter
+    </li>
+    <li>On button click update counter and update counter color and message text if counter reaches some number
+    </li>
+  </ul>
+<p>Let’s start with the view layer:
+</p>
+<p><code>activity_main.xml</code>:
+</p>
+<p>If you’re unfamiliar with how DataBinding works you should probably <a href="https://developer.android.com/topic/libraries/data-binding/index.html">take 10 minutes</a> to make yourself familiar with it. As you can see, all fields you would usually update with setters are bound to functions on the viewModel variable.
+</p>
+<p>If you’ve got a question about the <code>android:visibility</code> or <code>app:textColor</code> properties check the ‘Remarks’ section.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;layout
@@ -243,7 +266,26 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Next the model layer. Here I have:</p><ul id="47549d9f-56c1-4217-aaa2-a0abc72db3b8" class="bulleted-list"><li>two fields that represent the state of the app</li><li>getters to read the number of clicks and the state of excitement</li><li>a method to increment my click count</li><li>a method to restore some previous state (important for orientation changes)</li></ul><p>Also I define here a ‘state of excitement’ that is dependent on the number of clicks. This will later be used to update color and message on the View.</p><p>It is important to note that there are no assumptions made in the model about how the state might be displayed to the user!</p><p><code>ClickerModel.java</code></p>
+</div>
+<p>Next the model layer. Here I have:
+</p>
+  <ul id="47549d9f-56c1-4217-aaa2-a0abc72db3b8" class="bulleted-list">
+    <li>two fields that represent the state of the app
+    </li>
+    <li>getters to read the number of clicks and the state of excitement
+    </li>
+    <li>a method to increment my click count
+    </li>
+    <li>a method to restore some previous state (important for orientation changes)
+    </li>
+  </ul>
+<p>Also I define here a ‘state of excitement’ that is dependent on the number of clicks. This will later be used to update color and message on the View.
+</p>
+<p>It is important to note that there are no assumptions made in the model about how the state might be displayed to the user!
+</p>
+<p><code>ClickerModel.java</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import com.google.common.base.Optional;
@@ -287,7 +329,16 @@ public class ClickerModel implements IClickerModel {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Next the ViewModel.</p><p>This will trigger changes on the model and format data from the model to show them on the view. Note that it is here where we evaluate which GUI representation is appropriate for the state given by the model (<code>resolveCounterColor</code> and <code>resolveLabelText</code>). So we could for example easily implement an <code>UnderachieverClickerModel</code> that has lower thresholds for the state of excitement without touching any code in the viewModel or view.</p><p>Also note that the ViewModel does not hold any references to view objects. All properties are bound via the <code>@Bindable</code> annotations and updated when either <code>notifyChange()</code> (signals all properties need to be updated) or <code>notifyPropertyChanged(BR.propertyName)</code> (signals this properties need to be updated).</p><p><code>ClickerViewModel.java</code></p>
+</div>
+<p>Next the ViewModel.
+</p>
+<p>This will trigger changes on the model and format data from the model to show them on the view. Note that it is here where we evaluate which GUI representation is appropriate for the state given by the model (<code>resolveCounterColor</code> and <code>resolveLabelText</code>). So we could for example easily implement an <code>UnderachieverClickerModel</code> that has lower thresholds for the state of excitement without touching any code in the viewModel or view.
+</p>
+<p>Also note that the ViewModel does not hold any references to view objects. All properties are bound via the <code>@Bindable</code> annotations and updated when either <code>notifyChange()</code> (signals all properties need to be updated) or <code>notifyPropertyChanged(BR.propertyName)</code> (signals this properties need to be updated).
+</p>
+<p><code>ClickerViewModel.java</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import android.databinding.BaseObservable;
@@ -405,7 +456,18 @@ public class ClickerViewModel extends BaseObservable {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Tying it all together in the Activity!</p><p>Here we see the view initializing the viewModel with all dependencies it might need, that have to be instantiated from an android context.</p><p>After the viewModel is initialized it is bound to the xml layout via the DataBindingUtil (Please check ‘Syntax’ section for naming of generated classes).</p><p>Note subscriptions are subscribed to on this layer because we have to handle unsubscribing them when the activity is paused or destroyed to avoid memory leaks and NPEs. Also persisting and reloading of the viewState on OrientationChanges is triggered here</p><p><code>MainActivity.java</code></p>
+</div>
+<p>Tying it all together in the Activity!
+</p>
+<p>Here we see the view initializing the viewModel with all dependencies it might need, that have to be instantiated from an android context.
+</p>
+<p>After the viewModel is initialized it is bound to the xml layout via the DataBindingUtil (Please check ‘Syntax’ section for naming of generated classes).
+</p>
+<p>Note subscriptions are subscribed to on this layer because we have to handle unsubscribing them when the activity is paused or destroyed to avoid memory leaks and NPEs. Also persisting and reloading of the viewState on OrientationChanges is triggered here
+</p>
+<p><code>MainActivity.java</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import android.databinding.DataBindingUtil;
@@ -480,7 +542,9 @@ public class MainActivity extends AppCompatActivity {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To see everything in action check out this <a href="https://github.com/danielw93/MVVM-Example">example project</a>.</p>
+</div>
+<p>To see everything in action check out this <a href="https://github.com/danielw93/MVVM-Example">example project</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

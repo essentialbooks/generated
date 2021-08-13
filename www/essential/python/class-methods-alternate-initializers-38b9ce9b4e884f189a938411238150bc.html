@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Class methods present alternate ways to build instances of classes. To illustrate, let’s look at an example.</p><p>Let’s suppose we have a relatively simple <code>Person</code> class:</p>
+      
+<p>Class methods present alternate ways to build instances of classes. To illustrate, let’s look at an example.
+</p>
+<p>Let’s suppose we have a relatively simple <code>Person</code> class:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -144,7 +149,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It might be handy to have a way to build instances of this class specifying a full name instead of first and last name separately. One way to do this would be to have <code>last_name</code> be an optional parameter, and assuming that if it isn’t given, we passed the full name in:</p>
+</div>
+<p>It might be handy to have a way to build instances of this class specifying a full name instead of first and last name separately. One way to do this would be to have <code>last_name</code> be an optional parameter, and assuming that if it isn’t given, we passed the full name in:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -165,7 +173,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, there are two main problems with this bit of code:</p><ol id="9e280cbd-4f8a-446e-b57f-b753536b9437" class="numbered-list" start="1"><li>The parameters <code>first_name</code> and <code>last_name</code> are now misleading, since you can enter a full name for <code>first_name</code>. Also, if there are more cases and/or more parameters that have this kind of flexibility, the if/elif/else branching can get annoying fast.</li><li>Not quite as important, but still worth pointing out: what if <code>last_name</code> is <code>None</code>, but <code>first_name</code> doesn’t split into two or more things via spaces? We have yet another layer of input validation and/or exception handling…</li></ol><p>Enter class methods. Rather than having a single initializer, we will create a separate initializer, called <code>from_full_name</code>, and decorate it with the (built-in) <code>classmethod</code> decorator.</p>
+</div>
+<p>However, there are two main problems with this bit of code:
+</p>
+  <ol id="9e280cbd-4f8a-446e-b57f-b753536b9437" class="numbered-list" start="1">
+    <li>The parameters <code>first_name</code> and <code>last_name</code> are now misleading, since you can enter a full name for <code>first_name</code>. Also, if there are more cases and/or more parameters that have this kind of flexibility, the if/elif/else branching can get annoying fast.
+    </li>
+    <li>Not quite as important, but still worth pointing out: what if <code>last_name</code> is <code>None</code>, but <code>first_name</code> doesn’t split into two or more things via spaces? We have yet another layer of input validation and/or exception handling…
+    </li>
+  </ol>
+<p>Enter class methods. Rather than having a single initializer, we will create a separate initializer, called <code>from_full_name</code>, and decorate it with the (built-in) <code>classmethod</code> decorator.
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -189,7 +208,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Notice <code>cls</code> instead of <code>self</code> as the first argument to <code>from_full_name</code>. Class methods are applied to the overall class, <em>not</em> an instance of a given class (which is what <code>self</code> usually denotes). So, if <code>cls</code> is our <code>Person</code> class, then the returned value from the <code>from_full_name</code> class method is <code>Person(first_name, last_name, age)</code>, which uses <code>Person</code>’s <code>__init__</code> to create an instance of the <code>Person</code> class. In particular, if we were to make a subclass <code>Employee</code> of <code>Person</code>, then <code>from_full_name</code> would work in the <code>Employee</code> class as well.</p><p>To show that this works as expected, let’s create instances of <code>Person</code> in more than one way without the branching in <code>__init__</code>:</p>
+</div>
+<p>Notice <code>cls</code> instead of <code>self</code> as the first argument to <code>from_full_name</code>. Class methods are applied to the overall class, <em>not</em> an instance of a given class (which is what <code>self</code> usually denotes). So, if <code>cls</code> is our <code>Person</code> class, then the returned value from the <code>from_full_name</code> class method is <code>Person(first_name, last_name, age)</code>, which uses <code>Person</code>’s <code>__init__</code> to create an instance of the <code>Person</code> class. In particular, if we were to make a subclass <code>Employee</code> of <code>Person</code>, then <code>from_full_name</code> would work in the <code>Employee</code> class as well.
+</p>
+<p>To show that this works as expected, let’s create instances of <code>Person</code> in more than one way without the branching in <code>__init__</code>:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">bob</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s2">&#34;Bob&#34;</span><span class="p">,</span> <span class="s2">&#34;Bobberson&#34;</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
@@ -205,7 +229,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Other references:</p><ul id="a896b1be-6201-4756-8d43-12b73a2954d3" class="bulleted-list"><li>http://stackoverflow.com/questions/12179271/python-classmethod-and-staticmethod-for-beginner</li><li>https://docs.python.org/2/library/functions.html#classmethod</li><li>https://docs.python.org/3.5/library/functions.html#classmethod</li></ul>
+</div>
+<p>Other references:
+</p>
+  <ul id="a896b1be-6201-4756-8d43-12b73a2954d3" class="bulleted-list">
+    <li>http://stackoverflow.com/questions/12179271/python-classmethod-and-staticmethod-for-beginner
+    </li>
+    <li>https://docs.python.org/2/library/functions.html#classmethod
+    </li>
+    <li>https://docs.python.org/3.5/library/functions.html#classmethod
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

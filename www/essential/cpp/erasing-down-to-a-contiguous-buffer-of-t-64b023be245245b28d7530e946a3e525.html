@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Not all type erasure involves virtual inheritance, allocations, placement new, or even function pointers.</p><p>What makes type erasure type erasure is that it describes a (set of) behavior(s), and takes any type that supports that behavior and wraps it up. All information that isn’t in that set of behaviors is “forgotten” or “erased”.</p><p>An <code>array_view</code> takes its incoming range or container type and erases everything except the fact it is a contiguous buffer of <code>T</code>.</p>
+      
+<p>Not all type erasure involves virtual inheritance, allocations, placement new, or even function pointers.
+</p>
+<p>What makes type erasure type erasure is that it describes a (set of) behavior(s), and takes any type that supports that behavior and wraps it up. All information that isn’t in that set of behaviors is “forgotten” or “erased”.
+</p>
+<p>An <code>array_view</code> takes its incoming range or container type and erases everything except the fact it is a contiguous buffer of <code>T</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// helper traits for SFINAE:
@@ -199,7 +206,17 @@ struct array_view {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>an <code>array_view</code> takes any container that supports <code>.data()</code> returning a pointer to <code>T</code> and a <code>.size()</code> method, or an array, and erases it down to being a random-access range over contiguous <code>T</code>s.</p><p>It can take a <code>std::vector&lt;T&gt;</code>, a <code>std::string&lt;T&gt;</code> a <code>std::array&lt;T, N&gt;</code> a <code>T[37]</code>, an initializer list (including <code>{}</code> based ones), or something else you make up that supports it (via <code>T* x.data()</code> and <code>size_t x.size()</code>).</p><p>In this case, the data we can extract from the thing we are erasing, together with our “view” non-owning state, means we don’t have to allocate memory or write custom type-dependent functions.</p><p><a href="http://coliru.stacked-crooked.com/a/c9f8e013a309ca66">Live example</a>.</p><p>An improvement would be to use a non-member <code>data</code> and a non-member <code>size</code> in an ADL-enabled context.</p>
+</div>
+<p>an <code>array_view</code> takes any container that supports <code>.data()</code> returning a pointer to <code>T</code> and a <code>.size()</code> method, or an array, and erases it down to being a random-access range over contiguous <code>T</code>s.
+</p>
+<p>It can take a <code>std::vector&lt;T&gt;</code>, a <code>std::string&lt;T&gt;</code> a <code>std::array&lt;T, N&gt;</code> a <code>T[37]</code>, an initializer list (including <code>{}</code> based ones), or something else you make up that supports it (via <code>T* x.data()</code> and <code>size_t x.size()</code>).
+</p>
+<p>In this case, the data we can extract from the thing we are erasing, together with our “view” non-owning state, means we don’t have to allocate memory or write custom type-dependent functions.
+</p>
+<p><a href="http://coliru.stacked-crooked.com/a/c9f8e013a309ca66">Live example</a>.
+</p>
+<p>An improvement would be to use a non-member <code>data</code> and a non-member <code>size</code> in an ADL-enabled context.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>All constructors in Java must make a call to the <code>Object</code> constructor. This is done with the call <code>super()</code>. This has to be the first line in a constructor. The reason for this is so that the object can actually be created on the heap before any additional initialization is performed.</p><p>If you do not specify the call to <code>super()</code> in a constructor the compiler will put it in for you.</p><p>So all three of these examples are functionally identical</p><p>with explicit call to <code>super()</code> constructor</p>
+      
+<p>All constructors in Java must make a call to the <code>Object</code> constructor. This is done with the call <code>super()</code>. This has to be the first line in a constructor. The reason for this is so that the object can actually be created on the heap before any additional initialization is performed.
+</p>
+<p>If you do not specify the call to <code>super()</code> in a constructor the compiler will put it in for you.
+</p>
+<p>So all three of these examples are functionally identical
+</p>
+<p>with explicit call to <code>super()</code> constructor
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MyClass {
@@ -140,7 +149,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>with implicit call to <code>super()</code> constructor</p>
+</div>
+<p>with implicit call to <code>super()</code> constructor
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MyClass {
@@ -153,7 +165,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>with implicit constructor</p>
+</div>
+<p>with implicit constructor
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MyClass {
@@ -163,7 +178,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="1f5f3840-4766-4aa4-959a-cf17f0fa5ff0" class="">What about Constructor-Chaining?</blockquote><p>It is possible to call other constructors as the first instruction of a constructor. As both the explicit call to a super constructor and the call to another constructor have to be both first instructions, they are mutually exclusive.</p>
+</div>
+<blockquote id="1f5f3840-4766-4aa4-959a-cf17f0fa5ff0" class="">What about Constructor-Chaining?
+</blockquote>
+<p>It is possible to call other constructors as the first instruction of a constructor. As both the explicit call to a super constructor and the call to another constructor have to be both first instructions, they are mutually exclusive.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MyClass {
@@ -184,7 +204,35 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Calling new <code>MyClass(Arrays.asList(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;))</code> will call the second constructor with the List-argument, which will in turn delegate to the first constructor (which will delegate implicitly to <code>super()</code>) and then call <code>addInitialValues(int size)</code> with the second size of the list. This is used to reduce code duplication where multiple constructors need to do the same work.</p><blockquote id="a7ad80b0-2dcd-4e90-80ca-dcb9f6bae2ea" class="">How do I call a specific constructor?</blockquote><p>Given the example above, one can either call <code>new MyClass(&quot;argument&quot;)</code> or <code>new MyClass(&quot;argument&quot;, 0)</code>. In other words, much like <a href="http://stackoverflow.com/documentation/java/980/polymorphism/3187/method-overloading#t=201608202249467776787">method overloading</a>, you just call the constructor with the parameters that are necessary for your chosen constructor.</p><blockquote id="1de84100-05cd-42d9-b32f-94429a8ea58d" class="">What will happen in the Object class constructor?</blockquote><p>Nothing more than would happen in a sub-class that has a default empty constructor (minus the call to <code>super()</code>).</p><p>The default empty constructor can be explicitly defined but if not the compiler will put it in for you as long as no other constructors are already defined.</p><blockquote id="8e444e4a-fe7f-4043-9e43-1709e4c90e2f" class="">How is an Object then created from the constructor in Object?</blockquote><p>The actual creation of objects is down to the JVM. Every constructor in Java appears as a special method named <code>&lt;init&gt;</code> which is responsible for instance initializing. This <code>&lt;init&gt;</code> method is supplied by the compiler and because <code>&lt;init&gt;</code> is not a valid identifier in Java, it cannot be used directly in the language.</p><blockquote id="f78c3fad-a61a-4ff7-b194-27715e27d20c" class="">How does the JVM invoke this &lt;init&gt; method?</blockquote><p>The JVM will invoke the <code>&lt;init&gt;</code> method using the <code>invokespecial</code> instruction and can only be invoked on uninitialized class instances.</p><p>For more information take a look at the JVM specification and the Java Language Specification:</p><ul id="c4b6044c-68c5-4bc2-bd06-2f97a6df42fd" class="bulleted-list"><li>Special Methods (JVM) - <a href="https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-2.html">JVMS - 2.9</a></li><li>Constructors - <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html">JLS - 8.8</a></li></ul>
+</div>
+<p>Calling new <code>MyClass(Arrays.asList(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;))</code> will call the second constructor with the List-argument, which will in turn delegate to the first constructor (which will delegate implicitly to <code>super()</code>) and then call <code>addInitialValues(int size)</code> with the second size of the list. This is used to reduce code duplication where multiple constructors need to do the same work.
+</p>
+<blockquote id="a7ad80b0-2dcd-4e90-80ca-dcb9f6bae2ea" class="">How do I call a specific constructor?
+</blockquote>
+<p>Given the example above, one can either call <code>new MyClass(&quot;argument&quot;)</code> or <code>new MyClass(&quot;argument&quot;, 0)</code>. In other words, much like <a href="http://stackoverflow.com/documentation/java/980/polymorphism/3187/method-overloading#t=201608202249467776787">method overloading</a>, you just call the constructor with the parameters that are necessary for your chosen constructor.
+</p>
+<blockquote id="1de84100-05cd-42d9-b32f-94429a8ea58d" class="">What will happen in the Object class constructor?
+</blockquote>
+<p>Nothing more than would happen in a sub-class that has a default empty constructor (minus the call to <code>super()</code>).
+</p>
+<p>The default empty constructor can be explicitly defined but if not the compiler will put it in for you as long as no other constructors are already defined.
+</p>
+<blockquote id="8e444e4a-fe7f-4043-9e43-1709e4c90e2f" class="">How is an Object then created from the constructor in Object?
+</blockquote>
+<p>The actual creation of objects is down to the JVM. Every constructor in Java appears as a special method named <code>&lt;init&gt;</code> which is responsible for instance initializing. This <code>&lt;init&gt;</code> method is supplied by the compiler and because <code>&lt;init&gt;</code> is not a valid identifier in Java, it cannot be used directly in the language.
+</p>
+<blockquote id="f78c3fad-a61a-4ff7-b194-27715e27d20c" class="">How does the JVM invoke this &lt;init&gt; method?
+</blockquote>
+<p>The JVM will invoke the <code>&lt;init&gt;</code> method using the <code>invokespecial</code> instruction and can only be invoked on uninitialized class instances.
+</p>
+<p>For more information take a look at the JVM specification and the Java Language Specification:
+</p>
+  <ul id="c4b6044c-68c5-4bc2-bd06-2f97a6df42fd" class="bulleted-list">
+    <li>Special Methods (JVM) - <a href="https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-2.html">JVMS - 2.9</a>
+    </li>
+    <li>Constructors - <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html">JLS - 8.8</a>
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

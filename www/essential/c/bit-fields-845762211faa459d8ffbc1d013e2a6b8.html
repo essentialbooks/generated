@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>A simple bit-field can be used to describe things that may have a specific number of bits involved.</p>
+      
+<p>A simple bit-field can be used to describe things that may have a specific number of bits involved.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct encoderPosition {
@@ -139,7 +142,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this example we consider an encoder with 23 bits of single precision and 4 bits to describe multi-turn. Bit-fields are often used when interfacing with hardware that outputs data associated with specific number of bits. Another example could be communication with an FPGA, where the FPGA writes data into your memory in 32 bit sections allowing for hardware reads:</p>
+</div>
+<p>In this example we consider an encoder with 23 bits of single precision and 4 bits to describe multi-turn. Bit-fields are often used when interfacing with hardware that outputs data associated with specific number of bits. Another example could be communication with an FPGA, where the FPGA writes data into your memory in 32 bit sections allowing for hardware reads:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct FPGAInfo {
@@ -158,7 +164,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For this example we have shown a commonly used construct to be able to access the data in its individual bits, or to write the data packet as a whole (emulating what the FPGA might do). We could then access the bits like this:</p>
+</div>
+<p>For this example we have shown a commonly used construct to be able to access the data in its individual bits, or to write the data packet as a whole (emulating what the FPGA might do). We could then access the bits like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">FPGAInfo fInfo;
@@ -170,7 +179,14 @@ if (fInfo.bits.bulb1On) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is valid, but as per the C99 standard 6.7.2.1, item 10:</p><blockquote id="b08bbbd5-e06b-4eb5-bbbd-a328a97b7366" class="">The order of allocation of bit-fields within a unit (high-order to low-order or low-order to high-order) is implementation-defined.</blockquote><p>You need to be aware of endianness when defining bit-fields in this way. As such it may be necessary to use a preprocessor directive to check for the endianness of the machine. An example of this follows:</p>
+</div>
+<p>This is valid, but as per the C99 standard 6.7.2.1, item 10:
+</p>
+<blockquote id="b08bbbd5-e06b-4eb5-bbbd-a328a97b7366" class="">The order of allocation of bit-fields within a unit (high-order to low-order or low-order to high-order) is implementation-defined.
+</blockquote>
+<p>You need to be aware of endianness when defining bit-fields in this way. As such it may be necessary to use a preprocessor directive to check for the endianness of the machine. An example of this follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">typedef union {

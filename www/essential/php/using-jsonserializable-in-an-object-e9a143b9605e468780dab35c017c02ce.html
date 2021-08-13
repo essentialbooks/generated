@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>When you build REST API’s, you may need to reduce the information of an object to be passed to the client application. For this purpose, this example illustrates how to use the <code>JsonSerialiazble</code> interface.</p><p>In this example, the class <code>User</code> actually extends a DB model object of a hypotetical ORM.</p>
+      
+<p>When you build REST API’s, you may need to reduce the information of an object to be passed to the client application. For this purpose, this example illustrates how to use the <code>JsonSerialiazble</code> interface.
+</p>
+<p>In this example, the class <code>User</code> actually extends a DB model object of a hypotetical ORM.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class User extends Model implements JsonSerializable {
@@ -154,7 +159,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Add <code>JsonSerializable</code> implementation to the class, by providing the <code>jsonSerialize()</code> method.</p>
+</div>
+<p>Add <code>JsonSerializable</code> implementation to the class, by providing the <code>jsonSerialize()</code> method.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public function jsonSerialize()</pre>
@@ -162,7 +170,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now in your application controller or script, when passing the object User to <code>json_encode()</code> you will get the return json encoded array of the <code>jsonSerialize()</code> method instead of the entire object.</p>
+</div>
+<p>Now in your application controller or script, when passing the object User to <code>json_encode()</code> you will get the return json encoded array of the <code>jsonSerialize()</code> method instead of the entire object.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">json_encode($User);</pre>
@@ -170,7 +181,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Will return:</p>
+</div>
+<p>Will return:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">{&#34;name&#34;:&#34;John&#34;, &#34;surname&#34;:&#34;Doe&#34;, &#34;username&#34; : &#34;TestJson&#34;}</pre>
@@ -178,7 +192,22 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="cb7abfb3-ed45-49a2-abc2-e4b6ecb64568"/><h3 id="dc587f5b-5964-4c8a-a50c-d0d80aec4287" class="">properties values example.<a class="header-anchor" href="#dc587f5b-5964-4c8a-a50c-d0d80aec4287" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>This will both reduce the amount of data returned from a RESTful endpoint, and allow to exclude object properties from a json representation.</p><hr id="8b98cd74-945a-4dce-bea6-c3f26c4990da"/><h2 id="088f7000-ed2b-43c3-9be8-9481bba67c29" class=""><strong>Using Private and Protected Properties with </strong><code><strong>json_encode()</strong></code><a class="header-anchor" href="#088f7000-ed2b-43c3-9be8-9481bba67c29" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>To avoid using JsonSerializable, it is also possible to use private or protected properties to hide class information from <code>json_encode()</code> output. The Class then does not need to implement \JsonSerializable.</p><blockquote id="8bccd3c1-e7c3-4cd9-8ab0-753c305b94cc" class="">The json_encode() function will only encode public properties of a class into JSON.</blockquote>
+</div>
+<hr id="cb7abfb3-ed45-49a2-abc2-e4b6ecb64568"/>
+  <h3 id="dc587f5b-5964-4c8a-a50c-d0d80aec4287" class="">properties values example.
+  <a class="header-anchor" href="#dc587f5b-5964-4c8a-a50c-d0d80aec4287" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p>This will both reduce the amount of data returned from a RESTful endpoint, and allow to exclude object properties from a json representation.
+</p>
+<hr id="8b98cd74-945a-4dce-bea6-c3f26c4990da"/>
+  <h2 id="088f7000-ed2b-43c3-9be8-9481bba67c29" class=""><strong>Using Private and Protected Properties with </strong><code><strong>json_encode()</strong></code>
+  <a class="header-anchor" href="#088f7000-ed2b-43c3-9be8-9481bba67c29" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>To avoid using JsonSerializable, it is also possible to use private or protected properties to hide class information from <code>json_encode()</code> output. The Class then does not need to implement \JsonSerializable.
+</p>
+<blockquote id="8bccd3c1-e7c3-4cd9-8ab0-753c305b94cc" class="">The json_encode() function will only encode public properties of a class into JSON.
+</blockquote>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;?php
@@ -210,7 +239,11 @@ var_dump(json_encode($theUser));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="7de6cd89-e24d-4fc2-a466-490295bcbd2f" class=""><strong>Output:</strong><a class="header-anchor" href="#7de6cd89-e24d-4fc2-a466-490295bcbd2f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+</div>
+  <h2 id="7de6cd89-e24d-4fc2-a466-490295bcbd2f" class=""><strong>Output:</strong>
+  <a class="header-anchor" href="#7de6cd89-e24d-4fc2-a466-490295bcbd2f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">string(44) &#34;{&#34;name&#34;:null,&#34;surname&#34;:null,&#34;username&#34;:null}&#34;</pre>

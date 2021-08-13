@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>The <code>StringBuffer</code>, <code>StringBuilder</code>, <code>Formatter</code> and <code>StringJoiner</code> classes are Java SE utility classes that are primarily used for assembling strings from other information:</p><ul id="33b76278-04c7-42fe-a8f0-cbe437682893" class="bulleted-list"><li>The <code>StringBuffer</code> class has been present since Java 1.0, and provides a variety of methods for building and modifying a “buffer” containing a sequence of characters.</li><li>The <code>StringBuilder</code> class was added in Java 5 to address performance issues with the original <code>StringBuffer</code> class. The APIs for the two clases are essentially the same. The main difference between <code>StringBuffer</code> and <code>StringBuilder</code> is that the former is thread-safe and synchronized and the latter is not.</li></ul><p>This example shows how <code>StringBuilder</code> is can be used:</p>
+      
+<p>The <code>StringBuffer</code>, <code>StringBuilder</code>, <code>Formatter</code> and <code>StringJoiner</code> classes are Java SE utility classes that are primarily used for assembling strings from other information:
+</p>
+  <ul id="33b76278-04c7-42fe-a8f0-cbe437682893" class="bulleted-list">
+    <li>The <code>StringBuffer</code> class has been present since Java 1.0, and provides a variety of methods for building and modifying a “buffer” containing a sequence of characters.
+    </li>
+    <li>The <code>StringBuilder</code> class was added in Java 5 to address performance issues with the original <code>StringBuffer</code> class. The APIs for the two clases are essentially the same. The main difference between <code>StringBuffer</code> and <code>StringBuilder</code> is that the former is thread-safe and synchronized and the latter is not.
+    </li>
+  </ul>
+<p>This example shows how <code>StringBuilder</code> is can be used:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int one = 1;
@@ -140,7 +151,20 @@ System.out.print(sb);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>(The <code>StringBuffer</code> class is used the same way: just change <code>StringBuilder</code> to <code>StringBuffer</code> in the above)</p><p>The <code>StringBuffer</code> and <code>StringBuilder</code> classes are suitable for both assembling and modifying strings; i.e they provide methods for replacing and removing characters as well as adding them in various. The remining two classes are specific to the task of assembling strings.</p><ul id="ef9797d7-2541-4c1a-844b-3d9cd3501d39" class="bulleted-list"><li>The <code>Formatter</code> class was added in Java 5, and is loosely modeled on the <code>sprintf</code> function in the C standard library. It takes a <em>format</em> string with embedded <em>format specifiers</em> and a sequences of other arguments, and generates a string by converting the arguments into text and substituting them in place of the format specifiers. The details of the format specifiers say how the arguments are converted into text.</li><li>The <code>StringJoiner</code> class was added in Java 8. It is a special purpose formatter that succinctly formats a sequence of strings with separators between them. It is designed with a <em>fluent</em> API, and can be used with Java 8 streams.</li></ul><p>Here are some typical examples of <code>Formatter</code> usage:</p>
+</div>
+<p>(The <code>StringBuffer</code> class is used the same way: just change <code>StringBuilder</code> to <code>StringBuffer</code> in the above)
+</p>
+<p>The <code>StringBuffer</code> and <code>StringBuilder</code> classes are suitable for both assembling and modifying strings; i.e they provide methods for replacing and removing characters as well as adding them in various. The remining two classes are specific to the task of assembling strings.
+</p>
+  <ul id="ef9797d7-2541-4c1a-844b-3d9cd3501d39" class="bulleted-list">
+    <li>The <code>Formatter</code> class was added in Java 5, and is loosely modeled on the <code>sprintf</code> function in the C standard library. It takes a <em>format</em> string with embedded <em>format specifiers</em> and a sequences of other arguments, and generates a string by converting the arguments into text and substituting them in place of the format specifiers. The details of the format specifiers say how the arguments are converted into text.
+    </li>
+    <li>The <code>StringJoiner</code> class was added in Java 8. It is a special purpose formatter that succinctly formats a sequence of strings with separators between them. It is designed with a <em>fluent</em> API, and can be used with Java 8 streams.
+    </li>
+  </ul>
+<p>Here are some typical examples of <code>Formatter</code> usage:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// This does the same thing as the StringBuilder example above
@@ -156,7 +180,10 @@ System.out.print(String.format(&#34;One=%d, color=%s%n&#34;, one, color));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>StringJoiner</code> class is not ideal for the above task, so here is an example of a formatting an array of strings.</p>
+</div>
+<p>The <code>StringJoiner</code> class is not ideal for the above task, so here is an example of a formatting an array of strings.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">StringJoiner sj = new StringJoiner(&#34;, &#34;, &#34;[&#34;, &#34;]&#34;);
@@ -169,7 +196,19 @@ System.out.println(sj);
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="bbb18d9e-1707-48ed-b2de-01bd5216cb54"/><p>The use-cases for the 4 classes can be summarized:</p><ul id="e70b16d9-6ed5-493b-905d-80883909b31f" class="bulleted-list"><li><code>StringBuilder</code> suitable for any string assembly OR string modification task.</li><li><code>StringBuffer</code> use (only) when you require a thread-safe version of <code>StringBuilder</code>.</li><li><code>Formatter</code> provides much richer string formatting functionality, but is not as efficient as <code>StringBuilder</code>. This is because each call to <code>Formatter.format(...)</code> entails:</li></ul>
+</div>
+<hr id="bbb18d9e-1707-48ed-b2de-01bd5216cb54"/>
+<p>The use-cases for the 4 classes can be summarized:
+</p>
+  <ul id="e70b16d9-6ed5-493b-905d-80883909b31f" class="bulleted-list">
+    <li><code>StringBuilder</code> suitable for any string assembly OR string modification task.
+    </li>
+    <li><code>StringBuffer</code> use (only) when you require a thread-safe version of <code>StringBuilder</code>.
+    </li>
+    <li><code>Formatter</code> provides much richer string formatting functionality, but is not as efficient as <code>StringBuilder</code>. This is because each call to <code>Formatter.format(...)</code> entails:
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">- parsing the `format` string,
@@ -179,7 +218,11 @@ System.out.println(sj);
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="1c1554bf-9fcb-4af7-9ee4-eee82f5ca2f1" class="bulleted-list"><li><code>StringJoiner</code> provides succinct and efficient formatting of a sequence of strings with separators, but is not suitable for other formatting tasks.</li></ul>
+</div>
+  <ul id="1c1554bf-9fcb-4af7-9ee4-eee82f5ca2f1" class="bulleted-list">
+    <li><code>StringJoiner</code> provides succinct and efficient formatting of a sequence of strings with separators, but is not suitable for other formatting tasks.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

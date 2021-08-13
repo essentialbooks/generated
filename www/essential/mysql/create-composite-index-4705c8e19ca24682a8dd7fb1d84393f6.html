@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>This will create a composite index of both keys, <code>mystring</code> and <code>mydatetime</code> and speed up queries with both columns in the <code>WHERE</code> clause.</p>
+      
+<p>This will create a composite index of both keys, <code>mystring</code> and <code>mydatetime</code> and speed up queries with both columns in the <code>WHERE</code> clause.
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">CREATE</span> <span class="k">INDEX</span> <span class="n">idx_mycol_myothercol</span> <span class="k">ON</span> <span class="n">my_table</span><span class="p">(</span><span class="n">mycol</span><span class="p">,</span> <span class="n">myothercol</span><span class="p">)</span></pre>
@@ -135,7 +138,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Note:</strong> The order is important! If the search query does not include both columns in the <code>WHERE</code> clause, it can only use the leftmost index. In this case, a query with <code>mycol</code> in the <code>WHERE</code> will use the index, a query searching for <code>myothercol</code> <strong>without</strong> also searching for <code>mycol</code> will <strong>not</strong>. For more information <a href="https://www.percona.com/blog/2009/06/05/a-rule-of-thumb-for-choosing-column-order-in-indexes/">check out this blog post</a>.</p><p><strong>Note:</strong> Due to the way BTREE’s work, columns that are usually queried in ranges should go in the rightmost value. For example, <code>DATETIME</code> columns are usualy queried like <code>WHERE datecol &gt; &#x27;2016-01-01 00:00:00&#x27;</code>. BTREE indexes handle ranges very efficiently but only if the column being queried as a range is the last one in the composite index.</p>
+</div>
+<p><strong>Note:</strong> The order is important! If the search query does not include both columns in the <code>WHERE</code> clause, it can only use the leftmost index. In this case, a query with <code>mycol</code> in the <code>WHERE</code> will use the index, a query searching for <code>myothercol</code> <strong>without</strong> also searching for <code>mycol</code> will <strong>not</strong>. For more information <a href="https://www.percona.com/blog/2009/06/05/a-rule-of-thumb-for-choosing-column-order-in-indexes/">check out this blog post</a>.
+</p>
+<p><strong>Note:</strong> Due to the way BTREE’s work, columns that are usually queried in ranges should go in the rightmost value. For example, <code>DATETIME</code> columns are usualy queried like <code>WHERE datecol &gt; &#x27;2016-01-01 00:00:00&#x27;</code>. BTREE indexes handle ranges very efficiently but only if the column being queried as a range is the last one in the composite index.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>If you implement or create a listener in an Activity, always pay attention to the lifecycle of the object that has the listener registered.</p><p>Consider an application where we have several different activities/fragments interested in when a user is logged in or out. One way of doing this would be to have a singleton instance of a <code>UserController</code> that can be subscribed to in order to get notified when the state of the user changes:</p>
+      
+<p>If you implement or create a listener in an Activity, always pay attention to the lifecycle of the object that has the listener registered.
+</p>
+<p>Consider an application where we have several different activities/fragments interested in when a user is logged in or out. One way of doing this would be to have a singleton instance of a <code>UserController</code> that can be subscribed to in order to get notified when the state of the user changes:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class UserController {
@@ -170,7 +175,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then there are two activities, <code>SignInActivity</code>:</p>
+</div>
+<p>Then there are two activities, <code>SignInActivity</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class SignInActivity extends Activity implements UserController.StateListener{
@@ -205,7 +213,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And <code>MainActivity</code>:</p>
+</div>
+<p>And <code>MainActivity</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MainActivity extends Activity implements UserController.StateListener{
@@ -239,7 +250,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>What happens with this example is that every time the user logs in and then logs out again, a <code>MainActivity</code> instance is leaked. The leak occurs because there is a reference to the activity in <code>UserController#listeners</code>.</p><p><strong>Please note:</strong> Even if we use an anonymous inner class as a listener, the activity would still leak:</p>
+</div>
+<p>What happens with this example is that every time the user logs in and then logs out again, a <code>MainActivity</code> instance is leaked. The leak occurs because there is a reference to the activity in <code>UserController#listeners</code>.
+</p>
+<p><strong>Please note:</strong> Even if we use an anonymous inner class as a listener, the activity would still leak:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">...
@@ -259,7 +275,19 @@ this.userController.registerUserStateChangeListener(new UserController.StateList
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The activity would still leak, because the anonymous inner class has an implicit reference to the outer class (in this case the activity). This is why it is possible to call instance methods in the outer class from the inner class. In fact, the only type of inner classes that do not have a reference to the outer class are <strong>static</strong> inner classes.</p><p>In short, all instances of non-static inner classes hold an implicit reference to the instance of the outer class that created them.</p><p>There are two main approaches to solving this, either by adding a method to remove a listener from <code>UserController#listeners</code> or using a <a href="https://developer.android.com/reference/java/lang/ref/WeakReference.html"><code>WeakReference</code></a> to hold the reference of the listeners.</p><h2 id="20652a0e-fe70-491f-9001-ad960567f6c3" class="">Alternative 1: Removing listeners<a class="header-anchor" href="#20652a0e-fe70-491f-9001-ad960567f6c3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Let us start by creating a new method <code>removeUserStateChangeListener(StateListener listener)</code>:</p>
+</div>
+<p>The activity would still leak, because the anonymous inner class has an implicit reference to the outer class (in this case the activity). This is why it is possible to call instance methods in the outer class from the inner class. In fact, the only type of inner classes that do not have a reference to the outer class are <strong>static</strong> inner classes.
+</p>
+<p>In short, all instances of non-static inner classes hold an implicit reference to the instance of the outer class that created them.
+</p>
+<p>There are two main approaches to solving this, either by adding a method to remove a listener from <code>UserController#listeners</code> or using a <a href="https://developer.android.com/reference/java/lang/ref/WeakReference.html"><code>WeakReference</code></a> to hold the reference of the listeners.
+</p>
+  <h2 id="20652a0e-fe70-491f-9001-ad960567f6c3" class="">Alternative 1: Removing listeners
+  <a class="header-anchor" href="#20652a0e-fe70-491f-9001-ad960567f6c3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Let us start by creating a new method <code>removeUserStateChangeListener(StateListener listener)</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class UserController {
@@ -280,7 +308,10 @@ this.userController.registerUserStateChangeListener(new UserController.StateList
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then let us call this method in the activity’s <code>onDestroy</code> method:</p>
+</div>
+<p>Then let us call this method in the activity’s <code>onDestroy</code> method:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MainActivity extends Activity implements UserController.StateListener{
@@ -296,7 +327,19 @@ this.userController.registerUserStateChangeListener(new UserController.StateList
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With this modification the instances of <code>MainActivity</code> are no longer leaked when the user logs in and out. However, if the documentation isn’t clear, chances are that the next developer that starts using <code>UserController</code> might miss that it is required to unregister the listener when the activity is destroyed, which leads us to the second method of avoiding these types of leaks.</p><h2 id="44e6f9b6-16a4-4402-a905-d18f922e90a6" class="">Alternative 2: Using weak references<a class="header-anchor" href="#44e6f9b6-16a4-4402-a905-d18f922e90a6" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>First off, let us start by explaining what a weak reference is. A weak reference, as the name suggests, holds a weak reference to an object. Compared to a normal instance field, which is a strong reference, a weak references does not stop the garbage collector, GC, from removing the objects. In the example above this would allow <code>MainActivity</code> to be garbage-collected after it has been destroyed if the <code>UserController</code> used <a href="https://developer.android.com/reference/java/lang/ref/WeakReference.html"><code>WeakReference</code></a> to the reference the listeners.</p><p>In short, a weak reference is telling the GC that if no one else has a strong reference to this object, go ahead and remove it.</p><p>Let us modify the <code>UserController</code> to use a list of <a href="https://developer.android.com/reference/java/lang/ref/WeakReference.html"><code>WeakReference</code></a> to keep track of it’s listeners:</p>
+</div>
+<p>With this modification the instances of <code>MainActivity</code> are no longer leaked when the user logs in and out. However, if the documentation isn’t clear, chances are that the next developer that starts using <code>UserController</code> might miss that it is required to unregister the listener when the activity is destroyed, which leads us to the second method of avoiding these types of leaks.
+</p>
+  <h2 id="44e6f9b6-16a4-4402-a905-d18f922e90a6" class="">Alternative 2: Using weak references
+  <a class="header-anchor" href="#44e6f9b6-16a4-4402-a905-d18f922e90a6" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>First off, let us start by explaining what a weak reference is. A weak reference, as the name suggests, holds a weak reference to an object. Compared to a normal instance field, which is a strong reference, a weak references does not stop the garbage collector, GC, from removing the objects. In the example above this would allow <code>MainActivity</code> to be garbage-collected after it has been destroyed if the <code>UserController</code> used <a href="https://developer.android.com/reference/java/lang/ref/WeakReference.html"><code>WeakReference</code></a> to the reference the listeners.
+</p>
+<p>In short, a weak reference is telling the GC that if no one else has a strong reference to this object, go ahead and remove it.
+</p>
+<p>Let us modify the <code>UserController</code> to use a list of <a href="https://developer.android.com/reference/java/lang/ref/WeakReference.html"><code>WeakReference</code></a> to keep track of it’s listeners:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class UserController {
@@ -350,7 +393,10 @@ this.userController.registerUserStateChangeListener(new UserController.StateList
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With this modification it doesn’t matter whether or not the listeners are removed, since <code>UserController</code> holds no strong references to any of the listeners. However, writing this boilerplate code every time is cumbersome. Therefore, let us create a generic class called <code>WeakCollection</code>:</p>
+</div>
+<p>With this modification it doesn’t matter whether or not the listeners are removed, since <code>UserController</code> holds no strong references to any of the listeners. However, writing this boilerplate code every time is cumbersome. Therefore, let us create a generic class called <code>WeakCollection</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class WeakCollection&lt;T&gt; {
@@ -404,7 +450,10 @@ this.userController.registerUserStateChangeListener(new UserController.StateList
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now let us re-write <code>UserController</code> to use <code>WeakCollection&lt;T&gt;</code> instead:</p>
+</div>
+<p>Now let us re-write <code>UserController</code> to use <code>WeakCollection&lt;T&gt;</code> instead:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class UserController {
@@ -438,7 +487,9 @@ this.userController.registerUserStateChangeListener(new UserController.StateList
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As shown in the code example above, the <code>WeakCollection&lt;T&gt;</code> removes all of the boilerplate code needed to use <a href="https://developer.android.com/reference/java/lang/ref/WeakReference.html"><code>WeakReference</code></a> instead of a normal list. To top it all off: If a call to <code>UserController#removeUserStateChangeListener(StateListener)</code> is missed, the listener, and all the objects it is referencing, will not leak.</p>
+</div>
+<p>As shown in the code example above, the <code>WeakCollection&lt;T&gt;</code> removes all of the boilerplate code needed to use <a href="https://developer.android.com/reference/java/lang/ref/WeakReference.html"><code>WeakReference</code></a> instead of a normal list. To top it all off: If a call to <code>UserController#removeUserStateChangeListener(StateListener)</code> is missed, the listener, and all the objects it is referencing, will not leak.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

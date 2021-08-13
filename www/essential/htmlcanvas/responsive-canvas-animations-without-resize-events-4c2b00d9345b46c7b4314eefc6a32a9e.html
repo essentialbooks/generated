@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>The window resize events can fire in response to the movement of the user’s input device. When you resize a canvas it is automatically cleared and you are forced to re-render the content. For animations you do this every frame via the main loop function called by <code>requestAnimationFrame</code> which does its best to keep the rendering in sync with the display hardware.</p><p>The problem with the resize event is that when the mouse is used to resize the window the events can be trigger many times quicker than the standard 60fps rate of the browser. When the resize event exits the canvas back buffer is presented to the DOM out of sync with the display device, which can cause shearing and other negative effects. There is also a lot of needless memory allocation and release that can further impact the animation when GC cleans up some time afterwards.</p><hr id="b26d9d00-47db-4874-a1a1-c2a2fdb89be3"/><h2 id="15b687fa-b89f-46bb-9ed3-2f964d51ea42" class="">Debounced resize event<a class="header-anchor" href="#15b687fa-b89f-46bb-9ed3-2f964d51ea42" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>A common way to deal with the high firing rates of the resize event is to debounce the resize event.</p>
+      
+<p>The window resize events can fire in response to the movement of the user’s input device. When you resize a canvas it is automatically cleared and you are forced to re-render the content. For animations you do this every frame via the main loop function called by <code>requestAnimationFrame</code> which does its best to keep the rendering in sync with the display hardware.
+</p>
+<p>The problem with the resize event is that when the mouse is used to resize the window the events can be trigger many times quicker than the standard 60fps rate of the browser. When the resize event exits the canvas back buffer is presented to the DOM out of sync with the display device, which can cause shearing and other negative effects. There is also a lot of needless memory allocation and release that can further impact the animation when GC cleans up some time afterwards.
+</p>
+<hr id="b26d9d00-47db-4874-a1a1-c2a2fdb89be3"/>
+  <h2 id="15b687fa-b89f-46bb-9ed3-2f964d51ea42" class="">Debounced resize event
+  <a class="header-anchor" href="#15b687fa-b89f-46bb-9ed3-2f964d51ea42" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>A common way to deal with the high firing rates of the resize event is to debounce the resize event.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Assume canvas is in scope
@@ -153,7 +164,26 @@ function resizeCanvas () { ... resize and redraw ... }</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above example delays the resizing of the canvas until 100ms after the resize event. If in that time further resize events are triggered the existing resize timeout is canceled and a new one scheduled. This effectively consumes most of the resize events.</p><p>It still has some problems, the most notable is the delay between resizing and seeing the resized canvas. Reducing the debounce time improves this but the resize is still out of sync with the display device. You also still have the animation main loop rendering to an ill fitting canvas.</p><p>More code can reduce the problems! More code also creates its own new problems.</p><hr id="ed75281c-2bf9-4c8b-abd5-9c4da0f5ee7c"/><h2 id="93819ced-de1c-438e-87c1-7f13cfdda914" class="">Simple and the best resize<a class="header-anchor" href="#93819ced-de1c-438e-87c1-7f13cfdda914" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Having tried many differing ways to smooth out the resizing of the canvas, from the absurdly complex, to just ignoring the problem (who cares anyways?) I fell back to a trusty friend.</p><p><strong>K.I.S.S.</strong> is something most programmers should be aware of ((<strong>K</strong>eep <strong>I</strong>t <strong>S</strong>imple <strong>S</strong>tupid) <em>The stupid refers to me for not having thought of it years ago.</em> ) and it turns out the best solution is the simplest of all.</p><p>Just resize the canvas from within the main animation loop. It stays in sync with the display device, there is no needless rendering, and the resource management is at the minimum possible while maintaining full frame rate. Nor do you need to add a resize event to the window or any additional resize functions.</p><p>You add the resize where you would normally clear the canvas by checking if the canvas size matches the window size. If not resize it.</p>
+</div>
+<p>The above example delays the resizing of the canvas until 100ms after the resize event. If in that time further resize events are triggered the existing resize timeout is canceled and a new one scheduled. This effectively consumes most of the resize events.
+</p>
+<p>It still has some problems, the most notable is the delay between resizing and seeing the resized canvas. Reducing the debounce time improves this but the resize is still out of sync with the display device. You also still have the animation main loop rendering to an ill fitting canvas.
+</p>
+<p>More code can reduce the problems! More code also creates its own new problems.
+</p>
+<hr id="ed75281c-2bf9-4c8b-abd5-9c4da0f5ee7c"/>
+  <h2 id="93819ced-de1c-438e-87c1-7f13cfdda914" class="">Simple and the best resize
+  <a class="header-anchor" href="#93819ced-de1c-438e-87c1-7f13cfdda914" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Having tried many differing ways to smooth out the resizing of the canvas, from the absurdly complex, to just ignoring the problem (who cares anyways?) I fell back to a trusty friend.
+</p>
+<p><strong>K.I.S.S.</strong> is something most programmers should be aware of ((<strong>K</strong>eep <strong>I</strong>t <strong>S</strong>imple <strong>S</strong>tupid) <em>The stupid refers to me for not having thought of it years ago.</em> ) and it turns out the best solution is the simplest of all.
+</p>
+<p>Just resize the canvas from within the main animation loop. It stays in sync with the display device, there is no needless rendering, and the resource management is at the minimum possible while maintaining full frame rate. Nor do you need to add a resize event to the window or any additional resize functions.
+</p>
+<p>You add the resize where you would normally clear the canvas by checking if the canvas size matches the window size. If not resize it.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Assumes canvas element is in scope as canvas
@@ -175,6 +205,7 @@ function mainLoop(time) {
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">requestAnimationFrame(mainLoop);

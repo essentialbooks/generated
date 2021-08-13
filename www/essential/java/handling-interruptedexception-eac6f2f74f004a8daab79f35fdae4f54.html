@@ -127,7 +127,12 @@
 </div>
 
 
-      <p><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/InterruptedException.html"><code>InterruptedException</code></a> is a confusing beast - it shows up in seemingly innocuous methods like <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html#sleep(long)"><code>Thread.sleep()</code></a>, but handling it incorrectly leads to hard-to-manage code that behaves poorly in concurrent environments.</p><p>At its most basic, if an <code>InterruptedException</code> is caught it means someone, somewhere, called <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html#interrupt--"><code>Thread.interrupt()</code></a> on the thread your code is currently running in. You might be inclined to say “It’s my code! I’ll never interrupt it!” and therefore do something like this:</p>
+      
+<p><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/InterruptedException.html"><code>InterruptedException</code></a> is a confusing beast - it shows up in seemingly innocuous methods like <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html#sleep(long)"><code>Thread.sleep()</code></a>, but handling it incorrectly leads to hard-to-manage code that behaves poorly in concurrent environments.
+</p>
+<p>At its most basic, if an <code>InterruptedException</code> is caught it means someone, somewhere, called <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html#interrupt--"><code>Thread.interrupt()</code></a> on the thread your code is currently running in. You might be inclined to say “It’s my code! I’ll never interrupt it!” and therefore do something like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Bad. Don&#39;t do this.
@@ -140,7 +145,12 @@ try {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But this is exactly the wrong way to handle an “impossible” event occurring. If you know your application will never encounter an <code>InterruptedException</code> you should treat such an event as a serious violation of your program’s assumptions and exit as quickly as possible.</p><p>The proper way to handle an “impossible” interrupt is like so:</p>
+</div>
+<p>But this is exactly the wrong way to handle an “impossible” event occurring. If you know your application will never encounter an <code>InterruptedException</code> you should treat such an event as a serious violation of your program’s assumptions and exit as quickly as possible.
+</p>
+<p>The proper way to handle an “impossible” interrupt is like so:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// When nothing will interrupt your code
@@ -154,7 +164,16 @@ try {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This does two things; it first restores the interrupt status of the thread (as if the <code>InterruptedException</code> had not been thrown in the first place), and then it throws an <code>AssertionError</code> indicating the basic invariants of your application have been violated. If you know for certain that you’ll never interrupt the thread this code runs in this is safe since the <code>catch</code> block should never be reached.</p><p>Using Guava’s <a href="https://google.github.io/guava/releases/snapshot/api/docs/com/google/common/util/concurrent/Uninterruptibles.html"><code>Uninterruptibles</code></a> class helps simplify this pattern; calling <a href="https://google.github.io/guava/releases/snapshot/api/docs/com/google/common/util/concurrent/Uninterruptibles.html#sleepUninterruptibly(long,%20java.util.concurrent.TimeUnit)"><code>Uninterruptibles.sleepUninterruptibly()</code></a> disregards the interrupted state of a thread until the sleep duration has expired (at which point it’s restored for later calls to inspect and throw their own <code>InterruptedException</code>). If you know you’ll never interrupt such code this safely avoids needing to wrap your sleep calls in a try-catch block.</p><p>More often, however, you cannot guarantee that your thread will never be interrupted. In particular if you’re writing code that will be executed by an <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executor.html"><code>Executor</code></a> or some other thread-management it’s critical that your code responds promptly to interrupts, otherwise your application will stall or even deadlock.</p><p>In such cases the best thing to do is generally to allow the <code>InterruptedException</code> to propagate up the call stack, adding a <code>throws InterruptedException</code> to each method in turn. This may seem kludgy but it’s actually a desirable property - your method’s signatures now indicates to callers that it will respond promptly to interrupts.</p>
+</div>
+<p>This does two things; it first restores the interrupt status of the thread (as if the <code>InterruptedException</code> had not been thrown in the first place), and then it throws an <code>AssertionError</code> indicating the basic invariants of your application have been violated. If you know for certain that you’ll never interrupt the thread this code runs in this is safe since the <code>catch</code> block should never be reached.
+</p>
+<p>Using Guava’s <a href="https://google.github.io/guava/releases/snapshot/api/docs/com/google/common/util/concurrent/Uninterruptibles.html"><code>Uninterruptibles</code></a> class helps simplify this pattern; calling <a href="https://google.github.io/guava/releases/snapshot/api/docs/com/google/common/util/concurrent/Uninterruptibles.html#sleepUninterruptibly(long,%20java.util.concurrent.TimeUnit)"><code>Uninterruptibles.sleepUninterruptibly()</code></a> disregards the interrupted state of a thread until the sleep duration has expired (at which point it’s restored for later calls to inspect and throw their own <code>InterruptedException</code>). If you know you’ll never interrupt such code this safely avoids needing to wrap your sleep calls in a try-catch block.
+</p>
+<p>More often, however, you cannot guarantee that your thread will never be interrupted. In particular if you’re writing code that will be executed by an <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executor.html"><code>Executor</code></a> or some other thread-management it’s critical that your code responds promptly to interrupts, otherwise your application will stall or even deadlock.
+</p>
+<p>In such cases the best thing to do is generally to allow the <code>InterruptedException</code> to propagate up the call stack, adding a <code>throws InterruptedException</code> to each method in turn. This may seem kludgy but it’s actually a desirable property - your method’s signatures now indicates to callers that it will respond promptly to interrupts.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Let the caller determine how to handle the interrupt if you&#39;re unsure
@@ -165,7 +184,10 @@ public void myLongRunningMethod() throws InterruptedException {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In limited cases (e.g. while overriding a method that doesn’t <code>throw</code> any checked exceptions) you can reset the interrupted status without raising an exception, expecting whatever code is executed next to handle the interrupt. This delays handling the interruption but doesn’t suppress it entirely.</p>
+</div>
+<p>In limited cases (e.g. while overriding a method that doesn’t <code>throw</code> any checked exceptions) you can reset the interrupted status without raising an exception, expecting whatever code is executed next to handle the interrupt. This delays handling the interruption but doesn’t suppress it entirely.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Suppresses the exception but resets the interrupted state letting later code

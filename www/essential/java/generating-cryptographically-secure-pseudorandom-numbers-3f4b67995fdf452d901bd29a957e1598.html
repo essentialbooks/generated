@@ -127,7 +127,12 @@
 </div>
 
 
-      <p><code>Random</code> and <code>ThreadLocalRandom</code> are good enough for everyday use, but they have a big problem: They are based on a <a href="https://en.wikipedia.org/wiki/Linear_congruential_generator">linear congruential generator</a>, an algorithm whose output can be predicted rather easily. Thus, these two classes are <strong>not</strong> suitable for cryptographic uses (such as key generation).</p><p>One can use <code>java.security.SecureRandom</code> in situations where a PRNG with an output that is very hard to predict is required. Predicting the random numbers created by instances of this class is hard enough to label the class as <strong>cryptographically secure</strong>.</p>
+      
+<p><code>Random</code> and <code>ThreadLocalRandom</code> are good enough for everyday use, but they have a big problem: They are based on a <a href="https://en.wikipedia.org/wiki/Linear_congruential_generator">linear congruential generator</a>, an algorithm whose output can be predicted rather easily. Thus, these two classes are <strong>not</strong> suitable for cryptographic uses (such as key generation).
+</p>
+<p>One can use <code>java.security.SecureRandom</code> in situations where a PRNG with an output that is very hard to predict is required. Predicting the random numbers created by instances of this class is hard enough to label the class as <strong>cryptographically secure</strong>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import java.security.SecureRandom;
@@ -145,7 +150,17 @@ public class Foo {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Besides being cryptographically secure, <code>SecureRandom</code> has a gigantic period of 2160, compared to <code>Random</code>s period of 248. It has one drawback of being considerably slower than <code>Random</code> and other linear PRNGs such as <a href="https://en.wikipedia.org/wiki/Mersenne_Twister">Mersenne Twister</a> and <a href="https://en.wikipedia.org/wiki/Xorshift">Xorshift</a>, however.</p><p>Note that SecureRandom implementation is both platform and provider dependent. The default <code>SecureRandom</code> (given by <code>SUN</code> provider in <code>sun.security.provider.SecureRandom</code>):</p><ul id="06694407-e0fa-4093-af65-bd4d90c67909" class="bulleted-list"><li>on Unix-like systems, seeded with data from <code>/dev/random</code> and/or <code>/dev/urandom</code>.</li><li>on Windows, seeded with calls to <code>CryptGenRandom()</code> in <a href="https://en.wikipedia.org/wiki/Microsoft_CryptoAPI">CryptoAPI</a>.</li></ul>
+</div>
+<p>Besides being cryptographically secure, <code>SecureRandom</code> has a gigantic period of 2160, compared to <code>Random</code>s period of 248. It has one drawback of being considerably slower than <code>Random</code> and other linear PRNGs such as <a href="https://en.wikipedia.org/wiki/Mersenne_Twister">Mersenne Twister</a> and <a href="https://en.wikipedia.org/wiki/Xorshift">Xorshift</a>, however.
+</p>
+<p>Note that SecureRandom implementation is both platform and provider dependent. The default <code>SecureRandom</code> (given by <code>SUN</code> provider in <code>sun.security.provider.SecureRandom</code>):
+</p>
+  <ul id="06694407-e0fa-4093-af65-bd4d90c67909" class="bulleted-list">
+    <li>on Unix-like systems, seeded with data from <code>/dev/random</code> and/or <code>/dev/urandom</code>.
+    </li>
+    <li>on Windows, seeded with calls to <code>CryptGenRandom()</code> in <a href="https://en.wikipedia.org/wiki/Microsoft_CryptoAPI">CryptoAPI</a>.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

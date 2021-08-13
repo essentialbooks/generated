@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>The vast majority of modern JavaScript environments work according to an <em>event loop</em>. This is a common concept in computer programming which essentially means that your program continually waits for new things to happen, and when they do, reacts to them. The <em>host environment</em> calls into your program, spawning a “turn” or “tick” or “task” in the event loop, which then <em>runs to completion</em>. When that turn has finished, the host environment waits for something else to happen, before all this starts.</p><p>A simple example of this is in the browser. Consider the following example:</p>
+      
+<p>The vast majority of modern JavaScript environments work according to an <em>event loop</em>. This is a common concept in computer programming which essentially means that your program continually waits for new things to happen, and when they do, reacts to them. The <em>host environment</em> calls into your program, spawning a “turn” or “tick” or “task” in the event loop, which then <em>runs to completion</em>. When that turn has finished, the host environment waits for something else to happen, before all this starts.
+</p>
+<p>A simple example of this is in the browser. Consider the following example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;!DOCTYPE html&gt;&lt;title&gt;Event loop example&lt;/title&gt;&lt;script&gt;console.log(&#34;this a script entry point&#34;);document.body.onclick = () =&gt; {  console.log(&#34;onclick&#34;);};setTimeout(() =&gt; {  console.log(&#34;setTimeout callback log 1&#34;);  console.log(&#34;setTimeout callback log 2&#34;);}, 100);&lt;/script&gt;</pre>
@@ -135,7 +140,35 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this example, the host environment is the web browser.</p><ol id="b19af2b2-5079-4485-ba39-a3eb5ce9f835" class="numbered-list" start="1"><li>The HTML parser will first execute the <code>&lt;script&gt;</code>. It will run to completion.</li><li>The call to <a href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-settimeout"><code>setTimeout</code></a> tells the browser that, after 100 milliseconds, it should enqueue a <a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-task">task</a> to perform the given action.</li><li>In the meantime, the event loop is then responsible for continually checking if there’s something else to do: for example, rendering the web page.</li><li>After 100 milliseconds, if the event loop is not busy for some other reason, it will see the task that <code>setTimeout</code> enqueues, and run the function, logging those two statements.</li><li>At any time, if someone clicks on the body, the browser will post a task to the event loop to run the click handler function. The event loop, as it goes around continually checking what to do, will see this, and run that function.</li></ol><p>You can see how in this example there are several different types of entry points into JavaScript code, which the event loop invokes:</p><ul id="7287cf2e-60d4-4749-b731-85436ebbfc74" class="bulleted-list"><li>The <code>&lt;script&gt;</code> element is invoked immediately</li><li>The <code>setTimeout</code> task is posted to the event loop and run once</li><li>The click handler task can be posted many times and run each time</li></ul><p>Each turn of the event loop is responsible for many things; only some of them will invoke these JavaScript tasks. For full details, <a href="https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model">see the HTML specification</a></p><p>One last thing: what do we mean by saying that each event loop task “runs to completion”? We mean that it is not generally possible to interrupt a block of code that is queued to run as a task, and it is never possible to run code interleaved with another block of code. For example, even if you clicked at the perfect time, you could never get the above code to log <code>&quot;onclick&quot;</code> in between the two <code>setTimeout callback log 1/2&quot;</code>s. This is due to the way the task-posting works; it is cooperative and queue-based, instead of preemptive.</p>
+</div>
+<p>In this example, the host environment is the web browser.
+</p>
+  <ol id="b19af2b2-5079-4485-ba39-a3eb5ce9f835" class="numbered-list" start="1">
+    <li>The HTML parser will first execute the <code>&lt;script&gt;</code>. It will run to completion.
+    </li>
+    <li>The call to <a href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-settimeout"><code>setTimeout</code></a> tells the browser that, after 100 milliseconds, it should enqueue a <a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-task">task</a> to perform the given action.
+    </li>
+    <li>In the meantime, the event loop is then responsible for continually checking if there’s something else to do: for example, rendering the web page.
+    </li>
+    <li>After 100 milliseconds, if the event loop is not busy for some other reason, it will see the task that <code>setTimeout</code> enqueues, and run the function, logging those two statements.
+    </li>
+    <li>At any time, if someone clicks on the body, the browser will post a task to the event loop to run the click handler function. The event loop, as it goes around continually checking what to do, will see this, and run that function.
+    </li>
+  </ol>
+<p>You can see how in this example there are several different types of entry points into JavaScript code, which the event loop invokes:
+</p>
+  <ul id="7287cf2e-60d4-4749-b731-85436ebbfc74" class="bulleted-list">
+    <li>The <code>&lt;script&gt;</code> element is invoked immediately
+    </li>
+    <li>The <code>setTimeout</code> task is posted to the event loop and run once
+    </li>
+    <li>The click handler task can be posted many times and run each time
+    </li>
+  </ul>
+<p>Each turn of the event loop is responsible for many things; only some of them will invoke these JavaScript tasks. For full details, <a href="https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model">see the HTML specification</a>
+</p>
+<p>One last thing: what do we mean by saying that each event loop task “runs to completion”? We mean that it is not generally possible to interrupt a block of code that is queued to run as a task, and it is never possible to run code interleaved with another block of code. For example, even if you clicked at the perfect time, you could never get the above code to log <code>&quot;onclick&quot;</code> in between the two <code>setTimeout callback log 1/2&quot;</code>s. This is due to the way the task-posting works; it is cooperative and queue-based, instead of preemptive.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

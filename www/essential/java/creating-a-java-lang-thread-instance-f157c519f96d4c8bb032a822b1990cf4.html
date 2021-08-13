@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>There are two main approaches to creating a thread in Java. In essence, creating a thread is as easy as writing the code that will be executed in it. The two approaches differ in where you define that code.</p><p>In Java, a thread is represented by an object - an instance of <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html">java.lang.Thread</a> or its subclass. So the first approach is to create that subclass and override the <em>run()</em> method.</p><p><strong>Note</strong>: I’ll use <em>Thread</em> to refer to the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html">java.lang.Thread</a> class and <em>thread</em> to refer to the logical concept of threads.</p>
+      
+<p>There are two main approaches to creating a thread in Java. In essence, creating a thread is as easy as writing the code that will be executed in it. The two approaches differ in where you define that code.
+</p>
+<p>In Java, a thread is represented by an object - an instance of <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html">java.lang.Thread</a> or its subclass. So the first approach is to create that subclass and override the <em>run()</em> method.
+</p>
+<p><strong>Note</strong>: I’ll use <em>Thread</em> to refer to the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html">java.lang.Thread</a> class and <em>thread</em> to refer to the logical concept of threads.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class MyThread extends Thread {
@@ -142,7 +149,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now since we’ve already defined the code to be executed, the thread can be created simply as:</p>
+</div>
+<p>Now since we’ve already defined the code to be executed, the thread can be created simply as:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">MyThread t = new MyThread();</pre>
@@ -150,7 +160,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html">Thread</a> class also contains a constructor accepting a string, which will be used as the thread’s name. This can be particulary useful when debugging a multi thread program.</p>
+</div>
+<p>The <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html">Thread</a> class also contains a constructor accepting a string, which will be used as the thread’s name. This can be particulary useful when debugging a multi thread program.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class MyThread extends Thread {
@@ -171,7 +184,10 @@ MyThread t = new MyThread(&#34;Greeting Producer&#34;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The second approach is to define the code using <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html">java.lang.Runnable</a> and its only method <em>run()</em>. The <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html">Thread</a> class then allows you to execute that method in a separated thread. To achieve this, create the thread using a constructor accepting an instance of the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html">Runnable</a> interface.</p>
+</div>
+<p>The second approach is to define the code using <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html">java.lang.Runnable</a> and its only method <em>run()</em>. The <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html">Thread</a> class then allows you to execute that method in a separated thread. To achieve this, create the thread using a constructor accepting an instance of the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html">Runnable</a> interface.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Thread t = new Thread(aRunnable);</pre>
@@ -179,7 +195,10 @@ MyThread t = new MyThread(&#34;Greeting Producer&#34;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This can be very powerful when combined with lambdas or methods references (Java 8 only):</p>
+</div>
+<p>This can be very powerful when combined with lambdas or methods references (Java 8 only):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Thread t = new Thread(operator::hardWork);</pre>
@@ -187,7 +206,10 @@ MyThread t = new MyThread(&#34;Greeting Producer&#34;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can specify the thread’s name, too.</p>
+</div>
+<p>You can specify the thread’s name, too.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Thread t = new Thread(operator::hardWork, &#34;Pi operator&#34;);</pre>
@@ -195,7 +217,13 @@ MyThread t = new MyThread(&#34;Greeting Producer&#34;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Practicaly speaking, you can use both approaches without worries. However the <a href="http://stackoverflow.com/questions/541487/implements-runnable-vs-extends-thread">general wisdom</a> says to use the latter.</p><hr id="ff1d0523-5562-46c1-ac4e-3c739d1dfdc2"/><p>For every of the four mentioned constructors, there is also an alternative accepting an instance of <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ThreadGroup.html">java.lang.ThreadGroup</a> as the first parameter.</p>
+</div>
+<p>Practicaly speaking, you can use both approaches without worries. However the <a href="http://stackoverflow.com/questions/541487/implements-runnable-vs-extends-thread">general wisdom</a> says to use the latter.
+</p>
+<hr id="ff1d0523-5562-46c1-ac4e-3c739d1dfdc2"/>
+<p>For every of the four mentioned constructors, there is also an alternative accepting an instance of <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ThreadGroup.html">java.lang.ThreadGroup</a> as the first parameter.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ThreadGroup tg = new ThreadGroup(&#34;Operators&#34;);
@@ -204,7 +232,12 @@ Thread t = new Thread(tg, operator::hardWork, &#34;PI operator&#34;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ThreadGroup.html">ThreadGroup</a> represents a set of threads. You can only add a <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html">Thread</a> to a <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ThreadGroup.html">ThreadGroup</a> using a <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html">Thread</a>’s constructor. The <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ThreadGroup.html">ThreadGroup</a> can then be used to manage all its <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html">Thread</a>s together, as well as the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html">Thread</a> can gain information from its <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ThreadGroup.html">ThreadGroup</a>.</p><p>So to sumarize, the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html">Thread</a> can be created with one of these public constructors:</p>
+</div>
+<p>The <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ThreadGroup.html">ThreadGroup</a> represents a set of threads. You can only add a <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html">Thread</a> to a <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ThreadGroup.html">ThreadGroup</a> using a <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html">Thread</a>’s constructor. The <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ThreadGroup.html">ThreadGroup</a> can then be used to manage all its <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html">Thread</a>s together, as well as the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html">Thread</a> can gain information from its <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ThreadGroup.html">ThreadGroup</a>.
+</p>
+<p>So to sumarize, the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html">Thread</a> can be created with one of these public constructors:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Thread()
@@ -219,7 +252,13 @@ Thread(ThreadGroup group, Runnable target, String name, long stackSize)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The last one allows us to define desired stack size for the new thread.</p><hr id="6c9c788d-2075-49b5-a551-f43ecb03a5df"/><p>Often the code readability suffers when creating and configuring many Threads with same properties or from the same pattern. That’s when <a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadFactory.html">java.util.concurrent.ThreadFactory</a> can be used. This interface allows you to encapsulate the procedure of creating the thread through the factory pattern and its only method <em>newThread(Runnable)</em>.</p>
+</div>
+<p>The last one allows us to define desired stack size for the new thread.
+</p>
+<hr id="6c9c788d-2075-49b5-a551-f43ecb03a5df"/>
+<p>Often the code readability suffers when creating and configuring many Threads with same properties or from the same pattern. That’s when <a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadFactory.html">java.util.concurrent.ThreadFactory</a> can be used. This interface allows you to encapsulate the procedure of creating the thread through the factory pattern and its only method <em>newThread(Runnable)</em>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class WorkerFactory implements ThreadFactory {

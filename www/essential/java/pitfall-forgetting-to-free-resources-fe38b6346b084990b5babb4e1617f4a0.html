@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Every time a program opens a resource, such as a file or network connection, it is important to free the resource once you are done using it. Similar caution should be taken if any exception were to be thrown during operations on such resources. One could argue that the <a href="https://docs.oracle.com/javase/8/docs/api/java/io/FileInputStream.html"><code>FileInputStream</code></a> has a <a href="https://en.wikipedia.org/wiki/Finalizer">finalizer</a> that invokes the <code>close()</code> method on a garbage collection event; however, since we can’t be sure when a garbage collection cycle will start, the input stream can consume computer resources for an indefinite period of time. The resource must be closed in a <code>finally</code> section of a try-catch block:</p>
+      
+<p>Every time a program opens a resource, such as a file or network connection, it is important to free the resource once you are done using it. Similar caution should be taken if any exception were to be thrown during operations on such resources. One could argue that the <a href="https://docs.oracle.com/javase/8/docs/api/java/io/FileInputStream.html"><code>FileInputStream</code></a> has a <a href="https://en.wikipedia.org/wiki/Finalizer">finalizer</a> that invokes the <code>close()</code> method on a garbage collection event; however, since we can’t be sure when a garbage collection cycle will start, the input stream can consume computer resources for an indefinite period of time. The resource must be closed in a <code>finally</code> section of a try-catch block:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private static void printFileJava6() throws IOException {
@@ -149,7 +152,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since Java 7 there is a really useful and neat statement introduced in Java 7 particularly for this case, called try-with-resources:</p>
+</div>
+<p>Since Java 7 there is a really useful and neat statement introduced in Java 7 particularly for this case, called try-with-resources:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private static void printFileJava7() throws IOException {
@@ -165,7 +171,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <em>try-with-resources</em> statement can be used with any object that implements the <code>Closeable</code> or <code>AutoCloseable</code> interface. It ensures that each resource is closed by the end of the statement. The difference between the two interfaces is, that the <code>close()</code> method of <code>Closeable</code> throws an <code>IOException</code> which has to be handled in some way.</p><p>In cases where the resource has already been opened but should be safely closed after use, one can assign it to a local variable inside the try-with-resources</p>
+</div>
+<p>The <em>try-with-resources</em> statement can be used with any object that implements the <code>Closeable</code> or <code>AutoCloseable</code> interface. It ensures that each resource is closed by the end of the statement. The difference between the two interfaces is, that the <code>close()</code> method of <code>Closeable</code> throws an <code>IOException</code> which has to be handled in some way.
+</p>
+<p>In cases where the resource has already been opened but should be safely closed after use, one can assign it to a local variable inside the try-with-resources
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private static void printFileJava7(InputStream extResource) throws IOException {
@@ -177,7 +188,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The local resource variable created in the try-with-resources constructor is effectively final.</p>
+</div>
+<p>The local resource variable created in the try-with-resources constructor is effectively final.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

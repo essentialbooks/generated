@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Let’s say we have some server that registers new users and greets them with some message. And we want to monitor this server and change some of it’s parameters.</p><p>First, we need an interface with our monitoring and control methods</p>
+      
+<p>Let’s say we have some server that registers new users and greets them with some message. And we want to monitor this server and change some of it’s parameters.
+</p>
+<p>First, we need an interface with our monitoring and control methods
+</p>
+
 <div class="code-box lang-Java">
 	<div>
 	<pre class="chroma"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserCounterMBean</span> <span class="o">{</span>
@@ -149,7 +154,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And some simple implementation that will let us see how it’s working and how we affect it</p>
+</div>
+<p>And some simple implementation that will let us see how it’s working and how we affect it
+</p>
+
 <div class="code-box lang-Java">
 	<div>
 	<pre class="chroma"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserCounter</span> <span class="kd">implements</span> <span class="n">UserCounterMBean</span><span class="o">,</span> <span class="n">Runnable</span> <span class="o">{</span>
@@ -208,7 +216,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For simple example with local or remote management, we need to register our MBean:</p>
+</div>
+<p>For simple example with local or remote management, we need to register our MBean:
+</p>
+
 <div class="code-box lang-Java">
 	<div>
 	<pre class="chroma"><span class="kn">import</span> <span class="nn">javax.management.InstanceAlreadyExistsException</span><span class="o">;</span>
@@ -235,7 +246,19 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>After that we can run our application and connect to it via jConsole, which can be found in your <code>$JAVA_HOME/bin</code> directory. First, we need to find our local java process with our application</p><img class="img" src="/img/d18e240a6026fbcad38494570cb3730c91ac9c5c.png"><p>then switch to MBeans tab and find that MBean that we used in our Main class as an <code>ObjectName</code> (in the example above it’s <code>ServerManager</code>). In <code>Attributes</code> section we can see out attributes. If you specified get method only, attribute will be readable but not writeable. If you specified both get and set methods, attribute would be readable and writeable.</p><img class="img" src="/img/81c39347e7d57b332ae7c1bdca76674a90d24bb4.png"><p>Specified methods can be invoked in <code>Operations</code> section.</p><img class="img" src="/img/c3803914fbc08ded61cc2f8b486e4cbf79bf89c1.png"><p>If you want to be able to use remote management, you will need additional JVM parameters, like:</p>
+</div>
+<p>After that we can run our application and connect to it via jConsole, which can be found in your <code>$JAVA_HOME/bin</code> directory. First, we need to find our local java process with our application
+</p>
+<img class="img" src="/img/d18e240a6026fbcad38494570cb3730c91ac9c5c.png">
+<p>then switch to MBeans tab and find that MBean that we used in our Main class as an <code>ObjectName</code> (in the example above it’s <code>ServerManager</code>). In <code>Attributes</code> section we can see out attributes. If you specified get method only, attribute will be readable but not writeable. If you specified both get and set methods, attribute would be readable and writeable.
+</p>
+<img class="img" src="/img/81c39347e7d57b332ae7c1bdca76674a90d24bb4.png">
+<p>Specified methods can be invoked in <code>Operations</code> section.
+</p>
+<img class="img" src="/img/c3803914fbc08ded61cc2f8b486e4cbf79bf89c1.png">
+<p>If you want to be able to use remote management, you will need additional JVM parameters, like:
+</p>
+
 <div class="code-box lang-Java">
 	<div>
 	<pre class="chroma"><span class="o">-</span><span class="n">Dcom</span><span class="o">.</span><span class="na">sun</span><span class="o">.</span><span class="na">management</span><span class="o">.</span><span class="na">jmxremote</span><span class="o">=</span><span class="kc">true</span> <span class="c1">//true by default
@@ -246,7 +269,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>These parameters can be found in <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/management/agent.html">Chapter 2 of JMX guides</a>. After that you will be able to connect to your application via jConsole remotely with <code>jconsole host:port</code> or with specifying <code>host:port</code> or <code>service:jmx:rmi:///jndi/rmi://hostName:portNum/jmxrmi</code> in jConsole GUI.</p><p>Useful links:</p><ul id="fde4ae1c-b7bb-4654-b4e0-873c68c1972a" class="bulleted-list"><li><a href="https://docs.oracle.com/javase/8/docs/technotes/guides/management/overview.html">JMX guides</a></li><li><a href="http://www.oracle.com/us/technologies/java/best-practices-jsp-136021.html">JMX Best practices</a></li></ul>
+</div>
+<p>These parameters can be found in <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/management/agent.html">Chapter 2 of JMX guides</a>. After that you will be able to connect to your application via jConsole remotely with <code>jconsole host:port</code> or with specifying <code>host:port</code> or <code>service:jmx:rmi:///jndi/rmi://hostName:portNum/jmxrmi</code> in jConsole GUI.
+</p>
+<p>Useful links:
+</p>
+  <ul id="fde4ae1c-b7bb-4654-b4e0-873c68c1972a" class="bulleted-list">
+    <li><a href="https://docs.oracle.com/javase/8/docs/technotes/guides/management/overview.html">JMX guides</a>
+    </li>
+    <li><a href="http://www.oracle.com/us/technologies/java/best-practices-jsp-136021.html">JMX Best practices</a>
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

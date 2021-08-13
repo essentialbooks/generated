@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Once an object has an effective type, you should not attempt to modify it through a pointer of another type, unless that other type is a character type, <code>char</code>, <code>signed char</code> or <code>unsigned char</code>.</p>
+      
+<p>Once an object has an effective type, you should not attempt to modify it through a pointer of another type, unless that other type is a character type, <code>char</code>, <code>signed char</code> or <code>unsigned char</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;inttypes.h&gt;
@@ -147,7 +150,21 @@ int main(void) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is a valid program that prints</p><blockquote id="eac00890-b211-4836-a8e4-4e6b00168cc2" class="">a now has value 707406378</blockquote><p>This works because:</p><ul id="0f5d7b06-13a3-43b8-85b1-320803c6c9a6" class="bulleted-list"><li>The access is made to the individual bytes seen with type <code>unsigned char</code> so each modification is well defined.</li><li>The two views to the object, through <code>a</code> and through <code>*ap</code>, alias, but since <code>ap</code> is a pointer to a character type, the strict aliasing rule does not apply. Thus the compiler has to assume that the value of <code>a</code> may have been changed in the <code>for</code> loop. The modified value of <code>a</code> must be constructed from the bytes that have been changed.</li><li>The type of <code>a</code>, <code>uint32_t</code> has no padding bits. All its bits of the representation count for the value, here <code>707406378</code>, and there can be no trap representation.</li></ul>
+</div>
+<p>This is a valid program that prints
+</p>
+<blockquote id="eac00890-b211-4836-a8e4-4e6b00168cc2" class="">a now has value 707406378
+</blockquote>
+<p>This works because:
+</p>
+  <ul id="0f5d7b06-13a3-43b8-85b1-320803c6c9a6" class="bulleted-list">
+    <li>The access is made to the individual bytes seen with type <code>unsigned char</code> so each modification is well defined.
+    </li>
+    <li>The two views to the object, through <code>a</code> and through <code>*ap</code>, alias, but since <code>ap</code> is a pointer to a character type, the strict aliasing rule does not apply. Thus the compiler has to assume that the value of <code>a</code> may have been changed in the <code>for</code> loop. The modified value of <code>a</code> must be constructed from the bytes that have been changed.
+    </li>
+    <li>The type of <code>a</code>, <code>uint32_t</code> has no padding bits. All its bits of the representation count for the value, here <code>707406378</code>, and there can be no trap representation.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

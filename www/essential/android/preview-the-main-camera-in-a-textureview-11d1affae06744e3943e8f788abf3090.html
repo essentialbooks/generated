@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>In this case, building against API 23, so permissions are handled too.</p><p>You must add in the Manifest the following permission (wherever the API level you’re using):</p>
+      
+<p>In this case, building against API 23, so permissions are handled too.
+</p>
+<p>You must add in the Manifest the following permission (wherever the API level you’re using):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;uses-permission android:name=&#34;android.permission.CAMERA&#34;/&gt;</pre>
@@ -135,7 +140,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We’re about to create an activity (Camera2Activity.java) that fills a <code>TextureView</code> with the preview of the device’s camera.</p><p>The Activity we’re going to use is a typical AppCompatActivity:</p>
+</div>
+<p>We’re about to create an activity (Camera2Activity.java) that fills a <code>TextureView</code> with the preview of the device’s camera.
+</p>
+<p>The Activity we’re going to use is a typical AppCompatActivity:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Camera2Activity extends AppCompatActivity {</pre>
@@ -143,7 +153,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Attributes</strong> (You may need to read the entire example to understand some of it)</p><p>The <code>MAX_PREVIEW_SIZE</code> guaranteed by Camera2 API is 1920x1080</p>
+</div>
+<p><strong>Attributes</strong> (You may need to read the entire example to understand some of it)
+</p>
+<p>The <code>MAX_PREVIEW_SIZE</code> guaranteed by Camera2 API is 1920x1080
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private static final int MAX_PREVIEW_WIDTH = 1920;
@@ -152,7 +167,10 @@ private static final int MAX_PREVIEW_HEIGHT = 1080;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>TextureView.SurfaceTextureListener</code> handles several lifecycle events on a <code>TextureView</code>. In this case, we’re listening to those events. When the SurfaceTexture is ready, we initialize the camera. When it size changes, we setup the preview coming from the camera accordingly</p>
+</div>
+<p><code>TextureView.SurfaceTextureListener</code> handles several lifecycle events on a <code>TextureView</code>. In this case, we’re listening to those events. When the SurfaceTexture is ready, we initialize the camera. When it size changes, we setup the preview coming from the camera accordingly
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private final TextureView.SurfaceTextureListener mSurfaceTextureListener
@@ -182,7 +200,10 @@ private static final int MAX_PREVIEW_HEIGHT = 1080;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A <code>CameraDevice</code> represent one physical device’s camera. In this attribute, we save the ID of the current <code>CameraDevice</code></p>
+</div>
+<p>A <code>CameraDevice</code> represent one physical device’s camera. In this attribute, we save the ID of the current <code>CameraDevice</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private String mCameraId;</pre>
@@ -190,7 +211,10 @@ private static final int MAX_PREVIEW_HEIGHT = 1080;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is the view (<code>TextureView</code>) that we’ll be using to “draw” the preview of the Camera</p>
+</div>
+<p>This is the view (<code>TextureView</code>) that we’ll be using to “draw” the preview of the Camera
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private TextureView mTextureView;</pre>
@@ -198,7 +222,10 @@ private static final int MAX_PREVIEW_HEIGHT = 1080;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>CameraCaptureSession</code> for camera preview</p>
+</div>
+<p>The <code>CameraCaptureSession</code> for camera preview
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private CameraCaptureSession mCaptureSession;</pre>
@@ -206,7 +233,10 @@ private static final int MAX_PREVIEW_HEIGHT = 1080;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A reference to the opened <code>CameraDevice</code></p>
+</div>
+<p>A reference to the opened <code>CameraDevice</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private CameraDevice mCameraDevice;</pre>
@@ -214,7 +244,10 @@ private static final int MAX_PREVIEW_HEIGHT = 1080;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>Size</code> of camera preview.</p>
+</div>
+<p>The <code>Size</code> of camera preview.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private Size mPreviewSize;</pre>
@@ -222,7 +255,10 @@ private static final int MAX_PREVIEW_HEIGHT = 1080;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>CameraDevice.StateCallback</code> is called when <code>CameraDevice</code> changes its state</p>
+</div>
+<p><code>CameraDevice.StateCallback</code> is called when <code>CameraDevice</code> changes its state
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private final CameraDevice.StateCallback mStateCallback = new CameraDevice.StateCallback() {
@@ -255,7 +291,10 @@ private static final int MAX_PREVIEW_HEIGHT = 1080;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>An additional thread for running tasks that shouldn’t block the UI</p>
+</div>
+<p>An additional thread for running tasks that shouldn’t block the UI
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private HandlerThread mBackgroundThread;</pre>
@@ -263,7 +302,10 @@ private static final int MAX_PREVIEW_HEIGHT = 1080;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A <code>Handler</code> for running tasks in the background</p>
+</div>
+<p>A <code>Handler</code> for running tasks in the background
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private Handler mBackgroundHandler;</pre>
@@ -271,7 +313,10 @@ private static final int MAX_PREVIEW_HEIGHT = 1080;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>An <code>ImageReader</code> that handles still image capture</p>
+</div>
+<p>An <code>ImageReader</code> that handles still image capture
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private ImageReader mImageReader;</pre>
@@ -279,7 +324,10 @@ private static final int MAX_PREVIEW_HEIGHT = 1080;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>CaptureRequest.Builder</code> for the camera preview</p>
+</div>
+<p><code>CaptureRequest.Builder</code> for the camera preview
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private CaptureRequest.Builder mPreviewRequestBuilder;</pre>
@@ -287,7 +335,10 @@ private static final int MAX_PREVIEW_HEIGHT = 1080;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>CaptureRequest</code> generated by <code>mPreviewRequestBuilder</code></p>
+</div>
+<p><code>CaptureRequest</code> generated by <code>mPreviewRequestBuilder</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private CaptureRequest mPreviewRequest;</pre>
@@ -295,7 +346,10 @@ private static final int MAX_PREVIEW_HEIGHT = 1080;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A <code>Semaphore</code> to prevent the app from exiting before closing the camera.</p>
+</div>
+<p>A <code>Semaphore</code> to prevent the app from exiting before closing the camera.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private Semaphore mCameraOpenCloseLock = new Semaphore(1);</pre>
@@ -303,7 +357,10 @@ private static final int MAX_PREVIEW_HEIGHT = 1080;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Constant ID of the permission request</p>
+</div>
+<p>Constant ID of the permission request
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private static final int REQUEST_CAMERA_PERMISSION = 1;</pre>
@@ -311,7 +368,10 @@ private static final int MAX_PREVIEW_HEIGHT = 1080;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Android Lifecycle methods</strong></p>
+</div>
+<p><strong>Android Lifecycle methods</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -348,7 +408,12 @@ public void onPause() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Camera2 related methods</strong></p><p>Those are methods that uses the Camera2 APIs</p>
+</div>
+<p><strong>Camera2 related methods</strong>
+</p>
+<p>Those are methods that uses the Camera2 APIs
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private void openCamera(int width, int height) {
@@ -375,7 +440,10 @@ public void onPause() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Closes the current camera</p>
+</div>
+<p>Closes the current camera
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private void closeCamera() {
@@ -403,7 +471,10 @@ public void onPause() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Sets up member variables related to camera</p>
+</div>
+<p>Sets up member variables related to camera
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private void setUpCameraOutputs(int width, int height) {
@@ -471,7 +542,10 @@ public void onPause() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Creates a new <code>CameraCaptureSession</code> for camera preview</p>
+</div>
+<p>Creates a new <code>CameraCaptureSession</code> for camera preview
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private void createCameraPreviewSession() {
@@ -532,7 +606,10 @@ public void onPause() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Permissions related methods</strong> For Android API 23+</p>
+</div>
+<p><strong>Permissions related methods</strong> For Android API 23+
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private void requestCameraPermission() {
@@ -578,7 +655,10 @@ public void onRequestPermissionsResult(int requestCode, @NonNull String[] permis
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Background thread / handler methods</strong></p>
+</div>
+<p><strong>Background thread / handler methods</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private void startBackgroundThread() {
@@ -601,7 +681,12 @@ private void stopBackgroundThread() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Utility methods</strong></p><p>Given choices of <code>Size</code>s supported by a camera, choose the smallest one that is at least at large as the respective texture view size, and that is as most as large as the respective max size, and whose aspect ratio matches with the specified value. If doesn’t exist, choose the largest one that is at most as large as the respective max size, and whose aspect ratio matches with the specified value</p>
+</div>
+<p><strong>Utility methods</strong>
+</p>
+<p>Given choices of <code>Size</code>s supported by a camera, choose the smallest one that is at least at large as the respective texture view size, and that is as most as large as the respective max size, and whose aspect ratio matches with the specified value. If doesn’t exist, choose the largest one that is at most as large as the respective max size, and whose aspect ratio matches with the specified value
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private static Size chooseOptimalSize(Size[] choices, int textureViewWidth,
@@ -640,7 +725,10 @@ private void stopBackgroundThread() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This method congfigures the neccesary <code>Matrix</code> transformation to <code>mTextureView</code></p>
+</div>
+<p>This method congfigures the neccesary <code>Matrix</code> transformation to <code>mTextureView</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private void configureTransform(int viewWidth, int viewHeight) {
@@ -670,7 +758,10 @@ private void stopBackgroundThread() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This method compares two <code>Size</code>s based on their areas.</p>
+</div>
+<p>This method compares two <code>Size</code>s based on their areas.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">static class CompareSizesByArea implements Comparator&lt;Size&gt; {
@@ -686,7 +777,10 @@ private void stopBackgroundThread() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Not much to see here</p>
+</div>
+<p>Not much to see here
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/**

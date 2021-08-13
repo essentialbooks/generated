@@ -127,7 +127,15 @@
 </div>
 
 
-      <h2 id="139cc6ee-f7ea-4d77-b0d2-2edfcab58a41" class="">Problem<a class="header-anchor" href="#139cc6ee-f7ea-4d77-b0d2-2edfcab58a41" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Cross-site scripting is the unintended execution of remote code by a web client. Any web application might expose itself to XSS if it takes input from a user and outputs it directly on a web page. If input includes HTML or JavaScript, remote code can be executed when this content is rendered by the web client.</p><p>For example, if a 3rd party side contains a <a href="http://stackoverflow.com/documentation/javascript/231/promises/846/introduction#t=201607242111378436991">JavaScript</a> file:</p>
+      
+  <h2 id="139cc6ee-f7ea-4d77-b0d2-2edfcab58a41" class="">Problem
+  <a class="header-anchor" href="#139cc6ee-f7ea-4d77-b0d2-2edfcab58a41" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Cross-site scripting is the unintended execution of remote code by a web client. Any web application might expose itself to XSS if it takes input from a user and outputs it directly on a web page. If input includes HTML or JavaScript, remote code can be executed when this content is rendered by the web client.
+</p>
+<p>For example, if a 3rd party side contains a <a href="http://stackoverflow.com/documentation/javascript/231/promises/846/introduction#t=201607242111378436991">JavaScript</a> file:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="c1">// https://example.com/runme.js
@@ -137,7 +145,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And a PHP application directly outputs a string passed into it:</p>
+</div>
+<p>And a PHP application directly outputs a string passed into it:
+</p>
+
 <div class="code-box lang-PHP">
 	<div>
 	<pre class="chroma"><span class="cp">&lt;?php</span>
@@ -147,7 +158,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If an unchecked GET parameter contains <code>&lt;script src=&quot;http://example.com/runme.js&quot;&gt;&lt;/script&gt;</code> then the output of the PHP script will be:</p>
+</div>
+<p>If an unchecked GET parameter contains <code>&lt;script src=&quot;http://example.com/runme.js&quot;&gt;&lt;/script&gt;</code> then the output of the PHP script will be:
+</p>
+
 <div class="code-box lang-HTML">
 	<div>
 	<pre class="chroma"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://example.com/runme.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></pre>
@@ -155,7 +169,29 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The 3rd party JavaScript will run and the user will see “I’m running” on the web page.</p><h2 id="9813f57c-f66a-46a2-af46-c22c975a2dad" class="">Solution<a class="header-anchor" href="#9813f57c-f66a-46a2-af46-c22c975a2dad" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>As a general rule, never trust input coming from a client. Every GET, POST, and cookie value could be anything at all, and should therefore be validated. When outputting any of these values, escape them so they will not be evaluated in an unexpected way.</p><p>Keep in mind that even in the simplest applications data can be moved around and it will be hard to keep track of all sources. Therefore it is a best practice to <em>always</em> escape output.</p><p>PHP provides a few ways to escape output depending on the context.</p><h3 id="8da75c10-e7ce-4272-9a77-cbd077e388e7" class="">Filter Functions<a class="header-anchor" href="#8da75c10-e7ce-4272-9a77-cbd077e388e7" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p><a href="http://php.net/manual/en/ref.filter.php">PHPs Filter Functions</a> allow the input data to the php script to be <a href="http://php.net/manual/en/filter.filters.sanitize.php">sanitized</a> or <a href="http://php.net/manual/en/filter.filters.validate.php">validated</a> in <a href="http://php.net/manual/en/filter.filters.php">many ways</a>. They are useful when saving or outputting client input.</p><h3 id="b156a2f2-ac16-45e2-9c12-8eb32f8feedc" class="">HTML Encoding<a class="header-anchor" href="#b156a2f2-ac16-45e2-9c12-8eb32f8feedc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p><code>htmlspecialchars</code> will convert any “HTML special characters” into their HTML encodings, meaning they will then <em>not</em> be processed as standard HTML. To fix our previous example using this method:</p>
+</div>
+<p>The 3rd party JavaScript will run and the user will see “I’m running” on the web page.
+</p>
+  <h2 id="9813f57c-f66a-46a2-af46-c22c975a2dad" class="">Solution
+  <a class="header-anchor" href="#9813f57c-f66a-46a2-af46-c22c975a2dad" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>As a general rule, never trust input coming from a client. Every GET, POST, and cookie value could be anything at all, and should therefore be validated. When outputting any of these values, escape them so they will not be evaluated in an unexpected way.
+</p>
+<p>Keep in mind that even in the simplest applications data can be moved around and it will be hard to keep track of all sources. Therefore it is a best practice to <em>always</em> escape output.
+</p>
+<p>PHP provides a few ways to escape output depending on the context.
+</p>
+  <h3 id="8da75c10-e7ce-4272-9a77-cbd077e388e7" class="">Filter Functions
+  <a class="header-anchor" href="#8da75c10-e7ce-4272-9a77-cbd077e388e7" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p><a href="http://php.net/manual/en/ref.filter.php">PHPs Filter Functions</a> allow the input data to the php script to be <a href="http://php.net/manual/en/filter.filters.sanitize.php">sanitized</a> or <a href="http://php.net/manual/en/filter.filters.validate.php">validated</a> in <a href="http://php.net/manual/en/filter.filters.php">many ways</a>. They are useful when saving or outputting client input.
+</p>
+  <h3 id="b156a2f2-ac16-45e2-9c12-8eb32f8feedc" class="">HTML Encoding
+  <a class="header-anchor" href="#b156a2f2-ac16-45e2-9c12-8eb32f8feedc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p><code>htmlspecialchars</code> will convert any “HTML special characters” into their HTML encodings, meaning they will then <em>not</em> be processed as standard HTML. To fix our previous example using this method:
+</p>
+
 <div class="code-box lang-PHP">
 	<div>
 	<pre class="chroma"><span class="cp">&lt;?php</span>
@@ -167,7 +203,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Would output:</p>
+</div>
+<p>Would output:
+</p>
+
 <div class="code-box lang-HTML">
 	<div>
 	<pre class="chroma"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><span class="ni">&amp;lt;</span>script src=<span class="ni">&amp;quot;</span>http://example.com/runme.js<span class="ni">&amp;quot;&amp;gt;&amp;lt;</span>/script<span class="ni">&amp;gt;</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></pre>
@@ -175,7 +214,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Everything inside the <code>&lt;div&gt;</code> tag will <em>not</em> be interpreted as a JavaScript tag by the browser, but instead as a simple text node. The user will safely see:</p>
+</div>
+<p>Everything inside the <code>&lt;div&gt;</code> tag will <em>not</em> be interpreted as a JavaScript tag by the browser, but instead as a simple text node. The user will safely see:
+</p>
+
 <div class="code-box lang-HTML">
 	<div>
 	<pre class="chroma"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;http://example.com/runme.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></pre>
@@ -183,7 +225,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><h3 id="dd2b8801-f65e-49ab-8731-b8f79e9a5fde" class="">URL Encoding<a class="header-anchor" href="#dd2b8801-f65e-49ab-8731-b8f79e9a5fde" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>When outputting a dynamically generated URL, PHP provides the <code>urlencode</code> function to safely output valid URLs. So, for example, if a user is able to input data that becomes part of another GET parameter:</p>
+</div>
+  <h3 id="dd2b8801-f65e-49ab-8731-b8f79e9a5fde" class="">URL Encoding
+  <a class="header-anchor" href="#dd2b8801-f65e-49ab-8731-b8f79e9a5fde" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p>When outputting a dynamically generated URL, PHP provides the <code>urlencode</code> function to safely output valid URLs. So, for example, if a user is able to input data that becomes part of another GET parameter:
+</p>
+
 <div class="code-box lang-PHP">
 	<div>
 	<pre class="chroma"><span class="cp">&lt;?php</span>
@@ -196,7 +244,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Any malicious input will be converted to an encoded URL parameter.</p><h3 id="ddf4929e-428c-4e49-9d86-5b24b6d75b3a" class="">Using specialised external libraries or OWASP AntiSamy lists<a class="header-anchor" href="#ddf4929e-428c-4e49-9d86-5b24b6d75b3a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>Sometimes you will want to send HTML or other kind of code inputs. You will need to maintain a list of authorised words (white list) and un-authorized (blacklist).</p><p>You can download standard lists available at the <a href="https://www.owasp.org/index.php/Category:OWASP_AntiSamy_Project">OWASP AntiSamy website</a>. Each list is fit for a specific kind of interaction (ebay api, tinyMCE, etc…). And it is open source.</p><p>There are libraries existing to filter HTML and prevent XSS attacks for the general case and performing at least as well as AntiSamy lists with very easy use. For example you have <a href="http://htmlpurifier.org/">HTML Purifier</a></p>
+</div>
+<p>Any malicious input will be converted to an encoded URL parameter.
+</p>
+  <h3 id="ddf4929e-428c-4e49-9d86-5b24b6d75b3a" class="">Using specialised external libraries or OWASP AntiSamy lists
+  <a class="header-anchor" href="#ddf4929e-428c-4e49-9d86-5b24b6d75b3a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p>Sometimes you will want to send HTML or other kind of code inputs. You will need to maintain a list of authorised words (white list) and un-authorized (blacklist).
+</p>
+<p>You can download standard lists available at the <a href="https://www.owasp.org/index.php/Category:OWASP_AntiSamy_Project">OWASP AntiSamy website</a>. Each list is fit for a specific kind of interaction (ebay api, tinyMCE, etc…). And it is open source.
+</p>
+<p>There are libraries existing to filter HTML and prevent XSS attacks for the general case and performing at least as well as AntiSamy lists with very easy use. For example you have <a href="http://htmlpurifier.org/">HTML Purifier</a>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

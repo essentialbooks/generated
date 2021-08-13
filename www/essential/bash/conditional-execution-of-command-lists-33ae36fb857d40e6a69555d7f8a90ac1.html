@@ -127,7 +127,15 @@
 </div>
 
 
-      <h3 id="d5f976ea-8c55-411b-bb40-ee9879db803a" class="">How to use conditional execution of command lists<a class="header-anchor" href="#d5f976ea-8c55-411b-bb40-ee9879db803a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>Any builtin command, expression, or function, as well as any external command or script can be executed conditionally using the <code>&amp;&amp;</code><em>(and)</em> and <code>||</code><em>(or)</em> operators.</p><p>For example, this will only print the current directory if the <code>cd</code> command was successful.</p>
+      
+  <h3 id="d5f976ea-8c55-411b-bb40-ee9879db803a" class="">How to use conditional execution of command lists
+  <a class="header-anchor" href="#d5f976ea-8c55-411b-bb40-ee9879db803a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p>Any builtin command, expression, or function, as well as any external command or script can be executed conditionally using the <code>&amp;&amp;</code><em>(and)</em> and <code>||</code><em>(or)</em> operators.
+</p>
+<p>For example, this will only print the current directory if the <code>cd</code> command was successful.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cd my_directory &amp;&amp; pwd</pre>
@@ -135,7 +143,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Likewise, this will exit if the <code>cd</code> command fails, preventing catastrophe:</p>
+</div>
+<p>Likewise, this will exit if the <code>cd</code> command fails, preventing catastrophe:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cd my_directory || exit
@@ -144,7 +155,12 @@ rm -rf *</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When combining multiple statements in this manner, it’s important to remember that (unlike many C-style languages) <a href="https://www.gnu.org/software/bash/manual/html_node/Lists.html#Lists">these operators have no precedence and are left-associative</a>.</p><p>Thus, this statement will work as expected…</p>
+</div>
+<p>When combining multiple statements in this manner, it’s important to remember that (unlike many C-style languages) <a href="https://www.gnu.org/software/bash/manual/html_node/Lists.html#Lists">these operators have no precedence and are left-associative</a>.
+</p>
+<p>Thus, this statement will work as expected…
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cd my_directory &amp;&amp; pwd || echo &#34;No such directory&#34;</pre>
@@ -152,7 +168,16 @@ rm -rf *</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="772412bf-9b97-4f94-af80-2dbe93fd9e0a" class="bulleted-list"><li>If the <code>cd</code> succeeds, the <code>&amp;&amp; pwd</code> executes and the current working directory name is printed. Unless <code>pwd</code> fails (a rarity) the <code>|| echo ...</code> will not be executed.</li><li>If the <code>cd</code> fails, the <code>&amp;&amp; pwd</code> will be skipped and the <code>|| echo ...</code> will run.</li></ul><p>But this will not (if you’re thinking <code>if...then...else</code>)…</p>
+</div>
+  <ul id="772412bf-9b97-4f94-af80-2dbe93fd9e0a" class="bulleted-list">
+    <li>If the <code>cd</code> succeeds, the <code>&amp;&amp; pwd</code> executes and the current working directory name is printed. Unless <code>pwd</code> fails (a rarity) the <code>|| echo ...</code> will not be executed.
+    </li>
+    <li>If the <code>cd</code> fails, the <code>&amp;&amp; pwd</code> will be skipped and the <code>|| echo ...</code> will run.
+    </li>
+  </ul>
+<p>But this will not (if you’re thinking <code>if...then...else</code>)…
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cd my_directory &amp;&amp; ls || echo &#34;No such directory&#34;</pre>
@@ -160,7 +185,29 @@ rm -rf *</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="7e1f10e8-8831-4375-841b-3af92f2edbca" class="bulleted-list"><li>If the <code>cd</code> fails, the <code>&amp;&amp; ls</code> is skipped and the <code>|| echo ...</code> is executed.</li><li>If the <code>cd</code> succeeds, the <code>&amp;&amp; ls</code> is executed.</li><li>If the <code>ls</code> succeeds, the <code>|| echo ...</code> is ignored. <em>(so far so good)</em></li><li><em><strong>BUT… if the </strong></em><code><em><strong>ls</strong></em></code><em><strong> fails, the </strong></em><code><em><strong>|| echo ...</strong></em></code><em><strong> will also be executed.</strong></em></li></ul><blockquote id="3698e80f-8274-4534-a727-675c7a76421b" class="">It is the ls, not the cd, that is the previous command.</blockquote><h3 id="d3f22283-ceb6-4f4c-8975-fbf4db806b9a" class="">Why use conditional execution of command lists<a class="header-anchor" href="#d3f22283-ceb6-4f4c-8975-fbf4db806b9a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>Conditional execution is a hair faster than <code>if...then</code> but its main advantage is allowing functions and scripts to exit early, or “short circuit”.</p><p>Unlike many languages like <code>C</code> where memory is explicitly allocated for structs and variables and such (and thus must be deallocated), <code>bash</code> handles this under the covers. In most cases, we don’t have to clean up anything before leaving the function. A <code>return</code> statement will deallocate everything local to the function and pickup execution at the return address on the stack.</p><p>Returning from functions or exiting scripts as soon as possible can thus significantly improve performance and reduce system load by avoiding the unnecessary execution of code. For example…</p>
+</div>
+  <ul id="7e1f10e8-8831-4375-841b-3af92f2edbca" class="bulleted-list">
+    <li>If the <code>cd</code> fails, the <code>&amp;&amp; ls</code> is skipped and the <code>|| echo ...</code> is executed.
+    </li>
+    <li>If the <code>cd</code> succeeds, the <code>&amp;&amp; ls</code> is executed.
+    </li>
+    <li>If the <code>ls</code> succeeds, the <code>|| echo ...</code> is ignored. <em>(so far so good)</em>
+    </li>
+    <li><em><strong>BUT… if the </strong></em><code><em><strong>ls</strong></em></code><em><strong> fails, the </strong></em><code><em><strong>|| echo ...</strong></em></code><em><strong> will also be executed.</strong></em>
+    </li>
+  </ul>
+<blockquote id="3698e80f-8274-4534-a727-675c7a76421b" class="">It is the ls, not the cd, that is the previous command.
+</blockquote>
+  <h3 id="d3f22283-ceb6-4f4c-8975-fbf4db806b9a" class="">Why use conditional execution of command lists
+  <a class="header-anchor" href="#d3f22283-ceb6-4f4c-8975-fbf4db806b9a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p>Conditional execution is a hair faster than <code>if...then</code> but its main advantage is allowing functions and scripts to exit early, or “short circuit”.
+</p>
+<p>Unlike many languages like <code>C</code> where memory is explicitly allocated for structs and variables and such (and thus must be deallocated), <code>bash</code> handles this under the covers. In most cases, we don’t have to clean up anything before leaving the function. A <code>return</code> statement will deallocate everything local to the function and pickup execution at the return address on the stack.
+</p>
+<p>Returning from functions or exiting scripts as soon as possible can thus significantly improve performance and reduce system load by avoiding the unnecessary execution of code. For example…
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">my_function () {

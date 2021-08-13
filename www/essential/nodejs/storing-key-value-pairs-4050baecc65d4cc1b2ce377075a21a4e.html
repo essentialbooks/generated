@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Now that you know how to connect with Redis from Node.js, let’s see how to store key-value pairs in Redis storage.</p><blockquote id="b417d641-f3dd-43b4-a261-550accce148f" class="">Storing Strings</blockquote><p>All the Redis commands are exposed as different functions on the client object. To store a simple string use the following syntax:</p>
+      
+<p>Now that you know how to connect with Redis from Node.js, let’s see how to store key-value pairs in Redis storage.
+</p>
+<blockquote id="b417d641-f3dd-43b4-a261-550accce148f" class="">Storing Strings
+</blockquote>
+<p>All the Redis commands are exposed as different functions on the client object. To store a simple string use the following syntax:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">client.set(&#39;framework&#39;, &#39;AngularJS&#39;);</pre>
@@ -135,7 +142,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Or</p>
+</div>
+<p>Or
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">client.set([&#39;framework&#39;, &#39;AngularJS&#39;]);</pre>
@@ -143,7 +153,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above snippets store a simple string AngularJS against the key framework. You should note that both the snippets do the same thing. The only difference is that the first one passes a variable number of arguments while the later passes an args array to <code>client.set()</code> function. You can also pass an optional callback to get a notification when the operation is complete:</p>
+</div>
+<p>The above snippets store a simple string AngularJS against the key framework. You should note that both the snippets do the same thing. The only difference is that the first one passes a variable number of arguments while the later passes an args array to <code>client.set()</code> function. You can also pass an optional callback to get a notification when the operation is complete:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">client.set(&#39;framework&#39;, &#39;AngularJS&#39;, function(err, reply) {
@@ -153,7 +166,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If the operation failed for some reason, the <code>err</code> argument to the callback represents the error. To retrieve the value of the key do the following:</p>
+</div>
+<p>If the operation failed for some reason, the <code>err</code> argument to the callback represents the error. To retrieve the value of the key do the following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">client.get(&#39;framework&#39;, function(err, reply) {
@@ -163,7 +179,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>client.get()</code> lets you retrieve a key stored in Redis. The value of the key can be accessed via the callback argument reply. If the key doesn’t exist, the value of reply will be empty.</p><blockquote id="fa2a4e4e-db47-4ad1-bde3-ec8612b10dd7" class="">Storing Hash</blockquote><p>Many times storing simple values won’t solve your problem. You will need to store hashes (objects) in Redis. For that you can use <code>hmset()</code> function as following:</p>
+</div>
+<p><code>client.get()</code> lets you retrieve a key stored in Redis. The value of the key can be accessed via the callback argument reply. If the key doesn’t exist, the value of reply will be empty.
+</p>
+<blockquote id="fa2a4e4e-db47-4ad1-bde3-ec8612b10dd7" class="">Storing Hash
+</blockquote>
+<p>Many times storing simple values won’t solve your problem. You will need to store hashes (objects) in Redis. For that you can use <code>hmset()</code> function as following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">client.hmset(&#39;frameworks&#39;, &#39;javascript&#39;, &#39;AngularJS&#39;, &#39;css&#39;, &#39;Bootstrap&#39;, &#39;node&#39;, &#39;Express&#39;);
@@ -175,7 +198,12 @@ client.hgetall(&#39;frameworks&#39;, function(err, object) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above snippet stores a hash in Redis that maps each technology to its framework. The first argument to <code>hmset()</code> is the name of the key. Subsequent arguments represent key-value pairs. Similarly, <code>hgetall()</code> is used to retrieve the value of the key. If the key is found, the second argument to the callback will contain the value which is an object.</p><p>Note that Redis doesn’t support nested objects. All the property values in the object will be coerced into strings before getting stored. You can also use the following syntax to store objects in Redis:</p>
+</div>
+<p>The above snippet stores a hash in Redis that maps each technology to its framework. The first argument to <code>hmset()</code> is the name of the key. Subsequent arguments represent key-value pairs. Similarly, <code>hgetall()</code> is used to retrieve the value of the key. If the key is found, the second argument to the callback will contain the value which is an object.
+</p>
+<p>Note that Redis doesn’t support nested objects. All the property values in the object will be coerced into strings before getting stored. You can also use the following syntax to store objects in Redis:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">client.hmset(&#39;frameworks&#39;, {
@@ -187,7 +215,14 @@ client.hgetall(&#39;frameworks&#39;, function(err, object) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>An optional callback can also be passed to know when the operation is completed.</p><p>All the functions (commands) can be called with uppercase/lowercase equivalents. For example, <code>client.hmset()</code> and <code>client.HMSET()</code> are the same. Storing Lists</p><p>If you want to store a list of items, you can use Redis lists. To store a list use the following syntax:</p>
+</div>
+<p>An optional callback can also be passed to know when the operation is completed.
+</p>
+<p>All the functions (commands) can be called with uppercase/lowercase equivalents. For example, <code>client.hmset()</code> and <code>client.HMSET()</code> are the same. Storing Lists
+</p>
+<p>If you want to store a list of items, you can use Redis lists. To store a list use the following syntax:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">client.rpush([&#39;frameworks&#39;, &#39;angularjs&#39;, &#39;backbone&#39;], function(err, reply) {
@@ -197,7 +232,12 @@ client.hgetall(&#39;frameworks&#39;, function(err, object) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above snippet creates a list called frameworks and pushes two elements to it. So, the length of the list is now two. As you can see I have passed an <code>args</code> array to <code>rpush</code>. The first item of the array represents the name of the key while the rest represent the elements of the list. You can also use <code>lpush()</code> instead of <code>rpush()</code> to push the elements to the left.</p><p>To retrieve the elements of the list you can use the <code>lrange()</code> function as following:</p>
+</div>
+<p>The above snippet creates a list called frameworks and pushes two elements to it. So, the length of the list is now two. As you can see I have passed an <code>args</code> array to <code>rpush</code>. The first item of the array represents the name of the key while the rest represent the elements of the list. You can also use <code>lpush()</code> instead of <code>rpush()</code> to push the elements to the left.
+</p>
+<p>To retrieve the elements of the list you can use the <code>lrange()</code> function as following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">client.lrange(&#39;frameworks&#39;, 0, -1, function(err, reply) {
@@ -207,7 +247,14 @@ client.hgetall(&#39;frameworks&#39;, function(err, object) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Just note that you get all the elements of the list by passing -1 as the third argument to <code>lrange()</code>. If you want a subset of the list, you should pass the end index here.</p><blockquote id="3a833a18-5a88-472b-9550-fe189e978cc5" class="">Storing Sets</blockquote><p>Sets are similar to lists, but the difference is that they don’t allow duplicates. So, if you don’t want any duplicate elements in your list you can use a set. Here is how we can modify our previous snippet to use a set instead of list.</p>
+</div>
+<p>Just note that you get all the elements of the list by passing -1 as the third argument to <code>lrange()</code>. If you want a subset of the list, you should pass the end index here.
+</p>
+<blockquote id="3a833a18-5a88-472b-9550-fe189e978cc5" class="">Storing Sets
+</blockquote>
+<p>Sets are similar to lists, but the difference is that they don’t allow duplicates. So, if you don’t want any duplicate elements in your list you can use a set. Here is how we can modify our previous snippet to use a set instead of list.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">client.sadd([&#39;tags&#39;, &#39;angularjs&#39;, &#39;backbonejs&#39;, &#39;emberjs&#39;], function(err, reply) {
@@ -217,7 +264,10 @@ client.hgetall(&#39;frameworks&#39;, function(err, object) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As you can see, the <code>sadd()</code> function creates a new set with the specified elements. Here, the length of the set is three. To retrieve the members of the set, use the <code>smembers()</code> function as following:</p>
+</div>
+<p>As you can see, the <code>sadd()</code> function creates a new set with the specified elements. Here, the length of the set is three. To retrieve the members of the set, use the <code>smembers()</code> function as following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">client.smembers(&#39;tags&#39;, function(err, reply) {
@@ -227,7 +277,11 @@ client.hgetall(&#39;frameworks&#39;, function(err, object) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This snippet will retrieve all the members of the set. Just note that the order is not preserved while retrieving the members.</p><p>This was a list of the most important data structures found in every Redis powered app. Apart from strings, lists, sets, and hashes, you can store sorted sets, hyperLogLogs, and more in Redis. If you want a complete list of commands and data structures, visit the official Redis documentation. Remember that almost every Redis command is exposed on the client object offered by the node_redis module.</p>
+</div>
+<p>This snippet will retrieve all the members of the set. Just note that the order is not preserved while retrieving the members.
+</p>
+<p>This was a list of the most important data structures found in every Redis powered app. Apart from strings, lists, sets, and hashes, you can store sorted sets, hyperLogLogs, and more in Redis. If you want a complete list of commands and data structures, visit the official Redis documentation. Remember that almost every Redis command is exposed on the client object offered by the node_redis module.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

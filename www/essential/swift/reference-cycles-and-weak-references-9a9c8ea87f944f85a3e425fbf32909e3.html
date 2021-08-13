@@ -127,7 +127,15 @@
 </div>
 
 
-      <p>A <em>reference cycle</em> (or <em>retain cycle</em>) is so named because it indicates a <a href="https://en.wikipedia.org/wiki/Cycle_(graph_theory)">cycle</a> in the <a href="https://en.wikipedia.org/wiki/Object_graph">object graph</a>:</p><img class="img" src="/img/2b73203ddb2e857b56b621e3551ab98533b499f5.png"><p>Each arrow indicates one object <a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html">retaining</a> another (a strong reference). Unless the cycle is broken, the memory for these objects will <strong>never be freed</strong>.</p><p>A retain cycle is created when two instances of classes reference each other:</p>
+      
+<p>A <em>reference cycle</em> (or <em>retain cycle</em>) is so named because it indicates a <a href="https://en.wikipedia.org/wiki/Cycle_(graph_theory)">cycle</a> in the <a href="https://en.wikipedia.org/wiki/Object_graph">object graph</a>:
+</p>
+<img class="img" src="/img/2b73203ddb2e857b56b621e3551ab98533b499f5.png">
+<p>Each arrow indicates one object <a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html">retaining</a> another (a strong reference). Unless the cycle is broken, the memory for these objects will <strong>never be freed</strong>.
+</p>
+<p>A retain cycle is created when two instances of classes reference each other:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class A { var b: B? = nil }
@@ -142,7 +150,15 @@ b.a = a  // b retains a -- a reference cycle</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Both instances they will live on until the program terminates. This is a retain cycle.</p><h1 id="e3acaa50-c99e-4be7-ac6e-0df9651f856f" class="">Weak References<a class="header-anchor" href="#e3acaa50-c99e-4be7-ac6e-0df9651f856f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>To avoid retain cycles, use the keyword <code>weak</code> or <code>unowned</code> when creating references to break retain cycles.</p>
+</div>
+<p>Both instances they will live on until the program terminates. This is a retain cycle.
+</p>
+  <h1 id="e3acaa50-c99e-4be7-ac6e-0df9651f856f" class="">Weak References
+  <a class="header-anchor" href="#e3acaa50-c99e-4be7-ac6e-0df9651f856f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>To avoid retain cycles, use the keyword <code>weak</code> or <code>unowned</code> when creating references to break retain cycles.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">weak</pre>
@@ -150,7 +166,10 @@ b.a = a  // b retains a -- a reference cycle</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Weak or unowned references will not increase the reference count of an instance. These references don’t contribute to retain cycles. The weak reference <strong>becomes </strong><code><strong>nil</strong></code> when the object it references is deallocated.</p>
+</div>
+<p>Weak or unowned references will not increase the reference count of an instance. These references don’t contribute to retain cycles. The weak reference <strong>becomes </strong><code><strong>nil</strong></code> when the object it references is deallocated.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">a.b = b  // a retains b
@@ -159,7 +178,9 @@ b.a = a  // b holds a weak reference to a -- not a reference cycle</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When working with closures, you can also use <a href="http://stackoverflow.com/documentation/swift/262/closures/947/captures-strong-weak-references-and-retain-cycles#t=201607211834265333132"><code>weak</code></a><a href="http://stackoverflow.com/documentation/swift/262/closures/947/captures-strong-weak-references-and-retain-cycles#t=201607211834265333132"> and </a><a href="http://stackoverflow.com/documentation/swift/262/closures/947/captures-strong-weak-references-and-retain-cycles#t=201607211834265333132"><code>unowned</code></a><a href="http://stackoverflow.com/documentation/swift/262/closures/947/captures-strong-weak-references-and-retain-cycles#t=201607211834265333132"> in capture lists</a>.</p>
+</div>
+<p>When working with closures, you can also use <a href="http://stackoverflow.com/documentation/swift/262/closures/947/captures-strong-weak-references-and-retain-cycles#t=201607211834265333132"><code>weak</code></a><a href="http://stackoverflow.com/documentation/swift/262/closures/947/captures-strong-weak-references-and-retain-cycles#t=201607211834265333132"> and </a><a href="http://stackoverflow.com/documentation/swift/262/closures/947/captures-strong-weak-references-and-retain-cycles#t=201607211834265333132"><code>unowned</code></a><a href="http://stackoverflow.com/documentation/swift/262/closures/947/captures-strong-weak-references-and-retain-cycles#t=201607211834265333132"> in capture lists</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

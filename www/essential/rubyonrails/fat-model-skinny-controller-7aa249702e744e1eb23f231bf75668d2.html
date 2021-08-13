@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>“Fat Model, Skinny Controller” refers to how the M and C parts of MVC ideally work together. Namely, any non-response-related logic should go in the model, ideally in a nice, testable method. Meanwhile, the “skinny” controller is simply a nice interface between the view and model.</p><p>In practice, this can require a range of different types of refactoring, but it all comes down to one idea: by moving any logic that isn’t about the response to the model (instead of the controller), not only have you promoted reuse where possible but you’ve also made it possible to test your code outside of the context of a request.</p><p>Let’s look at a simple example. Say you have code like this:</p>
+      
+<p>“Fat Model, Skinny Controller” refers to how the M and C parts of MVC ideally work together. Namely, any non-response-related logic should go in the model, ideally in a nice, testable method. Meanwhile, the “skinny” controller is simply a nice interface between the view and model.
+</p>
+<p>In practice, this can require a range of different types of refactoring, but it all comes down to one idea: by moving any logic that isn’t about the response to the model (instead of the controller), not only have you promoted reuse where possible but you’ve also made it possible to test your code outside of the context of a request.
+</p>
+<p>Let’s look at a simple example. Say you have code like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def index
@@ -138,7 +145,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can change it to this:</p>
+</div>
+<p>You can change it to this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def index
@@ -149,7 +159,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then, you can move the logic to your post model, where it might look like this:</p>
+</div>
+<p>Then, you can move the logic to your post model, where it might look like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">scope :published, -&gt;(timestamp = Time.now) { where(&#39;published_at &lt;= ?&#39;, timestamp) }

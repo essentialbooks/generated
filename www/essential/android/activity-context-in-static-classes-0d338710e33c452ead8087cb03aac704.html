@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Often you will want to wrap some of Android’s classes in easier to use utility classes. Those utility classes often require a context to access the android OS or your apps’ resources. A common example of this is a wrapper for the SharedPreferences class. In order to access Androids shared preferences one must write:</p><p><code>context.getSharedPreferences(prefsName, mode);</code></p><p>And so one may be tempted to create the following class:</p>
+      
+<p>Often you will want to wrap some of Android’s classes in easier to use utility classes. Those utility classes often require a context to access the android OS or your apps’ resources. A common example of this is a wrapper for the SharedPreferences class. In order to access Androids shared preferences one must write:
+</p>
+<p><code>context.getSharedPreferences(prefsName, mode);</code>
+</p>
+<p>And so one may be tempted to create the following class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class LeakySharedPrefsWrapper
@@ -148,7 +155,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>now, if you call <code>init()</code> with your activity context, the LeakySharedPrefsWrapper will retain a reference to your activity, preventing it from being garbage collected.</p><p>How to avoid:</p><p>When calling static helper functions, you can send in the application context using <code>context.getApplicationContext();</code></p><p>When creating static helper functions, you can extract the application context from the context you are given (Calling getApplicationContext() on the application context returns the application context). So the fix to our wrapper is simple:</p>
+</div>
+<p>now, if you call <code>init()</code> with your activity context, the LeakySharedPrefsWrapper will retain a reference to your activity, preventing it from being garbage collected.
+</p>
+<p>How to avoid:
+</p>
+<p>When calling static helper functions, you can send in the application context using <code>context.getApplicationContext();</code>
+</p>
+<p>When creating static helper functions, you can extract the application context from the context you are given (Calling getApplicationContext() on the application context returns the application context). So the fix to our wrapper is simple:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public static void init(Context context)
@@ -159,7 +175,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If the application context is not appropriate for your use case, you can include a Context parameter in each utility function, you should avoid keeping references to these context parameters. In this case the solution would look like so:</p>
+</div>
+<p>If the application context is not appropriate for your use case, you can include a Context parameter in each utility function, you should avoid keeping references to these context parameters. In this case the solution would look like so:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public int getInt(Context context,String name,int defValue)

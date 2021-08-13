@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>List partitioning is similar to range partitioning in many ways. As in partitioning by RANGE, each partition must be explicitly defined. The chief difference between the two types of partitioning is that, in list partitioning, each partition is defined and selected based on the membership of a column value in one of a set of value lists, rather than in one of a set of contiguous ranges of values. This is done by using <code>PARTITION BY LIST(expr)</code> where <code>expr</code> is a column value or an expression based on a column value and returning an integer value, and then defining each partition by means of a <code>VALUES IN (value_list)</code>, where <code>value_list</code> is a comma-separated list of integers.</p><p>For the examples that follow, we assume that the basic definition of the table to be partitioned is provided by the <code>CREATE TABLE</code> statement shown here:</p>
+      
+<p>List partitioning is similar to range partitioning in many ways. As in partitioning by RANGE, each partition must be explicitly defined. The chief difference between the two types of partitioning is that, in list partitioning, each partition is defined and selected based on the membership of a column value in one of a set of value lists, rather than in one of a set of contiguous ranges of values. This is done by using <code>PARTITION BY LIST(expr)</code> where <code>expr</code> is a column value or an expression based on a column value and returning an integer value, and then defining each partition by means of a <code>VALUES IN (value_list)</code>, where <code>value_list</code> is a comma-separated list of integers.
+</p>
+<p>For the examples that follow, we assume that the basic definition of the table to be partitioned is provided by the <code>CREATE TABLE</code> statement shown here:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">CREATE TABLE employees (
@@ -143,12 +148,19 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Suppose that there are 20 video stores distributed among 4 franchises as shown in the following table.</p><p>Region | Store ID Numbers |
+</div>
+<p>Suppose that there are 20 video stores distributed among 4 franchises as shown in the following table.
+</p>
+<p>Region | Store ID Numbers |
 —— | –––––––– |
 North | 3, 5, 6, 9, 17 |
 East | 1, 2, 10, 11, 19, 20 |
 West | 4, 12, 13, 14, 18 |
-Central | 7, 8, 15, 16 |</p><p>To partition this table in such a way that rows for stores belonging to the same region are stored in the same partition</p>
+Central | 7, 8, 15, 16 |
+</p>
+<p>To partition this table in such a way that rows for stores belonging to the same region are stored in the same partition
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ALTER TABLE employees PARTITION BY LIST(store_id) (
@@ -161,7 +173,9 @@ Central | 7, 8, 15, 16 |</p><p>To partition this table in such a way that rows f
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>based on <a href="http://dev.mysql.com/doc/refman/5.7/en/partitioning-list.html">MySQL official document</a>.</p>
+</div>
+<p>based on <a href="http://dev.mysql.com/doc/refman/5.7/en/partitioning-list.html">MySQL official document</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

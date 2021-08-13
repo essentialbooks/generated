@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Suppose that we have a <em>text</em> and a <em>pattern</em>. We need to determine if the pattern exists in the text or not. For example:</p>
+      
+<p>Suppose that we have a <em>text</em> and a <em>pattern</em>. We need to determine if the pattern exists in the text or not. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+-------+---+---+---+---+---+---+---+---+
@@ -145,7 +148,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This <em>pattern</em> does exist in the <em>text</em>. So our substring search should return <strong>3</strong>, the index of the position from which this <em>pattern</em> starts. So how does our brute force substring search procedure work?</p><p>What we usually do is: we start from the <strong>0th</strong> index of the <em>text</em> and the <strong>0th</strong> index of our *pattern and we compare <strong>Text[0]</strong> with <strong>Pattern[0]</strong>. Since they are not a match, we go to the next index of our <em>text</em> and we compare <strong>Text[1]</strong> with <strong>Pattern[0]</strong>. Since this is a match, we increment the index of our <em>pattern</em> and the index of the <em>Text</em> also. We compare <strong>Text[2]</strong> with <strong>Pattern[1]</strong>. They are also a match. Following the same procedure stated before, we now compare <strong>Text[3]</strong> with <strong>Pattern[2]</strong>. As they do not match, we start from the next position where we started finding the match. That is index <strong>2</strong> of the <em>Text</em>. We compare <strong>Text[2]</strong> with <strong>Pattern[0]</strong>. They don’t match. Then incrementing index of the <em>Text</em>, we compare <strong>Text[3]</strong> with <strong>Pattern[0]</strong>. They match. Again <strong>Text[4]</strong> and <strong>Pattern[1]</strong> match, <strong>Text[5]</strong> and <strong>Pattern[2]</strong> match and <strong>Text[6]</strong> and <strong>Pattern[3]</strong> match. Since we’ve reached the end of our <em>Pattern</em>, we now return the index from which our match started, that is <strong>3</strong>. If our <em>pattern</em> was: <code>bcgll</code>, that means if the <em>pattern</em> didn’t exist in our <em>text</em>, our search should return exception or <strong>-1</strong> or any other predefined value. We can clearly see that, in the worst case, this algorithm would take <code>O(mn)</code> time where <strong>m</strong> is the length of the <em>Text</em> and <strong>n</strong> is the length of the <em>Pattern</em>. How do we reduce this time complexity? This is where KMP Substring Search Algorithm comes into the picture.</p><p>The <a href="https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm">Knuth-Morris-Pratt String Searching Algorithm</a> or KMP Algorithm searches for occurrences of a “Pattern” within a main “Text” by employing the observation that when a mismatch occurs, the word itself embodies sufficient information to determine where the next match could begin, thus bypassing re-examination of previously matched characters. The algorithm was conceived in 1970 by <a href="https://en.wikipedia.org/wiki/Donald_Knuth">Donuld Knuth</a> and <a href="https://en.wikipedia.org/wiki/Vaughan_Pratt">Vaughan Pratt</a> and independently by <a href="https://en.wikipedia.org/wiki/James_H._Morris">James H. Morris</a>. The trio published it jointly in 1977.</p><p>Let’s extend our example <em>Text</em> and <em>Pattern</em> for better understanding:</p>
+</div>
+<p>This <em>pattern</em> does exist in the <em>text</em>. So our substring search should return <strong>3</strong>, the index of the position from which this <em>pattern</em> starts. So how does our brute force substring search procedure work?
+</p>
+<p>What we usually do is: we start from the <strong>0th</strong> index of the <em>text</em> and the <strong>0th</strong> index of our *pattern and we compare <strong>Text[0]</strong> with <strong>Pattern[0]</strong>. Since they are not a match, we go to the next index of our <em>text</em> and we compare <strong>Text[1]</strong> with <strong>Pattern[0]</strong>. Since this is a match, we increment the index of our <em>pattern</em> and the index of the <em>Text</em> also. We compare <strong>Text[2]</strong> with <strong>Pattern[1]</strong>. They are also a match. Following the same procedure stated before, we now compare <strong>Text[3]</strong> with <strong>Pattern[2]</strong>. As they do not match, we start from the next position where we started finding the match. That is index <strong>2</strong> of the <em>Text</em>. We compare <strong>Text[2]</strong> with <strong>Pattern[0]</strong>. They don’t match. Then incrementing index of the <em>Text</em>, we compare <strong>Text[3]</strong> with <strong>Pattern[0]</strong>. They match. Again <strong>Text[4]</strong> and <strong>Pattern[1]</strong> match, <strong>Text[5]</strong> and <strong>Pattern[2]</strong> match and <strong>Text[6]</strong> and <strong>Pattern[3]</strong> match. Since we’ve reached the end of our <em>Pattern</em>, we now return the index from which our match started, that is <strong>3</strong>. If our <em>pattern</em> was: <code>bcgll</code>, that means if the <em>pattern</em> didn’t exist in our <em>text</em>, our search should return exception or <strong>-1</strong> or any other predefined value. We can clearly see that, in the worst case, this algorithm would take <code>O(mn)</code> time where <strong>m</strong> is the length of the <em>Text</em> and <strong>n</strong> is the length of the <em>Pattern</em>. How do we reduce this time complexity? This is where KMP Substring Search Algorithm comes into the picture.
+</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm">Knuth-Morris-Pratt String Searching Algorithm</a> or KMP Algorithm searches for occurrences of a “Pattern” within a main “Text” by employing the observation that when a mismatch occurs, the word itself embodies sufficient information to determine where the next match could begin, thus bypassing re-examination of previously matched characters. The algorithm was conceived in 1970 by <a href="https://en.wikipedia.org/wiki/Donald_Knuth">Donuld Knuth</a> and <a href="https://en.wikipedia.org/wiki/Vaughan_Pratt">Vaughan Pratt</a> and independently by <a href="https://en.wikipedia.org/wiki/James_H._Morris">James H. Morris</a>. The trio published it jointly in 1977.
+</p>
+<p>Let’s extend our example <em>Text</em> and <em>Pattern</em> for better understanding:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+-------+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
@@ -163,7 +175,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>At first, our <em>Text</em> and <em>Pattern</em> matches till index <strong>2</strong>. <strong>Text[3]</strong> and <strong>Pattern[3]</strong> doesn’t match. So our aim is to not go backwards in this <em>Text</em>, that is, in case of a mismatch, we don’t want our matching to begin again from the position that we started matching with. To achieve that, we’ll look for a <strong>suffix</strong> in our <em>Pattern</em> right before our mismatch occurred (substring <strong>abc</strong>), which is also a <strong>prefix</strong> of the substring of our <em>Pattern</em>. For our example, since all the characters are unique, there is no suffix, that is the prefix of our matched substring. So what that means is, our next comparison will start from index <strong>0</strong>. Hold on for a bit, you’ll understand why we did this. Next, we compare <strong>Text[3]</strong> with <strong>Pattern[0]</strong> and it doesn’t match. After that, for <em>Text</em> from index <strong>4</strong> to index <strong>9</strong> and for <em>Pattern</em> from index <strong>0</strong> to index <strong>5</strong>, we find a match. We find a mismatch in <strong>Text[10]</strong> and <strong>Pattern[6]</strong>. So we take the substring from <em>Pattern</em> right before the point where mismatch occurs (substring <strong>abcdabc</strong>), we check for a suffix, that is also a prefix of this substring. We can see here <strong>ab</strong> is both the suffix and prefix of this substring. What that means is, since we’ve matched until <strong>Text[10]</strong>, the characters right before the mismatch is <strong>ab</strong>. What we can infer from it is that since <strong>ab</strong> is also a prefix of the substring we took, we don’t have to check <strong>ab</strong> again and the next check can start from <strong>Text[10]</strong> and <strong>Pattern[2]</strong>. We didn’t have to look back to the whole <em>Text</em>, we can start directly from where our mismatch occurred. Now we check <strong>Text[10]</strong> and <strong>Pattern[2]</strong>, since it’s a mismatch, and the substring before mismatch (<strong>abc</strong>) doesn’t contain a suffix which is also a prefix, we check <strong>Text[10]</strong> and <strong>Pattern[0]</strong>, they don’t match. After that for <em>Text</em> from index <strong>11</strong> to index <strong>17</strong> and for <em>Pattern</em> from index <strong>0</strong> to index <strong>6</strong>. We find a mismatch in <strong>Text[18]</strong> and <strong>Pattern[7]</strong>. So again we check the substring before mismatch (substring <strong>abcdabc</strong>) and find <strong>abc</strong> is both the suffix and the prefix. So since we matched till <strong>Pattern[7]</strong>, <strong>abc</strong> must be before <strong>Text[18]</strong>. That means, we don’t need to compare until <strong>Text[17]</strong> and our comparison will start from <strong>Text[18]</strong> and <strong>Pattern[3]</strong>. Thus we will find a match and we’ll return <strong>15</strong> which is our starting index of the match. This is how our KMP Substring Search works using suffix and prefix information.</p><p>Now, how do we efficiently compute if suffix is same as prefix and at what point to start the check if there is a mismatch of character between <em>Text</em> and <em>Pattern</em>. Let’s take a look at an example:</p>
+</div>
+<p>At first, our <em>Text</em> and <em>Pattern</em> matches till index <strong>2</strong>. <strong>Text[3]</strong> and <strong>Pattern[3]</strong> doesn’t match. So our aim is to not go backwards in this <em>Text</em>, that is, in case of a mismatch, we don’t want our matching to begin again from the position that we started matching with. To achieve that, we’ll look for a <strong>suffix</strong> in our <em>Pattern</em> right before our mismatch occurred (substring <strong>abc</strong>), which is also a <strong>prefix</strong> of the substring of our <em>Pattern</em>. For our example, since all the characters are unique, there is no suffix, that is the prefix of our matched substring. So what that means is, our next comparison will start from index <strong>0</strong>. Hold on for a bit, you’ll understand why we did this. Next, we compare <strong>Text[3]</strong> with <strong>Pattern[0]</strong> and it doesn’t match. After that, for <em>Text</em> from index <strong>4</strong> to index <strong>9</strong> and for <em>Pattern</em> from index <strong>0</strong> to index <strong>5</strong>, we find a match. We find a mismatch in <strong>Text[10]</strong> and <strong>Pattern[6]</strong>. So we take the substring from <em>Pattern</em> right before the point where mismatch occurs (substring <strong>abcdabc</strong>), we check for a suffix, that is also a prefix of this substring. We can see here <strong>ab</strong> is both the suffix and prefix of this substring. What that means is, since we’ve matched until <strong>Text[10]</strong>, the characters right before the mismatch is <strong>ab</strong>. What we can infer from it is that since <strong>ab</strong> is also a prefix of the substring we took, we don’t have to check <strong>ab</strong> again and the next check can start from <strong>Text[10]</strong> and <strong>Pattern[2]</strong>. We didn’t have to look back to the whole <em>Text</em>, we can start directly from where our mismatch occurred. Now we check <strong>Text[10]</strong> and <strong>Pattern[2]</strong>, since it’s a mismatch, and the substring before mismatch (<strong>abc</strong>) doesn’t contain a suffix which is also a prefix, we check <strong>Text[10]</strong> and <strong>Pattern[0]</strong>, they don’t match. After that for <em>Text</em> from index <strong>11</strong> to index <strong>17</strong> and for <em>Pattern</em> from index <strong>0</strong> to index <strong>6</strong>. We find a mismatch in <strong>Text[18]</strong> and <strong>Pattern[7]</strong>. So again we check the substring before mismatch (substring <strong>abcdabc</strong>) and find <strong>abc</strong> is both the suffix and the prefix. So since we matched till <strong>Pattern[7]</strong>, <strong>abc</strong> must be before <strong>Text[18]</strong>. That means, we don’t need to compare until <strong>Text[17]</strong> and our comparison will start from <strong>Text[18]</strong> and <strong>Pattern[3]</strong>. Thus we will find a match and we’ll return <strong>15</strong> which is our starting index of the match. This is how our KMP Substring Search works using suffix and prefix information.
+</p>
+<p>Now, how do we efficiently compute if suffix is same as prefix and at what point to start the check if there is a mismatch of character between <em>Text</em> and <em>Pattern</em>. Let’s take a look at an example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+---------+---+---+---+---+---+---+---+---+
@@ -175,7 +192,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We’ll generate an array containing the required information. Let’s call the array <strong>S</strong>. The size of the array will be same as the length of the pattern. Since the first letter of the <em>Pattern</em> can’t be the suffix of any prefix, we’ll put <strong>S[0]</strong> = <strong>0</strong>. We take <strong>i</strong> = <strong>1</strong> and <strong>j</strong> = <strong>0</strong> at first. At each step we compare <strong>Pattern[i]</strong> and <strong>Pattern[j]</strong> and increment <strong>i</strong>. If there is a match we put <strong>S[i]</strong> = <strong>j</strong> + <strong>1</strong> and increment <strong>j</strong>, if there is a mismatch, we check the previous value position of <strong>j</strong> (if available) and set <strong>j</strong> = <strong>S[j-1]</strong> (if <strong>j</strong> is not equal to <strong>0</strong>), we keep doing this until <strong>S[j]</strong> doesn’t match with <strong>S[i]</strong> or <strong>j</strong> doesn’t become <strong>0</strong>. For the later one, we put <strong>S[i]</strong> = <strong>0</strong>. For our example:</p>
+</div>
+<p>We’ll generate an array containing the required information. Let’s call the array <strong>S</strong>. The size of the array will be same as the length of the pattern. Since the first letter of the <em>Pattern</em> can’t be the suffix of any prefix, we’ll put <strong>S[0]</strong> = <strong>0</strong>. We take <strong>i</strong> = <strong>1</strong> and <strong>j</strong> = <strong>0</strong> at first. At each step we compare <strong>Pattern[i]</strong> and <strong>Pattern[j]</strong> and increment <strong>i</strong>. If there is a match we put <strong>S[i]</strong> = <strong>j</strong> + <strong>1</strong> and increment <strong>j</strong>, if there is a mismatch, we check the previous value position of <strong>j</strong> (if available) and set <strong>j</strong> = <strong>S[j-1]</strong> (if <strong>j</strong> is not equal to <strong>0</strong>), we keep doing this until <strong>S[j]</strong> doesn’t match with <strong>S[i]</strong> or <strong>j</strong> doesn’t become <strong>0</strong>. For the later one, we put <strong>S[i]</strong> = <strong>0</strong>. For our example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">j   i
@@ -188,7 +208,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Pattern[j]</strong> and <strong>Pattern[i]</strong> don’t match, so we increment <strong>i</strong> and since <strong>j</strong> is <strong>0</strong>, we don’t check the previous value and put <strong>Pattern[i]</strong> = <strong>0</strong>. If we keep incrementing <strong>i</strong>, for <strong>i</strong> = <strong>4</strong>, we’ll get a match, so we put <strong>S[i]</strong> = <strong>S[4]</strong> = <strong>j</strong> + <strong>1</strong> = <strong>0</strong> + <strong>1</strong> = <strong>1</strong> and increment <strong>j</strong> and <strong>i</strong>. Our array will look like:</p>
+</div>
+<p><strong>Pattern[j]</strong> and <strong>Pattern[i]</strong> don’t match, so we increment <strong>i</strong> and since <strong>j</strong> is <strong>0</strong>, we don’t check the previous value and put <strong>Pattern[i]</strong> = <strong>0</strong>. If we keep incrementing <strong>i</strong>, for <strong>i</strong> = <strong>4</strong>, we’ll get a match, so we put <strong>S[i]</strong> = <strong>S[4]</strong> = <strong>j</strong> + <strong>1</strong> = <strong>0</strong> + <strong>1</strong> = <strong>1</strong> and increment <strong>j</strong> and <strong>i</strong>. Our array will look like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">j               i
@@ -203,7 +226,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since <strong>Pattern[1]</strong> and <strong>Pattern[5]</strong> is a match, we put <strong>S[i]</strong> = <strong>S[5]</strong> = <strong>j</strong> + <strong>1</strong> = <strong>1</strong> + <strong>1</strong> = <strong>2</strong>. If we continue, we’ll find a mismatch for <strong>j</strong> = <strong>3</strong> and <strong>i</strong> = <strong>7</strong>. Since <strong>j</strong> is not equal to <strong>0</strong>, we put <strong>j</strong> = <strong>S[j-1]</strong>. And we’ll compare the characters at <strong>i</strong> and <strong>j</strong> are same or not, since they are same, we’ll put <strong>S[i]</strong> = <strong>j</strong> + 1. Our completed array will look like:</p>
+</div>
+<p>Since <strong>Pattern[1]</strong> and <strong>Pattern[5]</strong> is a match, we put <strong>S[i]</strong> = <strong>S[5]</strong> = <strong>j</strong> + <strong>1</strong> = <strong>1</strong> + <strong>1</strong> = <strong>2</strong>. If we continue, we’ll find a mismatch for <strong>j</strong> = <strong>3</strong> and <strong>i</strong> = <strong>7</strong>. Since <strong>j</strong> is not equal to <strong>0</strong>, we put <strong>j</strong> = <strong>S[j-1]</strong>. And we’ll compare the characters at <strong>i</strong> and <strong>j</strong> are same or not, since they are same, we’ll put <strong>S[i]</strong> = <strong>j</strong> + 1. Our completed array will look like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+---------+---+---+---+---+---+---+---+---+
@@ -213,7 +239,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is our required array. Here a nonzero-value of <strong>S[i]</strong> means there is a <strong>S[i]</strong> length suffix same as the prefix in that substring (substring from <strong>0</strong> to <strong>i</strong>) and the next comparison will start from <strong>S[i]</strong> + <strong>1</strong> position of the <em>Pattern</em>. Our algorithm to generate the array would look like:</p>
+</div>
+<p>This is our required array. Here a nonzero-value of <strong>S[i]</strong> means there is a <strong>S[i]</strong> length suffix same as the prefix in that substring (substring from <strong>0</strong> to <strong>i</strong>) and the next comparison will start from <strong>S[i]</strong> + <strong>1</strong> position of the <em>Pattern</em>. Our algorithm to generate the array would look like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure GenerateSuffixArray(Pattern):
@@ -238,7 +267,12 @@ end while</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The time complexity to build this array is <code>O(n)</code> and the space complexity is also <code>O(n)</code>. To make sure if you have completely understood the algorithm, try to generate an array for pattern <code>aabaabaa</code> and check if the result matches with <a href="https://i.stack.imgur.com/4aqZk.jpg">this</a> one.</p><p>Now let’s do a substring search using the following example:</p>
+</div>
+<p>The time complexity to build this array is <code>O(n)</code> and the space complexity is also <code>O(n)</code>. To make sure if you have completely understood the algorithm, try to generate an array for pattern <code>aabaabaa</code> and check if the result matches with <a href="https://i.stack.imgur.com/4aqZk.jpg">this</a> one.
+</p>
+<p>Now let’s do a substring search using the following example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+---------+---+---+---+---+---+---+---+---+---+---+---+---+
@@ -258,7 +292,10 @@ end while</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We have a <em>Text</em>, a <em>Pattern</em> and a pre-calculated array <em>S</em> using our logic defined before. We compare <strong>Text[0]</strong> and <strong>Pattern[0]</strong> and they are same. <strong>Text[1]</strong> and <strong>Pattern[1]</strong> are same. <strong>Text[2]</strong> and <strong>Pattern[2]</strong> are not same. We check the value at the position right before the mismatch. Since <strong>S[1]</strong> is <strong>0</strong>, there is no suffix that is same as the prefix in our substring and our comparison starts at position <strong>S[1]</strong>, which is <strong>0</strong>. So <strong>Pattern[0]</strong> is not same as <strong>Text[2]</strong>, so we move on. <strong>Text[3]</strong> is same as <strong>Pattern[0]</strong> and there is a match till <strong>Text[8]</strong> and <strong>Pattern[5]</strong>. We go one step back in the <strong>S</strong> array and find <strong>2</strong>. So this means there is a prefix of length <strong>2</strong> which is also the suffix of this substring (<strong>abcab)</strong> which is <strong>ab</strong>. That also means that there is an <strong>ab</strong> before <strong>Text[8]</strong>. So we can safely ignore <strong>Pattern[0]</strong> and <strong>Pattern[1]</strong> and start our next comparison from <strong>Pattern[2]</strong> and <strong>Text[8]</strong>. If we continue, we’ll find the <em>Pattern</em> in the <em>Text</em>. Our procedure will look like:</p>
+</div>
+<p>We have a <em>Text</em>, a <em>Pattern</em> and a pre-calculated array <em>S</em> using our logic defined before. We compare <strong>Text[0]</strong> and <strong>Pattern[0]</strong> and they are same. <strong>Text[1]</strong> and <strong>Pattern[1]</strong> are same. <strong>Text[2]</strong> and <strong>Pattern[2]</strong> are not same. We check the value at the position right before the mismatch. Since <strong>S[1]</strong> is <strong>0</strong>, there is no suffix that is same as the prefix in our substring and our comparison starts at position <strong>S[1]</strong>, which is <strong>0</strong>. So <strong>Pattern[0]</strong> is not same as <strong>Text[2]</strong>, so we move on. <strong>Text[3]</strong> is same as <strong>Pattern[0]</strong> and there is a match till <strong>Text[8]</strong> and <strong>Pattern[5]</strong>. We go one step back in the <strong>S</strong> array and find <strong>2</strong>. So this means there is a prefix of length <strong>2</strong> which is also the suffix of this substring (<strong>abcab)</strong> which is <strong>ab</strong>. That also means that there is an <strong>ab</strong> before <strong>Text[8]</strong>. So we can safely ignore <strong>Pattern[0]</strong> and <strong>Pattern[1]</strong> and start our next comparison from <strong>Pattern[2]</strong> and <strong>Text[8]</strong>. If we continue, we’ll find the <em>Pattern</em> in the <em>Text</em>. Our procedure will look like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure KMP(Text, Pattern)
@@ -286,7 +323,11 @@ Return -1</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The time complexity of this algorithm apart from the Suffix Array Calculation is <code>O(m)</code>. Since <em>GenerateSuffixArray</em> takes <code>O(n)</code>, the total time complexity of KMP Algorithm is: <code>O(m+n)</code>.</p><p>PS: If you want to find multiple occurrences of <em>Pattern</em> in the <em>Text</em>, instead of returning the value, print it/store it and set <code>j := S[j-1]</code>. Also keep a <code>flag</code> to track whether you have found any occurrence or not and handle it accordingly.</p>
+</div>
+<p>The time complexity of this algorithm apart from the Suffix Array Calculation is <code>O(m)</code>. Since <em>GenerateSuffixArray</em> takes <code>O(n)</code>, the total time complexity of KMP Algorithm is: <code>O(m+n)</code>.
+</p>
+<p>PS: If you want to find multiple occurrences of <em>Pattern</em> in the <em>Text</em>, instead of returning the value, print it/store it and set <code>j := S[j-1]</code>. Also keep a <code>flag</code> to track whether you have found any occurrence or not and handle it accordingly.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

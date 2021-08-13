@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>Properties are members of an object. Each named property is a pair of (name, descriptor). The name is a string that allows access (using the dot notation <code>object.propertyName</code> or the square brackets notation <code>object[&#x27;propertyName&#x27;]</code>). The descriptor is a record of fields defining the bevahiour of the property when it is accessed (what happens to the property and what is the value returned from accessing it). By and large, a property associates a name to a behaviour (we can think of the behaviour as a black box).</p><p>There are two types of named properties:</p><ol id="12ebb17d-5842-4a3e-815f-72ada16a24fd" class="numbered-list" start="1"><li>data property: the property’s name is associated with a value.</li><li>accessor property: the property’s name is associated with one or two accessor functions.</li></ol><p>Demonstration:</p>
+      
+<p>Properties are members of an object. Each named property is a pair of (name, descriptor). The name is a string that allows access (using the dot notation <code>object.propertyName</code> or the square brackets notation <code>object[&#x27;propertyName&#x27;]</code>). The descriptor is a record of fields defining the bevahiour of the property when it is accessed (what happens to the property and what is the value returned from accessing it). By and large, a property associates a name to a behaviour (we can think of the behaviour as a black box).
+</p>
+<p>There are two types of named properties:
+</p>
+  <ol id="12ebb17d-5842-4a3e-815f-72ada16a24fd" class="numbered-list" start="1">
+    <li>data property: the property’s name is associated with a value.
+    </li>
+    <li>accessor property: the property’s name is associated with one or two accessor functions.
+    </li>
+  </ol>
+<p>Demonstration:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="nx">obj</span><span class="p">.</span><span class="nx">propertyName1</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="c1">//translates behind the scenes into
@@ -141,7 +154,20 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The property’s type is determined by its descriptor’s fields, and a property cannot be of both types.</p><p><strong>Data descriptors</strong> -</p><ul id="c04aa047-072e-4d40-bae1-e22c10b7ed54" class="bulleted-list"><li>Required fields: <code>value</code> or <code>writable</code> or both</li><li>Optional fields:<code>configurable</code>,<code>enumerable</code></li></ul><p>Sample:</p>
+</div>
+<p>The property’s type is determined by its descriptor’s fields, and a property cannot be of both types.
+</p>
+<p><strong>Data descriptors</strong> -
+</p>
+  <ul id="c04aa047-072e-4d40-bae1-e22c10b7ed54" class="bulleted-list">
+    <li>Required fields: <code>value</code> or <code>writable</code> or both
+    </li>
+    <li>Optional fields:<code>configurable</code>,<code>enumerable</code>
+    </li>
+  </ul>
+<p>Sample:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="p">{</span>
@@ -153,7 +179,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Accessor descriptors</strong> -</p><ul id="d3ad12fd-4bdd-4f6e-a81d-2d35fcb191e5" class="bulleted-list"><li>Required fields: <code>get</code> or <code>set</code> or both</li><li>Optional fields: <code>configurable</code>, <code>enumerable</code></li></ul><p>Sample:</p>
+</div>
+<p><strong>Accessor descriptors</strong> -
+</p>
+  <ul id="d3ad12fd-4bdd-4f6e-a81d-2d35fcb191e5" class="bulleted-list">
+    <li>Required fields: <code>get</code> or <code>set</code> or both
+    </li>
+    <li>Optional fields: <code>configurable</code>, <code>enumerable</code>
+    </li>
+  </ul>
+<p>Sample:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="p">{</span>
@@ -167,7 +204,43 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><h3 id="e12379ad-00c1-4a85-80ca-935058473784" class="">meaning of fields and their defaults<a class="header-anchor" href="#e12379ad-00c1-4a85-80ca-935058473784" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p><code>configurable</code>,<code>enumerable</code> and <code>writable</code>:</p><ul id="51a72bd0-c24c-419a-b1a0-6cdc612b7998" class="bulleted-list"><li>These keys all default to <code>false</code>.</li><li><code>configurable</code> is <code>true</code> if and only if the type of this property descriptor may be changed and if the property may be deleted from the corresponding object.</li><li><code>enumerable</code> is <code>true</code> if and only if this property shows up during enumeration of the properties on the corresponding object.</li><li><code>writable</code> is <code>true</code> if and only if the value associated with the property may be changed with an assignment operator.</li></ul><p><code>get</code> and <code>set</code>:</p><ul id="a906facf-61fb-4d35-a59b-a872167b2140" class="bulleted-list"><li>These keys default to <code>undefined</code>.</li><li><code>get</code> is a function which serves as a getter for the property, or <code>undefined</code> if there is no getter. The function return will be used as the value of the property.</li><li><code>set</code> is a function which serves as a setter for the property, or <code>undefined</code> if there is no setter. The function will receive as only argument the new value being assigned to the property.</li></ul><p><code>value</code>:</p><ul id="da01e34e-0c9d-4509-aed9-53ee77ce6c2a" class="bulleted-list"><li>This key defaults to <code>undefined</code>.</li><li>The value associated with the property. Can be any valid JavaScript value (number, object, function, etc).</li></ul><p>Example:</p>
+</div>
+  <h3 id="e12379ad-00c1-4a85-80ca-935058473784" class="">meaning of fields and their defaults
+  <a class="header-anchor" href="#e12379ad-00c1-4a85-80ca-935058473784" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p><code>configurable</code>,<code>enumerable</code> and <code>writable</code>:
+</p>
+  <ul id="51a72bd0-c24c-419a-b1a0-6cdc612b7998" class="bulleted-list">
+    <li>These keys all default to <code>false</code>.
+    </li>
+    <li><code>configurable</code> is <code>true</code> if and only if the type of this property descriptor may be changed and if the property may be deleted from the corresponding object.
+    </li>
+    <li><code>enumerable</code> is <code>true</code> if and only if this property shows up during enumeration of the properties on the corresponding object.
+    </li>
+    <li><code>writable</code> is <code>true</code> if and only if the value associated with the property may be changed with an assignment operator.
+    </li>
+  </ul>
+<p><code>get</code> and <code>set</code>:
+</p>
+  <ul id="a906facf-61fb-4d35-a59b-a872167b2140" class="bulleted-list">
+    <li>These keys default to <code>undefined</code>.
+    </li>
+    <li><code>get</code> is a function which serves as a getter for the property, or <code>undefined</code> if there is no getter. The function return will be used as the value of the property.
+    </li>
+    <li><code>set</code> is a function which serves as a setter for the property, or <code>undefined</code> if there is no setter. The function will receive as only argument the new value being assigned to the property.
+    </li>
+  </ul>
+<p><code>value</code>:
+</p>
+  <ul id="da01e34e-0c9d-4509-aed9-53ee77ce6c2a" class="bulleted-list">
+    <li>This key defaults to <code>undefined</code>.
+    </li>
+    <li>The value associated with the property. Can be any valid JavaScript value (number, object, function, etc).
+    </li>
+  </ul>
+<p>Example:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">propertyName1</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span> <span class="c1">//the pair is actually (&#39;propertyName1&#39;, {value:1,

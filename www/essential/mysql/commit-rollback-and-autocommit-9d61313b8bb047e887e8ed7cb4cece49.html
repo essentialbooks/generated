@@ -127,7 +127,14 @@
 </div>
 
 
-      <p><strong>AUTOCOMMIT</strong></p><p>MySQL automatically commits statements that are not part of a transaction. The results of any <code>UPDATE</code>,<code>DELETE</code> or <code>INSERT</code> statement not preceded with a <code>BEGIN</code> or <code>START TRANSACTION</code> will immediately be visible to all connections.</p><p>The <code>AUTOCOMMIT</code> variable is set <em>true</em> by default. This can be changed in the following way,</p>
+      
+<p><strong>AUTOCOMMIT</strong>
+</p>
+<p>MySQL automatically commits statements that are not part of a transaction. The results of any <code>UPDATE</code>,<code>DELETE</code> or <code>INSERT</code> statement not preceded with a <code>BEGIN</code> or <code>START TRANSACTION</code> will immediately be visible to all connections.
+</p>
+<p>The <code>AUTOCOMMIT</code> variable is set <em>true</em> by default. This can be changed in the following way,
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">---&gt;To make autcommit false
@@ -143,7 +150,10 @@ SET AUTOCOMMIT=1;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To view <code>AUTOCOMMIT</code> status</p>
+</div>
+<p>To view <code>AUTOCOMMIT</code> status
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT @@autocommit;</pre>
@@ -151,7 +161,18 @@ SET AUTOCOMMIT=1;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>COMMIT</strong></p><p>If <code>AUTOCOMMIT</code> set to false and the transaction not committed, the changes will be visible only for the current connection.</p><p>After <code>COMMIT</code> statement commits the changes to the table, the result will be visible for all connections.</p><p>We consider two connections to explain this</p><p><em>Connection 1</em></p>
+</div>
+<p><strong>COMMIT</strong>
+</p>
+<p>If <code>AUTOCOMMIT</code> set to false and the transaction not committed, the changes will be visible only for the current connection.
+</p>
+<p>After <code>COMMIT</code> statement commits the changes to the table, the result will be visible for all connections.
+</p>
+<p>We consider two connections to explain this
+</p>
+<p><em>Connection 1</em>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">---&gt;Before making autocommit false one row added in a new table
@@ -173,7 +194,10 @@ mysql&gt; SELECT * FROM testTable;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>Connection 2</em></p>
+</div>
+<p><em>Connection 2</em>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mysql&gt; SELECT * FROM testTable;
@@ -187,7 +211,10 @@ mysql&gt; SELECT * FROM testTable;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>Connection 1</em></p>
+</div>
+<p><em>Connection 1</em>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mysql&gt; COMMIT;
@@ -204,7 +231,10 @@ mysql&gt; SELECT * FROM testTable;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>Connection 2</em></p>
+</div>
+<p><em>Connection 2</em>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mysql&gt; SELECT * FROM testTable;
@@ -220,7 +250,12 @@ mysql&gt; SELECT * FROM testTable;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>ROLLBACK</strong></p><p>If anything went wrong in your query execution, <code>ROLLBACK</code> in used to revert the changes. See the explanation below</p>
+</div>
+<p><strong>ROLLBACK</strong>
+</p>
+<p>If anything went wrong in your query execution, <code>ROLLBACK</code> in used to revert the changes. See the explanation below
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">---&gt;Before making autocommit false one row added in a new table
@@ -242,7 +277,10 @@ mysql&gt; SELECT * FROM testTable;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we are executing <code>ROLLBACK</code></p>
+</div>
+<p>Now we are executing <code>ROLLBACK</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">---&gt;Rollback executed now
@@ -259,7 +297,10 @@ mysql&gt; SELECT * FROM testTable;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Once <code>COMMIT</code> is executed, then <code>ROLLBACK</code> will not cause anything</p>
+</div>
+<p>Once <code>COMMIT</code> is executed, then <code>ROLLBACK</code> will not cause anything
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mysql&gt; INSERT INTO testTable VALUES (2), (3);    
@@ -289,7 +330,9 @@ mysql&gt; SELECT * FROM testTable;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If <code>AUTOCOMMIT</code> is set <em>true</em>, then <code>COMMIT</code> and <code>ROLLBACK</code> is useless</p>
+</div>
+<p>If <code>AUTOCOMMIT</code> is set <em>true</em>, then <code>COMMIT</code> and <code>ROLLBACK</code> is useless
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

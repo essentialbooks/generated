@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Macros are categorized into two main groups: object-like macros and function-like macros. Macros are treated as a token substitution early in the compilation process. This means that large (or repeating) sections of code can be abstracted into a preprocessor macro.</p>
+      
+<p>Macros are categorized into two main groups: object-like macros and function-like macros. Macros are treated as a token substitution early in the compilation process. This means that large (or repeating) sections of code can be abstracted into a preprocessor macro.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// This is an object-like macro
@@ -148,7 +151,15 @@ double area_macro = AREA(4.6);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The Qt library makes use of this technique to create a meta-object system by having the user declare the Q_OBJECT macro at the head of the user-defined class extending QObject.</p><p>Macro names are usually written in all caps, to make them easier to differentiate from normal code. This isn’t a requirement, but is merely considered good style by many programmers.</p><hr id="b5144462-0a4d-4091-b562-354ca4b7b050"/><p>When an object-like macro is encountered, it’s expanded as a simple copy-paste operation, with the macro’s name being replaced with its definition. When a function-like macro is encountered, both its name and its parameters are expanded.</p>
+</div>
+<p>The Qt library makes use of this technique to create a meta-object system by having the user declare the Q_OBJECT macro at the head of the user-defined class extending QObject.
+</p>
+<p>Macro names are usually written in all caps, to make them easier to differentiate from normal code. This isn’t a requirement, but is merely considered good style by many programmers.
+</p>
+<hr id="b5144462-0a4d-4091-b562-354ca4b7b050"/>
+<p>When an object-like macro is encountered, it’s expanded as a simple copy-paste operation, with the macro’s name being replaced with its definition. When a function-like macro is encountered, both its name and its parameters are expanded.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">double pi_squared = PI * PI;
@@ -162,7 +173,10 @@ double area = (3.14159265358979*(5)*(5))</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Due to this, function-like macro parameters are often enclosed within parentheses, as in <code>AREA()</code> above. This is to prevent any bugs that can occur during macro expansion, specifically bugs caused by a single macro parameter being composed of multiple actual values.</p>
+</div>
+<p>Due to this, function-like macro parameters are often enclosed within parentheses, as in <code>AREA()</code> above. This is to prevent any bugs that can occur during macro expansion, specifically bugs caused by a single macro parameter being composed of multiple actual values.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define BAD_AREA(r) PI * r * r
@@ -178,7 +192,10 @@ double good_area = (3.14159265358979*(5 + 1.6)*(5 + 1.6));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Also note that due to this simple expansion, care must be taken with the parameters passed to macros, to prevent unexpected side effects. If the parameter is modified during evaluation, it will be modified each time it is used in the expanded macro, which usually isn’t what we want. This is true even if the macro encloses the parameters in parentheses to prevent expansion from breaking anything.</p>
+</div>
+<p>Also note that due to this simple expansion, care must be taken with the parameters passed to macros, to prevent unexpected side effects. If the parameter is modified during evaluation, it will be modified each time it is used in the expanded macro, which usually isn’t what we want. This is true even if the macro encloses the parameters in parentheses to prevent expansion from breaking anything.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int oops = 5;
@@ -189,7 +206,13 @@ double incremental_damage = (3.14159265358979*(oops++)*(oops++));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Additionally, macros provide no type-safety, leading to hard-to-understand errors about type mismatch.</p><hr id="357d0988-eea8-4224-b02f-5de925405dda"/><p>As programmers normally terminate lines with a semicolon, macros that are intended to be used as standalone lines are often designed to “swallow” a semicolon; this prevents any unintended bugs from being caused by an extra semicolon.</p>
+</div>
+<p>Additionally, macros provide no type-safety, leading to hard-to-understand errors about type mismatch.
+</p>
+<hr id="357d0988-eea8-4224-b02f-5de925405dda"/>
+<p>As programmers normally terminate lines with a semicolon, macros that are intended to be used as standalone lines are often designed to “swallow” a semicolon; this prevents any unintended bugs from being caused by an extra semicolon.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define IF_BREAKER(Func) Func();
@@ -203,7 +226,10 @@ else
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this example, the inadvertent double semicolon breaks the <code>if...else</code> block, preventing the compiler from matching the <code>else</code> to the <code>if</code>. To prevent this, the semicolon is omitted from the macro definition, which will cause it to “swallow” the semicolon immediately following any usage of it.</p>
+</div>
+<p>In this example, the inadvertent double semicolon breaks the <code>if...else</code> block, preventing the compiler from matching the <code>else</code> to the <code>if</code>. To prevent this, the semicolon is omitted from the macro definition, which will cause it to “swallow” the semicolon immediately following any usage of it.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define IF_FIXER(Func) Func()
@@ -216,7 +242,10 @@ else
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Leaving off the trailing semicolon also allows the macro to be used without ending the current statement, which can be beneficial.</p>
+</div>
+<p>Leaving off the trailing semicolon also allows the macro to be used without ending the current statement, which can be beneficial.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define DO_SOMETHING(Func, Param) Func(Param, 2)
@@ -228,7 +257,11 @@ some_function(DO_SOMETHING(some_func, 3), DO_SOMETHING(some_func, 42));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="b112f6ec-2ebb-4866-af6d-3708b72523f2"/><p>Normally, a macro definition ends at the end of the line. If a macro needs to cover multiple lines, however, a backslash can be used at the end of a line to indicate this. This backslash must be the last character in the line, which indicates to the preprocessor that the following line should be concatenated onto the current line, treating them as a single line. This can be used multiple times in a row.</p>
+</div>
+<hr id="b112f6ec-2ebb-4866-af6d-3708b72523f2"/>
+<p>Normally, a macro definition ends at the end of the line. If a macro needs to cover multiple lines, however, a backslash can be used at the end of a line to indicate this. This backslash must be the last character in the line, which indicates to the preprocessor that the following line should be concatenated onto the current line, treating them as a single line. This can be used multiple times in a row.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define TEXT &#34;I \
@@ -243,7 +276,10 @@ std::cout &lt;&lt; TEXT &lt;&lt; std::endl; // Output:   I am many lines.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is especially useful in complex function-like macros, which may need to cover multiple lines.</p>
+</div>
+<p>This is especially useful in complex function-like macros, which may need to cover multiple lines.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define CREATE_OUTPUT_AND_DELETE(Str) \
@@ -258,7 +294,11 @@ CREATE_OUTPUT_AND_DELETE(&#34;There&#39;s no real need for this to use &#39;new&
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="aabef0c9-33c9-417f-88fd-0afee10c81c9"/><p>In the case of more complex function-like macros, it can be useful to give them their own scope to prevent possible name collisions or to cause objects to be destroyed at the end of the macro, similar to an actual function. A common idiom for this is <em>do while 0</em>, where the macro is enclosed in a <em>do-while</em> block. This block is generally <em>not</em> followed with a semicolon, allowing it to swallow a semicolon.</p>
+</div>
+<hr id="aabef0c9-33c9-417f-88fd-0afee10c81c9"/>
+<p>In the case of more complex function-like macros, it can be useful to give them their own scope to prevent possible name collisions or to cause objects to be destroyed at the end of the macro, similar to an actual function. A common idiom for this is <em>do while 0</em>, where the macro is enclosed in a <em>do-while</em> block. This block is generally <em>not</em> followed with a semicolon, allowing it to swallow a semicolon.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define DO_STUFF(Type, Param, ReturnVar) do { \
@@ -280,7 +320,11 @@ do {
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="a2e5e62f-bd84-4153-bb00-90f91a7e49be"/><p>There are also variadic macros; similarly to variadic functions, these take a variable number of arguments, and then expand them all in place of a special “Varargs” parameter, <code>__VA_ARGS__</code>.</p>
+</div>
+<hr id="a2e5e62f-bd84-4153-bb00-90f91a7e49be"/>
+<p>There are also variadic macros; similarly to variadic functions, these take a variable number of arguments, and then expand them all in place of a special “Varargs” parameter, <code>__VA_ARGS__</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define VARIADIC(Param, ...) Param(__VA_ARGS__)
@@ -292,7 +336,10 @@ printf(&#34;%d&#34;, 8);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that during expansion, <code>__VA_ARGS__</code> can be placed anywhere in the definition, and will be expanded correctly.</p>
+</div>
+<p>Note that during expansion, <code>__VA_ARGS__</code> can be placed anywhere in the definition, and will be expanded correctly.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define VARIADIC2(POne, PTwo, PThree, ...) POne(PThree, __VA_ARGS__, PTwo)
@@ -304,7 +351,10 @@ some_func(8, 6, 9, 3);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In the case of a zero-argument variadic parameter, different compilers will handle the trailing comma differently. Some compilers, such as Visual Studio, will silently swallow the comma without any special syntax. Other compilers, such as GCC, require you to place <code>##</code> immediately before <code>__VA_ARGS__</code>. Due to this, it is wise to conditionally define variadic macros when portability is a concern.</p>
+</div>
+<p>In the case of a zero-argument variadic parameter, different compilers will handle the trailing comma differently. Some compilers, such as Visual Studio, will silently swallow the comma without any special syntax. Other compilers, such as GCC, require you to place <code>##</code> immediately before <code>__VA_ARGS__</code>. Due to this, it is wise to conditionally define variadic macros when portability is a concern.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// In this example, COMPILER is a user-defined macro specifying the compiler being used.

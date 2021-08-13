@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>The <a href="https://developer.android.com/reference/android/content/SharedPreferences.Editor.html#apply()"><code>editor.apply()</code></a> method is <strong>asynchronous</strong>, while <a href="https://developer.android.com/reference/android/content/SharedPreferences.Editor.html#commit()"><code>editor.commit()</code></a> is <strong>synchronous</strong>.</p><p>Obviously, you should call either <code>apply()</code> or <code>commit()</code>.</p>
+      
+<p>The <a href="https://developer.android.com/reference/android/content/SharedPreferences.Editor.html#apply()"><code>editor.apply()</code></a> method is <strong>asynchronous</strong>, while <a href="https://developer.android.com/reference/android/content/SharedPreferences.Editor.html#commit()"><code>editor.commit()</code></a> is <strong>synchronous</strong>.
+</p>
+<p>Obviously, you should call either <code>apply()</code> or <code>commit()</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SharedPreferences settings = getSharedPreferences(PREFS_FILE, MODE_PRIVATE);
@@ -140,6 +145,7 @@ editor.apply();</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SharedPreferences settings = getSharedPreferences(PREFS_FILE, MODE_PRIVATE);
@@ -151,7 +157,15 @@ boolean result = editor.commit();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>apply()</code> was added in 2.3 (API 9), it commits without returning a boolean indicating success or failure.</p><p><code>commit()</code> returns true if the save works, false otherwise.</p><p><code>apply()</code> was added as the Android dev team noticed that almost no one took notice of the return value, so apply is faster as it is asynchronous.</p><p>Unlike <code>commit()</code>, which writes its preferences out to persistent storage synchronously, <code>apply()</code> commits its changes to the in-memory <code>SharedPreferences</code> immediately but starts an asynchronous commit to disk and you won’t be notified of any failures. If another editor on this <code>SharedPreferences</code> does a regular <code>commit()</code> while a <code>apply()</code> is still outstanding, the <code>commit()</code> will block until all async commits(apply) are completed as well as any other sync commits that may be pending.</p>
+</div>
+<p><code>apply()</code> was added in 2.3 (API 9), it commits without returning a boolean indicating success or failure.
+</p>
+<p><code>commit()</code> returns true if the save works, false otherwise.
+</p>
+<p><code>apply()</code> was added as the Android dev team noticed that almost no one took notice of the return value, so apply is faster as it is asynchronous.
+</p>
+<p>Unlike <code>commit()</code>, which writes its preferences out to persistent storage synchronously, <code>apply()</code> commits its changes to the in-memory <code>SharedPreferences</code> immediately but starts an asynchronous commit to disk and you won’t be notified of any failures. If another editor on this <code>SharedPreferences</code> does a regular <code>commit()</code> while a <code>apply()</code> is still outstanding, the <code>commit()</code> will block until all async commits(apply) are completed as well as any other sync commits that may be pending.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

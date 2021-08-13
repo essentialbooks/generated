@@ -127,7 +127,60 @@
 </div>
 
 
-      <p>Predefined macros are those that the compiler defines (in contrast to those user defines in the source file). Those macros must not be re-defined or undefined by user.</p><p>The following macros are predefined by the C++ standard:</p><ul id="44e28cc9-dfa8-4018-a2eb-1405865de163" class="bulleted-list"><li><code>__LINE__</code> contains the line number of the line this macro is used on, and can be changed by the <code>#line</code> directive.</li><li><code>__FILE__</code> contains the filename of the file this macro is used in, and can be changed by the <code>#line</code> directive.</li><li><code>__DATE__</code> contains date (in <code>&quot;Mmm dd yyyy&quot;</code> format) of the file compilation, where <em>Mmm</em> is formatted as if obtained by a call to <code>std::asctime()</code>.</li><li><code>__TIME__</code> contains time (in <code>&quot;hh:mm:ss&quot;</code> format) of the file compilation.</li><li><code>__cplusplus</code> is defined by (conformant) C++ compilers while compiling C++ files. Its value is the standard version the compiler is <strong>fully</strong> conformant with, i.e. <code>199711L</code> for C++98 and C++03, <code>201103L</code> for C++11 and <code>201402L</code> for C++14 standard.</li><li><code>__STDC_HOSTED__</code> is defined to <code>1</code> if the implementation is <em>hosted</em>, or <code>0</code> if it is <em>freestanding</em>.</li><li><code>__STDCPP_DEFAULT_NEW_ALIGNMENT__</code> contains a <code>size_t</code> literal, which is the alignment used for a call to alignment-unaware <code>operator new</code>.</li></ul><p>Additionally, the following macros are allowed to be predefined by implementations, and may or may not be present:</p><ul id="dcdbb454-ac9c-411b-8a38-451eaefd109a" class="bulleted-list"><li><code>__STDC__</code> has implementation-dependent meaning, and is usually defined only when compiling a file as C, to signify full C standard compliance. (Or never, if the compiler decides not to support this macro.)</li><li><code>__STDC_VERSION__</code> has implementation-dependent meaning, and its value is usually the C version, similarly to how <code>__cplusplus</code> is the C++ version. (Or is not even defined, if the compiler decides not to support this macro.)</li><li><code>__STDC_MB_MIGHT_NEQ_WC__</code> is defined to <code>1</code>, if values of the narrow encoding of the basic character set might not be equal to the values of their wide counterparts (e.g. if <code>(uintmax_t)&#x27;x&#x27; != (uintmax_t)L&#x27;x&#x27;</code>)</li><li><code>__STDC_ISO_10646__</code> is defined if <code>wchar_t</code> is encoded as Unicode, and expands to an integer constant in the form <code>yyyymmL</code>, indicating the latest Unicode revision supported.</li><li><code>__STDCPP_STRICT_POINTER_SAFETY__</code> is defined to <code>1</code>, if the implementation has <em>strict pointer safety</em> (otherwise it has <em>relaxed pointer safety</em>)</li><li><code>__STDCPP_THREADS__</code> is defined to <code>1</code>, if the program can have more than one thread of execution (applicable to <em>freestanding implementation</em> — <em>hosted implementations</em> can always have more than one thread)</li></ul><p>It is also worth mentioning <code>__func__</code>, which is not an macro, but a predefined function-local variable. It contains the name of the function it is used in, as a static character array in an implementation-defined format.</p><p>On top of those standard predefined macros, compilers can have their own set of predefined macros. One must refer to the compiler documentation to learn those. E.g.:</p><ul id="ba6978b4-6863-40ed-a87a-72a07566ebdd" class="bulleted-list"><li><a href="https://gcc.gnu.org/onlinedocs/cpp/Predefined-Macros.html">gcc</a></li><li><a href="https://msdn.microsoft.com/en-us/library/b0084kay.aspx#Anchor_2">Microsoft Visual C++</a></li><li><a href="http://clang.llvm.org/docs/LanguageExtensions.html#builtin-macros">clang</a></li><li><a href="https://software.intel.com/en-us/node/514528">Intel C++ Compiler</a></li></ul><p>Some of the macros are just to query support of some feature:</p>
+      
+<p>Predefined macros are those that the compiler defines (in contrast to those user defines in the source file). Those macros must not be re-defined or undefined by user.
+</p>
+<p>The following macros are predefined by the C++ standard:
+</p>
+  <ul id="44e28cc9-dfa8-4018-a2eb-1405865de163" class="bulleted-list">
+    <li><code>__LINE__</code> contains the line number of the line this macro is used on, and can be changed by the <code>#line</code> directive.
+    </li>
+    <li><code>__FILE__</code> contains the filename of the file this macro is used in, and can be changed by the <code>#line</code> directive.
+    </li>
+    <li><code>__DATE__</code> contains date (in <code>&quot;Mmm dd yyyy&quot;</code> format) of the file compilation, where <em>Mmm</em> is formatted as if obtained by a call to <code>std::asctime()</code>.
+    </li>
+    <li><code>__TIME__</code> contains time (in <code>&quot;hh:mm:ss&quot;</code> format) of the file compilation.
+    </li>
+    <li><code>__cplusplus</code> is defined by (conformant) C++ compilers while compiling C++ files. Its value is the standard version the compiler is <strong>fully</strong> conformant with, i.e. <code>199711L</code> for C++98 and C++03, <code>201103L</code> for C++11 and <code>201402L</code> for C++14 standard.
+    </li>
+    <li><code>__STDC_HOSTED__</code> is defined to <code>1</code> if the implementation is <em>hosted</em>, or <code>0</code> if it is <em>freestanding</em>.
+    </li>
+    <li><code>__STDCPP_DEFAULT_NEW_ALIGNMENT__</code> contains a <code>size_t</code> literal, which is the alignment used for a call to alignment-unaware <code>operator new</code>.
+    </li>
+  </ul>
+<p>Additionally, the following macros are allowed to be predefined by implementations, and may or may not be present:
+</p>
+  <ul id="dcdbb454-ac9c-411b-8a38-451eaefd109a" class="bulleted-list">
+    <li><code>__STDC__</code> has implementation-dependent meaning, and is usually defined only when compiling a file as C, to signify full C standard compliance. (Or never, if the compiler decides not to support this macro.)
+    </li>
+    <li><code>__STDC_VERSION__</code> has implementation-dependent meaning, and its value is usually the C version, similarly to how <code>__cplusplus</code> is the C++ version. (Or is not even defined, if the compiler decides not to support this macro.)
+    </li>
+    <li><code>__STDC_MB_MIGHT_NEQ_WC__</code> is defined to <code>1</code>, if values of the narrow encoding of the basic character set might not be equal to the values of their wide counterparts (e.g. if <code>(uintmax_t)&#x27;x&#x27; != (uintmax_t)L&#x27;x&#x27;</code>)
+    </li>
+    <li><code>__STDC_ISO_10646__</code> is defined if <code>wchar_t</code> is encoded as Unicode, and expands to an integer constant in the form <code>yyyymmL</code>, indicating the latest Unicode revision supported.
+    </li>
+    <li><code>__STDCPP_STRICT_POINTER_SAFETY__</code> is defined to <code>1</code>, if the implementation has <em>strict pointer safety</em> (otherwise it has <em>relaxed pointer safety</em>)
+    </li>
+    <li><code>__STDCPP_THREADS__</code> is defined to <code>1</code>, if the program can have more than one thread of execution (applicable to <em>freestanding implementation</em> — <em>hosted implementations</em> can always have more than one thread)
+    </li>
+  </ul>
+<p>It is also worth mentioning <code>__func__</code>, which is not an macro, but a predefined function-local variable. It contains the name of the function it is used in, as a static character array in an implementation-defined format.
+</p>
+<p>On top of those standard predefined macros, compilers can have their own set of predefined macros. One must refer to the compiler documentation to learn those. E.g.:
+</p>
+  <ul id="ba6978b4-6863-40ed-a87a-72a07566ebdd" class="bulleted-list">
+    <li><a href="https://gcc.gnu.org/onlinedocs/cpp/Predefined-Macros.html">gcc</a>
+    </li>
+    <li><a href="https://msdn.microsoft.com/en-us/library/b0084kay.aspx#Anchor_2">Microsoft Visual C++</a>
+    </li>
+    <li><a href="http://clang.llvm.org/docs/LanguageExtensions.html#builtin-macros">clang</a>
+    </li>
+    <li><a href="https://software.intel.com/en-us/node/514528">Intel C++ Compiler</a>
+    </li>
+  </ul>
+<p>Some of the macros are just to query support of some feature:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#ifdef __cplusplus // if compiled by C++ compiler
@@ -139,7 +192,10 @@ extern &#34;C&#34;{ // C code has to be decorated
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Others are very useful for debugging:</p>
+</div>
+<p>Others are very useful for debugging:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">bool success = doSomething( /*some arguments*/ );
@@ -153,7 +209,10 @@ if( !success ){
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And others for trivial version control:</p>
+</div>
+<p>And others for trivial version control:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int main( int argc, char *argv[] ){

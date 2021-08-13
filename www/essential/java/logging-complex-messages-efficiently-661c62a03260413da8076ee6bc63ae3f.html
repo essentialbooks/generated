@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Let’s look at a sample of logging which you can see in many programs:</p>
+      
+<p>Let’s look at a sample of logging which you can see in many programs:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class LoggingComplex {
@@ -142,6 +145,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public void takeOrder() {
@@ -157,7 +161,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above example looks perfectly fine, but many programmers forgets that Java VM is stack machine. This means that all method’s parameters are calculated <strong>before</strong> executing the method.</p><p>This fact is crucial for logging in Java, especially for logging something in low levels like <code>FINE</code>, <code>FINER</code>, <code>FINEST</code> which are disabled by default. Let’s look at Java bytecode for the <code>takeOrder()</code> method.</p><p>The result for <code>javap -c LoggingComplex.class</code> is something like this:</p>
+</div>
+<p>The above example looks perfectly fine, but many programmers forgets that Java VM is stack machine. This means that all method’s parameters are calculated <strong>before</strong> executing the method.
+</p>
+<p>This fact is crucial for logging in Java, especially for logging something in low levels like <code>FINE</code>, <code>FINER</code>, <code>FINEST</code> which are disabled by default. Let’s look at Java bytecode for the <code>takeOrder()</code> method.
+</p>
+<p>The result for <code>javap -c LoggingComplex.class</code> is something like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public void takeOrder();
@@ -190,7 +201,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Line 39 runs the actual logging. All of the previous work (loading variables, creating new objects, concatenating Strings in <code>format</code> method) can be for nothing if logging level is set higher then <code>FINE</code> (and by default it is). Such logging can be very inefficient, consuming unnecessary memory and processor resources.</p><p><em>That’s why you should ask if the level you want to use is enabled.</em></p><p>The right way should be:</p>
+</div>
+<p>Line 39 runs the actual logging. All of the previous work (loading variables, creating new objects, concatenating Strings in <code>format</code> method) can be for nothing if logging level is set higher then <code>FINE</code> (and by default it is). Such logging can be very inefficient, consuming unnecessary memory and processor resources.
+</p>
+<p><em>That’s why you should ask if the level you want to use is enabled.</em>
+</p>
+<p>The right way should be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public void takeOrder() {
@@ -206,7 +224,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Since Java 8:</strong></p><p>The Logger class has additional methods that take a <code>Supplier&lt;String&gt;</code> as parameter, which can simply be provided by a lambda:</p>
+</div>
+<p><strong>Since Java 8:</strong>
+</p>
+<p>The Logger class has additional methods that take a <code>Supplier&lt;String&gt;</code> as parameter, which can simply be provided by a lambda:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public void takeOrder() {
@@ -219,7 +242,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The Suppliers <code>get()</code>method - in this case the lambda - is only called when the corresponding level is enabled and so the <code>if</code>construction is not needed anymore.</p>
+</div>
+<p>The Suppliers <code>get()</code>method - in this case the lambda - is only called when the corresponding level is enabled and so the <code>if</code>construction is not needed anymore.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

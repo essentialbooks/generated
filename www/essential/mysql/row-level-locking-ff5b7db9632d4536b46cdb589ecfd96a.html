@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>If the tables use InnoDB, MySQL automatically uses row level locking so that multiple transactions can use same table simultaneously for read and write, without making each other wait.</p><p>If two transactions trying to modify the same row and both uses row level locking, one of the transactions waits for the other to complete.</p><p>Row level locking also can be obtained by using <code>SELECT ... FOR UPDATE</code> statement for each rows expected to be modified.</p><p>Consider two connections to explain Row level locking in detail</p><p>Connection 1</p>
+      
+<p>If the tables use InnoDB, MySQL automatically uses row level locking so that multiple transactions can use same table simultaneously for read and write, without making each other wait.
+</p>
+<p>If two transactions trying to modify the same row and both uses row level locking, one of the transactions waits for the other to complete.
+</p>
+<p>Row level locking also can be obtained by using <code>SELECT ... FOR UPDATE</code> statement for each rows expected to be modified.
+</p>
+<p>Consider two connections to explain Row level locking in detail
+</p>
+<p>Connection 1
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">START TRANSACTION;
@@ -136,7 +147,12 @@ SELECT ledgerAmount FROM accDetails WHERE id = 1 FOR UPDATE;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In connection 1, row level lock obtained by <code>SELECT ... FOR UPDATE</code> statement.</p><p>Connection 2</p>
+</div>
+<p>In connection 1, row level lock obtained by <code>SELECT ... FOR UPDATE</code> statement.
+</p>
+<p>Connection 2
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">UPDATE accDetails SET ledgerAmount = ledgerAmount + 500 WHERE id=1;</pre>
@@ -144,7 +160,10 @@ SELECT ledgerAmount FROM accDetails WHERE id = 1 FOR UPDATE;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When some one try to update same row in connection 2, that will wait for connection 1 to finish transaction or error message will be displayed according to the <code>innodb_lock_wait_timeout</code> setting, which defaults to 50 seconds.</p>
+</div>
+<p>When some one try to update same row in connection 2, that will wait for connection 1 to finish transaction or error message will be displayed according to the <code>innodb_lock_wait_timeout</code> setting, which defaults to 50 seconds.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Error Code: 1205. Lock wait timeout exceeded; try restarting transaction</pre>
@@ -152,7 +171,10 @@ SELECT ledgerAmount FROM accDetails WHERE id = 1 FOR UPDATE;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To view details about this lock, run <code>SHOW ENGINE INNODB STATUS</code></p>
+</div>
+<p>To view details about this lock, run <code>SHOW ENGINE INNODB STATUS</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">---TRANSACTION 1973004, ACTIVE 7 sec updating
@@ -165,7 +187,10 @@ UPDATE accDetails SET ledgerAmount = ledgerAmount + 500 WHERE id=1
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Connection 2</p>
+</div>
+<p>Connection 2
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">UPDATE accDetails SET ledgerAmount = ledgerAmount + 250 WHERE id=2;
@@ -174,7 +199,12 @@ UPDATE accDetails SET ledgerAmount = ledgerAmount + 500 WHERE id=1
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But while updating some other row in connection 2 will be executed without any error.</p><p>Connection 1</p>
+</div>
+<p>But while updating some other row in connection 2 will be executed without any error.
+</p>
+<p>Connection 1
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">UPDATE accDetails SET ledgerAmount = ledgerAmount + 750 WHERE id=1;
@@ -184,7 +214,12 @@ COMMIT;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now row lock is released, because transaction is commited in Connection 1.</p><p>Connection 2</p>
+</div>
+<p>Now row lock is released, because transaction is commited in Connection 1.
+</p>
+<p>Connection 2
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">UPDATE accDetails SET ledgerAmount = ledgerAmount + 500 WHERE id=1;
@@ -193,7 +228,9 @@ COMMIT;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The update is executed without any error in Connection 2 after Connection 1 released row lock by finishing the transaction.</p>
+</div>
+<p>The update is executed without any error in Connection 2 after Connection 1 released row lock by finishing the transaction.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

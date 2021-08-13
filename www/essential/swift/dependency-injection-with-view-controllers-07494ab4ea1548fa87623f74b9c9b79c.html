@@ -127,7 +127,48 @@
 </div>
 
 
-      <h1 id="13eb632b-6e14-4609-a893-f75e38aa1ee2" class="">Dependenct Injection Intro<a class="header-anchor" href="#13eb632b-6e14-4609-a893-f75e38aa1ee2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>An application is composed of many objects that collaborate with each other. Objects usually depend on other objects to perform some task. When an object is responsible for referencing its own dependencies it leads to a highly coupled, hard-to-test and hard-to-change code.</p><p>Dependency injection is a software design pattern that implements inversion of control for resolving dependencies. An injection is passing of dependency to a dependent object that would use it. This allows a separation of client’s dependencies from the client’s behaviour, which allows the application to be loosely coupled.</p><p><strong>Not to be confused with the above definition - a dependency injection simply means giving an object its instance variables.</strong></p><p>It’s that simple, but it provides a lot of benefits:</p><ul id="d01708f0-e904-4b88-812b-aa170eee3359" class="bulleted-list"><li>easier to test your code (using automated tests like unit and UI tests)</li><li>when used in tandem with protocol-oriented programming it makes it easy to change the implementation of a certain class - easier to refactor</li><li>it makes the code more modular and reusable</li></ul><p>There are three most commonly used ways Dependency Injection (DI) can be implemented in an application:</p><ol id="96e4b959-acf1-4f0b-ad5e-1efa91e67109" class="numbered-list" start="1"><li>Initializer injection</li><li>Property injection</li><li>Using third party DI frameworks (like Swinject, Cleanse, Dip or Typhoon)</li></ol><p><a href="http://www.jamesshore.com/Blog/Dependency-Injection-Demystified.html">There is an interesting article</a> with links to more articles about Dependency Injection so check it out if you want to dig deeper into DI and Inversion of Control principle.</p><p>Let’s show how to use DI with View Controllers - an every day task for an average iOS developer.</p><h1 id="cfea8b7f-49dd-43d5-9e0c-c62dbb946c32" class="">Example Without DI<a class="header-anchor" href="#cfea8b7f-49dd-43d5-9e0c-c62dbb946c32" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>We’ll have two View Controllers: <strong>LoginViewController</strong> and <strong>TimelineViewController</strong>. LoginViewController is used to login and upon successful loign, it will switch to the TimelineViewController. Both view controllers are dependent on the <strong>FirebaseNetworkService</strong>.</p><p><strong>LoginViewController</strong></p>
+      
+  <h1 id="13eb632b-6e14-4609-a893-f75e38aa1ee2" class="">Dependenct Injection Intro
+  <a class="header-anchor" href="#13eb632b-6e14-4609-a893-f75e38aa1ee2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>An application is composed of many objects that collaborate with each other. Objects usually depend on other objects to perform some task. When an object is responsible for referencing its own dependencies it leads to a highly coupled, hard-to-test and hard-to-change code.
+</p>
+<p>Dependency injection is a software design pattern that implements inversion of control for resolving dependencies. An injection is passing of dependency to a dependent object that would use it. This allows a separation of client’s dependencies from the client’s behaviour, which allows the application to be loosely coupled.
+</p>
+<p><strong>Not to be confused with the above definition - a dependency injection simply means giving an object its instance variables.</strong>
+</p>
+<p>It’s that simple, but it provides a lot of benefits:
+</p>
+  <ul id="d01708f0-e904-4b88-812b-aa170eee3359" class="bulleted-list">
+    <li>easier to test your code (using automated tests like unit and UI tests)
+    </li>
+    <li>when used in tandem with protocol-oriented programming it makes it easy to change the implementation of a certain class - easier to refactor
+    </li>
+    <li>it makes the code more modular and reusable
+    </li>
+  </ul>
+<p>There are three most commonly used ways Dependency Injection (DI) can be implemented in an application:
+</p>
+  <ol id="96e4b959-acf1-4f0b-ad5e-1efa91e67109" class="numbered-list" start="1">
+    <li>Initializer injection
+    </li>
+    <li>Property injection
+    </li>
+    <li>Using third party DI frameworks (like Swinject, Cleanse, Dip or Typhoon)
+    </li>
+  </ol>
+<p><a href="http://www.jamesshore.com/Blog/Dependency-Injection-Demystified.html">There is an interesting article</a> with links to more articles about Dependency Injection so check it out if you want to dig deeper into DI and Inversion of Control principle.
+</p>
+<p>Let’s show how to use DI with View Controllers - an every day task for an average iOS developer.
+</p>
+  <h1 id="cfea8b7f-49dd-43d5-9e0c-c62dbb946c32" class="">Example Without DI
+  <a class="header-anchor" href="#cfea8b7f-49dd-43d5-9e0c-c62dbb946c32" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>We’ll have two View Controllers: <strong>LoginViewController</strong> and <strong>TimelineViewController</strong>. LoginViewController is used to login and upon successful loign, it will switch to the TimelineViewController. Both view controllers are dependent on the <strong>FirebaseNetworkService</strong>.
+</p>
+<p><strong>LoginViewController</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class LoginViewController: UIViewController {
@@ -142,7 +183,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>TimelineViewController</strong></p>
+</div>
+<p><strong>TimelineViewController</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class TimelineViewController: UIViewController {
@@ -161,7 +205,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>FirebaseNetworkService</strong></p>
+</div>
+<p><strong>FirebaseNetworkService</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class FirebaseNetworkService {
@@ -178,7 +225,19 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This example is very simple, but let’s assume you have 10 or 15 different view controller and some of them are also dependent on the FirebaseNetworkService. At some moment you want to change Firebase as your backend service with your company’s in-house backend service. To do that you’ll have to go through every view controller and change FirebaseNetworkService with CompanyNetworkService. And if some of the methods in the CompanyNetworkService have changed, you’ll have a lot of work to do.</p><p>Unit and UI testing is not the scope of this example, but if you wanted to unit test view controllers with tightly coupled dependencies, you would have a really hard time doing so.</p><p>Let’s rewrite this example and inject Network Service to our view controllers.</p><h1 id="4719705f-e260-4a6e-be47-fe04a1a32405" class="">Example with Dependancy Injection<a class="header-anchor" href="#4719705f-e260-4a6e-be47-fe04a1a32405" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>To make the best out of the Dependency Injection, let’s define the functionality of the Network Service in a protocol. This way, view controllers dependent on a network service won’t even have to know about the real implementation of it.</p>
+</div>
+<p>This example is very simple, but let’s assume you have 10 or 15 different view controller and some of them are also dependent on the FirebaseNetworkService. At some moment you want to change Firebase as your backend service with your company’s in-house backend service. To do that you’ll have to go through every view controller and change FirebaseNetworkService with CompanyNetworkService. And if some of the methods in the CompanyNetworkService have changed, you’ll have a lot of work to do.
+</p>
+<p>Unit and UI testing is not the scope of this example, but if you wanted to unit test view controllers with tightly coupled dependencies, you would have a really hard time doing so.
+</p>
+<p>Let’s rewrite this example and inject Network Service to our view controllers.
+</p>
+  <h1 id="4719705f-e260-4a6e-be47-fe04a1a32405" class="">Example with Dependancy Injection
+  <a class="header-anchor" href="#4719705f-e260-4a6e-be47-fe04a1a32405" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>To make the best out of the Dependency Injection, let’s define the functionality of the Network Service in a protocol. This way, view controllers dependent on a network service won’t even have to know about the real implementation of it.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">protocol NetworkService {
@@ -189,7 +248,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Add an implementation of the NetworkService protocol:</p>
+</div>
+<p>Add an implementation of the NetworkService protocol:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class FirebaseNetworkServiceImpl: NetworkService {
@@ -205,7 +267,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Let’s change LoginViewController and TimelineViewController to use new NetworkService protocol instead of FirebaseNetworkService.</p><p><strong>LoginViewController</strong></p>
+</div>
+<p>Let’s change LoginViewController and TimelineViewController to use new NetworkService protocol instead of FirebaseNetworkService.
+</p>
+<p><strong>LoginViewController</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class LoginViewController: UIViewController {
@@ -222,7 +289,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>TimelineViewController</strong></p>
+</div>
+<p><strong>TimelineViewController</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class TimelineViewController: UIViewController {
@@ -241,7 +311,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, the question is: How do we inject the correct NetworkService implementation in the LoginViewController and TimelineViewController?</p><p>Since LoginViewController is the starting view controller and will show every time the application starts, we can inject all dependencies in the <strong>AppDelegate</strong>.</p>
+</div>
+<p>Now, the question is: How do we inject the correct NetworkService implementation in the LoginViewController and TimelineViewController?
+</p>
+<p>Since LoginViewController is the starting view controller and will show every time the application starts, we can inject all dependencies in the <strong>AppDelegate</strong>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -&gt; Bool {
@@ -256,7 +331,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In the AppDelegate we are simply taking the reference to the first view controller (LoginViewController) and injecting the NetworkService implementation using the property injection method.</p><p>Now, the next task is to inject the NetworkService implementation in the TimelineViewController. The easiest way is to do that when LoginViewController is transitioning to the TimlineViewController.</p><p>We’ll add the injection code in the prepareForSegue method in the LoginViewController (if you are using a different approach to navigate through view controllers, place the injection code there).</p><p>Our LoginViewController class looks like this now:</p>
+</div>
+<p>In the AppDelegate we are simply taking the reference to the first view controller (LoginViewController) and injecting the NetworkService implementation using the property injection method.
+</p>
+<p>Now, the next task is to inject the NetworkService implementation in the TimelineViewController. The easiest way is to do that when LoginViewController is transitioning to the TimlineViewController.
+</p>
+<p>We’ll add the injection code in the prepareForSegue method in the LoginViewController (if you are using a different approach to navigate through view controllers, place the injection code there).
+</p>
+<p>Our LoginViewController class looks like this now:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class LoginViewController: UIViewController {
@@ -281,7 +365,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>We are done and it’s that easy.</strong></p><p>Now imagine we want to switch our NetworkService implementation from Firebase to our custom company’s backend implementation. All we would have to do is:</p><p><strong>Add new NetworkService implementation class:</strong></p>
+</div>
+<p><strong>We are done and it’s that easy.</strong>
+</p>
+<p>Now imagine we want to switch our NetworkService implementation from Firebase to our custom company’s backend implementation. All we would have to do is:
+</p>
+<p><strong>Add new NetworkService implementation class:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class CompanyNetworkServiceImpl: NetworkService {
@@ -297,7 +388,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Switch the FirebaseNetworkServiceImpl with the new implementation in the AppDelegate:</strong></p>
+</div>
+<p><strong>Switch the FirebaseNetworkServiceImpl with the new implementation in the AppDelegate:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -&gt; Bool {
@@ -312,7 +406,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>That’s it, we have switched the whole underlaying implementation of the NetworkService protocol without even touching LoginViewController or TimelineViewController.</p><p>As this is a simple example, you might not see all the benefits right now, but if you try to use DI in your projects, you’ll see the benefits and will always use Dependency Injection.</p>
+</div>
+<p>That’s it, we have switched the whole underlaying implementation of the NetworkService protocol without even touching LoginViewController or TimelineViewController.
+</p>
+<p>As this is a simple example, you might not see all the benefits right now, but if you try to use DI in your projects, you’ll see the benefits and will always use Dependency Injection.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int* foo(int bar)
@@ -151,7 +152,10 @@ int main (void)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Some compilers helpfully point this out. For example, <code>gcc</code> warns with:</p>
+</div>
+<p>Some compilers helpfully point this out. For example, <code>gcc</code> warns with:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">warning: function returns address of local variable [-Wreturn-local-addr]</pre>
@@ -159,7 +163,10 @@ int main (void)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>and <code>clang</code> warns with:</p>
+</div>
+<p>and <code>clang</code> warns with:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">warning: address of stack memory associated with local variable &#39;baz&#39; returned 
@@ -168,7 +175,17 @@ int main (void)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>for the above code. But compilers may not be able to help in complex code.</p><ol id="df265f90-b49e-4713-9b1b-85bc5f89fb89" class="numbered-list" start="1"><li>Returning reference to variable declared <code>static</code> is defined behaviour, as the variable is not destroyed after leaving current scope.</li><li>According to ISO/IEC 9899:2011 6.2.4 §2, “The value of a pointer becomes indeterminate when the object it points to reaches the end of its lifetime.”</li><li>Dereferencing the pointer returned by the function <code>foo</code> is undefined behaviour as the memory it references holds an indeterminate value.</li></ol>
+</div>
+<p>for the above code. But compilers may not be able to help in complex code.
+</p>
+  <ol id="df265f90-b49e-4713-9b1b-85bc5f89fb89" class="numbered-list" start="1">
+    <li>Returning reference to variable declared <code>static</code> is defined behaviour, as the variable is not destroyed after leaving current scope.
+    </li>
+    <li>According to ISO/IEC 9899:2011 6.2.4 §2, “The value of a pointer becomes indeterminate when the object it points to reaches the end of its lifetime.”
+    </li>
+    <li>Dereferencing the pointer returned by the function <code>foo</code> is undefined behaviour as the memory it references holds an indeterminate value.
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

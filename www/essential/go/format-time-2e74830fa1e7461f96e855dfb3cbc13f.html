@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Most languages inherited time formatting method from <code>strftime</code> function C library which uses somewhat cryptic format strings like <code>%Y-%m-%d</code>.</p><p>Go designers came up with arguably more intuitive way of time parsing and formatting where you show a template of how you want the result to look like:</p>
+      
+<p>Most languages inherited time formatting method from <code>strftime</code> function C library which uses somewhat cryptic format strings like <code>%Y-%m-%d</code>.
+</p>
+<p>Go designers came up with arguably more intuitive way of time parsing and formatting where you show a template of how you want the result to look like:
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="nx">t</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>
@@ -145,6 +150,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">2017-04-09 03:38:45.000 UTC
@@ -157,16 +163,76 @@ Month: Sep &#39;9&#39;, &#39;09&#39;,  4
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Formatting string is an arbitrary string with some parts being replaced by the data from <code>time.Time</code> value:</p><div id="1cdba475-fbbb-498c-ae13-d4eeea65002f" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th width="361">template</th><th width="353">meaning</th></tr></thead><tbody><tr id="f3e0c1d3-d886-41f9-ab9a-31d47b7d8905"><td class="cell-title col-type-title">2006, 06</td><td class="cell-$l&gt;m col-type-text">4 or 2 digit year</td></tr>
-<tr id="0c6b42b4-e771-406a-b7b9-2e5feb10bab0"><td class="cell-title col-type-title">2</td><td class="cell-$l&gt;m col-type-text">month, 1-12</td></tr>
-<tr id="ebc1a191-6d01-4bb1-b3f7-df0479e0fcf3"><td class="cell-title col-type-title">1</td><td class="cell-$l&gt;m col-type-text">day, 1-31</td></tr>
-<tr id="21f6a4c0-fedd-477c-9673-781a9de0c998"><td class="cell-title col-type-title">15</td><td class="cell-$l&gt;m col-type-text">hour</td></tr>
-<tr id="b599b3cc-efb0-41c6-8d89-8b8355fe0f37"><td class="cell-title col-type-title">5</td><td class="cell-$l&gt;m col-type-text">second</td></tr>
-<tr id="9f3a1c97-8297-4881-8d8a-4a7cbffd7913"><td class="cell-title col-type-title">MST</td><td class="cell-$l&gt;m col-type-text">time zone as a string</td></tr>
-<tr id="e667a46e-2c4f-4e9b-a746-68901d1fd2f9"><td class="cell-title col-type-title">-0700</td><td class="cell-$l&gt;m col-type-text">time zone as numeric offset</td></tr>
-<tr id="613ec515-f027-4e76-abd4-0a2312a7ba81"><td class="cell-title col-type-title">Jan, January</td><td class="cell-$l&gt;m col-type-text">short or long month name</td></tr>
-<tr id="d210b70a-e92e-44e2-bf3d-55ebf88153b5"><td class="cell-title col-type-title">Mon, Monday</td><td class="cell-$l&gt;m col-type-text">short or long day name</td></tr>
-</tbody></table></div><p>Days, months, years, hours, minutes and seconds can be zero-padded by adding 0 to format number. It’ll only be shown for numbers &lt; 10. <code>02</code> means zero-padded month i.e. <code>04</code> or <code>11</code>.</p><p>Some values can be space-padded. <code>_2</code> will be <code>4</code> or <code>11</code>.</p><p>Package time also defines constants for some well-known formats for date/time formatting e.g. <code>time.RFC822</code> is date format defined in RFC 822 which is date format in e-mail messages.</p><p>Here’s a full list of pre-defined formats:</p>
+</div>
+<p>Formatting string is an arbitrary string with some parts being replaced by the data from <code>time.Time</code> value:
+</p>
+<div id="1cdba475-fbbb-498c-ae13-d4eeea65002f" class="collection-content">
+<h4 class="collection-title"></h4>
+<table class="collection-content">
+<thead>
+<tr>
+<th width="361">template</th>
+<th width="353">meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr id="f3e0c1d3-d886-41f9-ab9a-31d47b7d8905">
+<td class="cell-title col-type-title">2006, 06</td>
+<td class="cell-$l&gt;m col-type-text">4 or 2 digit year</td>
+</tr>
+
+<tr id="0c6b42b4-e771-406a-b7b9-2e5feb10bab0">
+<td class="cell-title col-type-title">2</td>
+<td class="cell-$l&gt;m col-type-text">month, 1-12</td>
+</tr>
+
+<tr id="ebc1a191-6d01-4bb1-b3f7-df0479e0fcf3">
+<td class="cell-title col-type-title">1</td>
+<td class="cell-$l&gt;m col-type-text">day, 1-31</td>
+</tr>
+
+<tr id="21f6a4c0-fedd-477c-9673-781a9de0c998">
+<td class="cell-title col-type-title">15</td>
+<td class="cell-$l&gt;m col-type-text">hour</td>
+</tr>
+
+<tr id="b599b3cc-efb0-41c6-8d89-8b8355fe0f37">
+<td class="cell-title col-type-title">5</td>
+<td class="cell-$l&gt;m col-type-text">second</td>
+</tr>
+
+<tr id="9f3a1c97-8297-4881-8d8a-4a7cbffd7913">
+<td class="cell-title col-type-title">MST</td>
+<td class="cell-$l&gt;m col-type-text">time zone as a string</td>
+</tr>
+
+<tr id="e667a46e-2c4f-4e9b-a746-68901d1fd2f9">
+<td class="cell-title col-type-title">-0700</td>
+<td class="cell-$l&gt;m col-type-text">time zone as numeric offset</td>
+</tr>
+
+<tr id="613ec515-f027-4e76-abd4-0a2312a7ba81">
+<td class="cell-title col-type-title">Jan, January</td>
+<td class="cell-$l&gt;m col-type-text">short or long month name</td>
+</tr>
+
+<tr id="d210b70a-e92e-44e2-bf3d-55ebf88153b5">
+<td class="cell-title col-type-title">Mon, Monday</td>
+<td class="cell-$l&gt;m col-type-text">short or long day name</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+<p>Days, months, years, hours, minutes and seconds can be zero-padded by adding 0 to format number. It’ll only be shown for numbers &lt; 10. <code>02</code> means zero-padded month i.e. <code>04</code> or <code>11</code>.
+</p>
+<p>Some values can be space-padded. <code>_2</code> will be <code>4</code> or <code>11</code>.
+</p>
+<p>Package time also defines constants for some well-known formats for date/time formatting e.g. <code>time.RFC822</code> is date format defined in RFC 822 which is date format in e-mail messages.
+</p>
+<p>Here’s a full list of pre-defined formats:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kd">const</span> <span class="p">(</span>
@@ -191,7 +257,9 @@ Month: Sep &#39;9&#39;, &#39;09&#39;,  4
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>What if you prefer <code>strftime</code> style of formatting time? That’s <a href="/essential/go/format-time-like-strftime-2c7392d399404940b8f7881ae23a6889">available too</a>.</p>
+</div>
+<p>What if you prefer <code>strftime</code> style of formatting time? That’s <a href="/essential/go/format-time-like-strftime-2c7392d399404940b8f7881ae23a6889">available too</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

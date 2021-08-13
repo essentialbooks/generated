@@ -127,7 +127,32 @@
 </div>
 
 
-      <p>To store a graph, two methods are common:</p><ul id="56b97ad7-2f51-48ef-b844-b66b45dd0562" class="bulleted-list"><li>Adjacency Matrix</li><li>Adjacency List</li></ul><p>An <a href="https://en.wikipedia.org/wiki/Adjacency_matrix">adjacency matrix</a> is a square matrix used to represent a finite graph. The elements of the matrix indicate whether pairs of vertices are adjacent or not in the graph.</p><p>Adjacent means ‘next to or adjoining something else’ or to be beside something. For example, your neighbors are adjacent to you. In graph theory, if we can go to <strong>node B</strong> from <strong>node A</strong>, we can say that <strong>node B</strong> is adjacent to <strong>node A</strong>. Now we will learn about how to store which nodes are adjacent to which one via Adjacency Matrix. This means, we will represent which nodes share edge between them. Here matrix means 2D array.</p><img class="img" src="/img/130f009600a672c59aeb689633e8d2518a60f254.png"><p>Here you can see a table beside the graph, this is our adjacency matrix. Here <strong>Matrix[i][j] = 1</strong> represents there is an edge between <strong>i</strong> and <strong>j</strong>. If there’s no edge, we simply put <strong>Matrix[i][j] = 0</strong>.</p><p>These edges can be weighted, like it can represent the distance between two cities. Then we’ll put the value in <strong>Matrix[i][j]</strong> instead of putting 1.</p><p>The graph described above is <em>Bidirectional</em> or <em>Undirected</em>, that means, if we can go to <strong>node 1</strong> from <strong>node 2</strong>, we can also go to <strong>node 2</strong> from <strong>node 1</strong>. If the graph was <em>Directed</em>, then there would’ve been arrow sign on one side of the graph. Even then, we could represent it using adjacency matrix.</p><img class="img" src="/img/7138256a08626e8c7533c23fb5f57e978eb4a7a9.png"><p>We represent the nodes that don’t share edge by <em>infinity</em>. One thing to be noticed is that, if the graph is undirected, the matrix becomes <em>symmetric</em>.</p><p>The pseudo-code to create the matrix:</p>
+      
+<p>To store a graph, two methods are common:
+</p>
+  <ul id="56b97ad7-2f51-48ef-b844-b66b45dd0562" class="bulleted-list">
+    <li>Adjacency Matrix
+    </li>
+    <li>Adjacency List
+    </li>
+  </ul>
+<p>An <a href="https://en.wikipedia.org/wiki/Adjacency_matrix">adjacency matrix</a> is a square matrix used to represent a finite graph. The elements of the matrix indicate whether pairs of vertices are adjacent or not in the graph.
+</p>
+<p>Adjacent means ‘next to or adjoining something else’ or to be beside something. For example, your neighbors are adjacent to you. In graph theory, if we can go to <strong>node B</strong> from <strong>node A</strong>, we can say that <strong>node B</strong> is adjacent to <strong>node A</strong>. Now we will learn about how to store which nodes are adjacent to which one via Adjacency Matrix. This means, we will represent which nodes share edge between them. Here matrix means 2D array.
+</p>
+<img class="img" src="/img/130f009600a672c59aeb689633e8d2518a60f254.png">
+<p>Here you can see a table beside the graph, this is our adjacency matrix. Here <strong>Matrix[i][j] = 1</strong> represents there is an edge between <strong>i</strong> and <strong>j</strong>. If there’s no edge, we simply put <strong>Matrix[i][j] = 0</strong>.
+</p>
+<p>These edges can be weighted, like it can represent the distance between two cities. Then we’ll put the value in <strong>Matrix[i][j]</strong> instead of putting 1.
+</p>
+<p>The graph described above is <em>Bidirectional</em> or <em>Undirected</em>, that means, if we can go to <strong>node 1</strong> from <strong>node 2</strong>, we can also go to <strong>node 2</strong> from <strong>node 1</strong>. If the graph was <em>Directed</em>, then there would’ve been arrow sign on one side of the graph. Even then, we could represent it using adjacency matrix.
+</p>
+<img class="img" src="/img/7138256a08626e8c7533c23fb5f57e978eb4a7a9.png">
+<p>We represent the nodes that don’t share edge by <em>infinity</em>. One thing to be noticed is that, if the graph is undirected, the matrix becomes <em>symmetric</em>.
+</p>
+<p>The pseudo-code to create the matrix:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure AdjacencyMatrix(N):    //N represents the number of nodes
@@ -141,7 +166,10 @@ endfor</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We can also populate the Matrix using this common way:</p>
+</div>
+<p>We can also populate the Matrix using this common way:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure AdjacencyMatrix(N, E):    // N -&gt; number of nodes
@@ -155,7 +183,20 @@ endfor</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For directed graphs, we can remove <strong>Matrix[n2][n1] = cost</strong> line.</p><p><strong>The drawbacks of using Adjacency Matrix:</strong></p><p>Memory is a huge problem. No matter how many edges are there, we will always need N * N sized matrix where N is the number of nodes. If there are 10000 nodes, the matrix size will be 4 * 10000 * 10000 around 381 megabytes. This is a huge waste of memory if we consider graphs that have a few edges.</p><p>Suppose we want to find out to which node we can go from a node <strong>u</strong>. We’ll need to check the whole row of <strong>u</strong>, which costs a lot of time.</p><p>The only benefit is that, we can easily find the connection between <strong>u-v</strong> nodes, and their cost using Adjacency Matrix.</p><p>Java code implemented using above pseudo-code:</p>
+</div>
+<p>For directed graphs, we can remove <strong>Matrix[n2][n1] = cost</strong> line.
+</p>
+<p><strong>The drawbacks of using Adjacency Matrix:</strong>
+</p>
+<p>Memory is a huge problem. No matter how many edges are there, we will always need N * N sized matrix where N is the number of nodes. If there are 10000 nodes, the matrix size will be 4 * 10000 * 10000 around 381 megabytes. This is a huge waste of memory if we consider graphs that have a few edges.
+</p>
+<p>Suppose we want to find out to which node we can go from a node <strong>u</strong>. We’ll need to check the whole row of <strong>u</strong>, which costs a lot of time.
+</p>
+<p>The only benefit is that, we can easily find the connection between <strong>u-v</strong> nodes, and their cost using Adjacency Matrix.
+</p>
+<p>Java code implemented using above pseudo-code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import java.util.Scanner;
@@ -247,7 +288,12 @@ public class Represent_Graph_Adjacency_Matrix
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Running the code: Save the file and compile using <code>javac Represent_Graph_Adjacency_Matrix.java</code></p><p>Example:</p>
+</div>
+<p>Running the code: Save the file and compile using <code>javac Represent_Graph_Adjacency_Matrix.java</code>
+</p>
+<p>Example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ java Represent_Graph_Adjacency_Matrix

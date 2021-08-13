@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The function <code>strtok</code> breaks a string into a smaller strings, or tokens, using a set of delimiters.</p>
+      
+<p>The function <code>strtok</code> breaks a string into a smaller strings, or tokens, using a set of delimiters.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -150,7 +153,10 @@ int main(void)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output:</p>
+</div>
+<p>Output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">1: [Hello]
@@ -159,7 +165,20 @@ int main(void)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The string of delimiters may contain one or more delimiters and different delimiter strings may be used with each call to <code>strtok</code>.</p><p>Calls to <code>strtok</code> to continue tokenizing the same source string should not pass the source string again, but instead pass <code>NULL</code> as the first argument. If the same source string <em>is</em> passed then the first token will instead be re-tokenized. That is, given the same delimiters, <code>strtok</code> would simply return the first token again.</p><p>Note that as <code>strtok</code> does not allocate new memory for the tokens, <em>it modifies the source string</em>. That is, in the above example, the string <code>src</code> will be manipulated to produce the tokens that are referenced by the pointer returned by the calls to <code>strtok</code>. This means that the source string cannot be <code>const</code> (so it can’t be a string literal). It also means that the identity of the delimiting byte is lost (i.e. in the example the “,” and “!” are effectively deleted from the source string and you cannot tell which delimiter character matched).</p><p>Note also that multiple consecutive delimiters in the source string are treated as one; in the example, the second comma is ignored.</p><p><code>strtok</code> is neither thread safe nor re-entrant because it uses a static buffer while parsing. This means that if a function calls <code>strtok</code>, no function that it calls while it is using <code>strtok</code> can also use <code>strtok</code>, and it cannot be called by any function that is itself using <code>strtok</code>.</p><p>An example that demonstrates the problems caused by the fact that <code>strtok</code>is not re-entrant is as follows:</p>
+</div>
+<p>The string of delimiters may contain one or more delimiters and different delimiter strings may be used with each call to <code>strtok</code>.
+</p>
+<p>Calls to <code>strtok</code> to continue tokenizing the same source string should not pass the source string again, but instead pass <code>NULL</code> as the first argument. If the same source string <em>is</em> passed then the first token will instead be re-tokenized. That is, given the same delimiters, <code>strtok</code> would simply return the first token again.
+</p>
+<p>Note that as <code>strtok</code> does not allocate new memory for the tokens, <em>it modifies the source string</em>. That is, in the above example, the string <code>src</code> will be manipulated to produce the tokens that are referenced by the pointer returned by the calls to <code>strtok</code>. This means that the source string cannot be <code>const</code> (so it can’t be a string literal). It also means that the identity of the delimiting byte is lost (i.e. in the example the “,” and “!” are effectively deleted from the source string and you cannot tell which delimiter character matched).
+</p>
+<p>Note also that multiple consecutive delimiters in the source string are treated as one; in the example, the second comma is ignored.
+</p>
+<p><code>strtok</code> is neither thread safe nor re-entrant because it uses a static buffer while parsing. This means that if a function calls <code>strtok</code>, no function that it calls while it is using <code>strtok</code> can also use <code>strtok</code>, and it cannot be called by any function that is itself using <code>strtok</code>.
+</p>
+<p>An example that demonstrates the problems caused by the fact that <code>strtok</code>is not re-entrant is as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">char src[] = &#34;1.2,3.5,4.2&#34;;
@@ -181,7 +200,10 @@ do
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output:</p>
+</div>
+<p>Output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[1.2]
@@ -191,7 +213,20 @@ do
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The expected operation is that the outer <code>do while</code> loop should create three tokens consisting of each decimal number string (<code>&quot;1.2&quot;</code>, <code>&quot;3.5&quot;</code>, <code>&quot;4.2&quot;</code>), for each of which the <code>strtok</code> calls for the inner loop should split it into separate digit strings (<code>&quot;1&quot;</code>, <code>&quot;2&quot;</code>, <code>&quot;3&quot;</code>, <code>&quot;5&quot;</code>, <code>&quot;4&quot;</code>, <code>&quot;2&quot;</code>).</p><p>However, because <code>strtok</code> is not re-entrant, this does not occur. Instead the first <code>strtok</code> correctly creates the “1.2\0” token, and the inner loop correctly creates the tokens <code>&quot;1&quot;</code> and <code>&quot;2&quot;</code>. But then the <code>strtok</code> in the outer loop is at the end of the string used by the inner loop, and returns NULL immediately. The second and third substrings of the <code>src</code> array are not analyzed at all.</p><p>The standard C libraries do not contain a thread-safe or re-entrant version but some others do, such as POSIX’ <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/strtok_r.html"><code>strtok_r</code></a>. Note that on MSVC the <code>strtok</code> equivalent, <code>strtok_s</code> is thread-safe.</p><p>C11 has an optional part, Annex K, that offers a thread-safe and re-entrant version named <code>strtok_s</code>. You can test for the feature with <code>__STDC_LIB_EXT1__</code>. This optional part is not widely supported.</p><p>The <code>strtok_s</code> function differs from the POSIX <code>strtok_r</code> function by guarding against storing outside of the string being tokenized, and by checking runtime constraints. On correctly written programs, though, the <code>strtok_s</code> and <code>strtok_r</code> behave the same.</p><p>Using <code>strtok_s</code> with the example now yields the correct response, like so:</p>
+</div>
+<p>The expected operation is that the outer <code>do while</code> loop should create three tokens consisting of each decimal number string (<code>&quot;1.2&quot;</code>, <code>&quot;3.5&quot;</code>, <code>&quot;4.2&quot;</code>), for each of which the <code>strtok</code> calls for the inner loop should split it into separate digit strings (<code>&quot;1&quot;</code>, <code>&quot;2&quot;</code>, <code>&quot;3&quot;</code>, <code>&quot;5&quot;</code>, <code>&quot;4&quot;</code>, <code>&quot;2&quot;</code>).
+</p>
+<p>However, because <code>strtok</code> is not re-entrant, this does not occur. Instead the first <code>strtok</code> correctly creates the “1.2\0” token, and the inner loop correctly creates the tokens <code>&quot;1&quot;</code> and <code>&quot;2&quot;</code>. But then the <code>strtok</code> in the outer loop is at the end of the string used by the inner loop, and returns NULL immediately. The second and third substrings of the <code>src</code> array are not analyzed at all.
+</p>
+<p>The standard C libraries do not contain a thread-safe or re-entrant version but some others do, such as POSIX’ <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/strtok_r.html"><code>strtok_r</code></a>. Note that on MSVC the <code>strtok</code> equivalent, <code>strtok_s</code> is thread-safe.
+</p>
+<p>C11 has an optional part, Annex K, that offers a thread-safe and re-entrant version named <code>strtok_s</code>. You can test for the feature with <code>__STDC_LIB_EXT1__</code>. This optional part is not widely supported.
+</p>
+<p>The <code>strtok_s</code> function differs from the POSIX <code>strtok_r</code> function by guarding against storing outside of the string being tokenized, and by checking runtime constraints. On correctly written programs, though, the <code>strtok_s</code> and <code>strtok_r</code> behave the same.
+</p>
+<p>Using <code>strtok_s</code> with the example now yields the correct response, like so:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/* you have to announce that you want to use Annex K */ 
@@ -224,7 +259,10 @@ while ((first = strtok_s(NULL, &#34;,&#34;, &amp;next)) != NULL);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And the output will be:</p>
+</div>
+<p>And the output will be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[1.2]

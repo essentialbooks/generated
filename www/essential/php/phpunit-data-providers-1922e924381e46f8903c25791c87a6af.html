@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Test methods often need data to be tested with. To test some methods completely you need to provide different data sets for every possible test condition. Of course, you can do it manually using loops, like this:</p>
+      
+<p>Test methods often need data to be tested with. To test some methods completely you need to provide different data sets for every possible test condition. Of course, you can do it manually using loops, like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">...
@@ -143,7 +146,16 @@ public function testSomething()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And someone can find it convenient. But there are some drawbacks of this approach. First, you’ll have to perform additional actions to extract data if your test function accepts several parameters. Second, on failure it would be difficult to distinguish the failing data set without additional messages and debugging. Third, PHPUnit provides automatic way to deal with test data sets using <a href="https://phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.data-providers">data providers</a>.</p><p>Data provider is a function, that should return data for your particular test case.</p><blockquote id="9f264144-60bc-4966-9e44-61745838c510" class="">A data provider method must be public and either return an array of arrays or an object that implements the Iterator interface and yields an array for each iteration step. For each array that is part of the collection the test method will be called with the contents of the array as its arguments.</blockquote><p>To use a data provider with your test, use <code>@dataProvider</code> annotation with the name of data provider function specified:</p>
+</div>
+<p>And someone can find it convenient. But there are some drawbacks of this approach. First, you’ll have to perform additional actions to extract data if your test function accepts several parameters. Second, on failure it would be difficult to distinguish the failing data set without additional messages and debugging. Third, PHPUnit provides automatic way to deal with test data sets using <a href="https://phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.data-providers">data providers</a>.
+</p>
+<p>Data provider is a function, that should return data for your particular test case.
+</p>
+<blockquote id="9f264144-60bc-4966-9e44-61745838c510" class="">A data provider method must be public and either return an array of arrays or an object that implements the Iterator interface and yields an array for each iteration step. For each array that is part of the collection the test method will be called with the contents of the array as its arguments.
+</blockquote>
+<p>To use a data provider with your test, use <code>@dataProvider</code> annotation with the name of data provider function specified:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/**
@@ -166,7 +178,13 @@ public function dataProviderForTest()
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="6c375216-578c-4adc-82b5-ef697b221cf1" class="">Array of arrays<a class="header-anchor" href="#6c375216-578c-4adc-82b5-ef697b221cf1" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><blockquote id="eb427f8f-af08-4944-aa6a-cad80be8c08b" class="">Note that dataProviderForTest() returns array of arrays. Each nested array has two elements and they will fill necessary parameters for testEquals() one by one. Error like this will be thrown Missing argument 2 for Test::testEquals() if there are not enough elements. PHPUnit will automatically loop through data and run tests:</blockquote>
+</div>
+  <h2 id="6c375216-578c-4adc-82b5-ef697b221cf1" class="">Array of arrays
+  <a class="header-anchor" href="#6c375216-578c-4adc-82b5-ef697b221cf1" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<blockquote id="eb427f8f-af08-4944-aa6a-cad80be8c08b" class="">Note that dataProviderForTest() returns array of arrays. Each nested array has two elements and they will fill necessary parameters for testEquals() one by one. Error like this will be thrown Missing argument 2 for Test::testEquals() if there are not enough elements. PHPUnit will automatically loop through data and run tests:
+</blockquote>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public function dataProviderForTest()
@@ -181,7 +199,10 @@ public function dataProviderForTest()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Each data set can be <strong>named</strong> for convenience. It will be easier to detect failing data:</p>
+</div>
+<p>Each data set can be <strong>named</strong> for convenience. It will be easier to detect failing data:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public function dataProviderForTest()
@@ -197,7 +218,11 @@ public function dataProviderForTest()
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="5216578b-ead2-4d3a-9e84-f1d50cca10f5" class="">Iterators<a class="header-anchor" href="#5216578b-ead2-4d3a-9e84-f1d50cca10f5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+</div>
+  <h2 id="5216578b-ead2-4d3a-9e84-f1d50cca10f5" class="">Iterators
+  <a class="header-anchor" href="#5216578b-ead2-4d3a-9e84-f1d50cca10f5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class MyIterator implements Iterator {
@@ -254,7 +279,14 @@ class Test extends TestCase
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As you can see, simple iterator also works.</p><blockquote id="bb51485c-0801-448a-8a23-b0068ee69b75" class="">Note that even for a single parameter, data provider must return an array [$parameter]</blockquote><p>Because if we change our <code>current()</code> method (which actually return data on every iteration) to this:</p>
+</div>
+<p>As you can see, simple iterator also works.
+</p>
+<blockquote id="bb51485c-0801-448a-8a23-b0068ee69b75" class="">Note that even for a single parameter, data provider must return an array [$parameter]
+</blockquote>
+<p>Because if we change our <code>current()</code> method (which actually return data on every iteration) to this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">function current() {
@@ -264,7 +296,10 @@ class Test extends TestCase
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Or change actual data:</p>
+</div>
+<p>Or change actual data:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">return new MyIterator([
@@ -276,7 +311,10 @@ class Test extends TestCase
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We’ll get an error:</p>
+</div>
+<p>We’ll get an error:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">There was 1 warning:
@@ -287,7 +325,17 @@ The data provider specified for Test::testEquals is invalid.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="c581bb42-ac45-4ed3-967e-18a4be721b12" class="">Of course, it is not useful to use Iterator object over a simple array. It should implement some specific logic for your case.</blockquote><h2 id="3e73f92e-bb87-48ff-8844-f7786b5b5212" class="">Generators<a class="header-anchor" href="#3e73f92e-bb87-48ff-8844-f7786b5b5212" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>It is not explicitly noted and shown in manual, but you can also use a <a href="http://stackoverflow.com/documentation/php/1684/generators#t=201607260816011891273">generator</a> as data provider. Note that <code>Generator</code> class actually implements <code>Iterator</code> interface.</p><p>So here’s an example of using <code>DirectoryIterator</code> combined with <code>generator</code>:</p>
+</div>
+<blockquote id="c581bb42-ac45-4ed3-967e-18a4be721b12" class="">Of course, it is not useful to use Iterator object over a simple array. It should implement some specific logic for your case.
+</blockquote>
+  <h2 id="3e73f92e-bb87-48ff-8844-f7786b5b5212" class="">Generators
+  <a class="header-anchor" href="#3e73f92e-bb87-48ff-8844-f7786b5b5212" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>It is not explicitly noted and shown in manual, but you can also use a <a href="http://stackoverflow.com/documentation/php/1684/generators#t=201607260816011891273">generator</a> as data provider. Note that <code>Generator</code> class actually implements <code>Iterator</code> interface.
+</p>
+<p>So here’s an example of using <code>DirectoryIterator</code> combined with <code>generator</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/**
@@ -316,7 +364,9 @@ public function fileDataProvider()
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="6d898a24-b6b5-40a3-81db-1dc13232b650" class="">Note provider yields an array. You’ll get an invalid-data-provider warning instead.</blockquote>
+</div>
+<blockquote id="6d898a24-b6b5-40a3-81db-1dc13232b650" class="">Note provider yields an array. You’ll get an invalid-data-provider warning instead.
+</blockquote>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

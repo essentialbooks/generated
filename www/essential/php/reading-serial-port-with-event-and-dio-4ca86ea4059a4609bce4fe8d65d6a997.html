@@ -127,7 +127,26 @@
 </div>
 
 
-      <p><a href="http://php.net/manual/en/book.dio.php"><em>DIO</em></a> streams are currently not recognized by the <a href="http://php.net/manual/en/book.event.php"><em>Event</em></a> extension. There is no clean way to obtain the file descriptor encapsulated into the DIO resource. But there is a workaround:</p><ul id="1225a3fd-048c-4870-be7b-24864e43435e" class="bulleted-list"><li>open stream for the port with <code>fopen()</code>;</li><li>make the stream non-blocking with <a href="http://php.net/manual/en/function.stream-set-blocking.php"><code>stream_set_blocking()</code></a>;</li><li>obtain numeric file descriptor from the stream with <a href="http://php.net/manual/en/function.stream-set-blocking.php"><code>EventUtil::getSocketFd()</code></a>;</li><li>pass the numeric file descriptor to <code>dio_fdopen()</code> (currently undocumented) and get the DIO resource;</li><li>add an <code>Event</code> with a callback for listening to the read events on the file descriptor;</li><li>in the callback drain the available data and process it according to the logic of your application.</li></ul><p><strong>dio.php</strong></p>
+      
+<p><a href="http://php.net/manual/en/book.dio.php"><em>DIO</em></a> streams are currently not recognized by the <a href="http://php.net/manual/en/book.event.php"><em>Event</em></a> extension. There is no clean way to obtain the file descriptor encapsulated into the DIO resource. But there is a workaround:
+</p>
+  <ul id="1225a3fd-048c-4870-be7b-24864e43435e" class="bulleted-list">
+    <li>open stream for the port with <code>fopen()</code>;
+    </li>
+    <li>make the stream non-blocking with <a href="http://php.net/manual/en/function.stream-set-blocking.php"><code>stream_set_blocking()</code></a>;
+    </li>
+    <li>obtain numeric file descriptor from the stream with <a href="http://php.net/manual/en/function.stream-set-blocking.php"><code>EventUtil::getSocketFd()</code></a>;
+    </li>
+    <li>pass the numeric file descriptor to <code>dio_fdopen()</code> (currently undocumented) and get the DIO resource;
+    </li>
+    <li>add an <code>Event</code> with a callback for listening to the read events on the file descriptor;
+    </li>
+    <li>in the callback drain the available data and process it according to the logic of your application.
+    </li>
+  </ul>
+<p><strong>dio.php</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;?php
@@ -203,7 +222,13 @@ $scanner-&gt;run();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="1b11d743-8992-4a91-8970-9daea2537c66" class="">Testing<a class="header-anchor" href="#1b11d743-8992-4a91-8970-9daea2537c66" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Run the following command in terminal A:</p>
+</div>
+  <h2 id="1b11d743-8992-4a91-8970-9daea2537c66" class="">Testing
+  <a class="header-anchor" href="#1b11d743-8992-4a91-8970-9daea2537c66" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Run the following command in terminal A:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ socat -d -d pty,raw,echo=0 pty,raw,echo=0
@@ -214,7 +239,12 @@ $scanner-&gt;run();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The output may be different. Use the PTYs from the first couple of rows (<code>/dev/pts/5</code> and <code>/dev/pts/8</code>, in particular).</p><p>In terminal B run the above-mentioned script. You may need root privileges:</p>
+</div>
+<p>The output may be different. Use the PTYs from the first couple of rows (<code>/dev/pts/5</code> and <code>/dev/pts/8</code>, in particular).
+</p>
+<p>In terminal B run the above-mentioned script. You may need root privileges:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ sudo php dio.php</pre>
@@ -222,7 +252,10 @@ $scanner-&gt;run();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In terminal C send a string to the first PTY:</p>
+</div>
+<p>In terminal C send a string to the first PTY:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ echo test &gt; /dev/pts/8</pre>
@@ -230,7 +263,10 @@ $scanner-&gt;run();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>Output</em></p>
+</div>
+<p><em>Output</em>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">string(1) &#34;t&#34;

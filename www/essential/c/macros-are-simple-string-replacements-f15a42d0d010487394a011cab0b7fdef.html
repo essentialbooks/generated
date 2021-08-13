@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Macros are simple string replacements. (Strictly speaking, they work with preprocessing tokens, not arbitrary strings.)</p>
+      
+<p>Macros are simple string replacements. (Strictly speaking, they work with preprocessing tokens, not arbitrary strings.)
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -142,7 +145,12 @@ int main(void) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You may expect this code to print <code>9</code> (<code>3*3</code>), but actually <code>5</code> will be printed because the macro will be expanded to <code>1+2*1+2</code>.</p><p>You should wrap the arguments and the whole macro expression in parentheses to avoid this problem.</p>
+</div>
+<p>You may expect this code to print <code>9</code> (<code>3*3</code>), but actually <code>5</code> will be printed because the macro will be expanded to <code>1+2*1+2</code>.
+</p>
+<p>You should wrap the arguments and the whole macro expression in parentheses to avoid this problem.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -157,7 +165,10 @@ int main(void) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Another problem is that the arguments of a macro are not guaranteed to be evaluated once; they may not be evaluated at all, or may be evaluated multiple times.</p>
+</div>
+<p>Another problem is that the arguments of a macro are not guaranteed to be evaluated once; they may not be evaluated at all, or may be evaluated multiple times.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -174,7 +185,12 @@ int main(void) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this code, the macro will be expanded to <code>((a++) &lt;= (10) ? (a++) : (10))</code>. Since <code>a++</code> (<code>0</code>) is smaller than <code>10</code>, <code>a++</code> will be evaluated twice and it will make the value of <code>a</code> and what is returned from <code>MIN</code> differ from you may expect.</p><p>This can be avoided by using functions, but note that the types will be fixed by the function definition, whereas macros can be (too) flexible with types.</p>
+</div>
+<p>In this code, the macro will be expanded to <code>((a++) &lt;= (10) ? (a++) : (10))</code>. Since <code>a++</code> (<code>0</code>) is smaller than <code>10</code>, <code>a++</code> will be evaluated twice and it will make the value of <code>a</code> and what is returned from <code>MIN</code> differ from you may expect.
+</p>
+<p>This can be avoided by using functions, but note that the types will be fixed by the function definition, whereas macros can be (too) flexible with types.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -193,7 +209,12 @@ int main(void) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now the problem of double-evaluation is fixed, but this <code>min</code> function cannot deal with <code>double</code> data without truncating, for example.</p><p>Macro directives can be of two types:</p>
+</div>
+<p>Now the problem of double-evaluation is fixed, but this <code>min</code> function cannot deal with <code>double</code> data without truncating, for example.
+</p>
+<p>Macro directives can be of two types:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define OBJECT_LIKE_MACRO     followed by a &#34;replacement list&#34; of preprocessor tokens
@@ -202,7 +223,14 @@ int main(void) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>What distinguishes these two types of macros is the character that follows the identifier after <code>#define</code>: if it’s an <em>lparen</em>, it is a function-like macro; otherwise, it’s an object-like macro. If the intention is to write a function-like macro, there must not be any white space between the end of the name of the macro and <code>\(</code>. Check <a href="https://stackoverflow.com/questions/39931709/why-this-macros-is-not-expanding-correctly">this</a> for a detailed explanation.</p><p>In C99 or later, you could use <code>static inline int min(int x, int y) { … }</code>.</p><p>In C11, you could write a ‘type-generic’ expression for <code>min</code>.</p>
+</div>
+<p>What distinguishes these two types of macros is the character that follows the identifier after <code>#define</code>: if it’s an <em>lparen</em>, it is a function-like macro; otherwise, it’s an object-like macro. If the intention is to write a function-like macro, there must not be any white space between the end of the name of the macro and <code>\(</code>. Check <a href="https://stackoverflow.com/questions/39931709/why-this-macros-is-not-expanding-correctly">this</a> for a detailed explanation.
+</p>
+<p>In C99 or later, you could use <code>static inline int min(int x, int y) { … }</code>.
+</p>
+<p>In C11, you could write a ‘type-generic’ expression for <code>min</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -237,7 +265,9 @@ int main(void)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The generic expression could be extended with more types such as <code>double</code>, <code>float</code>, <code>long long</code>, <code>unsigned long</code>, <code>long</code>, <code>unsigned</code> — and appropriate <code>gen_min</code> macro invocations written.</p>
+</div>
+<p>The generic expression could be extended with more types such as <code>double</code>, <code>float</code>, <code>long long</code>, <code>unsigned long</code>, <code>long</code>, <code>unsigned</code> — and appropriate <code>gen_min</code> macro invocations written.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

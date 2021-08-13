@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>Sometimes we want to use a <code>where</code> query on a a collection of records returned which is not <code>ActiveRecord::Relation</code>.Hence we get the above error as <code>Where</code> clause is know to <code>ActiveRecord</code> and not to <code>Array</code>.</p><p>There is a precise solution for this by using <code>Joins</code>.</p><p><strong>EXAMPLE</strong>:-</p><blockquote id="6c5a755e-e29e-47eb-8d78-e7a51471ffbb" class="">Suppose i need to find all user profiles(UserProfile) which are active which is not a user(User) with an id=10.</blockquote>
+      
+<p>Sometimes we want to use a <code>where</code> query on a a collection of records returned which is not <code>ActiveRecord::Relation</code>.Hence we get the above error as <code>Where</code> clause is know to <code>ActiveRecord</code> and not to <code>Array</code>.
+</p>
+<p>There is a precise solution for this by using <code>Joins</code>.
+</p>
+<p><strong>EXAMPLE</strong>:-
+</p>
+<blockquote id="6c5a755e-e29e-47eb-8d78-e7a51471ffbb" class="">Suppose i need to find all user profiles(UserProfile) which are active which is not a user(User) with an id=10.
+</blockquote>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">UserProfiles.includes(:user=&gt;:profile_pictures]).where(:active=&gt;true).map(&amp;:user).where.not(:id=&gt;10)</pre>
@@ -135,7 +144,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So above query will fail after <code>map</code> as <code>map</code> will return an <code>array</code> which will <strong>not</strong> work with <code>where</code> clause.</p><p><strong>But using joins,will make it work,</strong></p>
+</div>
+<p>So above query will fail after <code>map</code> as <code>map</code> will return an <code>array</code> which will <strong>not</strong> work with <code>where</code> clause.
+</p>
+<p><strong>But using joins,will make it work,</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">UserProfiles.includes(:user=&gt;:profile_pictures]).where(:active=&gt;true).joins(:user).where.not(:id=&gt;10)</pre>
@@ -143,7 +157,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As <code>joins</code> will output similar records like <code>map</code> but they will be <code>ActiveRecord</code> and <strong>not</strong> an <code>Array</code>.</p>
+</div>
+<p>As <code>joins</code> will output similar records like <code>map</code> but they will be <code>ActiveRecord</code> and <strong>not</strong> an <code>Array</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

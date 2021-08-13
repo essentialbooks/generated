@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>It is well known that you cannot use the same file for input and ouput in the same command. For instance,</p>
+      
+<p>It is well known that you cannot use the same file for input and ouput in the same command. For instance,
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ cat header.txt body.txt &gt;body.txt</pre>
@@ -135,7 +138,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>doesn’t do what you want. By the time <code>cat</code> reads <code>body.txt</code>, it has already been truncated by the redirection and it is empty. The final result will be that <code>body.txt</code> will hold the contents of <code>header.txt</code> <em>only.</em></p><p>One might think to avoid this with process substitution, that is, that the command</p>
+</div>
+<p>doesn’t do what you want. By the time <code>cat</code> reads <code>body.txt</code>, it has already been truncated by the redirection and it is empty. The final result will be that <code>body.txt</code> will hold the contents of <code>header.txt</code> <em>only.</em>
+</p>
+<p>One might think to avoid this with process substitution, that is, that the command
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ cat header.txt &lt;(cat body.txt) &gt; body.txt</pre>
@@ -143,7 +151,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>will force the original contents of <code>body.txt</code> to be somehow saved in some buffer somewhere before the file is truncated by the redirection. It doesn’t work. The <code>cat</code> in parentheses begins reading the file only after all file descriptors have been set up, just like the outer one. There is no point in trying to use process substitution in this case.</p><p>The only way to prepend a file to another file is to create an intermediate one:</p>
+</div>
+<p>will force the original contents of <code>body.txt</code> to be somehow saved in some buffer somewhere before the file is truncated by the redirection. It doesn’t work. The <code>cat</code> in parentheses begins reading the file only after all file descriptors have been set up, just like the outer one. There is no point in trying to use process substitution in this case.
+</p>
+<p>The only way to prepend a file to another file is to create an intermediate one:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ cat header.txt body.txt &gt;body.txt.new
@@ -152,7 +165,9 @@ $ mv body.txt.new body.txt</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>which is what <code>sed</code> or <code>perl</code> or similar programs do under the carpet when called with an <em>edit-in-place</em> option (usually <code>-i</code>).</p>
+</div>
+<p>which is what <code>sed</code> or <code>perl</code> or similar programs do under the carpet when called with an <em>edit-in-place</em> option (usually <code>-i</code>).
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

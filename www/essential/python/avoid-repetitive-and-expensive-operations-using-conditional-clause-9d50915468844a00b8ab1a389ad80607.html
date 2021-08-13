@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Consider the below list comprehension:</p>
+      
+<p>Consider the below list comprehension:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -141,7 +144,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This results in two calls to <code>f(x)</code> for 1,000 values of <code>x</code>: one call for generating the value and the other for checking the <code>if</code> condition. If <code>f(x)</code> is a particularly expensive operation, this can have significant performance implications. Worse, if calling <code>f()</code> has side effects, it can have surprising results.</p><p>Instead, you should evaluate the expensive operation only once for each value of <code>x</code> by generating an intermediate iterable (<a href="http://stackoverflow.com/documentation/python/196/comprehensions/739/generator-expressions#t=201607231130336574039">generator expression</a>) as follows:</p>
+</div>
+<p>This results in two calls to <code>f(x)</code> for 1,000 values of <code>x</code>: one call for generating the value and the other for checking the <code>if</code> condition. If <code>f(x)</code> is a particularly expensive operation, this can have significant performance implications. Worse, if calling <code>f()</code> has side effects, it can have surprising results.
+</p>
+<p>Instead, you should evaluate the expensive operation only once for each value of <code>x</code> by generating an intermediate iterable (<a href="http://stackoverflow.com/documentation/python/196/comprehensions/739/generator-expressions#t=201607231130336574039">generator expression</a>) as follows:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">]</span>
@@ -150,7 +158,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Or, using the builtin <a href="https://docs.python.org/3.5/library/functions.html#map">map</a> equivalent:</p>
+</div>
+<p>Or, using the builtin <a href="https://docs.python.org/3.5/library/functions.html#map">map</a> equivalent:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">map</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">]</span>
@@ -159,7 +170,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Another way that could result in a more readable code is to put the partial result (<code>v</code> in the previous example) in an iterable (such as a list or a tuple) and then iterate over it. Since <code>v</code> will be the only element in the iterable, the result is that we now have a reference to the output of our slow function computed only once:</p>
+</div>
+<p>Another way that could result in a more readable code is to put the partial result (<code>v</code> in the previous example) in an iterable (such as a list or a tuple) and then iterate over it. Since <code>v</code> will be the only element in the iterable, the result is that we now have a reference to the output of our slow function computed only once:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">]</span>
@@ -168,7 +182,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, in practice, the logic of code can be more complicated and it’s important to keep it readable. In general, a separate <a href="http://stackoverflow.com/documentation/python/292/generators-yield#t=201607221701093174726">generator function</a> is recommended over a complex one-liner:</p>
+</div>
+<p>However, in practice, the logic of code can be more complicated and it’s important to keep it readable. In general, a separate <a href="http://stackoverflow.com/documentation/python/292/generators-yield#t=201607221701093174726">generator function</a> is recommended over a complex one-liner:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; def process_prime_numbers(iterable):
@@ -182,7 +199,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Another way to prevent computing <code>f(x)</code> multiple times is to use the <a href="https://docs.python.org/3/library/functools.html#functools.lru_cache"><code>@functools.lru_cache()</code></a>(Python 3.2+) <a href="http://stackoverflow.com/documentation/python/229/decorators#t=201607221701527897836">decorator</a> on <code>f(x)</code>. This way since the output of <code>f</code> for the input <code>x</code> has already been computed once, the second function invocation of the original list comprehension will be as fast as a dictionary lookup. This approach uses <a href="https://en.wikipedia.org/wiki/Memoization">memoization</a> to improve efficiency, which is comparable to using generator expressions.</p><p>Say you have to flatten a list</p>
+</div>
+<p>Another way to prevent computing <code>f(x)</code> multiple times is to use the <a href="https://docs.python.org/3/library/functools.html#functools.lru_cache"><code>@functools.lru_cache()</code></a>(Python 3.2+) <a href="http://stackoverflow.com/documentation/python/229/decorators#t=201607221701527897836">decorator</a> on <code>f(x)</code>. This way since the output of <code>f</code> for the input <code>x</code> has already been computed once, the second function invocation of the original list comprehension will be as fast as a dictionary lookup. This approach uses <a href="https://en.wikipedia.org/wiki/Memoization">memoization</a> to improve efficiency, which is comparable to using generator expressions.
+</p>
+<p>Say you have to flatten a list
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">l</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]]</span></pre>
@@ -190,7 +212,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Some of the methods could be:</p>
+</div>
+<p>Some of the methods could be:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
@@ -202,7 +227,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However list comprehension would provide the best time complexity.</p>
+</div>
+<p>However list comprehension would provide the best time complexity.
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">l</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span></pre>
@@ -210,7 +238,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The shortcuts based on + (including the implied use in sum) are, of necessity, O(L^2) when there are L sublists – as the intermediate result list keeps getting longer, at each step a new intermediate result list object gets allocated, and all the items in the previous intermediate result must be copied over (as well as a few new ones added at the end). So (for simplicity and without actual loss of generality) say you have L sublists of I items each: the first I items are copied back and forth L-1 times, the second I items L-2 times, and so on; total number of copies is I times the sum of x for x from 1 to L excluded, i.e., I * (L**2)/2.</p><p>The list comprehension just generates one list, once, and copies each item over (from its original place of residence to the result list) also exactly once.</p>
+</div>
+<p>The shortcuts based on + (including the implied use in sum) are, of necessity, O(L^2) when there are L sublists – as the intermediate result list keeps getting longer, at each step a new intermediate result list object gets allocated, and all the items in the previous intermediate result must be copied over (as well as a few new ones added at the end). So (for simplicity and without actual loss of generality) say you have L sublists of I items each: the first I items are copied back and forth L-1 times, the second I items L-2 times, and so on; total number of copies is I times the sum of x for x from 1 to L excluded, i.e., I * (L**2)/2.
+</p>
+<p>The list comprehension just generates one list, once, and copies each item over (from its original place of residence to the result list) also exactly once.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>A <em>default constructor</em> is a type of constructor that requires no parameters when called. It is named after the type it constructs and is a member function of it (as all constructors are).</p>
+      
+<p>A <em>default constructor</em> is a type of constructor that requires no parameters when called. It is named after the type it constructs and is a member function of it (as all constructors are).
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class C{
@@ -151,7 +154,10 @@ C* c6 = new C[2]; // calls default constructor for both array elements</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Another way to satisfy the “no parameters” requirement is for the developer to provide default values for all parameters:</p>
+</div>
+<p>Another way to satisfy the “no parameters” requirement is for the developer to provide default values for all parameters:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class D{
@@ -168,6 +174,7 @@ public:
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">D d; // calls constructor of D with the provided default values for the parameters</pre>
@@ -175,7 +182,10 @@ public:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Under some circumstances (i.e., the developer provides no constructors and there are no other disqualifying conditions), the compiler implicitly provides an empty default constructor:</p>
+</div>
+<p>Under some circumstances (i.e., the developer provides no constructors and there are no other disqualifying conditions), the compiler implicitly provides an empty default constructor:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class C{
@@ -187,7 +197,10 @@ C c1; // will succeed -- C has an implicitly defined default constructor</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Having some other type of constructor is one of the disqualifying conditions mentioned earlier:</p>
+</div>
+<p>Having some other type of constructor is one of the disqualifying conditions mentioned earlier:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class C{
@@ -201,7 +214,14 @@ C c1; // Compile ERROR: C has no (implicitly defined) default constructor</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To prevent implicit default constructor creation, a common technique is to declare it as <code>private</code> (with no definition). The intention is to cause a compile error when someone tries to use the constructor (this either results in an <em>Access to private</em> error or a linker error, depending on the compiler).</p><p>To be sure a default constructor (functionally similar to the implicit one) is defined, a developer could write an empty one explicitly.</p><p>In C++11, a developer can also use the <code>delete</code> keyword to prevent the compiler from providing a default constructor.</p>
+</div>
+<p>To prevent implicit default constructor creation, a common technique is to declare it as <code>private</code> (with no definition). The intention is to cause a compile error when someone tries to use the constructor (this either results in an <em>Access to private</em> error or a linker error, depending on the compiler).
+</p>
+<p>To be sure a default constructor (functionally similar to the implicit one) is defined, a developer could write an empty one explicitly.
+</p>
+<p>In C++11, a developer can also use the <code>delete</code> keyword to prevent the compiler from providing a default constructor.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class C{
@@ -216,7 +236,10 @@ C c1; // Compile ERROR: C has its default constructor deleted</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Furthermore, a developer may also be explicit about wanting the compiler to provide a default constructor.</p>
+</div>
+<p>Furthermore, a developer may also be explicit about wanting the compiler to provide a default constructor.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class C{
@@ -234,7 +257,10 @@ C c2( 1 ); // constructed with the int taking constructor</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can determine whether a type has a default constructor (or is a primitive type) using <code>std::is_default_constructible</code> from <code>&lt;type_traits&gt;</code>:</p>
+</div>
+<p>You can determine whether a type has a default constructor (or is a primitive type) using <code>std::is_default_constructible</code> from <code>&lt;type_traits&gt;</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class C1{ };
@@ -251,7 +277,10 @@ cout &lt;&lt; boolalpha &lt;&lt; is_default_constructible&lt;C3&gt;() &lt;&lt; e
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In C++11, it is still possible to use the non-functor version of <code>std::is_default_constructible</code>:</p>
+</div>
+<p>In C++11, it is still possible to use the non-functor version of <code>std::is_default_constructible</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cout &lt;&lt; boolalpha &lt;&lt; is_default_constructible&lt;C1&gt;::value &lt;&lt; endl; // prints true</pre>

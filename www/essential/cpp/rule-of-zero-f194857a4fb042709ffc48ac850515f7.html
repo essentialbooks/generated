@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>We can combine the principles of the Rule of Five and <a href="http://stackoverflow.com/documentation/c%2B%2B/1320/raii-resource-acquisition-is-initialization#t=201607230254049480454">RAII</a> to get a much leaner interface: the Rule of Zero: any resource that needs to be managed should be in its own type. That type would have to follow the Rule of Five, but all users of that resource do not need to write <em>any</em> of the five special member functions and can simply <code>default</code> all of them.</p><p>Using the <code>Person</code> class introduced in the <a href="http://stackoverflow.com/documentation/c%2B%2B/1206/the-rule-of-three-five-and-zero/9867/rule-of-three#t=201607281743050894887">Rule of Three example</a>, we can create a resource-managing object for <code>cstrings</code>:</p>
+      
+<p>We can combine the principles of the Rule of Five and <a href="http://stackoverflow.com/documentation/c%2B%2B/1320/raii-resource-acquisition-is-initialization#t=201607230254049480454">RAII</a> to get a much leaner interface: the Rule of Zero: any resource that needs to be managed should be in its own type. That type would have to follow the Rule of Five, but all users of that resource do not need to write <em>any</em> of the five special member functions and can simply <code>default</code> all of them.
+</p>
+<p>Using the <code>Person</code> class introduced in the <a href="http://stackoverflow.com/documentation/c%2B%2B/1206/the-rule-of-three-five-and-zero/9867/rule-of-three#t=201607281743050894887">Rule of Three example</a>, we can create a resource-managing object for <code>cstrings</code>:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">cstring</span> <span class="p">{</span>
@@ -148,7 +153,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And once this is separate, our <code>Person</code> class becomes far simpler:</p>
+</div>
+<p>And once this is separate, our <code>Person</code> class becomes far simpler:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Person {
@@ -168,7 +176,10 @@ public:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The special members in <code>Person</code> do not even need to be declared explicitly; the compiler will default or delete them appropriately, based on the contents of <code>Person</code>. Therefore, the following is also an example of the rule of zero.</p>
+</div>
+<p>The special members in <code>Person</code> do not even need to be declared explicitly; the compiler will default or delete them appropriately, based on the contents of <code>Person</code>. Therefore, the following is also an example of the rule of zero.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct Person {
@@ -179,7 +190,11 @@ public:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If <code>cstring</code> were to be a move-only type, with a <code>delete</code>d copy constructor/assignment operator, then <code>Person</code> would automatically be move-only as well.</p><p>The term rule of zero was <a href="https://rmf.io/cxx11/rule-of-zero">introduced by R. Martinho Fernandes</a></p>
+</div>
+<p>If <code>cstring</code> were to be a move-only type, with a <code>delete</code>d copy constructor/assignment operator, then <code>Person</code> would automatically be move-only as well.
+</p>
+<p>The term rule of zero was <a href="https://rmf.io/cxx11/rule-of-zero">introduced by R. Martinho Fernandes</a>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

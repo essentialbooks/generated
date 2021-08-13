@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>A class designed to be inherited-from is called a Base class. Care should be taken with the special member functions of such a class.</p><p>A class designed to be used polymorphically at run-time (through a pointer to the base class) should declare the destructor <code>virtual</code>. This allows the derived parts of the object to be properly destroyed, even when the object is destroyed through a pointer to the base class.</p>
+      
+<p>A class designed to be inherited-from is called a Base class. Care should be taken with the special member functions of such a class.
+</p>
+<p>A class designed to be used polymorphically at run-time (through a pointer to the base class) should declare the destructor <code>virtual</code>. This allows the derived parts of the object to be properly destroyed, even when the object is destroyed through a pointer to the base class.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Base {
@@ -154,7 +159,10 @@ base = nullptr;  //    safe, doesn&#39;t leak Derived&#39;s members</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If the class does not need to be polymorphic, but still needs to allow its interface to be inherited, use a non-virtual <code>protected</code> destructor.</p>
+</div>
+<p>If the class does not need to be polymorphic, but still needs to allow its interface to be inherited, use a non-virtual <code>protected</code> destructor.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class NonPolymorphicBase {
@@ -171,7 +179,14 @@ private:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Such a class can never be destroyed through a pointer, avoiding silent leaks due to slicing.</p><p>This technique especially applies to classes designed to be <code>private</code> base classes. Such a class might be used to encapsulate some common implementation details, while providing <code>virtual</code> methods as customisation points. This kind of class should never be used polymorphically, and a <code>protected</code> destructor helps to document this requirement directly in the code.</p><p>Finally, some classes may require that they are <em>never</em> used as a base class. In this case, the class can be marked <code>final</code>. A normal non-virtual public destructor is fine in this case.</p>
+</div>
+<p>Such a class can never be destroyed through a pointer, avoiding silent leaks due to slicing.
+</p>
+<p>This technique especially applies to classes designed to be <code>private</code> base classes. Such a class might be used to encapsulate some common implementation details, while providing <code>virtual</code> methods as customisation points. This kind of class should never be used polymorphically, and a <code>protected</code> destructor helps to document this requirement directly in the code.
+</p>
+<p>Finally, some classes may require that they are <em>never</em> used as a base class. In this case, the class can be marked <code>final</code>. A normal non-virtual public destructor is fine in this case.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class FinalClass final {  //    marked final here

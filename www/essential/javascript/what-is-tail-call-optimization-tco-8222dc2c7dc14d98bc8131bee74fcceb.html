@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>TCO is only available in <a href="http://stackoverflow.com/documentation/reactjs/topic-requests/6565">strict mode</a></p><p>As always check browser and Javascript implementations for support of any language features, and as with any javascript feature or syntax, it may change in the future.</p><p>It provides a way to optimise recursive and deeply nested function calls by eliminating the need to push function state onto the global frame stack, and avoiding having to step down through each calling function by returning directly to the initial calling function.</p>
+      
+<p>TCO is only available in <a href="http://stackoverflow.com/documentation/reactjs/topic-requests/6565">strict mode</a>
+</p>
+<p>As always check browser and Javascript implementations for support of any language features, and as with any javascript feature or syntax, it may change in the future.
+</p>
+<p>It provides a way to optimise recursive and deeply nested function calls by eliminating the need to push function state onto the global frame stack, and avoiding having to step down through each calling function by returning directly to the initial calling function.
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">function</span> <span class="nx">a</span><span class="p">(){</span>
@@ -142,7 +149,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Without TCO the call to <code>a()</code> creates a new frame for that function. When that function calls <code>b()</code> the <code>a()</code>’s frame is pushed onto the frame stack and a new frame is created for function <code>b()</code></p><p>When <code>b()</code> return to <code>a()</code> <code>a()</code>’s frame is popped from the frame stack. It immediately return to the global frame and thus does not use any of the states save on the stack.</p><p>TCO recognises that the call from <code>a()</code> to <code>b()</code> is at the tail of function <code>a()</code> and thus there is no need to push <code>a()</code>’s state onto the frame stack. When <code>b(0)</code> returns rather than returning to <code>a()</code> it returns directly to the global frame. Further optimising by eliminating the intermediate steps.</p><p>TCO allows for recursive functions to have indefinite recursion as the frame stack will not grow with each recursive call. Without TCO recursive function had a limited recursive depth.</p><blockquote id="b39cffab-a56a-432c-8f45-260c9e6b9aad" class="">Note TCO is a javascript engine implementation feature, it cannot be implemented via a transpiler if the browser does not support it. There is no additional syntax in the spec required to implement TCO and thus there is concern that TCO may break the web. Its release into the world is cautious and may require browser/engine specific flags to be set for the perceivable future.</blockquote>
+</div>
+<p>Without TCO the call to <code>a()</code> creates a new frame for that function. When that function calls <code>b()</code> the <code>a()</code>’s frame is pushed onto the frame stack and a new frame is created for function <code>b()</code>
+</p>
+<p>When <code>b()</code> return to <code>a()</code> <code>a()</code>’s frame is popped from the frame stack. It immediately return to the global frame and thus does not use any of the states save on the stack.
+</p>
+<p>TCO recognises that the call from <code>a()</code> to <code>b()</code> is at the tail of function <code>a()</code> and thus there is no need to push <code>a()</code>’s state onto the frame stack. When <code>b(0)</code> returns rather than returning to <code>a()</code> it returns directly to the global frame. Further optimising by eliminating the intermediate steps.
+</p>
+<p>TCO allows for recursive functions to have indefinite recursion as the frame stack will not grow with each recursive call. Without TCO recursive function had a limited recursive depth.
+</p>
+<blockquote id="b39cffab-a56a-432c-8f45-260c9e6b9aad" class="">Note TCO is a javascript engine implementation feature, it cannot be implemented via a transpiler if the browser does not support it. There is no additional syntax in the spec required to implement TCO and thus there is concern that TCO may break the web. Its release into the world is cautious and may require browser/engine specific flags to be set for the perceivable future.
+</blockquote>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

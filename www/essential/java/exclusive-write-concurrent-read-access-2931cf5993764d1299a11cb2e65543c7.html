@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>It is sometimes required for a process to concurrently write and read the same “data”.</p><p>The <code>ReadWriteLock</code> interface, and its <code>ReentrantReadWriteLock</code> implementation allows for an access pattern that can be described as follow :</p><ol id="c9ffc5ae-15a0-4206-a551-49b1490fda8f" class="numbered-list" start="1"><li>There can be any number of concurrent readers of the data. If there is at least one reader access granted, then no writer access is possible.</li><li>There can be at most one single writer to the data. If there is a writer access granted, then no reader can access the data.</li></ol><p>An implementation could look like :</p>
+      
+<p>It is sometimes required for a process to concurrently write and read the same “data”.
+</p>
+<p>The <code>ReadWriteLock</code> interface, and its <code>ReentrantReadWriteLock</code> implementation allows for an access pattern that can be described as follow :
+</p>
+  <ol id="c9ffc5ae-15a0-4206-a551-49b1490fda8f" class="numbered-list" start="1">
+    <li>There can be any number of concurrent readers of the data. If there is at least one reader access granted, then no writer access is possible.
+    </li>
+    <li>There can be at most one single writer to the data. If there is a writer access granted, then no reader can access the data.
+    </li>
+  </ol>
+<p>An implementation could look like :
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import java.util.concurrent.locks.ReadWriteLock;
@@ -164,7 +177,19 @@ public static int readData() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>NOTE 1</strong> : This precise use case has a cleaner solution using <code>AtomicInteger</code>, but what is described here is an access pattern, that works regardless of the fact that data here is an integer that as an Atomic variant.</p><p><strong>NOTE 2</strong> : The lock on the reading part is really needed, although it might not look so to the casual reader. Indeed, if you do not lock on the reader side, any number of things can go wrong, amongst which :</p><ol id="6edbebe6-75b9-42e6-b976-3e50d4335456" class="numbered-list" start="1"><li>The writes of primitive values are not guaranteed to be atomic on all JVMs, so the reader could see e.g. only 32bits of a 64bits write if <code>data</code> were a 64bits long type</li><li>The visibility of the write from a thread that did not perform it is guaranteed by the JVM only if we establish <em>Happen Before relationship</em> between the writes and the reads. This relationship is established when both readers and writers use their respective locks, but not otherwise</li></ol><p>In case higher performance is required, an under certain types of usage, there is a faster lock type available, called the <code>StampedLock</code>, that amongst other things implements an optimistic lock mode. This lock works very differently from the <code>ReadWriteLock</code>, and this sample is not transposable.</p>
+</div>
+<p><strong>NOTE 1</strong> : This precise use case has a cleaner solution using <code>AtomicInteger</code>, but what is described here is an access pattern, that works regardless of the fact that data here is an integer that as an Atomic variant.
+</p>
+<p><strong>NOTE 2</strong> : The lock on the reading part is really needed, although it might not look so to the casual reader. Indeed, if you do not lock on the reader side, any number of things can go wrong, amongst which :
+</p>
+  <ol id="6edbebe6-75b9-42e6-b976-3e50d4335456" class="numbered-list" start="1">
+    <li>The writes of primitive values are not guaranteed to be atomic on all JVMs, so the reader could see e.g. only 32bits of a 64bits write if <code>data</code> were a 64bits long type
+    </li>
+    <li>The visibility of the write from a thread that did not perform it is guaranteed by the JVM only if we establish <em>Happen Before relationship</em> between the writes and the reads. This relationship is established when both readers and writers use their respective locks, but not otherwise
+    </li>
+  </ol>
+<p>In case higher performance is required, an under certain types of usage, there is a faster lock type available, called the <code>StampedLock</code>, that amongst other things implements an optimistic lock mode. This lock works very differently from the <code>ReadWriteLock</code>, and this sample is not transposable.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

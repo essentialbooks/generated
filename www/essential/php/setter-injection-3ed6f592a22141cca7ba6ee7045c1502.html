@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Dependencies can also be injected by setters.</p>
+      
+<p>Dependencies can also be injected by setters.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">interface Logger {
@@ -161,7 +164,16 @@ class Component {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is especially interesting when the core functionality of the class does not rely on the dependency to work.</p><p>Here, the <strong>only</strong> needed dependency is the <code>DatabaseConnection</code> so it’s in the constructor. The <code>Logger</code> dependency is optional and thus does not need to be part of the constructor, making the class easier to use.</p><p>Note that when using setter injection, it’s better to extend the functionality rather than replacing it. When setting a dependency, there’s nothing confirming that the dependency won’t change at some point, which could lead in unexpected results. For example, a <code>FileLogger</code> could be set at first, and then a <code>MailLogger</code> could be set. This breaks encapsulation and makes logs hard to find, because we’re <strong>replacing</strong> the dependency.</p><p>To prevent this, we should <strong>add</strong> a dependency with setter injection, like so :</p>
+</div>
+<p>This is especially interesting when the core functionality of the class does not rely on the dependency to work.
+</p>
+<p>Here, the <strong>only</strong> needed dependency is the <code>DatabaseConnection</code> so it’s in the constructor. The <code>Logger</code> dependency is optional and thus does not need to be part of the constructor, making the class easier to use.
+</p>
+<p>Note that when using setter injection, it’s better to extend the functionality rather than replacing it. When setting a dependency, there’s nothing confirming that the dependency won’t change at some point, which could lead in unexpected results. For example, a <code>FileLogger</code> could be set at first, and then a <code>MailLogger</code> could be set. This breaks encapsulation and makes logs hard to find, because we’re <strong>replacing</strong> the dependency.
+</p>
+<p>To prevent this, we should <strong>add</strong> a dependency with setter injection, like so :
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">interface Logger {
@@ -195,7 +207,9 @@ class Component {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Like this, whenever we’ll use the core functionality, it won’t break even if there is no logger dependency added, and any logger added will be used even though another logger could’ve been added. We’re <strong>extending</strong> functionality instead of <strong>replacing</strong> it.</p>
+</div>
+<p>Like this, whenever we’ll use the core functionality, it won’t break even if there is no logger dependency added, and any logger added will be used even though another logger could’ve been added. We’re <strong>extending</strong> functionality instead of <strong>replacing</strong> it.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

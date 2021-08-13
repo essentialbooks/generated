@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>This example is about deliberately ignoring or “squashing” exceptions. Or to be more precise, it is about how to catch and handle an exception in a way that ignores it. However, before we describe how to do this, we should first point out that squashing exceptions is generally not the correct way to deal with them.</p><p>Exceptions are usually thrown (by something) to notify other parts of the program that some significant (i.e. “exceptional”) event has occurred. Generally (though not always) an exception means that something has gone wrong. If you code your program to squash the exception, there is a fair chance that the problem will reappear in another form. To make things worse, when you squash the exception, you are throwing away the information in the exception object and its associated stack trace. That is likely to make it harder to figure out what the original source of the problem was.</p><p>In practice, exception squashing frequently happens when you use an IDE’s auto-correction feature to “fix” a compilation error caused by an unhandled exception. For example, you might see code like this:</p>
+      
+<p>This example is about deliberately ignoring or “squashing” exceptions. Or to be more precise, it is about how to catch and handle an exception in a way that ignores it. However, before we describe how to do this, we should first point out that squashing exceptions is generally not the correct way to deal with them.
+</p>
+<p>Exceptions are usually thrown (by something) to notify other parts of the program that some significant (i.e. “exceptional”) event has occurred. Generally (though not always) an exception means that something has gone wrong. If you code your program to squash the exception, there is a fair chance that the problem will reappear in another form. To make things worse, when you squash the exception, you are throwing away the information in the exception object and its associated stack trace. That is likely to make it harder to figure out what the original source of the problem was.
+</p>
+<p>In practice, exception squashing frequently happens when you use an IDE’s auto-correction feature to “fix” a compilation error caused by an unhandled exception. For example, you might see code like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">try {
@@ -139,7 +146,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Clearly, the programmer has accepted the IDE’s suggestion to make the compilation error go away, but the suggestion was inappropriate. (If the file open has failed, the program should most likely do something about it. With the above “correction”, the program is liable to fail later; e.g. with a <code>NullPointerException</code> because <code>inputStream</code> is now <code>null</code>.)</p><p>Having said that, here is an example of deliberately squashing an exception. (For the purposes of argument, assume that we have determined that an interrupt while showing the selfie is harmless.) The comment tells the reader that we squashed the exception deliberately, and why we did that.</p>
+</div>
+<p>Clearly, the programmer has accepted the IDE’s suggestion to make the compilation error go away, but the suggestion was inappropriate. (If the file open has failed, the program should most likely do something about it. With the above “correction”, the program is liable to fail later; e.g. with a <code>NullPointerException</code> because <code>inputStream</code> is now <code>null</code>.)
+</p>
+<p>Having said that, here is an example of deliberately squashing an exception. (For the purposes of argument, assume that we have determined that an interrupt while showing the selfie is harmless.) The comment tells the reader that we squashed the exception deliberately, and why we did that.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">try {
@@ -151,7 +163,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Another conventional way to highlight that we are <em>deliberately</em> squashing an exception without saying why is to indicate this with the exception variable’s name, like this:</p>
+</div>
+<p>Another conventional way to highlight that we are <em>deliberately</em> squashing an exception without saying why is to indicate this with the exception variable’s name, like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">try { 
@@ -161,7 +176,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Some IDEs (like IntelliJ IDEA) won’t display a warning about the empty catch block if the variable name is set to <code>ignored</code>.</p>
+</div>
+<p>Some IDEs (like IntelliJ IDEA) won’t display a warning about the empty catch block if the variable name is set to <code>ignored</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,12 @@
 </div>
 
 
-      <p><a href="http://golang.org/ref/spec#Program_execution">Go programs end when the </a><a href="http://golang.org/ref/spec#Program_execution"><code>main</code></a><a href="http://golang.org/ref/spec#Program_execution"> function ends</a>, therefore it is common practice to wait for all goroutines to finish.</p><p>A common solution for this is to use a <a href="http://golang.org/pkg/sync/#WaitGroup">sync.WaitGroup</a> object.</p>
+      
+<p><a href="http://golang.org/ref/spec#Program_execution">Go programs end when the </a><a href="http://golang.org/ref/spec#Program_execution"><code>main</code></a><a href="http://golang.org/ref/spec#Program_execution"> function ends</a>, therefore it is common practice to wait for all goroutines to finish.
+</p>
+<p>A common solution for this is to use a <a href="http://golang.org/pkg/sync/#WaitGroup">sync.WaitGroup</a> object.
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span> <span class="c1">// 1
@@ -154,6 +159,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">routine 9 finished
@@ -172,7 +178,23 @@ main finished
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>WaitGroup usage in order of execution:</p><ol id="a6c73005-440c-4dee-9bf2-1b8414dea84e" class="numbered-list" start="1"><li>Declaration of global variable. Making it global is the easiest way to make it visible to all functions and methods.</li><li>Increasing the counter. This must be done in the main goroutine because there is no guarantee that a newly started goroutine will execute before 4 due to memory model <a href="http://golang.org/ref/mem#tmp_5">guarantees</a>.</li><li>Decreasing the counter. This must be done at the exit of a goroutine. By using a deferred call, we make sure that it <a href="http://golang.org/ref/spec#Defer_statements">will be called whenever function ends</a>, no matter how it ends.</li><li>Waiting for the counter to reach 0. This must be done in the main goroutine to prevent the program from exiting before all goroutines have finished.</li></ol><p>Parameters are evaluated <a href="http://golang.org/ref/spec#Go_statements">before starting a new goroutine</a>.</p><p>Thus it is necessary to define their values explicitly before <code>wg.Add(10)</code> so that possibly-panicking code will not increase the counter. Adding 10 items to the WaitGroup, so it will wait for 10 items before <code>wg.Wait</code> returns the control back to <code>main()</code> goroutine. Here, the value of i is defined in the for loop.</p>
+</div>
+<p>WaitGroup usage in order of execution:
+</p>
+  <ol id="a6c73005-440c-4dee-9bf2-1b8414dea84e" class="numbered-list" start="1">
+    <li>Declaration of global variable. Making it global is the easiest way to make it visible to all functions and methods.
+    </li>
+    <li>Increasing the counter. This must be done in the main goroutine because there is no guarantee that a newly started goroutine will execute before 4 due to memory model <a href="http://golang.org/ref/mem#tmp_5">guarantees</a>.
+    </li>
+    <li>Decreasing the counter. This must be done at the exit of a goroutine. By using a deferred call, we make sure that it <a href="http://golang.org/ref/spec#Defer_statements">will be called whenever function ends</a>, no matter how it ends.
+    </li>
+    <li>Waiting for the counter to reach 0. This must be done in the main goroutine to prevent the program from exiting before all goroutines have finished.
+    </li>
+  </ol>
+<p>Parameters are evaluated <a href="http://golang.org/ref/spec#Go_statements">before starting a new goroutine</a>.
+</p>
+<p>Thus it is necessary to define their values explicitly before <code>wg.Add(10)</code> so that possibly-panicking code will not increase the counter. Adding 10 items to the WaitGroup, so it will wait for 10 items before <code>wg.Wait</code> returns the control back to <code>main()</code> goroutine. Here, the value of i is defined in the for loop.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

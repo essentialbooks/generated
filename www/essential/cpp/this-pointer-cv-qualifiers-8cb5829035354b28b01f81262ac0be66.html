@@ -127,7 +127,10 @@
 </div>
 
 
-      <p><code>this</code> can also be cv-qualified, the same as any other pointer. However, due to the <code>this</code> parameter not being listed in the parameter list, special syntax is required for this; the cv-qualifiers are listed after the parameter list, but before the function’s body.</p>
+      
+<p><code>this</code> can also be cv-qualified, the same as any other pointer. However, due to the <code>this</code> parameter not being listed in the parameter list, special syntax is required for this; the cv-qualifiers are listed after the parameter list, but before the function’s body.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">struct</span> <span class="nc">ThisCVQ</span> <span class="p">{</span>
@@ -141,7 +144,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As <code>this</code> is a parameter, a <a href="http://stackoverflow.com/documentation/c%2B%2B/510/function-overloading/11242/member-function-cv-qualifier-overloading#t=201610191448370301667">function can be overloaded based on its </a><a href="http://stackoverflow.com/documentation/c%2B%2B/510/function-overloading/11242/member-function-cv-qualifier-overloading#t=201610191448370301667"><code>this</code></a><a href="http://stackoverflow.com/documentation/c%2B%2B/510/function-overloading/11242/member-function-cv-qualifier-overloading#t=201610191448370301667"> cv-qualifier(s)</a>.</p>
+</div>
+<p>As <code>this</code> is a parameter, a <a href="http://stackoverflow.com/documentation/c%2B%2B/510/function-overloading/11242/member-function-cv-qualifier-overloading#t=201610191448370301667">function can be overloaded based on its </a><a href="http://stackoverflow.com/documentation/c%2B%2B/510/function-overloading/11242/member-function-cv-qualifier-overloading#t=201610191448370301667"><code>this</code></a><a href="http://stackoverflow.com/documentation/c%2B%2B/510/function-overloading/11242/member-function-cv-qualifier-overloading#t=201610191448370301667"> cv-qualifier(s)</a>.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">struct</span> <span class="nc">CVOverload</span> <span class="p">{</span>
@@ -155,7 +161,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When <code>this</code> is <code>const</code> (including <code>const volatile</code>), the function is unable to write to member variables through it, whether implicitly or explicitly. The sole exception to this is <a href="http://stackoverflow.com/documentation/c%2B%2B/2705/mutable-keyword/9058/non-static-class-member-modifier#t=201610111819273885699"><code>mutable</code></a><a href="http://stackoverflow.com/documentation/c%2B%2B/2705/mutable-keyword/9058/non-static-class-member-modifier#t=201610111819273885699"> member variables</a>, which can be written regardless of const-ness. Due to this, <code>const</code> is used to indicate that the member function doesn’t change the object’s logical state (the way the object appears to the outside world), even if it does modify the physical state (the way the object looks under the hood).</p><blockquote id="00f56781-dce1-4148-a12f-3f5c01392fbd" class="">Logical state is the way the object appears to outside observers. It isn’t directly tied to physical state, and indeed, might not even be stored as physical state. As long as outside observers can’t see any changes, the logical state is constant, even if you flip every single bit in the object.</blockquote><blockquote id="b1f4f8f0-c61b-449d-b5af-a271987dd971" class="">Physical state, also known as bitwise state, is how the object is stored in memory. This is the object’s nitty-gritty, the raw 1s and 0s that make up its data. An object is only physically constant if its representation in memory never changes.</blockquote><p>Note that C++ bases <code>const</code>ness on logical state, not physical state.</p>
+</div>
+<p>When <code>this</code> is <code>const</code> (including <code>const volatile</code>), the function is unable to write to member variables through it, whether implicitly or explicitly. The sole exception to this is <a href="http://stackoverflow.com/documentation/c%2B%2B/2705/mutable-keyword/9058/non-static-class-member-modifier#t=201610111819273885699"><code>mutable</code></a><a href="http://stackoverflow.com/documentation/c%2B%2B/2705/mutable-keyword/9058/non-static-class-member-modifier#t=201610111819273885699"> member variables</a>, which can be written regardless of const-ness. Due to this, <code>const</code> is used to indicate that the member function doesn’t change the object’s logical state (the way the object appears to the outside world), even if it does modify the physical state (the way the object looks under the hood).
+</p>
+<blockquote id="00f56781-dce1-4148-a12f-3f5c01392fbd" class="">Logical state is the way the object appears to outside observers. It isn’t directly tied to physical state, and indeed, might not even be stored as physical state. As long as outside observers can’t see any changes, the logical state is constant, even if you flip every single bit in the object.
+</blockquote>
+<blockquote id="b1f4f8f0-c61b-449d-b5af-a271987dd971" class="">Physical state, also known as bitwise state, is how the object is stored in memory. This is the object’s nitty-gritty, the raw 1s and 0s that make up its data. An object is only physically constant if its representation in memory never changes.
+</blockquote>
+<p>Note that C++ bases <code>const</code>ness on logical state, not physical state.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">DoSomethingComplexAndOrExpensive</span> <span class="p">{</span>
@@ -199,7 +214,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that while you technically <em>could</em> use <code>const_cast</code> on <code>this</code> to make it non-cv-qualified, you really, <em><strong>REALLY</strong></em> shouldn’t, and should use <code>mutable</code> instead. A <code>const_cast</code> is liable to invoke undefined behaviour when used on an object that actually <em>is</em> <code>const</code>, while <code>mutable</code> is designed to be safe to use. It is, however, possible that you may run into this in extremely old code.</p><p><a href="http://stackoverflow.com/documentation/c%2B%2B/2386/const-keyword/16974/avoiding-duplication-of-code-in-const-and-non-const-getter-methods">An exception to this rule is defining non-cv-qualified accessors in terms of </a><a href="http://stackoverflow.com/documentation/c%2B%2B/2386/const-keyword/16974/avoiding-duplication-of-code-in-const-and-non-const-getter-methods"><code>const</code></a><a href="http://stackoverflow.com/documentation/c%2B%2B/2386/const-keyword/16974/avoiding-duplication-of-code-in-const-and-non-const-getter-methods"> accessors; as the object is guaranteed to not be </a><a href="http://stackoverflow.com/documentation/c%2B%2B/2386/const-keyword/16974/avoiding-duplication-of-code-in-const-and-non-const-getter-methods"><code>const</code></a><a href="http://stackoverflow.com/documentation/c%2B%2B/2386/const-keyword/16974/avoiding-duplication-of-code-in-const-and-non-const-getter-methods"> if the non-cv-qualified version is called, there’s no risk of UB.</a></p>
+</div>
+<p>Note that while you technically <em>could</em> use <code>const_cast</code> on <code>this</code> to make it non-cv-qualified, you really, <em><strong>REALLY</strong></em> shouldn’t, and should use <code>mutable</code> instead. A <code>const_cast</code> is liable to invoke undefined behaviour when used on an object that actually <em>is</em> <code>const</code>, while <code>mutable</code> is designed to be safe to use. It is, however, possible that you may run into this in extremely old code.
+</p>
+<p><a href="http://stackoverflow.com/documentation/c%2B%2B/2386/const-keyword/16974/avoiding-duplication-of-code-in-const-and-non-const-getter-methods">An exception to this rule is defining non-cv-qualified accessors in terms of </a><a href="http://stackoverflow.com/documentation/c%2B%2B/2386/const-keyword/16974/avoiding-duplication-of-code-in-const-and-non-const-getter-methods"><code>const</code></a><a href="http://stackoverflow.com/documentation/c%2B%2B/2386/const-keyword/16974/avoiding-duplication-of-code-in-const-and-non-const-getter-methods"> accessors; as the object is guaranteed to not be </a><a href="http://stackoverflow.com/documentation/c%2B%2B/2386/const-keyword/16974/avoiding-duplication-of-code-in-const-and-non-const-getter-methods"><code>const</code></a><a href="http://stackoverflow.com/documentation/c%2B%2B/2386/const-keyword/16974/avoiding-duplication-of-code-in-const-and-non-const-getter-methods"> if the non-cv-qualified version is called, there’s no risk of UB.</a>
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">CVAccessor</span> <span class="p">{</span>
@@ -217,7 +237,30 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This prevents unnecessary duplication of code.</p><p></p><p>As with regular pointers, if <code>this</code> is <code>volatile</code> (including <code>const volatile</code>), it is loaded from memory each time it is accessed, instead of being cached. This has the same effects on optimization as declaring any other pointer <code>volatile</code> would, so care should be taken.</p><p></p><p>Note that if an instance is cv-qualified, the only member functions it is allowed to access are member functions whose <code>this</code> pointer is at least as cv-qualified as the instance itself:</p><ul id="57225f7d-2dcb-4efb-9325-324ae7c97ef6" class="bulleted-list"><li>Non-cv instances can access any member functions.</li><li><code>const</code> instances can access <code>const</code> and <code>const volatile</code> functions.</li><li><code>volatile</code> instances can access <code>volatile</code> and <code>const volatile</code> functions.</li><li><code>const volatile</code> instances can access <code>const volatile</code> functions.</li></ul><p>This is one of the key tenets of <a href="http://stackoverflow.com/documentation/c%2B%2B/7217/const-correctness#t=201610111815341169566"><code>const</code></a><a href="http://stackoverflow.com/documentation/c%2B%2B/7217/const-correctness#t=201610111815341169566"> correctness</a>.</p>
+</div>
+<p>This prevents unnecessary duplication of code.
+</p>
+<p>
+</p>
+<p>As with regular pointers, if <code>this</code> is <code>volatile</code> (including <code>const volatile</code>), it is loaded from memory each time it is accessed, instead of being cached. This has the same effects on optimization as declaring any other pointer <code>volatile</code> would, so care should be taken.
+</p>
+<p>
+</p>
+<p>Note that if an instance is cv-qualified, the only member functions it is allowed to access are member functions whose <code>this</code> pointer is at least as cv-qualified as the instance itself:
+</p>
+  <ul id="57225f7d-2dcb-4efb-9325-324ae7c97ef6" class="bulleted-list">
+    <li>Non-cv instances can access any member functions.
+    </li>
+    <li><code>const</code> instances can access <code>const</code> and <code>const volatile</code> functions.
+    </li>
+    <li><code>volatile</code> instances can access <code>volatile</code> and <code>const volatile</code> functions.
+    </li>
+    <li><code>const volatile</code> instances can access <code>const volatile</code> functions.
+    </li>
+  </ul>
+<p>This is one of the key tenets of <a href="http://stackoverflow.com/documentation/c%2B%2B/7217/const-correctness#t=201610111815341169566"><code>const</code></a><a href="http://stackoverflow.com/documentation/c%2B%2B/7217/const-correctness#t=201610111815341169566"> correctness</a>.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">struct</span> <span class="nc">CVAccess</span> <span class="p">{</span>

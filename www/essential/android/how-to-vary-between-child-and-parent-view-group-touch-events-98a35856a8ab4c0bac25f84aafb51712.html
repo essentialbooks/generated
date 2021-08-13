@@ -127,7 +127,51 @@
 </div>
 
 
-      <ol id="1bdd91cc-847f-4ae1-9108-b45741e6f5c8" class="numbered-list" start="1"><li>The <code>onTouchEvents()</code> for nested view groups can be managed by the <code>boolean</code> <a href="http://developer.android.com/reference/android/view/ViewGroup.html#onInterceptTouchEvent(android.view.MotionEvent)">onInterceptTouchEvent</a>.</li></ol><p>The default value for the <code>OnInterceptTouchEvent</code> is false.</p><p>The parent’s <code>onTouchEvent</code> is received before the child’s. If the <code>OnInterceptTouchEvent</code> returns false, it sends the motion event down the chain to the child’s <code>OnTouchEvent</code> handler. If it returns true the parent’s will handle the touch event.</p><p>However there may be instances when we want some child elements to manage <code>OnTouchEvent</code>s and some to be managed by the parent view (or possibly the parent of the parent).</p><p>This can be managed in more than one way.</p><ol id="5d8cc46f-728e-4328-9e7c-ca190551f467" class="numbered-list" start="1"><li>One way a child element can be protected from the parent’s <code>OnInterceptTouchEvent</code> is by implementing the <a href="http://developer.android.com/reference/android/view/ViewGroup.html#requestDisallowInterceptTouchEvent(boolean)">requestDisallowInterceptTouchEvent</a>.</li></ol><blockquote id="ed4083be-d2e4-4f9c-8a83-e26dae34112e" class="">public void requestDisallowInterceptTouchEvent (boolean disallowIntercept)</blockquote><p>This prevents any of the parent views from managing the <code>OnTouchEvent</code> for this element, if the element has event handlers enabled.</p><ol id="d8fc941b-bbb6-48c4-a5c2-96aecdce9817" class="numbered-list" start="1"><li></li></ol><p>If the <code>OnInterceptTouchEvent</code> is false, the child element’s <code>OnTouchEvent</code> will be evaluated. If you have a methods within the child elements handling the various touch events, any related event handlers that are disabled will return the OnTouchEvent to the parent.</p><p>This answer:</p><p>A visualisation of how the propagation of touch events passes through:</p><p><code>parent -&gt; child|parent -&gt; child|parent -&gt; child views.</code></p><p><a href="http://stackoverflow.com/a/13540006/3956566">Courtesy from here</a></p><img class="img" src="/img/31fa96878bcc9407dcb824f98981587d18a6c5e0.png"><ol id="ed0843ab-f383-453e-8bb8-20dd174b9d0e" class="numbered-list" start="1"><li>Another way is returning varying values from the <code>OnInterceptTouchEvent</code> for the parent.</li></ol><p>This example taken from <a href="http://developer.android.com/training/gestures/viewgroup.html">Managing Touch Events in a ViewGroup</a> and demonstrates how to intercept the child’s <code>OnTouchEvent</code> when the user is scrolling.</p><p>4a.</p>
+      
+  <ol id="1bdd91cc-847f-4ae1-9108-b45741e6f5c8" class="numbered-list" start="1">
+    <li>The <code>onTouchEvents()</code> for nested view groups can be managed by the <code>boolean</code> <a href="http://developer.android.com/reference/android/view/ViewGroup.html#onInterceptTouchEvent(android.view.MotionEvent)">onInterceptTouchEvent</a>.
+    </li>
+  </ol>
+<p>The default value for the <code>OnInterceptTouchEvent</code> is false.
+</p>
+<p>The parent’s <code>onTouchEvent</code> is received before the child’s. If the <code>OnInterceptTouchEvent</code> returns false, it sends the motion event down the chain to the child’s <code>OnTouchEvent</code> handler. If it returns true the parent’s will handle the touch event.
+</p>
+<p>However there may be instances when we want some child elements to manage <code>OnTouchEvent</code>s and some to be managed by the parent view (or possibly the parent of the parent).
+</p>
+<p>This can be managed in more than one way.
+</p>
+  <ol id="5d8cc46f-728e-4328-9e7c-ca190551f467" class="numbered-list" start="1">
+    <li>One way a child element can be protected from the parent’s <code>OnInterceptTouchEvent</code> is by implementing the <a href="http://developer.android.com/reference/android/view/ViewGroup.html#requestDisallowInterceptTouchEvent(boolean)">requestDisallowInterceptTouchEvent</a>.
+    </li>
+  </ol>
+<blockquote id="ed4083be-d2e4-4f9c-8a83-e26dae34112e" class="">public void requestDisallowInterceptTouchEvent (boolean disallowIntercept)
+</blockquote>
+<p>This prevents any of the parent views from managing the <code>OnTouchEvent</code> for this element, if the element has event handlers enabled.
+</p>
+  <ol id="d8fc941b-bbb6-48c4-a5c2-96aecdce9817" class="numbered-list" start="1">
+    <li>
+    </li>
+  </ol>
+<p>If the <code>OnInterceptTouchEvent</code> is false, the child element’s <code>OnTouchEvent</code> will be evaluated. If you have a methods within the child elements handling the various touch events, any related event handlers that are disabled will return the OnTouchEvent to the parent.
+</p>
+<p>This answer:
+</p>
+<p>A visualisation of how the propagation of touch events passes through:
+</p>
+<p><code>parent -&gt; child|parent -&gt; child|parent -&gt; child views.</code>
+</p>
+<p><a href="http://stackoverflow.com/a/13540006/3956566">Courtesy from here</a>
+</p>
+<img class="img" src="/img/31fa96878bcc9407dcb824f98981587d18a6c5e0.png">
+  <ol id="ed0843ab-f383-453e-8bb8-20dd174b9d0e" class="numbered-list" start="1">
+    <li>Another way is returning varying values from the <code>OnInterceptTouchEvent</code> for the parent.
+    </li>
+  </ol>
+<p>This example taken from <a href="http://developer.android.com/training/gestures/viewgroup.html">Managing Touch Events in a ViewGroup</a> and demonstrates how to intercept the child’s <code>OnTouchEvent</code> when the user is scrolling.
+</p>
+<p>4a.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -142,6 +186,7 @@ public boolean onInterceptTouchEvent(MotionEvent ev) {
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">final int action = MotionEventCompat.getActionMasked(ev);
@@ -187,7 +232,12 @@ return false;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is some code from the same link showing how to create the parameters of the rectangle around your element:</p><p>4b.</p>
+</div>
+<p>This is some code from the same link showing how to create the parameters of the rectangle around your element:
+</p>
+<p>4b.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// The hit rectangle for the ImageButton

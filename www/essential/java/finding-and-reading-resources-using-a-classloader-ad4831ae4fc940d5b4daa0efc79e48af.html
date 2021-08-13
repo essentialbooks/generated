@@ -127,7 +127,59 @@
 </div>
 
 
-      <p>Resource loading in Java comprises the following steps:</p><ol id="135d39be-302b-419a-98f6-8b989638fb49" class="numbered-list" start="1"><li>Finding the <code>Class</code> or <code>ClassLoader</code> that will find the resource.</li><li>Finding the resource.</li><li>Obtaining the byte stream for the resource.</li><li>Reading and processing the byte stream.</li><li>Closing the byte stream.</li></ol><p>The last three steps are typically accomplished by passing the URL to a library method or constructor to load the resource. You will typically use a <code>getResource</code> method in this case. It is also possible to read the resource data in application code. You will typically use <code>getResourceAsStream</code> in this case.</p><h2 id="4465127f-5f93-489b-b95d-4a48c569e2f3" class="">Absolute and relative resource paths<a class="header-anchor" href="#4465127f-5f93-489b-b95d-4a48c569e2f3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Resources that can be loaded from the classpath are denoted by a <em>path</em>. The syntax of the path is similar to a UNIX / Linux file path. It consists of simple names separated by forward slash (<code>/</code>) characters. A <em>relative path</em> starts with a name, and an <em>absolute path</em> starts with a separator.</p><p>As the Classpath examples describe, a JVM’s classpath defines a namespace by overlaying the namespaces of the directories and JAR or ZIP files in the classpath. When an absolute path is resolved, it the classloaders interpret the initial <code>/</code> as meaning the root of the namespace. By contrast, a relative path <em>may be</em> resolved relative to any “folder” in the namespace. The folder used will depend on the object that you use to resolve the path.</p><h2 id="546bc41c-9f8d-448c-b3dd-2b71ba81784e" class="">Obtaining a Class or Classloader<a class="header-anchor" href="#546bc41c-9f8d-448c-b3dd-2b71ba81784e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>A resource can be located using either a <code>Class</code> object or a <code>ClassLoader</code> object. A <code>Class</code> object can resolve relative paths, so you will typically use one of these if you have a (class) relative resource. There are a variety of ways to obtain a <code>Class</code> object. For example:</p><ul id="147d8e2b-3cbb-4ee5-8ab9-9b9e05efe916" class="bulleted-list"><li>A <em>class literal</em> will give you the <code>Class</code> object for any class that you can name in Java source code; e.g. <code>String.class</code> gives you the <code>Class</code> object for the <code>String</code> type.</li><li>The <code>Object.getClass()</code> will give you the <code>Class</code> object for the type od any object; e.g. <code>&quot;hello&quot;.getClass()</code> is another way to get <code>Class</code> of the <code>String</code> type.</li><li>The <code>Class.forName(String)</code> method will (if necessary) dynamically load a class and return its <code>Class</code> object; e.g. <code>Class.forName(&quot;java.lang.String&quot;)</code>.</li></ul><p>A <code>ClassLoader</code> object is typically obtained by calling <code>getClassLoader()</code> on a <code>Class</code> object. It is also possible to get hold of the JVM’s default classloader using the static <code>ClassLoader.getSystemClassLoader()</code> method.</p><h2 id="b874c443-a6e7-449b-91f3-1867ffd87211" class="">The <code>get</code> methods<a class="header-anchor" href="#b874c443-a6e7-449b-91f3-1867ffd87211" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Once you have a <code>Class</code> or <code>ClassLoader</code> instance, you can find a resource, using one of the following methods:</p><p>| Methods | Description | | —— | ———– | |<code>ClassLoader.getResource(path)``ClassLoader.getResources(path)</code>| Returns a URL which represents the location of the resource with the given path. | |<code>ClassLoader.getResources(path)``Class.getResources(path)</code>| Returns an <code>Enumeration&lt;URL&gt;</code> giving the URLs which can be used to locate the <code>foo.bar</code> resource; see below.| |<code>ClassLoader.getResourceAsStream(path)``Class.getResourceStream(path)</code>| Returns an <code>InputStream</code> from which you can read the contents of the <code>foo.bar</code> resource as a sequence of bytes.|</p><p>Notes:</p><ul id="5583ba19-eeb5-4dc6-828d-97a41ac583a6" class="bulleted-list"><li>The main difference between the <code>ClassLoader</code> and <code>Class</code> versions of the methods is in the way that relative paths are interpreted.</li></ul>
+      
+<p>Resource loading in Java comprises the following steps:
+</p>
+  <ol id="135d39be-302b-419a-98f6-8b989638fb49" class="numbered-list" start="1">
+    <li>Finding the <code>Class</code> or <code>ClassLoader</code> that will find the resource.
+    </li>
+    <li>Finding the resource.
+    </li>
+    <li>Obtaining the byte stream for the resource.
+    </li>
+    <li>Reading and processing the byte stream.
+    </li>
+    <li>Closing the byte stream.
+    </li>
+  </ol>
+<p>The last three steps are typically accomplished by passing the URL to a library method or constructor to load the resource. You will typically use a <code>getResource</code> method in this case. It is also possible to read the resource data in application code. You will typically use <code>getResourceAsStream</code> in this case.
+</p>
+  <h2 id="4465127f-5f93-489b-b95d-4a48c569e2f3" class="">Absolute and relative resource paths
+  <a class="header-anchor" href="#4465127f-5f93-489b-b95d-4a48c569e2f3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Resources that can be loaded from the classpath are denoted by a <em>path</em>. The syntax of the path is similar to a UNIX / Linux file path. It consists of simple names separated by forward slash (<code>/</code>) characters. A <em>relative path</em> starts with a name, and an <em>absolute path</em> starts with a separator.
+</p>
+<p>As the Classpath examples describe, a JVM’s classpath defines a namespace by overlaying the namespaces of the directories and JAR or ZIP files in the classpath. When an absolute path is resolved, it the classloaders interpret the initial <code>/</code> as meaning the root of the namespace. By contrast, a relative path <em>may be</em> resolved relative to any “folder” in the namespace. The folder used will depend on the object that you use to resolve the path.
+</p>
+  <h2 id="546bc41c-9f8d-448c-b3dd-2b71ba81784e" class="">Obtaining a Class or Classloader
+  <a class="header-anchor" href="#546bc41c-9f8d-448c-b3dd-2b71ba81784e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>A resource can be located using either a <code>Class</code> object or a <code>ClassLoader</code> object. A <code>Class</code> object can resolve relative paths, so you will typically use one of these if you have a (class) relative resource. There are a variety of ways to obtain a <code>Class</code> object. For example:
+</p>
+  <ul id="147d8e2b-3cbb-4ee5-8ab9-9b9e05efe916" class="bulleted-list">
+    <li>A <em>class literal</em> will give you the <code>Class</code> object for any class that you can name in Java source code; e.g. <code>String.class</code> gives you the <code>Class</code> object for the <code>String</code> type.
+    </li>
+    <li>The <code>Object.getClass()</code> will give you the <code>Class</code> object for the type od any object; e.g. <code>&quot;hello&quot;.getClass()</code> is another way to get <code>Class</code> of the <code>String</code> type.
+    </li>
+    <li>The <code>Class.forName(String)</code> method will (if necessary) dynamically load a class and return its <code>Class</code> object; e.g. <code>Class.forName(&quot;java.lang.String&quot;)</code>.
+    </li>
+  </ul>
+<p>A <code>ClassLoader</code> object is typically obtained by calling <code>getClassLoader()</code> on a <code>Class</code> object. It is also possible to get hold of the JVM’s default classloader using the static <code>ClassLoader.getSystemClassLoader()</code> method.
+</p>
+  <h2 id="b874c443-a6e7-449b-91f3-1867ffd87211" class="">The <code>get</code> methods
+  <a class="header-anchor" href="#b874c443-a6e7-449b-91f3-1867ffd87211" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Once you have a <code>Class</code> or <code>ClassLoader</code> instance, you can find a resource, using one of the following methods:
+</p>
+<p>| Methods | Description | | —— | ———– | |<code>ClassLoader.getResource(path)``ClassLoader.getResources(path)</code>| Returns a URL which represents the location of the resource with the given path. | |<code>ClassLoader.getResources(path)``Class.getResources(path)</code>| Returns an <code>Enumeration&lt;URL&gt;</code> giving the URLs which can be used to locate the <code>foo.bar</code> resource; see below.| |<code>ClassLoader.getResourceAsStream(path)``Class.getResourceStream(path)</code>| Returns an <code>InputStream</code> from which you can read the contents of the <code>foo.bar</code> resource as a sequence of bytes.|
+</p>
+<p>Notes:
+</p>
+  <ul id="5583ba19-eeb5-4dc6-828d-97a41ac583a6" class="bulleted-list">
+    <li>The main difference between the <code>ClassLoader</code> and <code>Class</code> versions of the methods is in the way that relative paths are interpreted.
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">- The `Class` methods resolve a relative path in the &#34;folder&#34; that corresponds to the classes package.  
@@ -136,7 +188,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="e8b7d15a-77e9-4dd0-88e9-73a228899761" class="bulleted-list"><li>If the requested resource (or resources) cannot be found, the <code>getResource</code> and getResourceAsStream<code>methods return</code>null<code>, and the</code>getResources<code>methods return an empty</code>Enumeration`.</li><li>The URLs returned will be resolvable using <code>URL.toStream()</code>. They could be <code>file:</code> URLs or other conventional URLs, but if the resource resides in a JAR file, they will be <code>jar:</code> URLs that identify the JAR file and a specific resource within it.</li><li>If your code uses a <code>getResourceAsStream</code> method (or <code>URL.toStream()</code>) to obtain an <code>InputStream</code>, it is responsible for closing the stream object. Failure to close the stream could lead to a resource leak.</li></ul>
+</div>
+  <ul id="e8b7d15a-77e9-4dd0-88e9-73a228899761" class="bulleted-list">
+    <li>If the requested resource (or resources) cannot be found, the <code>getResource</code> and getResourceAsStream<code>methods return</code>null<code>, and the</code>getResources<code>methods return an empty</code>Enumeration`.
+    </li>
+    <li>The URLs returned will be resolvable using <code>URL.toStream()</code>. They could be <code>file:</code> URLs or other conventional URLs, but if the resource resides in a JAR file, they will be <code>jar:</code> URLs that identify the JAR file and a specific resource within it.
+    </li>
+    <li>If your code uses a <code>getResourceAsStream</code> method (or <code>URL.toStream()</code>) to obtain an <code>InputStream</code>, it is responsible for closing the stream object. Failure to close the stream could lead to a resource leak.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

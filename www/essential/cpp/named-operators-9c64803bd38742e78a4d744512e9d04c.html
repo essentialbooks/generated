@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>You can extend C++ with named operators that are “quoted” by standard C++ operators.</p><p>First we start with a dozen-line library:</p>
+      
+<p>You can extend C++ with named operators that are “quoted” by standard C++ operators.
+</p>
+<p>First we start with a dozen-line library:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">namespace named_operator {
@@ -151,7 +156,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>this doesn’t do anything yet.</p><p>First, appending vectors</p>
+</div>
+<p>this doesn’t do anything yet.
+</p>
+<p>First, appending vectors
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">namespace my_ns {
@@ -174,7 +184,18 @@ auto c = a *append* b;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The core here is that we define an <code>append</code> object of type <code>append_t:named_operator::make_operator&lt;append_t&gt;</code>.</p><p>We then overload named_invoke( lhs, append_t, rhs ) for the types we want on the right and left.</p><p>The library overloads <code>lhs*append_t</code>, returning a temporary <code>half_apply</code> object. It also overloads <code>half_apply*rhs</code> to call <code>named_invoke( lhs, append_t, rhs )</code>.</p><p>We simply have to create the proper <code>append_t</code> token and do an ADL-friendly <code>named_invoke</code> of the proper signature, and everything hooks up and works.</p><p>For a more complex example, suppose you want to have element-wise multiplication of elements of a std::array:</p>
+</div>
+<p>The core here is that we define an <code>append</code> object of type <code>append_t:named_operator::make_operator&lt;append_t&gt;</code>.
+</p>
+<p>We then overload named_invoke( lhs, append_t, rhs ) for the types we want on the right and left.
+</p>
+<p>The library overloads <code>lhs*append_t</code>, returning a temporary <code>half_apply</code> object. It also overloads <code>half_apply*rhs</code> to call <code>named_invoke( lhs, append_t, rhs )</code>.
+</p>
+<p>We simply have to create the proper <code>append_t</code> token and do an ADL-friendly <code>named_invoke</code> of the proper signature, and everything hooks up and works.
+</p>
+<p>For a more complex example, suppose you want to have element-wise multiplication of elements of a std::array:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;class=void, std::size_t...Is&gt;
@@ -207,7 +228,20 @@ namespace my_ns {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="http://coliru.stacked-crooked.com/a/c071a0662834c838">live example</a>.</p><p>This element-wise array code can be extended to work on tuples or pairs or C-style arrays, or even variable length containers if you decide what to do if the lengths don’t match.</p><p>You could also an element-wise operator type and get <code>lhs *element_wise&lt;&#x27;+&#x27;&gt;* rhs</code>.</p><p>Writing a <code>*dot*</code> and <code>*cross*</code> product operators are also obvious uses.</p><p>The use of <code>\*</code> can be extended to support other delimiters, like <code>\+</code>. The delimeter precidence determines the precidence of the named operator, which may be important when translating physics equations over to C++ with minimal use of extra <code>()</code>s.</p><p>With a slight change in the library above, we can support <code>-&gt;*then*</code> operators and extend <code>std::function</code> prior to the standard being updated, or write monadic <code>-&gt;*bind*</code>. It could also have a stateful named operator, where we carefully pass the <code>Op</code> down to the final invoke function, permitting:</p>
+</div>
+<p><a href="http://coliru.stacked-crooked.com/a/c071a0662834c838">live example</a>.
+</p>
+<p>This element-wise array code can be extended to work on tuples or pairs or C-style arrays, or even variable length containers if you decide what to do if the lengths don’t match.
+</p>
+<p>You could also an element-wise operator type and get <code>lhs *element_wise&lt;&#x27;+&#x27;&gt;* rhs</code>.
+</p>
+<p>Writing a <code>*dot*</code> and <code>*cross*</code> product operators are also obvious uses.
+</p>
+<p>The use of <code>\*</code> can be extended to support other delimiters, like <code>\+</code>. The delimeter precidence determines the precidence of the named operator, which may be important when translating physics equations over to C++ with minimal use of extra <code>()</code>s.
+</p>
+<p>With a slight change in the library above, we can support <code>-&gt;*then*</code> operators and extend <code>std::function</code> prior to the standard being updated, or write monadic <code>-&gt;*bind*</code>. It could also have a stateful named operator, where we carefully pass the <code>Op</code> down to the final invoke function, permitting:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">named_operator&lt;&#39;*&#39;&gt; append = [](auto lhs, auto&amp;&amp; rhs) {
@@ -219,7 +253,9 @@ namespace my_ns {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>generating a named container-appending operator in C++17.</p>
+</div>
+<p>generating a named container-appending operator in C++17.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

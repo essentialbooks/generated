@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>A lambda closure is created when a lambda expression references the variables of an enclosing scope (global or local). The rules for doing this are the same as those for inline methods and anonymous classes.</p><p><em>Local variables</em> from an enclosing scope that are used within a lambda have to be <code>final</code>. With Java 8 (the earliest version that supports lambdas), they don’t need to be <em>declared</em> <code>final</code> in the outside context, but must be treated that way. For example:</p>
+      
+<p>A lambda closure is created when a lambda expression references the variables of an enclosing scope (global or local). The rules for doing this are the same as those for inline methods and anonymous classes.
+</p>
+<p><em>Local variables</em> from an enclosing scope that are used within a lambda have to be <code>final</code>. With Java 8 (the earliest version that supports lambdas), they don’t need to be <em>declared</em> <code>final</code> in the outside context, but must be treated that way. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int n = 0; // With Java 8 there is no need to explicit final
@@ -139,7 +144,14 @@ Runnable r = () -&gt; { // Using lambda
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is legal as long as the value of the <code>n</code> variable is not changed. If you try to change the variable, inside or outside the lambda, you will get the following compilation error:</p><blockquote id="9812e530-7f49-4233-8980-a01724a17bd8" class="">“local variables referenced from a lambda expression must be final or effectively final”.</blockquote><p>For example:</p>
+</div>
+<p>This is legal as long as the value of the <code>n</code> variable is not changed. If you try to change the variable, inside or outside the lambda, you will get the following compilation error:
+</p>
+<blockquote id="9812e530-7f49-4233-8980-a01724a17bd8" class="">“local variables referenced from a lambda expression must be final or effectively final”.
+</blockquote>
+<p>For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int n = 0;
@@ -152,7 +164,10 @@ n++; // Will generate an error.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If it is necessary to use a changing variable within a lambda, the normal approach is to declare a <code>final</code> copy of the variable and use the copy. For example</p>
+</div>
+<p>If it is necessary to use a changing variable within a lambda, the normal approach is to declare a <code>final</code> copy of the variable and use the copy. For example
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int n = 0;
@@ -167,7 +182,12 @@ r.run();  // Will run with i = 0 because k was 0 when the lambda was created</pr
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Naturally, the body of the lambda does not see the changes to the original variable.</p><p>Note that Java does not support true closures. A Java lambda cannot be created in a way that allows it to see changes in the environment in which it was instantiated. If you want to implement a closure that observes or makes changes to its environment, you should simulate it using a regular class. For example:</p>
+</div>
+<p>Naturally, the body of the lambda does not see the changes to the original variable.
+</p>
+<p>Note that Java does not support true closures. A Java lambda cannot be created in a way that allows it to see changes in the environment in which it was instantiated. If you want to implement a closure that observes or makes changes to its environment, you should simulate it using a regular class. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Does not compile ...
@@ -180,7 +200,10 @@ public IntUnaryOperator createAccumulator() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above example will not compile for reasons discussed previously. We can work around the compilation error as follows:</p>
+</div>
+<p>The above example will not compile for reasons discussed previously. We can work around the compilation error as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Compiles, but is incorrect ...
@@ -196,7 +219,10 @@ public class AccumulatorGenerator {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The problem is that this breaks the design contract for the <code>IntUnaryOperator</code> interface which states that instances should be functional and stateless. If such a closure is passed to built-in functions that accept functional objects, it is liable to cause crashes or erroneous behavior. Closures that encapsulate mutable state should be implemented as regular classes. For example.</p>
+</div>
+<p>The problem is that this breaks the design contract for the <code>IntUnaryOperator</code> interface which states that instances should be functional and stateless. If such a closure is passed to built-in functions that accept functional objects, it is liable to cause crashes or erroneous behavior. Closures that encapsulate mutable state should be implemented as regular classes. For example.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Correct ...

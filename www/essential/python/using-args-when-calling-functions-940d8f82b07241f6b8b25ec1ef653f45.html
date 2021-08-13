@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>A common use case for <code>*args</code> in a function definition is to delegate processing to either a wrapped or inherited function. A typical example might be in a class’s <code>__init__</code> method</p>
+      
+<p>A common use case for <code>*args</code> in a function definition is to delegate processing to either a wrapped or inherited function. A typical example might be in a class’s <code>__init__</code> method
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -143,7 +146,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, the <code>a</code> parameter is processed by the child class after all other arguments (positional and keyword) are passed onto - and processed by - the base class.</p><p>For instance:</p>
+</div>
+<p>Here, the <code>a</code> parameter is processed by the child class after all other arguments (positional and keyword) are passed onto - and processed by - the base class.
+</p>
+<p>For instance:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">b</span> <span class="o">=</span> <span class="n">B</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
@@ -154,7 +162,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>What happens here is the class <code>B</code> <code>__init__</code> function sees the arguments <code>1, 2, 3</code>. It knows it needs to take one positional argument (<code>a</code>), so it grabs the first argument passed in (<code>1</code>), so in the scope of the function <code>a == 1</code>.</p><p>Next, it sees that it needs to take an arbitrary number of positional arguments (<code>*args</code>) so it takes the rest of the positional arguments passed in (<code>1, 2</code>) and stuffs them into <code>*args</code>. Now (in the scope of the function) <code>args == [2, 3]</code>.</p><p>Then, it calls class <code>A</code>’s <code>__init__</code> function with <code>*args</code>. Python sees the <code>\*</code> in front of args and “unpacks” the list into arguments. In this example, when class <code>B</code>’s <code>__init__</code> function calls class <code>A</code>’s <code>__init__</code> function, it will be passed the arguments <code>2, 3</code> (i.e. <code>A(2, 3)</code>).</p><p>Finally, it sets its own <code>x</code> property to the first positional argument <code>a</code>, which equals <code>1</code>.</p>
+</div>
+<p>What happens here is the class <code>B</code> <code>__init__</code> function sees the arguments <code>1, 2, 3</code>. It knows it needs to take one positional argument (<code>a</code>), so it grabs the first argument passed in (<code>1</code>), so in the scope of the function <code>a == 1</code>.
+</p>
+<p>Next, it sees that it needs to take an arbitrary number of positional arguments (<code>*args</code>) so it takes the rest of the positional arguments passed in (<code>1, 2</code>) and stuffs them into <code>*args</code>. Now (in the scope of the function) <code>args == [2, 3]</code>.
+</p>
+<p>Then, it calls class <code>A</code>’s <code>__init__</code> function with <code>*args</code>. Python sees the <code>\*</code> in front of args and “unpacks” the list into arguments. In this example, when class <code>B</code>’s <code>__init__</code> function calls class <code>A</code>’s <code>__init__</code> function, it will be passed the arguments <code>2, 3</code> (i.e. <code>A(2, 3)</code>).
+</p>
+<p>Finally, it sets its own <code>x</code> property to the first positional argument <code>a</code>, which equals <code>1</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

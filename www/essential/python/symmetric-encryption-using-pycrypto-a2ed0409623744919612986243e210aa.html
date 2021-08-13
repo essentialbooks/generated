@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Python’s built-in crypto functionality is currently limited to hashing. Encryption requires a third-party module like <a href="https://pypi.python.org/pypi/pycrypto">pycrypto</a>. For example, it provides the <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES algorithm</a> which is considered state of the art for symmetric encryption. The following code will encrypt a given message using a passphrase:</p>
+      
+<p>Python’s built-in crypto functionality is currently limited to hashing. Encryption requires a third-party module like <a href="https://pypi.python.org/pypi/pycrypto">pycrypto</a>. For example, it provides the <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES algorithm</a> which is considered state of the art for symmetric encryption. The following code will encrypt a given message using a passphrase:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import hashlib
@@ -153,7 +156,14 @@ encrypted = salt + AES.new(key, AES.MODE_CFB, iv).encrypt(cleartext)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The AES algorithm takes three parameters: encryption key, initialization vector (IV) and the actual message to be encrypted. If you have a randomly generated AES key then you can use that one directly and merely generate a random initialization vector. A passphrase doesn’t have the right size however, nor would it be recommendable to use it directly given that it isn’t truly random and thus has comparably little entropy. Instead, we use the <a href="https://stackoverflow.com/documentation/python/2598/security-and-cryptography/8622/secure-password-hashing">built-in implementation of the PBKDF2 algorithm</a> to generate a 128 bit initialization vector and 256 bit encryption key from the password.</p><p>Note the random salt which is important to have a different initialization vector and key for each message encrypted. This ensures in particular that two equal messages won’t result in identical encrypted text, but it also prevents attackers from reusing work spent guessing one passphrase on messages encrypted with another passphrase. This salt has to be stored along with the encrypted message in order to derive the same initialization vector and key for decrypting.</p><p>The following code will decrypt our message again:</p>
+</div>
+<p>The AES algorithm takes three parameters: encryption key, initialization vector (IV) and the actual message to be encrypted. If you have a randomly generated AES key then you can use that one directly and merely generate a random initialization vector. A passphrase doesn’t have the right size however, nor would it be recommendable to use it directly given that it isn’t truly random and thus has comparably little entropy. Instead, we use the <a href="https://stackoverflow.com/documentation/python/2598/security-and-cryptography/8622/secure-password-hashing">built-in implementation of the PBKDF2 algorithm</a> to generate a 128 bit initialization vector and 256 bit encryption key from the password.
+</p>
+<p>Note the random salt which is important to have a different initialization vector and key for each message encrypted. This ensures in particular that two equal messages won’t result in identical encrypted text, but it also prevents attackers from reusing work spent guessing one passphrase on messages encrypted with another passphrase. This salt has to be stored along with the encrypted message in order to derive the same initialization vector and key for decrypting.
+</p>
+<p>The following code will decrypt our message again:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">salt = encrypted[0:SALT_SIZE]

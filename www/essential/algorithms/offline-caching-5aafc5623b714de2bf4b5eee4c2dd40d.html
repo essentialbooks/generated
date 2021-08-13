@@ -127,7 +127,52 @@
 </div>
 
 
-      <p>The caching problem arises from the limitation of finite space. Lets assume our cache <code>C</code> has <code>k</code> pages. Now we want to process a sequence of <code>m</code> item requests which must have been placed in the cache before they are processed.Of course if <code>m&lt;=k</code> then we just put all elements in the cache and it will work, but usually is <code>m&gt;&gt;k</code>.</p><p>We say a request is a <strong>cache hit</strong>, when the item is already in cache, otherwise its called a <strong>cache miss</strong>. In that case we must bring the requested item into cache and evict another, assuming the cache is full. The Goal is a eviction schedule that <strong>minimizes the number of evictions</strong>.</p><p>There are numerous greedy strategies for this problem, lets look at some:</p><ol id="aa3282c7-1b48-4e64-b03b-0c8a6b67925f" class="numbered-list" start="1"><li><strong>First in, first out (FIFO)</strong>: The oldest page gets evicted</li><li><strong>Last in, first out (LIFO)</strong>: The newest page gets evicted</li><li><strong>Last recent out (LRU)</strong>: Evict page whose most recent access was earliest</li><li><strong>Least frequently requested(LFU)</strong>: Evict page that was least frequently requested</li><li><strong>Longest forward distance (LFD)</strong>: Evict page in the cache that is not requested until farthest in the future.</li></ol><p><strong>Attention:</strong> For the following examples we evict the page with the smallest index, if more than one page could be evicted.</p><h3 id="1f8f1079-e8ed-4722-88a3-7f92645d306a" class="">Example (FIFO)<a class="header-anchor" href="#1f8f1079-e8ed-4722-88a3-7f92645d306a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>Let the cache size be <code>k=3</code> the initial cache <code>a,b,c</code> and the request <code>a,a,d,e,b,b,a,c,f,d,e,a,f,b,e,c</code>:</p><p>|Request | a | a | d | e | b | b | a | c | f | d | e | a | f | b | e | c | |:––––:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:| |<code>cache 1</code> | a | a | d | d | d | d | a | a | a | d | d | d | f | f | f | c | |<code>cache 2</code> | b | b | b | e | e | e | e | c | c | c | e | e | e | b | b | b | |<code>cache 3</code> | c | c | c | c | b | b | b | b | f | f | f | a | a | a | e | e | |cache miss| | | x | x | x | | x | x | x | x | x | x | x | x | x | x |</p><p>Thirteen cache misses by sixteen requests does not sound very optimal, lets try the same example with another strategy:</p><h3 id="83d4e0c1-ef91-486c-9b77-6ca2179d584f" class="">Example (LFD)<a class="header-anchor" href="#83d4e0c1-ef91-486c-9b77-6ca2179d584f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>Let the cache size be <code>k=3</code> the initial cache <code>a,b,c</code> and the request <code>a,a,d,e,b,b,a,c,f,d,e,a,f,b,e,c</code>:</p><p>|Request | a | a | d | e | b | b | a | c | f | d | e | a | f | b | e | c | |:––––:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:| |<code>cache 1</code> | a | a | d | e | e | e | e | e | e | e | e | e | e | e | e | c | |<code>cache 2</code> | b | b | b | b | b | b | a | a | a | a | a | a | f | f | f | f | |<code>cache 3</code> | c | c | c | c | c | c | c | c | f | d | d | d | d | b | b | b | |cache miss| | | x | x | | | x | | x | x | | | x | x | | x |</p><p>Eight cache misses is a lot better.</p><p><strong>Selftest</strong>: Do the example for LIFO, LFU, RFU and look what happend.</p><p>The following example programm (written in C++) consists of two parts:</p><p>The skeleton is a application, which solves the problem dependent on the chosen greedy strategy:</p>
+      
+<p>The caching problem arises from the limitation of finite space. Lets assume our cache <code>C</code> has <code>k</code> pages. Now we want to process a sequence of <code>m</code> item requests which must have been placed in the cache before they are processed.Of course if <code>m&lt;=k</code> then we just put all elements in the cache and it will work, but usually is <code>m&gt;&gt;k</code>.
+</p>
+<p>We say a request is a <strong>cache hit</strong>, when the item is already in cache, otherwise its called a <strong>cache miss</strong>. In that case we must bring the requested item into cache and evict another, assuming the cache is full. The Goal is a eviction schedule that <strong>minimizes the number of evictions</strong>.
+</p>
+<p>There are numerous greedy strategies for this problem, lets look at some:
+</p>
+  <ol id="aa3282c7-1b48-4e64-b03b-0c8a6b67925f" class="numbered-list" start="1">
+    <li><strong>First in, first out (FIFO)</strong>: The oldest page gets evicted
+    </li>
+    <li><strong>Last in, first out (LIFO)</strong>: The newest page gets evicted
+    </li>
+    <li><strong>Last recent out (LRU)</strong>: Evict page whose most recent access was earliest
+    </li>
+    <li><strong>Least frequently requested(LFU)</strong>: Evict page that was least frequently requested
+    </li>
+    <li><strong>Longest forward distance (LFD)</strong>: Evict page in the cache that is not requested until farthest in the future.
+    </li>
+  </ol>
+<p><strong>Attention:</strong> For the following examples we evict the page with the smallest index, if more than one page could be evicted.
+</p>
+  <h3 id="1f8f1079-e8ed-4722-88a3-7f92645d306a" class="">Example (FIFO)
+  <a class="header-anchor" href="#1f8f1079-e8ed-4722-88a3-7f92645d306a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p>Let the cache size be <code>k=3</code> the initial cache <code>a,b,c</code> and the request <code>a,a,d,e,b,b,a,c,f,d,e,a,f,b,e,c</code>:
+</p>
+<p>|Request | a | a | d | e | b | b | a | c | f | d | e | a | f | b | e | c | |:––––:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:| |<code>cache 1</code> | a | a | d | d | d | d | a | a | a | d | d | d | f | f | f | c | |<code>cache 2</code> | b | b | b | e | e | e | e | c | c | c | e | e | e | b | b | b | |<code>cache 3</code> | c | c | c | c | b | b | b | b | f | f | f | a | a | a | e | e | |cache miss| | | x | x | x | | x | x | x | x | x | x | x | x | x | x |
+</p>
+<p>Thirteen cache misses by sixteen requests does not sound very optimal, lets try the same example with another strategy:
+</p>
+  <h3 id="83d4e0c1-ef91-486c-9b77-6ca2179d584f" class="">Example (LFD)
+  <a class="header-anchor" href="#83d4e0c1-ef91-486c-9b77-6ca2179d584f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p>Let the cache size be <code>k=3</code> the initial cache <code>a,b,c</code> and the request <code>a,a,d,e,b,b,a,c,f,d,e,a,f,b,e,c</code>:
+</p>
+<p>|Request | a | a | d | e | b | b | a | c | f | d | e | a | f | b | e | c | |:––––:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:| |<code>cache 1</code> | a | a | d | e | e | e | e | e | e | e | e | e | e | e | e | c | |<code>cache 2</code> | b | b | b | b | b | b | a | a | a | a | a | a | f | f | f | f | |<code>cache 3</code> | c | c | c | c | c | c | c | c | f | d | d | d | d | b | b | b | |cache miss| | | x | x | | | x | | x | x | | | x | x | | x |
+</p>
+<p>Eight cache misses is a lot better.
+</p>
+<p><strong>Selftest</strong>: Do the example for LIFO, LFU, RFU and look what happend.
+</p>
+<p>The following example programm (written in C++) consists of two parts:
+</p>
+<p>The skeleton is a application, which solves the problem dependent on the chosen greedy strategy:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;
@@ -216,7 +261,21 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The basic idea is simple: for every request I have two calls two my strategy:</p><ol id="fc21725e-e610-4e5e-8e5f-1917e14edd20" class="numbered-list" start="1"><li><strong>apply</strong>: The strategy has to tell the caller which page to use</li><li><strong>update</strong>: After the caller uses the place, it tells the strategy whether it was a miss or not. Then the strategy may update its internal data. The strategy <strong>LFU</strong> for example has to update the hit frequency for the cache pages, while the <strong>LFD</strong> strategy has to recalculate the distances for the cache pages.</li></ol><p>Now lets look of example implementations for our five strategies:</p><h3 id="9dbdbab2-28d3-4ed0-b25b-13a2aad13e59" class="">FIFO<a class="header-anchor" href="#9dbdbab2-28d3-4ed0-b25b-13a2aad13e59" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3>
+</div>
+<p>The basic idea is simple: for every request I have two calls two my strategy:
+</p>
+  <ol id="fc21725e-e610-4e5e-8e5f-1917e14edd20" class="numbered-list" start="1">
+    <li><strong>apply</strong>: The strategy has to tell the caller which page to use
+    </li>
+    <li><strong>update</strong>: After the caller uses the place, it tells the strategy whether it was a miss or not. Then the strategy may update its internal data. The strategy <strong>LFU</strong> for example has to update the hit frequency for the cache pages, while the <strong>LFD</strong> strategy has to recalculate the distances for the cache pages.
+    </li>
+  </ol>
+<p>Now lets look of example implementations for our five strategies:
+</p>
+  <h3 id="9dbdbab2-28d3-4ed0-b25b-13a2aad13e59" class="">FIFO
+  <a class="header-anchor" href="#9dbdbab2-28d3-4ed0-b25b-13a2aad13e59" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class FIFO : public Strategy {
@@ -266,7 +325,10 @@ private:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>FIFO</strong> just needs the information how long a page is in the cache (and of course only relative to the other pages). So the only thing to do is wait for a miss and then make the pages, which where not evicted older. For our example above the program solution is:</p>
+</div>
+<p><strong>FIFO</strong> just needs the information how long a page is in the cache (and of course only relative to the other pages). So the only thing to do is wait for a miss and then make the pages, which where not evicted older. For our example above the program solution is:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Strategy: FIFO
@@ -296,7 +358,13 @@ Total cache misses: 13</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Thats exact the solution from above.</p><h3 id="e849d691-ec40-452e-9e15-4c0f2af01827" class="">LIFO<a class="header-anchor" href="#e849d691-ec40-452e-9e15-4c0f2af01827" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3>
+</div>
+<p>Thats exact the solution from above.
+</p>
+  <h3 id="e849d691-ec40-452e-9e15-4c0f2af01827" class="">LIFO
+  <a class="header-anchor" href="#e849d691-ec40-452e-9e15-4c0f2af01827" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class LIFO : public Strategy {
@@ -346,7 +414,10 @@ private:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The implementation of <strong>LIFO</strong> is more or less the same as by <strong>FIFO</strong> but we evict the youngest not the oldest page. The program results are:</p>
+</div>
+<p>The implementation of <strong>LIFO</strong> is more or less the same as by <strong>FIFO</strong> but we evict the youngest not the oldest page. The program results are:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Strategy: LIFO
@@ -376,7 +447,11 @@ Total cache misses: 9</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h3 id="34718d28-57ab-4587-87da-43d3f2a0f4cf" class="">LRU<a class="header-anchor" href="#34718d28-57ab-4587-87da-43d3f2a0f4cf" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3>
+</div>
+  <h3 id="34718d28-57ab-4587-87da-43d3f2a0f4cf" class="">LRU
+  <a class="header-anchor" href="#34718d28-57ab-4587-87da-43d3f2a0f4cf" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class LRU : public Strategy {
@@ -423,7 +498,10 @@ private:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In case of <strong>LRU</strong> the strategy is independent from what is at the cache page, its only interest is the last usage. The programm results are:</p>
+</div>
+<p>In case of <strong>LRU</strong> the strategy is independent from what is at the cache page, its only interest is the last usage. The programm results are:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Strategy: LRU
@@ -453,7 +531,11 @@ Total cache misses: 13</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h3 id="efc8daa7-b991-453f-a821-1aa85a547f4f" class="">LFU<a class="header-anchor" href="#efc8daa7-b991-453f-a821-1aa85a547f4f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3>
+</div>
+  <h3 id="efc8daa7-b991-453f-a821-1aa85a547f4f" class="">LFU
+  <a class="header-anchor" href="#efc8daa7-b991-453f-a821-1aa85a547f4f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class LFU : public Strategy {
@@ -497,7 +579,10 @@ private:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>LFU</strong> evicts the page uses least often. So the update strategy is just to count every access. Of course after a miss the count resets. The program results are:</p>
+</div>
+<p><strong>LFU</strong> evicts the page uses least often. So the update strategy is just to count every access. Of course after a miss the count resets. The program results are:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Strategy: LFU
@@ -527,7 +612,11 @@ Total cache misses: 10</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h3 id="791bad53-8f17-4d4f-b8a9-221303ee237c" class="">LFD<a class="header-anchor" href="#791bad53-8f17-4d4f-b8a9-221303ee237c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3>
+</div>
+  <h3 id="791bad53-8f17-4d4f-b8a9-221303ee237c" class="">LFD
+  <a class="header-anchor" href="#791bad53-8f17-4d4f-b8a9-221303ee237c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class LFD : public Strategy {
@@ -579,7 +668,10 @@ private:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <strong>LFD</strong> strategy is different from everyone before. Its the only strategy that uses the future requests for its decission who to evict. The implementation uses the function <code>calcNextUse</code> to get the page which next use is farthest away in the future. The program solution is equal to the solution by hand from above:</p>
+</div>
+<p>The <strong>LFD</strong> strategy is different from everyone before. Its the only strategy that uses the future requests for its decission who to evict. The implementation uses the function <code>calcNextUse</code> to get the page which next use is farthest away in the future. The program solution is equal to the solution by hand from above:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Strategy: LFD
@@ -609,7 +701,14 @@ Total cache misses: 8</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The greedy strategy <strong>LFD</strong> is indeed the only optimal strategy of the five presented. The proof is rather long and can be found <a href="https://blog.henrypoon.com/blog/2014/02/02/proof-of-the-farthest-in-future-optimal-caching-algorithm/">here</a> or in the book by Jon Kleinberg and Eva Tardos (see sources in remarks down below).</p><h3 id="8ac2e4d5-f38f-4b13-a258-f76fa8e2ad36" class="">Algorithm vs Reality<a class="header-anchor" href="#8ac2e4d5-f38f-4b13-a258-f76fa8e2ad36" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>The <strong>LFD</strong> strategy is optimal, but there is a big problem. Its an optimal <strong>offline</strong> solution. In praxis caching is usually an <strong>online</strong> problem, that means the strategy is useless because we cannot now the next time we need a particular item. The other four strategies are also <strong>online</strong> strategies. For online problems we need a general different approach.</p>
+</div>
+<p>The greedy strategy <strong>LFD</strong> is indeed the only optimal strategy of the five presented. The proof is rather long and can be found <a href="https://blog.henrypoon.com/blog/2014/02/02/proof-of-the-farthest-in-future-optimal-caching-algorithm/">here</a> or in the book by Jon Kleinberg and Eva Tardos (see sources in remarks down below).
+</p>
+  <h3 id="8ac2e4d5-f38f-4b13-a258-f76fa8e2ad36" class="">Algorithm vs Reality
+  <a class="header-anchor" href="#8ac2e4d5-f38f-4b13-a258-f76fa8e2ad36" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p>The <strong>LFD</strong> strategy is optimal, but there is a big problem. Its an optimal <strong>offline</strong> solution. In praxis caching is usually an <strong>online</strong> problem, that means the strategy is useless because we cannot now the next time we need a particular item. The other four strategies are also <strong>online</strong> strategies. For online problems we need a general different approach.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

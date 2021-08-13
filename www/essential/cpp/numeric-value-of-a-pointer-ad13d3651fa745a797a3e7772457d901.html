@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The result of casting a pointer to an integer using <code>reinterpret_cast</code> is implementation-defined, but “… is intended to be unsurprising to those who know the addressing structure of the underlying machine.”</p>
+      
+<p>The result of casting a pointer to an integer using <code>reinterpret_cast</code> is implementation-defined, but “… is intended to be unsurprising to those who know the addressing structure of the underlying machine.”
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int x = 42;
@@ -139,7 +142,12 @@ std::cout &lt;&lt; addr &lt;&lt; &#34;\n&#34;; // prints some numeric address,
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Likewise, the pointer obtained by conversion from an integer is also implementation-defined.</p><p>The right way to store a pointer as an integer is using the <code>uintptr_t</code> or <code>intptr_t</code> types:</p>
+</div>
+<p>Likewise, the pointer obtained by conversion from an integer is also implementation-defined.
+</p>
+<p>The right way to store a pointer as an integer is using the <code>uintptr_t</code> or <code>intptr_t</code> types:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// `uintptr_t` was not in C++03. It&#39;s in C99, in &lt;stdint.h&gt;, as an optional type
@@ -151,6 +159,7 @@ uintptr_t uip;</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// There is an optional `std::uintptr_t` in C++11
@@ -161,7 +170,31 @@ std::uintptr_t uip;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>C++11 refers to C99 for the definition <code>uintptr_t</code> (C99 standard, 6.3.2.3):</p><blockquote id="51bcbcf3-3b4c-4cf2-8da2-7cc3a4182a5d" class="">an unsigned integer type with the property that any valid pointer to void can be converted to this type, then converted back to pointer to void, and the result will compare equal to the original pointer.</blockquote><p>While, for the majority of modern platforms, you can assume a flat address space and that arithmetic on <code>uintptr_t</code> is equivalent to arithmetic on <code>char *</code>, it’s entirely possible for an implementation to perform any transformation when casting <code>void *</code> to <code>uintptr_t</code> as long the transformation can be reversed when casting back from <code>uintptr_t</code> to <code>void *</code>.</p><p><strong>Technicalities</strong></p><ul id="5a4ed127-75f1-436e-92df-8182762dfe4f" class="bulleted-list"><li>On XSI-conformant (X/Open System Interfaces) systems, <code>intptr_t</code> and <code>uintptr_t</code> types are required, otherwise they are <strong>optional</strong>.</li><li>Within the meaning of the C standard, functions aren’t objects; it isn’t guaranteed by the C standard that <code>uintptr_t</code> can hold a function pointer. Anyway POSIX (2.12.3) conformance requires that:</li></ul><blockquote id="8a0dbfd7-5052-4ec7-abcd-0468c20d1994" class="">All function pointer types shall have the same representation as the type pointer to void. Conversion of a function pointer to void * shall not alter the representation. A void * value resulting from such a conversion can be converted back to the original function pointer type, using an explicit cast, without loss of information.</blockquote><ul id="9eebbce8-1a95-492a-808a-9f2353c7236a" class="bulleted-list"><li>C99 §7.18.1:</li></ul><blockquote id="fbdd0119-5799-4052-af59-0fd28e9e5d92" class="">When typedef names differing only in the absence or presence of the initial u are defined, they shall denote corresponding signed and unsigned types as described in 6.2.5; an implementation providing one of these corresponding types shall also provide the other.</blockquote><p><code>uintptr_t</code> might make sense if you want to do things to the bits of the pointer that you can’t do as sensibly with a signed integer.</p>
+</div>
+<p>C++11 refers to C99 for the definition <code>uintptr_t</code> (C99 standard, 6.3.2.3):
+</p>
+<blockquote id="51bcbcf3-3b4c-4cf2-8da2-7cc3a4182a5d" class="">an unsigned integer type with the property that any valid pointer to void can be converted to this type, then converted back to pointer to void, and the result will compare equal to the original pointer.
+</blockquote>
+<p>While, for the majority of modern platforms, you can assume a flat address space and that arithmetic on <code>uintptr_t</code> is equivalent to arithmetic on <code>char *</code>, it’s entirely possible for an implementation to perform any transformation when casting <code>void *</code> to <code>uintptr_t</code> as long the transformation can be reversed when casting back from <code>uintptr_t</code> to <code>void *</code>.
+</p>
+<p><strong>Technicalities</strong>
+</p>
+  <ul id="5a4ed127-75f1-436e-92df-8182762dfe4f" class="bulleted-list">
+    <li>On XSI-conformant (X/Open System Interfaces) systems, <code>intptr_t</code> and <code>uintptr_t</code> types are required, otherwise they are <strong>optional</strong>.
+    </li>
+    <li>Within the meaning of the C standard, functions aren’t objects; it isn’t guaranteed by the C standard that <code>uintptr_t</code> can hold a function pointer. Anyway POSIX (2.12.3) conformance requires that:
+    </li>
+  </ul>
+<blockquote id="8a0dbfd7-5052-4ec7-abcd-0468c20d1994" class="">All function pointer types shall have the same representation as the type pointer to void. Conversion of a function pointer to void * shall not alter the representation. A void * value resulting from such a conversion can be converted back to the original function pointer type, using an explicit cast, without loss of information.
+</blockquote>
+  <ul id="9eebbce8-1a95-492a-808a-9f2353c7236a" class="bulleted-list">
+    <li>C99 §7.18.1:
+    </li>
+  </ul>
+<blockquote id="fbdd0119-5799-4052-af59-0fd28e9e5d92" class="">When typedef names differing only in the absence or presence of the initial u are defined, they shall denote corresponding signed and unsigned types as described in 6.2.5; an implementation providing one of these corresponding types shall also provide the other.
+</blockquote>
+<p><code>uintptr_t</code> might make sense if you want to do things to the bits of the pointer that you can’t do as sensibly with a signed integer.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

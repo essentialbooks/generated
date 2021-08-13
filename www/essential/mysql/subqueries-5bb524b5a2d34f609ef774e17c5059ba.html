@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Subqueries come in several flavors, and they have different optimization potential. First, note that subqueries can be either “correlated” or “uncorrelated”. Correlated means that they depend on some value from outside the subquery. This generally implies that the subquery <em>must</em> be re-evaluated for each outer value.</p><p>This correlated subquery is often pretty good. Note: It must return at most 1 value. It is often useful as an alternative to, though not necessarily faster than, a <code>LEFT JOIN</code>.</p>
+      
+<p>Subqueries come in several flavors, and they have different optimization potential. First, note that subqueries can be either “correlated” or “uncorrelated”. Correlated means that they depend on some value from outside the subquery. This generally implies that the subquery <em>must</em> be re-evaluated for each outer value.
+</p>
+<p>This correlated subquery is often pretty good. Note: It must return at most 1 value. It is often useful as an alternative to, though not necessarily faster than, a <code>LEFT JOIN</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT a, b, ( SELECT ... FROM t WHERE t.x = u.x ) AS c
@@ -140,7 +145,10 @@ SELECT a, b, ( SELECT x FROM t ORDER BY ... LIMIT 1 ) AS c
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is usually uncorrelated:</p>
+</div>
+<p>This is usually uncorrelated:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT ...
@@ -150,7 +158,17 @@ SELECT a, b, ( SELECT x FROM t ORDER BY ... LIMIT 1 ) AS c
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Notes on the <code>FROM-SELECT</code>:</p><ul id="26227f1b-ee99-4fa6-a62e-bce68e57010f" class="bulleted-list"><li>If it returns 1 row, great.</li><li>A good paradigm (again “1 row”) is for the subquery to be <code>( SELECT @n := 0 )</code>, thereby initializing an `@variable for use in the rest or the query.</li><li>If it returns many rows <em>and</em> the <code>JOIN</code> also is <code>( SELECT ... )</code> with many rows, then efficiency can be terrible. Pre-5.6, there was no index, so it became a <code>CROSS JOIN</code>; 5.6+ involves deducing the best index on the temp tables and then generating it, only to throw it away when finished with the <code>SELECT</code>.</li></ul>
+</div>
+<p>Notes on the <code>FROM-SELECT</code>:
+</p>
+  <ul id="26227f1b-ee99-4fa6-a62e-bce68e57010f" class="bulleted-list">
+    <li>If it returns 1 row, great.
+    </li>
+    <li>A good paradigm (again “1 row”) is for the subquery to be <code>( SELECT @n := 0 )</code>, thereby initializing an `@variable for use in the rest or the query.
+    </li>
+    <li>If it returns many rows <em>and</em> the <code>JOIN</code> also is <code>( SELECT ... )</code> with many rows, then efficiency can be terrible. Pre-5.6, there was no index, so it became a <code>CROSS JOIN</code>; 5.6+ involves deducing the best index on the temp tables and then generating it, only to throw it away when finished with the <code>SELECT</code>.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>By default all <code>datetime</code> objects are naive. To make them timezone-aware, you must attach a <code>tzinfo</code> object, which provides the UTC offset and timezone abbreviation as a function of date and time.</p><p><strong>Fixed Offset Time Zones</strong></p><p>For time zones that are a fixed offset from UTC, in Python 3.2+, the <code>datetime</code> module provides the <code>timezone</code> class, a concrete implementation of <code>tzinfo</code>, which takes a <code>timedelta</code> and an (optional) name parameter:</p>
+      
+<p>By default all <code>datetime</code> objects are naive. To make them timezone-aware, you must attach a <code>tzinfo</code> object, which provides the UTC offset and timezone abbreviation as a function of date and time.
+</p>
+<p><strong>Fixed Offset Time Zones</strong>
+</p>
+<p>For time zones that are a fixed offset from UTC, in Python 3.2+, the <code>datetime</code> module provides the <code>timezone</code> class, a concrete implementation of <code>tzinfo</code>, which takes a <code>timedelta</code> and an (optional) name parameter:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span><span class="p">,</span> <span class="n">timezone</span>
@@ -147,7 +154,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For Python versions before 3.2, it is necessary to use a third party library, such as <a href="http://dateutil.readthedocs.io/"><code>dateutil</code></a>. <code>dateutil</code> provides an equivalent class, <code>tzoffset</code>, which (as of version 2.5.3) takes arguments of the form <code>dateutil.tz.tzoffset(tzname, offset)</code>, where <code>offset</code> is specified in seconds:</p>
+</div>
+<p>For Python versions before 3.2, it is necessary to use a third party library, such as <a href="http://dateutil.readthedocs.io/"><code>dateutil</code></a>. <code>dateutil</code> provides an equivalent class, <code>tzoffset</code>, which (as of version 2.5.3) takes arguments of the form <code>dateutil.tz.tzoffset(tzname, offset)</code>, where <code>offset</code> is specified in seconds:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
@@ -163,7 +173,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Zones with daylight savings time</strong></p><p>For zones with daylight savings time, python standard libraries do not provide a standard class, so it is necessary to use a third party library. <a href="http://pytz.sourceforge.net/"><code>pytz</code></a> and <code>dateutil</code> are popular libraries providing time zone classes.</p><p>In addition to static time zones, <code>dateutil</code> provides time zone classes that use daylight savings time (see <a href="http://dateutil.readthedocs.io/en/stable/tz.html">the documentation for the </a><a href="http://dateutil.readthedocs.io/en/stable/tz.html"><code>tz</code></a><a href="http://dateutil.readthedocs.io/en/stable/tz.html"> module</a>). You can use the <code>tz.gettz()</code> method to get a time zone object, which can then be passed directly to the <code>datetime</code> constructor:</p>
+</div>
+<p><strong>Zones with daylight savings time</strong>
+</p>
+<p>For zones with daylight savings time, python standard libraries do not provide a standard class, so it is necessary to use a third party library. <a href="http://pytz.sourceforge.net/"><code>pytz</code></a> and <code>dateutil</code> are popular libraries providing time zone classes.
+</p>
+<p>In addition to static time zones, <code>dateutil</code> provides time zone classes that use daylight savings time (see <a href="http://dateutil.readthedocs.io/en/stable/tz.html">the documentation for the </a><a href="http://dateutil.readthedocs.io/en/stable/tz.html"><code>tz</code></a><a href="http://dateutil.readthedocs.io/en/stable/tz.html"> module</a>). You can use the <code>tz.gettz()</code> method to get a time zone object, which can then be passed directly to the <code>datetime</code> constructor:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
@@ -184,7 +201,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>CAUTION</strong>: As of version 2.5.3, <code>dateutil</code> does not handle ambiguous datetimes correctly, and will always default to the <em>later</em> date. There is no way to construct an object with a <code>dateutil</code> timezone representing, for example <code>2015-11-01 1:30 EDT-4</code>, since this is <em>during</em> a daylight savings time transition.</p><p>All edge cases are handled properly when using <code>pytz</code>, but <code>pytz</code> time zones should <em>not</em> be directly attached to time zones through the constructor. Instead, a <code>pytz</code> time zone should be attached using the time zone’s <code>localize</code> method:</p>
+</div>
+<p><strong>CAUTION</strong>: As of version 2.5.3, <code>dateutil</code> does not handle ambiguous datetimes correctly, and will always default to the <em>later</em> date. There is no way to construct an object with a <code>dateutil</code> timezone representing, for example <code>2015-11-01 1:30 EDT-4</code>, since this is <em>during</em> a daylight savings time transition.
+</p>
+<p>All edge cases are handled properly when using <code>pytz</code>, but <code>pytz</code> time zones should <em>not</em> be directly attached to time zones through the constructor. Instead, a <code>pytz</code> time zone should be attached using the time zone’s <code>localize</code> method:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
@@ -201,7 +223,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Be aware that if you perform datetime arithmetic on a <code>pytz</code>-aware time zone, you must either perform the calculations in UTC (if you want absolute elapsed time), or you must call <code>normalize()</code> on the result:</p>
+</div>
+<p>Be aware that if you perform datetime arithmetic on a <code>pytz</code>-aware time zone, you must either perform the calculations in UTC (if you want absolute elapsed time), or you must call <code>normalize()</code> on the result:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">dt_new</span> <span class="o">=</span> <span class="n">dt_pdt</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># This should be 2:30 AM PST</span>

@@ -127,7 +127,14 @@
 </div>
 
 
-      <p><code>&quot;$@&quot;</code> expands to all of the command line arguments as separate words. It is different from <code>&quot;$*&quot;</code>, which expands to all of the arguments as a single word.</p><p><code>&quot;$@&quot;</code> is especially useful for <a href="http://stackoverflow.com/documentation/bash/420/control-structures/9290/looping-over-an-array#t=201608301017209858205">looping</a> through arguments and handling arguments with spaces.</p><p>Consider we are in a script that we invoked with two arguments, like so:</p>
+      
+<p><code>&quot;$@&quot;</code> expands to all of the command line arguments as separate words. It is different from <code>&quot;$*&quot;</code>, which expands to all of the arguments as a single word.
+</p>
+<p><code>&quot;$@&quot;</code> is especially useful for <a href="http://stackoverflow.com/documentation/bash/420/control-structures/9290/looping-over-an-array#t=201608301017209858205">looping</a> through arguments and handling arguments with spaces.
+</p>
+<p>Consider we are in a script that we invoked with two arguments, like so:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ ./script.sh &#34;␣1␣2␣&#34; &#34;␣3␣␣4␣&#34;</pre>
@@ -135,7 +142,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="d60afc2f-ae79-4582-851e-9e2594930e1b"/><p>The variables <code>$*</code> or <code>$@</code> will expand into <code>$1␣$2</code>, which in turn expand into <code>1␣2␣3␣4</code> so the loop below:</p>
+</div>
+<hr id="d60afc2f-ae79-4582-851e-9e2594930e1b"/>
+<p>The variables <code>$*</code> or <code>$@</code> will expand into <code>$1␣$2</code>, which in turn expand into <code>1␣2␣3␣4</code> so the loop below:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for var in $*; do # same for var in $@; do
@@ -145,7 +156,10 @@ done</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>will print for both</p>
+</div>
+<p>will print for both
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;1&gt;
@@ -156,7 +170,11 @@ done</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="1a868a81-da40-41a1-b486-45aec483a2a1"/><p>While <code>&quot;$*&quot;</code> will be expanded into <code>&quot;$1␣$2&quot;</code> which will in turn expand into <code>&quot;␣1␣2␣␣␣3␣␣4␣&quot;</code> and so the loop:</p>
+</div>
+<hr id="1a868a81-da40-41a1-b486-45aec483a2a1"/>
+<p>While <code>&quot;$*&quot;</code> will be expanded into <code>&quot;$1␣$2&quot;</code> which will in turn expand into <code>&quot;␣1␣2␣␣␣3␣␣4␣&quot;</code> and so the loop:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for var in &#34;$*&#34;; do
@@ -166,7 +184,10 @@ done</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>will only invoke <code>echo</code> once and will print</p>
+</div>
+<p>will only invoke <code>echo</code> once and will print
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;␣1␣2␣␣␣3␣␣4␣&gt;</pre>
@@ -174,7 +195,11 @@ done</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="51a2bf87-da60-454e-9643-0c70e30f2c1f"/><p>And finally <code>&quot;$@&quot;</code> will expand into <code>&quot;$1&quot; &quot;$2&quot;</code>, which will expand into <code>&quot;␣1␣2␣&quot; &quot;␣3␣␣4␣&quot;</code> and so the loop</p>
+</div>
+<hr id="51a2bf87-da60-454e-9643-0c70e30f2c1f"/>
+<p>And finally <code>&quot;$@&quot;</code> will expand into <code>&quot;$1&quot; &quot;$2&quot;</code>, which will expand into <code>&quot;␣1␣2␣&quot; &quot;␣3␣␣4␣&quot;</code> and so the loop
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for var in &#34;$@&#34;; do
@@ -184,7 +209,10 @@ done</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>will print</p>
+</div>
+<p>will print
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;␣1␣2␣&gt;
@@ -193,7 +221,9 @@ done</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>thereby preserving both the internal spacing in the arguments and the arguments separation. Note that the construction <code>for var in &quot;$@&quot;; do ...</code> is so common and idiomatic that it is the default for a for loop and can be shortened to <code>for var; do ...</code>.</p>
+</div>
+<p>thereby preserving both the internal spacing in the arguments and the arguments separation. Note that the construction <code>for var in &quot;$@&quot;; do ...</code> is so common and idiomatic that it is the default for a for loop and can be shortened to <code>for var; do ...</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

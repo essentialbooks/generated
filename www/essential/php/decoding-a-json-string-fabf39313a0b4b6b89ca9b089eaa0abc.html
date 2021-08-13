@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>The <a href="http://php.net/manual/en/function.json-decode.php"><code>json_decode()</code></a> function takes a JSON-encoded string as its first parameter and parses it into a PHP variable.</p><p>Normally, <code>json_decode()</code> will return an <strong>object of </strong><a href="http://php.net/manual/en/reserved.classes.php"><strong>\stdClass</strong></a> if the top level item in the JSON object is a dictionary or an <strong>indexed array</strong> if the JSON object is an array. It will also return scalar values or <code>NULL</code> for certain scalar values, such as simple strings, <code>&quot;true&quot;</code>, <code>&quot;false&quot;</code>, and <code>&quot;null&quot;</code>. It also returns <code>NULL</code> on any error.</p>
+      
+<p>The <a href="http://php.net/manual/en/function.json-decode.php"><code>json_decode()</code></a> function takes a JSON-encoded string as its first parameter and parses it into a PHP variable.
+</p>
+<p>Normally, <code>json_decode()</code> will return an <strong>object of </strong><a href="http://php.net/manual/en/reserved.classes.php"><strong>\stdClass</strong></a> if the top level item in the JSON object is a dictionary or an <strong>indexed array</strong> if the JSON object is an array. It will also return scalar values or <code>NULL</code> for certain scalar values, such as simple strings, <code>&quot;true&quot;</code>, <code>&quot;false&quot;</code>, and <code>&quot;null&quot;</code>. It also returns <code>NULL</code> on any error.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Returns an object (The top level item in the JSON string is a JSON dictionary)
@@ -144,7 +149,10 @@ printf(&#39;Hello %s, You are %s years old.&#39;, $array[0], $array[1]);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Use <a href="http://php.net/manual/en/function.var-dump.php"><code>var_dump()</code></a> to view the types and values of each property on the object we decoded above.</p>
+</div>
+<p>Use <a href="http://php.net/manual/en/function.var-dump.php"><code>var_dump()</code></a> to view the types and values of each property on the object we decoded above.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Dump our above $object to view how it was decoded
@@ -153,7 +161,10 @@ var_dump($object);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output (note the variable types):</p>
+</div>
+<p>Output (note the variable types):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class stdClass#2 (4) {
@@ -170,7 +181,13 @@ var_dump($object);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Note:</strong> The variable <strong>types</strong> in JSON were converted to their PHP equivalent.</p><hr id="63132323-15bd-47f9-b024-8e45b9380617"/><p>To return an <a href="http://php.net/manual/en/language.types.array.php">associative array</a> for JSON objects instead of returning an object, pass <code>true</code> as the <a href="http://php.net/manual/en/function.json-decode.php#refsect1-function.json-decode-parameters">second parameter</a> to <code>json_decode()</code>.</p>
+</div>
+<p><strong>Note:</strong> The variable <strong>types</strong> in JSON were converted to their PHP equivalent.
+</p>
+<hr id="63132323-15bd-47f9-b024-8e45b9380617"/>
+<p>To return an <a href="http://php.net/manual/en/language.types.array.php">associative array</a> for JSON objects instead of returning an object, pass <code>true</code> as the <a href="http://php.net/manual/en/function.json-decode.php#refsect1-function.json-decode-parameters">second parameter</a> to <code>json_decode()</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$json_string = &#39;{&#34;name&#34;: &#34;Jeff&#34;, &#34;age&#34;: 20, &#34;active&#34;: true, &#34;colors&#34;: [&#34;red&#34;, &#34;blue&#34;]}&#39;;
@@ -180,7 +197,10 @@ var_dump($array);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output (note the array associative structure):</p>
+</div>
+<p>Output (note the array associative structure):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">array(4) {
@@ -197,7 +217,21 @@ var_dump($array);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The second parameter (<code>$assoc</code>) has no effect if the variable to be returned is not an object.</p><p><strong>Note:</strong> If you use the <code>$assoc</code> parameter, you will lose the distinction between an empty array and an empty object. This means that running <code>json_encode()</code> on your decoded output again, will result in a different JSON structure.</p><p>If the JSON string has a “depth” more than 512 elements (<em>20 elements in versions older than 5.2.3, or 128 in version 5.2.3</em>) in recursion, the function <code>json_decode()</code> returns <code>NULL</code>. In versions 5.3 or later, this limit can be controlled using the third parameter (<code>$depth</code>), as discussed below.</p><hr id="91df19c6-fb35-44c9-86e4-eab756d9386a"/><p>According to the manual:</p><blockquote id="de745aae-e2c0-4f18-ac6e-aedbd67c9c5a" class="">PHP implements a superset of JSON as specified in the original » RFC 4627 - it will also encode and decode scalar types and NULL. RFC 4627 only supports these values when they are nested inside an array or an object. Although this superset is consistent with the expanded definition of “JSON text” in the newer » RFC 7159 (which aims to supersede RFC 4627) and » ECMA-404, this may cause interoperability issues with older JSON parsers that adhere strictly to RFC 4627 when encoding a single scalar value.</blockquote><p>This means, that, for example, a simple string will be considered to be a valid JSON object in PHP:</p>
+</div>
+<p>The second parameter (<code>$assoc</code>) has no effect if the variable to be returned is not an object.
+</p>
+<p><strong>Note:</strong> If you use the <code>$assoc</code> parameter, you will lose the distinction between an empty array and an empty object. This means that running <code>json_encode()</code> on your decoded output again, will result in a different JSON structure.
+</p>
+<p>If the JSON string has a “depth” more than 512 elements (<em>20 elements in versions older than 5.2.3, or 128 in version 5.2.3</em>) in recursion, the function <code>json_decode()</code> returns <code>NULL</code>. In versions 5.3 or later, this limit can be controlled using the third parameter (<code>$depth</code>), as discussed below.
+</p>
+<hr id="91df19c6-fb35-44c9-86e4-eab756d9386a"/>
+<p>According to the manual:
+</p>
+<blockquote id="de745aae-e2c0-4f18-ac6e-aedbd67c9c5a" class="">PHP implements a superset of JSON as specified in the original » RFC 4627 - it will also encode and decode scalar types and NULL. RFC 4627 only supports these values when they are nested inside an array or an object. Although this superset is consistent with the expanded definition of “JSON text” in the newer » RFC 7159 (which aims to supersede RFC 4627) and » ECMA-404, this may cause interoperability issues with older JSON parsers that adhere strictly to RFC 4627 when encoding a single scalar value.
+</blockquote>
+<p>This means, that, for example, a simple string will be considered to be a valid JSON object in PHP:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$json = json_decode(&#39;&#34;some string&#34;&#39;, true);
@@ -206,7 +240,10 @@ var_dump($json, json_last_error_msg());</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output:</p>
+</div>
+<p>Output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">string(11) &#34;some string&#34;
@@ -215,7 +252,18 @@ string(8) &#34;No error&#34;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But simple strings, not in an array or object, are not part of the <a href="http://www.faqs.org/rfcs/rfc4627">RFC 4627</a> standard. As a result, such online checkers as <a href="http://www.jslint.com/">JSLint</a>, <a href="https://jsonformatter.curiousconcept.com/">JSON Formatter &amp; Validator</a> (in RFC 4627 mode) will give you an error.</p><p>There is a third <code>$depth</code> parameter for the depth of recursion (the default value is <code>512</code>), which means the amount of nested objects inside the original object to be decoded.</p><p>There is a fourth <code>$options</code> parameter. It currently accepts only one value, <code>JSON_BIGINT_AS_STRING</code>. The default behavior (which leaves off this option) is to cast large integers to floats instead of strings.</p><blockquote id="68025ce8-4c2e-4fdf-a74f-c9c65a248b18" class="">Invalid non-lowercased variants of the true, false and null literals are no longer accepted as valid input.</blockquote><p>So this example:</p>
+</div>
+<p>But simple strings, not in an array or object, are not part of the <a href="http://www.faqs.org/rfcs/rfc4627">RFC 4627</a> standard. As a result, such online checkers as <a href="http://www.jslint.com/">JSLint</a>, <a href="https://jsonformatter.curiousconcept.com/">JSON Formatter &amp; Validator</a> (in RFC 4627 mode) will give you an error.
+</p>
+<p>There is a third <code>$depth</code> parameter for the depth of recursion (the default value is <code>512</code>), which means the amount of nested objects inside the original object to be decoded.
+</p>
+<p>There is a fourth <code>$options</code> parameter. It currently accepts only one value, <code>JSON_BIGINT_AS_STRING</code>. The default behavior (which leaves off this option) is to cast large integers to floats instead of strings.
+</p>
+<blockquote id="68025ce8-4c2e-4fdf-a74f-c9c65a248b18" class="">Invalid non-lowercased variants of the true, false and null literals are no longer accepted as valid input.
+</blockquote>
+<p>So this example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var_dump(json_decode(&#39;tRue&#39;), json_last_error_msg());
@@ -228,7 +276,10 @@ var_dump(json_decode(&#39;true&#39;), json_last_error_msg());</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Before PHP 5.6:</p>
+</div>
+<p>Before PHP 5.6:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">bool(true)
@@ -247,7 +298,10 @@ string(8) &#34;No error&#34;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And after:</p>
+</div>
+<p>And after:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">NULL
@@ -266,7 +320,12 @@ string(8) &#34;No error&#34;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Similar behavior occurs for <code>false</code> and <code>null</code>.</p><p>Note that <code>json_decode()</code> will return <code>NULL</code> if the string cannot be converted.</p>
+</div>
+<p>Similar behavior occurs for <code>false</code> and <code>null</code>.
+</p>
+<p>Note that <code>json_decode()</code> will return <code>NULL</code> if the string cannot be converted.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$json = &#34;{&#39;name&#39;: &#39;Jeff&#39;, &#39;age&#39;: 20 }&#34; ;  // invalid json 
@@ -281,7 +340,9 @@ echo json_last_error_msg();
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It is not safe to rely only on the return value being <code>NULL</code> to detect errors. For example, if the JSON string contains nothing but <code>&quot;null&quot;</code>, <code>json_decode()</code> will return <code>null</code>, even though no error occurred.</p>
+</div>
+<p>It is not safe to rely only on the return value being <code>NULL</code> to detect errors. For example, if the JSON string contains nothing but <code>&quot;null&quot;</code>, <code>json_decode()</code> will return <code>null</code>, even though no error occurred.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

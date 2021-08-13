@@ -127,7 +127,21 @@
 </div>
 
 
-      <p><strong>Descriptors</strong> are objects that are (usually) attributes of classes and that have any of <code>__get__</code>, <code>__set__</code>, or <code>__delete__</code> special methods.</p><p><strong>Data Descriptors</strong> have any of <code>__set__</code>, or <code>__delete__</code></p><p>These can control the dotted lookup on an instance, and are used to implement functions, <code>staticmethod</code>, <code>classmethod</code>, and <code>property</code>. A dotted lookup (e.g. instance <code>foo</code> of class <code>Foo</code> looking up attribute <code>bar</code> - i.e. <code>foo.bar</code>) uses the following algorithm:</p><ol id="c94c7120-a28f-4f57-aa19-1c76fef7cdc2" class="numbered-list" start="1"><li><code>bar</code> is looked up in the class, <code>Foo</code>. If it is there and it is a <strong>Data Descriptor</strong>, then the data descriptor is used. That’s how <code>property</code> is able to control access to data in an instance, and instances cannot override this. If a <strong>Data Descriptor</strong> is not there, then</li><li><code>bar</code> is looked up in the instance <code>__dict__</code>. This is why we can override or block methods being called from an instance with a dotted lookup. If <code>bar</code> exists in the instance, it is used. If not, we then</li><li>look in the class <code>Foo</code> for <code>bar</code>. If it is a <strong>Descriptor</strong>, then the descriptor protocol is used. This is how functions (in this context, unbound methods), <code>classmethod</code>, and <code>staticmethod</code> are implemented. Else it simply returns the object there, or there is an <code>AttributeError</code></li></ol>
+      
+<p><strong>Descriptors</strong> are objects that are (usually) attributes of classes and that have any of <code>__get__</code>, <code>__set__</code>, or <code>__delete__</code> special methods.
+</p>
+<p><strong>Data Descriptors</strong> have any of <code>__set__</code>, or <code>__delete__</code>
+</p>
+<p>These can control the dotted lookup on an instance, and are used to implement functions, <code>staticmethod</code>, <code>classmethod</code>, and <code>property</code>. A dotted lookup (e.g. instance <code>foo</code> of class <code>Foo</code> looking up attribute <code>bar</code> - i.e. <code>foo.bar</code>) uses the following algorithm:
+</p>
+  <ol id="c94c7120-a28f-4f57-aa19-1c76fef7cdc2" class="numbered-list" start="1">
+    <li><code>bar</code> is looked up in the class, <code>Foo</code>. If it is there and it is a <strong>Data Descriptor</strong>, then the data descriptor is used. That’s how <code>property</code> is able to control access to data in an instance, and instances cannot override this. If a <strong>Data Descriptor</strong> is not there, then
+    </li>
+    <li><code>bar</code> is looked up in the instance <code>__dict__</code>. This is why we can override or block methods being called from an instance with a dotted lookup. If <code>bar</code> exists in the instance, it is used. If not, we then
+    </li>
+    <li>look in the class <code>Foo</code> for <code>bar</code>. If it is a <strong>Descriptor</strong>, then the descriptor protocol is used. This is how functions (in this context, unbound methods), <code>classmethod</code>, and <code>staticmethod</code> are implemented. Else it simply returns the object there, or there is an <code>AttributeError</code>
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

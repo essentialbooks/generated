@@ -127,7 +127,47 @@
 </div>
 
 
-      <p><a href="https://en.wikipedia.org/wiki/Breadth-first_search">Breadth-first-search</a> (BFS) is an algorithm for traversing or searching tree or graph data structures. It starts at the tree root (or some arbitrary node of a graph, sometimes referred to as a ‘search key’) and explores the neighbor nodes first, before moving to the next level neighbors. BFS was invented in the late 1950s by <a href="https://en.wikipedia.org/wiki/Edward_F._Moore">Edward Forrest Moore</a>, who used it to find the shortest path out of a maze and discovered independently by C. Y. Lee as a wire routing algorithm in 1961.</p><p>The processes of BFS algorithm works under these assumptions:</p><ol id="6f94e2ab-8f10-4511-870e-d86ca4730bfa" class="numbered-list" start="1"><li>We won’t traverse any node more than once.</li><li>Source node or the node that we’re starting from is situated in level 0.</li><li>The nodes we can directly reach from source node are level 1 nodes, the nodes we can directly reach from level 1 nodes are level 2 nodes and so on.</li><li>The level denotes the distance of the shortest path from the source.</li></ol><p>Let’s see an example:</p><img class="img" src="/img/91f23f2ceca2db1996d5111dd4b4d34677c1fd0e.png"><p>Let’s assume this graph represents connection between multiple cities, where each node denotes a city and an edge between two nodes denote there is a road linking them. We want to go from <strong>node 1</strong> to <strong>node 10</strong>. So <strong>node 1</strong> is our <strong>source</strong>, which is <strong>level 0</strong>. We mark <strong>node 1</strong> as visited. We can go to <strong>node 2</strong>, <strong>node 3</strong> and <strong>node 4</strong> from here. So they’ll be <strong>level (0+1)</strong> = <strong>level 1</strong> nodes. Now we’ll mark them as visited and work with them.</p><img class="img" src="/img/6dca794bb99cd1ca5a38c93dfc938421bca9049c.png"><p>The colored nodes are visited. The nodes that we’re currently working with will be marked with pink. We won’t visit the same node twice. From <strong>node 2</strong>, <strong>node 3</strong> and <strong>node 4</strong>, we can go to <strong>node 6,</strong> <strong>node 7</strong> and <strong>node 8</strong>. Let’s mark them as visited. The level of these nodes will be <strong>level (1+1)</strong> = <strong>level 2</strong>.</p><img class="img" src="/img/d3386a139b0d74d01dc9d674e5c7cb6cdd44a4f4.png"><p>If you haven’t noticed, the level of nodes simply denote the shortest path distance from the <strong>source</strong>. For example: we’ve found <strong>node 8</strong> on <strong>level 2</strong>. So the distance from <strong>source</strong> to <strong>node 8</strong> is <strong>2</strong>.</p><p>We didn’t yet reach our target node, that is <strong>node 10</strong>. So let’s visit the next nodes. we can directly go to from <strong>node 6</strong>, <strong>node 7</strong> and <strong>node 8</strong>.</p><img class="img" src="/img/57a7b24c7413b9f781fafeb69c1767c56035f2a0.png"><p>We can see that, we found <strong>node 10</strong> at <strong>level 3</strong>. So the shortest path from <strong>source</strong> to <strong>node 10</strong> is <strong>3.</strong> We searched the graph level by level and found the shortest path. Now let’s erase the edges that we didn’t use:</p><img class="img" src="/img/91939367a1cdff230cda6b9c7d8e222295fca7ff.png"><p>After removing the edges that we didn’t use, we get a tree called BFS tree. This tree shows the shortest path from <strong>source</strong> to all other nodes.</p><p>So our task will be, to go from <strong>source</strong> to <strong>level 1</strong> nodes. Then from <strong>level 1</strong> to <strong>level 2</strong> nodes and so on until we reach our destination. We can use <em>queue</em> to store the nodes that we are going to process. That is, for each node we’re going to work with, we’ll push all other nodes that can be directly traversed and not yet traversed in the queue.</p><p>The simulation of our example:</p><p>First we push the source in the queue. Our queue will look like:</p>
+      
+<p><a href="https://en.wikipedia.org/wiki/Breadth-first_search">Breadth-first-search</a> (BFS) is an algorithm for traversing or searching tree or graph data structures. It starts at the tree root (or some arbitrary node of a graph, sometimes referred to as a ‘search key’) and explores the neighbor nodes first, before moving to the next level neighbors. BFS was invented in the late 1950s by <a href="https://en.wikipedia.org/wiki/Edward_F._Moore">Edward Forrest Moore</a>, who used it to find the shortest path out of a maze and discovered independently by C. Y. Lee as a wire routing algorithm in 1961.
+</p>
+<p>The processes of BFS algorithm works under these assumptions:
+</p>
+  <ol id="6f94e2ab-8f10-4511-870e-d86ca4730bfa" class="numbered-list" start="1">
+    <li>We won’t traverse any node more than once.
+    </li>
+    <li>Source node or the node that we’re starting from is situated in level 0.
+    </li>
+    <li>The nodes we can directly reach from source node are level 1 nodes, the nodes we can directly reach from level 1 nodes are level 2 nodes and so on.
+    </li>
+    <li>The level denotes the distance of the shortest path from the source.
+    </li>
+  </ol>
+<p>Let’s see an example:
+</p>
+<img class="img" src="/img/91f23f2ceca2db1996d5111dd4b4d34677c1fd0e.png">
+<p>Let’s assume this graph represents connection between multiple cities, where each node denotes a city and an edge between two nodes denote there is a road linking them. We want to go from <strong>node 1</strong> to <strong>node 10</strong>. So <strong>node 1</strong> is our <strong>source</strong>, which is <strong>level 0</strong>. We mark <strong>node 1</strong> as visited. We can go to <strong>node 2</strong>, <strong>node 3</strong> and <strong>node 4</strong> from here. So they’ll be <strong>level (0+1)</strong> = <strong>level 1</strong> nodes. Now we’ll mark them as visited and work with them.
+</p>
+<img class="img" src="/img/6dca794bb99cd1ca5a38c93dfc938421bca9049c.png">
+<p>The colored nodes are visited. The nodes that we’re currently working with will be marked with pink. We won’t visit the same node twice. From <strong>node 2</strong>, <strong>node 3</strong> and <strong>node 4</strong>, we can go to <strong>node 6,</strong> <strong>node 7</strong> and <strong>node 8</strong>. Let’s mark them as visited. The level of these nodes will be <strong>level (1+1)</strong> = <strong>level 2</strong>.
+</p>
+<img class="img" src="/img/d3386a139b0d74d01dc9d674e5c7cb6cdd44a4f4.png">
+<p>If you haven’t noticed, the level of nodes simply denote the shortest path distance from the <strong>source</strong>. For example: we’ve found <strong>node 8</strong> on <strong>level 2</strong>. So the distance from <strong>source</strong> to <strong>node 8</strong> is <strong>2</strong>.
+</p>
+<p>We didn’t yet reach our target node, that is <strong>node 10</strong>. So let’s visit the next nodes. we can directly go to from <strong>node 6</strong>, <strong>node 7</strong> and <strong>node 8</strong>.
+</p>
+<img class="img" src="/img/57a7b24c7413b9f781fafeb69c1767c56035f2a0.png">
+<p>We can see that, we found <strong>node 10</strong> at <strong>level 3</strong>. So the shortest path from <strong>source</strong> to <strong>node 10</strong> is <strong>3.</strong> We searched the graph level by level and found the shortest path. Now let’s erase the edges that we didn’t use:
+</p>
+<img class="img" src="/img/91939367a1cdff230cda6b9c7d8e222295fca7ff.png">
+<p>After removing the edges that we didn’t use, we get a tree called BFS tree. This tree shows the shortest path from <strong>source</strong> to all other nodes.
+</p>
+<p>So our task will be, to go from <strong>source</strong> to <strong>level 1</strong> nodes. Then from <strong>level 1</strong> to <strong>level 2</strong> nodes and so on until we reach our destination. We can use <em>queue</em> to store the nodes that we are going to process. That is, for each node we’re going to work with, we’ll push all other nodes that can be directly traversed and not yet traversed in the queue.
+</p>
+<p>The simulation of our example:
+</p>
+<p>First we push the source in the queue. Our queue will look like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">front
@@ -138,7 +178,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The level of <strong>node 1</strong> will be 0. <strong>level[1]</strong> = <strong>0</strong>. Now we start our BFS. At first, we pop a node from our queue. We get <strong>node 1</strong>. We can go to <strong>node 4</strong>, <strong>node 3</strong> and <strong>node 2</strong> from this one. We’ve reached these nodes from <strong>node 1</strong>. So <strong>level[4]</strong> = <strong>level[3]</strong> = <strong>level[2]</strong> = <strong>level[1]</strong> + <strong>1</strong> = <strong>1</strong>. Now we mark them as visited and push them in the queue.</p>
+</div>
+<p>The level of <strong>node 1</strong> will be 0. <strong>level[1]</strong> = <strong>0</strong>. Now we start our BFS. At first, we pop a node from our queue. We get <strong>node 1</strong>. We can go to <strong>node 4</strong>, <strong>node 3</strong> and <strong>node 2</strong> from this one. We’ve reached these nodes from <strong>node 1</strong>. So <strong>level[4]</strong> = <strong>level[3]</strong> = <strong>level[2]</strong> = <strong>level[1]</strong> + <strong>1</strong> = <strong>1</strong>. Now we mark them as visited and push them in the queue.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">front
@@ -149,7 +192,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we pop <strong>node 4</strong> and work with it. We can go to <strong>node 7</strong> from <strong>node 4</strong>. <strong>level[7]</strong> = <strong>level[4]</strong> + <strong>1</strong> = <strong>2</strong>. We mark <strong>node 7</strong> as visited and push it in the queue.</p>
+</div>
+<p>Now we pop <strong>node 4</strong> and work with it. We can go to <strong>node 7</strong> from <strong>node 4</strong>. <strong>level[7]</strong> = <strong>level[4]</strong> + <strong>1</strong> = <strong>2</strong>. We mark <strong>node 7</strong> as visited and push it in the queue.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">front
@@ -160,7 +206,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>From <strong>node 3</strong>, we can go to <strong>node 7</strong> and <strong>node 8</strong>. Since we’ve already marked <strong>node 7</strong> as visited, we mark <strong>node 8</strong> as visited, we change <strong>level[8]</strong> = <strong>level[3]</strong> + <strong>1</strong> = <strong>2</strong>. We push <strong>node 8</strong> in the queue.</p>
+</div>
+<p>From <strong>node 3</strong>, we can go to <strong>node 7</strong> and <strong>node 8</strong>. Since we’ve already marked <strong>node 7</strong> as visited, we mark <strong>node 8</strong> as visited, we change <strong>level[8]</strong> = <strong>level[3]</strong> + <strong>1</strong> = <strong>2</strong>. We push <strong>node 8</strong> in the queue.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">front
@@ -171,7 +220,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This process will continue till we reach our destination or the queue becomes empty. The <strong>level</strong> array will provide us with the distance of the shortest path from <strong>source</strong>. We can initialize <strong>level</strong> array with <em>infinity</em> value, which will mark that the nodes are not yet visited. Our pseudo-code will be:</p>
+</div>
+<p>This process will continue till we reach our destination or the queue becomes empty. The <strong>level</strong> array will provide us with the distance of the shortest path from <strong>source</strong>. We can initialize <strong>level</strong> array with <em>infinity</em> value, which will mark that the nodes are not yet visited. Our pseudo-code will be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure BFS(Graph, source):
@@ -193,7 +245,12 @@ Return level</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>By iterating through the <strong>level</strong> array, we can find out the distance of each node from source. For example: the distance of <strong>node 10</strong> from <strong>source</strong> will be stored in <strong>level[10]</strong>.</p><p>Sometimes we might need to print not only the shortest distance, but also the path via which we can go to our destined node from the <strong>source</strong>. For this we need to keep a <strong>parent</strong> array. <strong>parent[source]</strong> will be NULL. For each update in <strong>level</strong> array, we’ll simply add <code>parent[v] := u</code> in our pseudo code inside the for loop. After finishing BFS, to find the path, we’ll traverse back the <strong>parent</strong> array until we reach <strong>source</strong> which will be denoted by NULL value. The pseudo-code will be:</p>
+</div>
+<p>By iterating through the <strong>level</strong> array, we can find out the distance of each node from source. For example: the distance of <strong>node 10</strong> from <strong>source</strong> will be stored in <strong>level[10]</strong>.
+</p>
+<p>Sometimes we might need to print not only the shortest distance, but also the path via which we can go to our destined node from the <strong>source</strong>. For this we need to keep a <strong>parent</strong> array. <strong>parent[source]</strong> will be NULL. For each update in <strong>level</strong> array, we’ll simply add <code>parent[v] := u</code> in our pseudo code inside the for loop. After finishing BFS, to find the path, we’ll traverse back the <strong>parent</strong> array until we reach <strong>source</strong> which will be denoted by NULL value. The pseudo-code will be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure PrintPath(u):  //recursive    |   Procedure PrintPath(u):   //iterative
@@ -209,7 +266,11 @@ print -&gt; u                              |       u := parent[u]
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Complexity:</strong></p><p>We’ve visited every node once and every edges once. So the complexity will be <strong>O(V + E)</strong> where <strong>V</strong> is the number of nodes and <strong>E</strong> is the number of edges.</p>
+</div>
+<p><strong>Complexity:</strong>
+</p>
+<p>We’ve visited every node once and every edges once. So the complexity will be <strong>O(V + E)</strong> where <strong>V</strong> is the number of nodes and <strong>E</strong> is the number of edges.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,26 @@
 </div>
 
 
-      <p>Swift supports the creation of custom operators. New operators are declared at a global level using the <code>operator</code> keyword.</p><p>The operator’s structure is defined by three parts: operand placement, precedence, and associativity.</p><ol id="ccf99269-ee4e-4753-b80e-0caf9622d395" class="numbered-list" start="1"><li>The <code>prefix</code>, <code>infix</code> and <code>postfix</code> modifiers are used to start an custom operator declaration. The <code>prefix</code> and <code>postfix</code> modifiers declare whether the operator must be before or after, respectively, the value on which it acts. Such operators are urnary, like <code>8</code> and <code>3++</code> <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0004-remove-pre-post-inc-decrement.md">**</a>, since they can only act on one target. The <code>infix</code> declares a binary operator, which acts on the two values it is between, such as <code>2+3</code>.</li><li>Operators with higher <strong>precedence</strong> are calculated first. The default operator precedence is just higher than <code>?</code>…<code>:</code> (a value of 100 in Swift 2.x). The precedence of standard Swift operators can be found <a href="http://stackoverflow.com/documentation/swift/1048/advanced-operators/23548/precedence-of-standard-swift-operators#t=201609230518289001195">here</a>.</li><li><strong>Associativity</strong> defines the order of operations between operators of the same precedence. Left associative operators are calculated from left to right (reading order, like most operators), while right associative operators calculate from right to left.</li></ol><p>Starting from Swift 3.0, one would define the precedence and associativity in a <strong>precedence group</strong> instead of the operator itself, so that multiple operators can easily share the same precedence without referring to the cryptic numbers. The list of standard precedence groups is shown <a href="http://stackoverflow.com/documentation/swift/1048/advanced-operators/23548/precedence-of-standard-swift-operators#t=201609230518289001195">below</a>.</p><p>Operators return values based on the calculation code. This code acts as a normal function, with parameters specifying the type of input and the <code>return</code> keyword specifying the calculated value that the operator returns.</p><p>Here is the definition of a simple exponential operator, since standard Swift does not have an exponential operator.</p>
+      
+<p>Swift supports the creation of custom operators. New operators are declared at a global level using the <code>operator</code> keyword.
+</p>
+<p>The operator’s structure is defined by three parts: operand placement, precedence, and associativity.
+</p>
+  <ol id="ccf99269-ee4e-4753-b80e-0caf9622d395" class="numbered-list" start="1">
+    <li>The <code>prefix</code>, <code>infix</code> and <code>postfix</code> modifiers are used to start an custom operator declaration. The <code>prefix</code> and <code>postfix</code> modifiers declare whether the operator must be before or after, respectively, the value on which it acts. Such operators are urnary, like <code>8</code> and <code>3++</code> <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0004-remove-pre-post-inc-decrement.md">**</a>, since they can only act on one target. The <code>infix</code> declares a binary operator, which acts on the two values it is between, such as <code>2+3</code>.
+    </li>
+    <li>Operators with higher <strong>precedence</strong> are calculated first. The default operator precedence is just higher than <code>?</code>…<code>:</code> (a value of 100 in Swift 2.x). The precedence of standard Swift operators can be found <a href="http://stackoverflow.com/documentation/swift/1048/advanced-operators/23548/precedence-of-standard-swift-operators#t=201609230518289001195">here</a>.
+    </li>
+    <li><strong>Associativity</strong> defines the order of operations between operators of the same precedence. Left associative operators are calculated from left to right (reading order, like most operators), while right associative operators calculate from right to left.
+    </li>
+  </ol>
+<p>Starting from Swift 3.0, one would define the precedence and associativity in a <strong>precedence group</strong> instead of the operator itself, so that multiple operators can easily share the same precedence without referring to the cryptic numbers. The list of standard precedence groups is shown <a href="http://stackoverflow.com/documentation/swift/1048/advanced-operators/23548/precedence-of-standard-swift-operators#t=201609230518289001195">below</a>.
+</p>
+<p>Operators return values based on the calculation code. This code acts as a normal function, with parameters specifying the type of input and the <code>return</code> keyword specifying the calculated value that the operator returns.
+</p>
+<p>Here is the definition of a simple exponential operator, since standard Swift does not have an exponential operator.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import Foundation    
@@ -141,7 +160,10 @@ func ** (num: Double, power: Double) -&gt; Double{
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>infix</code> says that the <code>**</code> operator works in between two values, such as <code>9**2</code>. Because the function has left associativity, <code>3**3**2</code> is calculated as <code>(3**3)**2</code>. The precedence of <code>170</code> is higher than all standard Swift operations, meaning that <code>3+2**4</code> calculates to <code>19</code>, despite the left associativity of <code>**</code>.</p>
+</div>
+<p>The <code>infix</code> says that the <code>**</code> operator works in between two values, such as <code>9**2</code>. Because the function has left associativity, <code>3**3**2</code> is calculated as <code>(3**3)**2</code>. The precedence of <code>170</code> is higher than all standard Swift operations, meaning that <code>3+2**4</code> calculates to <code>19</code>, despite the left associativity of <code>**</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import Foundation 
@@ -155,7 +177,11 @@ func ** (num: Double, power: Double) -&gt; Double {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Instead of specifying the precedence and associativity explicitly, on Swift 3.0 we could use the built-in precedence group BitwiseShiftPrecedence that gives the correct values (same as <code>&lt;&lt;</code>, <code>&gt;&gt;</code>).</p><p>**: The increment and decrement are deprecated and will be removed in Swift 3.</p>
+</div>
+<p>Instead of specifying the precedence and associativity explicitly, on Swift 3.0 we could use the built-in precedence group BitwiseShiftPrecedence that gives the correct values (same as <code>&lt;&lt;</code>, <code>&gt;&gt;</code>).
+</p>
+<p>**: The increment and decrement are deprecated and will be removed in Swift 3.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>When writing a copy assignment operator, it is <em>very</em> important that it be able to work in the event of self-assignment. That is, it has to allow this:</p>
+      
+<p>When writing a copy assignment operator, it is <em>very</em> important that it be able to work in the event of self-assignment. That is, it has to allow this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SomeType t = ...;
@@ -136,7 +139,14 @@ t = t;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Self-assignment usually doesn’t happen in such an obvious way. It typically happens via a circuitous route through various code systems, where the location of the assignment simply has two <code>Person</code> pointers or references and has no idea that they are the same object.</p><p>Any copy assignment operator you write must be able to take this into account.</p><p>The typical way to do so is to wrap all of the assignment logic in a condition like this:</p>
+</div>
+<p>Self-assignment usually doesn’t happen in such an obvious way. It typically happens via a circuitous route through various code systems, where the location of the assignment simply has two <code>Person</code> pointers or references and has no idea that they are the same object.
+</p>
+<p>Any copy assignment operator you write must be able to take this into account.
+</p>
+<p>The typical way to do so is to wrap all of the assignment logic in a condition like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SomeType &amp;operator=(const SomeType &amp;other)
@@ -151,7 +161,15 @@ t = t;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Note:</strong> It is important to think about self-assignment and ensure that your code behaves correctly when it happens. However, self-assignment is a very rare occurrence and optimizing to prevent it may actually pessimize the normal case. Since the normal case is much more common, pessimizing for self-assignment may well reduce your code efficiency (so be careful using it).</p><p>As an example, the normal technique for implementing the assignment operator is the <code>copy and swap idiom</code>. The normal implementation of this technique does not bother to test for self-assignment (even though self-assignment is expensive because a copy is made). The reason is that pessimization of the normal case has been shown to be much more costly (as it happens more often).</p><p>Move assignment operators must also be protected against self-assignment. However, the logic for many such operators is based on <code>std::swap</code>, which can handle swapping from/to the same memory just fine. So if your move assignment logic is nothing more than a series of swap operations, then you do not need self-assignment protection.</p><p>If this is not the case, you <em>must</em> take similar measures as above.</p>
+</div>
+<p><strong>Note:</strong> It is important to think about self-assignment and ensure that your code behaves correctly when it happens. However, self-assignment is a very rare occurrence and optimizing to prevent it may actually pessimize the normal case. Since the normal case is much more common, pessimizing for self-assignment may well reduce your code efficiency (so be careful using it).
+</p>
+<p>As an example, the normal technique for implementing the assignment operator is the <code>copy and swap idiom</code>. The normal implementation of this technique does not bother to test for self-assignment (even though self-assignment is expensive because a copy is made). The reason is that pessimization of the normal case has been shown to be much more costly (as it happens more often).
+</p>
+<p>Move assignment operators must also be protected against self-assignment. However, the logic for many such operators is based on <code>std::swap</code>, which can handle swapping from/to the same memory just fine. So if your move assignment logic is nothing more than a series of swap operations, then you do not need self-assignment protection.
+</p>
+<p>If this is not the case, you <em>must</em> take similar measures as above.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>C++ thrives on what is known as a Regular type (or at least Pseudo-Regular).</p><p>A Regular type is a type that can be constructed and assigned-to and assigned-from via copy or move, can be destroyed, and can be compared equal-to. It can also be constructed from no arguments. Finally, it also has support for a few other operations that are highly useful in various <code>std</code> algorithms and containers.</p><p><a href="http://www.stepanovpapers.com/DeSt98.pdf">This is the root paper</a>, but in C++11 would want to add <code>std::hash</code> support.</p><p>I will use the manual vtable approach to type erasure here.</p>
+      
+<p>C++ thrives on what is known as a Regular type (or at least Pseudo-Regular).
+</p>
+<p>A Regular type is a type that can be constructed and assigned-to and assigned-from via copy or move, can be destroyed, and can be compared equal-to. It can also be constructed from no arguments. Finally, it also has support for a few other operations that are highly useful in various <code>std</code> algorithms and containers.
+</p>
+<p><a href="http://www.stepanovpapers.com/DeSt98.pdf">This is the root paper</a>, but in C++11 would want to add <code>std::hash</code> support.
+</p>
+<p>I will use the manual vtable approach to type erasure here.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">using dtor_unique_ptr = std::unique_ptr&lt;void, void(*)(void*)&gt;;
@@ -259,7 +268,12 @@ namespace std {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="http://coliru.stacked-crooked.com/a/28ef6be761012a81">live example</a>.</p><p>Such a regular type can be used as a key for a <code>std::map</code> or a <code>std::unordered_map</code> that accepts <em>anything regular</em> for a key, like:</p>
+</div>
+<p><a href="http://coliru.stacked-crooked.com/a/28ef6be761012a81">live example</a>.
+</p>
+<p>Such a regular type can be used as a key for a <code>std::map</code> or a <code>std::unordered_map</code> that accepts <em>anything regular</em> for a key, like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::map&lt;regular_type, std::any&gt;</pre>
@@ -267,7 +281,15 @@ namespace std {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>would be basically a map from anothing regular, to anything copyable.</p><p>Unlike <code>any</code>, my <code>regular_type</code> does no small object optimization nor does it support getting the original data back. Getting the original type back isn’t hard.</p><p>Small object optimization requires that we store an aligned storage buffer within the <code>regular_type</code>, and carefully tweak the deleter of the <code>ptr</code> to only destroy the object and not delete it.</p><p>I would start at <code>make_dtor_unique_ptr</code> and teach it how to sometimes store the data in a buffer, and then in the heap if no room in the buffer. That may be sufficient.</p>
+</div>
+<p>would be basically a map from anothing regular, to anything copyable.
+</p>
+<p>Unlike <code>any</code>, my <code>regular_type</code> does no small object optimization nor does it support getting the original data back. Getting the original type back isn’t hard.
+</p>
+<p>Small object optimization requires that we store an aligned storage buffer within the <code>regular_type</code>, and carefully tweak the deleter of the <code>ptr</code> to only destroy the object and not delete it.
+</p>
+<p>I would start at <code>make_dtor_unique_ptr</code> and teach it how to sometimes store the data in a buffer, and then in the heap if no room in the buffer. That may be sufficient.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

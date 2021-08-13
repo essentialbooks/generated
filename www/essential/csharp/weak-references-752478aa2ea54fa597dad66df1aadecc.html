@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>In .NET, the GC allocates objects when there are no references left to them. Therefore, while an object can still be reached from code (there is a strong reference to it), the GC will not allocate this object. This can become a problem if there are a lot of large objects.</p><p>A weak reference is a reference, that allows the GC to collect the object while still allowing to access the object. A weak reference is valid only during the indeterminate amount of time until the object is collected when no strong references exist. When you use a weak reference, the application can still obtain a strong reference to the object, which prevents it from being collected. So weak references can be useful for holding on to large objects that are expensive to initialize, but should be available for garbage collection if they are not actively in use.</p><p>Simple usage:</p>
+      
+<p>In .NET, the GC allocates objects when there are no references left to them. Therefore, while an object can still be reached from code (there is a strong reference to it), the GC will not allocate this object. This can become a problem if there are a lot of large objects.
+</p>
+<p>A weak reference is a reference, that allows the GC to collect the object while still allowing to access the object. A weak reference is valid only during the indeterminate amount of time until the object is collected when no strong references exist. When you use a weak reference, the application can still obtain a strong reference to the object, which prevents it from being collected. So weak references can be useful for holding on to large objects that are expensive to initialize, but should be available for garbage collection if they are not actively in use.
+</p>
+<p>Simple usage:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">WeakReference</span> <span class="n">reference</span> <span class="p">=</span> <span class="k">new</span> <span class="n">WeakReference</span><span class="p">(</span><span class="k">new</span> <span class="kt">object</span><span class="p">(),</span> <span class="k">false</span><span class="p">);</span>
@@ -142,7 +149,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So weak references could be used to maintain, for example, a cache of objects. However, it is important to remember that there is always the risk that the garbage collector will get to the object before a strong reference is reestablished.</p><p>Weak references are also handy for avoiding memory leaks. A typical use case is with events.</p><p>Suppose we have some handler to an event on a source:</p>
+</div>
+<p>So weak references could be used to maintain, for example, a cache of objects. However, it is important to remember that there is always the risk that the garbage collector will get to the object before a strong reference is reestablished.
+</p>
+<p>Weak references are also handy for avoiding memory leaks. A typical use case is with events.
+</p>
+<p>Suppose we have some handler to an event on a source:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">Source</span><span class="p">.</span><span class="n">Event</span> <span class="p">+=</span> <span class="k">new</span> <span class="n">EventHandler</span><span class="p">(</span><span class="n">Handler</span><span class="p">)</span>
@@ -151,7 +165,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This code registers an event handler and creates a strong reference from the event source to the listening object. If the source object has a longer lifetime than the listener, and the listener doesn’t need the event anymore when there are no other references to it, using normal .NET events causes a memory leak: the source object holds listener objects in memory that should be garbage collected.</p><p>In this case, it may be a good idea is to use the <a href="https://msdn.microsoft.com/en-us/library/aa970850(v=vs.110).aspx">Weak Event Pattern</a>.</p><p>Something like:</p>
+</div>
+<p>This code registers an event handler and creates a strong reference from the event source to the listening object. If the source object has a longer lifetime than the listener, and the listener doesn’t need the event anymore when there are no other references to it, using normal .NET events causes a memory leak: the source object holds listener objects in memory that should be garbage collected.
+</p>
+<p>In this case, it may be a good idea is to use the <a href="https://msdn.microsoft.com/en-us/library/aa970850(v=vs.110).aspx">Weak Event Pattern</a>.
+</p>
+<p>Something like:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">WeakEventManager</span>
@@ -189,7 +210,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>and used like this:</p>
+</div>
+<p>and used like this:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">EventSource</span> <span class="n">s</span> <span class="p">=</span> <span class="k">new</span> <span class="n">EventSource</span><span class="p">();</span>
@@ -200,7 +224,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this case of course we have some restrictions - the event must be a</p>
+</div>
+<p>In this case of course we have some restrictions - the event must be a
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">event</span> <span class="n">EventHandler</span><span class="p">&lt;</span><span class="n">SomeEventArgs</span><span class="p">&gt;</span> <span class="n">Event</span><span class="p">;</span>
@@ -209,7 +236,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As <a href="https://msdn.microsoft.com/en-us/library/ms404247(v=vs.110).aspx#Anchor_1">MSDN</a> suggests:</p><ul id="55a48f1d-5b7a-44da-a58f-c56b4c631778" class="bulleted-list"><li>Use long weak references only when necessary as the state of the object is unpredictable after finalization.</li><li>Avoid using weak references to small objects because the pointer itself may be as large or larger.</li><li>Avoid using weak references as an automatic solution to memory management problems. Instead, develop an effective caching policy for handling your application’s objects.</li></ul>
+</div>
+<p>As <a href="https://msdn.microsoft.com/en-us/library/ms404247(v=vs.110).aspx#Anchor_1">MSDN</a> suggests:
+</p>
+  <ul id="55a48f1d-5b7a-44da-a58f-c56b4c631778" class="bulleted-list">
+    <li>Use long weak references only when necessary as the state of the object is unpredictable after finalization.
+    </li>
+    <li>Avoid using weak references to small objects because the pointer itself may be as large or larger.
+    </li>
+    <li>Avoid using weak references as an automatic solution to memory management problems. Instead, develop an effective caching policy for handling your application’s objects.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

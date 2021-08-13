@@ -127,7 +127,30 @@
 </div>
 
 
-      <p>The Memory Model is difficult to understand, and difficult to apply. It is useful if you need to reason about the correctness of multi-threaded code, but you do not want to have to do this reasoning for every multi-threaded application that you write.</p><p>If you adopt the following principals when writing concurrent code in Java, you can <em>largely</em> avoid the need to resort to <em>happens-before</em> reasoning.</p><ul id="1257efa8-b72d-4578-9831-e77ce37dbb45" class="bulleted-list"><li>Use immutable data structures where possible. A properly implemented immutable class will be thread-safe, and will not introduce thread-safety issues when you use it with other classes.</li><li>Understand and avoid “unsafe publication”.</li><li>Use primitive mutexes or <code>Lock</code> objects to synchronize access to state in mutable objects that need to be thread-safe1.</li><li>Use <code>Executor</code> / <code>ExecutorService</code> or the fork join framework rather than attempting to create manage threads directly.</li><li>Use the `java.util.concurrent classes that provide advanced locks, semaphores, latches and barriers, instead of using wait/notify/notifyAll directly.</li><li>Use the <code>java.util.concurrent</code> versions of maps, sets, lists, queues and deques rather than external synchonization of non-concurrent collections.</li></ul><p>The general principle is to try to use Java’s built-in concurrency libraries rather than “rolling your own” concurrency. You can rely on them working, if you use them properly.</p><hr id="414f6cb5-3241-4c2b-bad4-991fb08ec303"/><p>1 - Not all objects need to be thread safe. For example, if an object or objects is <em>thread-confined</em> (i.e. it is only accessible to one thread), then its thread-safety is not relevant.</p>
+      
+<p>The Memory Model is difficult to understand, and difficult to apply. It is useful if you need to reason about the correctness of multi-threaded code, but you do not want to have to do this reasoning for every multi-threaded application that you write.
+</p>
+<p>If you adopt the following principals when writing concurrent code in Java, you can <em>largely</em> avoid the need to resort to <em>happens-before</em> reasoning.
+</p>
+  <ul id="1257efa8-b72d-4578-9831-e77ce37dbb45" class="bulleted-list">
+    <li>Use immutable data structures where possible. A properly implemented immutable class will be thread-safe, and will not introduce thread-safety issues when you use it with other classes.
+    </li>
+    <li>Understand and avoid “unsafe publication”.
+    </li>
+    <li>Use primitive mutexes or <code>Lock</code> objects to synchronize access to state in mutable objects that need to be thread-safe1.
+    </li>
+    <li>Use <code>Executor</code> / <code>ExecutorService</code> or the fork join framework rather than attempting to create manage threads directly.
+    </li>
+    <li>Use the `java.util.concurrent classes that provide advanced locks, semaphores, latches and barriers, instead of using wait/notify/notifyAll directly.
+    </li>
+    <li>Use the <code>java.util.concurrent</code> versions of maps, sets, lists, queues and deques rather than external synchonization of non-concurrent collections.
+    </li>
+  </ul>
+<p>The general principle is to try to use Java’s built-in concurrency libraries rather than “rolling your own” concurrency. You can rely on them working, if you use them properly.
+</p>
+<hr id="414f6cb5-3241-4c2b-bad4-991fb08ec303"/>
+<p>1 - Not all objects need to be thread safe. For example, if an object or objects is <em>thread-confined</em> (i.e. it is only accessible to one thread), then its thread-safety is not relevant.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

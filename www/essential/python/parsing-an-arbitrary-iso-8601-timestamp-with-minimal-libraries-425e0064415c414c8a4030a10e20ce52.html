@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Python has only limited support for parsing ISO 8601 timestamps. For <code>strptime</code> you need to know exactly what format it is in. As a complication the stringification of a <code>datetime</code> is an ISO 8601 timestamp, with space as a separator and 6 digit fraction:</p>
+      
+<p>Python has only limited support for parsing ISO 8601 timestamps. For <code>strptime</code> you need to know exactly what format it is in. As a complication the stringification of a <code>datetime</code> is an ISO 8601 timestamp, with space as a separator and 6 digit fraction:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">555555</span><span class="p">))</span>
@@ -136,7 +139,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>but if the fraction is 0, no fractional part is output</p>
+</div>
+<p>but if the fraction is 0, no fractional part is output
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
@@ -145,7 +151,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But these 2 forms need a <em>different</em> format for <code>strptime</code>. Furthermore, <code>strptime&#x27; does not support at all parsing minute timezones that have a</code>:<code>in it, thus</code>2016-07-22 09:25:59+0300<code>can be parsed, but the standard format</code>2016-07-22 09:25:59+03:00` cannot.</p><p>There is a <a href="https://bitbucket.org/micktwomey/pyiso8601/src/43c6749d06c4aac6b1156911e85a0b952ca8a324/iso8601/iso8601.py?at=default&amp;fileviewer=file-view-default">single-file</a> library called <a href="https://pypi.python.org/pypi/iso8601"><code>iso8601</code></a> which properly parses ISO 8601 timestamps and only them.</p><p>It supports fractions and timezones, and the <code>T</code> separator all with a single function:</p>
+</div>
+<p>But these 2 forms need a <em>different</em> format for <code>strptime</code>. Furthermore, <code>strptime&#x27; does not support at all parsing minute timezones that have a</code>:<code>in it, thus</code>2016-07-22 09:25:59+0300<code>can be parsed, but the standard format</code>2016-07-22 09:25:59+03:00` cannot.
+</p>
+<p>There is a <a href="https://bitbucket.org/micktwomey/pyiso8601/src/43c6749d06c4aac6b1156911e85a0b952ca8a324/iso8601/iso8601.py?at=default&amp;fileviewer=file-view-default">single-file</a> library called <a href="https://pypi.python.org/pypi/iso8601"><code>iso8601</code></a> which properly parses ISO 8601 timestamps and only them.
+</p>
+<p>It supports fractions and timezones, and the <code>T</code> separator all with a single function:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="kn">import</span> <span class="nn">iso8601</span>
@@ -161,7 +174,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If no timezone is set, <code>iso8601.parse_date</code> defaults to UTC. The default zone can be changed with <code>default_zone</code> keyword argument. Notably, if this is <code>None</code> instead of the default, then those timestamps that do not have an explicit timezone are returned as naive datetimes instead:</p>
+</div>
+<p>If no timezone is set, <code>iso8601.parse_date</code> defaults to UTC. The default zone can be changed with <code>default_zone</code> keyword argument. Notably, if this is <code>None</code> instead of the default, then those timestamps that do not have an explicit timezone are returned as naive datetimes instead:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">iso8601</span><span class="o">.</span><span class="n">parse_date</span><span class="p">(</span><span class="s1">&#39;2016-07-22T09:25:59&#39;</span><span class="p">,</span> <span class="n">default_timezone</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>

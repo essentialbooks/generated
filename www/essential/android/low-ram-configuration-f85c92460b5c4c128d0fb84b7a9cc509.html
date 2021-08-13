@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>Android now supports devices with 512MB of RAM. This documentation is intended to help OEMs optimize and configure Android 4.4 for low-memory devices. Several of these optimizations are generic enough that they can be applied to previous releases as well.</p><p><strong>Enable Low Ram Device flag</strong></p><p>We are introducing a new API called ActivityManager.isLowRamDevice() for applications to determine if they should turn off specific memory-intensive features that work poorly on low-memory devices.</p><p>For 512MB devices, this API is expected to return: “true” It can be enabled by the following system property in the device makefile.</p>
+      
+<p>Android now supports devices with 512MB of RAM. This documentation is intended to help OEMs optimize and configure Android 4.4 for low-memory devices. Several of these optimizations are generic enough that they can be applied to previous releases as well.
+</p>
+<p><strong>Enable Low Ram Device flag</strong>
+</p>
+<p>We are introducing a new API called ActivityManager.isLowRamDevice() for applications to determine if they should turn off specific memory-intensive features that work poorly on low-memory devices.
+</p>
+<p>For 512MB devices, this API is expected to return: “true” It can be enabled by the following system property in the device makefile.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">PRODUCT_PROPERTY_OVERRIDES += ro.config.low_ram=true</pre>
@@ -135,7 +144,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Disable JIT</strong></p><p>System-wide JIT memory usage is dependent on the number of applications running and the code footprint of those applications. The JIT establishes a maximum translated code cache size and touches the pages within it as needed. JIT costs somewhere between 3M and 6M across a typical running system.</p><p>The large apps tend to max out the code cache fairly quickly (which by default has been 1M). On average, JIT cache usage runs somewhere between 100K and 200K bytes per app. Reducing the max size of the cache can help somewhat with memory usage, but if set too low will send the JIT into a thrashing mode. For the really low-memory devices, we recommend the JIT be disabled entirely.</p><p>This can be achieved by adding the following line to the product makefile:</p>
+</div>
+<p><strong>Disable JIT</strong>
+</p>
+<p>System-wide JIT memory usage is dependent on the number of applications running and the code footprint of those applications. The JIT establishes a maximum translated code cache size and touches the pages within it as needed. JIT costs somewhere between 3M and 6M across a typical running system.
+</p>
+<p>The large apps tend to max out the code cache fairly quickly (which by default has been 1M). On average, JIT cache usage runs somewhere between 100K and 200K bytes per app. Reducing the max size of the cache can help somewhat with memory usage, but if set too low will send the JIT into a thrashing mode. For the really low-memory devices, we recommend the JIT be disabled entirely.
+</p>
+<p>This can be achieved by adding the following line to the product makefile:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">PRODUCT_PROPERTY_OVERRIDES += dalvik.vm.jit.codecachesize=0</pre>

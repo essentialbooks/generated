@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>If you implement a text-search as <code>LIKE</code>-query, you usually do it like this:</p>
+      
+<p>If you implement a text-search as <code>LIKE</code>-query, you usually do it like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT * 
@@ -137,7 +140,12 @@ WHERE SomeField LIKE CONCAT(&#39;%&#39;, @in_SearchText, &#39;%&#39;)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, (apart from the fact that you shouldn’t necessarely use <code>LIKE</code> when you can use fulltext-search) this creates a problem when somebody inputs text like “50%” or “a_b”.</p><p>So (instead of switching to fulltext-search), you can solve that problem using the <code>LIKE</code>-escape statement:</p>
+</div>
+<p>However, (apart from the fact that you shouldn’t necessarely use <code>LIKE</code> when you can use fulltext-search) this creates a problem when somebody inputs text like “50%” or “a_b”.
+</p>
+<p>So (instead of switching to fulltext-search), you can solve that problem using the <code>LIKE</code>-escape statement:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT * 
@@ -147,7 +155,12 @@ WHERE SomeField LIKE CONCAT(&#39;%&#39;, @in_SearchText, &#39;%&#39;) ESCAPE &#3
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>That means <code>\\</code> will now be treated as ESCAPE character. This means, you can now just prepend <code>\\</code> to every character in the string you search, and the results will start to be correct, even when the user enters a special character like <code>%</code> or <code>\_</code>.</p><p>e.g.</p>
+</div>
+<p>That means <code>\\</code> will now be treated as ESCAPE character. This means, you can now just prepend <code>\\</code> to every character in the string you search, and the results will start to be correct, even when the user enters a special character like <code>%</code> or <code>\_</code>.
+</p>
+<p>e.g.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">string stringToSearch = &#34;abc_def 50%&#34;;
@@ -161,7 +174,11 @@ sqlCmd.Parameters.Add(&#34;@in_SearchText&#34;, newString);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note: The above algorithm is for demonstration purposes only. It will not work in cases where 1 grapheme consists out of several characters (utf-8). e.g. <code>string stringToSearch = &quot;Les Mise\u0301rables&quot;;</code> You’ll need to do this for each grapheme, not for each character. You should not use the above algorithm if you’re dealing with Asian/East-Asian/South-Asian languages. Or rather, if you want correct code to begin with, you should just do that for each graphemeCluster.</p><p>See also https://stackoverflow.com/questions/1009689/reversestring-a-c-sharp-interview-question/36312251#36312251</p>
+</div>
+<p>Note: The above algorithm is for demonstration purposes only. It will not work in cases where 1 grapheme consists out of several characters (utf-8). e.g. <code>string stringToSearch = &quot;Les Mise\u0301rables&quot;;</code> You’ll need to do this for each grapheme, not for each character. You should not use the above algorithm if you’re dealing with Asian/East-Asian/South-Asian languages. Or rather, if you want correct code to begin with, you should just do that for each graphemeCluster.
+</p>
+<p>See also https://stackoverflow.com/questions/1009689/reversestring-a-c-sharp-interview-question/36312251#36312251
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

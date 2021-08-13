@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>One of the more annoying things that programmers can do is to scatter calls to <code>printStackTrace()</code> throughout their code.</p><p>The problem is that the <code>printStackTrace()</code> is going to write the stacktrace to standard output.</p><ul id="dbce50fa-16fc-47c3-bacd-33167a0543d3" class="bulleted-list"><li>For an application that is intended for end-users who are not Java programmers, a stacktrace is uninformative at best, and alarming at worst.</li><li>For a server-side application, the chances are that nobody will look at the standard output.</li></ul><p>A better idea is to not call <code>printStackTrace</code> directly, or if you do call it, do it in a way that the stack trace is written to a log file or error file rather than to the end-user’s console.</p><p>One way to do this is to use a logging framework, and pass the exception object as a parameter of the log event. However, even logging the exception can be harmful if done injudiciously. Consider the following:</p>
+      
+<p>One of the more annoying things that programmers can do is to scatter calls to <code>printStackTrace()</code> throughout their code.
+</p>
+<p>The problem is that the <code>printStackTrace()</code> is going to write the stacktrace to standard output.
+</p>
+  <ul id="dbce50fa-16fc-47c3-bacd-33167a0543d3" class="bulleted-list">
+    <li>For an application that is intended for end-users who are not Java programmers, a stacktrace is uninformative at best, and alarming at worst.
+    </li>
+    <li>For a server-side application, the chances are that nobody will look at the standard output.
+    </li>
+  </ul>
+<p>A better idea is to not call <code>printStackTrace</code> directly, or if you do call it, do it in a way that the stack trace is written to a log file or error file rather than to the end-user’s console.
+</p>
+<p>One way to do this is to use a logging framework, and pass the exception object as a parameter of the log event. However, even logging the exception can be harmful if done injudiciously. Consider the following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public void method1() throws SomeException {
@@ -152,7 +167,11 @@ public void method2() throws SomeException {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If the exception is thrown in <code>method2</code>, you are likely to see two copies of the same stacktrace in the logfile, corresponding to the same failure.</p><p>In short, either log the exception or re-throw it further (possibly wrapped with another exception). Don’t do both.</p>
+</div>
+<p>If the exception is thrown in <code>method2</code>, you are likely to see two copies of the same stacktrace in the logfile, corresponding to the same failure.
+</p>
+<p>In short, either log the exception or re-throw it further (possibly wrapped with another exception). Don’t do both.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,15 @@
 </div>
 
 
-      <p>Introduced in Java 8, default methods are a way of specifying an implementation inside an interface. This could be used to avoid the typical “Base” or “Abstract” class by providing a partial implementation of an interface, and restricting the subclasses hierarchy.</p><h1 id="7860c0f8-8335-4a21-a84d-8a10c948cd1b" class="">Observer pattern implementation<a class="header-anchor" href="#7860c0f8-8335-4a21-a84d-8a10c948cd1b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>For example, it’s possible to implement the Observer-Listener pattern directly into the interface, providing more flexibility to the implementing classes.</p>
+      
+<p>Introduced in Java 8, default methods are a way of specifying an implementation inside an interface. This could be used to avoid the typical “Base” or “Abstract” class by providing a partial implementation of an interface, and restricting the subclasses hierarchy.
+</p>
+  <h1 id="7860c0f8-8335-4a21-a84d-8a10c948cd1b" class="">Observer pattern implementation
+  <a class="header-anchor" href="#7860c0f8-8335-4a21-a84d-8a10c948cd1b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>For example, it’s possible to implement the Observer-Listener pattern directly into the interface, providing more flexibility to the implementing classes.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">interface Observer {
@@ -139,7 +147,14 @@ interface Observable{</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>public abstract List getObservers();</p><p>public default void addObserver(Observer o){ getObservers().add(o); }</p><p>public default void notify(String something ){ for( Observer l : getObservers() ){ l.onAction(something); } }</p>
+</div>
+<p>public abstract List getObservers();
+</p>
+<p>public default void addObserver(Observer o){ getObservers().add(o); }
+</p>
+<p>public default void notify(String something ){ for( Observer l : getObservers() ){ l.onAction(something); } }
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">}</pre>
@@ -147,7 +162,10 @@ interface Observable{</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, any class can be made “Observable” just by implementing the Observable interface, while being free to be part of a different class hierarchy.</p>
+</div>
+<p>Now, any class can be made “Observable” just by implementing the Observable interface, while being free to be part of a different class hierarchy.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">abstract class Worker{
@@ -159,7 +177,14 @@ public class MyWorker extends Worker implements Observable {</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>private List myObservers = new ArrayList();</p><p>@Override public List getObservers() { return myObservers; }</p><p>@Override public void work(){ notify(“Started work”);</p>
+</div>
+<p>private List myObservers = new ArrayList();
+</p>
+<p>@Override public List getObservers() { return myObservers; }
+</p>
+<p>@Override public void work(){ notify(“Started work”);
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Code goes here...
@@ -169,7 +194,14 @@ notify(&#34;Completed work&#34;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>}</p><p>public static void main(String[] args) {</p><p>MyWorker w = new MyWorker();</p>
+</div>
+<p>}
+</p>
+<p>public static void main(String[] args) {
+</p>
+<p>MyWorker w = new MyWorker();
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">w.addListener(new Observer() {
@@ -184,7 +216,10 @@ w.work();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>}</p>
+</div>
+<p>}
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">}</pre>
@@ -192,7 +227,15 @@ w.work();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="fc2f87bc-6891-4c38-b226-47c8c98cd39b" class="">Diamond problem<a class="header-anchor" href="#fc2f87bc-6891-4c38-b226-47c8c98cd39b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>The compiler in Java 8 is aware of the <a href="https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem">diamond problem</a> which is caused when a class is implementing interfaces containing a method with the same signature.</p><p>In order to solve it, an implementing class must override the shared method and provide its own implementation.</p>
+</div>
+  <h1 id="fc2f87bc-6891-4c38-b226-47c8c98cd39b" class="">Diamond problem
+  <a class="header-anchor" href="#fc2f87bc-6891-4c38-b226-47c8c98cd39b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>The compiler in Java 8 is aware of the <a href="https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem">diamond problem</a> which is caused when a class is implementing interfaces containing a method with the same signature.
+</p>
+<p>In order to solve it, an implementing class must override the shared method and provide its own implementation.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">interface InterfaceA {</pre>
@@ -200,7 +243,10 @@ w.work();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>public default String getName(){ return “a”; }</p>
+</div>
+<p>public default String getName(){ return “a”; }
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">}
@@ -210,7 +256,10 @@ interface InterfaceB {</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>public default String getName(){ return “b”; }</p>
+</div>
+<p>public default String getName(){ return “b”; }
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">}
@@ -220,7 +269,16 @@ public class ImpClass implements InterfaceA, InterfaceB {</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>@Override public String getName() {</p><p>//Must provide its own implementation return InterfaceA.super.getName() + InterfaceB.super.getName(); }</p><p>public static void main(String[] args) {</p><p>ImpClass c = new ImpClass();</p>
+</div>
+<p>@Override public String getName() {
+</p>
+<p>//Must provide its own implementation return InterfaceA.super.getName() + InterfaceB.super.getName(); }
+</p>
+<p>public static void main(String[] args) {
+</p>
+<p>ImpClass c = new ImpClass();
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">System.out.println( c.getName() );                   // Prints &#34;ab&#34;
@@ -230,7 +288,10 @@ System.out.println( ((InterfaceB)c).getName() );     // Prints &#34;ab&#34;</pre
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>}</p>
+</div>
+<p>}
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">}</pre>
@@ -238,7 +299,19 @@ System.out.println( ((InterfaceB)c).getName() );     // Prints &#34;ab&#34;</pre
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>There’s still the issue of having methods with the same name and parameters with different return types, which will not compile.</p><h1 id="5ca274f7-7788-443f-bee4-bd341b47c84d" class="">Use default methods to resolve compatibility issues<a class="header-anchor" href="#5ca274f7-7788-443f-bee4-bd341b47c84d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>The default method implementations come in very handy if a method is added to an interface in an existing system where the interfaces is used by several classes.</p><p>To avoid breaking up the entire system, you can provide a default method implementation when you add a method to an interface. This way, the system will still compile and the actual implementations can be done step by step.</p><hr id="b3fec8f2-1502-4d30-8af0-1587bcac5a9e"/><p>For more information, see the <a href="http://stackoverflow.com/documentation/java/113/default-metho">Default Methods</a> topic.</p>
+</div>
+<p>There’s still the issue of having methods with the same name and parameters with different return types, which will not compile.
+</p>
+  <h1 id="5ca274f7-7788-443f-bee4-bd341b47c84d" class="">Use default methods to resolve compatibility issues
+  <a class="header-anchor" href="#5ca274f7-7788-443f-bee4-bd341b47c84d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>The default method implementations come in very handy if a method is added to an interface in an existing system where the interfaces is used by several classes.
+</p>
+<p>To avoid breaking up the entire system, you can provide a default method implementation when you add a method to an interface. This way, the system will still compile and the actual implementations can be done step by step.
+</p>
+<hr id="b3fec8f2-1502-4d30-8af0-1587bcac5a9e"/>
+<p>For more information, see the <a href="http://stackoverflow.com/documentation/java/113/default-metho">Default Methods</a> topic.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

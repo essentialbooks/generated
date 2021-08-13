@@ -127,7 +127,17 @@
 </div>
 
 
-      <p><strong>TL;DR</strong></p><p><code>==</code> tests for reference equality (whether they are the <em><strong>same object</strong></em>)</p><p><code>.equals()</code> tests for value equality (whether they are <em><strong>logically “equal”</strong></em>)</p><hr id="1361e5a9-e7ff-41b9-839e-f1bf16775b0d"/><p><code>equals()</code> is a method used to compare two objects for equality. The default implementation of the <code>equals()</code> method in the <code>Object</code> class returns <code>true</code> if and only if both references are pointing to the same instance. It therefore behaves the same as comparison by <code>==</code>.</p>
+      
+<p><strong>TL;DR</strong>
+</p>
+<p><code>==</code> tests for reference equality (whether they are the <em><strong>same object</strong></em>)
+</p>
+<p><code>.equals()</code> tests for value equality (whether they are <em><strong>logically “equal”</strong></em>)
+</p>
+<hr id="1361e5a9-e7ff-41b9-839e-f1bf16775b0d"/>
+<p><code>equals()</code> is a method used to compare two objects for equality. The default implementation of the <code>equals()</code> method in the <code>Object</code> class returns <code>true</code> if and only if both references are pointing to the same instance. It therefore behaves the same as comparison by <code>==</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Foo {
@@ -151,7 +161,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Even though <code>foo1</code> and <code>foo2</code> are created with the same fields, they are pointing to two different objects in memory. The default <code>equals()</code> implementation therefore evaluates to <code>false</code>.</p><p>To compare the contents of an object for equality, <code>equals()</code> has to be overridden.</p>
+</div>
+<p>Even though <code>foo1</code> and <code>foo2</code> are created with the same fields, they are pointing to two different objects in memory. The default <code>equals()</code> implementation therefore evaluates to <code>false</code>.
+</p>
+<p>To compare the contents of an object for equality, <code>equals()</code> has to be overridden.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Foo {
@@ -199,7 +214,20 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here the overridden <code>equals()</code> method decides that the objects are equal if their fields are the same.</p><p>Notice that the <code>hashCode()</code> method was also overwritten. The contract for that method states that when two objects are equal, their hash values must also be the same. That’s why one must almost always override <code>hashCode()</code> and <code>equals()</code> together.</p><p>Pay special attention to the argument type of the <code>equals</code> method. It is <code>Object obj</code>, not <code>Foo obj</code>. If you put the latter in your method, that is not an override of the <code>equals</code> method.</p><p>When writing your own class, you will have to write similar logic when overriding <code>equals()</code> and <code>hashCode()</code>. Most IDEs can automatically generate this for you.</p><p>An example of an <code>equals()</code> implementation can be found in the <code>String</code> class, which is part of the core Java API. Rather than comparing pointers, the <code>String</code> class compares the content of the <code>String</code>.</p><p>Java 1.7 introduced the <code>java.util.Objects</code> class which provides a convenience method, <code>equals</code>, that compares two potentially <code>null</code> references, so it can be used to simplify implementations of the <code>equals</code> method.</p>
+</div>
+<p>Here the overridden <code>equals()</code> method decides that the objects are equal if their fields are the same.
+</p>
+<p>Notice that the <code>hashCode()</code> method was also overwritten. The contract for that method states that when two objects are equal, their hash values must also be the same. That’s why one must almost always override <code>hashCode()</code> and <code>equals()</code> together.
+</p>
+<p>Pay special attention to the argument type of the <code>equals</code> method. It is <code>Object obj</code>, not <code>Foo obj</code>. If you put the latter in your method, that is not an override of the <code>equals</code> method.
+</p>
+<p>When writing your own class, you will have to write similar logic when overriding <code>equals()</code> and <code>hashCode()</code>. Most IDEs can automatically generate this for you.
+</p>
+<p>An example of an <code>equals()</code> implementation can be found in the <code>String</code> class, which is part of the core Java API. Rather than comparing pointers, the <code>String</code> class compares the content of the <code>String</code>.
+</p>
+<p>Java 1.7 introduced the <code>java.util.Objects</code> class which provides a convenience method, <code>equals</code>, that compares two potentially <code>null</code> references, so it can be used to simplify implementations of the <code>equals</code> method.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -218,7 +246,13 @@ public boolean equals(Object obj) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="a26d7c99-6f3d-4df6-9444-242d54dd8d72" class="">Class Comparison<a class="header-anchor" href="#a26d7c99-6f3d-4df6-9444-242d54dd8d72" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Since the equals method can run against any object, one of the first things the method often does (after checking for <code>null</code>) is to check if the class of the object being compared matches the current class.</p>
+</div>
+  <h2 id="a26d7c99-6f3d-4df6-9444-242d54dd8d72" class="">Class Comparison
+  <a class="header-anchor" href="#a26d7c99-6f3d-4df6-9444-242d54dd8d72" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Since the equals method can run against any object, one of the first things the method often does (after checking for <code>null</code>) is to check if the class of the object being compared matches the current class.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -233,7 +267,10 @@ public boolean equals(Object obj) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is typically done as above by comparing the class objects. However, that can fail in a few special cases which may not be obvious. For example, some frameworks generate dynamic proxies of classes and these dynamic proxies are actually a different class. Here is an example using JPA.</p>
+</div>
+<p>This is typically done as above by comparing the class objects. However, that can fail in a few special cases which may not be obvious. For example, some frameworks generate dynamic proxies of classes and these dynamic proxies are actually a different class. Here is an example using JPA.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Foo detachedInstance = ...
@@ -246,7 +283,10 @@ if (mergedInstance.equals(detachedInstance)) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>One mechanism to work around that limitation is to compare classes using <code>instanceof</code></p>
+</div>
+<p>One mechanism to work around that limitation is to compare classes using <code>instanceof</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -260,7 +300,10 @@ public final boolean equals(Object obj) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, there are a few pitfalls that must be avoided when using <code>instanceof</code>. Since Foo could potentially have other subclasses and those subclasses might override <code>equals()</code> you could get into a case where a <code>Foo</code> is equal to a <code>FooSubclass</code> but the <code>FooSubclass</code> is not equal to <code>Foo</code>.</p>
+</div>
+<p>However, there are a few pitfalls that must be avoided when using <code>instanceof</code>. Since Foo could potentially have other subclasses and those subclasses might override <code>equals()</code> you could get into a case where a <code>Foo</code> is equal to a <code>FooSubclass</code> but the <code>FooSubclass</code> is not equal to <code>Foo</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Foo foo = new Foo(7);
@@ -271,7 +314,9 @@ fooSubclass.equals(foo) //false</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This violates the properties of symmetry and transitivity and thus is an invalid implementation of the <code>equals()</code> method. As a result, when using <code>instanceof</code>, a good practice is to make the <code>equals()</code> method <code>final</code> (as in the above example). This will ensure that no subclass overrides <code>equals()</code> and violates key assumptions.</p>
+</div>
+<p>This violates the properties of symmetry and transitivity and thus is an invalid implementation of the <code>equals()</code> method. As a result, when using <code>instanceof</code>, a good practice is to make the <code>equals()</code> method <code>final</code> (as in the above example). This will ensure that no subclass overrides <code>equals()</code> and violates key assumptions.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

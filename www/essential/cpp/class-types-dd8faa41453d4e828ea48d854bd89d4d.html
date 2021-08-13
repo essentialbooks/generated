@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>By “class”, we mean a type that was defined using the <code>class</code> or <code>struct</code> keyword (but not <code>enum struct</code> or <code>enum class</code>).</p><ul id="ba432013-5e4e-4404-a565-ac5d5182bd23" class="bulleted-list"><li>Even an empty class still occupies at least one byte of storage; it will therefore consist purely of padding. This ensures that if <code>p</code> points to an object of an empty class, then <code>p + 1</code> is a distinct address and points to a distinct object. However, it is possible for an empty class to have a size of 0 when used as a base class. See <a href="http://en.cppreference.com/w/cpp/language/ebo">empty base optimisation</a>.</li></ul>
+      
+<p>By “class”, we mean a type that was defined using the <code>class</code> or <code>struct</code> keyword (but not <code>enum struct</code> or <code>enum class</code>).
+</p>
+  <ul id="ba432013-5e4e-4404-a565-ac5d5182bd23" class="bulleted-list">
+    <li>Even an empty class still occupies at least one byte of storage; it will therefore consist purely of padding. This ensures that if <code>p</code> points to an object of an empty class, then <code>p + 1</code> is a distinct address and points to a distinct object. However, it is possible for an empty class to have a size of 0 when used as a base class. See <a href="http://en.cppreference.com/w/cpp/language/ebo">empty base optimisation</a>.
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Empty_1 {};                               // sizeof(Empty_1)       == 1
@@ -141,7 +148,12 @@ class DerivedHolder : Empty_1 { Empty_1 e; };   // sizeof(DerivedHolder) == 2</p
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="89487fbd-9c8c-4903-965d-9f36a4c17ec4" class="bulleted-list"><li>The object representation of a class type contains the object representations of the base class and non-static member types. Therefore, for example, in the following class:</li></ul>
+</div>
+  <ul id="89487fbd-9c8c-4903-965d-9f36a4c17ec4" class="bulleted-list">
+    <li>The object representation of a class type contains the object representations of the base class and non-static member types. Therefore, for example, in the following class:
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct S {
@@ -152,7 +164,14 @@ class DerivedHolder : Empty_1 { Empty_1 e; };   // sizeof(DerivedHolder) == 2</p
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>there is a consecutive sequence of <code>sizeof(int)</code> bytes within an <code>S</code> object, called a <em>subobject,</em> that contain the value of <code>x</code>, and another subobject with <code>sizeof(char*)</code> bytes that contains the value of <code>y</code>. The two cannot be interleaved.</p><ul id="5bd732da-8638-4d10-a071-0bfeab969228" class="bulleted-list"><li>If a class type has members and/or base classes with types <code>t1, t2,...tN</code>, the size must be at least <code>sizeof(t1) + sizeof(t2) + ... + sizeof(tN)</code> given the preceding points. However, depending on the <a href="http://stackoverflow.com/documentation/c%2B%2B/9249/alignment">alignment</a> requirements of the members and base classes, the compiler may be forced to insert padding between subobjects, or at the beginning or end of the complete object.</li></ul>
+</div>
+<p>there is a consecutive sequence of <code>sizeof(int)</code> bytes within an <code>S</code> object, called a <em>subobject,</em> that contain the value of <code>x</code>, and another subobject with <code>sizeof(char*)</code> bytes that contains the value of <code>y</code>. The two cannot be interleaved.
+</p>
+  <ul id="5bd732da-8638-4d10-a071-0bfeab969228" class="bulleted-list">
+    <li>If a class type has members and/or base classes with types <code>t1, t2,...tN</code>, the size must be at least <code>sizeof(t1) + sizeof(t2) + ... + sizeof(tN)</code> given the preceding points. However, depending on the <a href="http://stackoverflow.com/documentation/c%2B%2B/9249/alignment">alignment</a> requirements of the members and base classes, the compiler may be forced to insert padding between subobjects, or at the beginning or end of the complete object.
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct AnInt      { int i; };
@@ -171,7 +190,14 @@ struct AnIntDerived : AnInt { long long l; };
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="0d675155-67c8-4e03-b15e-a9232184448f" class="bulleted-list"><li>If padding is inserted in an object due to alignment requirements, the size will be greater than the sum of the sizes of the members and base classes. With <code>n</code>-byte alignment, size will typically be the smallest multiple of <code>n</code> which is larger than the size of all members &amp; base classes. Each member <code>memN</code> will typically be placed at an address which is a multiple of <code>alignof(memN)</code>, and <code>n</code> will typically be the largest <code>alignof</code> out of all members’ <code>alignof</code>s. Due to this, if a member with a smaller <code>alignof</code> is followed by a member with a larger <code>alignof</code>, there is a possibility that the latter member will not be aligned properly if placed immediately after the former. In this case, padding (also known as an <em>alignment member</em> ) will be placed between the two members, such that the latter member can have its desired alignment. Conversely, if a member with a larger <code>alignof</code> is followed by a member with a smaller <code>alignof</code>, no padding will usually be necessary. This process is also known as “packing”.</li></ul><p>Due to classes typically sharing the <code>alignof</code> of their member with the largest <code>alignof</code>, classes will typically be aligned to the <code>alignof</code> of the largest built-in type they directly or indirectly contain.</p>
+</div>
+  <ul id="0d675155-67c8-4e03-b15e-a9232184448f" class="bulleted-list">
+    <li>If padding is inserted in an object due to alignment requirements, the size will be greater than the sum of the sizes of the members and base classes. With <code>n</code>-byte alignment, size will typically be the smallest multiple of <code>n</code> which is larger than the size of all members &amp; base classes. Each member <code>memN</code> will typically be placed at an address which is a multiple of <code>alignof(memN)</code>, and <code>n</code> will typically be the largest <code>alignof</code> out of all members’ <code>alignof</code>s. Due to this, if a member with a smaller <code>alignof</code> is followed by a member with a larger <code>alignof</code>, there is a possibility that the latter member will not be aligned properly if placed immediately after the former. In this case, padding (also known as an <em>alignment member</em> ) will be placed between the two members, such that the latter member can have its desired alignment. Conversely, if a member with a larger <code>alignof</code> is followed by a member with a smaller <code>alignof</code>, no padding will usually be necessary. This process is also known as “packing”.
+    </li>
+  </ul>
+<p>Due to classes typically sharing the <code>alignof</code> of their member with the largest <code>alignof</code>, classes will typically be aligned to the <code>alignof</code> of the largest built-in type they directly or indirectly contain.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Assume sizeof(short) == 2, sizeof(int) == 4, and sizeof(long long) == 8.
@@ -237,7 +263,12 @@ struct Large_2 {
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="49910dfd-fe72-4119-ac7e-b0984d9857f9" class="bulleted-list"><li>If strict alignment is forced with <code>alignas</code>, padding will be used to force the type to meet the specified alignment, even when it would otherwise be smaller. For example, with the definition below, <code>Chars&lt;5&gt;</code> will have three (or possibly more) padding bytes inserted at the end so that its total size is 8. It is not possible for a class with an alignment of 4 to have a size of 5 because it would be impossible to make an array of that class, so the size must be “rounded up” to a multiple of 4 by inserting padding bytes.</li></ul>
+</div>
+  <ul id="49910dfd-fe72-4119-ac7e-b0984d9857f9" class="bulleted-list">
+    <li>If strict alignment is forced with <code>alignas</code>, padding will be used to force the type to meet the specified alignment, even when it would otherwise be smaller. For example, with the definition below, <code>Chars&lt;5&gt;</code> will have three (or possibly more) padding bytes inserted at the end so that its total size is 8. It is not possible for a class with an alignment of 4 to have a size of 5 because it would be impossible to make an array of that class, so the size must be “rounded up” to a multiple of 4 by inserting padding bytes.
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// This type shall always be aligned to a multiple of 4.  Padding shall be inserted as
@@ -251,7 +282,13 @@ static_assert(sizeof(Chars&lt;1&gt;) == sizeof(Chars&lt;4&gt;), &#34;Alignment i
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="e864ecec-348c-41f8-8efd-bdfa1f7408cd" class="bulleted-list"><li>If two non-static members of a class have the same <a href="http://stackoverflow.com/documentation/c%2B%2B/508/classes-structures/1668/access-specifiers">access specifier</a>, then the one that comes later in declaration order is guaranteed to come later in the object representation. But if two non-static members have different access specifiers, their relative order within the object is unspecified.</li><li>It is unspecified what order the base class subobjects appear in within an object, whether they occur consecutively, and whether they appear before, after, or between member subobjects.</li></ul>
+</div>
+  <ul id="e864ecec-348c-41f8-8efd-bdfa1f7408cd" class="bulleted-list">
+    <li>If two non-static members of a class have the same <a href="http://stackoverflow.com/documentation/c%2B%2B/508/classes-structures/1668/access-specifiers">access specifier</a>, then the one that comes later in declaration order is guaranteed to come later in the object representation. But if two non-static members have different access specifiers, their relative order within the object is unspecified.
+    </li>
+    <li>It is unspecified what order the base class subobjects appear in within an object, whether they occur consecutively, and whether they appear before, after, or between member subobjects.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

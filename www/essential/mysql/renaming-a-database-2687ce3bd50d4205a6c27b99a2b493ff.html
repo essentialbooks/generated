@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>There is no single command to rename a MySQL database but a simple workaround can be used to achieve this by backing up and restoring:</p>
+      
+<p>There is no single command to rename a MySQL database but a simple workaround can be used to achieve this by backing up and restoring:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mysqladmin -uroot -p&lt;password&gt; create &lt;new name&gt;
@@ -137,7 +140,22 @@ mysqladmin -uroot -p&lt;password&gt; drop &lt;old name&gt;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Steps:</strong></p><ol id="265d00ba-46f3-4e5c-8244-50513ba6678a" class="numbered-list" start="1"><li>Copy the lines above into a text editor.</li><li>Replace all references to <code>&lt;old name&gt;</code>, <code>&lt;new name&gt;</code> and <code>&lt;password&gt;</code> (+ optionally <code>root</code> to use a different user) with the relevant values.</li><li>Execute one by one on the command line (assuming the MySQL “bin” folder is in the path and entering “y” when prompted).</li></ol><p><strong>Alternative Steps:</strong></p><p>Rename (move) each table from one db to the other. Do this for each table:</p>
+</div>
+<p><strong>Steps:</strong>
+</p>
+  <ol id="265d00ba-46f3-4e5c-8244-50513ba6678a" class="numbered-list" start="1">
+    <li>Copy the lines above into a text editor.
+    </li>
+    <li>Replace all references to <code>&lt;old name&gt;</code>, <code>&lt;new name&gt;</code> and <code>&lt;password&gt;</code> (+ optionally <code>root</code> to use a different user) with the relevant values.
+    </li>
+    <li>Execute one by one on the command line (assuming the MySQL “bin” folder is in the path and entering “y” when prompted).
+    </li>
+  </ol>
+<p><strong>Alternative Steps:</strong>
+</p>
+<p>Rename (move) each table from one db to the other. Do this for each table:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">RENAME</span> <span class="k">TABLE</span> <span class="o">`&lt;</span><span class="k">old</span> <span class="n">db</span><span class="o">&gt;`</span><span class="p">.</span><span class="o">`&lt;</span><span class="n">name</span><span class="o">&gt;`</span> <span class="k">TO</span>  <span class="o">`&lt;</span><span class="k">new</span> <span class="n">db</span><span class="o">&gt;`</span><span class="p">.</span><span class="o">`&lt;</span><span class="n">name</span><span class="o">&gt;`</span><span class="p">;</span></pre>
@@ -145,7 +163,10 @@ mysqladmin -uroot -p&lt;password&gt; drop &lt;old name&gt;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can create those statements by doing something like</p>
+</div>
+<p>You can create those statements by doing something like
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">SELECT</span> <span class="n">CONCAT</span><span class="p">(</span><span class="s1">&#39;RENAME TABLE old_db.&#39;</span><span class="p">,</span> <span class="k">table_name</span><span class="p">,</span> <span class="s1">&#39; TO &#39;</span><span class="p">,</span>
@@ -156,7 +177,9 @@ mysqladmin -uroot -p&lt;password&gt; drop &lt;old name&gt;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Warning. Do not attempt to do any sort of table or database by simply moving files around on the filesystem. This worked fine in the old days of just MyISAM, but in the new days of InnoDB and tablespaces, it won’t work. Especially when the “Data Dictionary” is moved from the filesystem into system InnoDB tables, probably in the next major release. Moving (as opposed to just <code>DROPping</code>) a <code>PARTITION</code> of an InnoDB table requires using “transportable tablespaces”. In the near future, there won’t even be a file to reach for.</p>
+</div>
+<p>Warning. Do not attempt to do any sort of table or database by simply moving files around on the filesystem. This worked fine in the old days of just MyISAM, but in the new days of InnoDB and tablespaces, it won’t work. Especially when the “Data Dictionary” is moved from the filesystem into system InnoDB tables, probably in the next major release. Moving (as opposed to just <code>DROPping</code>) a <code>PARTITION</code> of an InnoDB table requires using “transportable tablespaces”. In the near future, there won’t even be a file to reach for.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>To load an image and place it on the canvas</p>
+      
+<p>To load an image and place it on the canvas
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var image = new Image();  // see note on creating an image
@@ -139,7 +142,50 @@ image.onload = function(){
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Creating an image</strong></p><p>There are several ways to create an image</p><ul id="c02c1c2a-c2c8-45c3-be84-730888b6b7fe" class="bulleted-list"><li><code>new Image()</code></li><li><code>document.createElement(&quot;img&quot;)</code></li><li><code>&lt;img src = &#x27;imageUrl&#x27; id=&#x27;myImage&#x27;&gt;</code> As part of the HTML body and retrieved with <code>document.getElementById(&#x27;myImage&#x27;)</code></li></ul><p>The image is a <code>HTMLImageElement</code></p><p><strong>Image.src property</strong></p><p>The image <code>src</code>can be any valid image URL or encoded dataURL. See this topic’s Remarks for more information on image formats and support.</p><ul id="73aa2f1e-9dce-46cb-b3fd-182dade20c82" class="bulleted-list"><li><code>image.src = &quot;http://my.domain.com/images/myImage.jpg&quot;</code></li><li><code>image.src = &quot;data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=&quot;</code> *</li></ul><p>*The dataURL is a 1 by 1 pixel gif image containing black</p><p><strong>Remarks on loading and errors</strong></p><p>The image will begin loading when its src property is set. The loading is syncriouse but the <code>onload</code> event will not be called until the function or code has exited/returned.</p><p>If you get an image from the page (for example <code>document.getElementById(&quot;myImage&quot;)</code>) and its <code>src</code> is set it may or may not have loaded. You can check on the status of the image with <code>HTMLImageElement.complete</code> which will be <code>true</code> if complete. This does not mean the image has loaded, it means that it has either</p><ul id="b3d0aa95-ddfc-4763-afd6-ff5ed2484097" class="bulleted-list"><li>loaded</li><li>there was an error</li><li>src property has not been set and is equal to the empty String <code>&quot;&quot;</code></li></ul><p>If the image is from an unreliable source and may not be accessible for a variety of reasons it will generate an error event. When this happens the image will be in a broken state. If you then attempt to draw it onto the canvas it will throw the following error</p>
+</div>
+<p><strong>Creating an image</strong>
+</p>
+<p>There are several ways to create an image
+</p>
+  <ul id="c02c1c2a-c2c8-45c3-be84-730888b6b7fe" class="bulleted-list">
+    <li><code>new Image()</code>
+    </li>
+    <li><code>document.createElement(&quot;img&quot;)</code>
+    </li>
+    <li><code>&lt;img src = &#x27;imageUrl&#x27; id=&#x27;myImage&#x27;&gt;</code> As part of the HTML body and retrieved with <code>document.getElementById(&#x27;myImage&#x27;)</code>
+    </li>
+  </ul>
+<p>The image is a <code>HTMLImageElement</code>
+</p>
+<p><strong>Image.src property</strong>
+</p>
+<p>The image <code>src</code>can be any valid image URL or encoded dataURL. See this topic’s Remarks for more information on image formats and support.
+</p>
+  <ul id="73aa2f1e-9dce-46cb-b3fd-182dade20c82" class="bulleted-list">
+    <li><code>image.src = &quot;http://my.domain.com/images/myImage.jpg&quot;</code>
+    </li>
+    <li><code>image.src = &quot;data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=&quot;</code> *
+    </li>
+  </ul>
+<p>*The dataURL is a 1 by 1 pixel gif image containing black
+</p>
+<p><strong>Remarks on loading and errors</strong>
+</p>
+<p>The image will begin loading when its src property is set. The loading is syncriouse but the <code>onload</code> event will not be called until the function or code has exited/returned.
+</p>
+<p>If you get an image from the page (for example <code>document.getElementById(&quot;myImage&quot;)</code>) and its <code>src</code> is set it may or may not have loaded. You can check on the status of the image with <code>HTMLImageElement.complete</code> which will be <code>true</code> if complete. This does not mean the image has loaded, it means that it has either
+</p>
+  <ul id="b3d0aa95-ddfc-4763-afd6-ff5ed2484097" class="bulleted-list">
+    <li>loaded
+    </li>
+    <li>there was an error
+    </li>
+    <li>src property has not been set and is equal to the empty String <code>&quot;&quot;</code>
+    </li>
+  </ul>
+<p>If the image is from an unreliable source and may not be accessible for a variety of reasons it will generate an error event. When this happens the image will be in a broken state. If you then attempt to draw it onto the canvas it will throw the following error
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Uncaught DOMException: Failed to execute &#39;drawImage&#39; on &#39;CanvasRenderingContext2D&#39;: The HTMLImageElement provided is in the &#39;broken&#39; state.</pre>
@@ -147,7 +193,15 @@ image.onload = function(){
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>By supplying the <code>image.onerror = myImgErrorHandler</code> event you can take appropriate action to prevent errors.</p><p>&lt;!– Hidden example notes.</p><p>The intent of this example is show the most basic way off loading and displaying an image and some info on variations and alternatives approaches.</p><p>–!&gt;</p>
+</div>
+<p>By supplying the <code>image.onerror = myImgErrorHandler</code> event you can take appropriate action to prevent errors.
+</p>
+<p>&lt;!– Hidden example notes.
+</p>
+<p>The intent of this example is show the most basic way off loading and displaying an image and some info on variations and alternatives approaches.
+</p>
+<p>–!&gt;
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

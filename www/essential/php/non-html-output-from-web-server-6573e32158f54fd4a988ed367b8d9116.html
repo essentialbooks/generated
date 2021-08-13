@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>In some cases, when working with a web server, overriding the web server’s default content type may be required. There may be cases where you need to send data as <code>plain text</code>, <code>JSON</code>, or <code>XML</code>, for example.</p><p>The <a href="http://php.net/manual/en/function.header.php"><code>header()</code></a> function can send a raw HTTP header. You can add the <code>Content-Type</code> header to notify the browser of the content we are sending.</p><p>Consider the following code, where we set <code>Content-Type</code> as <code>text/plain</code>:</p>
+      
+<p>In some cases, when working with a web server, overriding the web server’s default content type may be required. There may be cases where you need to send data as <code>plain text</code>, <code>JSON</code>, or <code>XML</code>, for example.
+</p>
+<p>The <a href="http://php.net/manual/en/function.header.php"><code>header()</code></a> function can send a raw HTTP header. You can add the <code>Content-Type</code> header to notify the browser of the content we are sending.
+</p>
+<p>Consider the following code, where we set <code>Content-Type</code> as <code>text/plain</code>:
+</p>
+
 <div class="code-box lang-PHP">
 	<div>
 	<pre class="chroma">header(&#34;Content-Type: text/plain&#34;);
@@ -136,7 +143,14 @@ echo &#34;Hello World&#34;;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will produce a plain text document with the following content:</p><blockquote id="bd43c05e-bae0-4f83-9f9e-e69b10acfdee" class="">Hello World</blockquote><p>To produce <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse">JSON</a> content, use the <code>application/json</code> content type instead:</p>
+</div>
+<p>This will produce a plain text document with the following content:
+</p>
+<blockquote id="bd43c05e-bae0-4f83-9f9e-e69b10acfdee" class="">Hello World
+</blockquote>
+<p>To produce <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse">JSON</a> content, use the <code>application/json</code> content type instead:
+</p>
+
 <div class="code-box lang-PHP">
 	<div>
 	<pre class="chroma">header(&#34;Content-Type: application/json&#34;);
@@ -150,7 +164,14 @@ echo json_encode($data);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will produce a document of type <code>application/json</code> with the following content:</p><blockquote id="bf2a5319-ca48-4680-ba43-cf4826d6194e" class="">{“response”:“Hello World”}</blockquote><p>Note that the <code>header()</code> function must be called before PHP produces any output, or the web server will have already sent headers for the response. So, consider the following code:</p>
+</div>
+<p>This will produce a document of type <code>application/json</code> with the following content:
+</p>
+<blockquote id="bf2a5319-ca48-4680-ba43-cf4826d6194e" class="">{“response”:“Hello World”}
+</blockquote>
+<p>Note that the <code>header()</code> function must be called before PHP produces any output, or the web server will have already sent headers for the response. So, consider the following code:
+</p>
+
 <div class="code-box lang-PHP">
 	<div>
 	<pre class="chroma">// Error: We cannot send any output before the headers
@@ -163,7 +184,15 @@ echo &#34;World&#34;;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will produce a warning:</p><blockquote id="05730e97-3aa5-4738-97fc-8dab8392d180" class="">Warning: Cannot modify header information - headers already sent by (output started at /dir/example.php:2) in /dir/example.php on line 3</blockquote><p>When using <code>header()</code>, its output needs to be the first byte that’s sent from the server. For this reason it’s important to not have empty lines or spaces in the beginning of the file before the PHP opening tag <code>&lt;?php</code>. For the same reason, it is considered best practice (see <a href="http://www.php-fig.org/psr/psr-2/#2-2-files">PSR-2</a>) to omit the PHP closing tag <code>?&gt;</code> from files that contain only PHP and from blocks of PHP code at the very end of a file.</p><p>View the <a href="http://stackoverflow.com/documentation/php/541/output-buffers#t=201607211507355441007"><strong>output buffering section</strong></a> to learn how to ‘catch’ your content into a variable to output later, for example, after outputting headers.</p>
+</div>
+<p>This will produce a warning:
+</p>
+<blockquote id="05730e97-3aa5-4738-97fc-8dab8392d180" class="">Warning: Cannot modify header information - headers already sent by (output started at /dir/example.php:2) in /dir/example.php on line 3
+</blockquote>
+<p>When using <code>header()</code>, its output needs to be the first byte that’s sent from the server. For this reason it’s important to not have empty lines or spaces in the beginning of the file before the PHP opening tag <code>&lt;?php</code>. For the same reason, it is considered best practice (see <a href="http://www.php-fig.org/psr/psr-2/#2-2-files">PSR-2</a>) to omit the PHP closing tag <code>?&gt;</code> from files that contain only PHP and from blocks of PHP code at the very end of a file.
+</p>
+<p>View the <a href="http://stackoverflow.com/documentation/php/541/output-buffers#t=201607211507355441007"><strong>output buffering section</strong></a> to learn how to ‘catch’ your content into a variable to output later, for example, after outputting headers.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

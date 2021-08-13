@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>During development, when certain code paths must be prevented from the reach of control flow, you may use <code>assert(0)</code> to indicate that such a condition is erroneous:</p>
+      
+<p>During development, when certain code paths must be prevented from the reach of control flow, you may use <code>assert(0)</code> to indicate that such a condition is erroneous:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">switch (color) {
@@ -143,7 +146,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Whenever the argument of the <code>assert()</code> macro evaluates false, the macro will write diagnostic information to the standard error stream and then abort the program. This information includes the file and line number of the <code>assert()</code> statement and can be very helpful in debugging. Asserts can be disabled by defining the macro <code>NDEBUG</code>.</p><p>Another way to terminate a program when an error occurs are with the standard library functions <code>exit</code>, <code>quick_exit</code> or <code>abort</code>. <code>exit</code> and <code>quick_exit</code> take an argument that can be passed back to your environment. <code>abort()</code> (and thus <code>assert</code>) can be a really severe termination of your program, and certain cleanups that would otherwise be performed at the end of the execution, may not be performed.</p><p>The primary advantage of <code>assert()</code> is that it automatically prints debugging information. Calling <code>abort()</code> has the advantage that it cannot be disabled like an assert, but it may not cause any debugging information to be displayed. In some situations, using both constructs together may be beneficial:</p>
+</div>
+<p>Whenever the argument of the <code>assert()</code> macro evaluates false, the macro will write diagnostic information to the standard error stream and then abort the program. This information includes the file and line number of the <code>assert()</code> statement and can be very helpful in debugging. Asserts can be disabled by defining the macro <code>NDEBUG</code>.
+</p>
+<p>Another way to terminate a program when an error occurs are with the standard library functions <code>exit</code>, <code>quick_exit</code> or <code>abort</code>. <code>exit</code> and <code>quick_exit</code> take an argument that can be passed back to your environment. <code>abort()</code> (and thus <code>assert</code>) can be a really severe termination of your program, and certain cleanups that would otherwise be performed at the end of the execution, may not be performed.
+</p>
+<p>The primary advantage of <code>assert()</code> is that it automatically prints debugging information. Calling <code>abort()</code> has the advantage that it cannot be disabled like an assert, but it may not cause any debugging information to be displayed. In some situations, using both constructs together may be beneficial:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if (color == COLOR_RED || color == COLOR_GREEN) {
@@ -157,7 +167,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When asserts are <em>enabled</em>, the <code>assert()</code> call will print debug information and terminate the program. Execution never reaches the <code>abort()</code> call. When asserts are <em>disabled</em>, the <code>assert()</code> call does nothing and <code>abort()</code> is called. This ensures that the program <em>always</em> terminates for this error condition; enabling and disabling asserts only effects whether or not debug output is printed.</p><p>You should never leave such an <code>assert</code> in production code, because the debug information is not helpful for end users and because <code>abort</code> is generally a much too severe termination that inhibit cleanup handlers that are installed for <code>exit</code> or <code>quick_exit</code> to run.</p>
+</div>
+<p>When asserts are <em>enabled</em>, the <code>assert()</code> call will print debug information and terminate the program. Execution never reaches the <code>abort()</code> call. When asserts are <em>disabled</em>, the <code>assert()</code> call does nothing and <code>abort()</code> is called. This ensures that the program <em>always</em> terminates for this error condition; enabling and disabling asserts only effects whether or not debug output is printed.
+</p>
+<p>You should never leave such an <code>assert</code> in production code, because the debug information is not helpful for end users and because <code>abort</code> is generally a much too severe termination that inhibit cleanup handlers that are installed for <code>exit</code> or <code>quick_exit</code> to run.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

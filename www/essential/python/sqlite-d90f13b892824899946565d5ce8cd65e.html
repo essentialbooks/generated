@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>SQLite is a lightweight, disk-based database. Since it does not require a separate database server, it is often used for prototyping or for small applications that are often used by a single user or by one user at a given time.</p>
+      
+<p>SQLite is a lightweight, disk-based database. Since it does not require a separate database server, it is often used for prototyping or for small applications that are often used by a single user or by one user at a given time.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import sqlite3
@@ -150,7 +153,12 @@ conn.close()</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The code above connects to the database stored in the file named <code>users.db</code>, creating the file first if it doesn’t already exist. You can interact with the database via SQL statements.</p><p>The result of this example should be:</p>
+</div>
+<p>The code above connects to the database stored in the file named <code>users.db</code>, creating the file first if it doesn’t already exist. You can interact with the database via SQL statements.
+</p>
+<p>The result of this example should be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[(u&#39;User A&#39;, 42), (u&#39;User B&#39;, 43)]</pre>
@@ -158,7 +166,18 @@ conn.close()</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="db22c738-6dfa-443f-b9e4-9ff17196d0e0" class="">The SQLite Syntax: An in-depth analysis<a class="header-anchor" href="#db22c738-6dfa-443f-b9e4-9ff17196d0e0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><h2 id="043087d2-de68-4129-a6d4-1c82f15f67c5" class="">Getting started<a class="header-anchor" href="#043087d2-de68-4129-a6d4-1c82f15f67c5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><ol id="93a69449-2c76-4b5a-9fb8-fcd65c93e412" class="numbered-list" start="1"><li>Import the sqlite module using</li></ol>
+</div>
+  <h1 id="db22c738-6dfa-443f-b9e4-9ff17196d0e0" class="">The SQLite Syntax: An in-depth analysis
+  <a class="header-anchor" href="#db22c738-6dfa-443f-b9e4-9ff17196d0e0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <h2 id="043087d2-de68-4129-a6d4-1c82f15f67c5" class="">Getting started
+  <a class="header-anchor" href="#043087d2-de68-4129-a6d4-1c82f15f67c5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+  <ol id="93a69449-2c76-4b5a-9fb8-fcd65c93e412" class="numbered-list" start="1">
+    <li>Import the sqlite module using
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; import sqlite3</pre>
@@ -166,7 +185,12 @@ conn.close()</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="1faef9c2-779f-49de-be24-2886e5a2221e" class="numbered-list" start="1"><li>To use the module, you must first create a Connection object that represents the database. Here the data will be stored in the example.db file:</li></ol>
+</div>
+  <ol id="1faef9c2-779f-49de-be24-2886e5a2221e" class="numbered-list" start="1">
+    <li>To use the module, you must first create a Connection object that represents the database. Here the data will be stored in the example.db file:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; conn = sqlite3.connect(&#39;users.db&#39;)
@@ -178,7 +202,12 @@ Alternatively, you can also supply the special name `:memory:` to create a tempo
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="726e0c5e-06ab-4d30-b28a-6b392f579710" class="numbered-list" start="1"><li>Once you have a <code>Connection</code>, you can create a <code>Cursor</code> object and call its <code>execute()</code> method to perform SQL commands:</li></ol>
+</div>
+  <ol id="726e0c5e-06ab-4d30-b28a-6b392f579710" class="numbered-list" start="1">
+    <li>Once you have a <code>Connection</code>, you can create a <code>Cursor</code> object and call its <code>execute()</code> method to perform SQL commands:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">##
@@ -202,7 +231,57 @@ Alternatively, you can also supply the special name `:memory:` to create a tempo
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="15f17164-029f-4d5b-8da7-2507fa616e7f" class="">Important Attributes and Functions of <code>Connection</code><a class="header-anchor" href="#15f17164-029f-4d5b-8da7-2507fa616e7f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><ol id="111a08b3-1db1-46f2-92fc-6406150017f6" class="numbered-list" start="1"><li><code>isolation_level</code></li></ol><p>It is an attribute used to get or set the current isolation level. None for autocommit mode or one of <code>DEFERRED</code>, <code>IMMEDIATE</code> or <code>EXCLUSIVE</code>.</p><ol id="821c5999-5f4c-4ecf-a89f-7e8c88b35024" class="numbered-list" start="1"><li><code>cursor</code></li></ol><p>The cursor object is used to execute SQL commands and queries.</p><ol id="25347274-f1d0-4c42-a70b-84ee4fb0508c" class="numbered-list" start="1"><li><code>commit()</code></li></ol><p>Commits the current transaction.</p><ol id="c96c9565-897c-4594-8241-8587783260b1" class="numbered-list" start="1"><li><code>rollback()</code></li></ol><p>Rolls back any changes made since the previous call to <code>commit()</code></p><ol id="30b34b09-fb3b-427f-ba0a-0e86e633da6a" class="numbered-list" start="1"><li><code>close()</code></li></ol><p>Closes the database connection. It does not call <code>commit()</code> automatically. If <code>close()</code> is called without first calling <code>commit()</code> (assuming you are not in autocommit mode) then all changes made will be lost.</p><ol id="15fea042-5dff-4593-8203-b1b5134ffa22" class="numbered-list" start="1"><li><code>total_changes</code></li></ol><p>An attribute that logs the total number of rows modified, deleted or inserted since the database was opened.</p><ol id="345da57a-1f06-4dfc-b061-24a7dcc92b8b" class="numbered-list" start="1"><li><code>execute</code>, <code>executemany</code>, and <code>executescript</code></li></ol><p>These functions perform the same way as those of the cursor object. This is a shortcut since calling these functions through the connection object results in the creation of an intermediate cursor object and calls the corresponding method of the cursor object</p><ol id="804d75f2-0e5f-4805-b8ac-ecf89cfbed7f" class="numbered-list" start="1"><li><code>row_factory</code></li></ol>
+</div>
+  <h2 id="15f17164-029f-4d5b-8da7-2507fa616e7f" class="">Important Attributes and Functions of <code>Connection</code>
+  <a class="header-anchor" href="#15f17164-029f-4d5b-8da7-2507fa616e7f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+  <ol id="111a08b3-1db1-46f2-92fc-6406150017f6" class="numbered-list" start="1">
+    <li><code>isolation_level</code>
+    </li>
+  </ol>
+<p>It is an attribute used to get or set the current isolation level. None for autocommit mode or one of <code>DEFERRED</code>, <code>IMMEDIATE</code> or <code>EXCLUSIVE</code>.
+</p>
+  <ol id="821c5999-5f4c-4ecf-a89f-7e8c88b35024" class="numbered-list" start="1">
+    <li><code>cursor</code>
+    </li>
+  </ol>
+<p>The cursor object is used to execute SQL commands and queries.
+</p>
+  <ol id="25347274-f1d0-4c42-a70b-84ee4fb0508c" class="numbered-list" start="1">
+    <li><code>commit()</code>
+    </li>
+  </ol>
+<p>Commits the current transaction.
+</p>
+  <ol id="c96c9565-897c-4594-8241-8587783260b1" class="numbered-list" start="1">
+    <li><code>rollback()</code>
+    </li>
+  </ol>
+<p>Rolls back any changes made since the previous call to <code>commit()</code>
+</p>
+  <ol id="30b34b09-fb3b-427f-ba0a-0e86e633da6a" class="numbered-list" start="1">
+    <li><code>close()</code>
+    </li>
+  </ol>
+<p>Closes the database connection. It does not call <code>commit()</code> automatically. If <code>close()</code> is called without first calling <code>commit()</code> (assuming you are not in autocommit mode) then all changes made will be lost.
+</p>
+  <ol id="15fea042-5dff-4593-8203-b1b5134ffa22" class="numbered-list" start="1">
+    <li><code>total_changes</code>
+    </li>
+  </ol>
+<p>An attribute that logs the total number of rows modified, deleted or inserted since the database was opened.
+</p>
+  <ol id="345da57a-1f06-4dfc-b061-24a7dcc92b8b" class="numbered-list" start="1">
+    <li><code>execute</code>, <code>executemany</code>, and <code>executescript</code>
+    </li>
+  </ol>
+<p>These functions perform the same way as those of the cursor object. This is a shortcut since calling these functions through the connection object results in the creation of an intermediate cursor object and calls the corresponding method of the cursor object
+</p>
+  <ol id="804d75f2-0e5f-4805-b8ac-ecf89cfbed7f" class="numbered-list" start="1">
+    <li><code>row_factory</code>
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">You can change this attribute to a callable that accepts the cursor and the original row as a tuple and will return the real result row.
@@ -219,7 +298,15 @@ Alternatively, you can also supply the special name `:memory:` to create a tempo
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="e0baf3bc-22a3-4b63-86ba-b74c1d54ce3c" class="">Important Functions of <code>Cursor</code><a class="header-anchor" href="#e0baf3bc-22a3-4b63-86ba-b74c1d54ce3c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><ol id="dd5de1c1-0676-4564-a83f-239f8b08cc3b" class="numbered-list" start="1"><li><code>execute(sql[, parameters])</code></li></ol>
+</div>
+  <h2 id="e0baf3bc-22a3-4b63-86ba-b74c1d54ce3c" class="">Important Functions of <code>Cursor</code>
+  <a class="header-anchor" href="#e0baf3bc-22a3-4b63-86ba-b74c1d54ce3c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+  <ol id="dd5de1c1-0676-4564-a83f-239f8b08cc3b" class="numbered-list" start="1">
+    <li><code>execute(sql[, parameters])</code>
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Executes a _single_ SQL statement. The SQL statement may be parametrized (i. e. placeholders instead of SQL literals). 
@@ -245,7 +332,14 @@ The sqlite3 module supports two kinds of placeholders: question marks `?` (“qm
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="010be691-7ec8-46a3-a85f-a380119d4eb2" class="">Beware: don’t use %s for inserting strings into SQL commands as it can make your program vulnerable to an SQL injection attack (see https://stackoverflow.com/documentation/sql/3517/sql-injection ).</blockquote><ol id="ad77099b-a960-4fa9-8964-ba79a7feedde" class="numbered-list" start="1"><li><code>executemany(sql, seq_of_parameters)</code></li></ol>
+</div>
+<blockquote id="010be691-7ec8-46a3-a85f-a380119d4eb2" class="">Beware: don’t use %s for inserting strings into SQL commands as it can make your program vulnerable to an SQL injection attack (see https://stackoverflow.com/documentation/sql/3517/sql-injection ).
+</blockquote>
+  <ol id="ad77099b-a960-4fa9-8964-ba79a7feedde" class="numbered-list" start="1">
+    <li><code>executemany(sql, seq_of_parameters)</code>
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Executes an SQL command against all parameter sequences or mappings found in the sequence sql. The sqlite3 module also allows using an iterator yielding parameters instead of a sequence.
@@ -292,7 +386,12 @@ You can also pass iterator objects as a parameter to executemany, and the functi
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="761f7edb-0493-4f2c-b3fc-3bb93441ff72" class="numbered-list" start="1"><li><code>executescript(sql_script)</code></li></ol>
+</div>
+  <ol id="761f7edb-0493-4f2c-b3fc-3bb93441ff72" class="numbered-list" start="1">
+    <li><code>executescript(sql_script)</code>
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">This is a nonstandard convenience method for executing multiple SQL statements at once. It issues a `COMMIT` statement first, then executes the SQL script it gets as a parameter.
@@ -303,6 +402,7 @@ You can also pass iterator objects as a parameter to executemany, and the functi
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import sqlite3
@@ -355,7 +455,12 @@ for row in cur.execute(&#39;SELECT * FROM stocks ORDER BY price&#39;):
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="739d3d57-7a17-4bc3-9bb0-a10fe1a47523" class="numbered-list" start="1"><li><code>fetchone()</code></li></ol>
+</div>
+  <ol id="739d3d57-7a17-4bc3-9bb0-a10fe1a47523" class="numbered-list" start="1">
+    <li><code>fetchone()</code>
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Fetches the next row of a query result set, returning a single sequence, or None when no more data is available. 
@@ -375,7 +480,14 @@ for row in cur.execute(&#39;SELECT * FROM stocks ORDER BY price&#39;):
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="5b3ed35a-853e-4edf-85a9-5765f1bb46d4" class="numbered-list" start="1"><li><code>fetchmany(size=cursor.arraysize)</code></li></ol><p>Fetches the next set of rows of a query result (specified by size), returning a list. If size is omitted, fetchmany returns a single row. An empty list is returned when no more rows are available.</p>
+</div>
+  <ol id="5b3ed35a-853e-4edf-85a9-5765f1bb46d4" class="numbered-list" start="1">
+    <li><code>fetchmany(size=cursor.arraysize)</code>
+    </li>
+  </ol>
+<p>Fetches the next set of rows of a query result (specified by size), returning a list. If size is omitted, fetchmany returns a single row. An empty list is returned when no more rows are available.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cur.execute(&#39;SELECT * FROM stocks ORDER BY price&#39;)
@@ -387,7 +499,14 @@ print(cur.fetchmany(2))
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="b6fa9e50-4834-4ff4-b276-75c8ed1bfb65" class="numbered-list" start="1"><li><code>fetchall()</code></li></ol><p>Fetches all (remaining) rows of a query result, returning a list.</p>
+</div>
+  <ol id="b6fa9e50-4834-4ff4-b276-75c8ed1bfb65" class="numbered-list" start="1">
+    <li><code>fetchall()</code>
+    </li>
+  </ol>
+<p>Fetches all (remaining) rows of a query result, returning a list.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cur.execute(&#39;SELECT * FROM stocks ORDER BY price&#39;)
@@ -399,7 +518,15 @@ print(cur.fetchall())
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="5fa7e542-2899-4e28-a9a8-654f8114174e" class="">SQLite and Python data types<a class="header-anchor" href="#5fa7e542-2899-4e28-a9a8-654f8114174e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>SQLite natively supports the following types: NULL, INTEGER, REAL, TEXT, BLOB.</p><p>This is how the data types are converted when moving from SQL to Python or vice versa.</p>
+</div>
+  <h2 id="5fa7e542-2899-4e28-a9a8-654f8114174e" class="">SQLite and Python data types
+  <a class="header-anchor" href="#5fa7e542-2899-4e28-a9a8-654f8114174e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>SQLite natively supports the following types: NULL, INTEGER, REAL, TEXT, BLOB.
+</p>
+<p>This is how the data types are converted when moving from SQL to Python or vice versa.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">None     &lt;-&gt;     NULL

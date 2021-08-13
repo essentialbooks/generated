@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>When you want a complete copy of an object (i.e. the object properties and the values inside those properties, etc…), that is called <strong>deep cloning</strong>.</p><p>If an object can be serialized to JSON, then you can create a deep clone of it with a combination of <code>JSON.parse</code> and <code>JSON.stringify</code>:</p>
+      
+<p>When you want a complete copy of an object (i.e. the object properties and the values inside those properties, etc…), that is called <strong>deep cloning</strong>.
+</p>
+<p>If an object can be serialized to JSON, then you can create a deep clone of it with a combination of <code>JSON.parse</code> and <code>JSON.stringify</code>:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">var</span> <span class="nx">existing</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="p">{</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">2</span> <span class="p">}</span> <span class="p">};</span>
@@ -138,7 +143,24 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that <code>JSON.stringify</code> will convert <code>Date</code> objects to ISO-format string representations, but <code>JSON.parse</code> will not convert the string back into a <code>Date</code>.</p><p>There is no built-in function in JavaScript for creating deep clones, and it is not possible in general to create deep clones for every object for many reasons. For example,</p><ul id="f3cad198-9096-4c0c-baac-248df7157945" class="bulleted-list"><li>objects can have non-enumerable and hidden properties which cannot be detected.</li><li>object getters and setters cannot be copied.</li><li>objects can have a cyclic structure.</li><li>function properties can depend on state in a hidden scope.</li></ul><p>Assuming that you have a “nice” object whose properties only contain primitive values, dates, arrays, or other “nice” objects, then the following function can be used for making deep clones. It is a recursive function that can detect objects with a cyclic structure and will throw an error in such cases.</p>
+</div>
+<p>Note that <code>JSON.stringify</code> will convert <code>Date</code> objects to ISO-format string representations, but <code>JSON.parse</code> will not convert the string back into a <code>Date</code>.
+</p>
+<p>There is no built-in function in JavaScript for creating deep clones, and it is not possible in general to create deep clones for every object for many reasons. For example,
+</p>
+  <ul id="f3cad198-9096-4c0c-baac-248df7157945" class="bulleted-list">
+    <li>objects can have non-enumerable and hidden properties which cannot be detected.
+    </li>
+    <li>object getters and setters cannot be copied.
+    </li>
+    <li>objects can have a cyclic structure.
+    </li>
+    <li>function properties can depend on state in a hidden scope.
+    </li>
+  </ul>
+<p>Assuming that you have a “nice” object whose properties only contain primitive values, dates, arrays, or other “nice” objects, then the following function can be used for making deep clones. It is a recursive function that can detect objects with a cyclic structure and will throw an error in such cases.
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">function</span> <span class="nx">deepClone</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>

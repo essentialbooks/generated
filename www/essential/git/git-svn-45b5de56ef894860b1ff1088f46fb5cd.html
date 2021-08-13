@@ -127,7 +127,30 @@
 </div>
 
 
-      <h2 id="73243186-f991-4ccc-8db5-46cadc0a72ac" class="">Remarks<a class="header-anchor" href="#73243186-f991-4ccc-8db5-46cadc0a72ac" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p><strong>Cloning really big SVN repositories</strong></p><p>If you SVN repo history is really really big this operation could take hours, as git-svn needs to rebuild the complete history of the SVN repo. Fortunately you only need to clone the SVN repo once; as with any other git repository you can just copy the repo folder to other collaborators. Copying the folder to multiple computers will be quicker that just cloning big SVN repos from scratch.</p><p><strong>About commits and SHA1</strong></p><p>Your local git commits will be <em>rewritten</em> when using the command <code>git svn dcommit</code>. This command will add a text to the git commit’s message referencing the SVN revision created in the SVN server, which is very useful. However, adding a new text requires modifying an existing commit’s message which can’t actually be done: git commits are inmutable. The solution is create a new commit with the same contents and the new message, but it is technically a new commit anyway (i.e. the git commit’s SHA1 will change)</p><p>As git commits created for git-svn are local, the SHA1 ids for git commits are different between each git repository! This means that you can’t use a SHA1 to reference a commit from another person because the same commit will have a diferent SHA1 in each local git repository. You need to rely in svn revision number appended to the commit message when you push to the SVN server if you want to reference a commit between different copies of the repository.</p><p><em>You can</em> use the SHA1 for local operations though (show/diff an specific commit, cherry-picks and resets, etc)</p><h1 id="89564de4-f6f0-49e1-82f5-91f90f147f04" class="">Troubleshooting<a class="header-anchor" href="#89564de4-f6f0-49e1-82f5-91f90f147f04" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p><strong>git svn rebase command issues a checksum mismatch error</strong></p><p>The command git svn rebase throws an error similar to this:</p>
+      
+  <h2 id="73243186-f991-4ccc-8db5-46cadc0a72ac" class="">Remarks
+  <a class="header-anchor" href="#73243186-f991-4ccc-8db5-46cadc0a72ac" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p><strong>Cloning really big SVN repositories</strong>
+</p>
+<p>If you SVN repo history is really really big this operation could take hours, as git-svn needs to rebuild the complete history of the SVN repo. Fortunately you only need to clone the SVN repo once; as with any other git repository you can just copy the repo folder to other collaborators. Copying the folder to multiple computers will be quicker that just cloning big SVN repos from scratch.
+</p>
+<p><strong>About commits and SHA1</strong>
+</p>
+<p>Your local git commits will be <em>rewritten</em> when using the command <code>git svn dcommit</code>. This command will add a text to the git commit’s message referencing the SVN revision created in the SVN server, which is very useful. However, adding a new text requires modifying an existing commit’s message which can’t actually be done: git commits are inmutable. The solution is create a new commit with the same contents and the new message, but it is technically a new commit anyway (i.e. the git commit’s SHA1 will change)
+</p>
+<p>As git commits created for git-svn are local, the SHA1 ids for git commits are different between each git repository! This means that you can’t use a SHA1 to reference a commit from another person because the same commit will have a diferent SHA1 in each local git repository. You need to rely in svn revision number appended to the commit message when you push to the SVN server if you want to reference a commit between different copies of the repository.
+</p>
+<p><em>You can</em> use the SHA1 for local operations though (show/diff an specific commit, cherry-picks and resets, etc)
+</p>
+  <h1 id="89564de4-f6f0-49e1-82f5-91f90f147f04" class="">Troubleshooting
+  <a class="header-anchor" href="#89564de4-f6f0-49e1-82f5-91f90f147f04" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p><strong>git svn rebase command issues a checksum mismatch error</strong>
+</p>
+<p>The command git svn rebase throws an error similar to this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Checksum mismatch: &lt;path_to_file&gt; &lt;some_kind_of_sha1&gt;
@@ -137,7 +160,22 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The solution to this problem is reset svn to the revision when the troubled file got modified for the last time, and do a git svn fetch so the SVN history is restored. The commands to perform the SVN reset are:</p><ul id="79ab721d-9f3a-4588-a58d-ce3a32ff8093" class="bulleted-list"><li>git log -1 – <code>&lt;path_to_file&gt;</code> (copy the SVN revision number that appear in the commit message)</li><li>git svn reset <code>&lt;revision_number&gt;</code></li><li>git svn fetch</li></ul><p>You should be able to push/pull data from SVN again</p><p><strong>File was not found in commit</strong> When you try to fetch or pull from SVN you get an error similar to this</p>
+</div>
+<p>The solution to this problem is reset svn to the revision when the troubled file got modified for the last time, and do a git svn fetch so the SVN history is restored. The commands to perform the SVN reset are:
+</p>
+  <ul id="79ab721d-9f3a-4588-a58d-ce3a32ff8093" class="bulleted-list">
+    <li>git log -1 – <code>&lt;path_to_file&gt;</code> (copy the SVN revision number that appear in the commit message)
+    </li>
+    <li>git svn reset <code>&lt;revision_number&gt;</code>
+    </li>
+    <li>git svn fetch
+    </li>
+  </ul>
+<p>You should be able to push/pull data from SVN again
+</p>
+<p><strong>File was not found in commit</strong> When you try to fetch or pull from SVN you get an error similar to this
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;file_path&gt; was not found in commit &lt;hash&gt;</pre>
@@ -145,7 +183,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This means that a revision in SVN is trying to modify a file that for some reason doesn’t exists in your local copy. The best way to get rid of this error is force a fetch ignoring the path of that file and it will updated to its status in the latest SVN revision:</p><ul id="6c3dcdba-abec-44f4-b236-2af780c25fba" class="bulleted-list"><li><code>git svn fetch --ignore-paths &lt;file_path&gt;</code></li></ul>
+</div>
+<p>This means that a revision in SVN is trying to modify a file that for some reason doesn’t exists in your local copy. The best way to get rid of this error is force a fetch ignoring the path of that file and it will updated to its status in the latest SVN revision:
+</p>
+  <ul id="6c3dcdba-abec-44f4-b236-2af780c25fba" class="bulleted-list">
+    <li><code>git svn fetch --ignore-paths &lt;file_path&gt;</code>
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

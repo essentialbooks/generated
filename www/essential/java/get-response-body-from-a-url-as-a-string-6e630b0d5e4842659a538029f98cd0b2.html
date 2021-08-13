@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String getText(String url) throws IOException {
@@ -161,7 +162,38 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will download text data from the specified URL, and return it as a String.</p><p><strong>How this works:</strong></p><ul id="a3c5cebc-3e80-47fb-a72a-32234b150047" class="bulleted-list"><li>First, we create a <code>HttpUrlConnection</code> from our URL, with <code>new URL(url).openConnection()</code>. We cast the <code>UrlConnection</code> this returns to a <code>HttpUrlConnection</code>, so we have access to things like adding headers (such as User Agent), or checking the response code. (This example does not do that, but it’s easy to add.)</li><li>Then, create <code>InputStream</code> basing on the response code (for error handling)</li><li>Then, create a <code>BufferedReader</code> which allows us to read text from <code>InputStream</code> we get from the connection.</li><li>Now, we append the text to a <code>StringBuilder</code>, line by line.</li><li>Close the <code>InputStream</code>, and return the String we now have.</li></ul><p><strong>Notes:</strong></p><ul id="cbbc5941-bee7-48e1-8293-60b83500f491" class="bulleted-list"><li>This method will throw an <code>IoException</code> in case of failure (such as a network error, or no internet connection), and it will also throw an <em>unchecked</em> <code>MalformedUrlException</code> if the given URL is not valid.</li><li>It can be used for reading from any URL which returns text, such as webpages (HTML), REST APIs which return JSON or XML, etc.</li><li>See also: <a href="http://stackoverflow.com/questions/4328711/read-url-to-string-in-few-lines-of-java-code">Read URL to String in few lines of Java code</a>.</li></ul><p>Usage:</p><p>Is very simple:</p>
+</div>
+<p>This will download text data from the specified URL, and return it as a String.
+</p>
+<p><strong>How this works:</strong>
+</p>
+  <ul id="a3c5cebc-3e80-47fb-a72a-32234b150047" class="bulleted-list">
+    <li>First, we create a <code>HttpUrlConnection</code> from our URL, with <code>new URL(url).openConnection()</code>. We cast the <code>UrlConnection</code> this returns to a <code>HttpUrlConnection</code>, so we have access to things like adding headers (such as User Agent), or checking the response code. (This example does not do that, but it’s easy to add.)
+    </li>
+    <li>Then, create <code>InputStream</code> basing on the response code (for error handling)
+    </li>
+    <li>Then, create a <code>BufferedReader</code> which allows us to read text from <code>InputStream</code> we get from the connection.
+    </li>
+    <li>Now, we append the text to a <code>StringBuilder</code>, line by line.
+    </li>
+    <li>Close the <code>InputStream</code>, and return the String we now have.
+    </li>
+  </ul>
+<p><strong>Notes:</strong>
+</p>
+  <ul id="cbbc5941-bee7-48e1-8293-60b83500f491" class="bulleted-list">
+    <li>This method will throw an <code>IoException</code> in case of failure (such as a network error, or no internet connection), and it will also throw an <em>unchecked</em> <code>MalformedUrlException</code> if the given URL is not valid.
+    </li>
+    <li>It can be used for reading from any URL which returns text, such as webpages (HTML), REST APIs which return JSON or XML, etc.
+    </li>
+    <li>See also: <a href="http://stackoverflow.com/questions/4328711/read-url-to-string-in-few-lines-of-java-code">Read URL to String in few lines of Java code</a>.
+    </li>
+  </ul>
+<p>Usage:
+</p>
+<p>Is very simple:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String text = getText(”http://example.com&#34;);

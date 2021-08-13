@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>It is a bad practice to block on async calls as it can cause deadlocks in environments that have a synchronization context. The best practice is to use async/await “all the way down.” For example, the following Windows Forms code causes a deadlock:</p>
+      
+<p>It is a bad practice to block on async calls as it can cause deadlocks in environments that have a synchronization context. The best practice is to use async/await “all the way down.” For example, the following Windows Forms code causes a deadlock:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">private</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="kt">bool</span><span class="p">&gt;</span> <span class="n">TryThis</span><span class="p">()</span>
@@ -161,7 +164,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Essentially, once the async call completes, it waits for the synchronization context to become available. However, the event handler “holds on” to the synchronization context while it’s waiting for the <code>TryThis()</code> method to complete, thus causing a circular wait.</p><p>To fix this, code should be modified to</p>
+</div>
+<p>Essentially, once the async call completes, it waits for the synchronization context to become available. However, the event handler “holds on” to the synchronization context while it’s waiting for the <code>TryThis()</code> method to complete, thus causing a circular wait.
+</p>
+<p>To fix this, code should be modified to
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">private</span> <span class="k">async</span> <span class="k">void</span> <span class="n">button1_Click</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
@@ -174,7 +182,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note: event handlers are the only place where <code>async void</code> should be used (because you can’t await an <code>async void</code> method).</p>
+</div>
+<p>Note: event handlers are the only place where <code>async void</code> should be used (because you can’t await an <code>async void</code> method).
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

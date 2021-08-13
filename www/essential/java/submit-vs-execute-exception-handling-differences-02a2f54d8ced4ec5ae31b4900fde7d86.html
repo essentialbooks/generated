@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>Generally execute() command is used for fire and forget calls (without need of analyzing the result) and submit() command is used for analyzing the result of Future object.</p><p>We should be aware of key difference of Exception Handling mechanisms between these two commands.</p><p>Exceptions from submit() are swallowed by framework if you did not catch them.</p><p>Code example to understand the difference:</p><p><strong>Case 1: submit the Runnable with execute() command, which reports the Exception.</strong></p>
+      
+<p>Generally execute() command is used for fire and forget calls (without need of analyzing the result) and submit() command is used for analyzing the result of Future object.
+</p>
+<p>We should be aware of key difference of Exception Handling mechanisms between these two commands.
+</p>
+<p>Exceptions from submit() are swallowed by framework if you did not catch them.
+</p>
+<p>Code example to understand the difference:
+</p>
+<p><strong>Case 1: submit the Runnable with execute() command, which reports the Exception.</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import java.util.concurrent.*;
@@ -182,7 +193,10 @@ class ExtendedExecutor extends ThreadPoolExecutor {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>output:</p>
+</div>
+<p>output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">creating service
@@ -202,7 +216,12 @@ java.lang.ArithmeticException: / by zero
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Case 2: Replace execute() with submit() :</strong> <code>service.submit(new Runnable(){</code> In this case, Exceptions are swallowed by framework since run() method did not catch them explicitly.</p><p>output:</p>
+</div>
+<p><strong>Case 2: Replace execute() with submit() :</strong> <code>service.submit(new Runnable(){</code> In this case, Exceptions are swallowed by framework since run() method did not catch them explicitly.
+</p>
+<p>output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">creating service
@@ -212,7 +231,10 @@ a and b=4:0</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Case 3: Change the newFixedThreadPool to ExtendedExecutor</strong></p>
+</div>
+<p><strong>Case 3: Change the newFixedThreadPool to ExtendedExecutor</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">//ExecutorService service = Executors.newFixedThreadPool(2);
@@ -221,7 +243,10 @@ a and b=4:0</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>output:</p>
+</div>
+<p>output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">creating service
@@ -233,7 +258,11 @@ java.lang.ArithmeticException: / by zero</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>I have demonstrated this example to cover two topics : Use your custom ThreadPoolExecutor and handle Exectpion with custom ThreadPoolExecutor.</p><p><strong>Other simple solution to above problem :</strong> When you are using normal ExecutorService &amp; submit command, get the Future object from submit() command call get() API on Future. Catch the three exceptions, which have been quoted in afterExecute method implementation. Advantage of custom ThreadPoolExecutor over this approach : You have to handle Exception handling mechanism in only one place - Custom ThreadPoolExecutor.</p>
+</div>
+<p>I have demonstrated this example to cover two topics : Use your custom ThreadPoolExecutor and handle Exectpion with custom ThreadPoolExecutor.
+</p>
+<p><strong>Other simple solution to above problem :</strong> When you are using normal ExecutorService &amp; submit command, get the Future object from submit() command call get() API on Future. Catch the three exceptions, which have been quoted in afterExecute method implementation. Advantage of custom ThreadPoolExecutor over this approach : You have to handle Exception handling mechanism in only one place - Custom ThreadPoolExecutor.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

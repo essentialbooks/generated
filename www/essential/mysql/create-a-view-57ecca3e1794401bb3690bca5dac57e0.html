@@ -127,7 +127,20 @@
 </div>
 
 
-      <p><strong>Privileges</strong></p><p>The CREATE VIEW statement requires the CREATE VIEW privilege for the view, and some privilege for each column selected by the SELECT statement. For columns used elsewhere in the SELECT statement, you must have the SELECT privilege. If the OR REPLACE clause is present, you must also have the DROP privilege for the view. CREATE VIEW might also require the SUPER privilege, depending on the DEFINER value, as described later in this section.</p><p>When a view is referenced, privilege checking occurs.</p><p>A view belongs to a database. By default, a new view is created in the default database. To create the view explicitly in a given database, use a fully qualified name</p><p>For Example:</p><p>db_name.view_name</p>
+      
+<p><strong>Privileges</strong>
+</p>
+<p>The CREATE VIEW statement requires the CREATE VIEW privilege for the view, and some privilege for each column selected by the SELECT statement. For columns used elsewhere in the SELECT statement, you must have the SELECT privilege. If the OR REPLACE clause is present, you must also have the DROP privilege for the view. CREATE VIEW might also require the SUPER privilege, depending on the DEFINER value, as described later in this section.
+</p>
+<p>When a view is referenced, privilege checking occurs.
+</p>
+<p>A view belongs to a database. By default, a new view is created in the default database. To create the view explicitly in a given database, use a fully qualified name
+</p>
+<p>For Example:
+</p>
+<p>db_name.view_name
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">CREATE</span> <span class="k">VIEW</span> <span class="n">test</span><span class="p">.</span><span class="n">v</span> <span class="k">AS</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">t</span><span class="p">;</span></pre>
@@ -135,7 +148,26 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>Note - Within a database, base tables and views share the same namespace, so a base table and a view cannot have the same name.</em></p><p>A VIEW can:</p><ul id="1e5c15ee-ee90-4beb-9087-bab7d7ad57a4" class="bulleted-list"><li>be created from many kinds of SELECT statements</li><li>refer to base tables or other views</li><li>use joins, UNION, and subqueries</li><li>SELECT need not even refer to any tables</li></ul><p><strong>Another Example</strong></p><p>The following example defines a view that selects two columns from another table as well as an expression calculated from those columns:</p>
+</div>
+<p><em>Note - Within a database, base tables and views share the same namespace, so a base table and a view cannot have the same name.</em>
+</p>
+<p>A VIEW can:
+</p>
+  <ul id="1e5c15ee-ee90-4beb-9087-bab7d7ad57a4" class="bulleted-list">
+    <li>be created from many kinds of SELECT statements
+    </li>
+    <li>refer to base tables or other views
+    </li>
+    <li>use joins, UNION, and subqueries
+    </li>
+    <li>SELECT need not even refer to any tables
+    </li>
+  </ul>
+<p><strong>Another Example</strong>
+</p>
+<p>The following example defines a view that selects two columns from another table as well as an expression calculated from those columns:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mysql&gt; CREATE TABLE t (qty INT, price INT);
@@ -151,7 +183,41 @@ mysql&gt; SELECT * FROM v;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Restrictions</strong></p><ul id="aa1d42a3-d8f4-4fed-bbef-88a61a9d079a" class="bulleted-list"><li>Before MySQL 5.7.7, the SELECT statement cannot contain a subquery in the FROM clause.</li><li>The SELECT statement cannot refer to system variables or user-defined variables.</li><li>Within a stored program, the SELECT statement cannot refer to program parameters or local variables.</li><li>The SELECT statement cannot refer to prepared statement parameters.</li><li>Any table or view referred to in the definition must exist. After the view has been created, it is possible to drop a table or view that</li></ul><p>the definition refers to. In this case, use of the view results in an error. To check a view definition for problems of this kind, use the CHECK TABLE statement.</p><ul id="6f6028a3-6a0d-40d8-8549-28939e4a9bd2" class="bulleted-list"><li>The definition cannot refer to a TEMPORARY table, and you cannot</li></ul><p>create a TEMPORARY view.</p><ul id="70fadf30-b0d4-4ec8-ac95-594fc14f82f1" class="bulleted-list"><li>You cannot associate a trigger with a view.</li><li>Aliases for column names in the SELECT statement are checked against the maximum column length of 64 characters (not the maximum alias</li></ul><p>length of 256 characters).</p><ul id="884545fd-1784-446f-a20f-ba3f9092cc8d" class="bulleted-list"><li>A <code>VIEW</code> may or may not optimize as well as the equivalent <code>SELECT</code>. It is unlikely to optimize any better.</li></ul>
+</div>
+<p><strong>Restrictions</strong>
+</p>
+  <ul id="aa1d42a3-d8f4-4fed-bbef-88a61a9d079a" class="bulleted-list">
+    <li>Before MySQL 5.7.7, the SELECT statement cannot contain a subquery in the FROM clause.
+    </li>
+    <li>The SELECT statement cannot refer to system variables or user-defined variables.
+    </li>
+    <li>Within a stored program, the SELECT statement cannot refer to program parameters or local variables.
+    </li>
+    <li>The SELECT statement cannot refer to prepared statement parameters.
+    </li>
+    <li>Any table or view referred to in the definition must exist. After the view has been created, it is possible to drop a table or view that
+    </li>
+  </ul>
+<p>the definition refers to. In this case, use of the view results in an error. To check a view definition for problems of this kind, use the CHECK TABLE statement.
+</p>
+  <ul id="6f6028a3-6a0d-40d8-8549-28939e4a9bd2" class="bulleted-list">
+    <li>The definition cannot refer to a TEMPORARY table, and you cannot
+    </li>
+  </ul>
+<p>create a TEMPORARY view.
+</p>
+  <ul id="70fadf30-b0d4-4ec8-ac95-594fc14f82f1" class="bulleted-list">
+    <li>You cannot associate a trigger with a view.
+    </li>
+    <li>Aliases for column names in the SELECT statement are checked against the maximum column length of 64 characters (not the maximum alias
+    </li>
+  </ul>
+<p>length of 256 characters).
+</p>
+  <ul id="884545fd-1784-446f-a20f-ba3f9092cc8d" class="bulleted-list">
+    <li>A <code>VIEW</code> may or may not optimize as well as the equivalent <code>SELECT</code>. It is unlikely to optimize any better.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

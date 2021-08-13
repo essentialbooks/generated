@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>If you use the <code>[NonSerialized]</code> attribute, then that member will always have its default value after deserialization (ex. 0 for an <code>int</code>, null for <code>string</code>, false for a <code>bool</code>, etc.), regardless of any initialization done in the object itself (constructors, declarations, etc.). To compensate, the attributes <code>[OnDeserializing]</code> (called just BEFORE deserializing) and <code>[OnDeserialized]</code> (called just AFTER deserializing) together with their counterparts, <code>[OnSerializing]</code> and <code>[OnSerialized]</code> are provided.</p><p>Assume we want to add a “Rating” to our Vector and we want to make sure the value always starts at 1. The way it is written below, it will be 0 after being deserialized:</p>
+      
+<p>If you use the <code>[NonSerialized]</code> attribute, then that member will always have its default value after deserialization (ex. 0 for an <code>int</code>, null for <code>string</code>, false for a <code>bool</code>, etc.), regardless of any initialization done in the object itself (constructors, declarations, etc.). To compensate, the attributes <code>[OnDeserializing]</code> (called just BEFORE deserializing) and <code>[OnDeserialized]</code> (called just AFTER deserializing) together with their counterparts, <code>[OnSerializing]</code> and <code>[OnSerialized]</code> are provided.
+</p>
+<p>Assume we want to add a “Rating” to our Vector and we want to make sure the value always starts at 1. The way it is written below, it will be 0 after being deserialized:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="na">[Serializable]</span>
@@ -155,7 +160,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To fix this problem, we can simply add the following method inside of the class to set it to 1:</p>
+</div>
+<p>To fix this problem, we can simply add the following method inside of the class to set it to 1:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="na">[OnDeserializing]</span>
@@ -168,7 +176,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Or, if we want to set it to a calculated value, we can wait for it to be finished deserializing and then set it:</p>
+</div>
+<p>Or, if we want to set it to a calculated value, we can wait for it to be finished deserializing and then set it:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="na">[OnDeserialized]</span>
@@ -181,7 +192,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Similarly, we can control how things are written out by using <code>[OnSerializing]</code> and <code>[OnSerialized]</code>.</p>
+</div>
+<p>Similarly, we can control how things are written out by using <code>[OnSerializing]</code> and <code>[OnSerialized]</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

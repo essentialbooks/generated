@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>This example is inspired by <a href="http://stackoverflow.com/q/38334315/2271269">this question</a>.</p><p>We’ll assume you know how to <a href="http://www.html5rocks.com/en/tutorials/file/dndfiles/">load a file using the File API</a>.</p>
+      
+<p>This example is inspired by <a href="http://stackoverflow.com/q/38334315/2271269">this question</a>.
+</p>
+<p>We’ll assume you know how to <a href="http://www.html5rocks.com/en/tutorials/file/dndfiles/">load a file using the File API</a>.
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="c1">// preliminary code to handle getting local file and finally printing to console
@@ -144,7 +149,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we perform the actual conversion of the file data into 1’s and 0’s using a <code>DataView</code>:</p>
+</div>
+<p>Now we perform the actual conversion of the file data into 1’s and 0’s using a <code>DataView</code>:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">function</span> <span class="nx">ArrayBufferToBinary</span><span class="p">(</span><span class="nx">buffer</span><span class="p">)</span> <span class="p">{</span>
@@ -161,7 +169,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>DataView</code>s let you read/write numeric data; <code>getInt8</code> converts the data from the byte position - here <code>0</code>, the value passed in - in the <code>ArrayBuffer</code> to signed 8-bit integer representation, and <code>toString(2)</code> converts the 8-bit integer to binary representation format (i.e. a string of 1’s and 0’s).</p><p>Files are saved as bytes. The ‘magic’ offset value is obtained by noting we are taking files stored as bytes i.e. as 8-bit integers and reading it in 8-bit integer representation. If we were trying to read our byte-saved (i.e. 8 bits) files to 32-bit integers, we would note that 32/8 = 4 is the number of byte spaces, which is our byte offset value.</p><p>For this task, <code>DataView</code>s are overkill. They are typically used in cases where endianness or heterogeneity of data are encountered (e.g. in reading PDF files, which have headers encoded in different bases and we would like to meaningfully extract that value). Because we just want a textual representation, we do not care about heterogeneity as there is never a need to</p><p>A much better - and shorter - solution can be found using an <code>UInt8Array</code> typed array, which treats the entire <code>ArrayBuffer</code> as composed of unsigned 8-bit integers:</p>
+</div>
+<p><code>DataView</code>s let you read/write numeric data; <code>getInt8</code> converts the data from the byte position - here <code>0</code>, the value passed in - in the <code>ArrayBuffer</code> to signed 8-bit integer representation, and <code>toString(2)</code> converts the 8-bit integer to binary representation format (i.e. a string of 1’s and 0’s).
+</p>
+<p>Files are saved as bytes. The ‘magic’ offset value is obtained by noting we are taking files stored as bytes i.e. as 8-bit integers and reading it in 8-bit integer representation. If we were trying to read our byte-saved (i.e. 8 bits) files to 32-bit integers, we would note that 32/8 = 4 is the number of byte spaces, which is our byte offset value.
+</p>
+<p>For this task, <code>DataView</code>s are overkill. They are typically used in cases where endianness or heterogeneity of data are encountered (e.g. in reading PDF files, which have headers encoded in different bases and we would like to meaningfully extract that value). Because we just want a textual representation, we do not care about heterogeneity as there is never a need to
+</p>
+<p>A much better - and shorter - solution can be found using an <code>UInt8Array</code> typed array, which treats the entire <code>ArrayBuffer</code> as composed of unsigned 8-bit integers:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">function</span> <span class="nx">ArrayBufferToBinary</span><span class="p">(</span><span class="nx">buffer</span><span class="p">)</span> <span class="p">{</span>

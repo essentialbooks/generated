@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>Java and most other languages store negative integral numbers in a representation called <em>2’s complement</em> notation.</p><p>For a unique binary representation of a data type using <code>n</code> bits, values are encoded like this:</p><p>The least significant <code>n-1</code> bits store a positive integral number <code>x</code> in integral representation. Most significant value stores a bit vith value <code>s</code>. The value repesented by those bits is</p><p>x - s * 2n-1</p><p>i.e. if the most significant bit is 1, then a value that is just by 1 larger than the number you could represent with the other bits (2n-2 + 2n-3 + … + 21 + 20 = 2n-1 - 1) is subtracted allowing a unique binary representation for each value from - 2n-1 (s = 1; x = 0) to 2n-1 - 1 (s = 0; x = 2n-1 - 1).</p><p>This also has the nice side effect, that you can add the binary representations as if they were positive binary numbers:</p>
+      
+<p>Java and most other languages store negative integral numbers in a representation called <em>2’s complement</em> notation.
+</p>
+<p>For a unique binary representation of a data type using <code>n</code> bits, values are encoded like this:
+</p>
+<p>The least significant <code>n-1</code> bits store a positive integral number <code>x</code> in integral representation. Most significant value stores a bit vith value <code>s</code>. The value repesented by those bits is
+</p>
+<p>x - s * 2n-1
+</p>
+<p>i.e. if the most significant bit is 1, then a value that is just by 1 larger than the number you could represent with the other bits (2n-2 + 2n-3 + … + 21 + 20 = 2n-1 - 1) is subtracted allowing a unique binary representation for each value from - 2n-1 (s = 1; x = 0) to 2n-1 - 1 (s = 0; x = 2n-1 - 1).
+</p>
+<p>This also has the nice side effect, that you can add the binary representations as if they were positive binary numbers:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">v1 = x1 - s1 * 2n-1
@@ -136,7 +149,8 @@ v2 = x2 - s2 * 2n-1</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>s1 | s2 | x1 + x2 overflow | addition result |
+</div>
+<p>s1 | s2 | x1 + x2 overflow | addition result |
 —— | —— | — | — |
 0 | 0 | No | x1 + x2 = v1 + v2 |
 0 | 0 | Yes | too large to be represented with data type (overflow) |
@@ -144,7 +158,15 @@ v2 = x2 - s2 * 2n-1</pre>
 0 | 1 | Yes | (x1 + x2) mod 2n-1 = x1 + x2 - 2n-1 = v1 + v2 |
 1 | 0 | * | see above (swap summands) |
 1 | 1 | No | too small to be represented with data type (x1 + x2 - 2n &lt; -2n-1 ; underflow) |
-1 | 1 | Yes | (x1 + x2) mod 2n-1 - 2n-1 = (x1 + x2 - 2n-1) - 2n-1 = (x1 - s1 * 2n-1) + (x2 - s2 * 2n-1) = v1 + v2 |</p><p>Note that this fact makes finding binary representation of the additive inverse (i.e. the negative value) easy:</p><p>Observe that adding the bitwise complement to the number results in all bits being 1. Now add 1 to make value overflow and you get the neutral element 0 (all bits 0).</p><p>So the negative value of a number <code>i</code> can be calculated using (ignoring possible promotion to <code>int</code> here)</p>
+1 | 1 | Yes | (x1 + x2) mod 2n-1 - 2n-1 = (x1 + x2 - 2n-1) - 2n-1 = (x1 - s1 * 2n-1) + (x2 - s2 * 2n-1) = v1 + v2 |
+</p>
+<p>Note that this fact makes finding binary representation of the additive inverse (i.e. the negative value) easy:
+</p>
+<p>Observe that adding the bitwise complement to the number results in all bits being 1. Now add 1 to make value overflow and you get the neutral element 0 (all bits 0).
+</p>
+<p>So the negative value of a number <code>i</code> can be calculated using (ignoring possible promotion to <code>int</code> here)
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">(~i) + 1</pre>
@@ -152,11 +174,18 @@ v2 = x2 - s2 * 2n-1</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="809e528a-5507-49f6-9206-146b9831baf3"/><p><strong>Example:</strong> taking the negative value of 0 (<code>byte</code>):</p><p>The result of negating <code>0</code>, is <code>11111111</code>. Adding 1 gives a value of <code>100000000</code> (9 bits). Because a <code>byte</code> can only store 8 bits, the leftmost value is truncated, and the result is <code>00000000</code></p><p>Original | Process | Result |
+</div>
+<hr id="809e528a-5507-49f6-9206-146b9831baf3"/>
+<p><strong>Example:</strong> taking the negative value of 0 (<code>byte</code>):
+</p>
+<p>The result of negating <code>0</code>, is <code>11111111</code>. Adding 1 gives a value of <code>100000000</code> (9 bits). Because a <code>byte</code> can only store 8 bits, the leftmost value is truncated, and the result is <code>00000000</code>
+</p>
+<p>Original | Process | Result |
 —— | —— | —— |
 0 (00000000) | Negate | -0 (11111111)
 11111111 | Add 1 to binary | 100000000
-100000000 | Truncate to 8 bits | 00000000 (-0 equals 0)</p>
+100000000 | Truncate to 8 bits | 00000000 (-0 equals 0)
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

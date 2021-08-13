@@ -127,7 +127,23 @@
 </div>
 
 
-      <p>This example assumes two servers:</p><ol id="23405d90-6609-45a5-a1ee-c12706f5ff9f" class="numbered-list" start="1"><li>dbserver (where our database lives)</li><li>appclient (where our applications live)</li></ol><p><em>FWIW, both servers are SELinux enforcing.</em></p><h1 id="15109b91-b0f4-4204-9a8b-7cb7c6c2c905" class="">First, log on to dbserver<a class="header-anchor" href="#15109b91-b0f4-4204-9a8b-7cb7c6c2c905" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Create a temporary directory for creating the certificates.</p>
+      
+<p>This example assumes two servers:
+</p>
+  <ol id="23405d90-6609-45a5-a1ee-c12706f5ff9f" class="numbered-list" start="1">
+    <li>dbserver (where our database lives)
+    </li>
+    <li>appclient (where our applications live)
+    </li>
+  </ol>
+<p><em>FWIW, both servers are SELinux enforcing.</em>
+</p>
+  <h1 id="15109b91-b0f4-4204-9a8b-7cb7c6c2c905" class="">First, log on to dbserver
+  <a class="header-anchor" href="#15109b91-b0f4-4204-9a8b-7cb7c6c2c905" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Create a temporary directory for creating the certificates.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mkdir /root/certs/mysql/ &amp;&amp; cd /root/certs/mysql/</pre>
@@ -135,7 +151,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Create the server certificates</p>
+</div>
+<p>Create the server certificates
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">openssl genrsa 2048 &gt; ca-key.pem
@@ -147,7 +166,12 @@ openssl x509 -sha1 -req -in server-req.pem -days 730  -CA ca-cert.pem -CAkey ca-
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Move server certificates to /etc/pki/tls/certs/mysql/</p><p>Directory path assumes CentOS or RHEL (adjust as needed for other distros):</p>
+</div>
+<p>Move server certificates to /etc/pki/tls/certs/mysql/
+</p>
+<p>Directory path assumes CentOS or RHEL (adjust as needed for other distros):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mkdir /etc/pki/tls/certs/mysql/</pre>
@@ -155,7 +179,10 @@ openssl x509 -sha1 -req -in server-req.pem -days 730  -CA ca-cert.pem -CAkey ca-
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Be sure to set permissions on the folder and files. mysql needs full ownership and access.</p>
+</div>
+<p>Be sure to set permissions on the folder and files. mysql needs full ownership and access.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">chown -R mysql:mysql /etc/pki/tls/certs/mysql</pre>
@@ -163,7 +190,10 @@ openssl x509 -sha1 -req -in server-req.pem -days 730  -CA ca-cert.pem -CAkey ca-
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now configure MySQL/MariaDB</p>
+</div>
+<p>Now configure MySQL/MariaDB
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"># vi /etc/my.cnf
@@ -178,7 +208,10 @@ ssl-key=/etc/pki/tls/certs/server-key.pem
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then</p>
+</div>
+<p>Then
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">systemctl restart mariadb</pre>
@@ -186,7 +219,10 @@ ssl-key=/etc/pki/tls/certs/server-key.pem
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Don’t forget to open your firewall to allow connections from appclient (using IP 1.2.3.4)</p>
+</div>
+<p>Don’t forget to open your firewall to allow connections from appclient (using IP 1.2.3.4)
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">firewall-cmd --zone=drop --permanent --add-rich-rule &#39;rule family=&#34;ipv4&#34; source address=&#34;1.2.3.4&#34; service name=&#34;mysql&#34; accept&#39;
@@ -195,7 +231,10 @@ ssl-key=/etc/pki/tls/certs/server-key.pem
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now restart firewalld</p>
+</div>
+<p>Now restart firewalld
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">service firewalld restart</pre>
@@ -203,7 +242,10 @@ ssl-key=/etc/pki/tls/certs/server-key.pem
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Next, log in to dbserver’s mysql server:</p>
+</div>
+<p>Next, log in to dbserver’s mysql server:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mysql -uroot -p</pre>
@@ -211,7 +253,10 @@ ssl-key=/etc/pki/tls/certs/server-key.pem
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Issue the following to create a user for the client. note REQUIRE SSL in GRANT statement.</p>
+</div>
+<p>Issue the following to create a user for the client. note REQUIRE SSL in GRANT statement.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">GRANT ALL PRIVILEGES ON *.* TO ‘iamsecure’@’appclient’ IDENTIFIED BY ‘dingdingding’ REQUIRE SSL;
@@ -221,7 +266,12 @@ FLUSH PRIVILEGES;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You should still be in /root/certs/mysql from the first step. If not, cd back to it for one of the commands below.</p><p>Create the client certificates</p>
+</div>
+<p>You should still be in /root/certs/mysql from the first step. If not, cd back to it for one of the commands below.
+</p>
+<p>Create the client certificates
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">openssl req -sha1 -newkey rsa:2048 -days 730 -nodes -keyout client-key.pem &gt; client-req.pem
@@ -231,7 +281,14 @@ openssl x509 -sha1 -req -in client-req.pem -days 730 -CA ca-cert.pem -CAkey ca-k
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Note</strong>: I used the same common name for both server and client certificates. YMMV.</p><p><em>Be sure you’re still /root/certs/mysql/ for this next command</em></p><p>Combine server and client CA certificate into a single file:</p>
+</div>
+<p><strong>Note</strong>: I used the same common name for both server and client certificates. YMMV.
+</p>
+<p><em>Be sure you’re still /root/certs/mysql/ for this next command</em>
+</p>
+<p>Combine server and client CA certificate into a single file:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cat server-cert.pem client-cert.pem &gt; ca.pem</pre>
@@ -239,7 +296,10 @@ openssl x509 -sha1 -req -in client-req.pem -days 730 -CA ca-cert.pem -CAkey ca-k
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Make sure you see two certificates:</p>
+</div>
+<p>Make sure you see two certificates:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cat ca.pem</pre>
@@ -247,7 +307,13 @@ openssl x509 -sha1 -req -in client-req.pem -days 730 -CA ca-cert.pem -CAkey ca-k
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="85c67f46-3bbd-4d5a-9b0d-f6f26f864ee7" class="">END OF SERVER SIDE WORK FOR NOW.<a class="header-anchor" href="#85c67f46-3bbd-4d5a-9b0d-f6f26f864ee7" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Open another terminal and</p>
+</div>
+  <h1 id="85c67f46-3bbd-4d5a-9b0d-f6f26f864ee7" class="">END OF SERVER SIDE WORK FOR NOW.
+  <a class="header-anchor" href="#85c67f46-3bbd-4d5a-9b0d-f6f26f864ee7" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Open another terminal and
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ssh appclient</pre>
@@ -255,7 +321,10 @@ openssl x509 -sha1 -req -in client-req.pem -days 730 -CA ca-cert.pem -CAkey ca-k
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As before, create a permanent home for the client certificates</p>
+</div>
+<p>As before, create a permanent home for the client certificates
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mkdir /etc/pki/tls/certs/mysql/</pre>
@@ -263,7 +332,10 @@ openssl x509 -sha1 -req -in client-req.pem -days 730 -CA ca-cert.pem -CAkey ca-k
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, place the client certificates (created on dbserver) on appclient. You can either scp them over, or just copy and paste the files one by one.</p>
+</div>
+<p>Now, place the client certificates (created on dbserver) on appclient. You can either scp them over, or just copy and paste the files one by one.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">scp dbserver
@@ -273,7 +345,10 @@ openssl x509 -sha1 -req -in client-req.pem -days 730 -CA ca-cert.pem -CAkey ca-k
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Again, be sure to set permissions on the folder and files. mysql needs full ownership and access.</p>
+</div>
+<p>Again, be sure to set permissions on the folder and files. mysql needs full ownership and access.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">chown -R mysql:mysql /etc/pki/tls/certs/mysql</pre>
@@ -281,7 +356,10 @@ openssl x509 -sha1 -req -in client-req.pem -days 730 -CA ca-cert.pem -CAkey ca-k
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You should have three files, each owned by user mysql:</p>
+</div>
+<p>You should have three files, each owned by user mysql:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/etc/pki/tls/certs/mysql/ca.pem
@@ -291,7 +369,10 @@ openssl x509 -sha1 -req -in client-req.pem -days 730 -CA ca-cert.pem -CAkey ca-k
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now edit appclient’s MariaDB/MySQL config in the <code>[client]</code> section.</p>
+</div>
+<p>Now edit appclient’s MariaDB/MySQL config in the <code>[client]</code> section.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">vi /etc/my.cnf
@@ -305,7 +386,10 @@ ssl-key=/etc/pki/tls/certs/mysql/client-key.pem
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Restart appclient’s mariadb service:</p>
+</div>
+<p>Restart appclient’s mariadb service:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">systemctl restart mariadb</pre>
@@ -313,7 +397,13 @@ ssl-key=/etc/pki/tls/certs/mysql/client-key.pem
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="4db4fca9-cea7-4518-a184-bf3f73fde659" class="">still on the client here<a class="header-anchor" href="#4db4fca9-cea7-4518-a184-bf3f73fde659" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>This should return: ssl TRUE</p>
+</div>
+  <h1 id="4db4fca9-cea7-4518-a184-bf3f73fde659" class="">still on the client here
+  <a class="header-anchor" href="#4db4fca9-cea7-4518-a184-bf3f73fde659" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>This should return: ssl TRUE
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mysql --ssl --help</pre>
@@ -321,7 +411,10 @@ ssl-key=/etc/pki/tls/certs/mysql/client-key.pem
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, log in to appclient’s mysql instance</p>
+</div>
+<p>Now, log in to appclient’s mysql instance
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mysql -uroot -p</pre>
@@ -329,7 +422,10 @@ ssl-key=/etc/pki/tls/certs/mysql/client-key.pem
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Should see YES to both variables below</p>
+</div>
+<p>Should see YES to both variables below
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">show variables LIKE &#39;%ssl&#39;;
@@ -339,7 +435,10 @@ ssl-key=/etc/pki/tls/certs/mysql/client-key.pem
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Initially I saw</p>
+</div>
+<p>Initially I saw
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">have_openssl NO</pre>
@@ -347,7 +446,14 @@ ssl-key=/etc/pki/tls/certs/mysql/client-key.pem
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A quick look into mariadb.log revealed:</p><blockquote id="a54026d7-bc08-438a-b6c4-dec9dc6e4c02" class="">SSL error: Unable to get certificate from ‘/etc/pki/tls/certs/mysql/client-cert.pem’</blockquote><p>The problem was that root owned client-cert.pem and the containing folder. The solution was to set ownership of /etc/pki/tls/certs/mysql/ to mysql.</p>
+</div>
+<p>A quick look into mariadb.log revealed:
+</p>
+<blockquote id="a54026d7-bc08-438a-b6c4-dec9dc6e4c02" class="">SSL error: Unable to get certificate from ‘/etc/pki/tls/certs/mysql/client-cert.pem’
+</blockquote>
+<p>The problem was that root owned client-cert.pem and the containing folder. The solution was to set ownership of /etc/pki/tls/certs/mysql/ to mysql.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">chown -R mysql:mysql /etc/pki/tls/certs/mysql</pre>
@@ -355,7 +461,18 @@ ssl-key=/etc/pki/tls/certs/mysql/client-key.pem
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Restart mariadb if needed from the step immediately above</p><h1 id="a2ecfb2e-dbbf-41d8-b294-40fd7b2b64d1" class="">NOW WE ARE READY TO TEST THE SECURE CONNECTION<a class="header-anchor" href="#a2ecfb2e-dbbf-41d8-b294-40fd7b2b64d1" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><h1 id="14b9d886-ffda-4543-8be7-7bcb22d97040" class="">We’re still on appclient here<a class="header-anchor" href="#14b9d886-ffda-4543-8be7-7bcb22d97040" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Attempt to connect to dbserver’s mysql instance using the account created above.</p>
+</div>
+<p>Restart mariadb if needed from the step immediately above
+</p>
+  <h1 id="a2ecfb2e-dbbf-41d8-b294-40fd7b2b64d1" class="">NOW WE ARE READY TO TEST THE SECURE CONNECTION
+  <a class="header-anchor" href="#a2ecfb2e-dbbf-41d8-b294-40fd7b2b64d1" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <h1 id="14b9d886-ffda-4543-8be7-7bcb22d97040" class="">We’re still on appclient here
+  <a class="header-anchor" href="#14b9d886-ffda-4543-8be7-7bcb22d97040" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Attempt to connect to dbserver’s mysql instance using the account created above.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mysql -h dbserver -u iamsecure -p
@@ -364,7 +481,12 @@ ssl-key=/etc/pki/tls/certs/mysql/client-key.pem
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With a little luck you should be logged in without error.</p><p>To confirm you are connected with SSL enabled, issue the following command from the MariaDB/MySQL prompt:</p>
+</div>
+<p>With a little luck you should be logged in without error.
+</p>
+<p>To confirm you are connected with SSL enabled, issue the following command from the MariaDB/MySQL prompt:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">\s</pre>
@@ -372,7 +494,12 @@ ssl-key=/etc/pki/tls/certs/mysql/client-key.pem
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>That’s a backslash s, aka status</em></p><p>That will show the status of your connection, which should look something like this:</p>
+</div>
+<p><em>That’s a backslash s, aka status</em>
+</p>
+<p>That will show the status of your connection, which should look something like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Connection id:        4
@@ -396,7 +523,15 @@ Uptime:            42 min 13 sec</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you get permission denied errors on your connection attempt, check your GRANT statement above to make sure there aren’t any stray characters or ’ marks.</p><p>If you have SSL errors, go back through this guide to make sure the steps are orderly.</p><p>This worked on RHEL7 and will likely work on CentOS7, too. Cannot confirm whether these exact steps will work elsewhere.</p><p>Hope this saves someone else a little time and aggravation.</p>
+</div>
+<p>If you get permission denied errors on your connection attempt, check your GRANT statement above to make sure there aren’t any stray characters or ’ marks.
+</p>
+<p>If you have SSL errors, go back through this guide to make sure the steps are orderly.
+</p>
+<p>This worked on RHEL7 and will likely work on CentOS7, too. Cannot confirm whether these exact steps will work elsewhere.
+</p>
+<p>Hope this saves someone else a little time and aggravation.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

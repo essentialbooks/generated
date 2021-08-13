@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Resource Acquisition Is Initialization (RAII) is a common idiom in resource management. In the case of dynamic memory, it uses <a href="http://stackoverflow.com/documentation/c%2B%2B/509/smart-pointers#t=201612210638370818186">smart pointers</a> to accomplish resource management. When using RAII, an acquired resource is immediately given ownership to a smart pointer or equivalent resource manager. The resource is only accessed through this manager, so the manager can keep track of various operations. For example, <code>std::auto_ptr</code> automatically frees its corresponding resource when it falls out of scope or is otherwise deleted.</p>
+      
+<p>Resource Acquisition Is Initialization (RAII) is a common idiom in resource management. In the case of dynamic memory, it uses <a href="http://stackoverflow.com/documentation/c%2B%2B/509/smart-pointers#t=201612210638370818186">smart pointers</a> to accomplish resource management. When using RAII, an acquired resource is immediately given ownership to a smart pointer or equivalent resource manager. The resource is only accessed through this manager, so the manager can keep track of various operations. For example, <code>std::auto_ptr</code> automatically frees its corresponding resource when it falls out of scope or is otherwise deleted.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;memory&gt;
@@ -144,7 +147,10 @@ int main() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>std::auto_ptr</code>‘s main problem is that it can’t copied without transferring ownership:</p>
+</div>
+<p><code>std::auto_ptr</code>‘s main problem is that it can’t copied without transferring ownership:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;memory&gt;
@@ -162,7 +168,10 @@ int main() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Because of these weird copy semantics, <code>std::auto_ptr</code> can’t be used in containers, among other things. The reason it does this is to prevent deleting memory twice: if there are two <code>auto_ptrs</code> with ownership of the same resource, they both try to free it when they’re destroyed. Freeing an already freed resource can generally cause problems, so it is important to prevent it. However, <code>std::shared_ptr</code> has a method to avoid this while not transferring ownership when copying:</p>
+</div>
+<p>Because of these weird copy semantics, <code>std::auto_ptr</code> can’t be used in containers, among other things. The reason it does this is to prevent deleting memory twice: if there are two <code>auto_ptrs</code> with ownership of the same resource, they both try to free it when they’re destroyed. Freeing an already freed resource can generally cause problems, so it is important to prevent it. However, <code>std::shared_ptr</code> has a method to avoid this while not transferring ownership when copying:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;memory&gt;

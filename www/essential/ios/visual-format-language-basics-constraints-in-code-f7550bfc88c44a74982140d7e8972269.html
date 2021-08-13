@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>HVFL is a language designed to constrain UI elements in a simple and quick fashion. Generally, VFL has an advantage over traditional UI customization in the Interface Builder because it’s much more readable, accessible and compact.</p><p>Here’s an example of VFL, in which three UIViews are constrained from left to right, filling up <code>superView.width</code>, with <code>aGradeView</code></p>
+      
+<p>HVFL is a language designed to constrain UI elements in a simple and quick fashion. Generally, VFL has an advantage over traditional UI customization in the Interface Builder because it’s much more readable, accessible and compact.
+</p>
+<p>Here’s an example of VFL, in which three UIViews are constrained from left to right, filling up <code>superView.width</code>, with <code>aGradeView</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&#34;H:|[bgView][aGradeView(40)][bGradeView(40)]|&#34;</pre>
@@ -135,7 +140,30 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>There are two axes in which we can constrain UI Objects to, Horizontally and Vertically.</p><p>Each line of VFL always begins with <code>H:</code> or <code>V:</code>. If neither are present, the default option is <code>H:</code></p><p>Moving on, we have a pipeline. <code>|</code> This symbol, or the pipe, refers to the superview. If you take a closer look at the snippet of VFL code above, you’d notice two of these pipelines.</p><p>This signifies the two horizontal ends of the superview, the outerleft and outerright boundaries.</p><p>Next up you’ll see some square brackets, within the first set of square brackets, we have <code>bgView</code>. When we’ve got square brackets, it’s referring to a UI element, now you might wonder how we establish a link between the name and the actual UI element, an outlet perhaps?</p><p>I’ll cover that at the end of the post.</p><p>If you take a look at the second pair of square brackets <code>[aGradeView(50)]</code>, we have some parentheses encapsulated within as well, when that is present, it defines the width/height depending on the axes, which in this case is 50 pixels in width.</p><p>The first square brackets <code>[bgView]</code> did not have a width explicitly defined, meaning that it’ll span out as far as possible.</p><p>Alright, that’s it for the basics, more on the advanced stuff in another example.</p><hr id="25dbc877-95d3-4eb6-9a26-ef1c3c88f46f"/><p>for example:</p><img class="img" src="/img/2f6f09abd976f9d5f343592dcfdf70c47b7a37fb.png">
+</div>
+<p>There are two axes in which we can constrain UI Objects to, Horizontally and Vertically.
+</p>
+<p>Each line of VFL always begins with <code>H:</code> or <code>V:</code>. If neither are present, the default option is <code>H:</code>
+</p>
+<p>Moving on, we have a pipeline. <code>|</code> This symbol, or the pipe, refers to the superview. If you take a closer look at the snippet of VFL code above, you’d notice two of these pipelines.
+</p>
+<p>This signifies the two horizontal ends of the superview, the outerleft and outerright boundaries.
+</p>
+<p>Next up you’ll see some square brackets, within the first set of square brackets, we have <code>bgView</code>. When we’ve got square brackets, it’s referring to a UI element, now you might wonder how we establish a link between the name and the actual UI element, an outlet perhaps?
+</p>
+<p>I’ll cover that at the end of the post.
+</p>
+<p>If you take a look at the second pair of square brackets <code>[aGradeView(50)]</code>, we have some parentheses encapsulated within as well, when that is present, it defines the width/height depending on the axes, which in this case is 50 pixels in width.
+</p>
+<p>The first square brackets <code>[bgView]</code> did not have a width explicitly defined, meaning that it’ll span out as far as possible.
+</p>
+<p>Alright, that’s it for the basics, more on the advanced stuff in another example.
+</p>
+<hr id="25dbc877-95d3-4eb6-9a26-ef1c3c88f46f"/>
+<p>for example:
+</p>
+<img class="img" src="/img/2f6f09abd976f9d5f343592dcfdf70c47b7a37fb.png">
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"></pre>
@@ -143,7 +171,20 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>// 1. create views UIView *blueView = [[UIView alloc] init]; blueView.backgroundColor = [UIColor blueColor]; [self.view addSubview:blueView];</p><p>UIView *redView = [[UIView alloc] init]; redView.backgroundColor = [UIColor redColor]; [self.view addSubview:redView];</p><p>// 2. forbid Autoresizing blueView.translatesAutoresizingMaskIntoConstraints = NO; redView.translatesAutoresizingMaskIntoConstraints = NO;</p><p>// 3. make contraints // horizontal NSArray *blueH = [NSLayoutConstraint constraintsWithVisualFormat:@“H:|-20-[blueView]-20-|” options:NSLayoutFormatAlignAllLeft metrics:nil views:@{@“blueView” : blueView}]; [self.view addConstraints:blueH];</p><p>// vertical NSArray *blueVandRedV = [NSLayoutConstraint constraintsWithVisualFormat:@“V:|-20-[blueView(50)]-20-[redView(==blueView)]” options:NSLayoutFormatAlignAllTrailing metrics:nil views:@{@“blueView” : blueView, @“redView” : redView}]; [self.view addConstraints:blueVandRedV];</p><p>NSLayoutConstraint *redW = [NSLayoutConstraint constraintWithItem:redView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:blueView attribute:NSLayoutAttributeWidth multiplier:0.5 constant:0]; [self.view addConstraint:redW];</p>
+</div>
+<p>// 1. create views UIView *blueView = [[UIView alloc] init]; blueView.backgroundColor = [UIColor blueColor]; [self.view addSubview:blueView];
+</p>
+<p>UIView *redView = [[UIView alloc] init]; redView.backgroundColor = [UIColor redColor]; [self.view addSubview:redView];
+</p>
+<p>// 2. forbid Autoresizing blueView.translatesAutoresizingMaskIntoConstraints = NO; redView.translatesAutoresizingMaskIntoConstraints = NO;
+</p>
+<p>// 3. make contraints // horizontal NSArray *blueH = [NSLayoutConstraint constraintsWithVisualFormat:@“H:|-20-[blueView]-20-|” options:NSLayoutFormatAlignAllLeft metrics:nil views:@{@“blueView” : blueView}]; [self.view addConstraints:blueH];
+</p>
+<p>// vertical NSArray *blueVandRedV = [NSLayoutConstraint constraintsWithVisualFormat:@“V:|-20-[blueView(50)]-20-[redView(==blueView)]” options:NSLayoutFormatAlignAllTrailing metrics:nil views:@{@“blueView” : blueView, @“redView” : redView}]; [self.view addConstraints:blueVandRedV];
+</p>
+<p>NSLayoutConstraint *redW = [NSLayoutConstraint constraintWithItem:redView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:blueView attribute:NSLayoutAttributeWidth multiplier:0.5 constant:0]; [self.view addConstraint:redW];
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"></pre>

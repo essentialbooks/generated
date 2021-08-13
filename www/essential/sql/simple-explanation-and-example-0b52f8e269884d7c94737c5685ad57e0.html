@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>In simple terms:</p><ul id="e1dacc67-b5c6-400c-bb27-36fd51075441" class="bulleted-list"><li><code>UNION</code> joins 2 result sets while removing duplicates from the result set</li><li><code>UNION ALL</code> joins 2 result sets without attempting to remove duplicates</li></ul><blockquote id="e964d327-6326-4b17-8fce-2e879aa9f8ac" class="">One mistake many people make is to use a UNION when they do not need to have the duplicates removed. The additional performance cost against large results sets can be very significant.</blockquote><p><strong>When you might need </strong><code><strong>UNION</strong></code></p><p>Suppose you need to filter a table against 2 different attributes, and you have created separate non-clustered indexes for each column. A <code>UNION</code> enables you to leverage both indexes while still preventing duplicates.</p>
+      
+<p>In simple terms:
+</p>
+  <ul id="e1dacc67-b5c6-400c-bb27-36fd51075441" class="bulleted-list">
+    <li><code>UNION</code> joins 2 result sets while removing duplicates from the result set
+    </li>
+    <li><code>UNION ALL</code> joins 2 result sets without attempting to remove duplicates
+    </li>
+  </ul>
+<blockquote id="e964d327-6326-4b17-8fce-2e879aa9f8ac" class="">One mistake many people make is to use a UNION when they do not need to have the duplicates removed. The additional performance cost against large results sets can be very significant.
+</blockquote>
+<p><strong>When you might need </strong><code><strong>UNION</strong></code>
+</p>
+<p>Suppose you need to filter a table against 2 different attributes, and you have created separate non-clustered indexes for each column. A <code>UNION</code> enables you to leverage both indexes while still preventing duplicates.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT C1, C2, C3 FROM Table1 WHERE C1 = @Param1
@@ -137,7 +152,14 @@ SELECT C1, C2, C3 FROM Table1 WHERE C2 = @Param2</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This simplifies your performance tuning since only simple indexes are needed to perform these queries optimally. You may even be able to get by with quite a bit fewer non-clustered indexes improving overall write performance against the source table as well.</p><p><strong>When you might need </strong><code><strong>UNION ALL</strong></code></p><p>Suppose you still need to filter a table against 2 attributes, but you do not need to filter duplicate records (either because it doesn’t matter or your data wouldn’t produce any duplicates during the union due to your data model design).</p>
+</div>
+<p>This simplifies your performance tuning since only simple indexes are needed to perform these queries optimally. You may even be able to get by with quite a bit fewer non-clustered indexes improving overall write performance against the source table as well.
+</p>
+<p><strong>When you might need </strong><code><strong>UNION ALL</strong></code>
+</p>
+<p>Suppose you still need to filter a table against 2 attributes, but you do not need to filter duplicate records (either because it doesn’t matter or your data wouldn’t produce any duplicates during the union due to your data model design).
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT C1 FROM Table1
@@ -147,7 +169,9 @@ SELECT C1 FROM Table2</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is especially useful when creating Views that join data that is designed to be physically partitioned across multiple tables (maybe for performance reasons, but still wants to roll-up records). Since the data is already split, having the database engine remove duplicates adds no value and just adds additional processing time to the queries.</p>
+</div>
+<p>This is especially useful when creating Views that join data that is designed to be physically partitioned across multiple tables (maybe for performance reasons, but still wants to roll-up records). Since the data is already split, having the database engine remove duplicates adds no value and just adds additional processing time to the queries.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

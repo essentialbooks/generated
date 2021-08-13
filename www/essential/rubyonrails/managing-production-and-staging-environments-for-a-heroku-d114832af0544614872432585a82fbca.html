@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>Every Heroku app runs in at least two environments: on Heroku (we’ll call that production) and on your local machine (development). If more than one person is working on the app, then you’ve got multiple development environments - one per machine, usually. Usually, each developer will also have a test environment for running tests. Unfortunately, this approach breaks down as the environments become less similar. Windows and Macs, for instance, both provide different environments than the Linux stack on Heroku, so you can’t always be sure that code that works in your local development environment will work the same way when you deploy it to production.</p><p>The solution is to have a staging environment that is as similar to production as is possible. This can be achieved by creating a second Heroku application that hosts your staging application. With staging, you can check your code in a production-like setting before having it affect your actual users.</p><p><strong>Starting from scratch</strong></p><p>Assume you have an application running on your local machine, and you’re ready to push it to Heroku. We’ll need to create both remote environments, staging and production. To get in the habit of pushing to staging first, we’ll start with this:</p>
+      
+<p>Every Heroku app runs in at least two environments: on Heroku (we’ll call that production) and on your local machine (development). If more than one person is working on the app, then you’ve got multiple development environments - one per machine, usually. Usually, each developer will also have a test environment for running tests. Unfortunately, this approach breaks down as the environments become less similar. Windows and Macs, for instance, both provide different environments than the Linux stack on Heroku, so you can’t always be sure that code that works in your local development environment will work the same way when you deploy it to production.
+</p>
+<p>The solution is to have a staging environment that is as similar to production as is possible. This can be achieved by creating a second Heroku application that hosts your staging application. With staging, you can check your code in a production-like setting before having it affect your actual users.
+</p>
+<p><strong>Starting from scratch</strong>
+</p>
+<p>Assume you have an application running on your local machine, and you’re ready to push it to Heroku. We’ll need to create both remote environments, staging and production. To get in the habit of pushing to staging first, we’ll start with this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ heroku create --remote staging
@@ -138,7 +147,10 @@ Git remote staging added</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>By default, the heroku CLI creates projects with a heroku git remote. Here, we’re specifying a different name with the –remote flag, so pushing code to Heroku and running commands against the app look a little different than the normal git push heroku master:</p>
+</div>
+<p>By default, the heroku CLI creates projects with a heroku git remote. Here, we’re specifying a different name with the –remote flag, so pushing code to Heroku and running commands against the app look a little different than the normal git push heroku master:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ git push staging master
@@ -150,7 +162,10 @@ web.1: up for 21s</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Once your staging app is up and running properly, you can create your production app:</p>
+</div>
+<p>Once your staging app is up and running properly, you can create your production app:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ heroku create --remote production
@@ -166,7 +181,9 @@ web.1: up for 16s</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And with that, you’ve got the same codebase running as two separate Heroku apps – one staging and one production, set up identically. Just remember you will have to specify which app you are going to operate on your daily work. You can either use flag ‘–remote’ or use your git config to specify a default app.</p>
+</div>
+<p>And with that, you’ve got the same codebase running as two separate Heroku apps – one staging and one production, set up identically. Just remember you will have to specify which app you are going to operate on your daily work. You can either use flag ‘–remote’ or use your git config to specify a default app.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

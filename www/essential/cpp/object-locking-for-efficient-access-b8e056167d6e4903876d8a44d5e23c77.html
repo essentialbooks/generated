@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Often you want to lock the entire object while you perform multiple operations on it. For example, if you need to examine or modify the object using <em>iterators</em>. Whenever you need to call multiple member functions it is generally more efficient to lock the whole object rather than individual member functions.</p><p>For example:</p>
+      
+<p>Often you want to lock the entire object while you perform multiple operations on it. For example, if you need to examine or modify the object using <em>iterators</em>. Whenever you need to call multiple member functions it is generally more efficient to lock the whole object rather than individual member functions.
+</p>
+<p>For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class text_buffer
@@ -167,7 +172,10 @@ private:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When calculating a checksum the object is locked for reading, allowing other threads that want to read from the object at the same time to do so.</p>
+</div>
+<p>When calculating a checksum the object is locked for reading, allowing other threads that want to read from the object at the same time to do so.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::size_t checksum(text_buffer const&amp; buf)
@@ -186,7 +194,10 @@ private:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Clearing the object updates its internal data so it must be done using an exclusing lock.</p>
+</div>
+<p>Clearing the object updates its internal data so it must be done using an exclusing lock.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void clear(text_buffer&amp; buf)
@@ -198,7 +209,10 @@ private:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When obtaining more than one lock care should be taken to always acquire the locks in the same order for all threads.</p>
+</div>
+<p>When obtaining more than one lock care should be taken to always acquire the locks in the same order for all threads.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void transfer(text_buffer const&amp; input, text_buffer&amp; output)
@@ -212,7 +226,9 @@ private:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>note:</strong> This is best done using <a href="http://en.cppreference.com/w/cpp/thread/lock_tag">std::deferred::lock</a> and calling <a href="http://en.cppreference.com/w/cpp/thread/lock">std::lock</a></p>
+</div>
+<p><strong>note:</strong> This is best done using <a href="http://en.cppreference.com/w/cpp/thread/lock_tag">std::deferred::lock</a> and calling <a href="http://en.cppreference.com/w/cpp/thread/lock">std::lock</a>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

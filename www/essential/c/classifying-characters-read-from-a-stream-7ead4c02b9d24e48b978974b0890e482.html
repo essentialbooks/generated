@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;ctype.h&gt;
@@ -155,7 +156,17 @@ chartypes classify(FILE *f) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>classify</code> function reads characters from a stream and counts the number of spaces, alphanumeric and punctuation characters. It avoids several pitfalls.</p><ul id="fd8abc24-83a9-46e0-8d05-ab5d93c0350d" class="bulleted-list"><li>When reading a character from a stream, the result is saved as an <code>int</code>, since otherwise there would be an ambiguity between reading <code>EOF</code> (the end-of-file marker) and a character that has the same bit pattern.</li><li>The character classification functions (e.g. <code>isspace</code>) expect their argument to be <em>either representable as an </em><code><em>unsigned char</em></code><em>, or the value of the </em><code><em>EOF</em></code><em> macro</em>. Since this is exactly what the <code>fgetc</code> returns, there is no need for conversion here.</li><li>The return value of the character classification functions only distinguishes between zero (meaning <code>false</code>) and nonzero (meaning <code>true</code>). For counting the number of occurrences, this value needs to be converted to a 1 or 0, which is done by the double negation, <code>!!</code>.</li></ul>
+</div>
+<p>The <code>classify</code> function reads characters from a stream and counts the number of spaces, alphanumeric and punctuation characters. It avoids several pitfalls.
+</p>
+  <ul id="fd8abc24-83a9-46e0-8d05-ab5d93c0350d" class="bulleted-list">
+    <li>When reading a character from a stream, the result is saved as an <code>int</code>, since otherwise there would be an ambiguity between reading <code>EOF</code> (the end-of-file marker) and a character that has the same bit pattern.
+    </li>
+    <li>The character classification functions (e.g. <code>isspace</code>) expect their argument to be <em>either representable as an </em><code><em>unsigned char</em></code><em>, or the value of the </em><code><em>EOF</em></code><em> macro</em>. Since this is exactly what the <code>fgetc</code> returns, there is no need for conversion here.
+    </li>
+    <li>The return value of the character classification functions only distinguishes between zero (meaning <code>false</code>) and nonzero (meaning <code>true</code>). For counting the number of occurrences, this value needs to be converted to a 1 or 0, which is done by the double negation, <code>!!</code>.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

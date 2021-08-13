@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Sometimes we will need to run commands against a lot of files. This can be done using <code>xargs</code>.</p>
+      
+<p>Sometimes we will need to run commands against a lot of files. This can be done using <code>xargs</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">find . -type d -print | xargs -r chmod 770</pre>
@@ -135,7 +138,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above command will recursively find all directories (<code>-type d</code>) relative to <code>.</code> (which is your current working directory), and execute <code>chmod 770</code> on them. The <code>-r</code> option specifies to <code>xargs</code> to not run <code>chmod</code> if <code>find</code> did not find any files.</p><p>If your files names or directories have a space character in them, this command may choke; a solution is to use the following</p>
+</div>
+<p>The above command will recursively find all directories (<code>-type d</code>) relative to <code>.</code> (which is your current working directory), and execute <code>chmod 770</code> on them. The <code>-r</code> option specifies to <code>xargs</code> to not run <code>chmod</code> if <code>find</code> did not find any files.
+</p>
+<p>If your files names or directories have a space character in them, this command may choke; a solution is to use the following
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">find . -type d -print0 | xargs -r -0 chmod 770</pre>
@@ -143,7 +151,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In the above example, the <code>-print0</code> and <code>-0</code> flags specify that the file names will be separated using a <code>null</code> byte, and allows the use of special characters, like spaces, in the file names. This is a GNU extension, and may not work in other versions of <code>find</code> and <code>xargs</code>.</p><hr id="1f692237-4d0e-4922-b311-b02ca6f3383f"/><p>The preferred way to do this is to skip the <code>xargs</code> command and let <code>find</code> call the subprocess itself:</p>
+</div>
+<p>In the above example, the <code>-print0</code> and <code>-0</code> flags specify that the file names will be separated using a <code>null</code> byte, and allows the use of special characters, like spaces, in the file names. This is a GNU extension, and may not work in other versions of <code>find</code> and <code>xargs</code>.
+</p>
+<hr id="1f692237-4d0e-4922-b311-b02ca6f3383f"/>
+<p>The preferred way to do this is to skip the <code>xargs</code> command and let <code>find</code> call the subprocess itself:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">find . -type d -exec chmod 770 {} \;</pre>
@@ -151,7 +165,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, the <code>{}</code> is a placeholder indicating that you want to use the file name at that point. <code>find</code> will execute <code>chmod</code> on each file individually.</p><p>You can alternatively pass all file names to a <em>single</em> call of <code>chmod</code>, by using</p>
+</div>
+<p>Here, the <code>{}</code> is a placeholder indicating that you want to use the file name at that point. <code>find</code> will execute <code>chmod</code> on each file individually.
+</p>
+<p>You can alternatively pass all file names to a <em>single</em> call of <code>chmod</code>, by using
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">find . -type d -exec chmod 770 {} +</pre>
@@ -159,7 +178,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is also the behaviour of the above <code>xargs</code> snippets. (To call on each file individually, you can use <code>xargs -n1</code>).</p><hr id="3e6ed763-a724-4d26-993d-1fc45b6226fa"/><p>A third option is to let bash loop over the list of filenames <code>find</code> outputs:</p>
+</div>
+<p>This is also the behaviour of the above <code>xargs</code> snippets. (To call on each file individually, you can use <code>xargs -n1</code>).
+</p>
+<hr id="3e6ed763-a724-4d26-993d-1fc45b6226fa"/>
+<p>A third option is to let bash loop over the list of filenames <code>find</code> outputs:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">find . -type d | while read -r d; do chmod 770 &#34;$d&#34;; done</pre>
@@ -167,7 +192,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is syntactically the most clunky, but convenient when you want to run multiple commands on each found file. However, this is <strong>unsafe</strong> in the face of file names with odd names.</p>
+</div>
+<p>This is syntactically the most clunky, but convenient when you want to run multiple commands on each found file. However, this is <strong>unsafe</strong> in the face of file names with odd names.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">find . -type f | while read -r d; do mv &#34;$d&#34; &#34;${d// /_}&#34;; done</pre>
@@ -175,7 +203,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>which will replace all spaces in file names with underscores.(This example also won’t work if there are spaces in leading <em>directory</em> names.)</p><p>The problem with the above is that <code>while read -r</code> expects one entry per line, but file names can contain newlines (and also, <code>read -r</code> will lose any trailing whitespace). You can fix this by turning things around:</p>
+</div>
+<p>which will replace all spaces in file names with underscores.(This example also won’t work if there are spaces in leading <em>directory</em> names.)
+</p>
+<p>The problem with the above is that <code>while read -r</code> expects one entry per line, but file names can contain newlines (and also, <code>read -r</code> will lose any trailing whitespace). You can fix this by turning things around:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">find . -type d -exec bash -c &#39;for f; do mv &#34;$f&#34; &#34;${f// /_}&#34;; done&#39; _ {} +</pre>
@@ -183,7 +216,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This way, the <code>-exec</code> receives the file names in a form which is completely correct and portable; the <code>bash -c</code> receives them as a number of arguments, which will be found in <a href="/documentation/bash/4797/internal-variables/16891/%24%40"><code>$@</code></a>, correctly quoted etc. (The script will need to handle these names correctly, of course; every variable which contains a file name needs to be in double quotes.)</p><p>The mysterious <code>\_</code> is necessary because the first argument to <code>bash -c &#x27;script&#x27;</code> is used to populate <code>$0</code>.</p>
+</div>
+<p>This way, the <code>-exec</code> receives the file names in a form which is completely correct and portable; the <code>bash -c</code> receives them as a number of arguments, which will be found in <a href="/documentation/bash/4797/internal-variables/16891/%24%40"><code>$@</code></a>, correctly quoted etc. (The script will need to handle these names correctly, of course; every variable which contains a file name needs to be in double quotes.)
+</p>
+<p>The mysterious <code>\_</code> is necessary because the first argument to <code>bash -c &#x27;script&#x27;</code> is used to populate <code>$0</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

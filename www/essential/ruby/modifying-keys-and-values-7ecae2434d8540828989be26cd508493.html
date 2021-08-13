@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>You can create a new hash with the keys or values modified, indeed you can also add or delete keys, using <a href="http://ruby-doc.org/core-2.3.1/Enumerable.html#method-i-inject">inject</a> (AKA, <a href="https://ruby-doc.org/core-2.4.1/Enumerable.html#method-i-reduce">reduce</a>). For example to produce a hash with stringified keys and upper case values:</p>
+      
+<p>You can create a new hash with the keys or values modified, indeed you can also add or delete keys, using <a href="http://ruby-doc.org/core-2.3.1/Enumerable.html#method-i-inject">inject</a> (AKA, <a href="https://ruby-doc.org/core-2.4.1/Enumerable.html#method-i-reduce">reduce</a>). For example to produce a hash with stringified keys and upper case values:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">fruit = { name: &#39;apple&#39;, color: &#39;green&#39;, shape: &#39;round&#39; }
@@ -140,7 +143,14 @@ new_fruit = fruit.inject({}) { |memo, (k,v)| memo[k.to_s] = v.upcase; memo }
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Hash is an <a href="ruby-doc.org/core-2.3.1/Enumerable.html">enumerable</a>, in essence a collection of key/value pairs. Therefore is has methods such as <code>each</code>, <code>map</code> and <code>inject</code>.</p><p>For every key/value pair in the hash the given block is evaluated, the value of memo on the first run is the seed value passed to <code>inject</code>, in our case an empty hash, <code>{}</code>. The value of <code>memo</code> for subsequent evaluations is the returned value of the previous blocks evaluation, this is why we modify <code>memo</code> by setting a key with a value and then return <code>memo</code> at the end. The return value of the final blocks evaluation is the return value of <code>inject</code>, in our case <code>memo</code>.</p><p>To avoid the having to provide the final value, you could use <a href="http://ruby-doc.org/core-2.3.1/Enumerable.html#method-i-each_with_object">each_with_object</a> instead:</p>
+</div>
+<p>Hash is an <a href="ruby-doc.org/core-2.3.1/Enumerable.html">enumerable</a>, in essence a collection of key/value pairs. Therefore is has methods such as <code>each</code>, <code>map</code> and <code>inject</code>.
+</p>
+<p>For every key/value pair in the hash the given block is evaluated, the value of memo on the first run is the seed value passed to <code>inject</code>, in our case an empty hash, <code>{}</code>. The value of <code>memo</code> for subsequent evaluations is the returned value of the previous blocks evaluation, this is why we modify <code>memo</code> by setting a key with a value and then return <code>memo</code> at the end. The return value of the final blocks evaluation is the return value of <code>inject</code>, in our case <code>memo</code>.
+</p>
+<p>To avoid the having to provide the final value, you could use <a href="http://ruby-doc.org/core-2.3.1/Enumerable.html#method-i-each_with_object">each_with_object</a> instead:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">new_fruit = fruit.each_with_object({}) { |(k,v), memo| memo[k.to_s] = v.upcase }</pre>
@@ -148,7 +158,10 @@ new_fruit = fruit.inject({}) { |memo, (k,v)| memo[k.to_s] = v.upcase; memo }
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Or even <a href="https://ruby-doc.org/core-2.4.1/Enumerable.html#method-i-map">map</a>:</p>
+</div>
+<p>Or even <a href="https://ruby-doc.org/core-2.4.1/Enumerable.html#method-i-map">map</a>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;!-- if version [gte 1.8] --&gt;
@@ -158,7 +171,9 @@ new_fruit = Hash[fruit.map{ |k,v| [k.to_s, v.upcase] }]
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>(See <a href="http://stackoverflow.com/a/5189259/7948068">this answer</a> for more details, including how to manipulate hashes in place.)</p>
+</div>
+<p>(See <a href="http://stackoverflow.com/a/5189259/7948068">this answer</a> for more details, including how to manipulate hashes in place.)
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

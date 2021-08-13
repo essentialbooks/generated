@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Arrays have fixed lengths that are known within the scope of their declarations. Nevertheless, it is possible and sometimes convenient to calculate array lengths. In particular, this can make code more flexible when the array length is determined automatically from an initializer:</p>
+      
+<p>Arrays have fixed lengths that are known within the scope of their declarations. Nevertheless, it is possible and sometimes convenient to calculate array lengths. In particular, this can make code more flexible when the array length is determined automatically from an initializer:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int array[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -141,7 +144,12 @@ size_t length = sizeof(array) / sizeof(array[0]);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, in most contexts where an array appears in an expression, it is automatically converted to (“decays to”) a pointer to its first element. The case where an array is the operand of the <code>sizeof</code> operator is one of a small number of exceptions. The resulting pointer is not itself an array, and it does not carry any information about the length of the array from which it was derived. Therefore, if that length is needed in conjunction with the pointer, such as when the pointer is passed to a function, then it must be conveyed separately.</p><p>For example, suppose we want to write a function to return the last element of an array of <code>int</code>. Continuing from the above, we might call it like so:</p>
+</div>
+<p>However, in most contexts where an array appears in an expression, it is automatically converted to (“decays to”) a pointer to its first element. The case where an array is the operand of the <code>sizeof</code> operator is one of a small number of exceptions. The resulting pointer is not itself an array, and it does not carry any information about the length of the array from which it was derived. Therefore, if that length is needed in conjunction with the pointer, such as when the pointer is passed to a function, then it must be conveyed separately.
+</p>
+<p>For example, suppose we want to write a function to return the last element of an array of <code>int</code>. Continuing from the above, we might call it like so:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/* array will decay to a pointer, so the length must be passed separately */
@@ -150,7 +158,10 @@ int last = get_last(array, length);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The function could be implemented like this:</p>
+</div>
+<p>The function could be implemented like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int get_last(int input[], size_t length) {
@@ -160,7 +171,12 @@ int last = get_last(array, length);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note in particular that although the declaration of parameter <code>input</code> resembles that of an array, <strong>it in fact declares </strong><code><strong>input</strong></code><strong> as a pointer</strong> (to <code>int</code>). It is exactly equivalent to declaring <code>input</code> as <code>int *input</code>. The same would be true even if a dimension were given. This is possible because arrays cannot ever be actual arguments to functions (they decay to pointers when they appear in function call expressions), and it can be viewed as mnemonic.</p><p>It is a very common error to attempt to determine array size from a pointer, which cannot work. DO NOT DO THIS:</p>
+</div>
+<p>Note in particular that although the declaration of parameter <code>input</code> resembles that of an array, <strong>it in fact declares </strong><code><strong>input</strong></code><strong> as a pointer</strong> (to <code>int</code>). It is exactly equivalent to declaring <code>input</code> as <code>int *input</code>. The same would be true even if a dimension were given. This is possible because arrays cannot ever be actual arguments to functions (they decay to pointers when they appear in function call expressions), and it can be viewed as mnemonic.
+</p>
+<p>It is a very common error to attempt to determine array size from a pointer, which cannot work. DO NOT DO THIS:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int BAD_get_last(int input[]) {
@@ -173,7 +189,10 @@ int last = get_last(array, length);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In fact, that particular error is so common that some compilers recognize it and warn about it. <code>clang</code>, for instance, will emit the following warning:</p>
+</div>
+<p>In fact, that particular error is so common that some compilers recognize it and warn about it. <code>clang</code>, for instance, will emit the following warning:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">warning: sizeof on array function parameter will return size of &#39;int *&#39; instead of &#39;int []&#39; [-Wsizeof-array-argument]

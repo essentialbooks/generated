@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>An rvalue expression is any expression which can be implicitly moved from, regardless of whether it has identity.</p><p>More precisely, rvalue expressions may be used as the argument to a function that takes a parameter of type <code>T &amp;&amp;</code> (where <code>T</code> is the type of <code>expr</code>). <em>Only</em> rvalue expressions may be given as arguments to such function parameters; if a non-rvalue expression is used, then overload resolution will pick any function that does not use an rvalue reference parameter. And if none exist, then you get an error.</p><p>The category of rvalue expressions includes all xvalue and prvalue expressions, and only those expressions.</p><p>The standard library function <code>std::move</code> exists to explicitly transform a non-rvalue expression into an rvalue. More specifically, it turns the expression into an xvalue, since even if it was an identity-less prvalue expression before, by passing it as a parameter to <code>std::move</code>, it gains identity (the function’s parameter name) and becomes an xvalue.</p><p>Consider the following:</p>
+      
+<p>An rvalue expression is any expression which can be implicitly moved from, regardless of whether it has identity.
+</p>
+<p>More precisely, rvalue expressions may be used as the argument to a function that takes a parameter of type <code>T &amp;&amp;</code> (where <code>T</code> is the type of <code>expr</code>). <em>Only</em> rvalue expressions may be given as arguments to such function parameters; if a non-rvalue expression is used, then overload resolution will pick any function that does not use an rvalue reference parameter. And if none exist, then you get an error.
+</p>
+<p>The category of rvalue expressions includes all xvalue and prvalue expressions, and only those expressions.
+</p>
+<p>The standard library function <code>std::move</code> exists to explicitly transform a non-rvalue expression into an rvalue. More specifically, it turns the expression into an xvalue, since even if it was an identity-less prvalue expression before, by passing it as a parameter to <code>std::move</code>, it gains identity (the function’s parameter name) and becomes an xvalue.
+</p>
+<p>Consider the following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::string str(&#34;init&#34;);                       //1
@@ -141,7 +152,19 @@ std::string test3(str_ref);                    //6</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>std::string</code> has a constructor which takes a single parameter of type <code>std::string&amp;&amp;</code>, commonly called a “move constructor”. However, the value category of the expression <code>str</code> is not an rvalue (specifically it is an lvalue), so it cannot call that constructor overload. Instead, it calls the <code>const std::string&amp;</code> overload, the copy constructor.</p><p>Line 3 changes things. The return value of <code>std::move</code> is a <code>T&amp;&amp;</code>, where <code>T</code> is the base type of the parameter passed in. So <code>std::move(str)</code> returns <code>std::string&amp;&amp;</code>. A function call who’s return value is an rvalue reference is an rvalue expression (specifically an xvalue), so it may call the move constructor of <code>std::string</code>. After line 3, <code>str</code> has been moved from (who’s contents are now undefined).</p><p>Line 4 passes a temporary to the assignment operator of <code>std::string</code>. This has an overload which takes a <code>std::string&amp;&amp;</code>. The expression <code>std::string(&quot;new value&quot;)</code> is an rvalue expression (specifically a prvalue), so it may call that overload. Thus, the temporary is moved into <code>str</code>, replacing the undefined contents with specific contents.</p><p>Line 5 creates a named rvalue reference called <code>str_ref</code> that refers to <code>str</code>. This is where value categories get confusing.</p><p>See, while <code>str_ref</code> is an rvalue reference to <code>std::string</code>, the value category of the expression <code>str_ref</code> <em>is not an rvalue</em>. It is an lvalue expression. Yes, really. Because of this, one cannot call the move constructor of <code>std::string</code> with the expression <code>str_ref</code>. Line 6 therefore <em>copies</em> the value of <code>str</code> into <code>test3</code>.</p><p>To move it, we would have to employ <code>std::move</code> again.</p>
+</div>
+<p><code>std::string</code> has a constructor which takes a single parameter of type <code>std::string&amp;&amp;</code>, commonly called a “move constructor”. However, the value category of the expression <code>str</code> is not an rvalue (specifically it is an lvalue), so it cannot call that constructor overload. Instead, it calls the <code>const std::string&amp;</code> overload, the copy constructor.
+</p>
+<p>Line 3 changes things. The return value of <code>std::move</code> is a <code>T&amp;&amp;</code>, where <code>T</code> is the base type of the parameter passed in. So <code>std::move(str)</code> returns <code>std::string&amp;&amp;</code>. A function call who’s return value is an rvalue reference is an rvalue expression (specifically an xvalue), so it may call the move constructor of <code>std::string</code>. After line 3, <code>str</code> has been moved from (who’s contents are now undefined).
+</p>
+<p>Line 4 passes a temporary to the assignment operator of <code>std::string</code>. This has an overload which takes a <code>std::string&amp;&amp;</code>. The expression <code>std::string(&quot;new value&quot;)</code> is an rvalue expression (specifically a prvalue), so it may call that overload. Thus, the temporary is moved into <code>str</code>, replacing the undefined contents with specific contents.
+</p>
+<p>Line 5 creates a named rvalue reference called <code>str_ref</code> that refers to <code>str</code>. This is where value categories get confusing.
+</p>
+<p>See, while <code>str_ref</code> is an rvalue reference to <code>std::string</code>, the value category of the expression <code>str_ref</code> <em>is not an rvalue</em>. It is an lvalue expression. Yes, really. Because of this, one cannot call the move constructor of <code>std::string</code> with the expression <code>str_ref</code>. Line 6 therefore <em>copies</em> the value of <code>str</code> into <code>test3</code>.
+</p>
+<p>To move it, we would have to employ <code>std::move</code> again.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

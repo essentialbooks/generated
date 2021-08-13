@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>To conditionally include a block of code, the preprocessor has several directives (e.g <code>#if</code>, <code>#ifdef</code>, <code>#else</code>, <code>#endif</code>, etc).</p>
+      
+<p>To conditionally include a block of code, the preprocessor has several directives (e.g <code>#if</code>, <code>#ifdef</code>, <code>#else</code>, <code>#endif</code>, etc).
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/* Defines a conditional `printf` macro, which only prints if `DEBUG`
@@ -142,7 +145,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Normal C relational operators may be used for the <code>#if</code> condition</p>
+</div>
+<p>Normal C relational operators may be used for the <code>#if</code> condition
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#if __STDC_VERSION__ &gt;= 201112L
@@ -156,7 +162,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>#if</code> directives behaves similar to the C <code>if</code> statement, it shall only contain integral constant expressions, and no casts. It supports one additional unary operator, <code>defined( identifier )</code>, which returns <code>1</code> if the identifier is defined, and <code>0</code> otherwise.</p>
+</div>
+<p>The <code>#if</code> directives behaves similar to the C <code>if</code> statement, it shall only contain integral constant expressions, and no casts. It supports one additional unary operator, <code>defined( identifier )</code>, which returns <code>1</code> if the identifier is defined, and <code>0</code> otherwise.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#if defined(DEBUG) &amp;&amp; !defined(QUIET)
@@ -168,7 +177,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Conditional Function Signature Modification</strong></p><p>In most cases a release build of an application is expected to have as little overhead as possible. However during testing of an interim build, additional logs and information about problems found can be helpful.</p><p>For example assume there is some function <code>SHORT SerOpPluAllRead(PLUIF *pPif, USHORT usLockHnd)</code> which when doing a test build it is desired will generate a log about its use. However this function is used in multiple places and it is desired that when generating the log, part of the information is to know where is the function being called from.</p><p>So using conditional compilation you can have something like the following in the include file declaring the function. This replaces the standard version of the function with a debug version of the function. The preprocessor is used to replace calls to the function <code>SerOpPluAllRead()</code> with calls to the function <code>SerOpPluAllRead_Debug()</code> with two additional arguments, the name of the file and the line number of where the function is used.</p><p>Conditional compilation is used to choose whether to override the standard function with a debug version or not.</p>
+</div>
+<p><strong>Conditional Function Signature Modification</strong>
+</p>
+<p>In most cases a release build of an application is expected to have as little overhead as possible. However during testing of an interim build, additional logs and information about problems found can be helpful.
+</p>
+<p>For example assume there is some function <code>SHORT SerOpPluAllRead(PLUIF *pPif, USHORT usLockHnd)</code> which when doing a test build it is desired will generate a log about its use. However this function is used in multiple places and it is desired that when generating the log, part of the information is to know where is the function being called from.
+</p>
+<p>So using conditional compilation you can have something like the following in the include file declaring the function. This replaces the standard version of the function with a debug version of the function. The preprocessor is used to replace calls to the function <code>SerOpPluAllRead()</code> with calls to the function <code>SerOpPluAllRead_Debug()</code> with two additional arguments, the name of the file and the line number of where the function is used.
+</p>
+<p>Conditional compilation is used to choose whether to override the standard function with a debug version or not.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#if 0
@@ -185,7 +205,14 @@ SHORT   SerOpPluAllRead(PLUIF *pPif, USHORT usLockHnd);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This allows you to override the standard version of the function <code>SerOpPluAllRead()</code> with a version that will provide the name of the file and line number in the file of where the function is called.</p><p><strong>There is one important consideration:</strong> <em>any file using this function must include the header file where this approach is used in order for the preprocessor to modify the function. Otherwise you will see a linker error.</em></p><p>The definition of the function would look something like the following. What this source does is to request that the preprocessor rename the function <code>SerOpPluAllRead()</code> to be <code>SerOpPluAllRead_Debug()</code> and to modify the argument list to include two additional arguments, a pointer to the name of the file where the function was called and the line number in the file at which the function is used.</p>
+</div>
+<p>This allows you to override the standard version of the function <code>SerOpPluAllRead()</code> with a version that will provide the name of the file and line number in the file of where the function is called.
+</p>
+<p><strong>There is one important consideration:</strong> <em>any file using this function must include the header file where this approach is used in order for the preprocessor to modify the function. Otherwise you will see a linker error.</em>
+</p>
+<p>The definition of the function would look something like the following. What this source does is to request that the preprocessor rename the function <code>SerOpPluAllRead()</code> to be <code>SerOpPluAllRead_Debug()</code> and to modify the argument list to include two additional arguments, a pointer to the name of the file where the function was called and the line number in the file at which the function is used.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#if defined(SerOpPluAllRead)

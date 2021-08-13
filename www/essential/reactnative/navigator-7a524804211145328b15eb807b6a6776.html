@@ -127,7 +127,10 @@
 </div>
 
 
-      <p><code>Navigator</code> is React Native’s default navigator. A <code>Navigator</code> component manages a <em>stack</em> of route objects, and provides methods for managing that stack.</p>
+      
+<p><code>Navigator</code> is React Native’s default navigator. A <code>Navigator</code> component manages a <em>stack</em> of route objects, and provides methods for managing that stack.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;Navigatorref={(navigator) =&gt; { this.navigator = navigator }}initialRoute={{ id: &#39;route1&#39;, title: &#39;Route 1&#39; }}renderScene={this.renderScene.bind(this)}configureScene={(route) =&gt; Navigator.SceneConfigs.FloatFromRight}style={{ flex: 1 }}navigationBar={// see &#34;Managing the Navigation Bar&#34; below&lt;Navigator.NavigationBar routeMapper={this.routeMapper} /&gt;}/&gt;</pre>
@@ -135,7 +138,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Managing the Route Stack</strong></p><p>First of all, notice the <code>initialRoute</code> prop. A route is simply a javascript object, and can take whatever shape you want, and have whatever values you want. It’s the primary way you’ll pass values and methods between components in your navigation stack.</p><p>The <code>Navigator</code> knows what to render based on the value returned from its <code>renderScene</code> prop.</p>
+</div>
+<p><strong>Managing the Route Stack</strong>
+</p>
+<p>First of all, notice the <code>initialRoute</code> prop. A route is simply a javascript object, and can take whatever shape you want, and have whatever values you want. It’s the primary way you’ll pass values and methods between components in your navigation stack.
+</p>
+<p>The <code>Navigator</code> knows what to render based on the value returned from its <code>renderScene</code> prop.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">renderScene(route, navigator) {if (route.id === &#39;route1&#39;) {return &lt;ExampleScene navigator={navigator} title={route.title} /&gt;; // see below} else if (route.id === &#39;route2&#39;) {return &lt;ExampleScene navigator={navigator} title={route.title} /&gt;; // see below}}</pre>
@@ -143,7 +153,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Let’s imagine an implementation of <code>ExampleScene</code> in this example:</p>
+</div>
+<p>Let’s imagine an implementation of <code>ExampleScene</code> in this example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">function ExampleScene(props) {function forward() {// this route object will passed along to our `renderScene` function we defined above.props.navigator.push({ id: &#39;route2&#39;, title: &#39;Route 2&#39; });}function back() {// `pop` simply pops one route object off the `Navigator`&#39;s stackprops.navigator.pop();}return (&lt;View&gt;&lt;Text&gt;{props.title}&lt;/Text&gt;&lt;TouchableOpacity onPress={forward}&gt;&lt;Text&gt;Go forward!&lt;/Text&gt;&lt;/TouchableOpacity&gt;&lt;TouchableOpacity onPress={back}&gt;&lt;Text&gt;Go Back!&lt;/Text&gt;&lt;/TouchableOpacity&gt;&lt;/View&gt;);}</pre>
@@ -151,7 +164,36 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Configuring the Navigator</strong></p><p>You can configure the <code>Navigator</code>‘s transitions with the <code>configureScene</code> prop. This is a function that’s passed the <code>route</code> object, and needs to return a configuration object. These are the available configuration objects:</p><ul id="768dd06f-c96a-4d40-8981-737f69cf8f67" class="bulleted-list"><li>Navigator.SceneConfigs.PushFromRight (default)</li><li>Navigator.SceneConfigs.FloatFromRight</li><li>Navigator.SceneConfigs.FloatFromLeft</li><li>Navigator.SceneConfigs.FloatFromBottom</li><li>Navigator.SceneConfigs.FloatFromBottomAndroid</li><li>Navigator.SceneConfigs.FadeAndroid</li><li>Navigator.SceneConfigs.HorizontalSwipeJump</li><li>Navigator.SceneConfigs.HorizontalSwipeJumpFromRight</li><li>Navigator.SceneConfigs.VerticalUpSwipeJump</li><li>Navigator.SceneConfigs.VerticalDownSwipeJump</li></ul><p>You can return one of these objects without modification, or you can modify the configuration object to customize the navigation transitions. For example, to modify the edge hit width to more closely emulate the iOS <code>UINavigationController</code>’s <code>interactivePopGestureRecognizer</code>:</p>
+</div>
+<p><strong>Configuring the Navigator</strong>
+</p>
+<p>You can configure the <code>Navigator</code>‘s transitions with the <code>configureScene</code> prop. This is a function that’s passed the <code>route</code> object, and needs to return a configuration object. These are the available configuration objects:
+</p>
+  <ul id="768dd06f-c96a-4d40-8981-737f69cf8f67" class="bulleted-list">
+    <li>Navigator.SceneConfigs.PushFromRight (default)
+    </li>
+    <li>Navigator.SceneConfigs.FloatFromRight
+    </li>
+    <li>Navigator.SceneConfigs.FloatFromLeft
+    </li>
+    <li>Navigator.SceneConfigs.FloatFromBottom
+    </li>
+    <li>Navigator.SceneConfigs.FloatFromBottomAndroid
+    </li>
+    <li>Navigator.SceneConfigs.FadeAndroid
+    </li>
+    <li>Navigator.SceneConfigs.HorizontalSwipeJump
+    </li>
+    <li>Navigator.SceneConfigs.HorizontalSwipeJumpFromRight
+    </li>
+    <li>Navigator.SceneConfigs.VerticalUpSwipeJump
+    </li>
+    <li>Navigator.SceneConfigs.VerticalDownSwipeJump
+    </li>
+  </ul>
+<p>You can return one of these objects without modification, or you can modify the configuration object to customize the navigation transitions. For example, to modify the edge hit width to more closely emulate the iOS <code>UINavigationController</code>’s <code>interactivePopGestureRecognizer</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">configureScene={(route) =&gt; {return {...Navigator.SceneConfigs.FloatFromRight,gestures: {pop: {...Navigator.SceneConfigs.FloatFromRight.gestures.pop,edgeHitWidth: Dimensions.get(&#39;window&#39;).width / 2,},},};}}</pre>
@@ -159,7 +201,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Managing the NavigationBar</strong></p><p>The <code>Navigator</code> component comes with a <code>navigationBar</code> prop, which can theoretically take any properly configured React component. But the most common implementation uses the default <code>Navigator.NavigationBar</code>. This takes a <code>routeMapper</code> prop that you can use to configure the appearance of the navigation bar based on the route.</p><p>A <code>routeMapper</code> is a regular javascript object with three functions: <code>Title</code>, <code>RightButton</code>, and <code>LeftButton</code>. For example:</p>
+</div>
+<p><strong>Managing the NavigationBar</strong>
+</p>
+<p>The <code>Navigator</code> component comes with a <code>navigationBar</code> prop, which can theoretically take any properly configured React component. But the most common implementation uses the default <code>Navigator.NavigationBar</code>. This takes a <code>routeMapper</code> prop that you can use to configure the appearance of the navigation bar based on the route.
+</p>
+<p>A <code>routeMapper</code> is a regular javascript object with three functions: <code>Title</code>, <code>RightButton</code>, and <code>LeftButton</code>. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">const routeMapper = {LeftButton(route, navigator, index, navState) {if (index === 0) {return null;}return (&lt;TouchableOpacityonPress={() =&gt; navigator.pop()}style={styles.navBarLeftButton}&gt;&lt;Text&gt;Back&lt;/Text&gt;&lt;/TouchableOpacity&gt;);},RightButton(route, navigator, index, navState) {return (&lt;TouchableOpacityonPress={route.handleRightButtonClick}style={styles.navBarRightButton}&gt;&lt;Text&gt;Next&lt;/Text&gt;&lt;/TouchableOpacity&gt;);},Title(route, navigator, index, navState) {return (&lt;Text&gt;{route.title}&lt;/Text&gt;);},};</pre>
@@ -167,7 +216,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>See more</strong></p><p>For more detailed documentation of each prop, see the <a href="https://facebook.github.io/react-native/docs/navigator.html">the official React Native Documentation for </a><a href="https://facebook.github.io/react-native/docs/navigator.html"><code>Navigator</code></a>, and the React Native guide on <a href="https://facebook.github.io/react-native/docs/using-navigators.html">Using Navigators</a>.</p>
+</div>
+<p><strong>See more</strong>
+</p>
+<p>For more detailed documentation of each prop, see the <a href="https://facebook.github.io/react-native/docs/navigator.html">the official React Native Documentation for </a><a href="https://facebook.github.io/react-native/docs/navigator.html"><code>Navigator</code></a>, and the React Native guide on <a href="https://facebook.github.io/react-native/docs/using-navigators.html">Using Navigators</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

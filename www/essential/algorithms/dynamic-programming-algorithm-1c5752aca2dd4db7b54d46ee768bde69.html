@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Notice that if we consider the path (in order):</p>
+      
+<p>Notice that if we consider the path (in order):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">(1,2,3,4,6,0,5,7)</pre>
@@ -135,7 +138,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>and the path</p>
+</div>
+<p>and the path
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">(1,2,3,5,0,6,7,4)</pre>
@@ -143,7 +149,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The cost of going from vertex <code>1</code> to vertex <code>2</code> to vertex <code>3</code> remains the same, so why must it be recalculated? This result can be saved for later use.</p><p>Let <code>dp[bitmask][vertex]</code> represent the minimum cost of travelling through all the vertices whose corresponding bit in <code>bitmask</code> is set to <code>1</code> ending at <code>vertex</code>. For example:</p>
+</div>
+<p>The cost of going from vertex <code>1</code> to vertex <code>2</code> to vertex <code>3</code> remains the same, so why must it be recalculated? This result can be saved for later use.
+</p>
+<p>Let <code>dp[bitmask][vertex]</code> represent the minimum cost of travelling through all the vertices whose corresponding bit in <code>bitmask</code> is set to <code>1</code> ending at <code>vertex</code>. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">dp[12][2] 
@@ -155,7 +166,12 @@ vertices:   3 2 1 0</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since <code>12</code> represents <code>1100</code> in binary, <code>dp[12][2]</code> represents going through vertices <code>2</code> and <code>3</code> in the graph with the path ending at vertex 2.</p><p>Thus we can have the following algorithm (C++ implementation):</p>
+</div>
+<p>Since <code>12</code> represents <code>1100</code> in binary, <code>dp[12][2]</code> represents going through vertices <code>2</code> and <code>3</code> in the graph with the path ending at vertex 2.
+</p>
+<p>Thus we can have the following algorithm (C++ implementation):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int cost[N][N];                        //Adjust the value of N if needed
@@ -181,7 +197,10 @@ int TSP(int bitmask, int pos){
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This line may be a little confusing, so lets go through it slowly:</p>
+</div>
+<p>This line may be a little confusing, so lets go through it slowly:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cost = min(cost,TSP(bitmask | (1 &lt;&lt; i) , i) + cost[pos][i]);</pre>
@@ -189,7 +208,15 @@ int TSP(int bitmask, int pos){
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, <code>bitmask | (1 &lt;&lt; i)</code> sets the ith bit of <code>bitmask</code> to 1, which represents that the ith vertex has been visited. The <code>i</code> after the comma represents the new <code>pos</code> in that function call, which represents the new “last” vertex. <code>cost[pos][i]</code> is to add the cost of travelling from vertex <code>pos</code> to vertex <code>i</code>.</p><p>Thus, this line is to update the value of <code>cost</code> to the minimum possible value of travelling to every other vertex that has not been visited yet.</p><p><strong>Time Complexity</strong></p><p>The function <code>TSP(bitmask,pos)</code> has <code>2^N</code> values for <code>bitmask</code> and <code>N</code> values for <code>pos</code>. Each function takes <code>O(N)</code> time to run (the <code>for</code> loop). Thus this implementation takes <code>O(N^2 * 2^N)</code> time to output the exact answer.</p>
+</div>
+<p>Here, <code>bitmask | (1 &lt;&lt; i)</code> sets the ith bit of <code>bitmask</code> to 1, which represents that the ith vertex has been visited. The <code>i</code> after the comma represents the new <code>pos</code> in that function call, which represents the new “last” vertex. <code>cost[pos][i]</code> is to add the cost of travelling from vertex <code>pos</code> to vertex <code>i</code>.
+</p>
+<p>Thus, this line is to update the value of <code>cost</code> to the minimum possible value of travelling to every other vertex that has not been visited yet.
+</p>
+<p><strong>Time Complexity</strong>
+</p>
+<p>The function <code>TSP(bitmask,pos)</code> has <code>2^N</code> values for <code>bitmask</code> and <code>N</code> values for <code>pos</code>. Each function takes <code>O(N)</code> time to run (the <code>for</code> loop). Thus this implementation takes <code>O(N^2 * 2^N)</code> time to output the exact answer.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

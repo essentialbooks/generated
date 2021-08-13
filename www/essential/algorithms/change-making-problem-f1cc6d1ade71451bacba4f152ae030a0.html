@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Given a money system, is it possible to give an amount of coins and how to find a minimal set of coins corresponding to this amount.</p><p><strong>Canonical money systems.</strong> For some money system, like the ones we use in the real life, the “intuitive” solution works perfectly. For example, if the different euro coins and bills (excluding cents) are 1€, 2€, 5€, 10€, giving the highest coin or bill until we reach the amount and repeating this procedure will lead to the minimal set of coins.</p><p>We can do that recursively with OCaml :</p>
+      
+<p>Given a money system, is it possible to give an amount of coins and how to find a minimal set of coins corresponding to this amount.
+</p>
+<p><strong>Canonical money systems.</strong> For some money system, like the ones we use in the real life, the “intuitive” solution works perfectly. For example, if the different euro coins and bills (excluding cents) are 1€, 2€, 5€, 10€, giving the highest coin or bill until we reach the amount and repeating this procedure will lead to the minimal set of coins.
+</p>
+<p>We can do that recursively with OCaml :
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">(* assuming the money system is sorted in decreasing order *)
@@ -143,7 +150,16 @@ let change_make money_system amount =
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>These systems are made so that change-making is easy. The problem gets harder when it comes to arbitrary money system.</p><p><strong>General case.</strong> How to give 99€ with coins of 10€, 7€ and 5€? Here, giving coins of 10€ until we are left with 9€ leads obviously to no solution. Worse than that a solution may not exist. This problem is in fact np-hard, but acceptable solutions mixing <strong>greediness</strong> and <strong>memoization</strong> exist. The idea is to explore all the possibilies and pick the one with the minimal number of coins.</p><p>To give an amount X &gt; 0, we choose a piece P in the money system, and then solve the sub-problem corresponding to X-P. We try this for all the pieces of the system. The solution, if it exists, is then the smallest path that led to 0.</p><p>Here an OCaml recursive function corresponding to this method. It returns None, if no solution exists.</p>
+</div>
+<p>These systems are made so that change-making is easy. The problem gets harder when it comes to arbitrary money system.
+</p>
+<p><strong>General case.</strong> How to give 99€ with coins of 10€, 7€ and 5€? Here, giving coins of 10€ until we are left with 9€ leads obviously to no solution. Worse than that a solution may not exist. This problem is in fact np-hard, but acceptable solutions mixing <strong>greediness</strong> and <strong>memoization</strong> exist. The idea is to explore all the possibilies and pick the one with the minimal number of coins.
+</p>
+<p>To give an amount X &gt; 0, we choose a piece P in the money system, and then solve the sub-problem corresponding to X-P. We try this for all the pieces of the system. The solution, if it exists, is then the smallest path that led to 0.
+</p>
+<p>Here an OCaml recursive function corresponding to this method. It returns None, if no solution exists.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">(* option utilities *)
@@ -177,7 +193,9 @@ let change_make money_system amount =
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Note</strong>: We can remark that this procedure may compute several times the change set for the same value. In practice, using memoization to avoid these repetitions leads to faster (way faster) results.</p>
+</div>
+<p><strong>Note</strong>: We can remark that this procedure may compute several times the change set for the same value. In practice, using memoization to avoid these repetitions leads to faster (way faster) results.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

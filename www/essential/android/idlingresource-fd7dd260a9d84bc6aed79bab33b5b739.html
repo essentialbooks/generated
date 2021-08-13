@@ -127,7 +127,47 @@
 </div>
 
 
-      <p>The power of idling resources lies in not having to wait for some app’s processing (networking, calculations, animations, etc.) to finish with <code>sleep()</code>, which brings flakiness and/or prolongs the tests run. The official documentation can be found <a href="https://developer.android.com/reference/android/support/test/espresso/IdlingResource.html">here</a>.</p><h1 id="1a314a51-40e4-4f34-861f-5efa159f802e" class="">Implementation<a class="header-anchor" href="#1a314a51-40e4-4f34-861f-5efa159f802e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>There are three things that you need to do when implementing <code>IdlingResource</code> interface:</p><ul id="7ad0a3bb-03a9-4b9e-80a3-14a72c596713" class="bulleted-list"><li><code><strong>getName()</strong></code> - Returns the name of your idling resource.</li><li><code><strong>isIdleNow()</strong></code> - Checks whether your xyz object, operation, etc. is idle at the moment.</li><li><code><strong>registerIdleTransitionCallback</strong></code> (<code>IdlingResource.ResourceCallback</code> callback) - Provides a callback which you should call when your object transitions to idle.</li></ul><p>Now you should create your own logic and determine when your app is idle and when not, since this is dependant on the app. Below you will find a simple example, just to show how it works. There are other examples online, but specific app implementation brings to specific idling resource implementations.</p><h2 id="3ccc47bf-4598-4ec4-8aba-78eea0b8d52f" class="">NOTES<a class="header-anchor" href="#3ccc47bf-4598-4ec4-8aba-78eea0b8d52f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><ul id="e974c4a2-f1a8-4737-819d-a0178a4288c5" class="bulleted-list"><li>There have been some Google examples where they put <code>IdlingResources</code> in the code of the app. <strong>Do not do this.</strong> They presumably placed it there just to show how they work.</li><li>Keeping your code clean and maintaining single principle of responsibility is up to you!</li></ul><h1 id="f7c0387d-4620-471c-a9e6-dfcc6ed31d9d" class="">Example<a class="header-anchor" href="#f7c0387d-4620-471c-a9e6-dfcc6ed31d9d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Let us say that you have an activity which does weird stuff and takes a long time for the fragment to load and thus making your Espresso tests fail by not being able to find resources from your fragment (you should change how your activity is created and when to speed it up). But in any case to keep it simple, the following example shows how it should look like.</p><p>Our example idling resource would get two objects:</p><ul id="55424d39-d2cf-4696-9dcf-0beef9ceac49" class="bulleted-list"><li>The <strong>tag</strong> of the fragment which you need to find and waiting to get attached to the activity.</li><li>A <strong>FragmentManager</strong> object which is used for finding the fragment.</li></ul>
+      
+<p>The power of idling resources lies in not having to wait for some app’s processing (networking, calculations, animations, etc.) to finish with <code>sleep()</code>, which brings flakiness and/or prolongs the tests run. The official documentation can be found <a href="https://developer.android.com/reference/android/support/test/espresso/IdlingResource.html">here</a>.
+</p>
+  <h1 id="1a314a51-40e4-4f34-861f-5efa159f802e" class="">Implementation
+  <a class="header-anchor" href="#1a314a51-40e4-4f34-861f-5efa159f802e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>There are three things that you need to do when implementing <code>IdlingResource</code> interface:
+</p>
+  <ul id="7ad0a3bb-03a9-4b9e-80a3-14a72c596713" class="bulleted-list">
+    <li><code><strong>getName()</strong></code> - Returns the name of your idling resource.
+    </li>
+    <li><code><strong>isIdleNow()</strong></code> - Checks whether your xyz object, operation, etc. is idle at the moment.
+    </li>
+    <li><code><strong>registerIdleTransitionCallback</strong></code> (<code>IdlingResource.ResourceCallback</code> callback) - Provides a callback which you should call when your object transitions to idle.
+    </li>
+  </ul>
+<p>Now you should create your own logic and determine when your app is idle and when not, since this is dependant on the app. Below you will find a simple example, just to show how it works. There are other examples online, but specific app implementation brings to specific idling resource implementations.
+</p>
+  <h2 id="3ccc47bf-4598-4ec4-8aba-78eea0b8d52f" class="">NOTES
+  <a class="header-anchor" href="#3ccc47bf-4598-4ec4-8aba-78eea0b8d52f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+  <ul id="e974c4a2-f1a8-4737-819d-a0178a4288c5" class="bulleted-list">
+    <li>There have been some Google examples where they put <code>IdlingResources</code> in the code of the app. <strong>Do not do this.</strong> They presumably placed it there just to show how they work.
+    </li>
+    <li>Keeping your code clean and maintaining single principle of responsibility is up to you!
+    </li>
+  </ul>
+  <h1 id="f7c0387d-4620-471c-a9e6-dfcc6ed31d9d" class="">Example
+  <a class="header-anchor" href="#f7c0387d-4620-471c-a9e6-dfcc6ed31d9d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Let us say that you have an activity which does weird stuff and takes a long time for the fragment to load and thus making your Espresso tests fail by not being able to find resources from your fragment (you should change how your activity is created and when to speed it up). But in any case to keep it simple, the following example shows how it should look like.
+</p>
+<p>Our example idling resource would get two objects:
+</p>
+  <ul id="55424d39-d2cf-4696-9dcf-0beef9ceac49" class="bulleted-list">
+    <li>The <strong>tag</strong> of the fragment which you need to find and waiting to get attached to the activity.
+    </li>
+    <li>A <strong>FragmentManager</strong> object which is used for finding the fragment.
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/**
@@ -169,7 +209,15 @@ public class FragmentIdlingResource implements IdlingResource {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now that you have your <code>IdlingResource</code> written, you need to use it somewhere right?</p><h1 id="7b3fcf40-ba35-4f1b-8c84-151f5d495ab0" class="">Usage<a class="header-anchor" href="#7b3fcf40-ba35-4f1b-8c84-151f5d495ab0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Let us skip the entire test class setup and just look how a test case would look like:</p>
+</div>
+<p>Now that you have your <code>IdlingResource</code> written, you need to use it somewhere right?
+</p>
+  <h1 id="7b3fcf40-ba35-4f1b-8c84-151f5d495ab0" class="">Usage
+  <a class="header-anchor" href="#7b3fcf40-ba35-4f1b-8c84-151f5d495ab0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Let us skip the entire test class setup and just look how a test case would look like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Test
@@ -189,7 +237,13 @@ public void testSomeFragmentText() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="247cff0d-f2b9-4fa9-80b2-61b00854344d" class="">Combination with JUnit rule<a class="header-anchor" href="#247cff0d-f2b9-4fa9-80b2-61b00854344d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>This is not to hard; you can also apply the idling resource in form of a JUnit test rule. For example, let us say that you have some SDK that contains Volley in it and you want Espresso to wait for it. Instead of going through each test case or applying it in setup, you could create a JUnit rule and just write:</p>
+</div>
+  <h1 id="247cff0d-f2b9-4fa9-80b2-61b00854344d" class="">Combination with JUnit rule
+  <a class="header-anchor" href="#247cff0d-f2b9-4fa9-80b2-61b00854344d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>This is not to hard; you can also apply the idling resource in form of a JUnit test rule. For example, let us say that you have some SDK that contains Volley in it and you want Espresso to wait for it. Instead of going through each test case or applying it in setup, you could create a JUnit rule and just write:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Rule
@@ -198,7 +252,10 @@ public final SDKIdlingRule mSdkIdlingRule = new SDKIdlingRule(SDKInstanceHolder.
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now since this is an example, don’t take it for granted; all code here is imaginary and used only for demonstration purposes:</p>
+</div>
+<p>Now since this is an example, don’t take it for granted; all code here is imaginary and used only for demonstration purposes:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class SDKIdlingRule implements TestRule {

@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>The most important consequence of the One Definition Rule is that non-inline functions with external linkage should only be defined once in a program, although they can be declared multiple times. Therefore, such functions should not be defined in headers, since a header can be included multiple times from different translation units.</p><p><code>foo.h</code>:</p>
+      
+<p>The most important consequence of the One Definition Rule is that non-inline functions with external linkage should only be defined once in a program, although they can be declared multiple times. Therefore, such functions should not be defined in headers, since a header can be included multiple times from different translation units.
+</p>
+<p><code>foo.h</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#ifndef FOO_H
@@ -140,7 +145,10 @@ void bar();
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>foo.cpp</code>:</p>
+</div>
+<p><code>foo.cpp</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &#34;foo.h&#34;
@@ -149,7 +157,10 @@ void bar() { std:: cout &lt;&lt; &#34;bar&#34;; }</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>main.cpp</code>:</p>
+</div>
+<p><code>main.cpp</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &#34;foo.h&#34;
@@ -161,7 +172,11 @@ int main() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this program, the function <code>foo</code> is defined in the header <code>foo.h</code>, which is included twice: once from <code>foo.cpp</code> and once from <code>main.cpp</code>. Each translation unit therefore contains its own definition of <code>foo</code>. Note that the include guards in <code>foo.h</code> do not prevent this from happening, since <code>foo.cpp</code> and <code>main.cpp</code> both <em>separately</em> include <code>foo.h</code>. The most likely result of trying to build this program is a link-time error identifying <code>foo</code> as having been multiply defined.</p><p>To avoid such errors, one should <em>declare</em> functions in headers and <em>define</em> them in the corresponding <code>.cpp</code> files, with some exceptions (see other examples).</p>
+</div>
+<p>In this program, the function <code>foo</code> is defined in the header <code>foo.h</code>, which is included twice: once from <code>foo.cpp</code> and once from <code>main.cpp</code>. Each translation unit therefore contains its own definition of <code>foo</code>. Note that the include guards in <code>foo.h</code> do not prevent this from happening, since <code>foo.cpp</code> and <code>main.cpp</code> both <em>separately</em> include <code>foo.h</code>. The most likely result of trying to build this program is a link-time error identifying <code>foo</code> as having been multiply defined.
+</p>
+<p>To avoid such errors, one should <em>declare</em> functions in headers and <em>define</em> them in the corresponding <code>.cpp</code> files, with some exceptions (see other examples).
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

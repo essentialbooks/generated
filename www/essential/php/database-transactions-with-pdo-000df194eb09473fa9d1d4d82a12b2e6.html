@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Database transactions ensure that a set of data changes will only be made permanent if every statement is successful. Any query or code failure during a transaction can be caught and you then have the option to roll back the attempted changes.</p><p>PDO provides simple methods for beginning, committing, and rollbacking back transactions.</p>
+      
+<p>Database transactions ensure that a set of data changes will only be made permanent if every statement is successful. Any query or code failure during a transaction can be caught and you then have the option to roll back the attempted changes.
+</p>
+<p>PDO provides simple methods for beginning, committing, and rollbacking back transactions.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$pdo = new PDO(
@@ -158,7 +163,24 @@ catch (\Exception $e) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>During a transaction any data changes made are only visible to the active connection. <code>SELECT</code> statements will return the altered changes even if they are not yet committed to the database.</p><p><em>Note</em>: See database vendor documentation for details about transaction support. Some systems do not support transactions at all. Some support nested transactions while others do not.</p><p><strong>Practical Example Using Transactions with PDO</strong></p><p>In the following section is demonstrated a practical real world example where the use of transactions ensures the consistency of database.</p><p>Imagine the following scenario, let’s say you are building a shopping cart for an e-commerce website and you decided to keep the orders in two database tables. One named <code>orders</code> with the fields <code>order_id</code>, <code>name</code>, <code>address</code>, <code>telephone</code> and <code>created_at</code>. And a second one named <code>orders_products</code> with the fields <code>order_id</code>, <code>product_id</code> and <code>quantity</code>. The first table contains the <strong>metadata</strong> of the order while the second one the actual <strong>products</strong> that have been ordered.</p><p><strong>Inserting a new order to the database</strong></p><p>To insert a new order into the database you need to do two things. First you need to <code>INSERT</code> a new record inside the <code>orders</code> table that will contain the <strong>metadata</strong> of the order (<code>name</code>, <code>address</code>, etc). And then you need to <code>INSERT</code> one record into the <code>orders_products</code> table, for each one of the products that are included in the order.</p><p>You could do this by doing something similar to the following:</p>
+</div>
+<p>During a transaction any data changes made are only visible to the active connection. <code>SELECT</code> statements will return the altered changes even if they are not yet committed to the database.
+</p>
+<p><em>Note</em>: See database vendor documentation for details about transaction support. Some systems do not support transactions at all. Some support nested transactions while others do not.
+</p>
+<p><strong>Practical Example Using Transactions with PDO</strong>
+</p>
+<p>In the following section is demonstrated a practical real world example where the use of transactions ensures the consistency of database.
+</p>
+<p>Imagine the following scenario, let’s say you are building a shopping cart for an e-commerce website and you decided to keep the orders in two database tables. One named <code>orders</code> with the fields <code>order_id</code>, <code>name</code>, <code>address</code>, <code>telephone</code> and <code>created_at</code>. And a second one named <code>orders_products</code> with the fields <code>order_id</code>, <code>product_id</code> and <code>quantity</code>. The first table contains the <strong>metadata</strong> of the order while the second one the actual <strong>products</strong> that have been ordered.
+</p>
+<p><strong>Inserting a new order to the database</strong>
+</p>
+<p>To insert a new order into the database you need to do two things. First you need to <code>INSERT</code> a new record inside the <code>orders</code> table that will contain the <strong>metadata</strong> of the order (<code>name</code>, <code>address</code>, etc). And then you need to <code>INSERT</code> one record into the <code>orders_products</code> table, for each one of the products that are included in the order.
+</p>
+<p>You could do this by doing something similar to the following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Insert the metadata of the order into the database
@@ -198,7 +220,16 @@ $preparedStatement-&gt;execute($insertProductsParams);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will work great for inserting a new order into the database, until something unexpected happens and for some reason the second <code>INSERT</code> query fails. If that happens you will end up with a new order inside the <code>orders</code> table, which will have no products associated to it. Fortunately, the fix is very simple, all you have to do is to make the queries in the form of a single database transaction.</p><p><strong>Inserting a new order into the database with a transaction</strong></p><p>To start a transaction using <code>PDO</code> all you have to do is to call the <code>beginTransaction</code> method before you execute any queries to your database. Then you make any changes you want to your data by executing <code>INSERT</code> and / or <code>UPDATE</code> queries. And finally you call the <code>commit</code> method of the <code>PDO</code> object to make the changes permanent. Until you call the <code>commit</code> method every change you have done to your data up to this point is not yet permanent, and can be easily reverted by simply calling the <code>rollback</code> method of the <code>PDO</code> object.</p><p>On the following example is demonstrated the use of transactions for inserting a new order into the database, while ensuring the same time the consistency of the data. If one of the two queries fails all the changes will be reverted.</p>
+</div>
+<p>This will work great for inserting a new order into the database, until something unexpected happens and for some reason the second <code>INSERT</code> query fails. If that happens you will end up with a new order inside the <code>orders</code> table, which will have no products associated to it. Fortunately, the fix is very simple, all you have to do is to make the queries in the form of a single database transaction.
+</p>
+<p><strong>Inserting a new order into the database with a transaction</strong>
+</p>
+<p>To start a transaction using <code>PDO</code> all you have to do is to call the <code>beginTransaction</code> method before you execute any queries to your database. Then you make any changes you want to your data by executing <code>INSERT</code> and / or <code>UPDATE</code> queries. And finally you call the <code>commit</code> method of the <code>PDO</code> object to make the changes permanent. Until you call the <code>commit</code> method every change you have done to your data up to this point is not yet permanent, and can be easily reverted by simply calling the <code>rollback</code> method of the <code>PDO</code> object.
+</p>
+<p>On the following example is demonstrated the use of transactions for inserting a new order into the database, while ensuring the same time the consistency of the data. If one of the two queries fails all the changes will be reverted.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// In this example we are using MySQL but this applies to any database that has support for transactions

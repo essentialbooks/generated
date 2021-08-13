@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Ruby keeps track of local variables and <code>self</code> variable via an object called binding. We can get binding of a scope with calling <code>Kernel#binding</code> and evaluate string inside a binding via <code>Binding#eval</code>.</p>
+      
+<p>Ruby keeps track of local variables and <code>self</code> variable via an object called binding. We can get binding of a scope with calling <code>Kernel#binding</code> and evaluate string inside a binding via <code>Binding#eval</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">b = proc do
@@ -140,7 +143,19 @@ b.eval &#34;local_variable&#34; #=&gt; :local</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>—``` def fake_class_eval klass, source = nil, &amp;block class_binding = klass.send :eval, “binding”</p><p>if block class_binding.local_variable_set :_fake_class_eval_block, block class_binding.eval &quot;_fake_class_eval_block.call&quot; else class_binding.eval source end end</p><p>class Example end</p><p>fake_class_eval Example, &lt;&lt;-BLOCK def self.foo :foo end BLOCK</p><p>fake_class_eval Example do def bar :bar end end</p><p>Example.foo #=&gt; :foo Example.new.bar #=&gt; :bar ```</p>
+</div>
+<p>—``` def fake_class_eval klass, source = nil, &amp;block class_binding = klass.send :eval, “binding”
+</p>
+<p>if block class_binding.local_variable_set :_fake_class_eval_block, block class_binding.eval &quot;_fake_class_eval_block.call&quot; else class_binding.eval source end end
+</p>
+<p>class Example end
+</p>
+<p>fake_class_eval Example, &lt;&lt;-BLOCK def self.foo :foo end BLOCK
+</p>
+<p>fake_class_eval Example do def bar :bar end end
+</p>
+<p>Example.foo #=&gt; :foo Example.new.bar #=&gt; :bar ```
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

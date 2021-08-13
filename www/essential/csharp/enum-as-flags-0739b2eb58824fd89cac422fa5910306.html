@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The <code>FlagsAttribute</code> can be applied to an enum changing the behaviour of the <code>ToString()</code> to match the nature of the enum:</p>
+      
+<p>The <code>FlagsAttribute</code> can be applied to an enum changing the behaviour of the <code>ToString()</code> to match the nature of the enum:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="na">[Flags]</span>
@@ -151,7 +154,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Because <code>FlagsAttribute</code> relies on the enumeration constants to be powers of two (or their combinations) and enum values are ultimately numeric values, you are limited by the size of the underlying numeric type. The largest available numeric type that you can use is <code>UInt64</code>, which allows you to specify 64 distinct (non-combined) flag enum constants. The <code>enum</code> keyword defaults to the underlying type <code>int</code>, which is <code>Int32</code>. The compiler will allow the declaration of values wider than 32 bit. Those will wrap around without a warning and result in two or more enum members of the same value. Therefore, if an enum is meant to accomodate a bitset of more than 32 flags, you need to specify a bigger type explicitely:</p>
+</div>
+<p>Because <code>FlagsAttribute</code> relies on the enumeration constants to be powers of two (or their combinations) and enum values are ultimately numeric values, you are limited by the size of the underlying numeric type. The largest available numeric type that you can use is <code>UInt64</code>, which allows you to specify 64 distinct (non-combined) flag enum constants. The <code>enum</code> keyword defaults to the underlying type <code>int</code>, which is <code>Int32</code>. The compiler will allow the declaration of values wider than 32 bit. Those will wrap around without a warning and result in two or more enum members of the same value. Therefore, if an enum is meant to accomodate a bitset of more than 32 flags, you need to specify a bigger type explicitely:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">enum</span> <span class="n">BigEnum</span> <span class="p">:</span> <span class="kt">ulong</span>
@@ -163,7 +169,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Although flags are often only a single bit, they can be combined into named “sets” for easier use.</p>
+</div>
+<p>Although flags are often only a single bit, they can be combined into named “sets” for easier use.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="na">[Flags]</span>
@@ -182,7 +191,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To avoid spelling out the decimal values of powers of two, the <a href="https://msdn.microsoft.com/en-gb/library/a1sway8w.aspx">left-shift operator (&lt;&lt;)</a> can also be used to declare the same enum</p>
+</div>
+<p>To avoid spelling out the decimal values of powers of two, the <a href="https://msdn.microsoft.com/en-gb/library/a1sway8w.aspx">left-shift operator (&lt;&lt;)</a> can also be used to declare the same enum
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="na">[Flags]</span>
@@ -201,7 +213,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Starting with C# 7.0, <a href="http://stackoverflow.com/documentation/c%23/1936/c-sharp-7-0-features/6327/binary-literals#t=201705181538117083427">binary literals</a> can be used too.</p><p>To check if the value of enum variable has a certain flag set, the <a href="https://msdn.microsoft.com/en-us/library/system.enum.hasflag(v=vs.110).aspx"><code>HasFlag</code></a> method can be used. Let’s say we have</p>
+</div>
+<p>Starting with C# 7.0, <a href="http://stackoverflow.com/documentation/c%23/1936/c-sharp-7-0-features/6327/binary-literals#t=201705181538117083427">binary literals</a> can be used too.
+</p>
+<p>To check if the value of enum variable has a certain flag set, the <a href="https://msdn.microsoft.com/en-us/library/system.enum.hasflag(v=vs.110).aspx"><code>HasFlag</code></a> method can be used. Let’s say we have
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="na">[Flags]</span>
@@ -216,7 +233,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And a <code>value</code></p>
+</div>
+<p>And a <code>value</code>
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">var</span> <span class="k">value</span> <span class="p">=</span> <span class="n">MyEnum</span><span class="p">.</span><span class="n">One</span> <span class="p">|</span> <span class="n">MyEnum</span><span class="p">.</span><span class="n">Two</span><span class="p">;</span>
@@ -225,7 +245,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With <code>HasFlag</code> we can check if any of the flags is set</p>
+</div>
+<p>With <code>HasFlag</code> we can check if any of the flags is set
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">if</span><span class="p">(</span><span class="k">value</span><span class="p">.</span><span class="n">HasFlag</span><span class="p">(</span><span class="n">MyEnum</span><span class="p">.</span><span class="n">One</span><span class="p">))</span>
@@ -241,7 +264,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Also we can iterate through all values of enum to get all flags that are set</p>
+</div>
+<p>Also we can iterate through all values of enum to get all flags that are set
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">var</span> <span class="n">type</span> <span class="p">=</span> <span class="k">typeof</span><span class="p">(</span><span class="n">MyEnum</span><span class="p">);</span>
@@ -259,7 +285,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Or</p>
+</div>
+<p>Or
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">foreach</span><span class="p">(</span><span class="n">MyEnum</span> <span class="n">flagToCheck</span> <span class="k">in</span> <span class="n">Enum</span><span class="p">.</span><span class="n">GetValues</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">MyEnum</span><span class="p">)))</span>
@@ -274,7 +303,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>All three examples will print:</p>
+</div>
+<p>All three examples will print:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Enum has One

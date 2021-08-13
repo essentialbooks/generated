@@ -127,7 +127,19 @@
 </div>
 
 
-      <p>The job of the linker is to link together a bunch of object files (<code>.o</code> files) into a binary executable. The process of <em>linking</em> mainly involves <em>resolving symbolic addresses to numerical addresses</em>. The result of the link process is normally an executable program.</p><p>During the link process, the linker will pick up all the object modules specified on the command line, add some system-specific <em>startup code</em> in front and try to resolve all <em>external</em> references in the object module with <em>external definitions</em> in other object files (object files can be specified directly on the command line or may implicitly be added through libraries). It will then assign <em>load addresses</em> for the object files, that is, it specifies where the code and data will end up in the address space of the finished program. Once it’s got the load addresses, it can replace all the symbolic addresses in the object code with “real”, numerical addresses in the target’s address space. The program is ready to be executed now.</p><p>This includes both the object files that the compiler created from your source code files as well as object files that have been pre-compiled for you and collected into library files. These files have names which end in <code>.a</code> or <code>.so</code>, and you normally don’t need to know about them, as the linker knows where most of them are located and will link them in automatically as needed.</p><h3 id="2e1863fb-2927-4356-888d-bb66d9fcc015" class="">Implicit invocation of the linker<a class="header-anchor" href="#2e1863fb-2927-4356-888d-bb66d9fcc015" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>Like the pre-processor, the linker is a separate program, often called <code>ld</code> (but Linux uses <code>collect2</code>, for example). Also like the pre-processor, the linker is invoked automatically for you when you use the compiler. Thus, the normal way of using the linker is as follows:</p>
+      
+<p>The job of the linker is to link together a bunch of object files (<code>.o</code> files) into a binary executable. The process of <em>linking</em> mainly involves <em>resolving symbolic addresses to numerical addresses</em>. The result of the link process is normally an executable program.
+</p>
+<p>During the link process, the linker will pick up all the object modules specified on the command line, add some system-specific <em>startup code</em> in front and try to resolve all <em>external</em> references in the object module with <em>external definitions</em> in other object files (object files can be specified directly on the command line or may implicitly be added through libraries). It will then assign <em>load addresses</em> for the object files, that is, it specifies where the code and data will end up in the address space of the finished program. Once it’s got the load addresses, it can replace all the symbolic addresses in the object code with “real”, numerical addresses in the target’s address space. The program is ready to be executed now.
+</p>
+<p>This includes both the object files that the compiler created from your source code files as well as object files that have been pre-compiled for you and collected into library files. These files have names which end in <code>.a</code> or <code>.so</code>, and you normally don’t need to know about them, as the linker knows where most of them are located and will link them in automatically as needed.
+</p>
+  <h3 id="2e1863fb-2927-4356-888d-bb66d9fcc015" class="">Implicit invocation of the linker
+  <a class="header-anchor" href="#2e1863fb-2927-4356-888d-bb66d9fcc015" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p>Like the pre-processor, the linker is a separate program, often called <code>ld</code> (but Linux uses <code>collect2</code>, for example). Also like the pre-processor, the linker is invoked automatically for you when you use the compiler. Thus, the normal way of using the linker is as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">% gcc foo.o bar.o baz.o -o myprog</pre>
@@ -135,7 +147,20 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This line tells the compiler to link together three object files (<code>foo.o</code>, <code>bar.o</code>, and <code>baz.o</code>) into a binary executable file named <code>myprog</code>. Now you have a file called <code>myprog</code> that you can run and which will hopefully do something cool and/or useful.</p><h3 id="5daa1db2-0498-49e7-b680-f5d4e8efab9c" class="">Explicit invocation of the linker<a class="header-anchor" href="#5daa1db2-0498-49e7-b680-f5d4e8efab9c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>It is possible to invoke the linker directly, but this is seldom advisable, and is typically very platform-specific. That is, options that work on Linux won’t necessarily work on Solaris, AIX, macOS, Windows, and similarly for any other platform. If you work with GCC, you can use <code>gcc -v</code> to see what is executed on your behalf.</p><h3 id="098a0018-1bee-41cf-adf9-f41618bac357" class="">Options for the linker<a class="header-anchor" href="#098a0018-1bee-41cf-adf9-f41618bac357" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>The linker also takes some arguments to modify it’s behavior. The following command would tell gcc to link <code>foo.o</code> and <code>bar.o</code>, but also include the <code>ncurses</code> library.</p>
+</div>
+<p>This line tells the compiler to link together three object files (<code>foo.o</code>, <code>bar.o</code>, and <code>baz.o</code>) into a binary executable file named <code>myprog</code>. Now you have a file called <code>myprog</code> that you can run and which will hopefully do something cool and/or useful.
+</p>
+  <h3 id="5daa1db2-0498-49e7-b680-f5d4e8efab9c" class="">Explicit invocation of the linker
+  <a class="header-anchor" href="#5daa1db2-0498-49e7-b680-f5d4e8efab9c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p>It is possible to invoke the linker directly, but this is seldom advisable, and is typically very platform-specific. That is, options that work on Linux won’t necessarily work on Solaris, AIX, macOS, Windows, and similarly for any other platform. If you work with GCC, you can use <code>gcc -v</code> to see what is executed on your behalf.
+</p>
+  <h3 id="098a0018-1bee-41cf-adf9-f41618bac357" class="">Options for the linker
+  <a class="header-anchor" href="#098a0018-1bee-41cf-adf9-f41618bac357" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p>The linker also takes some arguments to modify it’s behavior. The following command would tell gcc to link <code>foo.o</code> and <code>bar.o</code>, but also include the <code>ncurses</code> library.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">% gcc foo.o bar.o -o foo -lncurses</pre>
@@ -143,7 +168,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is actually (more or less) equivalent to</p>
+</div>
+<p>This is actually (more or less) equivalent to
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">% gcc foo.o bar.o /usr/lib/libncurses.so -o foo</pre>
@@ -151,7 +179,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>(although <code>libncurses.so</code> could be <code>libncurses.a</code>, which is just an archive created with <code>ar</code>). Note that you should list the libraries (either by pathname or via <code>-lname</code> options) after the object files. With static libraries, the order that they are specified matters; often, with shared libraries, the order doesn’t matter.</p><p>Note that on many systems, if you are using mathematical functions (from <code>&lt;math.h&gt;</code>), you need to specify <code>-lm</code> to load the mathematics library — but Mac OS X and macOS Sierra do not require this. There are other libraries that are separate libraries on Linux and other Unix systems, but not on macOS — POSIX threads, and POSIX realtime, and networking libraries are examples. Consequently, the linking process varies between platforms.</p><h3 id="21e3ad94-e956-4df7-a5fc-1d0c6875aaa0" class="">Other compilation options<a class="header-anchor" href="#21e3ad94-e956-4df7-a5fc-1d0c6875aaa0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>This is all you need to know to begin compiling your own C programs. Generally, we also recommend that you use the <code>-Wall</code> command-line option:</p>
+</div>
+<p>(although <code>libncurses.so</code> could be <code>libncurses.a</code>, which is just an archive created with <code>ar</code>). Note that you should list the libraries (either by pathname or via <code>-lname</code> options) after the object files. With static libraries, the order that they are specified matters; often, with shared libraries, the order doesn’t matter.
+</p>
+<p>Note that on many systems, if you are using mathematical functions (from <code>&lt;math.h&gt;</code>), you need to specify <code>-lm</code> to load the mathematics library — but Mac OS X and macOS Sierra do not require this. There are other libraries that are separate libraries on Linux and other Unix systems, but not on macOS — POSIX threads, and POSIX realtime, and networking libraries are examples. Consequently, the linking process varies between platforms.
+</p>
+  <h3 id="21e3ad94-e956-4df7-a5fc-1d0c6875aaa0" class="">Other compilation options
+  <a class="header-anchor" href="#21e3ad94-e956-4df7-a5fc-1d0c6875aaa0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p>This is all you need to know to begin compiling your own C programs. Generally, we also recommend that you use the <code>-Wall</code> command-line option:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">% gcc -Wall -c foo.cc</pre>
@@ -159,7 +197,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>-Wall</code> option causes the compiler to warn you about legal but dubious code constructs, and will help you catch a lot of bugs very early.</p><p>If you want the compiler to throw more warnings at you (including variables that are declared but not used, forgetting to return a value etc.), you can use this set of options, as <code>-Wall</code>, despite the name, doesn’t turn <em>all of the possible warnings</em> on:</p>
+</div>
+<p>The <code>-Wall</code> option causes the compiler to warn you about legal but dubious code constructs, and will help you catch a lot of bugs very early.
+</p>
+<p>If you want the compiler to throw more warnings at you (including variables that are declared but not used, forgetting to return a value etc.), you can use this set of options, as <code>-Wall</code>, despite the name, doesn’t turn <em>all of the possible warnings</em> on:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">% gcc -Wall -Wextra -Wfloat-equal -Wundef -Wcast-align -Wwrite-strings -Wlogical-op \
@@ -168,7 +211,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that <code>clang</code> has an option <a href="http://clang.llvm.org/docs/UsersManual.html#enabling-all-diagnostics"><code>-Weverything</code></a> which really does turn on all warnings in <code>clang</code>.</p>
+</div>
+<p>Note that <code>clang</code> has an option <a href="http://clang.llvm.org/docs/UsersManual.html#enabling-all-diagnostics"><code>-Weverything</code></a> which really does turn on all warnings in <code>clang</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

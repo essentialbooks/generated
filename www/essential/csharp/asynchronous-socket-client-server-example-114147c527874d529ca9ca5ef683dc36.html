@@ -127,7 +127,14 @@
 </div>
 
 
-      <blockquote id="d6758c5d-415f-4812-a01b-99f1ca91761a" class="">Server Side example</blockquote><p><strong>Create Listener for server</strong></p><p>Start of with creating an server that will handle clients that connect, and requests that will be send. So create an Listener Class that will handle this.</p>
+      
+<blockquote id="d6758c5d-415f-4812-a01b-99f1ca91761a" class="">Server Side example
+</blockquote>
+<p><strong>Create Listener for server</strong>
+</p>
+<p>Start of with creating an server that will handle clients that connect, and requests that will be send. So create an Listener Class that will handle this.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">Listener</span>
@@ -145,7 +152,32 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>First we need to initialize the Listener socket where we can listen on for any connections. We are going to use an Tcp Socket that is why we use SocketType.Stream. Also we specify to witch port the server should listen to</p><p>Then we start listening for any incoming connections.</p><p><strong>The tree methods we use here are:</strong></p><ol id="e312c3c9-7d15-4d3b-b21c-2e112ee1d984" class="numbered-list" start="1"><li><a href="https://msdn.microsoft.com/en-us/library/system.net.sockets.socket.bind(v=vs.110).aspx">ListenerSocket.Bind();</a></li></ol><p>This method binds the socket to an <a href="https://msdn.microsoft.com/en-us/library/system.net.ipendpoint(v=vs.110).aspx">IPEndPoint</a>. This class contains the host and local or remote port information needed by an application to connect to a service on a host.</p><ol id="1f39d7ba-173b-43b0-ae46-2f41fa967fad" class="numbered-list" start="1"><li><a href="https://msdn.microsoft.com/nl-nl/library/system.net.sockets.socket.listen(v=vs.110).aspx">ListenerSocket.Listen(10);</a></li></ol><p>The backlog parameter specifies the number of incoming connections that can be queued for acceptance.</p><ol id="4d258e40-6a55-4d50-98a4-6ec28a35c05a" class="numbered-list" start="1"><li><a href="https://msdn.microsoft.com/en-us/library/5bb431f9(v=vs.110).aspx">ListenerSocket.BeginAccept();</a></li></ol><p>The server will start listening for incoming connections and will go on with other logic. When there is an connection the server switches back to this method and will run the AcceptCallBack methodt</p>
+</div>
+<p>First we need to initialize the Listener socket where we can listen on for any connections. We are going to use an Tcp Socket that is why we use SocketType.Stream. Also we specify to witch port the server should listen to
+</p>
+<p>Then we start listening for any incoming connections.
+</p>
+<p><strong>The tree methods we use here are:</strong>
+</p>
+  <ol id="e312c3c9-7d15-4d3b-b21c-2e112ee1d984" class="numbered-list" start="1">
+    <li><a href="https://msdn.microsoft.com/en-us/library/system.net.sockets.socket.bind(v=vs.110).aspx">ListenerSocket.Bind();</a>
+    </li>
+  </ol>
+<p>This method binds the socket to an <a href="https://msdn.microsoft.com/en-us/library/system.net.ipendpoint(v=vs.110).aspx">IPEndPoint</a>. This class contains the host and local or remote port information needed by an application to connect to a service on a host.
+</p>
+  <ol id="1f39d7ba-173b-43b0-ae46-2f41fa967fad" class="numbered-list" start="1">
+    <li><a href="https://msdn.microsoft.com/nl-nl/library/system.net.sockets.socket.listen(v=vs.110).aspx">ListenerSocket.Listen(10);</a>
+    </li>
+  </ol>
+<p>The backlog parameter specifies the number of incoming connections that can be queued for acceptance.
+</p>
+  <ol id="4d258e40-6a55-4d50-98a4-6ec28a35c05a" class="numbered-list" start="1">
+    <li><a href="https://msdn.microsoft.com/en-us/library/5bb431f9(v=vs.110).aspx">ListenerSocket.BeginAccept();</a>
+    </li>
+  </ol>
+<p>The server will start listening for incoming connections and will go on with other logic. When there is an connection the server switches back to this method and will run the AcceptCallBack methodt
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public void StartListening()
@@ -166,7 +198,30 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So when a client connects we can accept them by this method:</p><p><strong>Three methods wee use here are:</strong></p><ol id="c80c5229-0183-4be6-80a1-69c527894e8c" class="numbered-list" start="1"><li><a href="https://msdn.microsoft.com/en-us/library/zdee4kd7(v=vs.110).aspx">ListenerSocket.EndAccept()</a></li></ol><p>We started the callback with <code>Listener.BeginAccept()</code> end now we have to end that call back. <code>The EndAccept()</code> method accepts an IAsyncResult parameter, this will store the state of the asynchronous method, From this state we can extract the socket where the incoming connection was coming from.</p><ol id="de2aa323-cc57-4bbf-b168-c3e3418b1c08" class="numbered-list" start="1"><li><code>ClientController.AddClient()</code></li></ol><p>With the socket we got from <code>EndAccept()</code> we create an Client with an own made method <em>(code ClientController below server example)</em>.</p><ol id="d3d936ee-bb33-47b3-9edb-9dd5627505ed" class="numbered-list" start="1"><li><a href="https://msdn.microsoft.com/en-us/library/5bb431f9(v=vs.110).aspx">ListenerSocket.BeginAccept()</a></li></ol><p>We need to start listening again when the socket is done with handling the new connection. Pass in the method who will catch this callback. And also pass int the Listener socket so we can reuse this socket for upcoming connections.</p>
+</div>
+<p>So when a client connects we can accept them by this method:
+</p>
+<p><strong>Three methods wee use here are:</strong>
+</p>
+  <ol id="c80c5229-0183-4be6-80a1-69c527894e8c" class="numbered-list" start="1">
+    <li><a href="https://msdn.microsoft.com/en-us/library/zdee4kd7(v=vs.110).aspx">ListenerSocket.EndAccept()</a>
+    </li>
+  </ol>
+<p>We started the callback with <code>Listener.BeginAccept()</code> end now we have to end that call back. <code>The EndAccept()</code> method accepts an IAsyncResult parameter, this will store the state of the asynchronous method, From this state we can extract the socket where the incoming connection was coming from.
+</p>
+  <ol id="de2aa323-cc57-4bbf-b168-c3e3418b1c08" class="numbered-list" start="1">
+    <li><code>ClientController.AddClient()</code>
+    </li>
+  </ol>
+<p>With the socket we got from <code>EndAccept()</code> we create an Client with an own made method <em>(code ClientController below server example)</em>.
+</p>
+  <ol id="d3d936ee-bb33-47b3-9edb-9dd5627505ed" class="numbered-list" start="1">
+    <li><a href="https://msdn.microsoft.com/en-us/library/5bb431f9(v=vs.110).aspx">ListenerSocket.BeginAccept()</a>
+    </li>
+  </ol>
+<p>We need to start listening again when the socket is done with handling the new connection. Pass in the method who will catch this callback. And also pass int the Listener socket so we can reuse this socket for upcoming connections.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">void</span> <span class="n">AcceptCallback</span><span class="p">(</span><span class="n">IAsyncResult</span> <span class="n">ar</span><span class="p">)</span>
@@ -189,7 +244,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we have an Listening Socket but how do we receive data send by the client that is what the next code is showing.</p><p><strong>Create Server Receiver for each client</strong></p><p>First of create a receive class with a constructor that takes in a Socket as parameter:</p>
+</div>
+<p>Now we have an Listening Socket but how do we receive data send by the client that is what the next code is showing.
+</p>
+<p><strong>Create Server Receiver for each client</strong>
+</p>
+<p>First of create a receive class with a constructor that takes in a Socket as parameter:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">ReceivePacket</span>
@@ -207,7 +269,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In the next method we first start off with giving the buffer a size of 4 bytes (Int32) or package contains to parts {lenght, actual data}. So the first 4 bytes we reserve for the lenght of the data the rest for the actual data.</p><p>Next we use <a href="https://msdn.microsoft.com/en-us/library/dxkwh6zw(v=vs.110).aspx">BeginReceive()</a> method. This method is used to start receiving from connected clients and when it will receive data it will run the <code>ReceiveCallback</code> function.</p>
+</div>
+<p>In the next method we first start off with giving the buffer a size of 4 bytes (Int32) or package contains to parts {lenght, actual data}. So the first 4 bytes we reserve for the lenght of the data the rest for the actual data.
+</p>
+<p>Next we use <a href="https://msdn.microsoft.com/en-us/library/dxkwh6zw(v=vs.110).aspx">BeginReceive()</a> method. This method is used to start receiving from connected clients and when it will receive data it will run the <code>ReceiveCallback</code> function.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">void</span> <span class="n">StartReceiving</span><span class="p">()</span>
@@ -274,7 +341,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So we’ve setup a server that can receive and listen for incoming connections. When a clients connect it will be added to a list of clients and every client has his own receive class. To make the server listen:</p>
+</div>
+<p>So we’ve setup a server that can receive and listen for incoming connections. When a clients connect it will be added to a list of clients and every client has his own receive class. To make the server listen:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">Listener</span> <span class="n">listener</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Listener</span><span class="p">();</span>
@@ -284,7 +354,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Some Classes I use in this example</strong></p>
+</div>
+<p><strong>Some Classes I use in this example</strong>
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">Client</span>
@@ -321,7 +394,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="d552ea65-5f66-4713-8dfe-21fc82509ad6" class="">Client Side example</blockquote><p><strong>Connecting to server</strong></p><p>First of all we want to create a class what connects to the server te name we give it is: Connector:</p>
+</div>
+<blockquote id="d552ea65-5f66-4713-8dfe-21fc82509ad6" class="">Client Side example
+</blockquote>
+<p><strong>Connecting to server</strong>
+</p>
+<p>First of all we want to create a class what connects to the server te name we give it is: Connector:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">Connector</span>
@@ -333,7 +413,24 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Next Method for this class is TryToConnect()</p><p>This method goth a few interestin things:</p><ol id="d365521c-da96-4576-919a-b080f36d1cbf" class="numbered-list" start="1"><li>Create the socket;</li><li>Next I loop until the socket is connected</li><li>Every loop it is just holding the Thread for 1 second we don’t want to DOS the server XD</li><li>With <a href="https://msdn.microsoft.com/en-us/library/4xzx2d41(v=vs.110).aspx">Connect()</a> it will try to connect to the server. If it fails it will throw an exception but the wile will keep the program connecting to the server. You can use a <a href="https://msdn.microsoft.com/en-us/library/ms145129(v=vs.110).aspx">Connect CallBack</a> method for this, but I’ll just go for calling a method when the Socket is connected.</li><li>Notice the Client is now trying to connect to your local pc on port 1234.</li></ol>
+</div>
+<p>Next Method for this class is TryToConnect()
+</p>
+<p>This method goth a few interestin things:
+</p>
+  <ol id="d365521c-da96-4576-919a-b080f36d1cbf" class="numbered-list" start="1">
+    <li>Create the socket;
+    </li>
+    <li>Next I loop until the socket is connected
+    </li>
+    <li>Every loop it is just holding the Thread for 1 second we don’t want to DOS the server XD
+    </li>
+    <li>With <a href="https://msdn.microsoft.com/en-us/library/4xzx2d41(v=vs.110).aspx">Connect()</a> it will try to connect to the server. If it fails it will throw an exception but the wile will keep the program connecting to the server. You can use a <a href="https://msdn.microsoft.com/en-us/library/ms145129(v=vs.110).aspx">Connect CallBack</a> method for this, but I’ll just go for calling a method when the Socket is connected.
+    </li>
+    <li>Notice the Client is now trying to connect to your local pc on port 1234.
+    </li>
+  </ol>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">void</span> <span class="n">TryToConnect</span><span class="p">()</span>
@@ -365,7 +462,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Sending a message to the server</strong></p><p>So now we have an almost finish or Socket application. The only thing that we don’t have jet is a Class for sending a message to the server.</p>
+</div>
+<p><strong>Sending a message to the server</strong>
+</p>
+<p>So now we have an almost finish or Socket application. The only thing that we don’t have jet is a Class for sending a message to the server.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">class</span> <span class="nc">SendPacket</span>
@@ -406,7 +508,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Finaly crate two buttons one for connect and the other for sending a message:</p>
+</div>
+<p>Finaly crate two buttons one for connect and the other for sending a message:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">private</span> <span class="k">void</span> <span class="n">ConnectClick</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
@@ -424,7 +529,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>The client class I used in this example</strong></p>
+</div>
+<p><strong>The client class I used in this example</strong>
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="n">SetClient</span><span class="p">(</span><span class="n">Socket</span> <span class="n">socket</span><span class="p">)</span>
@@ -439,7 +547,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Notice</strong></p><p>The Receive Class from the server is the same as the receive class from the client.</p><blockquote id="78ecffd5-9ae9-45ab-9873-ac94e531eeaf" class="">Conclusion</blockquote><p>You now have a server and a client. You can work this basic example out. For example make it that the server also can receive files or other tings. Or send a message to the client. In the server you got a list of client so when you receive something you will know from with client it came from.</p><p><strong>Final result:</strong> </p><img class="img" src="/img/714414c9788b69f7455ac67fc96f804b60302583.png">
+</div>
+<p><strong>Notice</strong>
+</p>
+<p>The Receive Class from the server is the same as the receive class from the client.
+</p>
+<blockquote id="78ecffd5-9ae9-45ab-9873-ac94e531eeaf" class="">Conclusion
+</blockquote>
+<p>You now have a server and a client. You can work this basic example out. For example make it that the server also can receive files or other tings. Or send a message to the client. In the server you got a list of client so when you receive something you will know from with client it came from.
+</p>
+<p><strong>Final result:</strong> 
+</p>
+<img class="img" src="/img/714414c9788b69f7455ac67fc96f804b60302583.png">
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

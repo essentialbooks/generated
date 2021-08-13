@@ -127,7 +127,10 @@
 </div>
 
 
-      <p><code>min</code>, <code>max</code>, and <code>sorted</code> all need the objects to be orderable. To be properly orderable, the class needs to define all of the 6 methods <code>__lt__</code>, <code>__gt__</code>, <code>__ge__</code>, <code>__le__</code>, <code>__ne__</code> and <code>__eq__</code>:</p>
+      
+<p><code>min</code>, <code>max</code>, and <code>sorted</code> all need the objects to be orderable. To be properly orderable, the class needs to define all of the 6 methods <code>__lt__</code>, <code>__gt__</code>, <code>__ge__</code>, <code>__le__</code>, <code>__ne__</code> and <code>__eq__</code>:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">IntegerContainer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -164,7 +167,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Though implementing all these methods would seem unnecessary, <a href="http://stackoverflow.com/a/8796908/918959">omitting some of them will make your code prone to bugs</a>.</p><p>Examples:</p>
+</div>
+<p>Though implementing all these methods would seem unnecessary, <a href="http://stackoverflow.com/a/8796908/918959">omitting some of them will make your code prone to bugs</a>.
+</p>
+<p>Examples:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">alist</span> <span class="o">=</span> <span class="p">[</span><span class="n">IntegerContainer</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">IntegerContainer</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
@@ -197,7 +205,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>sorted</code> with <code>reverse=True</code> also uses <code>__lt__</code>:</p>
+</div>
+<p><code>sorted</code> with <code>reverse=True</code> also uses <code>__lt__</code>:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">res</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">alist</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -213,7 +224,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But <code>sorted</code> can use <code>__gt__</code> instead if the default is not implemented:</p>
+</div>
+<p>But <code>sorted</code> can use <code>__gt__</code> instead if the default is not implemented:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">del</span> <span class="n">IntegerContainer</span><span class="o">.</span><span class="fm">__lt__</span>   <span class="c1"># The IntegerContainer no longer implements &#34;less than&#34;</span>
@@ -228,7 +242,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Sorting methods will raise a <code>TypeError</code> if neither <code>__lt__</code> nor <code>__gt__</code> are implemented:</p>
+</div>
+<p>Sorting methods will raise a <code>TypeError</code> if neither <code>__lt__</code> nor <code>__gt__</code> are implemented:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">del</span> <span class="n">IntegerContainer</span><span class="o">.</span><span class="fm">__gt__</span>   <span class="c1"># The IntegerContainer no longer implements &#34;greater then&#34;</span>
@@ -238,7 +255,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="0215d4e9-50b3-4e5d-a3ce-9d2dd7f02e02" class="">TypeError: unorderable types: IntegerContainer() &lt; IntegerContainer()</blockquote><p><a href="https://docs.python.org/3.3/library/functools.html#functools.total_ordering"><code>functools.total_ordering</code></a> decorator can be used simplifying the effort of writing these rich comparison methods. If you decorate your class with <code>total_ordering</code>, you need to implement <code>__eq__</code>, <code>__ne__</code> and only one of the <code>__lt__</code>, <code>__le__</code>, <code>__ge__</code> or <code>__gt__</code>, and the decorator will fill in the rest:</p>
+</div>
+<blockquote id="0215d4e9-50b3-4e5d-a3ce-9d2dd7f02e02" class="">TypeError: unorderable types: IntegerContainer() &lt; IntegerContainer()
+</blockquote>
+<p><a href="https://docs.python.org/3.3/library/functools.html#functools.total_ordering"><code>functools.total_ordering</code></a> decorator can be used simplifying the effort of writing these rich comparison methods. If you decorate your class with <code>total_ordering</code>, you need to implement <code>__eq__</code>, <code>__ne__</code> and only one of the <code>__lt__</code>, <code>__le__</code>, <code>__ge__</code> or <code>__gt__</code>, and the decorator will fill in the rest:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="kn">import</span> <span class="nn">functools</span>
@@ -267,6 +289,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">IntegerContainer</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">IntegerContainer</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
@@ -281,7 +304,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Notice how the <code>\&gt;</code> (<em>greater than</em>) now ends up calling the <em>less than</em> method, and in some cases even the <code>__eq__</code> method. This also means that if speed is of great importance, you should implement each rich comparison method yourself.</p>
+</div>
+<p>Notice how the <code>\&gt;</code> (<em>greater than</em>) now ends up calling the <em>less than</em> method, and in some cases even the <code>__eq__</code> method. This also means that if speed is of great importance, you should implement each rich comparison method yourself.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,14 @@
 </div>
 
 
-      <p><strong>1) Create a Contract Class</strong></p><p>A contract class defines constants that help applications work with the content URIs, column names, intent actions, and other features of a content provider. Contract classes are not included automatically with a provider; the provider’s developer has to define them and then make them available to other developers.</p><p>A provider usually has a single authority, which serves as its Android-internal name. To avoid conflicts with other providers, use a unique content authority. Because this recommendation is also true for Android package names, you can define your provider authority as an extension of the name of the package containing the provider. For example, if your Android package name is <code>com.example.appname</code>, you should give your provider the authority <code>com.example.appname.provider</code>.</p>
+      
+<p><strong>1) Create a Contract Class</strong>
+</p>
+<p>A contract class defines constants that help applications work with the content URIs, column names, intent actions, and other features of a content provider. Contract classes are not included automatically with a provider; the provider’s developer has to define them and then make them available to other developers.
+</p>
+<p>A provider usually has a single authority, which serves as its Android-internal name. To avoid conflicts with other providers, use a unique content authority. Because this recommendation is also true for Android package names, you can define your provider authority as an extension of the name of the package containing the provider. For example, if your Android package name is <code>com.example.appname</code>, you should give your provider the authority <code>com.example.appname.provider</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MyContract {</pre>
@@ -135,7 +142,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>public static final String CONTENT_AUTHORITY = “com.example.myApp”; public static final String PATH_DATATABLE = “dataTable”; public static final String TABLE_NAME = “dataTable”;</p>
+</div>
+<p>public static final String CONTENT_AUTHORITY = “com.example.myApp”; public static final String PATH_DATATABLE = “dataTable”; public static final String TABLE_NAME = “dataTable”;
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">}</pre>
@@ -143,7 +153,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A content URI is a URI that identifies data in a provider. Content URIs include the symbolic name of the entire provider (its authority) and a name that points to a table or file (a path). The optional id part points to an individual row in a table. Every data access method of ContentProvider has a content URI as an argument; this allows you to determine the table, row, or file to access. Define these in the contract class.</p>
+</div>
+<p>A content URI is a URI that identifies data in a provider. Content URIs include the symbolic name of the entire provider (its authority) and a name that points to a table or file (a path). The optional id part points to an individual row in a table. Every data access method of ContentProvider has a content URI as an argument; this allows you to determine the table, row, or file to access. Define these in the contract class.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public static final Uri BASE_CONTENT_URI = Uri.parse(&#34;content://&#34; + CONTENT_AUTHORITY);
@@ -154,7 +167,12 @@ public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PA
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>2) Create the Helper Class</strong></p><p>A helper class manages database creation and version management.</p>
+</div>
+<p><strong>2) Create the Helper Class</strong>
+</p>
+<p>A helper class manages database creation and version management.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class DatabaseHelper extends SQLiteOpenHelper {</pre>
@@ -162,7 +180,16 @@ public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PA
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>// Increment the version when there is a change in the structure of database public static final int DATABASE_VERSION = 1; // The name of the database in the filesystem, you can choose this to be anything public static final String DATABASE_NAME = “weather.db”;</p><p>public DatabaseHelper(Context context) { super(context, DATABASE_NAME, null, DATABASE_VERSION); }</p><p>@Override public void onCreate(SQLiteDatabase db) { // Called when the database is created for the first time. This is where the // creation of tables and the initial population of the tables should happen. }</p><p>@Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { // Called when the database needs to be upgraded. The implementation // should use this method to drop tables, add tables, or do anything else it // needs to upgrade to the new schema version. }</p>
+</div>
+<p>// Increment the version when there is a change in the structure of database public static final int DATABASE_VERSION = 1; // The name of the database in the filesystem, you can choose this to be anything public static final String DATABASE_NAME = “weather.db”;
+</p>
+<p>public DatabaseHelper(Context context) { super(context, DATABASE_NAME, null, DATABASE_VERSION); }
+</p>
+<p>@Override public void onCreate(SQLiteDatabase db) { // Called when the database is created for the first time. This is where the // creation of tables and the initial population of the tables should happen. }
+</p>
+<p>@Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { // Called when the database needs to be upgraded. The implementation // should use this method to drop tables, add tables, or do anything else it // needs to upgrade to the new schema version. }
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">}</pre>
@@ -170,7 +197,10 @@ public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PA
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>3) Create a class that extends ContentProvider class</strong></p>
+</div>
+<p><strong>3) Create a class that extends ContentProvider class</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MyProvider extends ContentProvider {
@@ -184,7 +214,10 @@ public static final int DATA_TABLE_DATE = 101;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A UriMatcher maps an authority and path to an integer value. The method <code>match()</code> returns a unique integer value for a URI (it can be any arbitrary number, as long as it’s unique). A switch statement chooses between querying the entire table, and querying for a single record. Our UriMatcher returns 100 if the URI is the Content URI of Table and 101 if the URI points to a specific row within that table. You can use the <code>\#</code> wildcard to match with any number and <code>\*</code> to match with any string.</p>
+</div>
+<p>A UriMatcher maps an authority and path to an integer value. The method <code>match()</code> returns a unique integer value for a URI (it can be any arbitrary number, as long as it’s unique). A switch statement chooses between querying the entire table, and querying for a single record. Our UriMatcher returns 100 if the URI is the Content URI of Table and 101 if the URI points to a specific row within that table. You can use the <code>\#</code> wildcard to match with any number and <code>\*</code> to match with any string.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public static UriMatcher buildUriMatcher() {</pre>
@@ -192,7 +225,10 @@ public static final int DATA_TABLE_DATE = 101;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH); uriMatcher.addURI(CONTENT_AUTHORITY, MyContract.PATH_DATATABLE, DATA_TABLE); uriMatcher.addURI(CONTENT_AUTHORITY, MyContract.PATH_DATATABLE + “/#”, DATA_TABLE_DATE); return uriMatcher;</p>
+</div>
+<p>UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH); uriMatcher.addURI(CONTENT_AUTHORITY, MyContract.PATH_DATATABLE, DATA_TABLE); uriMatcher.addURI(CONTENT_AUTHORITY, MyContract.PATH_DATATABLE + “/#”, DATA_TABLE_DATE); return uriMatcher;
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">}</pre>
@@ -200,7 +236,10 @@ public static final int DATA_TABLE_DATE = 101;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>IMPORTANT:</strong> the ordering of <code>addURI()</code> calls matters! The UriMatcher will look in sequential order from first added to last. Since wildcards like <code>\#</code> and <code>\*</code> are greedy, you will need to make sure that you have ordered your URIs correctly. For example:</p>
+</div>
+<p><strong>IMPORTANT:</strong> the ordering of <code>addURI()</code> calls matters! The UriMatcher will look in sequential order from first added to last. Since wildcards like <code>\#</code> and <code>\*</code> are greedy, you will need to make sure that you have ordered your URIs correctly. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">uriMatcher.addURI(CONTENT_AUTHORITY, &#34;/example&#34;, 1);
@@ -209,7 +248,14 @@ uriMatcher.addURI(CONTENT_AUTHORITY, &#34;/*&#34;,       2);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>is the proper ordering, since the matcher will look for <code>/example</code> first before resorting to the <code>/*</code> match. If these method calls were reversed and you called <code>uriMatcher.match(&quot;/example&quot;)</code>, then the UriMatcher will stop looking for matches once it encounters the <code>/*</code> path and return the wrong result!</p><p>You will then need to override these functions:</p><p><strong>onCreate()</strong>: Initialize your provider. The Android system calls this method immediately after it creates your provider. Notice that your provider is not created until a ContentResolver object tries to access it.</p>
+</div>
+<p>is the proper ordering, since the matcher will look for <code>/example</code> first before resorting to the <code>/*</code> match. If these method calls were reversed and you called <code>uriMatcher.match(&quot;/example&quot;)</code>, then the UriMatcher will stop looking for matches once it encounters the <code>/*</code> path and return the wrong result!
+</p>
+<p>You will then need to override these functions:
+</p>
+<p><strong>onCreate()</strong>: Initialize your provider. The Android system calls this method immediately after it creates your provider. Notice that your provider is not created until a ContentResolver object tries to access it.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -218,7 +264,10 @@ public boolean onCreate() {</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>dbhelper = new DatabaseHelper(getContext()); return true;</p>
+</div>
+<p>dbhelper = new DatabaseHelper(getContext()); return true;
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">}</pre>
@@ -226,7 +275,10 @@ public boolean onCreate() {</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>getType()</strong>: Return the MIME type corresponding to a content URI</p>
+</div>
+<p><strong>getType()</strong>: Return the MIME type corresponding to a content URI
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -235,7 +287,12 @@ public String getType(Uri uri) {</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>final int match = matcher.match(uri); switch (match) { case DATA_TABLE: return ContentResolver.CURSOR_DIR_BASE_TYPE + “/” + MyContract.CONTENT_AUTHORITY + “/” + MyContract.PATH_DATATABLE; case DATA_TABLE_DATE: return ContentResolver.ANY_CURSOR_ITEM_TYPE + “/” + MyContract.CONTENT_AUTHORITY + “/” + MyContract.PATH_DATATABLE; default: throw new UnsupportedOperationException(“Unknown Uri: “ + uri);</p><p>}</p>
+</div>
+<p>final int match = matcher.match(uri); switch (match) { case DATA_TABLE: return ContentResolver.CURSOR_DIR_BASE_TYPE + “/” + MyContract.CONTENT_AUTHORITY + “/” + MyContract.PATH_DATATABLE; case DATA_TABLE_DATE: return ContentResolver.ANY_CURSOR_ITEM_TYPE + “/” + MyContract.CONTENT_AUTHORITY + “/” + MyContract.PATH_DATATABLE; default: throw new UnsupportedOperationException(“Unknown Uri: “ + uri);
+</p>
+<p>}
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">}</pre>
@@ -243,7 +300,10 @@ public String getType(Uri uri) {</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>query()</strong>: Retrieve data from your provider. Use the arguments to select the table to query, the rows and columns to return, and the sort order of the result. Return the data as a Cursor object.</p>
+</div>
+<p><strong>query()</strong>: Retrieve data from your provider. Use the arguments to select the table to query, the rows and columns to return, and the sort order of the result. Return the data as a Cursor object.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -252,7 +312,10 @@ public Cursor query(Uri uri, String[] projection, String selection, String[] sel
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Cursor retCursor = dbHelper.getReadableDatabase().query( MyContract.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder); retCursor.setNotificationUri(getContext().getContentResolver(), uri); return retCursor;</p>
+</div>
+<p>Cursor retCursor = dbHelper.getReadableDatabase().query( MyContract.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder); retCursor.setNotificationUri(getContext().getContentResolver(), uri); return retCursor;
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">}</pre>
@@ -260,7 +323,10 @@ public Cursor query(Uri uri, String[] projection, String selection, String[] sel
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Insert a new row into your provider. Use the arguments to select the destination table and to get the column values to use. Return a content URI for the newly-inserted row.</p>
+</div>
+<p>Insert a new row into your provider. Use the arguments to select the destination table and to get the column values to use. Return a content URI for the newly-inserted row.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -270,7 +336,10 @@ public Uri insert(Uri uri, ContentValues values)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>final SQLiteDatabase db = dbHelper.getWritableDatabase(); long id = db.insert(MyContract.TABLE_NAME, null, values); return ContentUris.withAppendedId(MyContract.CONTENT_URI, ID);</p>
+</div>
+<p>final SQLiteDatabase db = dbHelper.getWritableDatabase(); long id = db.insert(MyContract.TABLE_NAME, null, values); return ContentUris.withAppendedId(MyContract.CONTENT_URI, ID);
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">}</pre>
@@ -278,7 +347,10 @@ public Uri insert(Uri uri, ContentValues values)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>delete()</strong>: Delete rows from your provider. Use the arguments to select the table and the rows to delete. Return the number of rows deleted.</p>
+</div>
+<p><strong>delete()</strong>: Delete rows from your provider. Use the arguments to select the table and the rows to delete. Return the number of rows deleted.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -287,7 +359,10 @@ public int delete(Uri uri, String selection, String[] selectionArgs) {</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>SQLiteDatabase db = dbHelper.getWritableDatabase(); int rowsDeleted = db.delete(MyContract.TABLE_NAME, selection, selectionArgs); getContext().getContentResolver().notifyChange(uri, null); return rowsDeleted;</p>
+</div>
+<p>SQLiteDatabase db = dbHelper.getWritableDatabase(); int rowsDeleted = db.delete(MyContract.TABLE_NAME, selection, selectionArgs); getContext().getContentResolver().notifyChange(uri, null); return rowsDeleted;
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">}</pre>
@@ -295,7 +370,10 @@ public int delete(Uri uri, String selection, String[] selectionArgs) {</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>update()</strong>: Update existing rows in your provider. Use the arguments to select the table and rows to update and to get the new column values. Return the number of rows updated.</p>
+</div>
+<p><strong>update()</strong>: Update existing rows in your provider. Use the arguments to select the table and rows to update and to get the new column values. Return the number of rows updated.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -304,7 +382,10 @@ public int update(Uri uri, ContentValues values, String selection, String[] sele
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>SQLiteDatabase db = dbHelper.getWritableDatabase(); int rowsUpdated = db.update(MyContract.TABLE_NAME, values, selection, selectionArgs); getContext().getContentResolver().notifyChange(uri, null); return rowsUpdated;</p>
+</div>
+<p>SQLiteDatabase db = dbHelper.getWritableDatabase(); int rowsUpdated = db.update(MyContract.TABLE_NAME, values, selection, selectionArgs); getContext().getContentResolver().notifyChange(uri, null); return rowsUpdated;
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">}</pre>
@@ -312,7 +393,10 @@ public int update(Uri uri, ContentValues values, String selection, String[] sele
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>4) Update manifest file</strong></p>
+</div>
+<p><strong>4) Update manifest file</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;provider

@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>You can enhance your kernel by adding new I/O schedulers if needed. Globally, governors and schedulers are the same; they both provide a way how the system should work. However, for the schedulers it is all about the input/output datastream except for the CPU settings. I/O schedulers decide how an upcoming I/O activity will be scheduled. The standard schedulers such as <em>noop</em> or <em>cfq</em> are performing very reasonably.</p><p>I/O schedulers can be found in <em>kernel_source/block</em>.</p><ol id="fa7810e6-b145-4abe-952e-de928498ebb5" class="numbered-list" start="1"><li>Copy your I/O scheduler file (for example, <em>sio-iosched.c</em>) and browse to <em>kernel_source/block</em>. Paste the scheduler file there.</li><li>Now open <em>Kconfig.iosched</em> and add your choice to the <em>Kconfig</em>, for example for <em>SIO</em>:</li></ol>
+      
+<p>You can enhance your kernel by adding new I/O schedulers if needed. Globally, governors and schedulers are the same; they both provide a way how the system should work. However, for the schedulers it is all about the input/output datastream except for the CPU settings. I/O schedulers decide how an upcoming I/O activity will be scheduled. The standard schedulers such as <em>noop</em> or <em>cfq</em> are performing very reasonably.
+</p>
+<p>I/O schedulers can be found in <em>kernel_source/block</em>.
+</p>
+  <ol id="fa7810e6-b145-4abe-952e-de928498ebb5" class="numbered-list" start="1">
+    <li>Copy your I/O scheduler file (for example, <em>sio-iosched.c</em>) and browse to <em>kernel_source/block</em>. Paste the scheduler file there.
+    </li>
+    <li>Now open <em>Kconfig.iosched</em> and add your choice to the <em>Kconfig</em>, for example for <em>SIO</em>:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">config IOSCHED_SIO
@@ -143,7 +154,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="ba0033cf-6d88-4daf-b046-a8cf50a839c8" class="numbered-list" start="1"><li>Then set the default choice option as follows:</li></ol>
+</div>
+  <ol id="ba0033cf-6d88-4daf-b046-a8cf50a839c8" class="numbered-list" start="1">
+    <li>Then set the default choice option as follows:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">default &#34;sio&#34; if DEFAULT_SIO</pre>
@@ -151,7 +167,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Save the file.</p><ol id="e6f7d21c-0771-46be-8941-5998fac1cefe" class="numbered-list" start="1"><li>Open the <em>Makefile</em> in <em>kernel_source/block/</em> and simply add the following line for <em>SIO</em>:</li></ol>
+</div>
+<p>Save the file.
+</p>
+  <ol id="e6f7d21c-0771-46be-8941-5998fac1cefe" class="numbered-list" start="1">
+    <li>Open the <em>Makefile</em> in <em>kernel_source/block/</em> and simply add the following line for <em>SIO</em>:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">obj-$(CONFIG_IOSCHED_SIO)    += sio-iosched.o</pre>
@@ -159,7 +182,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Save the file and you are done! The I/O schedulers should now pop up at the menu config.</p><p>Similar commit on GitHub: <a href="https://github.com/broodplank/samsung-kernel-msm7x30/commit/8c13ea91070ff072a64de4358d0429e35697678d">added Simple I/O scheduler</a>.</p>
+</div>
+<p>Save the file and you are done! The I/O schedulers should now pop up at the menu config.
+</p>
+<p>Similar commit on GitHub: <a href="https://github.com/broodplank/samsung-kernel-msm7x30/commit/8c13ea91070ff072a64de4358d0429e35697678d">added Simple I/O scheduler</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

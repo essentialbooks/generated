@@ -127,7 +127,18 @@
 </div>
 
 
-      <hr id="1b931f3e-43b7-4e4d-a2fb-19e055030738"/><p><strong>Introduction and motivation</strong></p><hr id="60e49dfe-8b34-406b-9a82-218472a436a7"/><p><strong>Expression templates</strong> (denoted as <strong>ETs</strong> in the following) are a powerful template meta-programming technique, used to speed-up calculations of sometimes quite expensive expressions. It is widely used in different domains, for example in implementation of linear algebra libraries.</p><p>For this example, consider the context of linear algebraic computations. More specifically, computations involving only <strong>element-wise operations</strong>. This kind of computations are the most basic applications of <strong>ETs</strong>, and they serve as a good introduction to how <strong>ETs</strong> work internally.</p><p>Let’s look at a motivating example. Consider the computation of the expression:</p>
+      
+<hr id="1b931f3e-43b7-4e4d-a2fb-19e055030738"/>
+<p><strong>Introduction and motivation</strong>
+</p>
+<hr id="60e49dfe-8b34-406b-9a82-218472a436a7"/>
+<p><strong>Expression templates</strong> (denoted as <strong>ETs</strong> in the following) are a powerful template meta-programming technique, used to speed-up calculations of sometimes quite expensive expressions. It is widely used in different domains, for example in implementation of linear algebra libraries.
+</p>
+<p>For this example, consider the context of linear algebraic computations. More specifically, computations involving only <strong>element-wise operations</strong>. This kind of computations are the most basic applications of <strong>ETs</strong>, and they serve as a good introduction to how <strong>ETs</strong> work internally.
+</p>
+<p>Let’s look at a motivating example. Consider the computation of the expression:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Vector vec_1, vec_2, vec_3;
@@ -139,7 +150,22 @@ Vector result = vec_1 + vec_2*vec_3;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here for the sake of simplicity, I’ll assume that the class <code>Vector</code> and operation + (vector plus: element-wise plus operation) and operation * (here means vector inner product: also element-wise operation) are both correctly implemented, as how they should be, mathematically.</p><p>In a conventional implementation without using <strong>ETs</strong> (or other similar techniques), <strong>at least five</strong> constructions of <code>Vector</code> instances take place in order to obtain the final <code>result</code>:</p><ol id="d9a50bc3-9b8a-4314-bf51-7281b4e08e6f" class="numbered-list" start="1"><li>Three instances corresponding to <code>vec_1</code>, <code>vec_2</code> and <code>vec_3</code>.</li><li>A temporary <code>Vector</code> instance <code>_tmp</code>, representing the result of <code>_tmp = vec_2*vec_3;</code>.</li><li>Finally with proper use of <strong>return value optimization</strong>, the construction of final <code>result</code> in <code>result = vec_1 + _tmp;</code>.</li></ol><p>Implementation using <strong>ETs</strong> can <strong>eliminate the creation of temporary</strong> <code>Vector _tmp</code> in 2, thus leaving only <strong>four</strong> constructions of <code>Vector</code> instances. More interestingly, consider the following expression which is more complex:</p>
+</div>
+<p>Here for the sake of simplicity, I’ll assume that the class <code>Vector</code> and operation + (vector plus: element-wise plus operation) and operation * (here means vector inner product: also element-wise operation) are both correctly implemented, as how they should be, mathematically.
+</p>
+<p>In a conventional implementation without using <strong>ETs</strong> (or other similar techniques), <strong>at least five</strong> constructions of <code>Vector</code> instances take place in order to obtain the final <code>result</code>:
+</p>
+  <ol id="d9a50bc3-9b8a-4314-bf51-7281b4e08e6f" class="numbered-list" start="1">
+    <li>Three instances corresponding to <code>vec_1</code>, <code>vec_2</code> and <code>vec_3</code>.
+    </li>
+    <li>A temporary <code>Vector</code> instance <code>_tmp</code>, representing the result of <code>_tmp = vec_2*vec_3;</code>.
+    </li>
+    <li>Finally with proper use of <strong>return value optimization</strong>, the construction of final <code>result</code> in <code>result = vec_1 + _tmp;</code>.
+    </li>
+  </ol>
+<p>Implementation using <strong>ETs</strong> can <strong>eliminate the creation of temporary</strong> <code>Vector _tmp</code> in 2, thus leaving only <strong>four</strong> constructions of <code>Vector</code> instances. More interestingly, consider the following expression which is more complex:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Vector result = vec_1 + (vec_2*vec3 + vec_1)*(vec_2 + vec_3*vec_1);</pre>
@@ -147,7 +173,26 @@ Vector result = vec_1 + vec_2*vec_3;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>There will also be four constructions of <code>Vector</code> instances in total: <code>vec_1, vec_2, vec_3</code> and <code>result</code>. In other words, in this example, <strong>where only element-wise operations are involved</strong>, it is guaranteed that <strong>no temporary objects will be created from intermediate calculations</strong>.</p><hr id="4f476c81-266f-4e80-9b4f-625e63736351"/><p><strong>How do ETs work</strong></p><hr id="b9da2b58-a2a2-4c2f-b47b-f7a01ce14937"/><p>Basically speaking, <strong>ETs for any algebraic computations</strong> consist of two building blocks:</p><ol id="67b31d0b-84c8-41fc-a535-ff54d22bb5d7" class="numbered-list" start="1"><li><strong>Pure algebraic expressions</strong> (<strong>PAE</strong>): they are proxies / abstractions of algebraic expressions. A pure algebraic does not do actual computations, they are merely abstractions / modeling of the computation work-flow. A PAE can be a model of <strong>either the input or the output of any algebraic expressions</strong>. Instances of <strong>PAE</strong>s are often considered cheap to copy.</li><li><strong>Lazy evaluations</strong>: which are implementation of real computations. In the following example, we will see that for expressions involving only element-wise operations, lazy evaluations can implement actual computations inside the indexed-access operation on the final result, thus creating a scheme of evaluation on-demand: a computation is not performed only if the final result is accessed / asked for.</li></ol><p>So, specifically how do we implement <strong>ETs</strong> in this example? Let’s walk through it now.</p><p>Consider always the following code snippet:</p>
+</div>
+<p>There will also be four constructions of <code>Vector</code> instances in total: <code>vec_1, vec_2, vec_3</code> and <code>result</code>. In other words, in this example, <strong>where only element-wise operations are involved</strong>, it is guaranteed that <strong>no temporary objects will be created from intermediate calculations</strong>.
+</p>
+<hr id="4f476c81-266f-4e80-9b4f-625e63736351"/>
+<p><strong>How do ETs work</strong>
+</p>
+<hr id="b9da2b58-a2a2-4c2f-b47b-f7a01ce14937"/>
+<p>Basically speaking, <strong>ETs for any algebraic computations</strong> consist of two building blocks:
+</p>
+  <ol id="67b31d0b-84c8-41fc-a535-ff54d22bb5d7" class="numbered-list" start="1">
+    <li><strong>Pure algebraic expressions</strong> (<strong>PAE</strong>): they are proxies / abstractions of algebraic expressions. A pure algebraic does not do actual computations, they are merely abstractions / modeling of the computation work-flow. A PAE can be a model of <strong>either the input or the output of any algebraic expressions</strong>. Instances of <strong>PAE</strong>s are often considered cheap to copy.
+    </li>
+    <li><strong>Lazy evaluations</strong>: which are implementation of real computations. In the following example, we will see that for expressions involving only element-wise operations, lazy evaluations can implement actual computations inside the indexed-access operation on the final result, thus creating a scheme of evaluation on-demand: a computation is not performed only if the final result is accessed / asked for.
+    </li>
+  </ol>
+<p>So, specifically how do we implement <strong>ETs</strong> in this example? Let’s walk through it now.
+</p>
+<p>Consider always the following code snippet:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Vector vec_1, vec_2, vec_3;
@@ -159,7 +204,22 @@ Vector result = vec_1 + vec_2*vec_3;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The expression to compute result can be decomposed further into two sub-expressions:</p><ol id="977b5899-dbc1-4b9a-970f-270fe383ae6e" class="numbered-list" start="1"><li>A vector plus expression (denoted as <strong>plus_expr</strong>)</li><li>A vector inner product expression (denoted as <strong>innerprod_expr</strong>).</li></ol><p>What <strong>ETs</strong> do is the following:</p><ul id="6fa93150-363f-49c1-aeda-2a02ba2b3dc8" class="bulleted-list"><li>Instead of compute right away each sub-expression, <strong>ETs</strong> first model the whole expression using a graphical structure. Each node in the graph represents a <strong>PAE</strong>. The edge connection of the nodes represent the actual computation flow. So for the above expression, we obtain the following graph:</li></ul>
+</div>
+<p>The expression to compute result can be decomposed further into two sub-expressions:
+</p>
+  <ol id="977b5899-dbc1-4b9a-970f-270fe383ae6e" class="numbered-list" start="1">
+    <li>A vector plus expression (denoted as <strong>plus_expr</strong>)
+    </li>
+    <li>A vector inner product expression (denoted as <strong>innerprod_expr</strong>).
+    </li>
+  </ol>
+<p>What <strong>ETs</strong> do is the following:
+</p>
+  <ul id="6fa93150-363f-49c1-aeda-2a02ba2b3dc8" class="bulleted-list">
+    <li>Instead of compute right away each sub-expression, <strong>ETs</strong> first model the whole expression using a graphical structure. Each node in the graph represents a <strong>PAE</strong>. The edge connection of the nodes represent the actual computation flow. So for the above expression, we obtain the following graph:
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">result = plus_expr( vec_1, innerprod_expr(vec_2, vec_3) )
@@ -175,7 +235,12 @@ vec_1     vec_2    vec_3</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="20758384-fe4b-4e5f-b030-dc5f440daee2" class="bulleted-list"><li>The final computation is implemented by <strong>looking through the graph hierarchy</strong>: since here we are dealing with <strong>only element-wise</strong> operations, the computation of each indexed value in <code>result</code> <strong>can be done independently</strong>: the final evaluation of <code>result</code> can be lazily postponed to a <strong>element-wise evaluation</strong> of each element of <code>result</code>. In other words, since the computation of an element of <code>result</code>, <code>elem_res</code>, can be expressed using corresponding elements in <code>vec_1</code> (<code>elem_1</code>), <code>vec_2</code> (<code>elem_2</code>) and <code>vec_3</code> (<code>elem_3</code>) as:</li></ul>
+</div>
+  <ul id="20758384-fe4b-4e5f-b030-dc5f440daee2" class="bulleted-list">
+    <li>The final computation is implemented by <strong>looking through the graph hierarchy</strong>: since here we are dealing with <strong>only element-wise</strong> operations, the computation of each indexed value in <code>result</code> <strong>can be done independently</strong>: the final evaluation of <code>result</code> can be lazily postponed to a <strong>element-wise evaluation</strong> of each element of <code>result</code>. In other words, since the computation of an element of <code>result</code>, <code>elem_res</code>, can be expressed using corresponding elements in <code>vec_1</code> (<code>elem_1</code>), <code>vec_2</code> (<code>elem_2</code>) and <code>vec_3</code> (<code>elem_3</code>) as:
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">elem_res = elem_1 + elem_2*elem_3;</pre>
@@ -183,9 +248,67 @@ vec_1     vec_2    vec_3</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>there is therefore no need to create a temporary <code>Vector</code> to store the result of intermediate inner product: <strong>the whole computation for one element can be done altogether, and be encoded inside the indexed-access operation</strong>.</p><hr id="0ee7a065-1c7d-47ce-8ab1-c1841332e30f"/><p><strong>Here are the example codes in action.</strong></p><hr id="b4315e91-b2a9-4c44-ba0e-d7ff43be5f5d"/><h2 id="1ed28d75-8e84-40ee-8fed-b04a9932ec77" class="">File vec.hh : wrapper for std::vector, used to show log when a construction is called.<a class="header-anchor" href="#1ed28d75-8e84-40ee-8fed-b04a9932ec77" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>—``` #ifndef EXPR_VEC # define EXPR_VEC</p><h1 id="b13cf07b-b353-4346-ad2b-82c1c2f50003" class="">include<a class="header-anchor" href="#b13cf07b-b353-4346-ad2b-82c1c2f50003" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><h1 id="ff6ee520-6a8a-419f-a7f6-b91e1a45927f" class="">include<a class="header-anchor" href="#ff6ee520-6a8a-419f-a7f6-b91e1a45927f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><h1 id="1ce9e432-86a6-4075-bec3-395128293a5a" class="">include<a class="header-anchor" href="#1ce9e432-86a6-4075-bec3-395128293a5a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><h1 id="d6721a52-89cb-4137-ac24-31e2b28c07aa" class="">include<a class="header-anchor" href="#d6721a52-89cb-4137-ac24-31e2b28c07aa" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><h1 id="09956a55-ee7e-46c3-afd5-45ab09e05c05" class="">include<a class="header-anchor" href="#09956a55-ee7e-46c3-afd5-45ab09e05c05" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><h1 id="119d5924-e461-4b22-a499-0742ea7c0b98" class="">include<a class="header-anchor" href="#119d5924-e461-4b22-a499-0742ea7c0b98" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>/// /// This is a wrapper for std::vector. It’s only purpose is to print out a log when a /// vector constructions in called. /// It wraps the indexed access operator [] and the size() method, which are /// important for later ETs implementation. ///</p><p>// std::vector wrapper. template class Vector { public: explicit Vector() { std::cout &lt;&lt; “ctor called.”; }; explicit Vector(int size): _vec(size) { std::cout &lt;&lt; “ctor called.”; }; explicit Vector(const std::vector &amp;vec): _vec(vec) { std::cout &lt;&lt; “ctor called.”; };</p><p>Vector(const Vector &amp; vec): _vec{vec()} { std::cout &lt;&lt; “copy ctor called.”; }; Vector(Vector &amp;&amp; vec): _vec(std::move(vec())) { std::cout &lt;&lt; “move ctor called.”; };</p><p>Vector &amp; operator=(const Vector &amp;) = default; Vector &amp; operator=(Vector &amp;&amp;) = default;</p><p>decltype(auto) operator { return _vec[indx]; } decltype(auto) operator const { return _vec[indx]; }</p><p>decltype(auto) operator()() &amp; { return (_vec); };
+</div>
+<p>there is therefore no need to create a temporary <code>Vector</code> to store the result of intermediate inner product: <strong>the whole computation for one element can be done altogether, and be encoded inside the indexed-access operation</strong>.
+</p>
+<hr id="0ee7a065-1c7d-47ce-8ab1-c1841332e30f"/>
+<p><strong>Here are the example codes in action.</strong>
+</p>
+<hr id="b4315e91-b2a9-4c44-ba0e-d7ff43be5f5d"/>
+  <h2 id="1ed28d75-8e84-40ee-8fed-b04a9932ec77" class="">File vec.hh : wrapper for std::vector, used to show log when a construction is called.
+  <a class="header-anchor" href="#1ed28d75-8e84-40ee-8fed-b04a9932ec77" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>—``` #ifndef EXPR_VEC # define EXPR_VEC
+</p>
+  <h1 id="b13cf07b-b353-4346-ad2b-82c1c2f50003" class="">include
+  <a class="header-anchor" href="#b13cf07b-b353-4346-ad2b-82c1c2f50003" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <h1 id="ff6ee520-6a8a-419f-a7f6-b91e1a45927f" class="">include
+  <a class="header-anchor" href="#ff6ee520-6a8a-419f-a7f6-b91e1a45927f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <h1 id="1ce9e432-86a6-4075-bec3-395128293a5a" class="">include
+  <a class="header-anchor" href="#1ce9e432-86a6-4075-bec3-395128293a5a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <h1 id="d6721a52-89cb-4137-ac24-31e2b28c07aa" class="">include
+  <a class="header-anchor" href="#d6721a52-89cb-4137-ac24-31e2b28c07aa" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <h1 id="09956a55-ee7e-46c3-afd5-45ab09e05c05" class="">include
+  <a class="header-anchor" href="#09956a55-ee7e-46c3-afd5-45ab09e05c05" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <h1 id="119d5924-e461-4b22-a499-0742ea7c0b98" class="">include
+  <a class="header-anchor" href="#119d5924-e461-4b22-a499-0742ea7c0b98" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>/// /// This is a wrapper for std::vector. It’s only purpose is to print out a log when a /// vector constructions in called. /// It wraps the indexed access operator [] and the size() method, which are /// important for later ETs implementation. ///
+</p>
+<p>// std::vector wrapper. template class Vector { public: explicit Vector() { std::cout &lt;&lt; “ctor called.”; }; explicit Vector(int size): _vec(size) { std::cout &lt;&lt; “ctor called.”; }; explicit Vector(const std::vector &amp;vec): _vec(vec) { std::cout &lt;&lt; “ctor called.”; };
+</p>
+<p>Vector(const Vector &amp; vec): _vec{vec()} { std::cout &lt;&lt; “copy ctor called.”; }; Vector(Vector &amp;&amp; vec): _vec(std::move(vec())) { std::cout &lt;&lt; “move ctor called.”; };
+</p>
+<p>Vector &amp; operator=(const Vector &amp;) = default; Vector &amp; operator=(Vector &amp;&amp;) = default;
+</p>
+<p>decltype(auto) operator { return _vec[indx]; } decltype(auto) operator const { return _vec[indx]; }
+</p>
+<p>decltype(auto) operator()() &amp; { return (_vec); };
 decltype(auto) operator()() const &amp; { return (_vec); };
-Vector &amp;&amp; operator()() &amp;&amp; { return std::move(*this); }</p><p>int size() const { return _vec.size(); }</p><p>private: std::vector _vec; };</p><p>/// /// These are conventional overloads of operator + (the vector plus operation) /// and operator * (the vector inner product operation) without using the expression /// templates. They are later used for bench-marking purpose. ///</p><p>// + (vector plus) operator. template auto operator+(const Vector &amp;lhs, const Vector &amp;rhs) { assert(lhs().size() == rhs().size() &amp;&amp; “error: ops plus -&gt; lhs and rhs size mismatch.”);</p><p>std::vector _vec; _vec.resize(lhs().size()); std::transform(std::cbegin(lhs()), std::cend(lhs()), std::cbegin(rhs()), std::begin(_vec), std::plus&lt;&gt;()); return Vector(std::move(_vec)); }</p><p>// * (vector inner product) operator. template auto operator*(const Vector &amp;lhs, const Vector &amp;rhs) { assert(lhs().size() == rhs().size() &amp;&amp; “error: ops multiplies -&gt; lhs and rhs size mismatch.”);</p><p>std::vector _vec; _vec.resize(lhs().size()); std::transform(std::cbegin(lhs()), std::cend(lhs()), std::cbegin(rhs()), std::begin(_vec), std::multiplies&lt;&gt;()); return Vector(std::move(_vec)); }</p><p>#endif //!EXPR_VEC</p>
+Vector &amp;&amp; operator()() &amp;&amp; { return std::move(*this); }
+</p>
+<p>int size() const { return _vec.size(); }
+</p>
+<p>private: std::vector _vec; };
+</p>
+<p>/// /// These are conventional overloads of operator + (the vector plus operation) /// and operator * (the vector inner product operation) without using the expression /// templates. They are later used for bench-marking purpose. ///
+</p>
+<p>// + (vector plus) operator. template auto operator+(const Vector &amp;lhs, const Vector &amp;rhs) { assert(lhs().size() == rhs().size() &amp;&amp; “error: ops plus -&gt; lhs and rhs size mismatch.”);
+</p>
+<p>std::vector _vec; _vec.resize(lhs().size()); std::transform(std::cbegin(lhs()), std::cend(lhs()), std::cbegin(rhs()), std::begin(_vec), std::plus&lt;&gt;()); return Vector(std::move(_vec)); }
+</p>
+<p>// * (vector inner product) operator. template auto operator*(const Vector &amp;lhs, const Vector &amp;rhs) { assert(lhs().size() == rhs().size() &amp;&amp; “error: ops multiplies -&gt; lhs and rhs size mismatch.”);
+</p>
+<p>std::vector _vec; _vec.resize(lhs().size()); std::transform(std::cbegin(lhs()), std::cend(lhs()), std::cbegin(rhs()), std::begin(_vec), std::multiplies&lt;&gt;()); return Vector(std::move(_vec)); }
+</p>
+<p>#endif //!EXPR_VEC
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">---
@@ -207,7 +330,14 @@ Let’s break it down to sections.
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>#ifndef EXPR_EXPR # define EXPR_EXPR</p><p>/// Fwd declaration. template class Vector;</p><p>namespace expr {</p>
+</div>
+<p>#ifndef EXPR_EXPR # define EXPR_EXPR
+</p>
+<p>/// Fwd declaration. template class Vector;
+</p>
+<p>namespace expr {
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"></pre>
@@ -215,8 +345,11 @@ Let’s break it down to sections.
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>/// —————————————– /// /// Section 1. /// /// The first section is a base class template for all kinds of expression. It
-/// employs the Curiously Recurring Template Pattern, which enables its instantiation /// to any kind of expression structure inheriting from it. /// /// —————————————–</p>
+</div>
+<p>/// —————————————– /// /// Section 1. /// /// The first section is a base class template for all kinds of expression. It
+/// employs the Curiously Recurring Template Pattern, which enables its instantiation /// to any kind of expression structure inheriting from it. /// /// —————————————–
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"></pre>
@@ -224,7 +357,16 @@ Let’s break it down to sections.
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>/// Base class for all expressions. template class expr_base { public: const Expr&amp; self() const { return static_cast&lt;const Expr&amp;&gt;(<em>this); } Expr&amp; self() { return static_cast&lt;Expr&amp;&gt;(</em>this); }</p><p>protected: explicit expr_base() {}; int size() const { return self().size_impl(); } auto operator const { return self().at_impl(indx); } auto operator()() const { return self()(); }; };</p><p>/// —————————————– /// /// The following section 2 &amp; 3 are abstractions of pure algebraic expressions (PAE). /// Any PAE can be converted to a real object instance using operator(): it is in /// this conversion process, where the real computations are done.</p><p>/// /// Section 2. Terminal /// /// A terminal is an abstraction wrapping a const reference to the Vector data /// structure. It inherits from expr_base, therefore providing a unified interface /// wrapping a Vector into a PAE. /// /// It provides the size() method, indexed access through at_impl() and a conversion /// to referenced object through () operator. /// /// It might no be necessary for user defined data structures to have a terminal /// wrapper, since user defined structure can inherit expr_base, therefore eliminates /// the need to provide such terminal wrapper. /// /// —————————————–</p>
+</div>
+<p>/// Base class for all expressions. template class expr_base { public: const Expr&amp; self() const { return static_cast&lt;const Expr&amp;&gt;(<em>this); } Expr&amp; self() { return static_cast&lt;Expr&amp;&gt;(</em>this); }
+</p>
+<p>protected: explicit expr_base() {}; int size() const { return self().size_impl(); } auto operator const { return self().at_impl(indx); } auto operator()() const { return self()(); }; };
+</p>
+<p>/// —————————————– /// /// The following section 2 &amp; 3 are abstractions of pure algebraic expressions (PAE). /// Any PAE can be converted to a real object instance using operator(): it is in /// this conversion process, where the real computations are done.
+</p>
+<p>/// /// Section 2. Terminal /// /// A terminal is an abstraction wrapping a const reference to the Vector data /// structure. It inherits from expr_base, therefore providing a unified interface /// wrapping a Vector into a PAE. /// /// It provides the size() method, indexed access through at_impl() and a conversion /// to referenced object through () operator. /// /// It might no be necessary for user defined data structures to have a terminal /// wrapper, since user defined structure can inherit expr_base, therefore eliminates /// the need to provide such terminal wrapper. /// /// —————————————–
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"></pre>
@@ -232,7 +374,14 @@ Let’s break it down to sections.
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>/// Generic wrapper for underlying data structure. template class terminal: expr_base&lt;terminal&gt; { public: using base_type = expr_base&lt;terminal&gt;; using base_type::size; using base_type::operator[]; friend base_type;</p><p>explicit terminal(const DataType &amp;val): _val(val) {} int size_impl() const { return _val.size(); }; auto at_impl(int indx) const { return _val[indx]; }; decltype(auto) operator()() const { return (_val); }</p><p>private: const DataType &amp;_val; };</p>
+</div>
+<p>/// Generic wrapper for underlying data structure. template class terminal: expr_base&lt;terminal&gt; { public: using base_type = expr_base&lt;terminal&gt;; using base_type::size; using base_type::operator[]; friend base_type;
+</p>
+<p>explicit terminal(const DataType &amp;val): _val(val) {} int size_impl() const { return _val.size(); }; auto at_impl(int indx) const { return _val[indx]; }; decltype(auto) operator()() const { return (_val); }
+</p>
+<p>private: const DataType &amp;_val; };
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"></pre>
@@ -240,7 +389,10 @@ Let’s break it down to sections.
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>/// —————————————– /// /// Section 3. Binary operation expression. /// /// This is a PAE abstraction of any binary expression. Similarly it inherits from /// expr_base. /// /// It provides the size() method, indexed access through at_impl() and a conversion /// to referenced object through () operator. Each call to the at_impl() method is /// a element wise computation. /// /// —————————————–</p>
+</div>
+<p>/// —————————————– /// /// Section 3. Binary operation expression. /// /// This is a PAE abstraction of any binary expression. Similarly it inherits from /// expr_base. /// /// It provides the size() method, indexed access through at_impl() and a conversion /// to referenced object through () operator. Each call to the at_impl() method is /// a element wise computation. /// /// —————————————–
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"></pre>
@@ -248,7 +400,18 @@ Let’s break it down to sections.
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>/// Generic wrapper for binary operations (that are element-wise). template&lt;typename Ops, typename lExpr, typename rExpr&gt; class binary_ops: public expr_base&lt;binary_ops&lt;Ops,lExpr,rExpr&gt;&gt; { public: using base_type = expr_base&lt;binary_ops&lt;Ops,lExpr,rExpr&gt;&gt;; using base_type::size; using base_type::operator[]; friend base_type;</p><p>explicit binary_ops(const Ops &amp;ops, const lExpr &amp;lxpr, const rExpr &amp;rxpr) : _ops(ops), _lxpr(lxpr), _rxpr(rxpr) {}; int size_impl() const { return _lxpr.size(); };</p><p>/// This does the element-wise computation for index indx. auto at_impl(int indx) const { return _ops(_lxpr[indx], _rxpr[indx]); };</p><p>/// Conversion from arbitrary expr to concrete data type. It evaluates /// element-wise computations for all indices. template operator DataType() { DataType _vec(size()); for(int _ind = 0; _ind &lt; _vec.size(); ++_ind) _vec[_ind] = (*this)[_ind]; return _vec; }</p><p>private: /// Ops and expr are assumed cheap to copy. Ops _ops; lExpr _lxpr; rExpr _rxpr; };</p>
+</div>
+<p>/// Generic wrapper for binary operations (that are element-wise). template&lt;typename Ops, typename lExpr, typename rExpr&gt; class binary_ops: public expr_base&lt;binary_ops&lt;Ops,lExpr,rExpr&gt;&gt; { public: using base_type = expr_base&lt;binary_ops&lt;Ops,lExpr,rExpr&gt;&gt;; using base_type::size; using base_type::operator[]; friend base_type;
+</p>
+<p>explicit binary_ops(const Ops &amp;ops, const lExpr &amp;lxpr, const rExpr &amp;rxpr) : _ops(ops), _lxpr(lxpr), _rxpr(rxpr) {}; int size_impl() const { return _lxpr.size(); };
+</p>
+<p>/// This does the element-wise computation for index indx. auto at_impl(int indx) const { return _ops(_lxpr[indx], _rxpr[indx]); };
+</p>
+<p>/// Conversion from arbitrary expr to concrete data type. It evaluates /// element-wise computations for all indices. template operator DataType() { DataType _vec(size()); for(int _ind = 0; _ind &lt; _vec.size(); ++_ind) _vec[_ind] = (*this)[_ind]; return _vec; }
+</p>
+<p>private: /// Ops and expr are assumed cheap to copy. Ops _ops; lExpr _lxpr; rExpr _rxpr; };
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"></pre>
@@ -256,8 +419,11 @@ Let’s break it down to sections.
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>/// —————————————– /// Section 4. /// /// The following two structs defines algebraic operations on PAEs: here only vector /// plus and vector inner product are implemented. /// /// First, some element-wise operations are defined : in other words, vec_plus and /// vec_prod acts on elements in Vectors, but not whole Vectors. /// /// Then, operator + &amp; * are overloaded on PAEs, such that: + &amp; * operations on PAEs
-/// also return PAEs. /// /// —————————————–</p>
+</div>
+<p>/// —————————————– /// Section 4. /// /// The following two structs defines algebraic operations on PAEs: here only vector /// plus and vector inner product are implemented. /// /// First, some element-wise operations are defined : in other words, vec_plus and /// vec_prod acts on elements in Vectors, but not whole Vectors. /// /// Then, operator + &amp; * are overloaded on PAEs, such that: + &amp; * operations on PAEs
+/// also return PAEs. /// /// —————————————–
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"></pre>
@@ -265,7 +431,22 @@ Let’s break it down to sections.
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>/// Element-wise plus operation. struct vec_plus_t { constexpr explicit vec_plus_t() = default; template&lt;typename LType, typename RType&gt; auto operator()(const LType &amp;lhs, const RType &amp;rhs) const { return lhs+rhs; } };</p><p>/// Element-wise inner product operation. struct vec_prod_t { constexpr explicit vec_prod_t() = default; template&lt;typename LType, typename RType&gt; auto operator()(const LType &amp;lhs, const RType &amp;rhs) const { return lhs*rhs; } };</p><p>/// Constant plus and inner product operator objects. constexpr vec_plus_t vec_plus{}; constexpr vec_prod_t vec_prod{};</p><p>/// Plus operator overload on expressions: return binary expression. template&lt;typename lExpr, typename rExpr&gt; auto operator+(const lExpr &amp;lhs, const rExpr &amp;rhs) { return binary_ops&lt;vec_plus_t,lExpr,rExpr&gt;(vec_plus,lhs,rhs); }</p><p>/// Inner prod operator overload on expressions: return binary expression. template&lt;typename lExpr, typename rExpr&gt; auto operator*(const lExpr &amp;lhs, const rExpr &amp;rhs) { return binary_ops&lt;vec_prod_t,lExpr,rExpr&gt;(vec_prod,lhs,rhs); }</p><p>} //!expr</p><p>#endif //!EXPR_EXPR</p>
+</div>
+<p>/// Element-wise plus operation. struct vec_plus_t { constexpr explicit vec_plus_t() = default; template&lt;typename LType, typename RType&gt; auto operator()(const LType &amp;lhs, const RType &amp;rhs) const { return lhs+rhs; } };
+</p>
+<p>/// Element-wise inner product operation. struct vec_prod_t { constexpr explicit vec_prod_t() = default; template&lt;typename LType, typename RType&gt; auto operator()(const LType &amp;lhs, const RType &amp;rhs) const { return lhs*rhs; } };
+</p>
+<p>/// Constant plus and inner product operator objects. constexpr vec_plus_t vec_plus{}; constexpr vec_prod_t vec_prod{};
+</p>
+<p>/// Plus operator overload on expressions: return binary expression. template&lt;typename lExpr, typename rExpr&gt; auto operator+(const lExpr &amp;lhs, const rExpr &amp;rhs) { return binary_ops&lt;vec_plus_t,lExpr,rExpr&gt;(vec_plus,lhs,rhs); }
+</p>
+<p>/// Inner prod operator overload on expressions: return binary expression. template&lt;typename lExpr, typename rExpr&gt; auto operator*(const lExpr &amp;lhs, const rExpr &amp;rhs) { return binary_ops&lt;vec_prod_t,lExpr,rExpr&gt;(vec_prod,lhs,rhs); }
+</p>
+<p>} //!expr
+</p>
+<p>#endif //!EXPR_EXPR
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">---
@@ -337,7 +518,10 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here’s one possible output when compiled with <code>-O3 -std=c++14</code> using GCC 5.3:</p>
+</div>
+<p>Here’s one possible output when compiled with <code>-O3 -std=c++14</code> using GCC 5.3:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ctor called.
@@ -359,7 +543,28 @@ expr::binary_ops&lt;expr::vec_plus_t, expr::terminal&lt;Vector&lt;float&gt; &gt;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The observations are:</p><ul id="21f1c40b-a8e2-464d-99a9-e7e6241051c4" class="bulleted-list"><li>Using <strong>ETs</strong> achieves rather significant performance boost <strong>in this case</strong> ( &gt; 3x).</li><li>Creation of temporary Vector object is eliminated. As in the <strong>ETs</strong> case, ctor is called only once.</li><li>Boost::demangle was used to visualize the type of ETs return before conversion: it clearly constructed exactly the same expression graph demonstrated above.</li></ul><hr id="895fa31c-acbd-4ae9-bf7a-ab75959b2c6d"/><p><strong>Draw-backs and caveats</strong></p><hr id="6c46e49d-8573-4a33-842b-63c7f663dcd8"/><ul id="76229fdd-008f-44a2-8ba3-f28cd1eb8e47" class="bulleted-list"><li>An obvious disadvantage of <strong>ETs</strong> is the learning curve, the complexity of implementation and code-maintenance difficulty. In the above example where only element-wise operations are considered, the implementation contains already enormous amount of boilerplates, let alone in real world, where more complex algebraic expressions occur in every computation and element-wise independence no longer hold (for example matrix multiplication), the difficulty will be exponential.</li><li>Another caveat of using <strong>ETs</strong> is that they do play well with the <code>auto</code> keyword. As mentioned above, <strong>PAE</strong>s are essentially proxies: and proxies basically do not play well with <code>auto</code>. Consider the following example:</li></ul>
+</div>
+<p>The observations are:
+</p>
+  <ul id="21f1c40b-a8e2-464d-99a9-e7e6241051c4" class="bulleted-list">
+    <li>Using <strong>ETs</strong> achieves rather significant performance boost <strong>in this case</strong> ( &gt; 3x).
+    </li>
+    <li>Creation of temporary Vector object is eliminated. As in the <strong>ETs</strong> case, ctor is called only once.
+    </li>
+    <li>Boost::demangle was used to visualize the type of ETs return before conversion: it clearly constructed exactly the same expression graph demonstrated above.
+    </li>
+  </ul>
+<hr id="895fa31c-acbd-4ae9-bf7a-ab75959b2c6d"/>
+<p><strong>Draw-backs and caveats</strong>
+</p>
+<hr id="6c46e49d-8573-4a33-842b-63c7f663dcd8"/>
+  <ul id="76229fdd-008f-44a2-8ba3-f28cd1eb8e47" class="bulleted-list">
+    <li>An obvious disadvantage of <strong>ETs</strong> is the learning curve, the complexity of implementation and code-maintenance difficulty. In the above example where only element-wise operations are considered, the implementation contains already enormous amount of boilerplates, let alone in real world, where more complex algebraic expressions occur in every computation and element-wise independence no longer hold (for example matrix multiplication), the difficulty will be exponential.
+    </li>
+    <li>Another caveat of using <strong>ETs</strong> is that they do play well with the <code>auto</code> keyword. As mentioned above, <strong>PAE</strong>s are essentially proxies: and proxies basically do not play well with <code>auto</code>. Consider the following example:
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto result = ...;                // Some expensive expression: 
@@ -371,7 +576,19 @@ for(auto i = 0; i &lt; 100; ++i)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here <strong>in each iteration of the for loop, result will be re-evaluated</strong>, since the expression graph instead of the computed value is passed to the for loop.</p><hr id="12045428-e1bc-4c1e-bc42-0336cf226226"/><p>Existing libraries implementing <strong>ETs</strong></p><hr id="aacb61b6-87a6-4bde-b87e-2dc56db490bc"/><ul id="ef7cfba2-acd0-4a7f-bf7e-ec6552dccb23" class="bulleted-list"><li><a href="http://www.boost.org/doc/libs/1_61_0/doc/html/proto.html"><strong>boost::proto</strong></a> is a powerful library letting you define your own rules &amp; grammars for your own expressions and execute using <strong>ETs</strong>.</li><li><a href="http://eigen.tuxfamily.org/index.php?title=Main_Page"><strong>Eigen</strong></a> is a library for linear algebra that implements various algebraic computations efficiently using <strong>ETs</strong>.</li></ul>
+</div>
+<p>Here <strong>in each iteration of the for loop, result will be re-evaluated</strong>, since the expression graph instead of the computed value is passed to the for loop.
+</p>
+<hr id="12045428-e1bc-4c1e-bc42-0336cf226226"/>
+<p>Existing libraries implementing <strong>ETs</strong>
+</p>
+<hr id="aacb61b6-87a6-4bde-b87e-2dc56db490bc"/>
+  <ul id="ef7cfba2-acd0-4a7f-bf7e-ec6552dccb23" class="bulleted-list">
+    <li><a href="http://www.boost.org/doc/libs/1_61_0/doc/html/proto.html"><strong>boost::proto</strong></a> is a powerful library letting you define your own rules &amp; grammars for your own expressions and execute using <strong>ETs</strong>.
+    </li>
+    <li><a href="http://eigen.tuxfamily.org/index.php?title=Main_Page"><strong>Eigen</strong></a> is a library for linear algebra that implements various algebraic computations efficiently using <strong>ETs</strong>.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

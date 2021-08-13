@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>In the absence of explicit initialization, external and <code>static</code> variables are guaranteed to be initialized to zero; automatic variables (including <code>register</code> variables) have <em>indeterminate</em>1 (i.e., garbage) initial values.</p><p>Scalar variables may be initialized when they are defined by following the name with an equals sign and an expression:</p>
+      
+<p>In the absence of explicit initialization, external and <code>static</code> variables are guaranteed to be initialized to zero; automatic variables (including <code>register</code> variables) have <em>indeterminate</em>1 (i.e., garbage) initial values.
+</p>
+<p>Scalar variables may be initialized when they are defined by following the name with an equals sign and an expression:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int x = 1;
@@ -137,7 +142,14 @@ long day = 1000L * 60L * 60L * 24L; /* milliseconds/day */</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For external and <code>static</code> variables, the initializer must be a <em>constant expression</em>2; the initialization is done once, conceptually before the program begins execution.</p><p>For automatic and <code>register</code> variables, the initializer is not restricted to being a constant: it may be any expression involving previously defined values, even function calls.</p><p>For example, see the code snippet below</p>
+</div>
+<p>For external and <code>static</code> variables, the initializer must be a <em>constant expression</em>2; the initialization is done once, conceptually before the program begins execution.
+</p>
+<p>For automatic and <code>register</code> variables, the initializer is not restricted to being a constant: it may be any expression involving previously defined values, even function calls.
+</p>
+<p>For example, see the code snippet below
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int binsearch(int x, int v[], int n)
@@ -151,7 +163,10 @@ long day = 1000L * 60L * 60L * 24L; /* milliseconds/day */</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>instead of</p>
+</div>
+<p>instead of
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int low, high, mid;
@@ -162,7 +177,16 @@ high = n - 1;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In effect, initialization of automatic variables are just shorthand for assignment statements. Which form to prefer is largely a matter of taste. We generally use explicit assignments, because initializers in declarations are harder to see and further away from the point of use. On the other hand, variables should only be declared when they’re about to be used whenever possible.</p><p><strong>Initializing an array:</strong></p><p>An array may be initialized by following its declaration with a list of initializers enclosed in braces and separated by commas.</p><p>For example, to initialize an array days with the number of days in each month:</p>
+</div>
+<p>In effect, initialization of automatic variables are just shorthand for assignment statements. Which form to prefer is largely a matter of taste. We generally use explicit assignments, because initializers in declarations are harder to see and further away from the point of use. On the other hand, variables should only be declared when they’re about to be used whenever possible.
+</p>
+<p><strong>Initializing an array:</strong>
+</p>
+<p>An array may be initialized by following its declaration with a list of initializers enclosed in braces and separated by commas.
+</p>
+<p>For example, to initialize an array days with the number of days in each month:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int days_of_month[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }</pre>
@@ -170,7 +194,24 @@ high = n - 1;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>(Note that January is encoded as month zero in this structure.)</p><p>When the size of the array is omitted, the compiler will compute the length by counting the initializers, of which there are 12 in this case.</p><p>If there are fewer initializers for an array than the specified size, the others will be zero for all types of variables.</p><p>It is an error to have too many initializers. There is no standard way to specify repetition of an initializer — but GCC has an <a href="https://gcc.gnu.org/onlinedocs/gcc/Designated-Inits.html#Designated-Inits">extension</a> to do so.</p><p>In C89/C90 or earlier versions of C, there was no way to initialize an element in the middle of an array without supplying all the preceding values as well.</p><p>With C99 and above, <a href="http://stackoverflow.com/documentation/c/4547/initialization/18609/using-designated-initializers#t=201608082105205280272">designated initializers</a> allow you to initialize arbitrary elements of an array, leaving any uninitialized values as zeros.</p><p><strong>Initializing Character arrays:</strong></p><p>Character arrays are a special case of initialization; a string may be used instead of the braces and commas notation:</p>
+</div>
+<p>(Note that January is encoded as month zero in this structure.)
+</p>
+<p>When the size of the array is omitted, the compiler will compute the length by counting the initializers, of which there are 12 in this case.
+</p>
+<p>If there are fewer initializers for an array than the specified size, the others will be zero for all types of variables.
+</p>
+<p>It is an error to have too many initializers. There is no standard way to specify repetition of an initializer — but GCC has an <a href="https://gcc.gnu.org/onlinedocs/gcc/Designated-Inits.html#Designated-Inits">extension</a> to do so.
+</p>
+<p>In C89/C90 or earlier versions of C, there was no way to initialize an element in the middle of an array without supplying all the preceding values as well.
+</p>
+<p>With C99 and above, <a href="http://stackoverflow.com/documentation/c/4547/initialization/18609/using-designated-initializers#t=201608082105205280272">designated initializers</a> allow you to initialize arbitrary elements of an array, leaving any uninitialized values as zeros.
+</p>
+<p><strong>Initializing Character arrays:</strong>
+</p>
+<p>Character arrays are a special case of initialization; a string may be used instead of the braces and commas notation:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">char chr_array[] = &#34;hello&#34;;</pre>
@@ -178,7 +219,10 @@ high = n - 1;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>is a shorthand for the longer but equivalent:</p>
+</div>
+<p>is a shorthand for the longer but equivalent:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">char chr_array[] = { &#39;h&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;, &#39;\0&#39; };</pre>
@@ -186,7 +230,13 @@ high = n - 1;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this case, the array size is six (five characters plus the terminating <code>&#x27;\0&#x27;</code>).</p><p>1 http://stackoverflow.com/questions/1597405/what-happens-to-a-declared-uninitialized-variable-in-c-does-it-have-a-value</p><p>2 Note that a <em>constant expression</em> is defined as something that can be evaluated at compile-time. So, <code>int global_var = f();</code> is invalid. Another common misconception is thinking of a <code>const</code> qualified variable as a <em>constant expression</em>. In C, <code>const</code> means “read-only”, not “compile time constant”. So, global definitions like <code>const int SIZE = 10; int global_arr[SIZE];</code> and <code>const int SIZE = 10; int global_var = SIZE;</code> are not legal in C.</p>
+</div>
+<p>In this case, the array size is six (five characters plus the terminating <code>&#x27;\0&#x27;</code>).
+</p>
+<p>1 http://stackoverflow.com/questions/1597405/what-happens-to-a-declared-uninitialized-variable-in-c-does-it-have-a-value
+</p>
+<p>2 Note that a <em>constant expression</em> is defined as something that can be evaluated at compile-time. So, <code>int global_var = f();</code> is invalid. Another common misconception is thinking of a <code>const</code> qualified variable as a <em>constant expression</em>. In C, <code>const</code> means “read-only”, not “compile time constant”. So, global definitions like <code>const int SIZE = 10; int global_arr[SIZE];</code> and <code>const int SIZE = 10; int global_var = SIZE;</code> are not legal in C.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

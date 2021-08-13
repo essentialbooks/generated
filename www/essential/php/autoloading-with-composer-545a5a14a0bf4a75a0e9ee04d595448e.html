@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>While composer provides a system to manage dependencies for PHP projects (e.g. from <a href="https://packagist.org/">Packagist</a>), it can also notably serve as an autoloader, specifying where to look for specific namespaces or include generic function files.</p><p>It starts with the <code>composer.json</code> file:</p>
+      
+<p>While composer provides a system to manage dependencies for PHP projects (e.g. from <a href="https://packagist.org/">Packagist</a>), it can also notably serve as an autoloader, specifying where to look for specific namespaces or include generic function files.
+</p>
+<p>It starts with the <code>composer.json</code> file:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">{
@@ -150,7 +155,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This configuration code ensures that all classes in the namespace <code>MyVendorName\MyProject</code> are mapped to the <code>src</code> directory and all classes in <code>MyVendorName\MyProject\Tests</code> to the <code>tests</code> directory (relative to your root directory). It will also automatically include the file <code>functions.php</code>.</p><p>After putting this in your <code>composer.json</code> file, run <code>composer update</code> in a terminal to have composer update the dependencies, the lock file and generate the <code>autoload.php</code> file. When deploying to a production environment you would use <code>composer install --no-dev</code>. The <code>autoload.php</code> file can be found in the <code>vendor</code> directory which should be generated in the directory where <code>composer.json</code> resides.</p><p>You should <code>require</code> this file early at a setup point in the lifecycle of your application using a line similar to that below.</p>
+</div>
+<p>This configuration code ensures that all classes in the namespace <code>MyVendorName\MyProject</code> are mapped to the <code>src</code> directory and all classes in <code>MyVendorName\MyProject\Tests</code> to the <code>tests</code> directory (relative to your root directory). It will also automatically include the file <code>functions.php</code>.
+</p>
+<p>After putting this in your <code>composer.json</code> file, run <code>composer update</code> in a terminal to have composer update the dependencies, the lock file and generate the <code>autoload.php</code> file. When deploying to a production environment you would use <code>composer install --no-dev</code>. The <code>autoload.php</code> file can be found in the <code>vendor</code> directory which should be generated in the directory where <code>composer.json</code> resides.
+</p>
+<p>You should <code>require</code> this file early at a setup point in the lifecycle of your application using a line similar to that below.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">require_once __DIR__ . &#39;/vendor/autoload.php&#39;;</pre>
@@ -158,7 +170,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Once included, the <code>autoload.php</code> file takes care of loading all the dependencies that you provided in your <code>composer.json</code> file.</p><p>Some examples of the class path to directory mapping:</p><ul id="00e36122-39d5-41f1-8589-46086246670c" class="bulleted-list"><li><code>MyVendorName\MyProject\Shapes\Square</code> ➔ <code>src/Shapes/Square.php</code>.</li><li><code>MyVendorName\MyProject\Tests\Shapes\Square</code> ➔ <code>tests/Shapes/Square.php</code>.</li></ul>
+</div>
+<p>Once included, the <code>autoload.php</code> file takes care of loading all the dependencies that you provided in your <code>composer.json</code> file.
+</p>
+<p>Some examples of the class path to directory mapping:
+</p>
+  <ul id="00e36122-39d5-41f1-8589-46086246670c" class="bulleted-list">
+    <li><code>MyVendorName\MyProject\Shapes\Square</code> ➔ <code>src/Shapes/Square.php</code>.
+    </li>
+    <li><code>MyVendorName\MyProject\Tests\Shapes\Square</code> ➔ <code>tests/Shapes/Square.php</code>.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

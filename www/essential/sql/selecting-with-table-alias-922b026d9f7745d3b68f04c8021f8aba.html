@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT e.Fname, e.LName 
@@ -136,7 +137,10 @@ FROM Employees e</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The Employees table is given the alias ‘e’ directly after the table name. This helps remove ambiguity in scenarios where multiple tables have the same field name and you need to be specific as to which table you want to return data from.</p>
+</div>
+<p>The Employees table is given the alias ‘e’ directly after the table name. This helps remove ambiguity in scenarios where multiple tables have the same field name and you need to be specific as to which table you want to return data from.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT e.Fname, e.LName, m.Fname AS ManagerFirstName 
@@ -146,7 +150,10 @@ FROM Employees e
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that once you define an alias, you can’t use the canonical table name anymore. i.e.,</p>
+</div>
+<p>Note that once you define an alias, you can’t use the canonical table name anymore. i.e.,
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT e.Fname, Employees.LName, m.Fname AS ManagerFirstName 
@@ -156,7 +163,12 @@ JOIN Managers m ON e.ManagerId = m.Id</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>would throw an error.</p><p>It is worth noting table aliases – more formally ‘range variables’ – were introduced into the SQL language to solve the problem of duplicate columns caused by <code>INNER JOIN</code>. The 1992 SQL standard corrected this earlier design flaw by introducing <code>NATURAL JOIN</code> (implemented in mySQL, PostgreSQL and Oracle but not yet in SQL Server), the result of which never has duplicate column names. The above example is interesting in that the tables are joined on columns with different names (<code>Id</code> and <code>ManagerId</code>) but are not supposed to be joined on the columns with the same name (<code>LName</code>, <code>FName</code>), requiring the renaming of the columns to be performed <em>before</em> the join:</p>
+</div>
+<p>would throw an error.
+</p>
+<p>It is worth noting table aliases – more formally ‘range variables’ – were introduced into the SQL language to solve the problem of duplicate columns caused by <code>INNER JOIN</code>. The 1992 SQL standard corrected this earlier design flaw by introducing <code>NATURAL JOIN</code> (implemented in mySQL, PostgreSQL and Oracle but not yet in SQL Server), the result of which never has duplicate column names. The above example is interesting in that the tables are joined on columns with different names (<code>Id</code> and <code>ManagerId</code>) but are not supposed to be joined on the columns with the same name (<code>LName</code>, <code>FName</code>), requiring the renaming of the columns to be performed <em>before</em> the join:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT Fname, LName, ManagerFirstName 
@@ -168,7 +180,9 @@ FROM Employees
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that although an alias/range variable must be declared for the dervied table (otherwise SQL will throw an error), it never makes sense to actually use it in the query.</p>
+</div>
+<p>Note that although an alias/range variable must be declared for the dervied table (otherwise SQL will throw an error), it never makes sense to actually use it in the query.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

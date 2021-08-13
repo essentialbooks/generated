@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
@@ -165,7 +166,29 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>How it works under the hood (I recommend to decompile resulting .exe file in IL Disaambler tool):</p><ol id="4fea638e-c27c-4cef-9e1f-8ad12e188357" class="numbered-list" start="1"><li>C# compiler generates a class implementing <code>IEnumerable&lt;BigInteger&gt;</code> and <code>IEnumerator&lt;BigInteger&gt;</code> (<code>&lt;Fibonacci&gt;d__0</code> in ildasm).</li><li>This class implements a state machine. State consists of current position in method and values of local variables.</li><li>The most interesting code are in <code>bool IEnumerator.MoveNext()</code> method. Basically, what <code>MoveNext()</code> do:</li></ol><ul id="7d4e1836-b1f4-46c8-93db-1cc6be575d80" class="bulleted-list"><li>Restores current state. Variables like <code>prev</code> and <code>current</code> become fields in our class (<code>&lt;current&gt;5__2</code> and <code>&lt;prev&gt;5__1</code> in ildasm). In our method we have two positions (<code>&lt;&gt;1__state</code>): first at the opening curly brace, second at <code>yield return</code>.</li><li>Executes code until next <code>yield return</code> or <code>yield break</code>/<code>\}</code>.</li><li>For <code>yield return</code> resulting value is saved, so <code>Current</code> property can return it. <code>true</code> is returned. At this point current state is saved again for the next <code>MoveNext</code> invocation.</li><li>For <code>yield break</code>/<code>\}</code> method just returns <code>false</code> meaning iteration is done.</li></ul><p>Also note, that 10001th number is 468 bytes long. State machine only saves <code>current</code> and <code>prev</code> variables as fields. While if we would like to save all numbers in the sequence from the first to the 10000th, the consumed memory size will be over 4 megabytes. So lazy evaluation, if properly used, can reduce memory footprint in some cases.</p>
+</div>
+<p>How it works under the hood (I recommend to decompile resulting .exe file in IL Disaambler tool):
+</p>
+  <ol id="4fea638e-c27c-4cef-9e1f-8ad12e188357" class="numbered-list" start="1">
+    <li>C# compiler generates a class implementing <code>IEnumerable&lt;BigInteger&gt;</code> and <code>IEnumerator&lt;BigInteger&gt;</code> (<code>&lt;Fibonacci&gt;d__0</code> in ildasm).
+    </li>
+    <li>This class implements a state machine. State consists of current position in method and values of local variables.
+    </li>
+    <li>The most interesting code are in <code>bool IEnumerator.MoveNext()</code> method. Basically, what <code>MoveNext()</code> do:
+    </li>
+  </ol>
+  <ul id="7d4e1836-b1f4-46c8-93db-1cc6be575d80" class="bulleted-list">
+    <li>Restores current state. Variables like <code>prev</code> and <code>current</code> become fields in our class (<code>&lt;current&gt;5__2</code> and <code>&lt;prev&gt;5__1</code> in ildasm). In our method we have two positions (<code>&lt;&gt;1__state</code>): first at the opening curly brace, second at <code>yield return</code>.
+    </li>
+    <li>Executes code until next <code>yield return</code> or <code>yield break</code>/<code>\}</code>.
+    </li>
+    <li>For <code>yield return</code> resulting value is saved, so <code>Current</code> property can return it. <code>true</code> is returned. At this point current state is saved again for the next <code>MoveNext</code> invocation.
+    </li>
+    <li>For <code>yield break</code>/<code>\}</code> method just returns <code>false</code> meaning iteration is done.
+    </li>
+  </ul>
+<p>Also note, that 10001th number is 468 bytes long. State machine only saves <code>current</code> and <code>prev</code> variables as fields. While if we would like to save all numbers in the sequence from the first to the 10000th, the consumed memory size will be over 4 megabytes. So lazy evaluation, if properly used, can reduce memory footprint in some cases.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

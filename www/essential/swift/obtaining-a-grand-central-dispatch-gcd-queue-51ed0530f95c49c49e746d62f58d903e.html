@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>Grand Central Dispatch works on the concept of “Dispatch Queues”. A dispatch queue executes tasks you designate in the order which they are passed. There are three types of dispatch queues:</p><ul id="08ba424a-1ecc-4a5f-a78c-25411897276d" class="bulleted-list"><li><strong>Serial Dispatch Queues</strong> (aka private dispatch queues) execute one task at a time, in order. They are frequently used to synchronize access to a resource.</li><li><strong>Concurrent Dispatch Queues</strong> (aka global dispatch queues) execute one or more tasks concurrently.</li><li>The <strong>Main Dispatch Queue</strong> executes tasks on the main thread.</li></ul><p>To access the main queue:</p>
+      
+<p>Grand Central Dispatch works on the concept of “Dispatch Queues”. A dispatch queue executes tasks you designate in the order which they are passed. There are three types of dispatch queues:
+</p>
+  <ul id="08ba424a-1ecc-4a5f-a78c-25411897276d" class="bulleted-list">
+    <li><strong>Serial Dispatch Queues</strong> (aka private dispatch queues) execute one task at a time, in order. They are frequently used to synchronize access to a resource.
+    </li>
+    <li><strong>Concurrent Dispatch Queues</strong> (aka global dispatch queues) execute one or more tasks concurrently.
+    </li>
+    <li>The <strong>Main Dispatch Queue</strong> executes tasks on the main thread.
+    </li>
+  </ul>
+<p>To access the main queue:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let mainQueue = DispatchQueue.main</pre>
@@ -136,6 +149,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let mainQueue = dispatch_get_main_queue()</pre>
@@ -143,7 +157,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The system provides <em>concurrent</em> global dispatch queues (global to your application), with varying priorities. You can access these queues using the <code>DispatchQueue</code> class in Swift 3:</p>
+</div>
+<p>The system provides <em>concurrent</em> global dispatch queues (global to your application), with varying priorities. You can access these queues using the <code>DispatchQueue</code> class in Swift 3:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let globalConcurrentQueue = DispatchQueue.global(qos: .default)</pre>
@@ -151,7 +168,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>equivalent to</p>
+</div>
+<p>equivalent to
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let globalConcurrentQueue = DispatchQueue.global()</pre>
@@ -160,6 +180,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let globalConcurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)</pre>
@@ -167,7 +188,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In iOS 8 or later, the possible quality of service values which may be passed are <code>.userInteractive</code>, <code>.userInitiated</code>, <code>.default</code>, <code>.utility</code>, and <code>.background</code>. These replace the <code>DISPATCH_QUEUE_PRIORITY_</code> constants.</p><p>You can also create your own queues with varying priorities:</p>
+</div>
+<p>In iOS 8 or later, the possible quality of service values which may be passed are <code>.userInteractive</code>, <code>.userInitiated</code>, <code>.default</code>, <code>.utility</code>, and <code>.background</code>. These replace the <code>DISPATCH_QUEUE_PRIORITY_</code> constants.
+</p>
+<p>You can also create your own queues with varying priorities:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let myConcurrentQueue = DispatchQueue(label: &#34;my-concurrent-queue&#34;, qos: .userInitiated, attributes: [.concurrent], autoreleaseFrequency: .workItem, target: nil)
@@ -177,6 +203,7 @@ let mySerialQueue = DispatchQueue(label: &#34;my-serial-queue&#34;, qos: .backgr
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let myConcurrentQueue = dispatch_queue_create(&#34;my-concurrent-queue&#34;, DISPATCH_QUEUE_CONCURRENT)
@@ -185,7 +212,9 @@ let mySerialQueue = dispatch_queue_create(&#34;my-serial-queue&#34;, DISPATCH_QU
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In Swift 3, queues created with this initializer are serial by default, and passing <code>.workItem</code> for autorelease frequency ensures an autorelease pool is created and drained for each work item. There is also <code>.never</code>, which means you will be managing your own autorelease pools yourself, or <code>.inherit</code> which inherits the setting from the environment. In most cases you probably won’t use <code>.never</code> except in cases of extreme customization.</p>
+</div>
+<p>In Swift 3, queues created with this initializer are serial by default, and passing <code>.workItem</code> for autorelease frequency ensures an autorelease pool is created and drained for each work item. There is also <code>.never</code>, which means you will be managing your own autorelease pools yourself, or <code>.inherit</code> which inherits the setting from the environment. In most cases you probably won’t use <code>.never</code> except in cases of extreme customization.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

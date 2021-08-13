@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>A <em>closure</em> is a function taken together with an environment. The function is typically an anonymous function defined inside another function. The environment is the lexical scope of the enclosing function (very basic idea of a lexical scope of a function would be the scope that exists between the function’s braces.)</p>
+      
+<p>A <em>closure</em> is a function taken together with an environment. The function is typically an anonymous function defined inside another function. The environment is the lexical scope of the enclosing function (very basic idea of a lexical scope of a function would be the scope that exists between the function’s braces.)
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kd">func</span> <span class="nf">g</span><span class="p">()</span> <span class="p">{</span>
@@ -140,7 +143,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Within the body of an anonymous function (say <code>f</code>) defined within another function (say <code>g</code>), variables present in scopes of both <code>f</code> and <code>g</code> are accessible. However, it is the scope of <code>g</code> that forms the environment part of the closure (function part is <code>f</code>) and as a result, changes made to the variables in <code>g</code>’s scope retain their values (i.e. the environment persists between calls to <code>f</code>).</p><p>Consider the below function:</p>
+</div>
+<p>Within the body of an anonymous function (say <code>f</code>) defined within another function (say <code>g</code>), variables present in scopes of both <code>f</code> and <code>g</code> are accessible. However, it is the scope of <code>g</code> that forms the environment part of the closure (function part is <code>f</code>) and as a result, changes made to the variables in <code>g</code>’s scope retain their values (i.e. the environment persists between calls to <code>f</code>).
+</p>
+<p>Consider the below function:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kd">func</span> <span class="nf">NaturalNumbers</span><span class="p">()</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
@@ -155,7 +163,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In above definition, <code>NaturalNumbers</code> has an inner function <code>f</code> which <code>NaturalNumbers</code> returns. Inside <code>f</code>, variable <code>i</code> defined within the scope of <code>NaturalNumbers</code> is being accessed.</p><p>We get a new function from <code>NaturalNumbers</code> like so:</p>
+</div>
+<p>In above definition, <code>NaturalNumbers</code> has an inner function <code>f</code> which <code>NaturalNumbers</code> returns. Inside <code>f</code>, variable <code>i</code> defined within the scope of <code>NaturalNumbers</code> is being accessed.
+</p>
+<p>We get a new function from <code>NaturalNumbers</code> like so:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="nx">n</span> <span class="o">:=</span> <span class="nf">NaturalNumbers</span><span class="p">()</span></pre>
@@ -163,7 +176,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now <code>n</code> is a closure. It is a function (defined by <code>f</code>) which also has an associated environment (scope of <code>NaturalNumbers</code>).</p><p>In case of <code>n</code>, the environment part only contains one variable: <code>i</code></p><p>Since <code>n</code> is a function, it can be called:</p>
+</div>
+<p>Now <code>n</code> is a closure. It is a function (defined by <code>f</code>) which also has an associated environment (scope of <code>NaturalNumbers</code>).
+</p>
+<p>In case of <code>n</code>, the environment part only contains one variable: <code>i</code>
+</p>
+<p>Since <code>n</code> is a function, it can be called:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">n</span><span class="p">())</span> <span class="c1">// 1
@@ -173,7 +193,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As evident from above output, each time <code>n</code> is called, it increments <code>i</code>. <code>i</code> starts at 0, and each call to <code>n</code> executes <code>i++</code>.</p><p>The value of <code>i</code> is retained between calls. That is, the environment, being a part of closure, persists.</p><p>Calling <code>NaturalNumbers</code> again would create and return a new function. This would initialize a new <code>i</code> within <code>NaturalNumbers</code>. Which means that the newly returned function forms another closure having the same part for function (still <code>f</code>) but a brand new environment (a newly initialized <code>i</code>).</p>
+</div>
+<p>As evident from above output, each time <code>n</code> is called, it increments <code>i</code>. <code>i</code> starts at 0, and each call to <code>n</code> executes <code>i++</code>.
+</p>
+<p>The value of <code>i</code> is retained between calls. That is, the environment, being a part of closure, persists.
+</p>
+<p>Calling <code>NaturalNumbers</code> again would create and return a new function. This would initialize a new <code>i</code> within <code>NaturalNumbers</code>. Which means that the newly returned function forms another closure having the same part for function (still <code>f</code>) but a brand new environment (a newly initialized <code>i</code>).
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="nx">o</span> <span class="o">:=</span> <span class="nf">NaturalNumbers</span><span class="p">()</span>
@@ -186,7 +213,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Both <code>n</code> and <code>o</code> are closures containing same function part (which gives them the same behavior), but different environments. Thus, use of closures allow functions to have access to a persistent environment that can be used to retain information between calls.</p><p>Another example:</p>
+</div>
+<p>Both <code>n</code> and <code>o</code> are closures containing same function part (which gives them the same behavior), but different environments. Thus, use of closures allow functions to have access to a persistent environment that can be used to retain information between calls.
+</p>
+<p>Another example:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kd">func</span> <span class="nf">multiples</span><span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>

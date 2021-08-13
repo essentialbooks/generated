@@ -127,7 +127,40 @@
 </div>
 
 
-      <p>It is (almost always) a bad idea to call <code>System.gc()</code>.</p><p>The javadoc for the <code>gc()</code> method specifies the following:</p><blockquote id="d8bea49c-519c-4c5b-8b87-34e07a39ce16" class="">“Calling the gc method suggests that the Java Virtual Machine expend effort toward recycling unused objects in order to make the memory they currently occupy available for quick reuse. When control returns from the method call, the Java Virtual Machine has made a best effort to reclaim space from all discarded objects.”</blockquote><p>There are a couple of important points that can be drawn from this:</p><ol id="8fefa961-ddd1-4bc5-af61-e9f778336262" class="numbered-list" start="1"><li>The use of the word “suggests” rather than (say) “tells” means that the JVM is free to ignore the suggestion. The default JVM behavior (recent releases) is to follow the suggestion, but this can be overridden by setting <code>-XX:+DisableExplicitGC</code> when when launching the JVM.</li><li>The phrase “a best effort to reclaim space from all discarded objects” implies that calling <code>gc</code> will trigger a “full” garbage collection.</li></ol><p>So why is calling <code>System.gc()</code> a bad idea?</p><p>First, running a full garbage collection is expensive. A full GC involves visiting and “marking” every object that is still reachable; i.e. every object that is not garbage. If you trigger this when there isn’t much garbage to be collected, then the GC does a lot of work for relatively little benefit.</p><p>Second, a full garbage collection is liable to disturb the “locality” properties of the objects that are not collected. Objects that are allocated by the same thread at roughly the same time tend to be allocated close together in memory. This is good. Objects that are allocated at the same time are likely to be related; i.e. reference each other. If your application uses those references, then the chances are that memory access will be faster because of various memory and page caching effects. Unfortunately, a full garbage collection tend to move objects around so that objects that were once close are now further apart.</p><p>Third, running a full garbage collection is liable to make your application pause until the collection is complete. While this is happening, your application will be non-responsive.</p><p>In fact, the best strategy is to let the JVM decide when to run the GC, and what kind of collection to run. If you don’t interfere, the JVM will choose a time and collection type that optimizes throughput or minimizes GC pause times.</p><hr id="74b2abfe-d71a-4696-82c3-2050c01d1a54"/><p>At the beginning we said “… (almost always) a bad idea …”. In fact there are a couple of scenarios where it <em>might</em> be a good idea:</p><ol id="83fcbb54-b48a-45c1-a949-cfaa752340ad" class="numbered-list" start="1"><li>If you are implementing a unit test for some code that is garbage collection sensitive (e.g. something involving finalizers or weak / soft / phantom references) then calling <code>System.gc()</code> may be necessary.</li><li>In some interactive applications, there can be particular points in time where the user won’t care if there is a garbage collection pause. One example is a game where there are natural pauses in the “play”; e.g. when loading a new level.</li></ol>
+      
+<p>It is (almost always) a bad idea to call <code>System.gc()</code>.
+</p>
+<p>The javadoc for the <code>gc()</code> method specifies the following:
+</p>
+<blockquote id="d8bea49c-519c-4c5b-8b87-34e07a39ce16" class="">“Calling the gc method suggests that the Java Virtual Machine expend effort toward recycling unused objects in order to make the memory they currently occupy available for quick reuse. When control returns from the method call, the Java Virtual Machine has made a best effort to reclaim space from all discarded objects.”
+</blockquote>
+<p>There are a couple of important points that can be drawn from this:
+</p>
+  <ol id="8fefa961-ddd1-4bc5-af61-e9f778336262" class="numbered-list" start="1">
+    <li>The use of the word “suggests” rather than (say) “tells” means that the JVM is free to ignore the suggestion. The default JVM behavior (recent releases) is to follow the suggestion, but this can be overridden by setting <code>-XX:+DisableExplicitGC</code> when when launching the JVM.
+    </li>
+    <li>The phrase “a best effort to reclaim space from all discarded objects” implies that calling <code>gc</code> will trigger a “full” garbage collection.
+    </li>
+  </ol>
+<p>So why is calling <code>System.gc()</code> a bad idea?
+</p>
+<p>First, running a full garbage collection is expensive. A full GC involves visiting and “marking” every object that is still reachable; i.e. every object that is not garbage. If you trigger this when there isn’t much garbage to be collected, then the GC does a lot of work for relatively little benefit.
+</p>
+<p>Second, a full garbage collection is liable to disturb the “locality” properties of the objects that are not collected. Objects that are allocated by the same thread at roughly the same time tend to be allocated close together in memory. This is good. Objects that are allocated at the same time are likely to be related; i.e. reference each other. If your application uses those references, then the chances are that memory access will be faster because of various memory and page caching effects. Unfortunately, a full garbage collection tend to move objects around so that objects that were once close are now further apart.
+</p>
+<p>Third, running a full garbage collection is liable to make your application pause until the collection is complete. While this is happening, your application will be non-responsive.
+</p>
+<p>In fact, the best strategy is to let the JVM decide when to run the GC, and what kind of collection to run. If you don’t interfere, the JVM will choose a time and collection type that optimizes throughput or minimizes GC pause times.
+</p>
+<hr id="74b2abfe-d71a-4696-82c3-2050c01d1a54"/>
+<p>At the beginning we said “… (almost always) a bad idea …”. In fact there are a couple of scenarios where it <em>might</em> be a good idea:
+</p>
+  <ol id="83fcbb54-b48a-45c1-a949-cfaa752340ad" class="numbered-list" start="1">
+    <li>If you are implementing a unit test for some code that is garbage collection sensitive (e.g. something involving finalizers or weak / soft / phantom references) then calling <code>System.gc()</code> may be necessary.
+    </li>
+    <li>In some interactive applications, there can be particular points in time where the user won’t care if there is a garbage collection pause. One example is a game where there are natural pauses in the “play”; e.g. when loading a new level.
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

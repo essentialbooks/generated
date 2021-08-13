@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>To find some number (more than one) of largest or smallest values of an iterable, you can use the <a href="https://docs.python.org/3/library/heapq.html#heapq.nlargest"><code>nlargest</code></a> and <a href="https://docs.python.org/3/library/heapq.html#heapq.nlargest"><code>nsmallest</code></a> of the <a href="https://docs.python.org/3/library/heapq.html"><code>heapq</code></a> module:</p>
+      
+<p>To find some number (more than one) of largest or smallest values of an iterable, you can use the <a href="https://docs.python.org/3/library/heapq.html#heapq.nlargest"><code>nlargest</code></a> and <a href="https://docs.python.org/3/library/heapq.html#heapq.nlargest"><code>nsmallest</code></a> of the <a href="https://docs.python.org/3/library/heapq.html"><code>heapq</code></a> module:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="kn">import</span> <span class="nn">heapq</span>
@@ -143,7 +146,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is much more efficient than sorting the whole iterable and then slicing from the end or beginning. Internally these functions use the <a href="https://en.wikipedia.org/wiki/Binary_heap">binary heap</a> <a href="https://en.wikipedia.org/wiki/Priority_queue">priority queue</a> data structure, which is very efficient for this use case.</p><p>Like <code>min</code>, <code>max</code> and <code>sorted</code>, these functions accept the optional <code>key</code> keyword argument, which must be a function that, given an element, returns its sort key.</p><p>Here is a program that extracts 1000 longest lines from a file:</p>
+</div>
+<p>This is much more efficient than sorting the whole iterable and then slicing from the end or beginning. Internally these functions use the <a href="https://en.wikipedia.org/wiki/Binary_heap">binary heap</a> <a href="https://en.wikipedia.org/wiki/Priority_queue">priority queue</a> data structure, which is very efficient for this use case.
+</p>
+<p>Like <code>min</code>, <code>max</code> and <code>sorted</code>, these functions accept the optional <code>key</code> keyword argument, which must be a function that, given an element, returns its sort key.
+</p>
+<p>Here is a program that extracts 1000 longest lines from a file:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="kn">import</span> <span class="nn">heapq</span>
@@ -153,7 +163,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here we open the file, and pass the file handle <code>f</code> to <code>nlargest</code>. Iterating the file yields each line of the file as a separate string; <code>nlargest</code> then passes each element (or line) is passed to the function <code>len</code> to determine its sort key. <code>len</code>, given a string, returns the length of the line in characters.</p><p>This only needs storage for a list of 1000 largest lines so far, which can be contrasted with</p>
+</div>
+<p>Here we open the file, and pass the file handle <code>f</code> to <code>nlargest</code>. Iterating the file yields each line of the file as a separate string; <code>nlargest</code> then passes each element (or line) is passed to the function <code>len</code> to determine its sort key. <code>len</code>, given a string, returns the length of the line in characters.
+</p>
+<p>This only needs storage for a list of 1000 largest lines so far, which can be contrasted with
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">longest_lines</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)[</span><span class="mi">1000</span><span class="p">:]</span></pre>
@@ -161,7 +176,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>which will have to hold <em>the entire file in memory</em>.</p>
+</div>
+<p>which will have to hold <em>the entire file in memory</em>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

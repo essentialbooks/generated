@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>This thread-safe version of a singleton was necessary in the early versions of .NET where <code>static</code> initialization was not guaranteed to be thread-safe. In more modern versions of the framework a <a href="http://stackoverflow.com/documentation/c%23/1192/singleton-implementation/3863/statically-initialized-singleton">statically initialized singleton</a> is usually preferred because it is very easy to make implementation mistakes in the following pattern.</p>
+      
+<p>This thread-safe version of a singleton was necessary in the early versions of .NET where <code>static</code> initialization was not guaranteed to be thread-safe. In more modern versions of the framework a <a href="http://stackoverflow.com/documentation/c%23/1192/singleton-implementation/3863/statically-initialized-singleton">statically initialized singleton</a> is usually preferred because it is very easy to make implementation mistakes in the following pattern.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">sealed</span> <span class="k">class</span> <span class="nc">ThreadSafeSingleton</span>
@@ -163,7 +166,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Notice that the <code>if (instance == null)</code> check is done twice: once before the lock is acquired, and once afterwards. This implementation would still be thread-safe even without the first null check. However, that would mean that a lock would be acquired <em>every time</em> the instance is requested, and that would cause performance to suffer. The first null check is added so that the lock is not acquired unless it’s necessary. The second null check makes sure that only the first thread to acquire the lock then creates the instance. The other threads will find the instance to be populated and skip ahead.</p>
+</div>
+<p>Notice that the <code>if (instance == null)</code> check is done twice: once before the lock is acquired, and once afterwards. This implementation would still be thread-safe even without the first null check. However, that would mean that a lock would be acquired <em>every time</em> the instance is requested, and that would cause performance to suffer. The first null check is added so that the lock is not acquired unless it’s necessary. The second null check makes sure that only the first thread to acquire the lock then creates the instance. The other threads will find the instance to be populated and skip ahead.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

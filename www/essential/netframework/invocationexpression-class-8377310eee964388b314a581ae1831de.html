@@ -127,7 +127,14 @@
 </div>
 
 
-      <p><a href="https://msdn.microsoft.com/en-us/library/system.linq.expressions.invocationexpression(v=vs.110).aspx">InvocationExpression class</a> allows invocation of other lambda expressions that are parts of the same Expression tree.</p><p>You create them with static <code>Expression.Invoke</code> method.</p><p>Problem We want to get on the items which have “car” in their description. We need to check it for null before searching for a string inside but we don’t want it to be called excessively, as the computation could be expensive.</p>
+      
+<p><a href="https://msdn.microsoft.com/en-us/library/system.linq.expressions.invocationexpression(v=vs.110).aspx">InvocationExpression class</a> allows invocation of other lambda expressions that are parts of the same Expression tree.
+</p>
+<p>You create them with static <code>Expression.Invoke</code> method.
+</p>
+<p>Problem We want to get on the items which have “car” in their description. We need to check it for null before searching for a string inside but we don’t want it to be called excessively, as the computation could be expensive.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">using System;
@@ -217,7 +224,10 @@ public class Program
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output</p>
+</div>
+<p>Output
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">element =&gt; Invoke(extracted =&gt; (Not(IsNullOrEmpty(extracted)) AndAlso extracted.Contains(&#34;car&#34;)), Invoke(e =&gt; e.Description, element))
@@ -229,7 +239,10 @@ Predicate is called 5 times.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>First thing to note is how the actual propery access, wrapped in an Invoke:</p>
+</div>
+<p>First thing to note is how the actual propery access, wrapped in an Invoke:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Invoke(e =&gt; e.Description, element)</pre>
@@ -237,7 +250,10 @@ Predicate is called 5 times.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>, and this is the only part that touches <code>e.Description</code>, and in place of it, <code>extracted</code> parameter of type <code>string</code> is passed to the next one:</p>
+</div>
+<p>, and this is the only part that touches <code>e.Description</code>, and in place of it, <code>extracted</code> parameter of type <code>string</code> is passed to the next one:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">(Not(IsNullOrEmpty(extracted)) AndAlso extracted.Contains(&#34;car&#34;))</pre>
@@ -245,7 +261,9 @@ Predicate is called 5 times.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Another important thing to note here is <code>AndAlso</code>. It computes only the left part, if the first part returns ‘false’. It’s a common mistake to use the bitwise operator ‘And’ instead of it, which always computes both parts, and would fail with a NullReferenceException in this example.</p>
+</div>
+<p>Another important thing to note here is <code>AndAlso</code>. It computes only the left part, if the first part returns ‘false’. It’s a common mistake to use the bitwise operator ‘And’ instead of it, which always computes both parts, and would fail with a NullReferenceException in this example.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

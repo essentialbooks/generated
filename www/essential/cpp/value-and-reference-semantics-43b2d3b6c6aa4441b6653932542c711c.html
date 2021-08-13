@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>A type has value semantics if the object’s observable state is functionally distinct from all other objects of that type. This means that if you copy an object, you have a new object, and modifications of the new object will not be in any way visible from the old object.</p><p>Most basic C++ types have value semantics:</p>
+      
+<p>A type has value semantics if the object’s observable state is functionally distinct from all other objects of that type. This means that if you copy an object, you have a new object, and modifications of the new object will not be in any way visible from the old object.
+</p>
+<p>Most basic C++ types have value semantics:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
@@ -139,7 +144,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Most standard-library defined types have value semantics too:</p>
+</div>
+<p>Most standard-library defined types have value semantics too:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v1</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">);</span> <span class="c1">//array of 5 values, 12 in each.
@@ -151,7 +159,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A type is said to have reference semantics if an instance of that type can share its observable state with another object (external to it), such that manipulating one object will cause the state to change within another object.</p><p>C++ pointers have value semantics with regard to which object they point to, but they have reference semantics with regard to the <em>state</em> of the object they point to:</p>
+</div>
+<p>A type is said to have reference semantics if an instance of that type can share its observable state with another object (external to it), such that manipulating one object will cause the state to change within another object.
+</p>
+<p>C++ pointers have value semantics with regard to which object they point to, but they have reference semantics with regard to the <em>state</em> of the object they point to:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">int</span> <span class="o">*</span><span class="n">pi</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
@@ -167,7 +180,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>C++ references have reference semantics as well.</p><h1 id="40c6809d-ad63-4990-9bc6-b7560fc73349" class="">Deep copying and move support<a class="header-anchor" href="#40c6809d-ad63-4990-9bc6-b7560fc73349" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>If a type wishes to have value semantics, and it needs to store objects that are dynamically allocated, then on copy operations, the type will need to allocate new copies of those objects. It must also do this for copy assignment.</p><p>This kind of copying is called a “deep copy”. It effectively takes what would have otherwise been reference semantics and turns it into value semantics:</p>
+</div>
+<p>C++ references have reference semantics as well.
+</p>
+  <h1 id="40c6809d-ad63-4990-9bc6-b7560fc73349" class="">Deep copying and move support
+  <a class="header-anchor" href="#40c6809d-ad63-4990-9bc6-b7560fc73349" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>If a type wishes to have value semantics, and it needs to store objects that are dynamically allocated, then on copy operations, the type will need to allocate new copies of those objects. It must also do this for copy assignment.
+</p>
+<p>This kind of copying is called a “deep copy”. It effectively takes what would have otherwise been reference semantics and turns it into value semantics:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">struct</span> <span class="nc">Inner</span> <span class="p">{</span><span class="kt">int</span> <span class="n">i</span><span class="p">;};</span>
@@ -201,7 +224,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Move semantics allow a type like <code>Value</code> to avoid truly copying its referenced data. If the user uses the value in a way that provokes a move, the “copied” from object can be left empty of the data it referenced:</p>
+</div>
+<p>Move semantics allow a type like <code>Value</code> to avoid truly copying its referenced data. If the user uses the value in a way that provokes a move, the “copied” from object can be left empty of the data it referenced:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">struct</span> <span class="nc">Inner</span> <span class="p">{</span><span class="kt">int</span> <span class="n">i</span><span class="p">;};</span>
@@ -252,7 +278,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Indeed, we can even make such a type non-copyable, if we want to forbid deep copies while still allowing the object to be moved around.</p>
+</div>
+<p>Indeed, we can even make such a type non-copyable, if we want to forbid deep copies while still allowing the object to be moved around.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">struct</span> <span class="nc">Inner</span> <span class="p">{</span><span class="kt">int</span> <span class="n">i</span><span class="p">;};</span>
@@ -293,7 +322,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We can even apply the Rule of Zero, through the use of <code>unique_ptr</code>:</p>
+</div>
+<p>We can even apply the Rule of Zero, through the use of <code>unique_ptr</code>:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">struct</span> <span class="nc">Inner</span> <span class="p">{</span><span class="kt">int</span> <span class="n">i</span><span class="p">;};</span>

@@ -127,7 +127,12 @@
 </div>
 
 
-      <blockquote id="f2585fee-9e9d-4a22-b53f-35f8e19eefad" class="">A word of caution: AsyncTask has many gotcha’s apart from the memory leak described here. So be careful with this API, or avoid it altogether if you don’t fully understand the implications. There are many alternatives (Thread, EventBus, RxAndroid, etc).</blockquote><p>One common mistake with <code>AsyncTask</code> is to capture a strong reference to the host <code>Activity</code> (or <code>Fragment</code>):</p>
+      
+<blockquote id="f2585fee-9e9d-4a22-b53f-35f8e19eefad" class="">A word of caution: AsyncTask has many gotcha’s apart from the memory leak described here. So be careful with this API, or avoid it altogether if you don’t fully understand the implications. There are many alternatives (Thread, EventBus, RxAndroid, etc).
+</blockquote>
+<p>One common mistake with <code>AsyncTask</code> is to capture a strong reference to the host <code>Activity</code> (or <code>Fragment</code>):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class MyActivity extends Activity {
@@ -136,7 +141,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>// Don’t do this! Inner classes implicitly keep a pointer to their // parent, which in this case is the Activity!</p>
+</div>
+<p>// Don’t do this! Inner classes implicitly keep a pointer to their // parent, which in this case is the Activity!
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">}
@@ -145,7 +153,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is a problem because <code>AsyncTask</code> can easily outlive the parent <code>Activity</code>, for example if a configuration change happens while the task is running.</p><p>The right way to do this is to make your task a <code>static</code> class, which does not capture the parent, and holding a <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/ref/WeakReference.html">weak reference</a> to the host <code>Activity</code>:</p>
+</div>
+<p>This is a problem because <code>AsyncTask</code> can easily outlive the parent <code>Activity</code>, for example if a configuration change happens while the task is running.
+</p>
+<p>The right way to do this is to make your task a <code>static</code> class, which does not capture the parent, and holding a <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/ref/WeakReference.html">weak reference</a> to the host <code>Activity</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class MyActivity extends Activity {

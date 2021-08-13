@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">SELECT</span> <span class="n">item</span><span class="p">.</span><span class="n">item_id</span><span class="p">,</span> <span class="n">item</span><span class="p">.</span><span class="n">name</span><span class="p">,</span>     <span class="cm">/* not SQL-92 */</span> 
@@ -139,7 +140,22 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>will show the rows in a table called <code>item</code>, and show the count of related rows in a table called <code>uses</code>. This works well, but unfortunately it’s not standard SQL-92.</p><p>Why not? because the <code>SELECT</code> clause (and the <code>ORDER BY</code> clause) in <code>GROUP BY</code> queries must contain columns that are</p><ol id="e6803ac5-36ab-451d-9b92-e3c8f0271629" class="numbered-list" start="1"><li>mentioned in the <code>GROUP BY</code> clause, or</li><li>aggregate functions such as <code>COUNT()</code>, <code>MIN()</code>, and the like.</li></ol><p>This example’s <code>SELECT</code> clause mentions <code>item.name</code>, a column that does not meet either of those criteria. MySQL 5.6 and earlier will reject this query if the SQL mode contains <code>ONLY_FULL_GROUP_BY</code>.</p><p>This example query can be made to comply with the SQL-92 standard by changing the <code>GROUP BY</code> clause, like this.</p>
+</div>
+<p>will show the rows in a table called <code>item</code>, and show the count of related rows in a table called <code>uses</code>. This works well, but unfortunately it’s not standard SQL-92.
+</p>
+<p>Why not? because the <code>SELECT</code> clause (and the <code>ORDER BY</code> clause) in <code>GROUP BY</code> queries must contain columns that are
+</p>
+  <ol id="e6803ac5-36ab-451d-9b92-e3c8f0271629" class="numbered-list" start="1">
+    <li>mentioned in the <code>GROUP BY</code> clause, or
+    </li>
+    <li>aggregate functions such as <code>COUNT()</code>, <code>MIN()</code>, and the like.
+    </li>
+  </ol>
+<p>This example’s <code>SELECT</code> clause mentions <code>item.name</code>, a column that does not meet either of those criteria. MySQL 5.6 and earlier will reject this query if the SQL mode contains <code>ONLY_FULL_GROUP_BY</code>.
+</p>
+<p>This example query can be made to comply with the SQL-92 standard by changing the <code>GROUP BY</code> clause, like this.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT item.item_id, item.name, 
@@ -151,7 +167,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The later SQL-99 standard allows a <code>SELECT</code> statement to omit unaggregated columns from the group key if the DBMS can prove a functional dependence between them and the group key columns. Because <code>item.name</code> is functionally dependent on <code>item.item_id</code>, the initial example is valid SQL-99. MySQL gained a <a href="https://dev.mysql.com/doc/refman/5.7/en/group-by-functional-dependence.html">functional dependence prover</a> in version 5.7. The original example works under <code>ONLY_FULL_GROUP_BY</code>.</p>
+</div>
+<p>The later SQL-99 standard allows a <code>SELECT</code> statement to omit unaggregated columns from the group key if the DBMS can prove a functional dependence between them and the group key columns. Because <code>item.name</code> is functionally dependent on <code>item.item_id</code>, the initial example is valid SQL-99. MySQL gained a <a href="https://dev.mysql.com/doc/refman/5.7/en/group-by-functional-dependence.html">functional dependence prover</a> in version 5.7. The original example works under <code>ONLY_FULL_GROUP_BY</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

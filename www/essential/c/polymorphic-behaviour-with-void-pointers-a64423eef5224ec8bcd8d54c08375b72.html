@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The <a href="http://man7.org/linux/man-pages/man3/qsort.3.html"><code>qsort()</code></a> standard library function is a good example of how one can use void pointers to make a single function operate on a large variety of different types.</p>
+      
+<p>The <a href="http://man7.org/linux/man-pages/man3/qsort.3.html"><code>qsort()</code></a> standard library function is a good example of how one can use void pointers to make a single function operate on a large variety of different types.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void qsort (
@@ -139,7 +142,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The array to be sorted is passed as a void pointer, so an array of any type of element can be operated on. The next two arguments tell <code>qsort()</code> how many elements it should expect in the array, and how large, in bytes, each element is.</p><p>The last argument is a function pointer to a comparison function which itself takes two void pointers. By making the caller provide this function, <code>qsort()</code> can effectively sort elements of any type.</p><p>Here’s an example of such a comparison function, for comparing floats. Note that any comparison function passed to <code>qsort()</code> needs to have this type signature. The way it is made polymorphic is by casting the void pointer arguments to pointers of the type of element we wish to compare.</p>
+</div>
+<p>The array to be sorted is passed as a void pointer, so an array of any type of element can be operated on. The next two arguments tell <code>qsort()</code> how many elements it should expect in the array, and how large, in bytes, each element is.
+</p>
+<p>The last argument is a function pointer to a comparison function which itself takes two void pointers. By making the caller provide this function, <code>qsort()</code> can effectively sort elements of any type.
+</p>
+<p>Here’s an example of such a comparison function, for comparing floats. Note that any comparison function passed to <code>qsort()</code> needs to have this type signature. The way it is made polymorphic is by casting the void pointer arguments to pointers of the type of element we wish to compare.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int compare_floats(const void *a, const void *b)
@@ -156,7 +166,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since we know that qsort will use this function to compare floats, we cast the void pointer arguments back to float pointers before dereferencing them.</p><p>Now, the usage of the polymorphic function qsort on an array “array” with length “len” is very simple:</p>
+</div>
+<p>Since we know that qsort will use this function to compare floats, we cast the void pointer arguments back to float pointers before dereferencing them.
+</p>
+<p>Now, the usage of the polymorphic function qsort on an array “array” with length “len” is very simple:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">qsort(array, len, sizeof(array[0]), compare_floats);</pre>

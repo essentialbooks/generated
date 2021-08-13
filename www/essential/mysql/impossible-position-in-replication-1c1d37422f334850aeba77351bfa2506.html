@@ -127,7 +127,15 @@
 </div>
 
 
-      <p><em>Usually</em> this means that the Master crashed and that <code>sync_binlog</code> was OFF. The solution is to <code>CHANGE MASTER to POS=0</code> of the next binlog file (see the Master) on the Slave.</p><p>The cause: The Master sends replication items to the Slave before flushing to its binlog (when <code>sync_binlog=OFF</code>). If the Master crashes before the flush, the Slave has already logically moved past the end of file on the binlog. When the Master starts up again, it starts a new binlog, so CHANGEing to the beginning of that binlog is the best available solution.</p><p>A longer term solution is <code>sync_binlog=ON</code>, if you can afford the extra I/O that it causes.</p><p>(If you are running with GTID, …?)</p>
+      
+<p><em>Usually</em> this means that the Master crashed and that <code>sync_binlog</code> was OFF. The solution is to <code>CHANGE MASTER to POS=0</code> of the next binlog file (see the Master) on the Slave.
+</p>
+<p>The cause: The Master sends replication items to the Slave before flushing to its binlog (when <code>sync_binlog=OFF</code>). If the Master crashes before the flush, the Slave has already logically moved past the end of file on the binlog. When the Master starts up again, it starts a new binlog, so CHANGEing to the beginning of that binlog is the best available solution.
+</p>
+<p>A longer term solution is <code>sync_binlog=ON</code>, if you can afford the extra I/O that it causes.
+</p>
+<p>(If you are running with GTID, …?)
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p><code>std::enable_if</code> is a convenient utility to use boolean conditions to trigger SFINAE. It is defined as:</p>
+      
+<p><code>std::enable_if</code> is a convenient utility to use boolean conditions to trigger SFINAE. It is defined as:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template &lt;bool Cond, typename Result=void&gt;
@@ -141,7 +144,12 @@ struct enable_if&lt;true, Result&gt; {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>That is, <code>enable_if&lt;true, R&gt;::type</code> is an alias for <code>R</code>, whereas <code>enable_if&lt;false, T&gt;::type</code> is ill-formed as that specialization of <code>enable_if</code> does not have a <code>type</code> member type.</p><p><code>std::enable_if</code> can be used to constrain templates:</p>
+</div>
+<p>That is, <code>enable_if&lt;true, R&gt;::type</code> is an alias for <code>R</code>, whereas <code>enable_if&lt;false, T&gt;::type</code> is ill-formed as that specialization of <code>enable_if</code> does not have a <code>type</code> member type.
+</p>
+<p><code>std::enable_if</code> can be used to constrain templates:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int negate(int i) { return -i; }
@@ -152,7 +160,10 @@ auto negate(F f) { return -f(); }</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, a call to <code>negate(1)</code> would fail due to ambiguity. But the second overload is not intended to be used for integral types, so we can add:</p>
+</div>
+<p>Here, a call to <code>negate(1)</code> would fail due to ambiguity. But the second overload is not intended to be used for integral types, so we can add:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int negate(int i) { return -i; }
@@ -163,7 +174,15 @@ auto negate(F f) { return -f(); }</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, instantiating <code>negate&lt;int&gt;</code> would result in a substitution failure since <code>!std::is_arithmetic&lt;int&gt;::value</code> is <code>false</code>. Due to SFINAE, this is not a hard error, this candidate is simply removed from the overload set. As a result, <code>negate(1)</code> only has one single viable candidate - which is then called.</p><h1 id="33bb3b67-d8c2-4bab-91b0-e2fb7bded17d" class="">When to use it<a class="header-anchor" href="#33bb3b67-d8c2-4bab-91b0-e2fb7bded17d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>It’s worth keeping in mind that <code>std::enable_if</code> is a helper <em>on top</em> of SFINAE, but it’s not what makes SFINAE work in the first place. Let’s consider these two alternatives for implementing functionality similar to <code>std::size</code>, i.e. an overload set <code>size(arg)</code> that produces the size of a container or array:</p>
+</div>
+<p>Now, instantiating <code>negate&lt;int&gt;</code> would result in a substitution failure since <code>!std::is_arithmetic&lt;int&gt;::value</code> is <code>false</code>. Due to SFINAE, this is not a hard error, this candidate is simply removed from the overload set. As a result, <code>negate(1)</code> only has one single viable candidate - which is then called.
+</p>
+  <h1 id="33bb3b67-d8c2-4bab-91b0-e2fb7bded17d" class="">When to use it
+  <a class="header-anchor" href="#33bb3b67-d8c2-4bab-91b0-e2fb7bded17d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>It’s worth keeping in mind that <code>std::enable_if</code> is a helper <em>on top</em> of SFINAE, but it’s not what makes SFINAE work in the first place. Let’s consider these two alternatives for implementing functionality similar to <code>std::size</code>, i.e. an overload set <code>size(arg)</code> that produces the size of a container or array:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// for containers
@@ -189,7 +208,12 @@ std::size_t size2(Elt const(&amp;arr)[Size]);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Assuming that <code>is_sizeable</code> is written appropriately, these two declarations should be exactly equivalent with respect to SFINAE. Which is the easiest to write, and which is the easiest to review and understand at a glance?</p><p>Now let’s consider how we might want to implement arithmetic helpers that avoid signed integer overflow in favour of wrap around or modular behaviour. Which is to say that e.g. <code>incr(i, 3)</code> would be the same as <code>i += 3</code> save for the fact that the result would always be defined even if <code>i</code> is an <code>int</code> with value <code>INT_MAX</code>. These are two possible alternatives:</p>
+</div>
+<p>Assuming that <code>is_sizeable</code> is written appropriately, these two declarations should be exactly equivalent with respect to SFINAE. Which is the easiest to write, and which is the easiest to review and understand at a glance?
+</p>
+<p>Now let’s consider how we might want to implement arithmetic helpers that avoid signed integer overflow in favour of wrap around or modular behaviour. Which is to say that e.g. <code>incr(i, 3)</code> would be the same as <code>i += 3</code> save for the fact that the result would always be defined even if <code>i</code> is an <code>int</code> with value <code>INT_MAX</code>. These are two possible alternatives:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// handle signed types
@@ -212,7 +236,11 @@ void incr2(Int&amp; target, Int amount);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Once again which is the easiest to write, and which is the easiest to review and understand at a glance?</p><p>A strength of <code>std::enable_if</code> is how it plays with refactoring and API design. If <code>is_sizeable&lt;Cont&gt;::value</code> is meant to reflect whether <code>cont.size()</code> is valid then just using the expression as it appears for <code>size1</code> can be more concise, although that could depend on whether <code>is_sizeable</code> would be used in several places or not. Contrast that with <code>std::is_signed</code> which reflects its intention much more clearly than when its implementation leaks into the declaration of <code>incr1</code>.</p>
+</div>
+<p>Once again which is the easiest to write, and which is the easiest to review and understand at a glance?
+</p>
+<p>A strength of <code>std::enable_if</code> is how it plays with refactoring and API design. If <code>is_sizeable&lt;Cont&gt;::value</code> is meant to reflect whether <code>cont.size()</code> is valid then just using the expression as it appears for <code>size1</code> can be more concise, although that could depend on whether <code>is_sizeable</code> would be used in several places or not. Contrast that with <code>std::is_signed</code> which reflects its intention much more clearly than when its implementation leaks into the declaration of <code>incr1</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

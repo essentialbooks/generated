@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>A header file may be included by other header files. A source file (compilation unit) that includes multiple headers may therefore, indirectly, include some headers more than once. If such a header file that is included more than once contains definitions, the compiler (after preprocessing) detects a violation of the One Definition Rule (e.g. §3.2 of the 2003 C++ standard) and therefore issues a diagnostic and compilation fails.</p><p>Multiple inclusion is prevented using “include guards”, which are sometimes also known as header guards or macro guards. These are implemented using the preprocessor <code>#define</code>, <code>#ifndef</code>, <code>#endif</code> directives.</p><p>e.g.</p>
+      
+<p>A header file may be included by other header files. A source file (compilation unit) that includes multiple headers may therefore, indirectly, include some headers more than once. If such a header file that is included more than once contains definitions, the compiler (after preprocessing) detects a violation of the One Definition Rule (e.g. §3.2 of the 2003 C++ standard) and therefore issues a diagnostic and compilation fails.
+</p>
+<p>Multiple inclusion is prevented using “include guards”, which are sometimes also known as header guards or macro guards. These are implemented using the preprocessor <code>#define</code>, <code>#ifndef</code>, <code>#endif</code> directives.
+</p>
+<p>e.g.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Foo.h
@@ -143,7 +150,16 @@ class Foo    //  a class definition
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The key advantage of using include guards is that they will work with all standard-compliant compilers and preprocessors.</p><p>However, include guards also cause some problems for developers, as it is necessary to ensure the macros are unique within all headers used in a project. Specifically, if two (or more) headers use <code>FOO_H_INCLUDED</code> as their include guard, the first of those headers included in a compilation unit will effectively prevent the others from being included. Particular challenges are introduced if a project uses a number of third-party libraries with header files that happen to use include guards in common.</p><p>It is also necessary to ensure that the macros used in include guards do not conflict with any other macros defined in header files.</p><p><a href="https://en.wikipedia.org/wiki/Pragma_once#Portability">Most C++ implementations</a> also support the <code>#pragma once</code> directive which ensures the file is only included once within a single compilation. This is a <a href="https://en.wikipedia.org/wiki/De_facto_standard"><em>de facto</em></a><a href="https://en.wikipedia.org/wiki/De_facto_standard"> standard</a> directive, but it is not part of any ISO C++ standard. For example:</p>
+</div>
+<p>The key advantage of using include guards is that they will work with all standard-compliant compilers and preprocessors.
+</p>
+<p>However, include guards also cause some problems for developers, as it is necessary to ensure the macros are unique within all headers used in a project. Specifically, if two (or more) headers use <code>FOO_H_INCLUDED</code> as their include guard, the first of those headers included in a compilation unit will effectively prevent the others from being included. Particular challenges are introduced if a project uses a number of third-party libraries with header files that happen to use include guards in common.
+</p>
+<p>It is also necessary to ensure that the macros used in include guards do not conflict with any other macros defined in header files.
+</p>
+<p><a href="https://en.wikipedia.org/wiki/Pragma_once#Portability">Most C++ implementations</a> also support the <code>#pragma once</code> directive which ensures the file is only included once within a single compilation. This is a <a href="https://en.wikipedia.org/wiki/De_facto_standard"><em>de facto</em></a><a href="https://en.wikipedia.org/wiki/De_facto_standard"> standard</a> directive, but it is not part of any ISO C++ standard. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Foo.h
@@ -156,7 +172,11 @@ class Foo
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>While <code>#pragma once</code> avoids some problems associated with include guards, a <code>#pragma</code> - by definition in the standards - is inherently a compiler-specific hook, and will be silently ignored by compilers that don’t support it. Projects which use <code>#pragma once</code> are more difficult to port to compilers that don’t support it.</p><p>A number of coding guidelines and assurance standards for C++ specifically discourage any use of the preprocessor other than to <code>#include</code> header files or for the purposes of placing include guards in headers.</p>
+</div>
+<p>While <code>#pragma once</code> avoids some problems associated with include guards, a <code>#pragma</code> - by definition in the standards - is inherently a compiler-specific hook, and will be silently ignored by compilers that don’t support it. Projects which use <code>#pragma once</code> are more difficult to port to compilers that don’t support it.
+</p>
+<p>A number of coding guidelines and assurance standards for C++ specifically discourage any use of the preprocessor other than to <code>#include</code> header files or for the purposes of placing include guards in headers.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

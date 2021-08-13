@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">var</span> <span class="nx">gradient</span> <span class="o">=</span> <span class="nx">createLinearGradient</span><span class="p">(</span> <span class="nx">startX</span><span class="p">,</span> <span class="nx">startY</span><span class="p">,</span> <span class="nx">endX</span><span class="p">,</span> <span class="nx">endY</span> <span class="p">)</span>
@@ -139,7 +140,54 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Creates a reusable linear gradient (object).</p><p>The object can be assigned to any <code>strokeStyle</code> and/or <code>fillStyle</code>.</p><p>Then stroke() or fill() will color the Path with the gradient colors of the object.</p><p>Creating a gradient object is a 2-step process:</p><ol id="f39f9ef7-1644-4c6c-9757-9bf8a1634fdd" class="numbered-list" start="1"><li>Create the gradient object itself. During creation you define a line on the canvas where the gradient will start and end. The gradient object is created with <code>var gradient = context.createLinearGradient</code>.</li><li>Then add 2 (or more) colors that make up the gradient. This is done by adding multiple color stops to the gradient object with <code>gradient.addColorStop</code>.</li></ol><p>Arguments:</p><ul id="69bcf25d-5371-4db0-9781-329292e08a27" class="bulleted-list"><li><strong>startX,startY</strong> is the canvas coordinate where the gradient starts. At the starting point (and before) the canvas is solidly the color of the lowest <code>gradientPercentPosition</code>.</li><li><strong>endX,endY</strong> is the canvas coordinate where the gradient ends. At the ending point (and after) the canvas is solidly the color of the highest <code>gradientPercentPosition</code>.</li><li><strong>gradientPercentPosition</strong> is a float number between 0.00 and 1.00 assigned to a color stop. It is basically a percentage waypoint along the line where this particular color stop applies.</li><li>The gradient begins at percentage 0.00 which is [startX,startY] on the canvas.</li><li>The gradient ends at percentage 1.00 which is [endX,endY] on the canvas.</li><li><em>Technical note:</em> The term “percentage” is not technically correct since the values go from 0.00 to 1.00 rather than 0% to 100%.</li><li><strong>CssColor</strong> is a CSS color assigned to this particular color stop.</li></ul><p><strong>The gradient object</strong> is an object that you can use (and reuse!) to make your path strokes and fills become gradient colored.</p><p><em>Side Note:</em> The gradient object is not internal to the Canvas element nor it’s Context. It is a separate and reusable JavaScript object that you can assign to any Path you desire. You can even use this object to color a Path on a different Canvas element(!)</p><p><strong>Color stops</strong> are (percentage) waypoints along the gradient line. At each color stop waypoint, the gradient is fully (==opaquely) colored with it’s assigned color. Interim points along the gradient line between color stops are colored as gradients of the this and the previous color.</p><p><strong>Important hint about Canvas gradients!</strong></p><p>When you create a gradient object, the entire canvas is “invisibly” filled with that gradient.</p><p>When you <code>stroke()</code> or <code>fill()</code> a path, the invisible gradient is revealed, but only revealed over that path being stroked or filled.</p><ol id="9270867b-1706-4ebe-b52a-483bef7421a6" class="numbered-list" start="1"><li>If you create a red-to-magenta linear gradient like this:
+</div>
+<p>Creates a reusable linear gradient (object).
+</p>
+<p>The object can be assigned to any <code>strokeStyle</code> and/or <code>fillStyle</code>.
+</p>
+<p>Then stroke() or fill() will color the Path with the gradient colors of the object.
+</p>
+<p>Creating a gradient object is a 2-step process:
+</p>
+  <ol id="f39f9ef7-1644-4c6c-9757-9bf8a1634fdd" class="numbered-list" start="1">
+    <li>Create the gradient object itself. During creation you define a line on the canvas where the gradient will start and end. The gradient object is created with <code>var gradient = context.createLinearGradient</code>.
+    </li>
+    <li>Then add 2 (or more) colors that make up the gradient. This is done by adding multiple color stops to the gradient object with <code>gradient.addColorStop</code>.
+    </li>
+  </ol>
+<p>Arguments:
+</p>
+  <ul id="69bcf25d-5371-4db0-9781-329292e08a27" class="bulleted-list">
+    <li><strong>startX,startY</strong> is the canvas coordinate where the gradient starts. At the starting point (and before) the canvas is solidly the color of the lowest <code>gradientPercentPosition</code>.
+    </li>
+    <li><strong>endX,endY</strong> is the canvas coordinate where the gradient ends. At the ending point (and after) the canvas is solidly the color of the highest <code>gradientPercentPosition</code>.
+    </li>
+    <li><strong>gradientPercentPosition</strong> is a float number between 0.00 and 1.00 assigned to a color stop. It is basically a percentage waypoint along the line where this particular color stop applies.
+    </li>
+    <li>The gradient begins at percentage 0.00 which is [startX,startY] on the canvas.
+    </li>
+    <li>The gradient ends at percentage 1.00 which is [endX,endY] on the canvas.
+    </li>
+    <li><em>Technical note:</em> The term “percentage” is not technically correct since the values go from 0.00 to 1.00 rather than 0% to 100%.
+    </li>
+    <li><strong>CssColor</strong> is a CSS color assigned to this particular color stop.
+    </li>
+  </ul>
+<p><strong>The gradient object</strong> is an object that you can use (and reuse!) to make your path strokes and fills become gradient colored.
+</p>
+<p><em>Side Note:</em> The gradient object is not internal to the Canvas element nor it’s Context. It is a separate and reusable JavaScript object that you can assign to any Path you desire. You can even use this object to color a Path on a different Canvas element(!)
+</p>
+<p><strong>Color stops</strong> are (percentage) waypoints along the gradient line. At each color stop waypoint, the gradient is fully (==opaquely) colored with it’s assigned color. Interim points along the gradient line between color stops are colored as gradients of the this and the previous color.
+</p>
+<p><strong>Important hint about Canvas gradients!</strong>
+</p>
+<p>When you create a gradient object, the entire canvas is “invisibly” filled with that gradient.
+</p>
+<p>When you <code>stroke()</code> or <code>fill()</code> a path, the invisible gradient is revealed, but only revealed over that path being stroked or filled.
+</p>
+  <ol id="9270867b-1706-4ebe-b52a-483bef7421a6" class="numbered-list" start="1">
+    <li>If you create a red-to-magenta linear gradient like this:
+      
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="c1">// create a linearGradient
@@ -152,7 +200,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div></li><li>Then Canvas will “invisibly” see your gradient creation like this:<img class="img" src="/img/7b15e4b01a0dbf0863ad10422b608f790f37687a.png"></li><li>But until you <code>stroke()</code> or <code>fill()</code> with the gradient, you will see none of the gradient on the Canvas.</li><li>Finally, if you stroke or fill a path using the gradient, the “invisible” gradient becomes visible on the Canvas … but only where the path is drawn.<img class="img" src="/img/9c6c471902cb56b80d2ea514a2dd90f1dd61bbde.png"></li></ol>
+</div>
+    </li>
+    <li>Then Canvas will “invisibly” see your gradient creation like this:
+      <img class="img" src="/img/7b15e4b01a0dbf0863ad10422b608f790f37687a.png">
+    </li>
+    <li>But until you <code>stroke()</code> or <code>fill()</code> with the gradient, you will see none of the gradient on the Canvas.
+    </li>
+    <li>Finally, if you stroke or fill a path using the gradient, the “invisible” gradient becomes visible on the Canvas … but only where the path is drawn.
+      <img class="img" src="/img/9c6c471902cb56b80d2ea514a2dd90f1dd61bbde.png">
+    </li>
+  </ol>
+
 <div class="code-box lang-HTML">
 	<div>
 	<pre class="chroma"><span class="cp">&lt;!doctype html&gt;</span>

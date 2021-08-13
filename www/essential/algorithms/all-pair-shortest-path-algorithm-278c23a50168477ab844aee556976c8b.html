@@ -127,7 +127,15 @@
 </div>
 
 
-      <p><a href="https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm">Floyd-Warshall</a>’s algorithm is for finding shortest paths in a weighted graph with positive or negative edge weights. A single execution of the algorithm will find the lengths (summed weights) of the shortest paths between all pair of vertices. With a little variation, it can print the shortest path and can detect negative cycles in a graph. Floyd-Warshall is a Dynamic-Programming algorithm.</p><p>Let’s look at an example. We’re going to apply Floyd-Warshall’s algorithm on this graph:</p><img class="img" src="/img/a613cbb2ea24eb2768d2fd05a72366150a10e0fb.png"><p>First thing we do is, we take two 2D matrices. These are <a href="http://stackoverflow.com/documentation/algorithm/2299/graphs/23963/storing-graphs-adjacency-matrix">adjacency matrices</a>. The size of the matrices is going to be the total number of vertices. For our graph, we will take <strong>4 * 4</strong> matrices. The <strong>Distance Matrix</strong> is going to store the minimum distance found so far between two vertices. At first, for the edges, if there is an edge between <strong>u-v</strong> and the distance/weight is <strong>w</strong>, we’ll store: <code>distance[u][v] = w</code>. For all the edges that doesn’t exist, we’re gonna put <em>infinity</em>. The <strong>Path Matrix</strong> is for regenerating minimum distance path between two vertices. So initially, if there is a path between <strong>u</strong> and <strong>v</strong>, we’re going to put <code>path[u][v] = u</code>. This means the best way to come to <strong>vertex-v</strong> from <strong>vertex-u</strong> is to use the edge that connects <strong>v</strong> with <strong>u</strong>. If there is no path between two vertices, we’re going to put <strong>N</strong> there indicating there is no path available now. The two tables for our graph will look like:</p>
+      
+<p><a href="https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm">Floyd-Warshall</a>’s algorithm is for finding shortest paths in a weighted graph with positive or negative edge weights. A single execution of the algorithm will find the lengths (summed weights) of the shortest paths between all pair of vertices. With a little variation, it can print the shortest path and can detect negative cycles in a graph. Floyd-Warshall is a Dynamic-Programming algorithm.
+</p>
+<p>Let’s look at an example. We’re going to apply Floyd-Warshall’s algorithm on this graph:
+</p>
+<img class="img" src="/img/a613cbb2ea24eb2768d2fd05a72366150a10e0fb.png">
+<p>First thing we do is, we take two 2D matrices. These are <a href="http://stackoverflow.com/documentation/algorithm/2299/graphs/23963/storing-graphs-adjacency-matrix">adjacency matrices</a>. The size of the matrices is going to be the total number of vertices. For our graph, we will take <strong>4 * 4</strong> matrices. The <strong>Distance Matrix</strong> is going to store the minimum distance found so far between two vertices. At first, for the edges, if there is an edge between <strong>u-v</strong> and the distance/weight is <strong>w</strong>, we’ll store: <code>distance[u][v] = w</code>. For all the edges that doesn’t exist, we’re gonna put <em>infinity</em>. The <strong>Path Matrix</strong> is for regenerating minimum distance path between two vertices. So initially, if there is a path between <strong>u</strong> and <strong>v</strong>, we’re going to put <code>path[u][v] = u</code>. This means the best way to come to <strong>vertex-v</strong> from <strong>vertex-u</strong> is to use the edge that connects <strong>v</strong> with <strong>u</strong>. If there is no path between two vertices, we’re going to put <strong>N</strong> there indicating there is no path available now. The two tables for our graph will look like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+-----+-----+-----+-----+-----+            +-----+-----+-----+-----+-----+
@@ -146,7 +154,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since there is no loop, the diagonals are set <strong>N</strong>. And the distance from the vertex itself is <strong>0</strong>.</p><p>To apply Floyd-Warshall algorithm, we’re going to select a middle vertex <strong>k</strong>. Then for each vertex <strong>i</strong>, we’re going to check if we can go from <strong>i</strong> to <strong>k</strong> and then <strong>k</strong> to <strong>j</strong>, where <strong>j</strong> is another vertex and minimize the cost of going from <strong>i</strong> to <strong>j</strong>. If the current <strong>distance[i][j]</strong> is greater than <strong>distance[i][k]</strong> + <strong>distance[k][j]</strong>, we’re going to put <strong>distance[i][j]</strong> equals to the summation of those two distances. And the <strong>path[i][j]</strong> will be set to <strong>path[k][j]</strong>, as it is better to go from <strong>i</strong> to <strong>k</strong>, and then <strong>k</strong> to <strong>j</strong>. All the vertices will be selected as <strong>k</strong>. We’ll have 3 nested loops: for <strong>k</strong> going from 1 to 4, <strong>i</strong> going from 1 to 4 and <strong>j</strong> going from 1 to 4. We’re going check:</p>
+</div>
+<p>Since there is no loop, the diagonals are set <strong>N</strong>. And the distance from the vertex itself is <strong>0</strong>.
+</p>
+<p>To apply Floyd-Warshall algorithm, we’re going to select a middle vertex <strong>k</strong>. Then for each vertex <strong>i</strong>, we’re going to check if we can go from <strong>i</strong> to <strong>k</strong> and then <strong>k</strong> to <strong>j</strong>, where <strong>j</strong> is another vertex and minimize the cost of going from <strong>i</strong> to <strong>j</strong>. If the current <strong>distance[i][j]</strong> is greater than <strong>distance[i][k]</strong> + <strong>distance[k][j]</strong>, we’re going to put <strong>distance[i][j]</strong> equals to the summation of those two distances. And the <strong>path[i][j]</strong> will be set to <strong>path[k][j]</strong>, as it is better to go from <strong>i</strong> to <strong>k</strong>, and then <strong>k</strong> to <strong>j</strong>. All the vertices will be selected as <strong>k</strong>. We’ll have 3 nested loops: for <strong>k</strong> going from 1 to 4, <strong>i</strong> going from 1 to 4 and <strong>j</strong> going from 1 to 4. We’re going check:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if distance[i][j] &gt; distance[i][k] + distance[k][j]
@@ -157,7 +170,12 @@ end if</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So what we’re basically checking is, <em>for every pair of vertices, do we get a shorter distance by going through another vertex?</em> The total number of operations for our graph will be <strong>4 * 4 * 4</strong> = <strong>64</strong>. That means we’re going to do this check <strong>64</strong> times. Let’s look at a few of them:</p><p>When <strong>k</strong> = <strong>1</strong>, <strong>i</strong> = <strong>2</strong> and <strong>j</strong> = <strong>3</strong>, <strong>distance[i][j]</strong> is <strong>-2</strong>, which is not greater than <strong>distance[i][k]</strong> + <strong>distance[k][j]</strong> = <strong>-2</strong> + <strong>0</strong> = <strong>-2</strong>. So it will remain unchanged. Again, when <strong>k</strong> = <strong>1</strong>, <strong>i</strong> = <strong>4</strong> and <strong>j</strong> = <strong>2</strong>, <strong>distance[i][j]</strong> = <strong>infinity</strong>, which is greater than <strong>distance[i][k]</strong> + <strong>distance[k][j]</strong> = <strong>1</strong> + <strong>3</strong> = <strong>4</strong>. So we put <strong>distance[i][j]</strong> = <strong>4</strong>, and we put <strong>path[i][j]</strong> = <strong>path[k][j]</strong> = <strong>1</strong>. What this means is, to go from <strong>vertex-4</strong> to <strong>vertex-2</strong>, the path <strong>4-&gt;1-&gt;2</strong> is shorter than the existing path. This is how we populate both matrices. The calculation for each step is shown <a href="http://imgur.com/a/NU6Hg">here</a>. After making necessary changes, our matrices will look like:</p>
+</div>
+<p>So what we’re basically checking is, <em>for every pair of vertices, do we get a shorter distance by going through another vertex?</em> The total number of operations for our graph will be <strong>4 * 4 * 4</strong> = <strong>64</strong>. That means we’re going to do this check <strong>64</strong> times. Let’s look at a few of them:
+</p>
+<p>When <strong>k</strong> = <strong>1</strong>, <strong>i</strong> = <strong>2</strong> and <strong>j</strong> = <strong>3</strong>, <strong>distance[i][j]</strong> is <strong>-2</strong>, which is not greater than <strong>distance[i][k]</strong> + <strong>distance[k][j]</strong> = <strong>-2</strong> + <strong>0</strong> = <strong>-2</strong>. So it will remain unchanged. Again, when <strong>k</strong> = <strong>1</strong>, <strong>i</strong> = <strong>4</strong> and <strong>j</strong> = <strong>2</strong>, <strong>distance[i][j]</strong> = <strong>infinity</strong>, which is greater than <strong>distance[i][k]</strong> + <strong>distance[k][j]</strong> = <strong>1</strong> + <strong>3</strong> = <strong>4</strong>. So we put <strong>distance[i][j]</strong> = <strong>4</strong>, and we put <strong>path[i][j]</strong> = <strong>path[k][j]</strong> = <strong>1</strong>. What this means is, to go from <strong>vertex-4</strong> to <strong>vertex-2</strong>, the path <strong>4-&gt;1-&gt;2</strong> is shorter than the existing path. This is how we populate both matrices. The calculation for each step is shown <a href="http://imgur.com/a/NU6Hg">here</a>. After making necessary changes, our matrices will look like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+-----+-----+-----+-----+-----+            +-----+-----+-----+-----+-----+
@@ -176,7 +194,10 @@ end if</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is our shortest distance matrix. For example, the shortest distance from <strong>1</strong> to <strong>4</strong> is <strong>3</strong> and the shortest distance between <strong>4</strong> to <strong>3</strong> is <strong>2</strong>. Our pseudo-code will be:</p>
+</div>
+<p>This is our shortest distance matrix. For example, the shortest distance from <strong>1</strong> to <strong>4</strong> is <strong>3</strong> and the shortest distance between <strong>4</strong> to <strong>3</strong> is <strong>2</strong>. Our pseudo-code will be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure Floyd-Warshall(Graph):
@@ -194,7 +215,12 @@ end for</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Printing the path:</strong></p><p>To print the path, we’ll check the <strong>Path</strong> matrix. To print the path from <strong>u</strong> to <strong>v</strong>, we’ll start from <strong>path[u][v]</strong>. We’ll set keep changing <strong>v</strong> = <strong>path[u][v]</strong> until we find <strong>path[u][v]</strong> = <strong>u</strong> and push every values of <strong>path[u][v]</strong> in a stack. After finding <strong>u</strong>, we’ll print <strong>u</strong> and start popping items from the stack and print them. This works because the <strong>path</strong> matrix stores the value of the vertex which shares the shortest path to <strong>v</strong> from any other node. The pseudo-code will be:</p>
+</div>
+<p><strong>Printing the path:</strong>
+</p>
+<p>To print the path, we’ll check the <strong>Path</strong> matrix. To print the path from <strong>u</strong> to <strong>v</strong>, we’ll start from <strong>path[u][v]</strong>. We’ll set keep changing <strong>v</strong> = <strong>path[u][v]</strong> until we find <strong>path[u][v]</strong> = <strong>u</strong> and push every values of <strong>path[u][v]</strong> in a stack. After finding <strong>u</strong>, we’ll print <strong>u</strong> and start popping items from the stack and print them. This works because the <strong>path</strong> matrix stores the value of the vertex which shares the shortest path to <strong>v</strong> from any other node. The pseudo-code will be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure PrintPath(source, destination):
@@ -212,7 +238,15 @@ end while</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Finding Negative Edge Cycle:</strong></p><p>To find out if there is a negative edge cycle, we’ll need to check the main diagonal of <strong>distance</strong> matrix. If any value on the diagonal is negative, that means there is a negative cycle in the graph.</p><p><strong>Complexity:</strong></p><p>The complexity of Floyd-Warshall algorithm is <strong>O(V³)</strong> and the space complexity is: <strong>O(V²)</strong>.</p>
+</div>
+<p><strong>Finding Negative Edge Cycle:</strong>
+</p>
+<p>To find out if there is a negative edge cycle, we’ll need to check the main diagonal of <strong>distance</strong> matrix. If any value on the diagonal is negative, that means there is a negative cycle in the graph.
+</p>
+<p><strong>Complexity:</strong>
+</p>
+<p>The complexity of Floyd-Warshall algorithm is <strong>O(V³)</strong> and the space complexity is: <strong>O(V²)</strong>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

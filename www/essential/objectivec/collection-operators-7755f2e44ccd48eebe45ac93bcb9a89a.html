@@ -127,7 +127,10 @@
 </div>
 
 
-      <p><strong>Collection Operators</strong> can be used in a KVC key path to perform an operation on a “collection-type” property (i.e. <code>NSArray</code>, <code>NSSet</code> and similar). For example, a common operation to perform is to count the objects in a collection. To achieve this, you use the <code>@count</code> <em>collection operator</em>:</p>
+      
+<p><strong>Collection Operators</strong> can be used in a KVC key path to perform an operation on a “collection-type” property (i.e. <code>NSArray</code>, <code>NSSet</code> and similar). For example, a common operation to perform is to count the objects in a collection. To achieve this, you use the <code>@count</code> <em>collection operator</em>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">self.array = @[@5, @4, @3, @2, @1];
@@ -138,8 +141,15 @@ NSNumber *countAlt = [self valueForKeyPath:@&#34;array.@count&#34;];
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>While this is completely redundant here (we could have just accessed the <code>count</code> property), it <em>can</em> be useful on occasion, though it is rarely necessary. There are, however, some collection operators that are much more useful, namely <code>@max</code>, <code>@min</code>, <code>@sum</code>, <code>@avg</code> and the <code>@unionOf</code> family. It is important to note that these operators <em>also</em> require a separate key path <em>following</em> the operator to function correctly. Here’s a list of them and the type of data they work with:</p><p>Operator | Data Type |
-–––– | ———————————————————–– |<code>@count</code> | (none) |<code>@max</code> | <code>NSNumber</code>, <code>NSDate</code>, <code>int</code> (and related), etc. |<code>@min</code> | <code>NSNumber</code>, <code>NSDate</code>, <code>int</code> (and related), etc. |<code>@sum</code> | <code>NSNumber</code>, <code>int</code> (and related), <code>double</code> (and related), etc. |<code>@avg</code> | <code>NSNumber</code>, <code>int</code> (and related), <code>double</code> (and related), etc. |<code>@unionOfObjects</code> | <code>NSArray</code>, <code>NSSet</code>, etc. |<code>@distinctUnionOfObjects</code> | <code>NSArray</code>, <code>NSSet</code>, etc. |<code>@unionOfArrays</code> | <code>NSArray&lt;NSArray*&gt;</code> |<code>@distinctUnionOfArrays</code> | <code>NSArray&lt;NSArray*&gt;</code> |<code>@distinctUnionOfSets</code> | <code>NSSet&lt;NSSet*&gt;</code> |</p><p><code>@max</code> and <code>@min</code> will return the highest or lowest value, respectively, of a property of objects in the collection. For example, look at the following code:</p>
+</div>
+<p>While this is completely redundant here (we could have just accessed the <code>count</code> property), it <em>can</em> be useful on occasion, though it is rarely necessary. There are, however, some collection operators that are much more useful, namely <code>@max</code>, <code>@min</code>, <code>@sum</code>, <code>@avg</code> and the <code>@unionOf</code> family. It is important to note that these operators <em>also</em> require a separate key path <em>following</em> the operator to function correctly. Here’s a list of them and the type of data they work with:
+</p>
+<p>Operator | Data Type |
+–––– | ———————————————————–– |<code>@count</code> | (none) |<code>@max</code> | <code>NSNumber</code>, <code>NSDate</code>, <code>int</code> (and related), etc. |<code>@min</code> | <code>NSNumber</code>, <code>NSDate</code>, <code>int</code> (and related), etc. |<code>@sum</code> | <code>NSNumber</code>, <code>int</code> (and related), <code>double</code> (and related), etc. |<code>@avg</code> | <code>NSNumber</code>, <code>int</code> (and related), <code>double</code> (and related), etc. |<code>@unionOfObjects</code> | <code>NSArray</code>, <code>NSSet</code>, etc. |<code>@distinctUnionOfObjects</code> | <code>NSArray</code>, <code>NSSet</code>, etc. |<code>@unionOfArrays</code> | <code>NSArray&lt;NSArray*&gt;</code> |<code>@distinctUnionOfArrays</code> | <code>NSArray&lt;NSArray*&gt;</code> |<code>@distinctUnionOfSets</code> | <code>NSSet&lt;NSSet*&gt;</code> |
+</p>
+<p><code>@max</code> and <code>@min</code> will return the highest or lowest value, respectively, of a property of objects in the collection. For example, look at the following code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// “Point” class used in our collection
@@ -172,7 +182,14 @@ NSArray&lt;NSNumber*&gt; *boundsOfAllPoints = @[maxX, minX, maxY, minY];
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In just a 4 lines of code and pure Foundation, with the power of Key-Value Coding collection operators we were able to extract a rectangle that encapsulates all of the points in our array.</p><p>It is important to note that these comparisons are made by invoking the <code>compare:</code> method on the objects, so if you ever want to make your own class compatible with these operators, you must implement this method.</p><p><code>@sum</code> will, as you can probably guess, add up all the values of a property.</p>
+</div>
+<p>In just a 4 lines of code and pure Foundation, with the power of Key-Value Coding collection operators we were able to extract a rectangle that encapsulates all of the points in our array.
+</p>
+<p>It is important to note that these comparisons are made by invoking the <code>compare:</code> method on the objects, so if you ever want to make your own class compatible with these operators, you must implement this method.
+</p>
+<p><code>@sum</code> will, as you can probably guess, add up all the values of a property.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@interface Expense : NSObject
@@ -197,7 +214,10 @@ NSNumber *totalExpenses = [self valueForKeyPath:@&#34;expenses.@sum.price&#34;];
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, we used <code>@sum</code> to find the total price of all the expenses in the array. If we instead wanted to find the average price we’re paying for each expense, we can use <code>@avg</code>:</p>
+</div>
+<p>Here, we used <code>@sum</code> to find the total price of all the expenses in the array. If we instead wanted to find the average price we’re paying for each expense, we can use <code>@avg</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">NSNumber *averagePrice = [self valueForKeyPath:@&#34;expenses.@avg.price&#34;];</pre>
@@ -205,7 +225,10 @@ NSNumber *totalExpenses = [self valueForKeyPath:@&#34;expenses.@sum.price&#34;];
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Finally, there’s the <code>@unionOf</code> family. There are five different operators in this family, but they all work mostly the same, with only small differences between each. First, there’s <code>@unionOfObjects</code> which will return an array of the properties of objects in an array:</p>
+</div>
+<p>Finally, there’s the <code>@unionOf</code> family. There are five different operators in this family, but they all work mostly the same, with only small differences between each. First, there’s <code>@unionOfObjects</code> which will return an array of the properties of objects in an array:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// See &#34;expenses&#34; array above
@@ -218,7 +241,10 @@ NSArray&lt;NSNumber*&gt; *allPrices = [self valueForKeyPath:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>@distinctUnionOfObjects</code> functions the same as <code>@unionOfObjects</code>, but it removes duplicates:</p>
+</div>
+<p><code>@distinctUnionOfObjects</code> functions the same as <code>@unionOfObjects</code>, but it removes duplicates:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">NSArray&lt;NSNumber*&gt; *differentPrices = [self valueForKeyPath:
@@ -229,7 +255,10 @@ NSArray&lt;NSNumber*&gt; *allPrices = [self valueForKeyPath:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And finally, the last 3 operators in the <code>@unionOf</code> family will go one step deeper and return an array of values found for a property contained inside dually-nested arrays:</p>
+</div>
+<p>And finally, the last 3 operators in the <code>@unionOf</code> family will go one step deeper and return an array of values found for a property contained inside dually-nested arrays:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">NSArray&lt;NSArray&lt;Expense*,Expense*&gt;*&gt; *arrayOfArrays =
@@ -258,7 +287,14 @@ NSArray&lt;NSNumber*&gt; allPrices = [arrayOfArrays valueForKeyPath:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The one missing from this example is <code>@distinctUnionOfSets</code>, however this functions exactly the same as <code>@distinctUnionOfArrays</code>, but works with and returns <code>NSSet</code>s instead (there is no non-<code>distinct</code> version because in a set, every object must be distinct anyway).</p><p>And that’s it! Collection operators can be really powerful if used correctly, and can help to avoid having to loop through stuff unnecessarily.</p><p>One last note: you can also use the standard collection operators on arrays of <code>NSNumber</code>s (without additional property access). To do this, you access the <code>self</code> pseudo-property that just returns the object:</p>
+</div>
+<p>The one missing from this example is <code>@distinctUnionOfSets</code>, however this functions exactly the same as <code>@distinctUnionOfArrays</code>, but works with and returns <code>NSSet</code>s instead (there is no non-<code>distinct</code> version because in a set, every object must be distinct anyway).
+</p>
+<p>And that’s it! Collection operators can be really powerful if used correctly, and can help to avoid having to loop through stuff unnecessarily.
+</p>
+<p>One last note: you can also use the standard collection operators on arrays of <code>NSNumber</code>s (without additional property access). To do this, you access the <code>self</code> pseudo-property that just returns the object:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">NSArray&lt;NSNumber*&gt; *numbers = @[@0, @1, @5, @27, @1337, @2048];

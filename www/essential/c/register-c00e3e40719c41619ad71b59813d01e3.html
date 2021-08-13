@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Hints to the compiler that access to an object should be as fast as possible. Whether the compiler actually uses the hint is implementation-defined; it may simply treat it as equivalent to <code>auto</code>.</p><p>The only property that is definitively different for all objects that are declared with <code>register</code> is that they cannot have their address computed. Thereby <code>register</code> can be a good tool to ensure certain optimizations:</p>
+      
+<p>Hints to the compiler that access to an object should be as fast as possible. Whether the compiler actually uses the hint is implementation-defined; it may simply treat it as equivalent to <code>auto</code>.
+</p>
+<p>The only property that is definitively different for all objects that are declared with <code>register</code> is that they cannot have their address computed. Thereby <code>register</code> can be a good tool to ensure certain optimizations:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">register size_t size = 467;</pre>
@@ -135,7 +140,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>is an object that can never <em>alias</em> because no code can pass its address to another function where it might be changed unexpectedly.</p><p>This property also implies that an array</p>
+</div>
+<p>is an object that can never <em>alias</em> because no code can pass its address to another function where it might be changed unexpectedly.
+</p>
+<p>This property also implies that an array
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">register int array[5];</pre>
@@ -143,7 +153,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>cannot decay into a pointer to its first element (i.e. <code>array</code> turning into <code>&amp;array[0]</code>). This means that the elements of such an array cannot be accessed and the array itself cannot be passed to a function.</p><p>In fact, the only legal usage of an array declared with a <code>register</code> storage class is the <code>sizeof</code> operator; any other operator would require the address of the first element of the array. For that reason, arrays generally should not be declared with the <code>register</code> keyword since it makes them useless for anything other than size computation of the entire array, which can be done just as easily without the <code>register</code> keyword.</p><p>The <code>register</code> storage class is more appropriate for variables that are defined inside a block and are accessed with high frequency. For example,</p>
+</div>
+<p>cannot decay into a pointer to its first element (i.e. <code>array</code> turning into <code>&amp;array[0]</code>). This means that the elements of such an array cannot be accessed and the array itself cannot be passed to a function.
+</p>
+<p>In fact, the only legal usage of an array declared with a <code>register</code> storage class is the <code>sizeof</code> operator; any other operator would require the address of the first element of the array. For that reason, arrays generally should not be declared with the <code>register</code> keyword since it makes them useless for anything other than size computation of the entire array, which can be done just as easily without the <code>register</code> keyword.
+</p>
+<p>The <code>register</code> storage class is more appropriate for variables that are defined inside a block and are accessed with high frequency. For example,
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/* prints the sum of the first 5 integers*/
@@ -157,7 +174,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>_Alignof</code> operator is also allowed to be used with <code>register</code> arrays.</p>
+</div>
+<p>The <code>_Alignof</code> operator is also allowed to be used with <code>register</code> arrays.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

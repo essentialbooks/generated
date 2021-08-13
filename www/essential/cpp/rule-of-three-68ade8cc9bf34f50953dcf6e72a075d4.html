@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>The Rule of Three states that if a type ever needs to have a user-defined copy constructor, copy assignment operator, or destructor, then it must have <em>all three</em>.</p><p>The reason for the rule is that a class which needs any of the three manages some resource (file handles, dynamically allocated memory, etc), and all three are needed to manage that resource consistently. The copy functions deal with how the resource gets copied between objects, and the destructor would destroy the resource, in accord with <a href="http://stackoverflow.com/documentation/c%2B%2B/1320/raii-resource-acquisition-is-initialization#t=201607230301520057618">RAII principles</a>.</p><p>Consider a type that manages a string resource:</p>
+      
+<p>The Rule of Three states that if a type ever needs to have a user-defined copy constructor, copy assignment operator, or destructor, then it must have <em>all three</em>.
+</p>
+<p>The reason for the rule is that a class which needs any of the three manages some resource (file handles, dynamically allocated memory, etc), and all three are needed to manage that resource consistently. The copy functions deal with how the resource gets copied between objects, and the destructor would destroy the resource, in accord with <a href="http://stackoverflow.com/documentation/c%2B%2B/1320/raii-resource-acquisition-is-initialization#t=201607230301520057618">RAII principles</a>.
+</p>
+<p>Consider a type that manages a string resource:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Person
@@ -151,7 +158,10 @@ public:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since <code>name</code> was allocated in the constructor, the destructor deallocates it to avoid leaking memory. But what happens if such an object is copied?</p>
+</div>
+<p>Since <code>name</code> was allocated in the constructor, the destructor deallocates it to avoid leaking memory. But what happens if such an object is copied?
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int main()
@@ -163,7 +173,16 @@ public:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>First, <code>p1</code> will be constructed. Then <code>p2</code> will be copied from <code>p1</code>. However, the C++-generated copy constructor will copy each component of the type as-is. Which means that <code>p1.name</code> and <code>p2.name</code> both point to the <strong>same</strong> string.</p><p>When <code>main</code> ends, destructors will be called. First <code>p2</code>’s destructor will be called; it will delete the string. Then <code>p1</code>’s destructor will be called. However, the string is <em>already deleted</em>. Calling <code>delete</code> on memory that was already deleted yields undefined behavior.</p><p>To avoid this, it is necessary to provide a suitable copy constructor. One approach is to implement a reference counted system, where different <code>Person</code> instances share the same string data. Each time a copy is performed, the shared reference count is incremented. The destructor then decrements the reference count, only releasing the memory if the count is zero.</p><p>Or we could implement <a href="http://stackoverflow.com/documentation/c%2B%2B/1955/value-and-reference-semantics#t=201607230312543894418">value semantics and deep copying behavior</a>:</p>
+</div>
+<p>First, <code>p1</code> will be constructed. Then <code>p2</code> will be copied from <code>p1</code>. However, the C++-generated copy constructor will copy each component of the type as-is. Which means that <code>p1.name</code> and <code>p2.name</code> both point to the <strong>same</strong> string.
+</p>
+<p>When <code>main</code> ends, destructors will be called. First <code>p2</code>’s destructor will be called; it will delete the string. Then <code>p1</code>’s destructor will be called. However, the string is <em>already deleted</em>. Calling <code>delete</code> on memory that was already deleted yields undefined behavior.
+</p>
+<p>To avoid this, it is necessary to provide a suitable copy constructor. One approach is to implement a reference counted system, where different <code>Person</code> instances share the same string data. Each time a copy is performed, the shared reference count is incremented. The destructor then decrements the reference count, only releasing the memory if the count is zero.
+</p>
+<p>Or we could implement <a href="http://stackoverflow.com/documentation/c%2B%2B/1955/value-and-reference-semantics#t=201607230312543894418">value semantics and deep copying behavior</a>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Person(Person const&amp; other)
@@ -184,7 +203,9 @@ Person &amp;operator=(Person const&amp; other)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Implementation of the copy assignment operator is complicated by the need to release an existing buffer. The copy and swap technique creates a temporary object which holds a new buffer. Swapping the contents of <code>*this</code> and <code>copy</code> gives ownership to <code>copy</code> of the original buffer. Destruction of <code>copy</code>, as the function returns, releases the buffer previously owned by <code>*this</code>.</p>
+</div>
+<p>Implementation of the copy assignment operator is complicated by the need to release an existing buffer. The copy and swap technique creates a temporary object which holds a new buffer. Swapping the contents of <code>*this</code> and <code>copy</code> gives ownership to <code>copy</code> of the original buffer. Destruction of <code>copy</code>, as the function returns, releases the buffer previously owned by <code>*this</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

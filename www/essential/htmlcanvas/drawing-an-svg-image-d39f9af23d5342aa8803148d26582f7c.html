@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>To draw a vector SVG image, the operation is not different from a raster image :</p><p>You first need to load your SVG image into an HTMLImage element, then use the <code>drawImage()</code> method.</p>
+      
+<p>To draw a vector SVG image, the operation is not different from a raster image :
+</p>
+<p>You first need to load your SVG image into an HTMLImage element, then use the <code>drawImage()</code> method.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var image = new Image();
@@ -139,7 +144,35 @@ image.src = &#34;someFile.SVG&#34;;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>SVG images have some advantages over raster ones, since you won’t loose quality, whatever the scale you’ll draw it on your canvas. But beware, it may also be a bit slower than drawing a raster image.</p><p>However, SVG images come with more restrictions than raster images.</p><ul id="d6b613f9-fc95-4dca-8782-a7674449d731" class="bulleted-list"><li><strong>For security purpose, no external content can be loaded from an SVG image referenced in an HTMLImageElement(</strong><code><strong>&lt;img&gt;</strong></code><strong>)</strong></li></ul><p>No external stylesheet, no external image referenced in SVGImage (<code>&lt;image/&gt;</code>) elements, no external filter or element linked by the <code>xlink:href</code> attribute (<code>&lt;use xlink:href=&quot;anImage.SVG#anElement&quot;/&gt;</code>) or the funcIRI (<code>url()</code>) attribute method etc.</p><p>Also, stylesheets appended in the main document won’t have any effect on the SVG document once referenced in an HTMLImage element.</p><p>Finally, no script will be executed inside the SVG Image.</p><p><strong>Workaround :</strong> You’ll need to append all external elements inside the SVG itself before referrencing to the HTMLImage element. (for images or fonts, you need to append a dataURI version of your external resources).</p><ul id="fc38bff8-3d54-49ec-befa-8f311ce9af1e" class="bulleted-list"><li><strong>The root element (</strong><code><strong>&lt;svg&gt;</strong></code><strong>) must have its width and height attributes set to an absolute value.</strong></li></ul><p>If you were to use relative length (e.g <code>%</code>), then the browser won’t be able to know to what it is relative. Some browsers (Blink) will try to make a guess, but most will simply ignore your image and won’t draw anything, without a warning.</p><ul id="3fd8c1d2-6c8f-4aff-80c0-272781ced40d" class="bulleted-list"><li><strong>Some browsers will </strong><a href="http://stackoverflow.com/documentation/html5-canvas/1892/introduction-to-html5-canvas/10512/the-tainted-canvas#t=201607270037419008111"><strong>taint the canvas</strong></a><strong> when an SVG image has been drawn to it.</strong></li></ul><p>Specifically, Internet-Explorer &lt; Edge in any case, and Safari 9 when a <code>&lt;foreignObject&gt;</code> is present in the SVG image.</p>
+</div>
+<p>SVG images have some advantages over raster ones, since you won’t loose quality, whatever the scale you’ll draw it on your canvas. But beware, it may also be a bit slower than drawing a raster image.
+</p>
+<p>However, SVG images come with more restrictions than raster images.
+</p>
+  <ul id="d6b613f9-fc95-4dca-8782-a7674449d731" class="bulleted-list">
+    <li><strong>For security purpose, no external content can be loaded from an SVG image referenced in an HTMLImageElement(</strong><code><strong>&lt;img&gt;</strong></code><strong>)</strong>
+    </li>
+  </ul>
+<p>No external stylesheet, no external image referenced in SVGImage (<code>&lt;image/&gt;</code>) elements, no external filter or element linked by the <code>xlink:href</code> attribute (<code>&lt;use xlink:href=&quot;anImage.SVG#anElement&quot;/&gt;</code>) or the funcIRI (<code>url()</code>) attribute method etc.
+</p>
+<p>Also, stylesheets appended in the main document won’t have any effect on the SVG document once referenced in an HTMLImage element.
+</p>
+<p>Finally, no script will be executed inside the SVG Image.
+</p>
+<p><strong>Workaround :</strong> You’ll need to append all external elements inside the SVG itself before referrencing to the HTMLImage element. (for images or fonts, you need to append a dataURI version of your external resources).
+</p>
+  <ul id="fc38bff8-3d54-49ec-befa-8f311ce9af1e" class="bulleted-list">
+    <li><strong>The root element (</strong><code><strong>&lt;svg&gt;</strong></code><strong>) must have its width and height attributes set to an absolute value.</strong>
+    </li>
+  </ul>
+<p>If you were to use relative length (e.g <code>%</code>), then the browser won’t be able to know to what it is relative. Some browsers (Blink) will try to make a guess, but most will simply ignore your image and won’t draw anything, without a warning.
+</p>
+  <ul id="3fd8c1d2-6c8f-4aff-80c0-272781ced40d" class="bulleted-list">
+    <li><strong>Some browsers will </strong><a href="http://stackoverflow.com/documentation/html5-canvas/1892/introduction-to-html5-canvas/10512/the-tainted-canvas#t=201607270037419008111"><strong>taint the canvas</strong></a><strong> when an SVG image has been drawn to it.</strong>
+    </li>
+  </ul>
+<p>Specifically, Internet-Explorer &lt; Edge in any case, and Safari 9 when a <code>&lt;foreignObject&gt;</code> is present in the SVG image.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

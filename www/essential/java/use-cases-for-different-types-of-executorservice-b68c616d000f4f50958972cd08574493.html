@@ -127,7 +127,18 @@
 </div>
 
 
-      <p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executors.html">Executors</a> returns different type of ThreadPools catering to specific need.</p><ol id="975eaa66-2869-4fe5-82d1-13d531f17181" class="numbered-list" start="1"><li><code>public static ExecutorService newSingleThreadExecutor()</code></li></ol><blockquote id="a181b71f-241f-4f65-b770-abbf60f44323" class="">Creates an Executor that uses a single worker thread operating off an unbounded queue</blockquote><p>There is a difference between <code>newFixedThreadPool(1)</code> and <code>newSingleThreadExecutor()</code> as the java doc says for the latter:</p>
+      
+<p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executors.html">Executors</a> returns different type of ThreadPools catering to specific need.
+</p>
+  <ol id="975eaa66-2869-4fe5-82d1-13d531f17181" class="numbered-list" start="1">
+    <li><code>public static ExecutorService newSingleThreadExecutor()</code>
+    </li>
+  </ol>
+<blockquote id="a181b71f-241f-4f65-b770-abbf60f44323" class="">Creates an Executor that uses a single worker thread operating off an unbounded queue
+</blockquote>
+<p>There is a difference between <code>newFixedThreadPool(1)</code> and <code>newSingleThreadExecutor()</code> as the java doc says for the latter:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt; Unlike the otherwise equivalent newFixedThreadPool(1) the returned executor is guaranteed not to be reconfigurable to use additional threads.
@@ -137,7 +148,12 @@ Which means that a `newFixedThreadPool` can be reconfigured later in the program
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is not possible for <code>newSingleThreadExecutor</code></p><p>Use cases:</p>
+</div>
+<p>This is not possible for <code>newSingleThreadExecutor</code>
+</p>
+<p>Use cases:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">1. You want to execute the submitted tasks in a sequence.
@@ -146,7 +162,10 @@ Which means that a `newFixedThreadPool` can be reconfigured later in the program
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Cons:</p>
+</div>
+<p>Cons:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">1. Unbounded queue is harmful</pre>
@@ -154,7 +173,82 @@ Which means that a `newFixedThreadPool` can be reconfigured later in the program
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="a34bbde1-8e12-4f87-ace6-630ad120f20b" class="numbered-list" start="1"><li><code>public static ExecutorService newFixedThreadPool(int nThreads)</code></li></ol><blockquote id="4d43b2d0-a8d9-447d-ae33-3f1bda772c54" class="">Creates a thread pool that reuses a fixed number of threads operating off a shared unbounded queue. At any point, at most nThreads threads will be active processing tasks. If additional tasks are submitted when all threads are active, they will wait in the queue until a thread is available</blockquote><p>Use cases:</p><ol id="7c3b0d80-cb39-4d06-a703-f4f7dd6be12a" class="numbered-list" start="1"><li>Effective use of available cores. Configure <code>nThreads</code> as <code>Runtime.getRuntime().availableProcessors()</code></li><li>When you decide that number of thread should not exceed a number in the thread pool</li></ol><p>Cons:</p><ol id="75432476-9af8-42b0-9a98-8675dd5e8525" class="numbered-list" start="1"><li>Unbounded queue is harmful.</li><li><code>public static ExecutorService newCachedThreadPool()</code></li></ol><blockquote id="d3d62c9a-e9e3-4dea-b0c8-b9c1076b7fbb" class="">Creates a thread pool that creates new threads as needed, but will reuse previously constructed threads when they are available</blockquote><p>Use cases:</p><ol id="ec4439fe-ba6f-45a7-b07f-afecca01c0eb" class="numbered-list" start="1"><li>For short-lived asynchronous tasks</li></ol><p>Cons:</p><ol id="ab9ff6fa-486a-41ff-b5b3-b877705e1602" class="numbered-list" start="1"><li>Unbounded queue is harmful.</li><li>Each new task will create a new thread if all existing threads are busy. If the task is taking long duration, more number of threads will be created,which will degrade the performance of the system. Alternative in this case: <code>newFixedThreadPool</code></li><li><code>public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize)</code></li></ol><blockquote id="f26341e1-57a8-498f-b210-f51af1ef1a55" class="">Creates a thread pool that can schedule commands to run after a given delay, or to execute periodically.</blockquote><p>Use cases:</p><ol id="78c49496-1a56-43aa-9618-5516641fb31c" class="numbered-list" start="1"><li>Handling recurring events with delays, which will happen in future at certain interval of times</li></ol><p>Cons:</p><ol id="2dce502d-f230-401c-bd36-0d6d29412544" class="numbered-list" start="1"><li>Unbounded queue is harmful.</li></ol><p>5.<code>public static ExecutorService newWorkStealingPool()</code></p><blockquote id="f3be3654-61ab-4486-948c-9db7566b8167" class="">Creates a work-stealing thread pool using all available processors as its target parallelism level</blockquote><p>Use cases:</p><ol id="0cc3531a-8f63-4cb4-8015-b748cf00104b" class="numbered-list" start="1"><li>For divide and conquer type of problems.</li><li>Effective use of idle threads. Idle threads steals tasks from busy threads.</li></ol><p>Cons:</p><ol id="3b66d1cd-548c-4786-a11e-18d213548ffc" class="numbered-list" start="1"><li>Unbounded queue size is harmful.</li></ol><p>You can see one common drawbacks in all these ExecutorService : unbounded queue. This will be addressed with <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ThreadPoolExecutor.html#execute-java.lang.Runnable-">ThreadPoolExecutor</a></p>
+</div>
+  <ol id="a34bbde1-8e12-4f87-ace6-630ad120f20b" class="numbered-list" start="1">
+    <li><code>public static ExecutorService newFixedThreadPool(int nThreads)</code>
+    </li>
+  </ol>
+<blockquote id="4d43b2d0-a8d9-447d-ae33-3f1bda772c54" class="">Creates a thread pool that reuses a fixed number of threads operating off a shared unbounded queue. At any point, at most nThreads threads will be active processing tasks. If additional tasks are submitted when all threads are active, they will wait in the queue until a thread is available
+</blockquote>
+<p>Use cases:
+</p>
+  <ol id="7c3b0d80-cb39-4d06-a703-f4f7dd6be12a" class="numbered-list" start="1">
+    <li>Effective use of available cores. Configure <code>nThreads</code> as <code>Runtime.getRuntime().availableProcessors()</code>
+    </li>
+    <li>When you decide that number of thread should not exceed a number in the thread pool
+    </li>
+  </ol>
+<p>Cons:
+</p>
+  <ol id="75432476-9af8-42b0-9a98-8675dd5e8525" class="numbered-list" start="1">
+    <li>Unbounded queue is harmful.
+    </li>
+    <li><code>public static ExecutorService newCachedThreadPool()</code>
+    </li>
+  </ol>
+<blockquote id="d3d62c9a-e9e3-4dea-b0c8-b9c1076b7fbb" class="">Creates a thread pool that creates new threads as needed, but will reuse previously constructed threads when they are available
+</blockquote>
+<p>Use cases:
+</p>
+  <ol id="ec4439fe-ba6f-45a7-b07f-afecca01c0eb" class="numbered-list" start="1">
+    <li>For short-lived asynchronous tasks
+    </li>
+  </ol>
+<p>Cons:
+</p>
+  <ol id="ab9ff6fa-486a-41ff-b5b3-b877705e1602" class="numbered-list" start="1">
+    <li>Unbounded queue is harmful.
+    </li>
+    <li>Each new task will create a new thread if all existing threads are busy. If the task is taking long duration, more number of threads will be created,which will degrade the performance of the system. Alternative in this case: <code>newFixedThreadPool</code>
+    </li>
+    <li><code>public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize)</code>
+    </li>
+  </ol>
+<blockquote id="f26341e1-57a8-498f-b210-f51af1ef1a55" class="">Creates a thread pool that can schedule commands to run after a given delay, or to execute periodically.
+</blockquote>
+<p>Use cases:
+</p>
+  <ol id="78c49496-1a56-43aa-9618-5516641fb31c" class="numbered-list" start="1">
+    <li>Handling recurring events with delays, which will happen in future at certain interval of times
+    </li>
+  </ol>
+<p>Cons:
+</p>
+  <ol id="2dce502d-f230-401c-bd36-0d6d29412544" class="numbered-list" start="1">
+    <li>Unbounded queue is harmful.
+    </li>
+  </ol>
+<p>5.<code>public static ExecutorService newWorkStealingPool()</code>
+</p>
+<blockquote id="f3be3654-61ab-4486-948c-9db7566b8167" class="">Creates a work-stealing thread pool using all available processors as its target parallelism level
+</blockquote>
+<p>Use cases:
+</p>
+  <ol id="0cc3531a-8f63-4cb4-8015-b748cf00104b" class="numbered-list" start="1">
+    <li>For divide and conquer type of problems.
+    </li>
+    <li>Effective use of idle threads. Idle threads steals tasks from busy threads.
+    </li>
+  </ol>
+<p>Cons:
+</p>
+  <ol id="3b66d1cd-548c-4786-a11e-18d213548ffc" class="numbered-list" start="1">
+    <li>Unbounded queue size is harmful.
+    </li>
+  </ol>
+<p>You can see one common drawbacks in all these ExecutorService : unbounded queue. This will be addressed with <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ThreadPoolExecutor.html#execute-java.lang.Runnable-">ThreadPoolExecutor</a>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, 
@@ -164,7 +258,19 @@ RejectedExecutionHandler handler)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With <code>ThreadPoolExecutor</code>, you can</p><ol id="26fe9778-79fd-4bcd-841d-a832ca18bd1f" class="numbered-list" start="1"><li>Control Thread pool size dynamically</li><li>Set the capacity for <code>BlockingQueue</code></li><li>Define <code>RejectionExecutionHander</code> when queue is full</li><li><code>CustomThreadFactory</code> to add some additional functionality during Thread creation <code>(public Thread newThread(Runnable r)</code></li></ol>
+</div>
+<p>With <code>ThreadPoolExecutor</code>, you can
+</p>
+  <ol id="26fe9778-79fd-4bcd-841d-a832ca18bd1f" class="numbered-list" start="1">
+    <li>Control Thread pool size dynamically
+    </li>
+    <li>Set the capacity for <code>BlockingQueue</code>
+    </li>
+    <li>Define <code>RejectionExecutionHander</code> when queue is full
+    </li>
+    <li><code>CustomThreadFactory</code> to add some additional functionality during Thread creation <code>(public Thread newThread(Runnable r)</code>
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Since <code>TreeMap</code>s and <code>TreeSet</code>s maintain keys/elements according to their <a href="https://docs.oracle.com/javase/tutorial/collections/interfaces/order.html">natural ordering</a>. Therefor <code>TreeMap</code> keys and <code>TreeSet</code> elements have to comparable to one another.</p><p>Say we have a custom <code>Person</code> class:</p>
+      
+<p>Since <code>TreeMap</code>s and <code>TreeSet</code>s maintain keys/elements according to their <a href="https://docs.oracle.com/javase/tutorial/collections/interfaces/order.html">natural ordering</a>. Therefor <code>TreeMap</code> keys and <code>TreeSet</code> elements have to comparable to one another.
+</p>
+<p>Say we have a custom <code>Person</code> class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Person  {
@@ -142,7 +147,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If we store it as-is in a <code>TreeSet</code> (or a Key in a TreeMap):</p>
+</div>
+<p>If we store it as-is in a <code>TreeSet</code> (or a Key in a TreeMap):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">TreeSet&lt;Person2&gt; set = ...      
@@ -151,7 +159,10 @@ set.add(new Person(1,&#34;first&#34;,&#34;last&#34;,Date.from(Instant.now())));<
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then we’d run into an Exception such as this one:</p>
+</div>
+<p>Then we’d run into an Exception such as this one:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Exception in thread &#34;main&#34; java.lang.ClassCastException: Person cannot be cast to java.lang.Comparable
@@ -162,7 +173,14 @@ set.add(new Person(1,&#34;first&#34;,&#34;last&#34;,Date.from(Instant.now())));<
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To fix that, let’s assume that we want to order <code>Person</code> instances based on the order of their ids (<code>private int id</code>). We could do it in one of two ways:</p><ol id="71efe33b-cb33-4b90-b71b-d11df36b0174" class="numbered-list" start="1"><li>One solution is to modify <code>Person</code> so it would implement the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html">Comparable interface</a>:</li></ol>
+</div>
+<p>To fix that, let’s assume that we want to order <code>Person</code> instances based on the order of their ids (<code>private int id</code>). We could do it in one of two ways:
+</p>
+  <ol id="71efe33b-cb33-4b90-b71b-d11df36b0174" class="numbered-list" start="1">
+    <li>One solution is to modify <code>Person</code> so it would implement the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html">Comparable interface</a>:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Person implements Comparable&lt;Person&gt; {
@@ -181,7 +199,12 @@ set.add(new Person(1,&#34;first&#34;,&#34;last&#34;,Date.from(Instant.now())));<
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="c767e82b-db96-453f-9f6b-97eaa2c59670" class="numbered-list" start="1"><li>Another solution is to provide the <code>TreeSet</code> with a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>:</li></ol>
+</div>
+  <ol id="c767e82b-db96-453f-9f6b-97eaa2c59670" class="numbered-list" start="1">
+    <li>Another solution is to provide the <code>TreeSet</code> with a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">TreeSet&lt;Person&gt; treeSet = new TreeSet&lt;&gt;((personA, personB) -&gt; Integer.compare(personA.getId(), personB.getId()));</pre>
@@ -190,6 +213,7 @@ set.add(new Person(1,&#34;first&#34;,&#34;last&#34;,Date.from(Instant.now())));<
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">TreeSet&lt;Person&gt; treeSet = new TreeSet&lt;&gt;(new Comparator&lt;Person&gt;(){
@@ -202,7 +226,21 @@ set.add(new Person(1,&#34;first&#34;,&#34;last&#34;,Date.from(Instant.now())));<
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, there are two caveats to both approaches:</p><ol id="aa07417c-41d2-4e47-bc65-196101c5ecf9" class="numbered-list" start="1"><li>It’s <strong>very important</strong> not to modify any fields used for ordering once an instance has been inserted into a <code>TreeSet</code>/<code>TreeMap</code>. In the above example, if we change the <code>id</code> of a person that’s already inserted into the collection, we might run into unexpected behavior.</li><li>It’s important to implement the comparison properly and consistently. As per the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html">Javadoc</a>:</li></ol><blockquote id="5b7200b9-6fd3-4f4d-99f2-9e436eda7db4" class="">The implementor must ensure sgn(x.compareTo(y)) == -sgn(y.compareTo(x)) for all x and y. (This implies that x.compareTo(y) must throw an exception iff y.compareTo(x) throws an exception.)</blockquote><p>The implementor must also ensure that the relation is transitive: &gt; <code>(x.compareTo(y)&gt;0 &amp;&amp; y.compareTo(z)&gt;0)</code> implies <code>x.compareTo(z)&gt;0</code>.</p><p>Finally, the implementor must ensure that <code>x.compareTo(y)==0</code> implies &gt; that <code>sgn(x.compareTo(z)) == sgn(y.compareTo(z))</code>, for all z.</p>
+</div>
+<p>However, there are two caveats to both approaches:
+</p>
+  <ol id="aa07417c-41d2-4e47-bc65-196101c5ecf9" class="numbered-list" start="1">
+    <li>It’s <strong>very important</strong> not to modify any fields used for ordering once an instance has been inserted into a <code>TreeSet</code>/<code>TreeMap</code>. In the above example, if we change the <code>id</code> of a person that’s already inserted into the collection, we might run into unexpected behavior.
+    </li>
+    <li>It’s important to implement the comparison properly and consistently. As per the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html">Javadoc</a>:
+    </li>
+  </ol>
+<blockquote id="5b7200b9-6fd3-4f4d-99f2-9e436eda7db4" class="">The implementor must ensure sgn(x.compareTo(y)) == -sgn(y.compareTo(x)) for all x and y. (This implies that x.compareTo(y) must throw an exception iff y.compareTo(x) throws an exception.)
+</blockquote>
+<p>The implementor must also ensure that the relation is transitive: &gt; <code>(x.compareTo(y)&gt;0 &amp;&amp; y.compareTo(z)&gt;0)</code> implies <code>x.compareTo(z)&gt;0</code>.
+</p>
+<p>Finally, the implementor must ensure that <code>x.compareTo(y)==0</code> implies &gt; that <code>sgn(x.compareTo(z)) == sgn(y.compareTo(z))</code>, for all z.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

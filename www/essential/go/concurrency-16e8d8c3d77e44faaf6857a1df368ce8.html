@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>Go uses goroutines for concurrency. Simplifying, goroutines are like threads.</p><p>Gorutines execute at the same time and share memory.</p><p>Since goroutines can read / write the same memory at the same time, you have to ensure exclusive access e.g. by using a mutex.</p><p>To coordinate work between goroutines Go provides channels, which are thread-safe queues.</p><p>Here’s an example of using worker pool of goroutines and coordinating their work with channels:</p>
+      
+<p>Go uses goroutines for concurrency. Simplifying, goroutines are like threads.
+</p>
+<p>Gorutines execute at the same time and share memory.
+</p>
+<p>Since goroutines can read / write the same memory at the same time, you have to ensure exclusive access e.g. by using a mutex.
+</p>
+<p>To coordinate work between goroutines Go provides channels, which are thread-safe queues.
+</p>
+<p>Here’s an example of using worker pool of goroutines and coordinating their work with channels:
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
@@ -174,6 +185,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">sqrtWorker started
@@ -187,7 +199,51 @@ sqrtWorker finished
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>There’s a lot to unpack here.</p><p>We launch 2 workers with <code>go sqrtWorker(chIn, chOut)</code>.</p><p>Each <code>sqrtWorker</code> function is running independently and concurrently with all other code.</p><p>We use a single channel of int values to queue work items to be processed by worker goroutines using <code>&lt;-</code> send operation on a channel.</p><p>Most of the time it’s not safe to access the same variable from multiple goroutines. Channels and <code>sync.WaitGroup</code> are exceptions.</p><p>Worker goroutines <code>sqrtWorker</code> pick up values from the channel using <code>range</code>.</p><p>We don’t know which worker will pick any given value.</p><p>Worker’s <code>for</code> loop terminates when <code>chIn</code> is closed with <code>close(chIn)</code> and worker goroutine terminates.</p><p>To pass results of worker goroutines back to the caller we use another channel.</p><p>In this example we use unbuffered channels which only have capacity for one item at a time. For that reason we launch another goroutine to fill <code>chIn</code>. Otherwise we would risk dead-lock.</p><p>To shutdown workers we close the <code>chIn</code>.</p><p>We then wait for results created by workers by iterating on <code>chOut</code>.</p><p>There’s one more complication. Unless we close <code>chOut</code>, the <code>for sqrt := range chOut</code> loop will wait forever.</p><p>To stop the loop, we need to <code>close(chOut)</code> but when to do it?</p><p>We can’t do it in <code>sqrtWorker</code> because there are many of them and calling <code>close</code> on an already closed channel will <a href="/essential/go/panic-and-recover-dda02e368b3048a5a69b81c56bfa6dbb">panic</a>.</p><p><code>sync.WaitGroup</code> is a thread-safe counter that can be incremented / decremented and allows for waiting until the counter reaches 0.</p><p>Before we launch the worker, we increment <code>wg</code> counter.</p><p>Just before terminating, the worker decrements <code>wg</code> counter.</p><p>We then <code>wg.Wait()</code> for the counter to reach 0, which indicates that all workers have finished and it’s now safe to close the output channel.</p><p>It has to happen in its own goroutine to avoid blocking.</p><p>Why go to all this trouble to calculate a simple value?</p><p>This is just an example. In a real programs worker goroutine would perform longer jobs like downloading a file from the internet or resizing a large image.</p>
+</div>
+<p>There’s a lot to unpack here.
+</p>
+<p>We launch 2 workers with <code>go sqrtWorker(chIn, chOut)</code>.
+</p>
+<p>Each <code>sqrtWorker</code> function is running independently and concurrently with all other code.
+</p>
+<p>We use a single channel of int values to queue work items to be processed by worker goroutines using <code>&lt;-</code> send operation on a channel.
+</p>
+<p>Most of the time it’s not safe to access the same variable from multiple goroutines. Channels and <code>sync.WaitGroup</code> are exceptions.
+</p>
+<p>Worker goroutines <code>sqrtWorker</code> pick up values from the channel using <code>range</code>.
+</p>
+<p>We don’t know which worker will pick any given value.
+</p>
+<p>Worker’s <code>for</code> loop terminates when <code>chIn</code> is closed with <code>close(chIn)</code> and worker goroutine terminates.
+</p>
+<p>To pass results of worker goroutines back to the caller we use another channel.
+</p>
+<p>In this example we use unbuffered channels which only have capacity for one item at a time. For that reason we launch another goroutine to fill <code>chIn</code>. Otherwise we would risk dead-lock.
+</p>
+<p>To shutdown workers we close the <code>chIn</code>.
+</p>
+<p>We then wait for results created by workers by iterating on <code>chOut</code>.
+</p>
+<p>There’s one more complication. Unless we close <code>chOut</code>, the <code>for sqrt := range chOut</code> loop will wait forever.
+</p>
+<p>To stop the loop, we need to <code>close(chOut)</code> but when to do it?
+</p>
+<p>We can’t do it in <code>sqrtWorker</code> because there are many of them and calling <code>close</code> on an already closed channel will <a href="/essential/go/panic-and-recover-dda02e368b3048a5a69b81c56bfa6dbb">panic</a>.
+</p>
+<p><code>sync.WaitGroup</code> is a thread-safe counter that can be incremented / decremented and allows for waiting until the counter reaches 0.
+</p>
+<p>Before we launch the worker, we increment <code>wg</code> counter.
+</p>
+<p>Just before terminating, the worker decrements <code>wg</code> counter.
+</p>
+<p>We then <code>wg.Wait()</code> for the counter to reach 0, which indicates that all workers have finished and it’s now safe to close the output channel.
+</p>
+<p>It has to happen in its own goroutine to avoid blocking.
+</p>
+<p>Why go to all this trouble to calculate a simple value?
+</p>
+<p>This is just an example. In a real programs worker goroutine would perform longer jobs like downloading a file from the internet or resizing a large image.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

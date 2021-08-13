@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>MongoDB supports secondary indexes. In Mongoose, we define these indexes within our schema. Defining indexes at schema level is necessary when we need to create compound indexes.</p><p><strong>Mongoose Connection</strong></p>
+      
+<p>MongoDB supports secondary indexes. In Mongoose, we define these indexes within our schema. Defining indexes at schema level is necessary when we need to create compound indexes.
+</p>
+<p><strong>Mongoose Connection</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var strConnection = &#39;mongodb://localhost:27017/dbName&#39;;
@@ -136,7 +141,10 @@ var db = mongoose.createConnection(strConnection)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Creating a basic schema</strong></p>
+</div>
+<p><strong>Creating a basic schema</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var Schema = require(&#39;mongoose&#39;).Schema;
@@ -166,7 +174,14 @@ module.exports = usersModel;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>By default, mongoose adds two new fields into our model, even when those are not defined in the model. Those fields are:</p><p><strong>_id</strong></p><p>Mongoose assigns each of your schemas an _id field by default if one is not passed into the Schema constructor. The type assigned is an ObjectId to coincide with MongoDB’s default behavior. If you don’t want an _id added to your schema at all, you may disable it using this option.</p>
+</div>
+<p>By default, mongoose adds two new fields into our model, even when those are not defined in the model. Those fields are:
+</p>
+<p><strong>_id</strong>
+</p>
+<p>Mongoose assigns each of your schemas an _id field by default if one is not passed into the Schema constructor. The type assigned is an ObjectId to coincide with MongoDB’s default behavior. If you don’t want an _id added to your schema at all, you may disable it using this option.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var usersSchema = new Schema({
@@ -181,7 +196,14 @@ module.exports = usersModel;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>**__v or versionKey**</p><p>The versionKey is a property set on each document when first created by Mongoose. This keys value contains the internal revision of the document. The name of this document property is configurable.</p><p>You can easy disable this field in the model configuration:</p>
+</div>
+<p>**__v or versionKey**
+</p>
+<p>The versionKey is a property set on each document when first created by Mongoose. This keys value contains the internal revision of the document. The name of this document property is configurable.
+</p>
+<p>You can easy disable this field in the model configuration:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var usersSchema = new Schema({
@@ -196,7 +218,12 @@ module.exports = usersModel;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Compound indexes</strong></p><p>We can create another indexes besides those Mongoose creates.</p>
+</div>
+<p><strong>Compound indexes</strong>
+</p>
+<p>We can create another indexes besides those Mongoose creates.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">usersSchema.index({username: 1 });
@@ -205,7 +232,10 @@ usersSchema.index({email: 1 });</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In these case our model have two more indexes, one for the field username and another for email field. But we can create compound indexes.</p>
+</div>
+<p>In these case our model have two more indexes, one for the field username and another for email field. But we can create compound indexes.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">usersSchema.index({username: 1, email: 1 });</pre>
@@ -213,7 +243,16 @@ usersSchema.index({email: 1 });</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Index performance impact</strong></p><p>By default, mongoose always call the ensureIndex for each index sequentially and emit an ‘index’ event on the model when all the ensureIndex calls succeeded or when there was an error.</p><p>In MongoDB ensureIndex is deprecated since 3.0.0 version, now is an alias for createIndex.</p><p>Is recommended disable the behavior by setting the autoIndex option of your schema to false, or globally on the connection by setting the option config.autoIndex to false.</p>
+</div>
+<p><strong>Index performance impact</strong>
+</p>
+<p>By default, mongoose always call the ensureIndex for each index sequentially and emit an ‘index’ event on the model when all the ensureIndex calls succeeded or when there was an error.
+</p>
+<p>In MongoDB ensureIndex is deprecated since 3.0.0 version, now is an alias for createIndex.
+</p>
+<p>Is recommended disable the behavior by setting the autoIndex option of your schema to false, or globally on the connection by setting the option config.autoIndex to false.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">usersSchema.set(&#39;autoIndex&#39;, false);</pre>

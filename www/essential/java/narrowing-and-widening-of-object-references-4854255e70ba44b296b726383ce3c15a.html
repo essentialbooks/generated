@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Casting an instance of a base class to a subclass as in : <code>b = (B) a;</code> is called <em>narrowing</em> (as you are trying to narrow the base class object to a more specific class object) and needs an explicit type-cast.</p><p>Casting an instance of a subclass to a base class as in: <code>A a = b;</code> is called <em>widening</em> and does not need a type-cast.</p><p>To illustrate, consider the following class declarations, and test code:</p>
+      
+<p>Casting an instance of a base class to a subclass as in : <code>b = (B) a;</code> is called <em>narrowing</em> (as you are trying to narrow the base class object to a more specific class object) and needs an explicit type-cast.
+</p>
+<p>Casting an instance of a subclass to a base class as in: <code>A a = b;</code> is called <em>widening</em> and does not need a type-cast.
+</p>
+<p>To illustrate, consider the following class declarations, and test code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Vehicle {
@@ -159,7 +166,14 @@ class Test {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The statement <code>Vehicle vehicle = new Car();</code> is a valid Java statement. Every instance of <code>Car</code> is also a <code>Vehicle</code>. Therefore, the assignment is legal without the need for an explicit type-cast.</p><p>On the other hand, <code>Car c = vehicle;</code> is not valid. The static type of the <code>vehicle</code> variable is <code>Vehicle</code> which means that it could refer to an instance of <code>Car</code>, Truck<code>,</code>MotorCycle<code>, or any other current or future subclass of</code>Vehicle<code>. (Or indeed, an instance of</code>Vehicle<code>itself, since we did not declare it as an</code>abstract<code>class.) The assignment cannot be allowed, since that might lead to</code>car<code>referring to a</code>Truck` instance.</p><p>To prevent this situation, we need to add an explicit type-cast:</p>
+</div>
+<p>The statement <code>Vehicle vehicle = new Car();</code> is a valid Java statement. Every instance of <code>Car</code> is also a <code>Vehicle</code>. Therefore, the assignment is legal without the need for an explicit type-cast.
+</p>
+<p>On the other hand, <code>Car c = vehicle;</code> is not valid. The static type of the <code>vehicle</code> variable is <code>Vehicle</code> which means that it could refer to an instance of <code>Car</code>, Truck<code>,</code>MotorCycle<code>, or any other current or future subclass of</code>Vehicle<code>. (Or indeed, an instance of</code>Vehicle<code>itself, since we did not declare it as an</code>abstract<code>class.) The assignment cannot be allowed, since that might lead to</code>car<code>referring to a</code>Truck` instance.
+</p>
+<p>To prevent this situation, we need to add an explicit type-cast:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Car c = (Car) vehicle;</pre>
@@ -167,7 +181,12 @@ class Test {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The type-cast tells the compiler that we <em>expect</em> the value of <code>vehicle</code> to be a <code>Car</code> or a subclass of <code>Car</code>. If necessary, compiler will insert code to perform a run-time type check. If the check fails, then a <code>ClassCastException</code> will be thrown when the code is executed.</p><p>Note that not all type-casts are valid. For example:</p>
+</div>
+<p>The type-cast tells the compiler that we <em>expect</em> the value of <code>vehicle</code> to be a <code>Car</code> or a subclass of <code>Car</code>. If necessary, compiler will insert code to perform a run-time type check. If the check fails, then a <code>ClassCastException</code> will be thrown when the code is executed.
+</p>
+<p>Note that not all type-casts are valid. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String s = (String) vehicle;  // not valid</pre>
@@ -175,7 +194,9 @@ class Test {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The Java compiler knows that an instance that is type compatible with <code>Vehicle</code> <em>cannot ever be</em> type compatible with <code>String</code>. The type-cast could never succeed, and the JLS mandates that this gives in a compilation error.</p>
+</div>
+<p>The Java compiler knows that an instance that is type compatible with <code>Vehicle</code> <em>cannot ever be</em> type compatible with <code>String</code>. The type-cast could never succeed, and the JLS mandates that this gives in a compilation error.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

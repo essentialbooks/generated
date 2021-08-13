@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Factorials can be computed at compile-time using template metaprogramming techniques.</p>
+      
+<p>Factorials can be computed at compile-time using template metaprogramming techniques.
+</p>
+
 <div class="code-box lang-gcc">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;
@@ -160,6 +163,7 @@ int main()
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">5040
@@ -168,7 +172,16 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>factorial</code> is a struct, but in template metaprogramming it is treated as a template metafunction. By convention, template metafunctions are evaluated by checking a particular member, either <code>::type</code> for metafunctions that result in types, or <code>::value</code> for metafunctions that generate values.</p><p>In the above code, we evaluate the <code>factorial</code> metafunction by instantiating the template with the parameters we want to pass, and using <code>::value</code> to get the result of the evaluation.</p><p>The metafunction itself relies on recursively instantiating the same metafunction with smaller values. The <code>factorial&lt;0&gt;</code> specialization represents the terminating condition. Template metaprogramming has most of the restrictions of a functional programming language, so recursion is the primary “looping” construct.</p><p>Since template metafunctions execute at compile time, their results can be used in contexts that require compile-time values. For example:</p>
+</div>
+<p><code>factorial</code> is a struct, but in template metaprogramming it is treated as a template metafunction. By convention, template metafunctions are evaluated by checking a particular member, either <code>::type</code> for metafunctions that result in types, or <code>::value</code> for metafunctions that generate values.
+</p>
+<p>In the above code, we evaluate the <code>factorial</code> metafunction by instantiating the template with the parameters we want to pass, and using <code>::value</code> to get the result of the evaluation.
+</p>
+<p>The metafunction itself relies on recursively instantiating the same metafunction with smaller values. The <code>factorial&lt;0&gt;</code> specialization represents the terminating condition. Template metaprogramming has most of the restrictions of a functional programming language, so recursion is the primary “looping” construct.
+</p>
+<p>Since template metafunctions execute at compile time, their results can be used in contexts that require compile-time values. For example:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">int</span> <span class="n">my_array</span><span class="p">[</span><span class="n">factorial</span><span class="o">&lt;</span><span class="mi">5</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">];</span>
@@ -177,7 +190,14 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Automatic arrays must have a compile-time defined size. And the result of a metafunction is a compile-time constant, so it can be used here.</p><p><strong>Limitation</strong>: Most of the compilers won’t allow recursion depth beyond a limit. For example, <code>g++</code> compiler by default limits recursion depeth to 256 levels. In case of <code>g++</code>, programmer can set recursion depth using <code>-ftemplate-depth-X</code> option.</p><p>Since C++11, the <code>std::integral_constant</code> template can be used for this kind of template computation:</p>
+</div>
+<p>Automatic arrays must have a compile-time defined size. And the result of a metafunction is a compile-time constant, so it can be used here.
+</p>
+<p><strong>Limitation</strong>: Most of the compilers won’t allow recursion depth beyond a limit. For example, <code>g++</code> compiler by default limits recursion depeth to 256 levels. In case of <code>g++</code>, programmer can set recursion depth using <code>-ftemplate-depth-X</code> option.
+</p>
+<p>Since C++11, the <code>std::integral_constant</code> template can be used for this kind of template computation:
+</p>
+
 <div class="code-box lang-gcc">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;
@@ -204,6 +224,7 @@ int main()
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">5040
@@ -212,7 +233,10 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Additionally, <code>constexpr</code> functions become a cleaner alternative.</p>
+</div>
+<p>Additionally, <code>constexpr</code> functions become a cleaner alternative.
+</p>
+
 <div class="code-box lang-gcc">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;
@@ -236,6 +260,7 @@ int main()
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">5040
@@ -244,7 +269,12 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The body of <code>factorial()</code> is written as a single statement because in C++11 <code>constexpr</code> functions can only use a quite limited subset of the language.</p><p>Since C++14, many restrictions for <code>constexpr</code> functions have been dropped and they can now be written much more conveniently:</p>
+</div>
+<p>The body of <code>factorial()</code> is written as a single statement because in C++11 <code>constexpr</code> functions can only use a quite limited subset of the language.
+</p>
+<p>Since C++14, many restrictions for <code>constexpr</code> functions have been dropped and they can now be written much more conveniently:
+</p>
+
 <div class="code-box lang-gcc">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;
@@ -271,6 +301,7 @@ int main()
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">5040
@@ -279,7 +310,10 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Or even:</p>
+</div>
+<p>Or even:
+</p>
+
 <div class="code-box lang-gcc">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;
@@ -307,6 +341,7 @@ int main()
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">5040
@@ -315,7 +350,10 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since C++17 one can use fold expression to calculate factorial:</p>
+</div>
+<p>Since C++17 one can use fold expression to calculate factorial:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">

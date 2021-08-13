@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Python uses internal caching for a range of integers to reduce unnecessary overhead from their repeated creation.</p><p>In effect, this can lead to confusing behavior when comparing integer identities:</p>
+      
+<p>Python uses internal caching for a range of integers to reduce unnecessary overhead from their repeated creation.
+</p>
+<p>In effect, this can lead to confusing behavior when comparing integer identities:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; -8 is (-7 - 1)
@@ -138,7 +143,10 @@ True</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>and, using another example:</p>
+</div>
+<p>and, using another example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; (255 + 1) is (255 + 1)
@@ -149,7 +157,21 @@ False</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Wait what?</p><p>We can see that the identity operation <code>is</code> yields <code>True</code> for some integers (<code>-3</code>, <code>256</code>) but no for others (<code>-8</code>, <code>257</code>).</p><p>To be more specific, integers in the range <code>[-5, 256]</code> are internally cached during interpreter startup and are only created once. As such, they are <strong>identical</strong> and comparing their identities with <code>is</code> yields <code>True</code>; integers outside this range are (usually) created on-the-fly and their identities compare to <code>False</code>.</p><p>This is a common pitfall since this is a common range for testing, but often enough, the code fails in the later staging process (or worse - production) with no apparent reason after working perfectly in development.</p><p>The solution is to <strong>always compare values using the equality</strong> (<code>==</code>) operator and <strong>not</strong> the identity (<code>is</code>) operator.</p><hr id="339f9bff-276c-46e2-ac33-88902a737736"/><p>Python also keeps references to commonly used strings and can result in similarly confusing behavior when comparing identities (i.e. using <code>is</code>) of strings.</p>
+</div>
+<p>Wait what?
+</p>
+<p>We can see that the identity operation <code>is</code> yields <code>True</code> for some integers (<code>-3</code>, <code>256</code>) but no for others (<code>-8</code>, <code>257</code>).
+</p>
+<p>To be more specific, integers in the range <code>[-5, 256]</code> are internally cached during interpreter startup and are only created once. As such, they are <strong>identical</strong> and comparing their identities with <code>is</code> yields <code>True</code>; integers outside this range are (usually) created on-the-fly and their identities compare to <code>False</code>.
+</p>
+<p>This is a common pitfall since this is a common range for testing, but often enough, the code fails in the later staging process (or worse - production) with no apparent reason after working perfectly in development.
+</p>
+<p>The solution is to <strong>always compare values using the equality</strong> (<code>==</code>) operator and <strong>not</strong> the identity (<code>is</code>) operator.
+</p>
+<hr id="339f9bff-276c-46e2-ac33-88902a737736"/>
+<p>Python also keeps references to commonly used strings and can result in similarly confusing behavior when comparing identities (i.e. using <code>is</code>) of strings.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; &#39;python&#39; is &#39;py&#39; + &#39;thon&#39;
@@ -158,7 +180,12 @@ True</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The string <code>&#x27;python&#x27;</code> is commonly used, so Python has one object that all references to the string <code>&#x27;python&#x27;</code> use.</p><p>For uncommon strings, comparing identity fails even when the strings are equal.</p>
+</div>
+<p>The string <code>&#x27;python&#x27;</code> is commonly used, so Python has one object that all references to the string <code>&#x27;python&#x27;</code> use.
+</p>
+<p>For uncommon strings, comparing identity fails even when the strings are equal.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; &#39;this is not a common string&#39; is &#39;this is not&#39; + &#39; a common string&#39;
@@ -169,7 +196,9 @@ True</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So, just like the rule for Integers, <strong>always compare string values using the equality</strong> (<code>==</code>) operator and <strong>not</strong> the identity (<code>is</code>) operator.</p>
+</div>
+<p>So, just like the rule for Integers, <strong>always compare string values using the equality</strong> (<code>==</code>) operator and <strong>not</strong> the identity (<code>is</code>) operator.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

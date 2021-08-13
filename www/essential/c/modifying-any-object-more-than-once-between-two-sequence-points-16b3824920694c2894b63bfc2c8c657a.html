@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int i = 42;
@@ -137,7 +138,24 @@ int a = i++ + i--;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Code like this often leads to speculations about the “resulting value” of <code>i</code>. Rather than specifying an outcome, however, the C standards specify that evaluating such an expression produces <em>undefined behavior</em>. Prior to C2011, the standard formalized these rules in terms of so-called <em>sequence points</em>:</p><blockquote id="f05d6efc-9c2f-4118-83f8-caef1ca84901" class="">Between the previous and next sequence point a scalar object shall have its stored value modified at most once by the evaluation of an expression. Furthermore, the prior value shall be read only to determine the value to be stored.</blockquote><p>(C99 standard, section 6.5, paragraph 2)</p><p>That scheme proved to be a little too coarse, resulting in some expressions exhibiting undefined behavior with respect to C99 that plausibly should not do. C2011 retains sequence points, but introduces a more nuanced approach to this area based on <em>sequencing</em> and a relationship it calls “sequenced before”:</p><blockquote id="8b3b0067-ccb9-4fec-8f7f-bee341ad5dd4" class="">If a side effect on a scalar object is unsequenced relative to either a different side effect on the same scalar object or a value computation using the value of the same scalar object, the behavior is undefined. If there are multiple allowable orderings of the subexpressions of an expression, the behavior is undefined if such an unsequenced side effect occurs in any of the orderings.</blockquote><p>(C2011 standard, section 6.5, paragraph 2)</p><p>The full details of the “sequenced before” relation are too long to describe here, but they supplement sequence points rather than supplanting them, so they have the effect of defining behavior for some evaluations whose behavior previously was undefined. In particular, if there is a sequence point between two evaluations, then the one before the sequence point is “sequenced before” the one after.</p><p>The following example has well-defined behaviour:</p>
+</div>
+<p>Code like this often leads to speculations about the “resulting value” of <code>i</code>. Rather than specifying an outcome, however, the C standards specify that evaluating such an expression produces <em>undefined behavior</em>. Prior to C2011, the standard formalized these rules in terms of so-called <em>sequence points</em>:
+</p>
+<blockquote id="f05d6efc-9c2f-4118-83f8-caef1ca84901" class="">Between the previous and next sequence point a scalar object shall have its stored value modified at most once by the evaluation of an expression. Furthermore, the prior value shall be read only to determine the value to be stored.
+</blockquote>
+<p>(C99 standard, section 6.5, paragraph 2)
+</p>
+<p>That scheme proved to be a little too coarse, resulting in some expressions exhibiting undefined behavior with respect to C99 that plausibly should not do. C2011 retains sequence points, but introduces a more nuanced approach to this area based on <em>sequencing</em> and a relationship it calls “sequenced before”:
+</p>
+<blockquote id="8b3b0067-ccb9-4fec-8f7f-bee341ad5dd4" class="">If a side effect on a scalar object is unsequenced relative to either a different side effect on the same scalar object or a value computation using the value of the same scalar object, the behavior is undefined. If there are multiple allowable orderings of the subexpressions of an expression, the behavior is undefined if such an unsequenced side effect occurs in any of the orderings.
+</blockquote>
+<p>(C2011 standard, section 6.5, paragraph 2)
+</p>
+<p>The full details of the “sequenced before” relation are too long to describe here, but they supplement sequence points rather than supplanting them, so they have the effect of defining behavior for some evaluations whose behavior previously was undefined. In particular, if there is a sequence point between two evaluations, then the one before the sequence point is “sequenced before” the one after.
+</p>
+<p>The following example has well-defined behaviour:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int i = 42;
@@ -146,7 +164,10 @@ i = (i++, i+42); /* The comma-operator creates a sequence point */</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The following example has undefined behaviour:</p>
+</div>
+<p>The following example has undefined behaviour:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int i = 42;
@@ -155,7 +176,9 @@ printf(&#34;%d %d\n&#34;, i++, i++); /* commas as separator of function argument
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As with any form of undefined behavior, observing the actual behavior of evaluating expressions that violate the sequencing rules is not informative, except in a retrospective sense. The language standard provides no basis for expecting such observations to be predictive even of the future behavior of the same program.</p>
+</div>
+<p>As with any form of undefined behavior, observing the actual behavior of evaluating expressions that violate the sequencing rules is not informative, except in a retrospective sense. The language standard provides no basis for expecting such observations to be predictive even of the future behavior of the same program.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

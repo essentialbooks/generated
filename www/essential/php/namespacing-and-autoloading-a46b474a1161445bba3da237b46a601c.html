@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>Technically, autoloading works by executing a callback when a PHP class is required but not found. Such callbacks usually attempt to load these classes.</p><p>Generally, autoloading can be understood as the attempt to load PHP files (especially PHP class files, where a PHP source file is dedicated for a specific class) from appropriate paths according to the class’s fully-qualified name (FQN) when a class is needed.</p><p>Suppose we have these classes:</p><p>Class file for <code>application\controllers\Base</code>:</p>
+      
+<p>Technically, autoloading works by executing a callback when a PHP class is required but not found. Such callbacks usually attempt to load these classes.
+</p>
+<p>Generally, autoloading can be understood as the attempt to load PHP files (especially PHP class files, where a PHP source file is dedicated for a specific class) from appropriate paths according to the class’s fully-qualified name (FQN) when a class is needed.
+</p>
+<p>Suppose we have these classes:
+</p>
+<p>Class file for <code>application\controllers\Base</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;?php
@@ -136,7 +145,10 @@ namespace application\controllers { class Base {...} }</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Class file for <code>application\controllers\Control</code>:</p>
+</div>
+<p>Class file for <code>application\controllers\Control</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;?php
@@ -145,7 +157,10 @@ namespace application\controllers { class Control {...} }</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Class file for <code>application\models\Page</code>:</p>
+</div>
+<p>Class file for <code>application\models\Page</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;?php
@@ -154,7 +169,16 @@ namespace application\models { class Page {...} }</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Under the source folder, these classes should be placed at the paths as their FQNs respectively:</p><ul id="dcdd56d2-e239-4f28-8470-6eae00dbed3d" class="bulleted-list"><li>Source folder</li><li><code>applications</code></li></ul>
+</div>
+<p>Under the source folder, these classes should be placed at the paths as their FQNs respectively:
+</p>
+  <ul id="dcdd56d2-e239-4f28-8470-6eae00dbed3d" class="bulleted-list">
+    <li>Source folder
+    </li>
+    <li><code>applications</code>
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">* `controllers`
@@ -166,7 +190,10 @@ namespace application\models { class Page {...} }</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This approach makes it possible to programmatically resolve the class file path according to the FQN, using this function:</p>
+</div>
+<p>This approach makes it possible to programmatically resolve the class file path according to the FQN, using this function:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">function getClassPath(string $sourceFolder, string $className, string $extension = &#34;.php&#34;) {
@@ -176,7 +203,10 @@ namespace application\models { class Page {...} }</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>spl_autoload_register</code> function allows us to load a class when needed using a user-defined function:</p>
+</div>
+<p>The <code>spl_autoload_register</code> function allows us to load a class when needed using a user-defined function:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">const SOURCE_FOLDER = __DIR__ . &#34;/src&#34;;
@@ -188,7 +218,10 @@ spl_autoload_register(function (string $className) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This function can be further extended to use fallback methods of loading:</p>
+</div>
+<p>This function can be further extended to use fallback methods of loading:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">const SOURCE_FOLDERS = [__DIR__ . &#34;/src&#34;, &#34;/root/src&#34;]);
@@ -216,7 +249,9 @@ spl_autoload_register(function (string $className) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that PHP doesn’t attempt to load the classes whenever a file that uses this class is loaded. It may be loaded in the middle of a script, or even in shutdown functions . This is one of the reasons why developers, especially those who use autoloading, should avoid replacing executing source files in the runtime, especially in phar files.</p>
+</div>
+<p>Note that PHP doesn’t attempt to load the classes whenever a file that uses this class is loaded. It may be loaded in the middle of a script, or even in shutdown functions . This is one of the reasons why developers, especially those who use autoloading, should avoid replacing executing source files in the runtime, especially in phar files.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

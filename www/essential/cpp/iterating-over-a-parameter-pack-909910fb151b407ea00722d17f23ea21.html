@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Often, we need to perform an operation over every element in a variadic template parameter pack. There are many ways to do this, and the solutions get easier to read and write with C++17. Suppose we simply want to print every element in a pack. The simplest solution is to recurse:</p>
+      
+<p>Often, we need to perform an operation over every element in a variadic template parameter pack. There are many ways to do this, and the solutions get easier to read and write with C++17. Suppose we simply want to print every element in a pack. The simplest solution is to recurse:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">void</span> <span class="nf">print_all</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">os</span><span class="p">)</span> <span class="p">{</span>
@@ -145,7 +148,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We could instead use the expander trick, to perform all the streaming in a single function. This has the advantage of not needing a second overload, but has the disadvantage of less than stellar readability:</p>
+</div>
+<p>We could instead use the expander trick, to perform all the streaming in a single function. This has the advantage of not needing a second overload, but has the disadvantage of less than stellar readability:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
@@ -160,7 +166,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For an explanation of how this works, see <a href="http://stackoverflow.com/a/25683817/2069064">T.C’s excellent answer</a>.</p><p>With C++17, we get two powerful new tools in our arsenal for solving this problem. The first is a fold-expression:</p>
+</div>
+<p>For an explanation of how this works, see <a href="http://stackoverflow.com/a/25683817/2069064">T.C’s excellent answer</a>.
+</p>
+<p>With C++17, we get two powerful new tools in our arsenal for solving this problem. The first is a fold-expression:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
@@ -172,7 +183,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And the second is <code>if constexpr</code>, which allows us to write our original recursive solution in a single function:</p>
+</div>
+<p>And the second is <code>if constexpr</code>, which allows us to write our original recursive solution in a single function:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>

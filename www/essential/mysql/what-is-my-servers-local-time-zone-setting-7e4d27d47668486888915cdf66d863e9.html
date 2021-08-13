@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Each server has a default global time_zone setting, configured by the owner of the server machine. You can find out the current time zone setting this way:</p>
+      
+<p>Each server has a default global time_zone setting, configured by the owner of the server machine. You can find out the current time zone setting this way:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">SELECT</span> <span class="o">@@</span><span class="n">time_zone</span></pre>
@@ -135,7 +138,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Unfortunately, that usually yields the value <code>SYSTEM</code>, meaning the MySQL time is governed by the server OS’s time zone setting.</p><p>This sequence of queries (yes, <a href="https://en.wikipedia.org/wiki/Kludge#Computer_science">it’s a hack</a>) gives you back the offset in minutes between the server’s time zone setting and UTC.</p>
+</div>
+<p>Unfortunately, that usually yields the value <code>SYSTEM</code>, meaning the MySQL time is governed by the server OS’s time zone setting.
+</p>
+<p>This sequence of queries (yes, <a href="https://en.wikipedia.org/wiki/Kludge#Computer_science">it’s a hack</a>) gives you back the offset in minutes between the server’s time zone setting and UTC.
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">CREATE</span> <span class="k">TEMPORARY</span> <span class="k">TABLE</span> <span class="n">times</span> <span class="p">(</span><span class="n">dt</span> <span class="n">DATETIME</span><span class="p">,</span> <span class="n">ts</span> <span class="k">TIMESTAMP</span><span class="p">);</span>
@@ -148,7 +156,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>How does this work? The two columns in the temporary table with different data types is the clue. <code>DATETIME</code> data types are always stored in local time in tables, and <code>TIMESTAMP</code>s in UTC. So the <code>INSERT</code> statement, performed when the time_zone is set to UTC, stores two identical date / time values.</p><p>Then, the SELECT statement, is done when the time_zone is set to server local time. <code>TIMESTAMP</code>s are always translated from their stored UTC form to local time in SELECT statements. <code>DATETIME</code>s are not. So the <a href="https://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html#function_timestampdiff"><code>TIMESTAMPDIFF(MINUTE...)</code></a><a href="https://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html#function_timestampdiff"> operation</a> computes the difference between local and universal time.</p>
+</div>
+<p>How does this work? The two columns in the temporary table with different data types is the clue. <code>DATETIME</code> data types are always stored in local time in tables, and <code>TIMESTAMP</code>s in UTC. So the <code>INSERT</code> statement, performed when the time_zone is set to UTC, stores two identical date / time values.
+</p>
+<p>Then, the SELECT statement, is done when the time_zone is set to server local time. <code>TIMESTAMP</code>s are always translated from their stored UTC form to local time in SELECT statements. <code>DATETIME</code>s are not. So the <a href="https://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html#function_timestampdiff"><code>TIMESTAMPDIFF(MINUTE...)</code></a><a href="https://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html#function_timestampdiff"> operation</a> computes the difference between local and universal time.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

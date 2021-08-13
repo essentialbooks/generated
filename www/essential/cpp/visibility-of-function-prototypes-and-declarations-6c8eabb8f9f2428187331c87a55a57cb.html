@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>In C++, code must be declared or defined before usage. For example, the following produces a compile time error:</p>
+      
+<p>In C++, code must be declared or defined before usage. For example, the following produces a compile time error:
+</p>
+
 <div class="code-box lang-gcc">
 	<div>
 	<pre class="chroma">int main()
@@ -149,6 +152,7 @@ void foo(int x)
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">main.cc: In function &#39;int main()&#39;:
@@ -160,7 +164,10 @@ exit status 1</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>There are two ways to resolve this: putting either the definition or declaration of <code>foo()</code> before its usage in <code>main()</code>. Here is one example:</p>
+</div>
+<p>There are two ways to resolve this: putting either the definition or declaration of <code>foo()</code> before its usage in <code>main()</code>. Here is one example:
+</p>
+
 <div class="code-box lang-gcc">
 	<div>
 	<pre class="chroma">// declare &#39;foo&#39; function first
@@ -179,7 +186,10 @@ int main()
 </div>
 
 	</div>
-</div><p>However it is also possible to “forward-declare” the function by putting only a “prototype” declaration before its usage and then defining the function body later:</p>
+</div>
+<p>However it is also possible to “forward-declare” the function by putting only a “prototype” declaration before its usage and then defining the function body later:
+</p>
+
 <div class="code-box lang-gcc">
 	<div>
 	<pre class="chroma">#include &lt;cstdio&gt;
@@ -205,6 +215,7 @@ void foo(int x)
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">foo() was called
@@ -213,7 +224,12 @@ void foo(int x)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The prototype must specify the return type (<code>void</code>), the name of the function (<code>foo</code>), and the argument list variable types (<code>int</code>), but the <a href="https://stackoverflow.com/questions/5234169/why-do-function-prototypes-include-parameter-names-when-theyre-not-required">names of the arguments are NOT required</a>.</p><p>One common way to integrate this into the organization of source files is to make a header file containing all of the prototype declarations:</p>
+</div>
+<p>The prototype must specify the return type (<code>void</code>), the name of the function (<code>foo</code>), and the argument list variable types (<code>int</code>), but the <a href="https://stackoverflow.com/questions/5234169/why-do-function-prototypes-include-parameter-names-when-theyre-not-required">names of the arguments are NOT required</a>.
+</p>
+<p>One common way to integrate this into the organization of source files is to make a header file containing all of the prototype declarations:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="c1">// foo.h
@@ -223,7 +239,10 @@ void foo(int x)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>and then provide the full definition elsewhere:</p>
+</div>
+<p>and then provide the full definition elsewhere:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="c1">// foo.cpp --&gt; foo.o
@@ -234,7 +253,10 @@ void foo(int x)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>and then, once compiled, link the corresponding object file <code>foo.o</code> into the compiled object file where it is used in the linking phase, <code>main.o</code>:</p>
+</div>
+<p>and then, once compiled, link the corresponding object file <code>foo.o</code> into the compiled object file where it is used in the linking phase, <code>main.o</code>:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="c1">// main.cpp --&gt; main.o
@@ -246,7 +268,9 @@ void foo(int x)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>An “unresolved external symbol” error occurs when the function <em>prototype</em> and <em>call</em> exist, but the function <em>body</em> is not defined. These can be trickier to resolve as the compiler won’t report the error until the final linking stage, and it doesn’t know which line to jump to in the code to show the error.</p>
+</div>
+<p>An “unresolved external symbol” error occurs when the function <em>prototype</em> and <em>call</em> exist, but the function <em>body</em> is not defined. These can be trickier to resolve as the compiler won’t report the error until the final linking stage, and it doesn’t know which line to jump to in the code to show the error.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

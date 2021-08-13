@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Some C implementations permit code to write to one member of a union type then read from another in order to perform a sort of reinterpreting cast (parsing the new type as the bit representation of the old one).</p><p>It is important to note however, this is not permitted by the C standard current or past and will result in undefined behavior, none the less is is a very common extension offered by compilers (so check your compiler docs if you plan to do this).</p><p>One real life example of this technique is the “Fast Inverse Square Root” algorithm which relies on implementation details of IEEE 754 floating point numbers to perform an inverse square root more quickly than using floating point operations, this algorithm can be performed either through pointer casting (which is very dangerous and breaks the strict aliasing rule) or through a union (which is still undefined behavior but works in many compilers):</p>
+      
+<p>Some C implementations permit code to write to one member of a union type then read from another in order to perform a sort of reinterpreting cast (parsing the new type as the bit representation of the old one).
+</p>
+<p>It is important to note however, this is not permitted by the C standard current or past and will result in undefined behavior, none the less is is a very common extension offered by compilers (so check your compiler docs if you plan to do this).
+</p>
+<p>One real life example of this technique is the “Fast Inverse Square Root” algorithm which relies on implementation details of IEEE 754 floating point numbers to perform an inverse square root more quickly than using floating point operations, this algorithm can be performed either through pointer casting (which is very dangerous and breaks the strict aliasing rule) or through a union (which is still undefined behavior but works in many compilers):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">union floatToInt
@@ -153,7 +160,9 @@ float inverseSquareRoot(float input)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This technique was widely used in computer graphics and games in the past due to its greater speed compared to using floating point operations, and is very much a compromise, losing some accuracy and being very non portable in exchange for speed.</p>
+</div>
+<p>This technique was widely used in computer graphics and games in the past due to its greater speed compared to using floating point operations, and is very much a compromise, losing some accuracy and being very non portable in exchange for speed.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

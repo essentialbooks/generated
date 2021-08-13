@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Suppose that you have a pointer to an object of a polymorphic class:</p>
+      
+<p>Suppose that you have a pointer to an object of a polymorphic class:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">Shape</span> <span class="o">*</span><span class="n">ps</span><span class="p">;</span>                       <span class="c1">// see example on defining a polymorphic class
@@ -138,7 +141,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>a downcast would be to cast from a general polymorphic <code>Shape</code> down to one of its derived and more specific shape like <code>Square</code> or <code>Circle</code>.</p><p><strong>Why to downcast ?</strong></p><p>Most of the time, you would not need to know which is the real type of the object, as the virtual functions allow you to manipulate your object independently of its type:</p>
+</div>
+<p>a downcast would be to cast from a general polymorphic <code>Shape</code> down to one of its derived and more specific shape like <code>Square</code> or <code>Circle</code>.
+</p>
+<p><strong>Why to downcast ?</strong>
+</p>
+<p>Most of the time, you would not need to know which is the real type of the object, as the virtual functions allow you to manipulate your object independently of its type:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Surface: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ps</span><span class="o">-&gt;</span><span class="n">get_surface</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
@@ -147,7 +157,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you don’t need any downcast, your design would be perfect.</p><p>However, you may need sometimes to downcast. A typical example is when you want to invoke a non virtual function that exist only for the child class.</p><p>Consider for example circles. Only circles have a diameter. So the class would be defined as :</p>
+</div>
+<p>If you don’t need any downcast, your design would be perfect.
+</p>
+<p>However, you may need sometimes to downcast. A typical example is when you want to invoke a non virtual function that exist only for the child class.
+</p>
+<p>Consider for example circles. Only circles have a diameter. So the class would be defined as :
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Circle: public Shape { // for Shape, see example on defining a polymorphic class
@@ -166,7 +183,10 @@ public:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>get_diameter()</code> member function only exist for circles. It was not defined for a <code>Shape</code> object:</p>
+</div>
+<p>The <code>get_diameter()</code> member function only exist for circles. It was not defined for a <code>Shape</code> object:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">Shape</span><span class="o">*</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">get_any_shape</span><span class="p">();</span>
@@ -176,7 +196,12 @@ public:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>How to downcast ?</strong></p><p>If you’d know for sure that <code>ps</code> points to a circle you could opt for a <code>static_cast</code>:</p>
+</div>
+<p><strong>How to downcast ?</strong>
+</p>
+<p>If you’d know for sure that <code>ps</code> points to a circle you could opt for a <code>static_cast</code>:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Diameter: &#34;</span> <span class="o">&lt;&lt;</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Circle</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">ps</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">get_diameter</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
@@ -185,7 +210,12 @@ public:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will do the trick. But it’s very risky: if <code>ps</code> appears to by anything else than a <code>Circle</code> the behavior of your code will be undefined.</p><p>So rather than playing Russian roulette, you should safely use a <code>dynamic_cast</code>. This is specifically for polymorphic classes :</p>
+</div>
+<p>This will do the trick. But it’s very risky: if <code>ps</code> appears to by anything else than a <code>Circle</code> the behavior of your code will be undefined.
+</p>
+<p>So rather than playing Russian roulette, you should safely use a <code>dynamic_cast</code>. This is specifically for polymorphic classes :
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
@@ -207,7 +237,9 @@ public:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that <code>dynamic_cast</code> is not possible on a class that is not polymorphic. You’d need at least one virtual function in the class or its parents to be able to use it.</p>
+</div>
+<p>Note that <code>dynamic_cast</code> is not possible on a class that is not polymorphic. You’d need at least one virtual function in the class or its parents to be able to use it.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

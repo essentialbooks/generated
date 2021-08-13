@@ -127,7 +127,12 @@
 </div>
 
 
-      <p><code>RecyclerView</code> will perform a relevant animation if any of the “notify” methods are used except for <code>notifyDataSetChanged</code>; this includes <code>notifyItemChanged</code>, <code>notifyItemInserted</code>, <code>notifyItemMoved</code>, <code>notifyItemRemoved</code>, etc.</p><p>The adapter should extend this class instead of <code>RecyclerView.Adapter</code>.</p>
+      
+<p><code>RecyclerView</code> will perform a relevant animation if any of the “notify” methods are used except for <code>notifyDataSetChanged</code>; this includes <code>notifyItemChanged</code>, <code>notifyItemInserted</code>, <code>notifyItemMoved</code>, <code>notifyItemRemoved</code>, etc.
+</p>
+<p>The adapter should extend this class instead of <code>RecyclerView.Adapter</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import android.support.annotation.NonNull;
@@ -205,7 +210,12 @@ public abstract class AnimatedRecyclerAdapter&lt;T, VH extends RecyclerView.View
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="5a4125ad-d1b0-4b7f-a449-ea4294e98ee8" class="">You should NOT use the same List for setModels and List in the adapter.</blockquote><p>You declare <code>models</code> as global variables. <code>DataModel</code> is a dummy class only.</p>
+</div>
+<blockquote id="5a4125ad-d1b0-4b7f-a449-ea4294e98ee8" class="">You should NOT use the same List for setModels and List in the adapter.
+</blockquote>
+<p>You declare <code>models</code> as global variables. <code>DataModel</code> is a dummy class only.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private List&lt;DataModel&gt; models;
@@ -214,7 +224,10 @@ private YourAdapter adapter;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Initialize <code>models</code> before pass it to adapter. <code>YourAdapter</code> is the implementation of <code>AnimatedRecyclerAdapter</code>.</p>
+</div>
+<p>Initialize <code>models</code> before pass it to adapter. <code>YourAdapter</code> is the implementation of <code>AnimatedRecyclerAdapter</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">models = new ArrayList&lt;&gt;();
@@ -228,7 +241,10 @@ adapter = new YourAdapter(new ArrayList(models));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Call this after you have updated your global <code>models</code>.</p>
+</div>
+<p>Call this after you have updated your global <code>models</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">adapter.setModels(new ArrayList(models));</pre>
@@ -236,7 +252,15 @@ adapter = new YourAdapter(new ArrayList(models));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="814c7535-fffe-42a0-810b-efd318e74a8d" class="">If you do not override equals, all the comparison is compared by reference.</blockquote><h1 id="c09443ae-e905-4e93-be70-77df445c6fa9" class="">Example using SortedList<a class="header-anchor" href="#c09443ae-e905-4e93-be70-77df445c6fa9" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Android introduced the <a href="https://developer.android.com/reference/android/support/v7/util/SortedList.html"><code>SortedList</code></a> class soon after <code>RecyclerView</code> was introduced. This class handles all ‘notify’ method calls to the <code>RecyclerView.Adapter</code> to ensure proper animation, and even allows batching multiple changes, so the animations don’t jitter.</p>
+</div>
+<blockquote id="814c7535-fffe-42a0-810b-efd318e74a8d" class="">If you do not override equals, all the comparison is compared by reference.
+</blockquote>
+  <h1 id="c09443ae-e905-4e93-be70-77df445c6fa9" class="">Example using SortedList
+  <a class="header-anchor" href="#c09443ae-e905-4e93-be70-77df445c6fa9" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Android introduced the <a href="https://developer.android.com/reference/android/support/v7/util/SortedList.html"><code>SortedList</code></a> class soon after <code>RecyclerView</code> was introduced. This class handles all ‘notify’ method calls to the <code>RecyclerView.Adapter</code> to ensure proper animation, and even allows batching multiple changes, so the animations don’t jitter.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import android.support.v7.util.SortedList;

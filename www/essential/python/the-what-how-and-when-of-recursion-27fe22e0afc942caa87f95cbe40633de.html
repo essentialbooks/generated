@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>Recursion occurs when a function call causes that same function to be called again before the original function call terminates. For example, consider the well-known mathematical expression <code>x!</code> (i.e. the factorial operation). The factorial operation is defined for all nonnegative integers as follows:</p><ul id="7351dcab-a29b-4cbf-a93d-ef7718b62ba5" class="bulleted-list"><li>If the number is 0, then the answer is 1.</li><li>Otherwise, the answer is that number times the factorial of one less than that number.</li></ul><p>In Python, a naïve implementation of the factorial operation can be defined as a function as follows:</p>
+      
+<p>Recursion occurs when a function call causes that same function to be called again before the original function call terminates. For example, consider the well-known mathematical expression <code>x!</code> (i.e. the factorial operation). The factorial operation is defined for all nonnegative integers as follows:
+</p>
+  <ul id="7351dcab-a29b-4cbf-a93d-ef7718b62ba5" class="bulleted-list">
+    <li>If the number is 0, then the answer is 1.
+    </li>
+    <li>Otherwise, the answer is that number times the factorial of one less than that number.
+    </li>
+  </ul>
+<p>In Python, a naïve implementation of the factorial operation can be defined as a function as follows:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
@@ -139,7 +150,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Recursion functions can be difficult to grasp sometimes, so let’s walk through this step-by-step. Consider the expression <code>factorial(3)</code>. This and <em>all</em> function calls create a new <strong>environment</strong>. An environment is basically just a table that maps identifiers (e.g. <code>n</code>, <code>factorial</code>, <code>print</code>, etc.) to their corresponding values. At any point in time, you can access the current environment using <code>locals()</code>. In the first function call, the only local variable that gets defined is <code>n = 3</code>. Therefore, printing <code>locals()</code> would show <code>{&#x27;n&#x27;: 3}</code>. Since <code>n == 3</code>, the return value becomes <code>n * factorial(n - 1)</code>.</p><p>At this next step is where things might get a little confusing. Looking at our new expression, we already know what <code>n</code> is. However, we don’t yet know what <code>factorial(n - 1)</code> is. First, <code>n - 1</code> evaluates to <code>2</code>. Then, <code>2</code> is passed to <code>factorial</code> as the value for <code>n</code>. Since this is a new function call, a second environment is created to store this new <code>n</code>. Let <em>A</em> be the first environment and <em>B</em> be the second environment. <em>A</em> still exists and equals <code>{&#x27;n&#x27;: 3}</code>, however, <em>B</em> (which equals <code>{&#x27;n&#x27;: 2}</code>) is the current environment. Looking at the function body, the return value is, again, <code>n * factorial(n - 1)</code>. Without evaluating this expression, let’s substitute it into the original return expression. By doing this, we’re mentally discarding <em>B</em>, so remember to substitute <code>n</code> accordingly (i.e. references to <em>B</em>’s <code>n</code> are replaced with <code>n - 1</code> which uses <em>A</em>’s <code>n</code>). Now, the original return expression becomes <code>n * ((n - 1) * factorial((n - 1) - 1))</code>. Take a second to ensure that you understand why this is so.</p><p>Now, let’s evaluate the <code>factorial((n - 1) - 1))</code> portion of that. Since <em>A</em>‘s <code>n == 3</code>, we’re passing <code>1</code> into <code>factorial</code>. Therefore, we are creating a new environment <em>C</em> which equals <code>{&#x27;n&#x27;: 1}</code>. Again, the return value is <code>n * factorial(n - 1)</code>. So let’s replace <code>factorial((n - 1) - 1))</code> of the “original” return expression similarly to how we adjusted the original return expression earlier. The “original” expression is now <code>n * ((n - 1) * ((n - 2) * factorial((n - 2) - 1)))</code>.</p><p>Almost done. Now, we need to evaluate <code>factorial((n - 2) - 1)</code>. This time, we’re passing in <code>0</code>. Therefore, this evaluates to <code>1</code>. Now, let’s perform our last substitution. The “original” return expression is now <code>n * ((n - 1) * ((n - 2) * 1))</code>. Recalling that the original return expression is evaluated under <em>A</em>, the expression becomes <code>3 * ((3 - 1) * ((3 - 2) * 1))</code>. This, of course, evaluates to 6. To confirm that this is the correct answer, recall that <code>3! == 3 * 2 * 1 == 6</code>. Before reading any further, be sure that you fully understand the concept of environments and how they apply to recursion.</p><p>The statement <code>if n == 0: return 1</code> is called a base case. This is because, it exhibits no recursion. A base case is absolutely required. Without one, you’ll run into infinite recursion. With that said, as long as you have at least one base case, you can have as many cases as you want. For example, we could have equivalently written <code>factorial</code> as follows:</p>
+</div>
+<p>Recursion functions can be difficult to grasp sometimes, so let’s walk through this step-by-step. Consider the expression <code>factorial(3)</code>. This and <em>all</em> function calls create a new <strong>environment</strong>. An environment is basically just a table that maps identifiers (e.g. <code>n</code>, <code>factorial</code>, <code>print</code>, etc.) to their corresponding values. At any point in time, you can access the current environment using <code>locals()</code>. In the first function call, the only local variable that gets defined is <code>n = 3</code>. Therefore, printing <code>locals()</code> would show <code>{&#x27;n&#x27;: 3}</code>. Since <code>n == 3</code>, the return value becomes <code>n * factorial(n - 1)</code>.
+</p>
+<p>At this next step is where things might get a little confusing. Looking at our new expression, we already know what <code>n</code> is. However, we don’t yet know what <code>factorial(n - 1)</code> is. First, <code>n - 1</code> evaluates to <code>2</code>. Then, <code>2</code> is passed to <code>factorial</code> as the value for <code>n</code>. Since this is a new function call, a second environment is created to store this new <code>n</code>. Let <em>A</em> be the first environment and <em>B</em> be the second environment. <em>A</em> still exists and equals <code>{&#x27;n&#x27;: 3}</code>, however, <em>B</em> (which equals <code>{&#x27;n&#x27;: 2}</code>) is the current environment. Looking at the function body, the return value is, again, <code>n * factorial(n - 1)</code>. Without evaluating this expression, let’s substitute it into the original return expression. By doing this, we’re mentally discarding <em>B</em>, so remember to substitute <code>n</code> accordingly (i.e. references to <em>B</em>’s <code>n</code> are replaced with <code>n - 1</code> which uses <em>A</em>’s <code>n</code>). Now, the original return expression becomes <code>n * ((n - 1) * factorial((n - 1) - 1))</code>. Take a second to ensure that you understand why this is so.
+</p>
+<p>Now, let’s evaluate the <code>factorial((n - 1) - 1))</code> portion of that. Since <em>A</em>‘s <code>n == 3</code>, we’re passing <code>1</code> into <code>factorial</code>. Therefore, we are creating a new environment <em>C</em> which equals <code>{&#x27;n&#x27;: 1}</code>. Again, the return value is <code>n * factorial(n - 1)</code>. So let’s replace <code>factorial((n - 1) - 1))</code> of the “original” return expression similarly to how we adjusted the original return expression earlier. The “original” expression is now <code>n * ((n - 1) * ((n - 2) * factorial((n - 2) - 1)))</code>.
+</p>
+<p>Almost done. Now, we need to evaluate <code>factorial((n - 2) - 1)</code>. This time, we’re passing in <code>0</code>. Therefore, this evaluates to <code>1</code>. Now, let’s perform our last substitution. The “original” return expression is now <code>n * ((n - 1) * ((n - 2) * 1))</code>. Recalling that the original return expression is evaluated under <em>A</em>, the expression becomes <code>3 * ((3 - 1) * ((3 - 2) * 1))</code>. This, of course, evaluates to 6. To confirm that this is the correct answer, recall that <code>3! == 3 * 2 * 1 == 6</code>. Before reading any further, be sure that you fully understand the concept of environments and how they apply to recursion.
+</p>
+<p>The statement <code>if n == 0: return 1</code> is called a base case. This is because, it exhibits no recursion. A base case is absolutely required. Without one, you’ll run into infinite recursion. With that said, as long as you have at least one base case, you can have as many cases as you want. For example, we could have equivalently written <code>factorial</code> as follows:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
@@ -153,7 +175,22 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You may also have multiple recursion cases, but we won’t get into that since it’s relatively uncommon and is often difficult to mentally process.</p><p>You can also have “parallel” recursive function calls. For example, consider the <a href="https://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci sequence</a> which is defined as follows:</p><ul id="f2163f98-2558-4d38-8276-eab767386dc8" class="bulleted-list"><li>If the number is 0, then the answer is 0.</li><li>If the number is 1, then the answer is 1.</li><li>Otherwise, the answer is the sum of the previous two Fibonacci numbers.</li></ul><p>We can define this is as follows:</p>
+</div>
+<p>You may also have multiple recursion cases, but we won’t get into that since it’s relatively uncommon and is often difficult to mentally process.
+</p>
+<p>You can also have “parallel” recursive function calls. For example, consider the <a href="https://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci sequence</a> which is defined as follows:
+</p>
+  <ul id="f2163f98-2558-4d38-8276-eab767386dc8" class="bulleted-list">
+    <li>If the number is 0, then the answer is 0.
+    </li>
+    <li>If the number is 1, then the answer is 1.
+    </li>
+    <li>Otherwise, the answer is the sum of the previous two Fibonacci numbers.
+    </li>
+  </ul>
+<p>We can define this is as follows:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
@@ -165,7 +202,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>I won’t walk through this function as thoroughly as I did with <code>factorial(3)</code>, but the final return value of <code>fib(5)</code> is equivalent to the following (<em>syntactically</em> invalid) expression:</p>
+</div>
+<p>I won’t walk through this function as thoroughly as I did with <code>factorial(3)</code>, but the final return value of <code>fib(5)</code> is equivalent to the following (<em>syntactically</em> invalid) expression:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">(
@@ -199,7 +239,30 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This becomes <code>(1 + (0 + 1)) + ((0 + 1) + (1 + (0 + 1)))</code> which of course evaluates to <code>5</code>.</p><p>Now, let’s cover a few more vocabulary terms:</p><ul id="d86951b7-4355-4ef9-a16a-a1da6db55b93" class="bulleted-list"><li>A <a href="https://en.wikipedia.org/wiki/Tail_call"><strong>tail call</strong></a> is simply a recursive function call which is the last operation to be performed before returning a value. To be clear, <code>return foo(n - 1)</code> is a tail call, but <code>return foo(n - 1) + 1</code> is not (since the addition is the last operation).</li><li><strong>Tail call optimization</strong> (TCO) is a way to automatically reduce recursion in recursive functions.</li><li><strong>Tail call elimination</strong> (TCE) is the reduction of a tail call to an expression that can be evaluated without recursion. TCE is a type of TCO.</li></ul><p>Tail call optimization is helpful for a number of reasons:</p><ul id="78532b6d-f0c1-49f7-bdf6-4a43d508fb6d" class="bulleted-list"><li>The interpreter can minimize the amount of memory occupied by environments. Since no computer has unlimited memory, excessive recursive function calls would lead to a <a href="https://en.wikipedia.org/wiki/Stack_overflow"><strong>stack overflow</strong></a>.</li><li>The interpreter can reduce the number of <a href="https://en.wikipedia.org/wiki/Call_stack"><strong>stack frame</strong></a> switches.</li></ul><p>Python has no form of TCO implemented for <a href="http://neopythonic.blogspot.com/2009/04/tail-recursion-elimination.html">a number of a reasons</a>. Therefore, other techniques are required to skirt this limitation. The method of choice depends on the use case. With some intuition, the definitions of <code>factorial</code> and <code>fib</code> can relatively easily be converted to iterative code as follows:</p>
+</div>
+<p>This becomes <code>(1 + (0 + 1)) + ((0 + 1) + (1 + (0 + 1)))</code> which of course evaluates to <code>5</code>.
+</p>
+<p>Now, let’s cover a few more vocabulary terms:
+</p>
+  <ul id="d86951b7-4355-4ef9-a16a-a1da6db55b93" class="bulleted-list">
+    <li>A <a href="https://en.wikipedia.org/wiki/Tail_call"><strong>tail call</strong></a> is simply a recursive function call which is the last operation to be performed before returning a value. To be clear, <code>return foo(n - 1)</code> is a tail call, but <code>return foo(n - 1) + 1</code> is not (since the addition is the last operation).
+    </li>
+    <li><strong>Tail call optimization</strong> (TCO) is a way to automatically reduce recursion in recursive functions.
+    </li>
+    <li><strong>Tail call elimination</strong> (TCE) is the reduction of a tail call to an expression that can be evaluated without recursion. TCE is a type of TCO.
+    </li>
+  </ul>
+<p>Tail call optimization is helpful for a number of reasons:
+</p>
+  <ul id="78532b6d-f0c1-49f7-bdf6-4a43d508fb6d" class="bulleted-list">
+    <li>The interpreter can minimize the amount of memory occupied by environments. Since no computer has unlimited memory, excessive recursive function calls would lead to a <a href="https://en.wikipedia.org/wiki/Stack_overflow"><strong>stack overflow</strong></a>.
+    </li>
+    <li>The interpreter can reduce the number of <a href="https://en.wikipedia.org/wiki/Call_stack"><strong>stack frame</strong></a> switches.
+    </li>
+  </ul>
+<p>Python has no form of TCO implemented for <a href="http://neopythonic.blogspot.com/2009/04/tail-recursion-elimination.html">a number of a reasons</a>. Therefore, other techniques are required to skirt this limitation. The method of choice depends on the use case. With some intuition, the definitions of <code>factorial</code> and <code>fib</code> can relatively easily be converted to iterative code as follows:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
@@ -219,7 +282,20 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is usually the most efficient way to manually eliminate recursion, but it can become rather difficult for more complex functions.</p><p>Another useful tool is Python’s <a href="http://stackoverflow.com/documentation/python/2492/functools/19930/lru-cache#t=201608251554325693435">lru_cache</a> decorator which can be used to reduce the number of redundant calculations.</p><p>You now have an idea as to how to avoid recursion in Python, but when <em>should</em> you use recursion? The answer is “not often”. All recursive functions can be implemented iteratively. It’s simply a matter of figuring out how to do so. However, there are rare cases in which recursion is okay. Recursion is common in Python when the expected inputs wouldn’t cause a significant number of a recursive function calls.</p><p>If recursion is a topic that interests you, I implore you to study functional languages such as Scheme or Haskell. In such languages, recursion is much more useful.</p><p>Please note that the above example for the Fibonacci sequence, although good at showing how to apply the definition in python and later use of the lru cache, has an inefficient running time since it makes 2 recursive calls for each non base case. The number of calls to the function grows exponentially to <code>n</code>.</p><p>Rather non-intuitively a more efficient implementation would use linear recursion:</p>
+</div>
+<p>This is usually the most efficient way to manually eliminate recursion, but it can become rather difficult for more complex functions.
+</p>
+<p>Another useful tool is Python’s <a href="http://stackoverflow.com/documentation/python/2492/functools/19930/lru-cache#t=201608251554325693435">lru_cache</a> decorator which can be used to reduce the number of redundant calculations.
+</p>
+<p>You now have an idea as to how to avoid recursion in Python, but when <em>should</em> you use recursion? The answer is “not often”. All recursive functions can be implemented iteratively. It’s simply a matter of figuring out how to do so. However, there are rare cases in which recursion is okay. Recursion is common in Python when the expected inputs wouldn’t cause a significant number of a recursive function calls.
+</p>
+<p>If recursion is a topic that interests you, I implore you to study functional languages such as Scheme or Haskell. In such languages, recursion is much more useful.
+</p>
+<p>Please note that the above example for the Fibonacci sequence, although good at showing how to apply the definition in python and later use of the lru cache, has an inefficient running time since it makes 2 recursive calls for each non base case. The number of calls to the function grows exponentially to <code>n</code>.
+</p>
+<p>Rather non-intuitively a more efficient implementation would use linear recursion:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
@@ -232,7 +308,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But that one has the issue of returning a <em>pair</em> of numbers. This emphasizes that some functions really do not gain much from recursion.</p>
+</div>
+<p>But that one has the issue of returning a <em>pair</em> of numbers. This emphasizes that some functions really do not gain much from recursion.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

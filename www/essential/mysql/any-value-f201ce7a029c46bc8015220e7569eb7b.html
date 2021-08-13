@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">SELECT</span> <span class="n">item</span><span class="p">.</span><span class="n">item_id</span><span class="p">,</span> <span class="n">ANY_VALUE</span><span class="p">(</span><span class="n">uses</span><span class="p">.</span><span class="n">tag</span><span class="p">)</span> <span class="n">tag</span><span class="p">,</span>   
@@ -139,7 +140,19 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>shows the rows in a table called <code>item</code>, the count of related rows, and one of the values in the related table called <code>uses</code>.</p><p>You can think of <a href="http://dev.mysql.com/doc/refman/5.7/en/miscellaneous-functions.html#function_any-value">this </a><a href="http://dev.mysql.com/doc/refman/5.7/en/miscellaneous-functions.html#function_any-value"><code>ANY_VALUE()</code></a><a href="http://dev.mysql.com/doc/refman/5.7/en/miscellaneous-functions.html#function_any-value"> function</a> as a strange a kind of aggregate function. Instead of returning a count, sum, or maximum, it instructs the MySQL server to choose, arbitrarily, one value from the group in question. It’s a way of working around Error 1055.</p><p>Be careful when using <code>ANY_VALUE()</code> in queries in production applications.</p><p>It really should be called <code>SURPRISE_ME()</code>. It returns the value of some row in the GROUP BY group. Which row it returns is indeterminate. That means it’s entirely up to the MySQL server. Formally, it returns an unpredictable value.</p><p>The server doesn’t choose a random value, it’s worse than that. It returns the same value every time you run the query, until it doesn’t. It can change, or not, when a table grows or shrinks, or when the server has more or less RAM, or when the server version changes, or when Mars is in retrograde (whatever that means), or for no reason at all.</p><p>You have been warned.</p>
+</div>
+<p>shows the rows in a table called <code>item</code>, the count of related rows, and one of the values in the related table called <code>uses</code>.
+</p>
+<p>You can think of <a href="http://dev.mysql.com/doc/refman/5.7/en/miscellaneous-functions.html#function_any-value">this </a><a href="http://dev.mysql.com/doc/refman/5.7/en/miscellaneous-functions.html#function_any-value"><code>ANY_VALUE()</code></a><a href="http://dev.mysql.com/doc/refman/5.7/en/miscellaneous-functions.html#function_any-value"> function</a> as a strange a kind of aggregate function. Instead of returning a count, sum, or maximum, it instructs the MySQL server to choose, arbitrarily, one value from the group in question. It’s a way of working around Error 1055.
+</p>
+<p>Be careful when using <code>ANY_VALUE()</code> in queries in production applications.
+</p>
+<p>It really should be called <code>SURPRISE_ME()</code>. It returns the value of some row in the GROUP BY group. Which row it returns is indeterminate. That means it’s entirely up to the MySQL server. Formally, it returns an unpredictable value.
+</p>
+<p>The server doesn’t choose a random value, it’s worse than that. It returns the same value every time you run the query, until it doesn’t. It can change, or not, when a table grows or shrinks, or when the server has more or less RAM, or when the server version changes, or when Mars is in retrograde (whatever that means), or for no reason at all.
+</p>
+<p>You have been warned.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

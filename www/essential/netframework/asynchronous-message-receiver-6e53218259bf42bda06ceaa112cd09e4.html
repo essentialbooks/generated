@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">using System;
@@ -231,7 +232,27 @@ namespace AsyncReceiver
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This program waits for messages enclosed in <code>STX</code> and <code>ETX</code> bytes and outputs the text coming between them. Everything else is discarded. On write buffer overflow it stops. On other errors it reset input and output buffers and waits for further messages.</p><p>The code illustrates:</p><ul id="41c25bba-a6ba-4f4e-b29a-e461098d2a75" class="bulleted-list"><li>Asynchronous serial port reading (see <code>SerialPort.DataReceived</code> usage).</li><li>Serial port error processing (see <code>SerialPort.ErrorReceived</code> usage).</li><li>Non-text message-based protocol implementation.</li><li>Partial message reading.</li><li>The <code>SerialPort.DataReceived</code> event may happen earlier than entire message (up to <code>ETX</code>) comes. The entire message may also not be available in the input buffer (SerialPort.Read(…, …, port.BytesToRead) reads only a part of the message). In this case we stash the received part (<code>unprocessedBuffer</code>) and carry on waiting for further data.</li><li>Dealing with several messages coming in one go.</li><li>The <code>SerialPort.DataReceived</code> event may happen only after several messages have been sent by the other end.</li></ul>
+</div>
+<p>This program waits for messages enclosed in <code>STX</code> and <code>ETX</code> bytes and outputs the text coming between them. Everything else is discarded. On write buffer overflow it stops. On other errors it reset input and output buffers and waits for further messages.
+</p>
+<p>The code illustrates:
+</p>
+  <ul id="41c25bba-a6ba-4f4e-b29a-e461098d2a75" class="bulleted-list">
+    <li>Asynchronous serial port reading (see <code>SerialPort.DataReceived</code> usage).
+    </li>
+    <li>Serial port error processing (see <code>SerialPort.ErrorReceived</code> usage).
+    </li>
+    <li>Non-text message-based protocol implementation.
+    </li>
+    <li>Partial message reading.
+    </li>
+    <li>The <code>SerialPort.DataReceived</code> event may happen earlier than entire message (up to <code>ETX</code>) comes. The entire message may also not be available in the input buffer (SerialPort.Read(…, …, port.BytesToRead) reads only a part of the message). In this case we stash the received part (<code>unprocessedBuffer</code>) and carry on waiting for further data.
+    </li>
+    <li>Dealing with several messages coming in one go.
+    </li>
+    <li>The <code>SerialPort.DataReceived</code> event may happen only after several messages have been sent by the other end.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

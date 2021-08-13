@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>Allocations are, relatively speaking, expensive.</p><p>Appending new data to a slice requires re-allocating memory if the new size goes over current capacity of the slice.</p><p>Knowing that, if you know the final size of the slice, you can pre-allocate the required capacity and avoid re-allocations.</p><p>You don&#x27;t need to know the exact size: knowing the upper bounds is just as good. Guesstimating is better than nothing.</p><p>Consider appending to an empty slice:</p>
+      
+<p>Allocations are, relatively speaking, expensive.
+</p>
+<p>Appending new data to a slice requires re-allocating memory if the new size goes over current capacity of the slice.
+</p>
+<p>Knowing that, if you know the final size of the slice, you can pre-allocate the required capacity and avoid re-allocations.
+</p>
+<p>You don&#x27;t need to know the exact size: knowing the upper bounds is just as good. Guesstimating is better than nothing.
+</p>
+<p>Consider appending to an empty slice:
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="nx">s</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;123456&#34;</span><span class="p">)</span>
@@ -148,6 +159,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">d: 0x0, len: 0, cap: 0
@@ -159,7 +171,22 @@ d: 0xc00007e040, len: 18, cap: 32
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The results might vary depending on the the version of the compiler and runtime. In Go 1.12 appending 6 bytes to an empty slice 4 times required 32 allocation.</p><p>By printing the address of slice with <code>%p</code> we can see if it gets re-allocated.</p><p>As the <code>cap</code> shows, first allocation was for 8 bytes, it was then re-allocated to 16 bytes and finally to 32 bytes.</p><p>On each re-allocation, the content had to be copied, so we copied 6 + 6*2 + 6*3 bytes in total. To store 24 bytes, we wasted time copying 36 bytes.</p><p>Memory allocations and copying memory takes time. </p><p>Go runtime is smart in that it doubles the the capacity, anticipating that we might need more space in the future.</p><p>We can be smarter than that and pre-allocate the slice:</p>
+</div>
+<p>The results might vary depending on the the version of the compiler and runtime. In Go 1.12 appending 6 bytes to an empty slice 4 times required 32 allocation.
+</p>
+<p>By printing the address of slice with <code>%p</code> we can see if it gets re-allocated.
+</p>
+<p>As the <code>cap</code> shows, first allocation was for 8 bytes, it was then re-allocated to 16 bytes and finally to 32 bytes.
+</p>
+<p>On each re-allocation, the content had to be copied, so we copied 6 + 6*2 + 6*3 bytes in total. To store 24 bytes, we wasted time copying 36 bytes.
+</p>
+<p>Memory allocations and copying memory takes time. 
+</p>
+<p>Go runtime is smart in that it doubles the the capacity, anticipating that we might need more space in the future.
+</p>
+<p>We can be smarter than that and pre-allocate the slice:
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="nx">s</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;123456&#34;</span><span class="p">)</span>
@@ -181,6 +208,7 @@ d: 0xc00007e040, len: 18, cap: 32
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">d: 0xc0000140a0, len: 0, cap: 24
@@ -192,7 +220,9 @@ d: 0xc0000140a0, len: 24, cap: 24
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here we can see that we start with the right capacity from the beginning and at no time the runtime had to make additional allocation or memory copy.</p>
+</div>
+<p>Here we can see that we start with the right capacity from the beginning and at no time the runtime had to make additional allocation or memory copy.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

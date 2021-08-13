@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Obfuscation is often considered as a magic solution for code protection, by making your code harder to understand if it ever gets de-compiled by hackers.</p><p>But if you’re thinking that removing the <code>Log.x(..)</code> actually removes the information the hackers need, you’ll have a nasty surprise.</p><p>Removing all your log calls with:</p>
+      
+<p>Obfuscation is often considered as a magic solution for code protection, by making your code harder to understand if it ever gets de-compiled by hackers.
+</p>
+<p>But if you’re thinking that removing the <code>Log.x(..)</code> actually removes the information the hackers need, you’ll have a nasty surprise.
+</p>
+<p>Removing all your log calls with:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">-assumenosideeffects class android.util.Log {
@@ -138,7 +145,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>will indeed remove the Log call itself, but usually <em>not</em> the Strings you put into them.</p><p>If for example inside your log call you type a common log message such as: <code>Log.d(MyTag,&quot;Score=&quot;+score);</code>, the compiler converts the <code>\+</code> to a ‘new StringBuilder()’ outside the Log call. ProGuard doesn’t change this new object.</p><p>Your de-compiled code will still have a hanging <code>StringBuilder</code> for <code>&quot;Score=&quot;</code>, appended with the obfuscated version for <code>score</code> variable (let’s say it was converted to <code>b</code>). Now the hacker knows what is <code>b</code>, and make sense of your code.</p><p>A good practice to actually remove these residuals from your code is either not put them there in the first place (Use String formatter instead, with proguard rules to remove them), or to wrap your <code>Log</code> calls with:</p>
+</div>
+<p>will indeed remove the Log call itself, but usually <em>not</em> the Strings you put into them.
+</p>
+<p>If for example inside your log call you type a common log message such as: <code>Log.d(MyTag,&quot;Score=&quot;+score);</code>, the compiler converts the <code>\+</code> to a ‘new StringBuilder()’ outside the Log call. ProGuard doesn’t change this new object.
+</p>
+<p>Your de-compiled code will still have a hanging <code>StringBuilder</code> for <code>&quot;Score=&quot;</code>, appended with the obfuscated version for <code>score</code> variable (let’s say it was converted to <code>b</code>). Now the hacker knows what is <code>b</code>, and make sense of your code.
+</p>
+<p>A good practice to actually remove these residuals from your code is either not put them there in the first place (Use String formatter instead, with proguard rules to remove them), or to wrap your <code>Log</code> calls with:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if (BuildConfig.DEBUG) {
@@ -148,7 +164,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Tip:</strong></p><p>Test how well protected your obfuscated code is by de-compiling it yourself!</p><ol id="e069e793-3d1f-4524-a364-d3e4db4e9734" class="numbered-list" start="1"><li><a href="https://github.com/pxb1988/dex2jar">dex2jar</a> - converts the apk to jar</li><li><a href="http://jd.benow.ca/">jd</a> - decompiles the jar and opens it in a gui editor</li></ol>
+</div>
+<p><strong>Tip:</strong>
+</p>
+<p>Test how well protected your obfuscated code is by de-compiling it yourself!
+</p>
+  <ol id="e069e793-3d1f-4524-a364-d3e4db4e9734" class="numbered-list" start="1">
+    <li><a href="https://github.com/pxb1988/dex2jar">dex2jar</a> - converts the apk to jar
+    </li>
+    <li><a href="http://jd.benow.ca/">jd</a> - decompiles the jar and opens it in a gui editor
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

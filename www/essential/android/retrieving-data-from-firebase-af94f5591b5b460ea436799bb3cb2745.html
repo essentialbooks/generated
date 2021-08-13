@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>I am gonna assume you already know about adding gradle dependencies firebase in android studio. If you don’t just follow the guide from <a href="https://firebase.google.com/">here</a>. Add your app in firebase console, gradle sync android studio after adding dependencies. All dependencies are not needed just firebase database and firebase auth.</p><p>Now that we know how data is stored and how to add gradle dependencies let’s see how to use the imported firebase android SDK to retrieve data.</p><p>create a firebase database reference</p>
+      
+<p>I am gonna assume you already know about adding gradle dependencies firebase in android studio. If you don’t just follow the guide from <a href="https://firebase.google.com/">here</a>. Add your app in firebase console, gradle sync android studio after adding dependencies. All dependencies are not needed just firebase database and firebase auth.
+</p>
+<p>Now that we know how data is stored and how to add gradle dependencies let’s see how to use the imported firebase android SDK to retrieve data.
+</p>
+<p>create a firebase database reference
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">DatabaseReference userDBRef = FirebaseDatabase.getInstance().getReference();
@@ -138,7 +145,10 @@ userDBRef = DatabaseReference.getInstance().getReference().child(&#34;user_base&
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>from here you can chain multiple child() method calls to point to the data you are interested in. For example if data is stored as depicted in previous section and you want to point to Bruce Wayne user you can use:</p>
+</div>
+<p>from here you can chain multiple child() method calls to point to the data you are interested in. For example if data is stored as depicted in previous section and you want to point to Bruce Wayne user you can use:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">DatabaseReference bruceWayneRef = userDBRef.child(&#34;371298&#34;);
@@ -147,7 +157,10 @@ userDBRef = DatabaseReference.getInstance().getReference().child(&#34;user_base&
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Or simply pass the whole reference to the JSON object:</p>
+</div>
+<p>Or simply pass the whole reference to the JSON object:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">DatabaseReference bruceWayneRef = DatabaseReference.getInstance().getReference()
@@ -158,7 +171,14 @@ userDBRef = DatabaseReference.getInstance().getReference().child(&#34;user_base&
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now that we have the reference of the data we want to fetch, we can use listeners to fetch data in android apps. Unlike the traditional calls where you fire REST API calls using retrofit or volley, here a simple callback listener is required to get the data. Firebase sdk calls the callback methods and you are done.</p><p>There are basically two types of listeners you can attach, one is <a href="https://firebase.google.com/docs/reference/android/com/google/firebase/database/ValueEventListener">ValueEventListener</a> and the other one is <a href="https://firebase.google.com/docs/reference/android/com/google/firebase/database/ChildEventListener">ChildEventListener</a> (described in next section). For any change in data under the node we have references and added listeners to, value event listeners return the entire JSON structure and child event listener returns specific child where the change has happened. Both of these are useful in their own way. To fetch the data from firebase we can add one or more listeners to a firebase database reference (list userDBRef we created earlier).</p><p>Here is some sample code (code explanation after code):</p>
+</div>
+<p>Now that we have the reference of the data we want to fetch, we can use listeners to fetch data in android apps. Unlike the traditional calls where you fire REST API calls using retrofit or volley, here a simple callback listener is required to get the data. Firebase sdk calls the callback methods and you are done.
+</p>
+<p>There are basically two types of listeners you can attach, one is <a href="https://firebase.google.com/docs/reference/android/com/google/firebase/database/ValueEventListener">ValueEventListener</a> and the other one is <a href="https://firebase.google.com/docs/reference/android/com/google/firebase/database/ChildEventListener">ChildEventListener</a> (described in next section). For any change in data under the node we have references and added listeners to, value event listeners return the entire JSON structure and child event listener returns specific child where the change has happened. Both of these are useful in their own way. To fetch the data from firebase we can add one or more listeners to a firebase database reference (list userDBRef we created earlier).
+</p>
+<p>Here is some sample code (code explanation after code):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">userDBRef.addValueEventListener(new ValueEventListener() {
@@ -177,7 +197,12 @@ userDBRef = DatabaseReference.getInstance().getReference().child(&#34;user_base&
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Did you notice the Class type passed. <a href="https://www.firebase.com/docs/java-api/javadoc/com/firebase/client/DataSnapshot.html">DataSnapshot</a> can convert JSON data into our defined POJOs, simple pass the right class type.</p><p>If your use case does not require the entire data (in our case user_base table) every time some little change occurs or say you want to <em><strong>fetch the data only once</strong></em>, you can use <em><strong>addListenerForSingleValueEvent()</strong></em> method of Database reference. This fires the callback only once.</p>
+</div>
+<p>Did you notice the Class type passed. <a href="https://www.firebase.com/docs/java-api/javadoc/com/firebase/client/DataSnapshot.html">DataSnapshot</a> can convert JSON data into our defined POJOs, simple pass the right class type.
+</p>
+<p>If your use case does not require the entire data (in our case user_base table) every time some little change occurs or say you want to <em><strong>fetch the data only once</strong></em>, you can use <em><strong>addListenerForSingleValueEvent()</strong></em> method of Database reference. This fires the callback only once.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">userDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -194,7 +219,10 @@ userDBRef = DatabaseReference.getInstance().getReference().child(&#34;user_base&
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Above samples will give you the value of the JSON node. To get the key simply call:</p>
+</div>
+<p>Above samples will give you the value of the JSON node. To get the key simply call:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String myKey = dataSnapshot.getKey();</pre>

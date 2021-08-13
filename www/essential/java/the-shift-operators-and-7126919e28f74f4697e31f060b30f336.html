@@ -127,7 +127,36 @@
 </div>
 
 
-      <p>The Java language provides three operator for performing bitwise shifting on 32 and 64 bit integer values. These are all binary operators with the first operand being the value to be shifted, and the second operand saying how far to shift.</p><ul id="65c416ac-5ae2-4da5-b294-93536e95c6eb" class="bulleted-list"><li>The <code>&lt;&lt;</code> or <em>left shift</em> operator shifts the value given by the first operand <em>leftwards</em> by the number of bit positions given by the second operand. The empty positions at the right end are filled with zeros.</li><li>The ‘&gt;&gt;’ or <em>arithmetic shift</em> operator shifts the value given by the first operand <em>rightwards</em> by the number of bit positions given by the second operand. The empty positions at the left end are filled by copying the left-most bit. This process is known as <em>sign extension</em>.</li><li>The ‘&gt;&gt;&gt;’ or <em>logical right shift</em> operator shifts the value given by the first operand <em>rightwards</em> by the number of bit positions given by the second operand. The empty positions at the left end are filled with zeros.</li></ul><p>Notes:</p><ol id="59b976a8-d5aa-4ccc-b720-e9e48d46f0b7" class="numbered-list" start="1"><li>These operators require an <code>int</code> or <code>long</code> value as the first operand, and produce a value with the same type as the first operand. (You will need to use an explicit type cast when assigning the result of a shift to a <code>byte</code>, <code>short</code> or <code>char</code> variable.)</li><li>If you use a shift operator with a first operand that is a <code>byte</code>, <code>char</code> or <code>short</code>, it is promoted to an <code>int</code> and the operation produces an <code>int</code>.)</li><li>The second operand is reduced <em>modulo the number of bits of the operation</em> to give the amount of the shift. For more about the <strong>mod mathematical concept</strong>, see <a href="http://stackoverflow.com/documentation/java/176/operators/14283/modulus-examples#t=201607262031550001554">Modulus examples</a>.</li><li>The bits that are shifted off the left or right end by the operation are discarded. (Java does not provide a primitive “rotate” operator.)</li><li>The arithmetic shift operator is equivalent dividing a (two’s complement) number by a power of 2.</li><li>The left shift operator is equivalent multiplying a (two’s complement) number by a power of 2.</li></ol><p>The following table will help you see the effects of the three shift operators. (The numbers have been expressed in binary notation to aid vizualization.)</p><p>Operand1 | Operand2 | <code>&lt;&lt;</code> | <code>&gt;&gt;</code> | <code>&gt;&gt;&gt;</code> | |
+      
+<p>The Java language provides three operator for performing bitwise shifting on 32 and 64 bit integer values. These are all binary operators with the first operand being the value to be shifted, and the second operand saying how far to shift.
+</p>
+  <ul id="65c416ac-5ae2-4da5-b294-93536e95c6eb" class="bulleted-list">
+    <li>The <code>&lt;&lt;</code> or <em>left shift</em> operator shifts the value given by the first operand <em>leftwards</em> by the number of bit positions given by the second operand. The empty positions at the right end are filled with zeros.
+    </li>
+    <li>The ‘&gt;&gt;’ or <em>arithmetic shift</em> operator shifts the value given by the first operand <em>rightwards</em> by the number of bit positions given by the second operand. The empty positions at the left end are filled by copying the left-most bit. This process is known as <em>sign extension</em>.
+    </li>
+    <li>The ‘&gt;&gt;&gt;’ or <em>logical right shift</em> operator shifts the value given by the first operand <em>rightwards</em> by the number of bit positions given by the second operand. The empty positions at the left end are filled with zeros.
+    </li>
+  </ul>
+<p>Notes:
+</p>
+  <ol id="59b976a8-d5aa-4ccc-b720-e9e48d46f0b7" class="numbered-list" start="1">
+    <li>These operators require an <code>int</code> or <code>long</code> value as the first operand, and produce a value with the same type as the first operand. (You will need to use an explicit type cast when assigning the result of a shift to a <code>byte</code>, <code>short</code> or <code>char</code> variable.)
+    </li>
+    <li>If you use a shift operator with a first operand that is a <code>byte</code>, <code>char</code> or <code>short</code>, it is promoted to an <code>int</code> and the operation produces an <code>int</code>.)
+    </li>
+    <li>The second operand is reduced <em>modulo the number of bits of the operation</em> to give the amount of the shift. For more about the <strong>mod mathematical concept</strong>, see <a href="http://stackoverflow.com/documentation/java/176/operators/14283/modulus-examples#t=201607262031550001554">Modulus examples</a>.
+    </li>
+    <li>The bits that are shifted off the left or right end by the operation are discarded. (Java does not provide a primitive “rotate” operator.)
+    </li>
+    <li>The arithmetic shift operator is equivalent dividing a (two’s complement) number by a power of 2.
+    </li>
+    <li>The left shift operator is equivalent multiplying a (two’s complement) number by a power of 2.
+    </li>
+  </ol>
+<p>The following table will help you see the effects of the three shift operators. (The numbers have been expressed in binary notation to aid vizualization.)
+</p>
+<p>Operand1 | Operand2 | <code>&lt;&lt;</code> | <code>&gt;&gt;</code> | <code>&gt;&gt;&gt;</code> | |
 —— | —— | —— | —— | —— | —— |
 0b0000000000001011 | 0 | 0b0000000000001011 | 0b0000000000001011 | 0b0000000000001011 | no change |
 0b0000000000001011 | 1 | 0b0000000000010110 | 0b0000000000000101 | 0b0000000000000101 | |
@@ -139,7 +168,10 @@
 0b1000000000001011 | 0 | 0b1000000000001011 | 0b1000000000001011 | 0b1000000000001011 | no change |
 0b1000000000001011 | 1 | 0b0000000000010110 | 0b1100000000000101 | 0b0100000000000101 | note sign extension for ‘&gt;&gt;’.
 0b1000000000001011 | 2 | 0b0000000000101100 | 0b1110000000000010 | 0b00100000000000100 | note sign extension for ‘&gt;&gt;’.
-0b1000000000001011 | 31 | 0b1000000000000000 | 0b1111111111111111 | 0b0000000000000001 | note sign extension for ‘&gt;&gt;’. |</p><p>There examples of the user of shift operators in http://stackoverflow.com/documentation/java/1177/bit-manipulation#t=201610101439344327372</p>
+0b1000000000001011 | 31 | 0b1000000000000000 | 0b1111111111111111 | 0b0000000000000001 | note sign extension for ‘&gt;&gt;’. |
+</p>
+<p>There examples of the user of shift operators in http://stackoverflow.com/documentation/java/1177/bit-manipulation#t=201610101439344327372
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

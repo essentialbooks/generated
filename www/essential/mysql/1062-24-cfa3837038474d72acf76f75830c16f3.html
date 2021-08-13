@@ -127,7 +127,36 @@
 </div>
 
 
-      <p>(taking a break) With the inclusion of those 4 error numbers, I think this page will have covered about 50% of the typical errors users get.</p><p>(Yes, this ‘Example’ needs revision.)</p><p><strong>24 Can’t open file (Too many open files)</strong></p><p><code>open_files_limit</code> comes from an OS setting. <code>table_open_cache</code> needs to be less than that.</p><p>These can cause that error:</p><ul id="bee04d90-738b-4da0-bbc2-6bd43c0831c3" class="bulleted-list"><li>Failure to <code>DEALLOCATE PREPARE</code> in a stored procedure.</li><li>PARTITIONed table(s) with a large number of partitions and innodb_file_per_table = ON. Recommend not having more than 50 partitions in a given table (for various reasons). (When “Native Partitions” become available, this advice may change.)</li></ul><p>The obvious workaround is to set increase the OS limit: To allow more files, change <code>ulimit</code> or <code>/etc/security/limits.conf</code> or in <code>sysctl.conf</code> (kern.maxfiles &amp; kern.maxfilesperproc) or something else (OS dependent). Then increase <code>open_files_limit</code> and <code>table_open_cache</code>.</p><p>As of 5.6.8, <code>open_files_limit</code> is auto-sized based on <code>max_connections</code>, but it is OK to change it from the default.</p><p><strong>1062 - Duplicate Entry</strong></p><p>This error occur mainly because of the following two reasons</p><ol id="2108d8e0-dceb-4cf8-8472-c5e354106c01" class="numbered-list" start="1"><li><em>Duplicate Value</em> - `Error Code: 1062. Duplicate entry ‘12’ for key</li></ol>
+      
+<p>(taking a break) With the inclusion of those 4 error numbers, I think this page will have covered about 50% of the typical errors users get.
+</p>
+<p>(Yes, this ‘Example’ needs revision.)
+</p>
+<p><strong>24 Can’t open file (Too many open files)</strong>
+</p>
+<p><code>open_files_limit</code> comes from an OS setting. <code>table_open_cache</code> needs to be less than that.
+</p>
+<p>These can cause that error:
+</p>
+  <ul id="bee04d90-738b-4da0-bbc2-6bd43c0831c3" class="bulleted-list">
+    <li>Failure to <code>DEALLOCATE PREPARE</code> in a stored procedure.
+    </li>
+    <li>PARTITIONed table(s) with a large number of partitions and innodb_file_per_table = ON. Recommend not having more than 50 partitions in a given table (for various reasons). (When “Native Partitions” become available, this advice may change.)
+    </li>
+  </ul>
+<p>The obvious workaround is to set increase the OS limit: To allow more files, change <code>ulimit</code> or <code>/etc/security/limits.conf</code> or in <code>sysctl.conf</code> (kern.maxfiles &amp; kern.maxfilesperproc) or something else (OS dependent). Then increase <code>open_files_limit</code> and <code>table_open_cache</code>.
+</p>
+<p>As of 5.6.8, <code>open_files_limit</code> is auto-sized based on <code>max_connections</code>, but it is OK to change it from the default.
+</p>
+<p><strong>1062 - Duplicate Entry</strong>
+</p>
+<p>This error occur mainly because of the following two reasons
+</p>
+  <ol id="2108d8e0-dceb-4cf8-8472-c5e354106c01" class="numbered-list" start="1">
+    <li><em>Duplicate Value</em> - `Error Code: 1062. Duplicate entry ‘12’ for key
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">‘PRIMARY’`
@@ -137,7 +166,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="7f6f21e0-59e8-4115-97f6-27ef7c840dae" class="">To solve this, Set the primary key column as AUTO_INCREMENT. And when you are trying to insert a new row, ignore the primary key column or insert NULL value to primary key.</blockquote>
+</div>
+<blockquote id="7f6f21e0-59e8-4115-97f6-27ef7c840dae" class="">To solve this, Set the primary key column as AUTO_INCREMENT. And when you are trying to insert a new row, ignore the primary key column or insert NULL value to primary key.
+</blockquote>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">userDetails</span><span class="p">(</span>
@@ -153,7 +185,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="b4cd9bc7-0c1b-4fcf-ae1e-354c97f5c910" class="numbered-list" start="1"><li><em>Unique data field</em> - `Error Code: 1062. Duplicate entry ‘A’ for key</li></ol>
+</div>
+  <ol id="b4cd9bc7-0c1b-4fcf-ae1e-354c97f5c910" class="numbered-list" start="1">
+    <li><em>Unique data field</em> - `Error Code: 1062. Duplicate entry ‘A’ for key
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">‘code’`
@@ -163,7 +200,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="1da98a7c-f004-44a8-9132-bb7e9d1b7cdc" class="">To overcome this error, use INSERT IGNORE instead of normal INSERT. If the new row which you are trying to insert doesn’t duplicate an existing record, MySQL inserts it as usual. If the record is a duplicate, the IGNORE keyword discard it without generating any error.</blockquote>
+</div>
+<blockquote id="1da98a7c-f004-44a8-9132-bb7e9d1b7cdc" class="">To overcome this error, use INSERT IGNORE instead of normal INSERT. If the new row which you are trying to insert doesn’t duplicate an existing record, MySQL inserts it as usual. If the record is a duplicate, the IGNORE keyword discard it without generating any error.
+</blockquote>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">INSERT</span> <span class="k">IGNORE</span> <span class="k">INTO</span> <span class="n">userDetails</span> <span class="k">VALUES</span> <span class="p">(</span><span class="k">NULL</span> <span class="p">,</span><span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="s1">&#39;Doe&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span></pre>

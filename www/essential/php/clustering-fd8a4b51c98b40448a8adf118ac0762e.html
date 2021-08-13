@@ -127,7 +127,21 @@
 </div>
 
 
-      <p>Clustering is about grouping similar objects together. It is widely used for pattern recognition. <code>Clustering</code> comes under <code>unsupervised machine learning</code>, therefore there is no training needed. PHP-ML has support for the following clustering algorithms</p><ul id="dd34c39f-9c02-4a39-a23c-44b770c0a0c9" class="bulleted-list"><li>k-Means</li><li>dbscan</li></ul><h1 id="1bc718de-1b0a-4f6f-a7c4-162795333105" class="">k-Means<a class="header-anchor" href="#1bc718de-1b0a-4f6f-a7c4-162795333105" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>k-Means separates the data into <code>n</code> groups of equal variance. This means that we need to pass in a number <code>n</code> which would be the number of clusters we need in our solution. The following code will help bring more clarity</p>
+      
+<p>Clustering is about grouping similar objects together. It is widely used for pattern recognition. <code>Clustering</code> comes under <code>unsupervised machine learning</code>, therefore there is no training needed. PHP-ML has support for the following clustering algorithms
+</p>
+  <ul id="dd34c39f-9c02-4a39-a23c-44b770c0a0c9" class="bulleted-list">
+    <li>k-Means
+    </li>
+    <li>dbscan
+    </li>
+  </ul>
+  <h1 id="1bc718de-1b0a-4f6f-a7c4-162795333105" class="">k-Means
+  <a class="header-anchor" href="#1bc718de-1b0a-4f6f-a7c4-162795333105" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>k-Means separates the data into <code>n</code> groups of equal variance. This means that we need to pass in a number <code>n</code> which would be the number of clusters we need in our solution. The following code will help bring more clarity
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Our data set
@@ -140,7 +154,10 @@ $kmeans-&gt;cluster($samples); // return [0=&gt;[[7, 8]], 1=&gt;[[8, 7]], 2=&gt;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that the output contains 3 arrays because because that was the value of <code>n</code> in <code>KMeans</code> constructor. There can also be an optional second parameter in the constructor which would be the <code>initialization method</code>. For example consider</p>
+</div>
+<p>Note that the output contains 3 arrays because because that was the value of <code>n</code> in <code>KMeans</code> constructor. There can also be an optional second parameter in the constructor which would be the <code>initialization method</code>. For example consider
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$kmeans = new KMeans(4, KMeans::INIT_RANDOM);</pre>
@@ -148,7 +165,25 @@ $kmeans-&gt;cluster($samples); // return [0=&gt;[[7, 8]], 1=&gt;[[8, 7]], 2=&gt;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>INIT_RANDOM</code> places a completely random centroid while trying to determine the clusters. But just to avoid the centroid being too far away from the data, it is bound by the space boundaries of data.</p><p>The default constructor <code>initialization method</code> is <a href="https://en.wikipedia.org/wiki/K-means%2B%2B">kmeans++</a> which selects centroid in a smart way to speed up the process.</p><h1 id="7582a5e9-d3db-4791-8fd5-3697bad72908" class="">DBSCAN<a class="header-anchor" href="#7582a5e9-d3db-4791-8fd5-3697bad72908" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>As opposed to <code>KMeans</code>, <code>DBSCAN</code> is a density based clustering algorithm which means that we would not be passing <code>n</code> which would determine the number of clusters we want in our result. On the other hand this requires two parameters to work</p><ol id="e9f66380-856f-440e-84bc-415445fdb1ed" class="numbered-list" start="1"><li><strong>$minSamples :</strong> The minimum number of objects that should be present in a cluster</li><li><strong>$epsilon :</strong> Which is the maximum distance between two samples for them to be considered as in the same cluster.</li></ol><p>A quick sample for the same is as follows</p>
+</div>
+<p><code>INIT_RANDOM</code> places a completely random centroid while trying to determine the clusters. But just to avoid the centroid being too far away from the data, it is bound by the space boundaries of data.
+</p>
+<p>The default constructor <code>initialization method</code> is <a href="https://en.wikipedia.org/wiki/K-means%2B%2B">kmeans++</a> which selects centroid in a smart way to speed up the process.
+</p>
+  <h1 id="7582a5e9-d3db-4791-8fd5-3697bad72908" class="">DBSCAN
+  <a class="header-anchor" href="#7582a5e9-d3db-4791-8fd5-3697bad72908" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>As opposed to <code>KMeans</code>, <code>DBSCAN</code> is a density based clustering algorithm which means that we would not be passing <code>n</code> which would determine the number of clusters we want in our result. On the other hand this requires two parameters to work
+</p>
+  <ol id="e9f66380-856f-440e-84bc-415445fdb1ed" class="numbered-list" start="1">
+    <li><strong>$minSamples :</strong> The minimum number of objects that should be present in a cluster
+    </li>
+    <li><strong>$epsilon :</strong> Which is the maximum distance between two samples for them to be considered as in the same cluster.
+    </li>
+  </ol>
+<p>A quick sample for the same is as follows
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Our sample data set
@@ -160,7 +195,16 @@ $dbscan-&gt;cluster($samples); // return [0=&gt;[[1, 1]], 1=&gt;[[8, 7]]]</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The code is pretty much self explanatory. One major difference is that there is no way of knowing the number of elements in output array as opposed to KMeans.</p><h2 id="977001b9-20d4-49f1-a841-7b4dc93867a4" class="">Practical Case<a class="header-anchor" href="#977001b9-20d4-49f1-a841-7b4dc93867a4" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Let us now have a look on using clustering in real life scenario</p><blockquote id="86e5fe86-48f1-4acb-bea5-438f3c383218" class="">Clustering is widely used in pattern recognition and data mining. Consider that you have a content publishing application. Now in order to retain your users they should look at content that they love. Let us assume for the sake of simplicity that if they are on a specific webpage for more that a minute and they scoll to bottom then they love that content. Now each of your content will be having a unique identifier with it and so will the user. Make cluster based on that and you will get to know which segment of users have a similar content taste. This in turn could be used in recommendation system where you can assume that if some users of same cluster love the article then so will others and that can be shown as recommendations on your application.</blockquote>
+</div>
+<p>The code is pretty much self explanatory. One major difference is that there is no way of knowing the number of elements in output array as opposed to KMeans.
+</p>
+  <h2 id="977001b9-20d4-49f1-a841-7b4dc93867a4" class="">Practical Case
+  <a class="header-anchor" href="#977001b9-20d4-49f1-a841-7b4dc93867a4" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Let us now have a look on using clustering in real life scenario
+</p>
+<blockquote id="86e5fe86-48f1-4acb-bea5-438f3c383218" class="">Clustering is widely used in pattern recognition and data mining. Consider that you have a content publishing application. Now in order to retain your users they should look at content that they love. Let us assume for the sake of simplicity that if they are on a specific webpage for more that a minute and they scoll to bottom then they love that content. Now each of your content will be having a unique identifier with it and so will the user. Make cluster based on that and you will get to know which segment of users have a similar content taste. This in turn could be used in recommendation system where you can assume that if some users of same cluster love the article then so will others and that can be shown as recommendations on your application.
+</blockquote>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

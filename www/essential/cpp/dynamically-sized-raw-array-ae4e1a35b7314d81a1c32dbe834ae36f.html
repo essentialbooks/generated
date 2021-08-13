@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="c1">// Example of raw dynamic size array. It&#39;s generally better to use std::vector.
@@ -162,7 +163,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A program that declares an array <code>T a[n];</code> where <code>n</code> is determined a run-time, can compile with certain compilers that support C99 <em>variadic length arrays</em> (VLAs) as a language extension. But VLAs are not supported by standard C++. This example shows how to manually allocate a dynamic size array via a <code>new[]</code>-expression,</p>
+</div>
+<p>A program that declares an array <code>T a[n];</code> where <code>n</code> is determined a run-time, can compile with certain compilers that support C99 <em>variadic length arrays</em> (VLAs) as a language extension. But VLAs are not supported by standard C++. This example shows how to manually allocate a dynamic size array via a <code>new[]</code>-expression,
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">int</span><span class="o">*</span>        <span class="n">a</span>   <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>       <span class="c1">// allocation of array of n items.
@@ -171,7 +175,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>… then use it, and finally deallocate it via a <code>delete[]</code>-expression:</p>
+</div>
+<p>… then use it, and finally deallocate it via a <code>delete[]</code>-expression:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">delete</span><span class="p">[]</span> <span class="n">a</span><span class="p">;</span>
@@ -180,7 +187,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The array allocated here has indeterminate values, but it can be zero-initialized by just adding an empty parenthesis <code>()</code>, like this: <code>new int[n]()</code>. More generally, for arbitrary item type, this performs a <em>value-initialization</em>.</p><p>As part of a function down in a call hierarchy this code would not be exception safe, since an exception before the <code>delete[]</code> expression (and after the <code>new[]</code>) would cause a memory leak. One way to address that issue is to automate the cleanup via e.g. a <code>std::unique_ptr</code> smart pointer. But a generally better way to address it is to just use a <code>std::vector</code>: that’s what <code>std::vector</code> is there for.</p>
+</div>
+<p>The array allocated here has indeterminate values, but it can be zero-initialized by just adding an empty parenthesis <code>()</code>, like this: <code>new int[n]()</code>. More generally, for arbitrary item type, this performs a <em>value-initialization</em>.
+</p>
+<p>As part of a function down in a call hierarchy this code would not be exception safe, since an exception before the <code>delete[]</code> expression (and after the <code>new[]</code>) would cause a memory leak. One way to address that issue is to automate the cleanup via e.g. a <code>std::unique_ptr</code> smart pointer. But a generally better way to address it is to just use a <code>std::vector</code>: that’s what <code>std::vector</code> is there for.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

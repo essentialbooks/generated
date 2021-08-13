@@ -127,7 +127,29 @@
 </div>
 
 
-      <p>This is a step by step guide to set up the automated build process using Jenkins CI for your Android projects. The following steps assume that you have new hardware with just any flavor of Linux installed. It is also taken into account that you might have a remote machine.</p><h1 id="442af75d-8653-4b9f-87b6-28feeb5abc1d" class="">PART I: Initial setup on your machine<a class="header-anchor" href="#442af75d-8653-4b9f-87b6-28feeb5abc1d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><ol id="3dd338fd-584c-43e8-9839-c2a2c3b88c67" class="numbered-list" start="1"><li>Log in via <em>ssh</em> to your Ubuntu machine:</li></ol><blockquote id="2249ed10-ee97-49fb-b655-f6c9a1ca31b5" class="">ssh username@xxx.xxx.xxx</blockquote><ol id="ca123206-a92a-4b56-9b2e-86cc3e02d010" class="numbered-list" start="1"><li>Download a version of the Android SDK on your machine:</li></ol><blockquote id="5b7d0676-64a2-43ab-8157-1ebd912a39e5" class="">wget https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz</blockquote><ol id="28828710-74ab-469b-aa45-fd0b4af398b6" class="numbered-list" start="1"><li>Unzip the downloaded <em>tar</em> file:</li></ol>
+      
+<p>This is a step by step guide to set up the automated build process using Jenkins CI for your Android projects. The following steps assume that you have new hardware with just any flavor of Linux installed. It is also taken into account that you might have a remote machine.
+</p>
+  <h1 id="442af75d-8653-4b9f-87b6-28feeb5abc1d" class="">PART I: Initial setup on your machine
+  <a class="header-anchor" href="#442af75d-8653-4b9f-87b6-28feeb5abc1d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <ol id="3dd338fd-584c-43e8-9839-c2a2c3b88c67" class="numbered-list" start="1">
+    <li>Log in via <em>ssh</em> to your Ubuntu machine:
+    </li>
+  </ol>
+<blockquote id="2249ed10-ee97-49fb-b655-f6c9a1ca31b5" class="">ssh username@xxx.xxx.xxx
+</blockquote>
+  <ol id="ca123206-a92a-4b56-9b2e-86cc3e02d010" class="numbered-list" start="1">
+    <li>Download a version of the Android SDK on your machine:
+    </li>
+  </ol>
+<blockquote id="5b7d0676-64a2-43ab-8157-1ebd912a39e5" class="">wget https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz
+</blockquote>
+  <ol id="28828710-74ab-469b-aa45-fd0b4af398b6" class="numbered-list" start="1">
+    <li>Unzip the downloaded <em>tar</em> file:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt; sudo apt-get install tar  
@@ -136,7 +158,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="4d09aa38-dc30-4306-823c-5ce4875a4f3b" class="numbered-list" start="1"><li>Now you need to install Java 8 on your Ubuntu machine, which is a requirement for Android builds on Nougat. Jenkins would require you to install JDK and JRE 7 using the steps below:</li></ol>
+</div>
+  <ol id="4d09aa38-dc30-4306-823c-5ce4875a4f3b" class="numbered-list" start="1">
+    <li>Now you need to install Java 8 on your Ubuntu machine, which is a requirement for Android builds on Nougat. Jenkins would require you to install JDK and JRE 7 using the steps below:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt; sudo apt-get install python-software-properties  
@@ -147,7 +174,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="2e96f726-7a33-468c-b190-a0fd40fd9441" class="numbered-list" start="1"><li>Now install Jenkins on your Ubuntu machine:</li></ol>
+</div>
+  <ol id="2e96f726-7a33-468c-b190-a0fd40fd9441" class="numbered-list" start="1">
+    <li>Now install Jenkins on your Ubuntu machine:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt; wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -  
@@ -158,7 +190,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="b4f3c386-59b6-42e8-90ce-29cf6e62dad4" class="numbered-list" start="1"><li>Download the latest supported Gradle version for your Android setup:</li></ol>
+</div>
+  <ol id="b4f3c386-59b6-42e8-90ce-29cf6e62dad4" class="numbered-list" start="1">
+    <li>Download the latest supported Gradle version for your Android setup:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt; wget https://services.gradle.org/distributions/gradle-2.14.1-all.zip  
@@ -167,7 +204,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="352669df-14eb-4277-81b8-502563d8416d" class="numbered-list" start="1"><li>Set up Android on your Ubuntu machine. First move to the <em>tools</em> folder in the Android SDK folder downloaded in step 2:</li></ol>
+</div>
+  <ol id="352669df-14eb-4277-81b8-502563d8416d" class="numbered-list" start="1">
+    <li>Set up Android on your Ubuntu machine. First move to the <em>tools</em> folder in the Android SDK folder downloaded in step 2:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt; cd android-sdk-linux/tools **// lists available SDK**  
@@ -179,7 +221,35 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="b89dd0d8-501a-4969-a108-c24149b66786" class="numbered-list" start="1"><li>Install <em>Git</em> or any other VCS on your machine:</li></ol><blockquote id="36703f25-8c8b-445a-ace8-3180128f519b" class="">sudo apt-get install git</blockquote><ol id="34f9bb56-d279-41ce-86f0-fde55c347e40" class="numbered-list" start="1"><li>Now log in to Jenkins using your internet browser. Type <code><strong>ipAddress:8080</strong></code> into the address bar.</li><li>In order to receive the password for the first-time login, please check the corresponding file as follows (you will need su permissions to access this file):</li></ol><blockquote id="c60eb662-8da3-4127-9e29-8a39d0995a79" class="">cat /var/lib/jenkins/secrets/initialAdminPassword</blockquote><h1 id="26b0a6b5-a996-40d4-9b6c-34a6df5276b8" class="">PART II: Set up Jenkins to build Android Jobs<a class="header-anchor" href="#26b0a6b5-a996-40d4-9b6c-34a6df5276b8" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><ol id="4d02bc17-a7ed-4144-a668-e80e3aca69d5" class="numbered-list" start="1"><li>Once logged in, go to the following path:</li></ol><blockquote id="0c27ad83-4d7c-4ea5-9a4d-b147b2937d91" class="">Jenkins &gt; Manage Jenkins &gt; Global Tool Configuration</blockquote><ol id="5882aa1a-8c79-4268-81c0-916cf38c1ced" class="numbered-list" start="1"><li>At this location, add <code>JAVA_HOME</code> with the following entries:</li></ol>
+</div>
+  <ol id="b89dd0d8-501a-4969-a108-c24149b66786" class="numbered-list" start="1">
+    <li>Install <em>Git</em> or any other VCS on your machine:
+    </li>
+  </ol>
+<blockquote id="36703f25-8c8b-445a-ace8-3180128f519b" class="">sudo apt-get install git
+</blockquote>
+  <ol id="34f9bb56-d279-41ce-86f0-fde55c347e40" class="numbered-list" start="1">
+    <li>Now log in to Jenkins using your internet browser. Type <code><strong>ipAddress:8080</strong></code> into the address bar.
+    </li>
+    <li>In order to receive the password for the first-time login, please check the corresponding file as follows (you will need su permissions to access this file):
+    </li>
+  </ol>
+<blockquote id="c60eb662-8da3-4127-9e29-8a39d0995a79" class="">cat /var/lib/jenkins/secrets/initialAdminPassword
+</blockquote>
+  <h1 id="26b0a6b5-a996-40d4-9b6c-34a6df5276b8" class="">PART II: Set up Jenkins to build Android Jobs
+  <a class="header-anchor" href="#26b0a6b5-a996-40d4-9b6c-34a6df5276b8" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <ol id="4d02bc17-a7ed-4144-a668-e80e3aca69d5" class="numbered-list" start="1">
+    <li>Once logged in, go to the following path:
+    </li>
+  </ol>
+<blockquote id="0c27ad83-4d7c-4ea5-9a4d-b147b2937d91" class="">Jenkins &gt; Manage Jenkins &gt; Global Tool Configuration
+</blockquote>
+  <ol id="5882aa1a-8c79-4268-81c0-916cf38c1ced" class="numbered-list" start="1">
+    <li>At this location, add <code>JAVA_HOME</code> with the following entries:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt; Name = JAVA_HOME  
@@ -188,7 +258,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="023b4f63-0ec6-4b58-8c5e-6ba696e2ca2c" class="numbered-list" start="1"><li>Also add the following values to <em>Git</em> and save the environment variables:</li></ol>
+</div>
+  <ol id="023b4f63-0ec6-4b58-8c5e-6ba696e2ca2c" class="numbered-list" start="1">
+    <li>Also add the following values to <em>Git</em> and save the environment variables:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt; Name = Default  
@@ -197,7 +272,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="b1bad9c5-9103-4666-93b7-386deaf36236" class="numbered-list" start="1"><li>Now go to the following path:</li></ol><blockquote id="dcaae37a-0601-4de7-b1f9-df49d45153cc" class="">Jenkins &gt; Manage Jenkins &gt; Configuration</blockquote><ol id="fbe4c1f3-1dea-4cce-97e2-9c6707e64b5d" class="numbered-list" start="1"><li>At this location, add <code>ANDROID_HOME</code> to the “global properties”:</li></ol>
+</div>
+  <ol id="b1bad9c5-9103-4666-93b7-386deaf36236" class="numbered-list" start="1">
+    <li>Now go to the following path:
+    </li>
+  </ol>
+<blockquote id="dcaae37a-0601-4de7-b1f9-df49d45153cc" class="">Jenkins &gt; Manage Jenkins &gt; Configuration
+</blockquote>
+  <ol id="fbe4c1f3-1dea-4cce-97e2-9c6707e64b5d" class="numbered-list" start="1">
+    <li>At this location, add <code>ANDROID_HOME</code> to the “global properties”:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt; Name = ANDROID_HOME  
@@ -206,7 +292,31 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="6e14e576-0244-4218-97c0-0f0056dacd1f" class="">Part III: Create a Jenkins Job for your Android project<a class="header-anchor" href="#6e14e576-0244-4218-97c0-0f0056dacd1f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><ol id="64c6d5f4-295a-45e4-bbe9-cd990d4f513c" class="numbered-list" start="1"><li>Click on <em>New Item</em> in the Jenkins home screen.</li><li>Add a <em>Project Name</em> and <em>Description</em>.</li><li>In the <em>General</em> tab, select <em>Advanced</em>. Then select <em>Use custom workspace</em>:</li></ol><blockquote id="544fa561-9ddc-423a-b6e4-5c2fc7f1c941" class="">Directory /home/user/Code/ProjectFolder</blockquote><ol id="3b104814-3094-4fe9-bcb2-62246cd1de4c" class="numbered-list" start="1"><li>In the source code management select <em>Git</em>. I am using <em>Bitbucket</em> for the purpose of this example:</li></ol><blockquote id="6c95d278-c582-468d-9d46-4adaa5192f94" class="">Repository URL = https://username:password@bitbucket.org/project/projectname.git</blockquote><ol id="5d559923-b3b7-435b-93f1-c2d0697febb6" class="numbered-list" start="1"><li>Select additional behaviors for your repository:</li></ol>
+</div>
+  <h1 id="6e14e576-0244-4218-97c0-0f0056dacd1f" class="">Part III: Create a Jenkins Job for your Android project
+  <a class="header-anchor" href="#6e14e576-0244-4218-97c0-0f0056dacd1f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <ol id="64c6d5f4-295a-45e4-bbe9-cd990d4f513c" class="numbered-list" start="1">
+    <li>Click on <em>New Item</em> in the Jenkins home screen.
+    </li>
+    <li>Add a <em>Project Name</em> and <em>Description</em>.
+    </li>
+    <li>In the <em>General</em> tab, select <em>Advanced</em>. Then select <em>Use custom workspace</em>:
+    </li>
+  </ol>
+<blockquote id="544fa561-9ddc-423a-b6e4-5c2fc7f1c941" class="">Directory /home/user/Code/ProjectFolder
+</blockquote>
+  <ol id="3b104814-3094-4fe9-bcb2-62246cd1de4c" class="numbered-list" start="1">
+    <li>In the source code management select <em>Git</em>. I am using <em>Bitbucket</em> for the purpose of this example:
+    </li>
+  </ol>
+<blockquote id="6c95d278-c582-468d-9d46-4adaa5192f94" class="">Repository URL = https://username:password@bitbucket.org/project/projectname.git
+</blockquote>
+  <ol id="5d559923-b3b7-435b-93f1-c2d0697febb6" class="numbered-list" start="1">
+    <li>Select additional behaviors for your repository:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt; Clean Before Checkout  
@@ -215,7 +325,33 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="9ae4ebfe-6b11-44df-9a4d-8a78512838d3" class="numbered-list" start="1"><li>Select a branch you want to build:</li></ol><blockquote id="9a2bd1e9-0c9e-4608-8749-5c729d6c9b16" class="">*/master</blockquote><ol id="3f48d9b4-d9a7-4c3d-a8e7-52c967bd68cf" class="numbered-list" start="1"><li>In the <em>Build</em> tab, select <em>Execute Shell</em> in <em>Add build step</em>.</li><li>In the <em>Execute shell</em>, add the following command:</li></ol><blockquote id="1d9a313a-bab7-4a15-ba0b-a88f521851a6" class="">cd /home/user/Code/ProjectFolder &amp;&amp; gradle clean assemble –no-daemon</blockquote><ol id="a5a10bda-807d-4fc1-9443-f8dfe83650e6" class="numbered-list" start="1"><li>If you want to run Lint on the project, then add another build step into the <em>Execute shell</em>:</li></ol><blockquote id="e67b67fd-9d94-4e07-9331-f94594e86ff0" class="">/home/user/gradle/gradle-2.14.1/bin/gradle lint</blockquote><p>Now your system is finally set up to build Android projects using Jenkins. This setup makes your life so much easier for releasing builds to QA and UAT teams.</p><p>PS: Since Jenkins is a different user on your Ubuntu machine, you should give it rights to create folders in your workspace by executing the following command:</p><blockquote id="dc7f9025-0eab-49d1-a7b9-e6d7f080bd74" class="">chown -R jenkins .git</blockquote>
+</div>
+  <ol id="9ae4ebfe-6b11-44df-9a4d-8a78512838d3" class="numbered-list" start="1">
+    <li>Select a branch you want to build:
+    </li>
+  </ol>
+<blockquote id="9a2bd1e9-0c9e-4608-8749-5c729d6c9b16" class="">*/master
+</blockquote>
+  <ol id="3f48d9b4-d9a7-4c3d-a8e7-52c967bd68cf" class="numbered-list" start="1">
+    <li>In the <em>Build</em> tab, select <em>Execute Shell</em> in <em>Add build step</em>.
+    </li>
+    <li>In the <em>Execute shell</em>, add the following command:
+    </li>
+  </ol>
+<blockquote id="1d9a313a-bab7-4a15-ba0b-a88f521851a6" class="">cd /home/user/Code/ProjectFolder &amp;&amp; gradle clean assemble –no-daemon
+</blockquote>
+  <ol id="a5a10bda-807d-4fc1-9443-f8dfe83650e6" class="numbered-list" start="1">
+    <li>If you want to run Lint on the project, then add another build step into the <em>Execute shell</em>:
+    </li>
+  </ol>
+<blockquote id="e67b67fd-9d94-4e07-9331-f94594e86ff0" class="">/home/user/gradle/gradle-2.14.1/bin/gradle lint
+</blockquote>
+<p>Now your system is finally set up to build Android projects using Jenkins. This setup makes your life so much easier for releasing builds to QA and UAT teams.
+</p>
+<p>PS: Since Jenkins is a different user on your Ubuntu machine, you should give it rights to create folders in your workspace by executing the following command:
+</p>
+<blockquote id="dc7f9025-0eab-49d1-a7b9-e6d7f080bd74" class="">chown -R jenkins .git
+</blockquote>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

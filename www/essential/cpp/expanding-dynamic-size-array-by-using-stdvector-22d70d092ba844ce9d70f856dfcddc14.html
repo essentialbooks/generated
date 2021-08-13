@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-gcc">
 	<div>
 	<pre class="chroma">#include &lt;algorithm&gt;            // std::sort
@@ -152,6 +153,7 @@ int main()
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">-8 1 3 4 5 8 33 
@@ -160,7 +162,15 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>std::vector</code> is a standard library class template that provides the notion of a variable size array. It takes care of all the memory management, and the buffer is contiguous so a pointer to the buffer (e.g. <code>&amp;v[0]</code> or <code>v.data()</code>) can be passed to API functions requiring a raw array. A <code>vector</code> can even be expanded at run time, via e.g. the <code>push_back</code> member function that appends an item.</p><p>The complexity of the sequence of <em>n</em> <code>push_back</code> operations, including the copying or moving involved in the vector expansions, is amortized O(<em>n</em>). “Amortized”: on average.</p><p>Internally this is usually achieved by the vector <em>doubling</em> its buffer size, its capacity, when a larger buffer is needed. E.g. for a buffer starting out as size 1, and being repeatedly doubled as needed for <em>n</em>=17 <code>push_back</code> calls, this involves 1 + 2 + 4 + 8 + 16 = 31 copy operations, which is less than 2×<em>n</em> = 34. And more generally the sum of this sequence can’t exceed 2×<em>n</em>.</p><p>Compared to the dynamic size raw array example, this <code>vector</code>-based code does not require the user to supply (and know) the number of items up front. Instead the vector is just expanded as necessary, for each new item value specified by the user.</p>
+</div>
+<p><code>std::vector</code> is a standard library class template that provides the notion of a variable size array. It takes care of all the memory management, and the buffer is contiguous so a pointer to the buffer (e.g. <code>&amp;v[0]</code> or <code>v.data()</code>) can be passed to API functions requiring a raw array. A <code>vector</code> can even be expanded at run time, via e.g. the <code>push_back</code> member function that appends an item.
+</p>
+<p>The complexity of the sequence of <em>n</em> <code>push_back</code> operations, including the copying or moving involved in the vector expansions, is amortized O(<em>n</em>). “Amortized”: on average.
+</p>
+<p>Internally this is usually achieved by the vector <em>doubling</em> its buffer size, its capacity, when a larger buffer is needed. E.g. for a buffer starting out as size 1, and being repeatedly doubled as needed for <em>n</em>=17 <code>push_back</code> calls, this involves 1 + 2 + 4 + 8 + 16 = 31 copy operations, which is less than 2×<em>n</em> = 34. And more generally the sum of this sequence can’t exceed 2×<em>n</em>.
+</p>
+<p>Compared to the dynamic size raw array example, this <code>vector</code>-based code does not require the user to supply (and know) the number of items up front. Instead the vector is just expanded as necessary, for each new item value specified by the user.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,15 @@
 </div>
 
 
-      <p>Let’s say we have a form like the one below. We want to send the data to our webserver via AJAX and from there to a script running on an external server.</p><img class="img" src="/img/6d7dfa56667d120e4491671c2241f6e1d97116e9.png"><p>So we have normal inputs, a multi-select field and a file dropzone where we can upload multiple files.</p><p>Assuming the AJAX POST request was successful we get the following data on PHP site:</p>
+      
+<p>Let’s say we have a form like the one below. We want to send the data to our webserver via AJAX and from there to a script running on an external server.
+</p>
+<img class="img" src="/img/6d7dfa56667d120e4491671c2241f6e1d97116e9.png">
+<p>So we have normal inputs, a multi-select field and a file dropzone where we can upload multiple files.
+</p>
+<p>Assuming the AJAX POST request was successful we get the following data on PHP site:
+</p>
+
 <div class="code-box lang-PHP">
 	<div>
 	<pre class="chroma">// print_r($_POST)
@@ -146,7 +154,10 @@ Array
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>and the files should look like this</p>
+</div>
+<p>and the files should look like this
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// print_r($_FILES)
@@ -192,7 +203,14 @@ Array
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So far, so good. Now we want to send this data and files to the external server using cURL with the CurlFile Class</p><p>Since cURL only accepts a simple but not a multi-dimensional array, we have to flatten the $_POST array first.</p><p>To do this, you could use <a href="http://codereview.stackexchange.com/a/14685">this function for example</a> which gives you the following:</p>
+</div>
+<p>So far, so good. Now we want to send this data and files to the external server using cURL with the CurlFile Class
+</p>
+<p>Since cURL only accepts a simple but not a multi-dimensional array, we have to flatten the $_POST array first.
+</p>
+<p>To do this, you could use <a href="http://codereview.stackexchange.com/a/14685">this function for example</a> which gives you the following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// print_r($new_post_array)
@@ -208,7 +226,10 @@ Array
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The next step is to create CurlFile Objects for the uploaded files. This is done by the following loop:</p>
+</div>
+<p>The next step is to create CurlFile Objects for the uploaded files. This is done by the following loop:
+</p>
+
 <div class="code-box lang-PHP">
 	<div>
 	<pre class="chroma">$files = array();
@@ -227,7 +248,12 @@ foreach ($_FILES[&#34;upload&#34;][&#34;error&#34;] as $key =&gt; $error) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>curl_file_create is a helper function of the CurlFile Class and creates the CurlFile objects. We save each object in the $files array with keys named “upload[0]” and “upload[1]” for our two files.</p><p>We now have to combine the flattened post array and the files array and save it as $data like this:</p>
+</div>
+<p>curl_file_create is a helper function of the CurlFile Class and creates the CurlFile objects. We save each object in the $files array with keys named “upload[0]” and “upload[1]” for our two files.
+</p>
+<p>We now have to combine the flattened post array and the files array and save it as $data like this:
+</p>
+
 <div class="code-box lang-PHP">
 	<div>
 	<pre class="chroma">$data = $new_post_array + $files;</pre>
@@ -235,7 +261,10 @@ foreach ($_FILES[&#34;upload&#34;][&#34;error&#34;] as $key =&gt; $error) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The last step is to send the cURL request:</p>
+</div>
+<p>The last step is to send the cURL request:
+</p>
+
 <div class="code-box lang-PHP">
 	<div>
 	<pre class="chroma">$ch = curl_init();
@@ -255,7 +284,11 @@ curl_close ($ch);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since $data is now a simple (flat) array, cURL automatically sends this POST request with Content Type: multipart/form-data</p><p>In upload.php on the external server you can now get the post data and files with $_POST and $_FILES as you would normally do.</p>
+</div>
+<p>Since $data is now a simple (flat) array, cURL automatically sends this POST request with Content Type: multipart/form-data
+</p>
+<p>In upload.php on the external server you can now get the post data and files with $_POST and $_FILES as you would normally do.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

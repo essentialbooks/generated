@@ -127,7 +127,15 @@
 </div>
 
 
-      <p>Regular expression matching is a powerful tool (in Java, and in other contexts) but it does have some drawbacks. One of these that regular expressions tends to be rather expensive.</p><h2 id="5607a19a-406e-4dc8-ba1e-58158071fcb2" class="">Pattern and Matcher instances should be reused<a class="header-anchor" href="#5607a19a-406e-4dc8-ba1e-58158071fcb2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Consider the following example:</p>
+      
+<p>Regular expression matching is a powerful tool (in Java, and in other contexts) but it does have some drawbacks. One of these that regular expressions tends to be rather expensive.
+</p>
+  <h2 id="5607a19a-406e-4dc8-ba1e-58158071fcb2" class="">Pattern and Matcher instances should be reused
+  <a class="header-anchor" href="#5607a19a-406e-4dc8-ba1e-58158071fcb2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Consider the following example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/**
@@ -148,7 +156,10 @@ public boolean allAlphanumeric(List&lt;String&gt; strings) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This code is correct, but it is inefficient. The problem is in the <code>matches(...)</code> call. Under the hood, <code>s.matches(&quot;[A-Za-z0-9]*&quot;)</code> is equivalent to this:</p>
+</div>
+<p>This code is correct, but it is inefficient. The problem is in the <code>matches(...)</code> call. Under the hood, <code>s.matches(&quot;[A-Za-z0-9]*&quot;)</code> is equivalent to this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Pattern.matches(s, &#34;[A-Za-z0-9]*&#34;)</pre>
@@ -156,7 +167,10 @@ public boolean allAlphanumeric(List&lt;String&gt; strings) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>which is in turn equivalent to</p>
+</div>
+<p>which is in turn equivalent to
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Pattern.compile(&#34;[A-Za-z0-9]*&#34;).matcher(s).matches()</pre>
@@ -164,7 +178,12 @@ public boolean allAlphanumeric(List&lt;String&gt; strings) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>Pattern.compile(&quot;[A-Za-z0-9]*&quot;)</code> call parses the regular expression, analyze it, and construct a <code>Pattern</code> object that holds the data structure that will be used by the regex engine. This is a non-trivial computation. Then a <code>Matcher</code> object is created to wrap the <code>s</code> argument. Finally we call <code>match()</code> to do the actual pattern matching.</p><p>The problem is that this work is all repeated for each loop iteration. The solution is to restructure the code as follows:</p>
+</div>
+<p>The <code>Pattern.compile(&quot;[A-Za-z0-9]*&quot;)</code> call parses the regular expression, analyze it, and construct a <code>Pattern</code> object that holds the data structure that will be used by the regex engine. This is a non-trivial computation. Then a <code>Matcher</code> object is created to wrap the <code>s</code> argument. Finally we call <code>match()</code> to do the actual pattern matching.
+</p>
+<p>The problem is that this work is all repeated for each loop iteration. The solution is to restructure the code as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private static Pattern ALPHA_NUMERIC = Pattern.compile(&#34;[A-Za-z0-9]*&#34;);
@@ -183,7 +202,17 @@ public boolean allAlphanumeric(List&lt;String&gt; strings) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that the <a href="http://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html">javadoc</a> for <code>Pattern</code> states:</p><blockquote id="e3368f5b-4444-4857-9d90-fd47c121b189" class="">Instances of this class are immutable and are safe for use by multiple concurrent threads. Instances of the Matcher class are not safe for such use.</blockquote><h2 id="4c89861d-88a7-4913-b19d-4c395c4c4b99" class="">Don’t use match() when you should use find()<a class="header-anchor" href="#4c89861d-88a7-4913-b19d-4c395c4c4b99" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Suppose you want to test if a string <code>s</code> contains three or more digits in a row. You cn express this in various ways including:</p>
+</div>
+<p>Note that the <a href="http://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html">javadoc</a> for <code>Pattern</code> states:
+</p>
+<blockquote id="e3368f5b-4444-4857-9d90-fd47c121b189" class="">Instances of this class are immutable and are safe for use by multiple concurrent threads. Instances of the Matcher class are not safe for such use.
+</blockquote>
+  <h2 id="4c89861d-88a7-4913-b19d-4c395c4c4b99" class="">Don’t use match() when you should use find()
+  <a class="header-anchor" href="#4c89861d-88a7-4913-b19d-4c395c4c4b99" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Suppose you want to test if a string <code>s</code> contains three or more digits in a row. You cn express this in various ways including:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if (s.matches(&#34;.*[0-9]{3}.*&#34;)) {
@@ -193,7 +222,10 @@ public boolean allAlphanumeric(List&lt;String&gt; strings) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>or</p>
+</div>
+<p>or
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if (Pattern.compile(&#34;[0-9]{3}&#34;).matcher(s).find()) {
@@ -203,7 +235,17 @@ public boolean allAlphanumeric(List&lt;String&gt; strings) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The first one is more concise, but it is also likely to be less efficient. On the face of it, the first version is going to try to match the entire string against the pattern. Furthermore, since “.*” is a “greedy” pattern, the pattern matcher is likely to advance “eagerly” try to the end of the string, and backtrack until it finds a match.</p><p>By contrast, the second version will search from left to right and will stop searching as soon as it finds the 3 digits in a row.</p><h2 id="25847bbd-a3ae-4eee-8dc3-9f93179cd43c" class="">Use more efficient alternatives to regular expressions<a class="header-anchor" href="#25847bbd-a3ae-4eee-8dc3-9f93179cd43c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Regular expressions are a powerful tool, but they should not be your only tool. A lot of tasks can be done more efficiently in other ways. For example:</p>
+</div>
+<p>The first one is more concise, but it is also likely to be less efficient. On the face of it, the first version is going to try to match the entire string against the pattern. Furthermore, since “.*” is a “greedy” pattern, the pattern matcher is likely to advance “eagerly” try to the end of the string, and backtrack until it finds a match.
+</p>
+<p>By contrast, the second version will search from left to right and will stop searching as soon as it finds the 3 digits in a row.
+</p>
+  <h2 id="25847bbd-a3ae-4eee-8dc3-9f93179cd43c" class="">Use more efficient alternatives to regular expressions
+  <a class="header-anchor" href="#25847bbd-a3ae-4eee-8dc3-9f93179cd43c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Regular expressions are a powerful tool, but they should not be your only tool. A lot of tasks can be done more efficiently in other ways. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Pattern.compile(&#34;ABC&#34;).matcher(s).find()</pre>
@@ -211,7 +253,10 @@ public boolean allAlphanumeric(List&lt;String&gt; strings) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>does the same thing as:</p>
+</div>
+<p>does the same thing as:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">s.contains(&#34;ABC&#34;)</pre>
@@ -219,7 +264,12 @@ public boolean allAlphanumeric(List&lt;String&gt; strings) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>except that the latter is a lot more efficient. (Even if you can amortize the cost of compiling the regular expression.)</p><p>Often, the non-regex form is more complicated. For example, the test performed by the <code>matches()</code> call the earlier <code>allAlplanumeric</code> method can be rewritten as:</p>
+</div>
+<p>except that the latter is a lot more efficient. (Even if you can amortize the cost of compiling the regular expression.)
+</p>
+<p>Often, the non-regex form is more complicated. For example, the test performed by the <code>matches()</code> call the earlier <code>allAlplanumeric</code> method can be rewritten as:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public boolean matches(String s) {
@@ -236,7 +286,17 @@ public boolean allAlphanumeric(List&lt;String&gt; strings) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now that is more code than using a <code>Matcher</code>, but it is also going to be significantly faster.</p><h2 id="068640ad-6a23-4a41-a1f2-a6a7a4f2cee8" class="">Catastrophic Backtracking<a class="header-anchor" href="#068640ad-6a23-4a41-a1f2-a6a7a4f2cee8" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>(This is potentially a problem with all implementations of regular expressions, but we will mention it here because it is a pitfall for <code>Pattern</code> usage.)</p><p>Consider this (contrived) example:</p>
+</div>
+<p>Now that is more code than using a <code>Matcher</code>, but it is also going to be significantly faster.
+</p>
+  <h2 id="068640ad-6a23-4a41-a1f2-a6a7a4f2cee8" class="">Catastrophic Backtracking
+  <a class="header-anchor" href="#068640ad-6a23-4a41-a1f2-a6a7a4f2cee8" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>(This is potentially a problem with all implementations of regular expressions, but we will mention it here because it is a pitfall for <code>Pattern</code> usage.)
+</p>
+<p>Consider this (contrived) example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Pattern pat = Pattern.compile(&#34;(A+)+B&#34;);
@@ -246,7 +306,49 @@ System.out.println(pat.matcher(&#34;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC&#34;).matche
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The first <code>println</code> call will quickly print <code>true</code>. The second one will print <code>false</code>. Eventually. Indeed, if you experiment with the code above, you will see that each time you add an <code>A</code> before the <code>C</code>, the time take will double.</p><p>This is behavior is an example of <em>catastrophic backtracking</em>. The pattern matching engine that implements the regex matching is fruitlessly trying all of the <em>possible</em> ways that the pattern <em>might</em> match.</p><p>Let us look at what <code>(A+)+B</code> actually means. Superficially, it seems to say “one or more <code>A</code> characters followed by a <code>B</code> value”, but in reality it says one or more groups, each of which consists of one or more <code>A</code> characters. So, for example:</p><ul id="09149c13-7aaa-4763-8e24-a84517360457" class="bulleted-list"><li>‘AB’ matches one way only: ‘(A)B’</li><li>‘AAB’ matches two ways: ‘(AA)B’ or ’(A)(A)B`</li><li>‘AAAB’ matches four ways: ‘(AAA)B’ or ’(AA)(A)B<code>or &#x27;(A)(AA)B</code> or ’(A)(A)(A)B`</li><li>and so on</li></ul><p>In other words, the number of possible matches is 2N where N is the number of <code>A</code> characters.</p><p>The above example is clearly contrived, but patterns that exhibit this kind of performance characteristics (i.e. <code>O(2^N)</code> or <code>O(N^K)</code> for a large <code>K</code>) arise frequently when ill-considered regular expressions are used. There are some standard remedies:</p><ul id="8d2bd0bb-6154-4e1b-add1-d52c4b59e815" class="bulleted-list"><li>Avoid nesting repeating patterns within other repeating patterns.</li><li>Avoid using too many repeating patterns.</li><li>Use non-backtracking repetition as appropriate.</li><li>Don’t use regexes for complicated parsing tasks. (Write a proper parser instead.)</li></ul><p>Finally, beware of situations where a user or an API client can supply a regex string with pathological characteristics. That can lead to accidental or deliberate “denial of service”.</p><p>References:</p><ul id="75ccb2ab-c185-43c6-9b70-f6b75567f8ac" class="bulleted-list"><li>The <a href="http://stackoverflow.com/documentation/regex">Regular Expressions</a> tag, particularly http://stackoverflow.com/documentation/regex/977/backtracking#t=201610010339131361163 and http://stackoverflow.com/documentation/regex/4527/when-you-should-not-use-regular-expressions#t=201610010339593564913</li><li><a href="https://blog.codinghorror.com/regex-performance/">“Regex Performance”</a> by Jeff Atwood.</li><li><a href="http://andreas.haufler.info/2013/09/how-to-kill-java-with-regular-expression.html">“How to kill Java with a Regular Expression”</a> by Andreas Haufler.</li></ul>
+</div>
+<p>The first <code>println</code> call will quickly print <code>true</code>. The second one will print <code>false</code>. Eventually. Indeed, if you experiment with the code above, you will see that each time you add an <code>A</code> before the <code>C</code>, the time take will double.
+</p>
+<p>This is behavior is an example of <em>catastrophic backtracking</em>. The pattern matching engine that implements the regex matching is fruitlessly trying all of the <em>possible</em> ways that the pattern <em>might</em> match.
+</p>
+<p>Let us look at what <code>(A+)+B</code> actually means. Superficially, it seems to say “one or more <code>A</code> characters followed by a <code>B</code> value”, but in reality it says one or more groups, each of which consists of one or more <code>A</code> characters. So, for example:
+</p>
+  <ul id="09149c13-7aaa-4763-8e24-a84517360457" class="bulleted-list">
+    <li>‘AB’ matches one way only: ‘(A)B’
+    </li>
+    <li>‘AAB’ matches two ways: ‘(AA)B’ or ’(A)(A)B`
+    </li>
+    <li>‘AAAB’ matches four ways: ‘(AAA)B’ or ’(AA)(A)B<code>or &#x27;(A)(AA)B</code> or ’(A)(A)(A)B`
+    </li>
+    <li>and so on
+    </li>
+  </ul>
+<p>In other words, the number of possible matches is 2N where N is the number of <code>A</code> characters.
+</p>
+<p>The above example is clearly contrived, but patterns that exhibit this kind of performance characteristics (i.e. <code>O(2^N)</code> or <code>O(N^K)</code> for a large <code>K</code>) arise frequently when ill-considered regular expressions are used. There are some standard remedies:
+</p>
+  <ul id="8d2bd0bb-6154-4e1b-add1-d52c4b59e815" class="bulleted-list">
+    <li>Avoid nesting repeating patterns within other repeating patterns.
+    </li>
+    <li>Avoid using too many repeating patterns.
+    </li>
+    <li>Use non-backtracking repetition as appropriate.
+    </li>
+    <li>Don’t use regexes for complicated parsing tasks. (Write a proper parser instead.)
+    </li>
+  </ul>
+<p>Finally, beware of situations where a user or an API client can supply a regex string with pathological characteristics. That can lead to accidental or deliberate “denial of service”.
+</p>
+<p>References:
+</p>
+  <ul id="75ccb2ab-c185-43c6-9b70-f6b75567f8ac" class="bulleted-list">
+    <li>The <a href="http://stackoverflow.com/documentation/regex">Regular Expressions</a> tag, particularly http://stackoverflow.com/documentation/regex/977/backtracking#t=201610010339131361163 and http://stackoverflow.com/documentation/regex/4527/when-you-should-not-use-regular-expressions#t=201610010339593564913
+    </li>
+    <li><a href="https://blog.codinghorror.com/regex-performance/">“Regex Performance”</a> by Jeff Atwood.
+    </li>
+    <li><a href="http://andreas.haufler.info/2013/09/how-to-kill-java-with-regular-expression.html">“How to kill Java with a Regular Expression”</a> by Andreas Haufler.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

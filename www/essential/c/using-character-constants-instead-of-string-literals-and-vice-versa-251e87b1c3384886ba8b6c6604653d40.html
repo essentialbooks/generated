@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>In C, character constants and string literals are different things.</p><p>A character surrounded by single quotes like <code>&#x27;a&#x27;</code> is a <em>character constant</em>. A character constant is an integer whose value is the character code that stands for the character. How to interpret character constants with multiple characters like <code>&#x27;abc&#x27;</code> is implementation-defined.</p><p>Zero or more characters surrounded by double quotes like <code>&quot;abc&quot;</code> is a <em>string literal</em>. A string literal is an unmodifiable array whose elements are type <code>char</code>. The string in the double quotes plus terminating null-character are the contents, so <code>&quot;abc&quot;</code> has 4 elements (<code>{&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;\0&#x27;}</code>)</p><p>In this example, a character constant is used where a string literal should be used. This character constant will be converted to a pointer in an implementation-defined manner and there is little chance for the converted pointer to be valid, so this example will invoke <em>undefined behavior</em>.</p>
+      
+<p>In C, character constants and string literals are different things.
+</p>
+<p>A character surrounded by single quotes like <code>&#x27;a&#x27;</code> is a <em>character constant</em>. A character constant is an integer whose value is the character code that stands for the character. How to interpret character constants with multiple characters like <code>&#x27;abc&#x27;</code> is implementation-defined.
+</p>
+<p>Zero or more characters surrounded by double quotes like <code>&quot;abc&quot;</code> is a <em>string literal</em>. A string literal is an unmodifiable array whose elements are type <code>char</code>. The string in the double quotes plus terminating null-character are the contents, so <code>&quot;abc&quot;</code> has 4 elements (<code>{&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;\0&#x27;}</code>)
+</p>
+<p>In this example, a character constant is used where a string literal should be used. This character constant will be converted to a pointer in an implementation-defined manner and there is little chance for the converted pointer to be valid, so this example will invoke <em>undefined behavior</em>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -141,7 +150,10 @@ int main(void) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this example, a string literal is used where a character constant should be used. The pointer converted from the string literal will be converted to an integer in an implementation-defined manner, and it will be converted to <code>char</code> in an implementation-defined manner. (How to convert an integer to a signed type which cannot represent the value to convert is implementation-defined, and whether <code>char</code> is signed is also implementation-defined.) The output will be some meaningless thing.</p>
+</div>
+<p>In this example, a string literal is used where a character constant should be used. The pointer converted from the string literal will be converted to an integer in an implementation-defined manner, and it will be converted to <code>char</code> in an implementation-defined manner. (How to convert an integer to a signed type which cannot represent the value to convert is implementation-defined, and whether <code>char</code> is signed is also implementation-defined.) The output will be some meaningless thing.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -155,7 +167,9 @@ int main(void) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In almost all cases, the compiler will complain about these mix-ups. If it doesn’t, you need to use more compiler warning options, or it is recommended that you use a better compiler.</p>
+</div>
+<p>In almost all cases, the compiler will complain about these mix-ups. If it doesn’t, you need to use more compiler warning options, or it is recommended that you use a better compiler.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

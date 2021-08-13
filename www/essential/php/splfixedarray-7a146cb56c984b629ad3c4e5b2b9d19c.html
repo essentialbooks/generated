@@ -127,7 +127,16 @@
 </div>
 
 
-      <h1 id="46a17f9c-c7fc-4e81-bd40-179b497a7c19" class="">Difference from PHP Array<a class="header-anchor" href="#46a17f9c-c7fc-4e81-bd40-179b497a7c19" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>PHP’s default Array type is actually implemented as ordered hash maps, which allow us to create arrays that consist of key/value pairs where values can be of any type and keys can be either numbers or strings. This is not traditionally how arrays are created, however.</p><img class="img" src="/img/0423346882b4cbde6ce48e0b994fcb025d3ed437.png"><p>So as you can see from this illustration a normal PHP array can be viewed more like an an ordered set of key/value pairs, where each key can map to any value. Notice in this array we have keys that are both numbers and strings, as well as values of different types and the key has no bearing on the order of the elements.</p>
+      
+  <h1 id="46a17f9c-c7fc-4e81-bd40-179b497a7c19" class="">Difference from PHP Array
+  <a class="header-anchor" href="#46a17f9c-c7fc-4e81-bd40-179b497a7c19" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>PHP’s default Array type is actually implemented as ordered hash maps, which allow us to create arrays that consist of key/value pairs where values can be of any type and keys can be either numbers or strings. This is not traditionally how arrays are created, however.
+</p>
+<img class="img" src="/img/0423346882b4cbde6ce48e0b994fcb025d3ed437.png">
+<p>So as you can see from this illustration a normal PHP array can be viewed more like an an ordered set of key/value pairs, where each key can map to any value. Notice in this array we have keys that are both numbers and strings, as well as values of different types and the key has no bearing on the order of the elements.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$arr = [
@@ -143,7 +152,10 @@ foreach($arr as $key =&gt; $value) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So the above code would give us exactly what we’d expect.</p>
+</div>
+<p>So the above code would give us exactly what we’d expect.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">9 =&gt; foo
@@ -153,7 +165,28 @@ bar =&gt;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Regular PHP arrays are also dynamically sized for us. They grow and shrink as we push and pop values to and from the array, automatically.</p><p>However, in a traditional array the size is fixed and consists entirely of the same type of value. Also, rather than keys each value is access by its index, which can be deduced by its offset in the array.</p><p></p><img class="img" src="/img/6190416debf3f5f01d5725948cf62f0e803820b9.png"><p>Since we would know the size of a given type and the fixed size of the array an offset is then the <code>type size * n</code> were <code>n</code> represents the value’s position in the array. So in the example above <code>$arr[0]</code> gives us <code>1</code>, the first element in the array and <code>$arr[1]</code> gives us <code>2</code>, and so on.</p><p>SplFixedArray, however, doesn’t restrict the type of values. It only restricts the keys to number types. It’s also of a fixed size.</p><p>This makes SplFixedArrays more efficient than normal PHP arrays in one particular way. They are more compact so they require less memory.</p><h1 id="a4fb094d-5d5b-47de-9bcb-a2fe723ce8b7" class="">Instantiating the array<a class="header-anchor" href="#a4fb094d-5d5b-47de-9bcb-a2fe723ce8b7" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>SplFixedArray is implemented as an object, but it can be accessed with the same familiar syntax that you access a normal PHP array since they implement the <code>ArrayAccess</code> interface. They also implement <code>Countable</code> and <code>Iterator</code> interfaces so they behave the same way you’d be used to arrays behaving in PHP (i.e. things like <code>count($arr)</code> and <code>foreach($arr as $k =&gt; $v)</code> work the same way for SplFixedArray as they do normal arrays in PHP.</p><p>The SplFixedArray constructor takes one argument, which is the size of the array.</p>
+</div>
+<p>Regular PHP arrays are also dynamically sized for us. They grow and shrink as we push and pop values to and from the array, automatically.
+</p>
+<p>However, in a traditional array the size is fixed and consists entirely of the same type of value. Also, rather than keys each value is access by its index, which can be deduced by its offset in the array.
+</p>
+<p>
+</p>
+<img class="img" src="/img/6190416debf3f5f01d5725948cf62f0e803820b9.png">
+<p>Since we would know the size of a given type and the fixed size of the array an offset is then the <code>type size * n</code> were <code>n</code> represents the value’s position in the array. So in the example above <code>$arr[0]</code> gives us <code>1</code>, the first element in the array and <code>$arr[1]</code> gives us <code>2</code>, and so on.
+</p>
+<p>SplFixedArray, however, doesn’t restrict the type of values. It only restricts the keys to number types. It’s also of a fixed size.
+</p>
+<p>This makes SplFixedArrays more efficient than normal PHP arrays in one particular way. They are more compact so they require less memory.
+</p>
+  <h1 id="a4fb094d-5d5b-47de-9bcb-a2fe723ce8b7" class="">Instantiating the array
+  <a class="header-anchor" href="#a4fb094d-5d5b-47de-9bcb-a2fe723ce8b7" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>SplFixedArray is implemented as an object, but it can be accessed with the same familiar syntax that you access a normal PHP array since they implement the <code>ArrayAccess</code> interface. They also implement <code>Countable</code> and <code>Iterator</code> interfaces so they behave the same way you’d be used to arrays behaving in PHP (i.e. things like <code>count($arr)</code> and <code>foreach($arr as $k =&gt; $v)</code> work the same way for SplFixedArray as they do normal arrays in PHP.
+</p>
+<p>The SplFixedArray constructor takes one argument, which is the size of the array.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$arr = new SplFixedArray(4);
@@ -169,7 +202,10 @@ foreach($arr as $key =&gt; $value) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This gives you what you would expect.</p>
+</div>
+<p>This gives you what you would expect.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">0 =&gt; foo
@@ -180,7 +216,10 @@ foreach($arr as $key =&gt; $value) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This also works as expected.</p>
+</div>
+<p>This also works as expected.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var_dump(count($arr));</pre>
@@ -188,7 +227,10 @@ foreach($arr as $key =&gt; $value) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Gives us…</p>
+</div>
+<p>Gives us…
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int(4)</pre>
@@ -196,7 +238,17 @@ foreach($arr as $key =&gt; $value) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Notice in SplFixedArray, unlike a normal PHP Array, the key does depict the order of the element in our array, because it is a <em>true index</em> and not just a <em>map</em>.</p><h1 id="8a69c5fc-29c8-458d-99be-636f5af713b0" class="">Resizing the array<a class="header-anchor" href="#8a69c5fc-29c8-458d-99be-636f5af713b0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Just keep in mind that because the array is of a fixed size, count will always return the same value. So while <code>unset($arr[1])</code> will result in <code>$arr[1] === null</code>, <code>count($arr)</code> still remains <code>4</code>.</p><p>So to resize the array you will need to call on the <code>setSize</code> method.</p>
+</div>
+<p>Notice in SplFixedArray, unlike a normal PHP Array, the key does depict the order of the element in our array, because it is a <em>true index</em> and not just a <em>map</em>.
+</p>
+  <h1 id="8a69c5fc-29c8-458d-99be-636f5af713b0" class="">Resizing the array
+  <a class="header-anchor" href="#8a69c5fc-29c8-458d-99be-636f5af713b0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Just keep in mind that because the array is of a fixed size, count will always return the same value. So while <code>unset($arr[1])</code> will result in <code>$arr[1] === null</code>, <code>count($arr)</code> still remains <code>4</code>.
+</p>
+<p>So to resize the array you will need to call on the <code>setSize</code> method.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$arr-&gt;setSize(3);
@@ -210,7 +262,10 @@ foreach($arr as $key =&gt; $value) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we get…</p>
+</div>
+<p>Now we get…
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int(3)
@@ -221,7 +276,13 @@ foreach($arr as $key =&gt; $value) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="d22649c1-d1e3-4619-ad2b-e2e416002d66" class="">Import to SplFixedArray &amp; Export from SplFixedArray<a class="header-anchor" href="#d22649c1-d1e3-4619-ad2b-e2e416002d66" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>You can also import/export a normal PHP Array into and out of an SplFixedArray with the <code>fromArray</code> and <code>toArray</code> methods.</p>
+</div>
+  <h1 id="d22649c1-d1e3-4619-ad2b-e2e416002d66" class="">Import to SplFixedArray &amp; Export from SplFixedArray
+  <a class="header-anchor" href="#d22649c1-d1e3-4619-ad2b-e2e416002d66" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>You can also import/export a normal PHP Array into and out of an SplFixedArray with the <code>fromArray</code> and <code>toArray</code> methods.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$array      = [1,2,3,4,5];
@@ -235,6 +296,7 @@ foreach($fixedArray as $value) {
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">1
@@ -246,7 +308,10 @@ foreach($fixedArray as $value) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Going the other way.</p>
+</div>
+<p>Going the other way.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$fixedArray = new SplFixedArray(5);
@@ -267,6 +332,7 @@ foreach($array as $value) {
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">1

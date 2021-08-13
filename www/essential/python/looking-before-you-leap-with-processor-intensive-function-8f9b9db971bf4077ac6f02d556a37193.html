@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>A program can easily waste time by calling a processor-intensive function multiple times.</p><p>For example, take a function which looks like this: it returns an integer if the input <code>value</code> can produce one, else <code>None</code>:</p>
+      
+<p>A program can easily waste time by calling a processor-intensive function multiple times.
+</p>
+<p>For example, take a function which looks like this: it returns an integer if the input <code>value</code> can produce one, else <code>None</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def intensive_f(value): # int -&gt; Optional[int]
@@ -139,7 +144,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And it could be used in the following way:</p>
+</div>
+<p>And it could be used in the following way:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">x = 5
@@ -153,7 +161,10 @@ print(x)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Whilst this will work, it has the problem of calling <code>intensive_f</code>, which doubles the length of time for the code to run. A better solution would be to get the return value of the function beforehand.</p>
+</div>
+<p>Whilst this will work, it has the problem of calling <code>intensive_f</code>, which doubles the length of time for the code to run. A better solution would be to get the return value of the function beforehand.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">x = 5
@@ -166,7 +177,10 @@ else:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, a clearer and <a href="https://docs.python.org/3/glossary.html#term-eafp">possibly more pythonic way</a> is to use exceptions, for example:</p>
+</div>
+<p>However, a clearer and <a href="https://docs.python.org/3/glossary.html#term-eafp">possibly more pythonic way</a> is to use exceptions, for example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">x = 5
@@ -178,7 +192,15 @@ except TypeError: # The exception raised if None + 1 is attempted
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here no temporary variable is needed. It may often be preferable to use a <code>assert</code> statement, and to catch the <code>AssertionError</code> instead.</p><h2 id="07ab3da1-3d1c-4374-8e4a-688e5d75d6d2" class="">Dictionary keys<a class="header-anchor" href="#07ab3da1-3d1c-4374-8e4a-688e5d75d6d2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>A common example of where this may be found is accessing dictionary keys. For example compare:</p>
+</div>
+<p>Here no temporary variable is needed. It may often be preferable to use a <code>assert</code> statement, and to catch the <code>AssertionError</code> instead.
+</p>
+  <h2 id="07ab3da1-3d1c-4374-8e4a-688e5d75d6d2" class="">Dictionary keys
+  <a class="header-anchor" href="#07ab3da1-3d1c-4374-8e4a-688e5d75d6d2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>A common example of where this may be found is accessing dictionary keys. For example compare:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">bird_speeds = get_very_long_dictionary()
@@ -193,7 +215,10 @@ print(speed)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>with:</p>
+</div>
+<p>with:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">bird_speeds = get_very_long_dictionary()
@@ -208,7 +233,12 @@ print(speed)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The first example has to look through the dictionary twice, and as this is a long dictionary, it may take a long time to do so each time. The second only requires one search through the dictionary, and thus saves a lot of processor time.</p><p><em>An alternative to this is to use </em><code><em>dict.get(key, default)</em></code><em>, however many circumstances may require more complex operations to be done in the case that the key is not present</em></p>
+</div>
+<p>The first example has to look through the dictionary twice, and as this is a long dictionary, it may take a long time to do so each time. The second only requires one search through the dictionary, and thus saves a lot of processor time.
+</p>
+<p><em>An alternative to this is to use </em><code><em>dict.get(key, default)</em></code><em>, however many circumstances may require more complex operations to be done in the case that the key is not present</em>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"></pre>

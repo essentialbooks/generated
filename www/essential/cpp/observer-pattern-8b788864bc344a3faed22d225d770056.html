@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Observer Pattern’s intent is to define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.</p><p>The subject and observers define the one-to-many relationship. The observers are dependent on the subject such that when the subject’s state changes, the observers get notified. Depending on the notification, the observers may also be updated with new values.</p><p>Here is the example from the book “Design Patterns” by Gamma.</p>
+      
+<p>Observer Pattern’s intent is to define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
+</p>
+<p>The subject and observers define the one-to-many relationship. The observers are dependent on the subject such that when the subject’s state changes, the observers get notified. Depending on the notification, the observers may also be updated with new values.
+</p>
+<p>Here is the example from the book “Design Patterns” by Gamma.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;
@@ -247,6 +254,7 @@ int main()
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">timer.SetTime(14, 41, 36);
@@ -255,7 +263,10 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output:</p>
+</div>
+<p>Output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Digital time is 14:41:36
@@ -264,7 +275,33 @@ Analog time is 14:41:36</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here are the summary of the pattern:</p><ol id="a2b67293-fc3c-4ab8-b6d6-b8c7717168de" class="numbered-list" start="1"><li>Objects (<code>DigitalClock</code> or <code>AnalogClock</code> object) use the Subject interfaces (<code>Attach()</code> or <code>Detach()</code>) either to subscribe (register) as observers or unsubscribe (remove) themselves from being observers (<code>subject.Attach(*this);</code> , <code>subject.Detach(*this);</code>.</li><li>Each subject can have many observers( <code>vector&lt;Observer*&gt; observers;</code>).</li><li>All observers need to implement the Observer interface. This interface just has one method, <code>Update()</code>, that gets called when the Subject’s state changes (<code>Update(Subject &amp;)</code>)</li><li>In addition to the <code>Attach()</code> and <code>Detach()</code> methods, the concrete subject implements a <code>Notify()</code> method that is used to update all the current observers whenever state changes. But in this case, all of them are done in the parent class, <code>Subject</code> (<code>Subject::Attach (Observer&amp;)</code>, <code>void Subject::Detach(Observer&amp;)</code> and <code>void Subject::Notify()</code> .</li><li>The Concrete object may also have methods for setting and getting its state.</li><li>Concrete observers can be any class that implements the Observer interface. Each observer subscribe (register) with a concrete subject to receive update (<code>subject.Attach(*this);</code> ).</li><li>The two objects of Observer Pattern are <strong>loosely coupled</strong>, they can interact but with little knowledge of each other.</li></ol><p><strong>Variation:</strong></p><p>Signal and Slots</p><p>Signals and slots is a language construct introduced in Qt, which makes it easy to implement the Observer pattern while avoiding boilerplate code. The concept is that controls (also known as widgets) can send signals containing event information which can be received by other controls using special functions known as slots. The slot in Qt must be a class member declared as such. The signal/slot system fits well with the way Graphical User Interfaces are designed. Similarly, the signal/slot system can be used for asynchronous I/O (including sockets, pipes, serial devices, etc.) event notification or to associate timeout events with appropriate object instances and methods or functions. No registration/deregistration/invocation code need be written, because Qt’s Meta Object Compiler (MOC) automatically generates the needed infrastructure.</p><p>The C# language also supports a similar construct although with a different terminology and syntax: events play the role of signals, and delegates are the slots. Additionally, a delegate can be a local variable, much like a function pointer, while a slot in Qt must be a class member declared as such.</p>
+</div>
+<p>Here are the summary of the pattern:
+</p>
+  <ol id="a2b67293-fc3c-4ab8-b6d6-b8c7717168de" class="numbered-list" start="1">
+    <li>Objects (<code>DigitalClock</code> or <code>AnalogClock</code> object) use the Subject interfaces (<code>Attach()</code> or <code>Detach()</code>) either to subscribe (register) as observers or unsubscribe (remove) themselves from being observers (<code>subject.Attach(*this);</code> , <code>subject.Detach(*this);</code>.
+    </li>
+    <li>Each subject can have many observers( <code>vector&lt;Observer*&gt; observers;</code>).
+    </li>
+    <li>All observers need to implement the Observer interface. This interface just has one method, <code>Update()</code>, that gets called when the Subject’s state changes (<code>Update(Subject &amp;)</code>)
+    </li>
+    <li>In addition to the <code>Attach()</code> and <code>Detach()</code> methods, the concrete subject implements a <code>Notify()</code> method that is used to update all the current observers whenever state changes. But in this case, all of them are done in the parent class, <code>Subject</code> (<code>Subject::Attach (Observer&amp;)</code>, <code>void Subject::Detach(Observer&amp;)</code> and <code>void Subject::Notify()</code> .
+    </li>
+    <li>The Concrete object may also have methods for setting and getting its state.
+    </li>
+    <li>Concrete observers can be any class that implements the Observer interface. Each observer subscribe (register) with a concrete subject to receive update (<code>subject.Attach(*this);</code> ).
+    </li>
+    <li>The two objects of Observer Pattern are <strong>loosely coupled</strong>, they can interact but with little knowledge of each other.
+    </li>
+  </ol>
+<p><strong>Variation:</strong>
+</p>
+<p>Signal and Slots
+</p>
+<p>Signals and slots is a language construct introduced in Qt, which makes it easy to implement the Observer pattern while avoiding boilerplate code. The concept is that controls (also known as widgets) can send signals containing event information which can be received by other controls using special functions known as slots. The slot in Qt must be a class member declared as such. The signal/slot system fits well with the way Graphical User Interfaces are designed. Similarly, the signal/slot system can be used for asynchronous I/O (including sockets, pipes, serial devices, etc.) event notification or to associate timeout events with appropriate object instances and methods or functions. No registration/deregistration/invocation code need be written, because Qt’s Meta Object Compiler (MOC) automatically generates the needed infrastructure.
+</p>
+<p>The C# language also supports a similar construct although with a different terminology and syntax: events play the role of signals, and delegates are the slots. Additionally, a delegate can be a local variable, much like a function pointer, while a slot in Qt must be a class member declared as such.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

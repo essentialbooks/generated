@@ -127,7 +127,19 @@
 </div>
 
 
-      <p>A common pattern in C# is using <code>bool TryParse(object input, out object value)</code> to safely parse objects.</p><p>The <code>out var</code> declaration is a simple feature to improve readability. It allows a variable to be declared at the same time that is it passed as an out parameter.</p><p>A variable declared this way is scoped to the remainder of the body at the point in which it is declared.</p><h1 id="25640ad0-8848-4211-a848-68189aea955b" class="">Example<a class="header-anchor" href="#25640ad0-8848-4211-a848-68189aea955b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Using <code>TryParse</code> prior to C# 7.0, you must declare a variable to receive the value before calling the function:</p>
+      
+<p>A common pattern in C# is using <code>bool TryParse(object input, out object value)</code> to safely parse objects.
+</p>
+<p>The <code>out var</code> declaration is a simple feature to improve readability. It allows a variable to be declared at the same time that is it passed as an out parameter.
+</p>
+<p>A variable declared this way is scoped to the remainder of the body at the point in which it is declared.
+</p>
+  <h1 id="25640ad0-8848-4211-a848-68189aea955b" class="">Example
+  <a class="header-anchor" href="#25640ad0-8848-4211-a848-68189aea955b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Using <code>TryParse</code> prior to C# 7.0, you must declare a variable to receive the value before calling the function:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">int</span> <span class="k">value</span><span class="p">;</span>
@@ -146,7 +158,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In C# 7.0, you can inline the declaration of the variable passed to the <code>out</code> parameter, eliminating the need for a separate variable declaration:</p>
+</div>
+<p>In C# 7.0, you can inline the declaration of the variable passed to the <code>out</code> parameter, eliminating the need for a separate variable declaration:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">if</span> <span class="p">(</span><span class="kt">int</span><span class="p">.</span><span class="n">TryParse</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="k">out</span> <span class="kt">var</span> <span class="k">value</span><span class="p">))</span> 
@@ -164,7 +179,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If some of the parameters that a function returns in <code>out</code> is not needed you can use the <em>discard</em> operator <code>\_</code>.</p>
+</div>
+<p>If some of the parameters that a function returns in <code>out</code> is not needed you can use the <em>discard</em> operator <code>\_</code>.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">p</span><span class="p">.</span><span class="n">GetCoordinates</span><span class="p">(</span><span class="k">out</span> <span class="kt">var</span> <span class="n">x</span><span class="p">,</span> <span class="k">out</span> <span class="n">_</span><span class="p">);</span> <span class="c1">// I only care about x
@@ -173,7 +191,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>An <code>out var</code> declaration can be used with any existing function which already has <code>out</code> parameters. The function declaration syntax remains the same, and no additional requirements are needed to make the function compatible with an <code>out var</code> declaration. This feature is simply syntactic sugar.</p><p>Another feature of <code>out var</code> declaration is that it can be used with anonymous types.</p>
+</div>
+<p>An <code>out var</code> declaration can be used with any existing function which already has <code>out</code> parameters. The function declaration syntax remains the same, and no additional requirements are needed to make the function compatible with an <code>out var</code> declaration. This feature is simply syntactic sugar.
+</p>
+<p>Another feature of <code>out var</code> declaration is that it can be used with anonymous types.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">var</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">9</span> <span class="p">};</span>
@@ -193,7 +216,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this code we create a <code>Dictionary</code> with <code>int</code> key and array of anonymous type value. In the previous version of C# it was impossible to use <code>TryGetValue</code> method here since it required you to declare the <code>out</code> variable (which is of anonymous type!). However, with <code>out var</code> we do not need to explicitly specify the type of the <code>out</code> variable.</p><h1 id="9821e483-accb-4915-bb7a-7146eea538db" class="">Limitations<a class="header-anchor" href="#9821e483-accb-4915-bb7a-7146eea538db" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Note that out var declarations are of limited use in LINQ queries as expressions are interpreted as expression lambda bodies, so the scope of the introduced variables is limited to these lambdas. For example, the following code will not work:</p>
+</div>
+<p>In this code we create a <code>Dictionary</code> with <code>int</code> key and array of anonymous type value. In the previous version of C# it was impossible to use <code>TryGetValue</code> method here since it required you to declare the <code>out</code> variable (which is of anonymous type!). However, with <code>out var</code> we do not need to explicitly specify the type of the <code>out</code> variable.
+</p>
+  <h1 id="9821e483-accb-4915-bb7a-7146eea538db" class="">Limitations
+  <a class="header-anchor" href="#9821e483-accb-4915-bb7a-7146eea538db" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Note that out var declarations are of limited use in LINQ queries as expressions are interpreted as expression lambda bodies, so the scope of the introduced variables is limited to these lambdas. For example, the following code will not work:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">var</span> <span class="n">nums</span> <span class="p">=</span> 
@@ -205,7 +236,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="5d498042-8422-4afa-8cbe-c5bfa5d9eecf" class="">References<a class="header-anchor" href="#5d498042-8422-4afa-8cbe-c5bfa5d9eecf" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><ul id="174c8ef3-2230-43e8-b1e2-7d86b1e68dd3" class="bulleted-list"><li><a href="https://github.com/dotnet/roslyn/issues/6183">Original out var declaration proposal on GitHub</a></li></ul>
+</div>
+  <h1 id="5d498042-8422-4afa-8cbe-c5bfa5d9eecf" class="">References
+  <a class="header-anchor" href="#5d498042-8422-4afa-8cbe-c5bfa5d9eecf" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <ul id="174c8ef3-2230-43e8-b1e2-7d86b1e68dd3" class="bulleted-list">
+    <li><a href="https://github.com/dotnet/roslyn/issues/6183">Original out var declaration proposal on GitHub</a>
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

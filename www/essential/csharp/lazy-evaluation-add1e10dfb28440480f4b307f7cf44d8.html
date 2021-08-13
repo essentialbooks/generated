@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Only when the <code>foreach</code> statement moves to the next item does the iterator block evaluate up to the next <code>yield</code> statement.</p><p>Consider the following example:</p>
+      
+<p>Only when the <code>foreach</code> statement moves to the next item does the iterator block evaluate up to the next <code>yield</code> statement.
+</p>
+<p>Consider the following example:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">private</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">Integers</span><span class="p">()</span>
@@ -156,13 +161,29 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will output:</p><blockquote id="f945714d-db15-457d-9032-7d43e1deb3f4" class="">Starting iteration
+</div>
+<p>This will output:
+</p>
+<blockquote id="f945714d-db15-457d-9032-7d43e1deb3f4" class="">Starting iteration
 Inside iterator: 0
 Inside foreach: 0
 Inside iterator: 1
 Inside foreach: 1
 Inside iterator: 2
-Inside foreach: 2</blockquote><p><a href="https://dotnetfiddle.net/2qGV0B">View Demo</a></p><p>As a consequence:</p><ul id="8ee51b12-9ad4-4bf9-becb-bdd5711eca95" class="bulleted-list"><li>“Starting iteration” is printed first even though the iterator method was called before the line printing it because the line <code>Integers().Take(3);</code> does not actually starts iteration (no call to <code>IEnumerator.MoveNext()</code> was made)</li><li>The lines printing to console alternate between the one inside the iterator method and the one inside the <code>foreach</code>, rather than all the ones inside the iterator method evaluating first</li><li>This program terminates due to the <code>.Take()</code> method, even though the iterator method has a <code>while true</code> which it never breaks out of.</li></ul>
+Inside foreach: 2
+</blockquote>
+<p><a href="https://dotnetfiddle.net/2qGV0B">View Demo</a>
+</p>
+<p>As a consequence:
+</p>
+  <ul id="8ee51b12-9ad4-4bf9-becb-bdd5711eca95" class="bulleted-list">
+    <li>“Starting iteration” is printed first even though the iterator method was called before the line printing it because the line <code>Integers().Take(3);</code> does not actually starts iteration (no call to <code>IEnumerator.MoveNext()</code> was made)
+    </li>
+    <li>The lines printing to console alternate between the one inside the iterator method and the one inside the <code>foreach</code>, rather than all the ones inside the iterator method evaluating first
+    </li>
+    <li>This program terminates due to the <code>.Take()</code> method, even though the iterator method has a <code>while true</code> which it never breaks out of.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

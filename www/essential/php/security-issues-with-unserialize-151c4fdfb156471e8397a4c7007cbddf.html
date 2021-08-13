@@ -127,7 +127,39 @@
 </div>
 
 
-      <p>Using <code>unserialize</code> function to unserialize data from user input can be dangerous.</p><p>A Warning from php.net</p><blockquote id="cf6c8503-c48d-46c2-abcb-2e02fb18bf12" class="">Warning Do not pass untrusted user input to unserialize(). Unserialization can result in code being loaded and executed due to object instantiation and autoloading, and a malicious user may be able to exploit this. Use a safe, standard data interchange format such as JSON (via json_decode() and json_encode()) if you need to pass serialized data to the user.</blockquote><h2 id="ec9aa0d5-7d93-4107-bbf9-277aed5517e2" class=""><strong>Possible Attacks</strong><a class="header-anchor" href="#ec9aa0d5-7d93-4107-bbf9-277aed5517e2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><ul id="0b91b85e-58c5-4027-a7fb-e092552b1df0" class="bulleted-list"><li>PHP Object Injection</li></ul><hr id="fa83f3c4-ff52-477a-85bb-544ebe24f7f9"/><h3 id="bf1025ed-1b18-4e65-ac71-0d02dab3752e" class="">PHP Object Injection<a class="header-anchor" href="#bf1025ed-1b18-4e65-ac71-0d02dab3752e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>PHP Object Injection is an application level vulnerability that could allow an attacker to perform different kinds of malicious attacks, such as Code Injection, SQL Injection, Path Traversal and Application Denial of Service, depending on the context. The vulnerability occurs when user-supplied input is not properly sanitized before being passed to the unserialize() PHP function. Since PHP allows object serialization, attackers could pass ad-hoc serialized strings to a vulnerable unserialize() call, resulting in an arbitrary PHP object(s) injection into the application scope.</p><p>In order to successfully exploit a PHP Object Injection vulnerability two conditions must be met:</p><ul id="e6e73046-2a63-46da-ae86-0dc5c53ba821" class="bulleted-list"><li>The application must have a class which implements a PHP magic method (such as <code>__wakeup</code> or <code>__destruct</code>) that can be used to carry out malicious attacks, or to start a “POP chain”.</li><li>All of the classes used during the attack must be declared when the vulnerable <code>unserialize()</code> is being called, otherwise object autoloading must be supported for such classes.</li></ul><p><strong>Example 1 - Path Traversal Attack</strong></p><p>The example below shows a PHP class with an exploitable <code>__destruct</code> method:</p>
+      
+<p>Using <code>unserialize</code> function to unserialize data from user input can be dangerous.
+</p>
+<p>A Warning from php.net
+</p>
+<blockquote id="cf6c8503-c48d-46c2-abcb-2e02fb18bf12" class="">Warning Do not pass untrusted user input to unserialize(). Unserialization can result in code being loaded and executed due to object instantiation and autoloading, and a malicious user may be able to exploit this. Use a safe, standard data interchange format such as JSON (via json_decode() and json_encode()) if you need to pass serialized data to the user.
+</blockquote>
+  <h2 id="ec9aa0d5-7d93-4107-bbf9-277aed5517e2" class=""><strong>Possible Attacks</strong>
+  <a class="header-anchor" href="#ec9aa0d5-7d93-4107-bbf9-277aed5517e2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+  <ul id="0b91b85e-58c5-4027-a7fb-e092552b1df0" class="bulleted-list">
+    <li>PHP Object Injection
+    </li>
+  </ul>
+<hr id="fa83f3c4-ff52-477a-85bb-544ebe24f7f9"/>
+  <h3 id="bf1025ed-1b18-4e65-ac71-0d02dab3752e" class="">PHP Object Injection
+  <a class="header-anchor" href="#bf1025ed-1b18-4e65-ac71-0d02dab3752e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p>PHP Object Injection is an application level vulnerability that could allow an attacker to perform different kinds of malicious attacks, such as Code Injection, SQL Injection, Path Traversal and Application Denial of Service, depending on the context. The vulnerability occurs when user-supplied input is not properly sanitized before being passed to the unserialize() PHP function. Since PHP allows object serialization, attackers could pass ad-hoc serialized strings to a vulnerable unserialize() call, resulting in an arbitrary PHP object(s) injection into the application scope.
+</p>
+<p>In order to successfully exploit a PHP Object Injection vulnerability two conditions must be met:
+</p>
+  <ul id="e6e73046-2a63-46da-ae86-0dc5c53ba821" class="bulleted-list">
+    <li>The application must have a class which implements a PHP magic method (such as <code>__wakeup</code> or <code>__destruct</code>) that can be used to carry out malicious attacks, or to start a “POP chain”.
+    </li>
+    <li>All of the classes used during the attack must be declared when the vulnerable <code>unserialize()</code> is being called, otherwise object autoloading must be supported for such classes.
+    </li>
+  </ul>
+<p><strong>Example 1 - Path Traversal Attack</strong>
+</p>
+<p>The example below shows a PHP class with an exploitable <code>__destruct</code> method:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Example1
@@ -155,7 +187,10 @@ $user_data = unserialize($_GET[&#39;data&#39;]);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this example an attacker might be able to delete an arbitrary file via a Path Traversal attack, for e.g. requesting the following URL:</p>
+</div>
+<p>In this example an attacker might be able to delete an arbitrary file via a Path Traversal attack, for e.g. requesting the following URL:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">http://testsite.com/vuln.php?data=O:8:&#34;Example1&#34;:1:{s:10:&#34;cache_file&#34;;s:15:&#34;../../index.php&#34;;}</pre>
@@ -163,7 +198,12 @@ $user_data = unserialize($_GET[&#39;data&#39;]);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Example 2 - Code Injection attack</strong></p><p>The example below shows a PHP class with an exploitable __wakeup method:</p>
+</div>
+<p><strong>Example 2 - Code Injection attack</strong>
+</p>
+<p>The example below shows a PHP class with an exploitable __wakeup method:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Example2
@@ -190,7 +230,10 @@ $user_data = unserialize($_COOKIE[&#39;data&#39;]);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this example an attacker might be able to perform a Code Injection attack by sending an HTTP request like this:</p>
+</div>
+<p>In this example an attacker might be able to perform a Code Injection attack by sending an HTTP request like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">GET /vuln.php HTTP/1.0
@@ -201,7 +244,10 @@ Connection: close</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Where the cookie parameter “data” has been generated by the following script:</p>
+</div>
+<p>Where the cookie parameter “data” has been generated by the following script:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Example2

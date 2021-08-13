@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>One of the uses of recursion is to navigate through a hierarchical data structure, like a file system directory tree, without knowing how many levels the tree has or the number of objects on each level. In this example, you will see how to use recursion on a directory tree to find all sub-directories of a specified directory and print the whole tree to the console.</p>
+      
+<p>One of the uses of recursion is to navigate through a hierarchical data structure, like a file system directory tree, without knowing how many levels the tree has or the number of objects on each level. In this example, you will see how to use recursion on a directory tree to find all sub-directories of a specified directory and print the whole tree to the console.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">internal</span> <span class="k">class</span> <span class="nc">Program</span>
@@ -196,7 +199,22 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This code is somewhat more complicated than the bare minimum to complete this task, as it includes exception checking to handle any issues with getting the directories. Below you will find a break-down of the code into smaller segments with explanations of each.</p><p><code>Main</code>:</p><p>The main method takes an input from a user as a string, which is to be used as the path to the root directory. It then calls the <code>PrintDirectoryTree</code> method with this string as the parameter.</p><p><code>PrintDirectoryTree(string)</code>:</p><p>This is the first of two methods that handle the actual directory tree printing. This method takes a string representing the path to the root directory as a parameter. It checks if the path is an actual directory, and if not, throws a <code>DirectoryNotFoundException</code> which is then handled in the catch block. If the path is a real directory, a <code>DirectoryInfo</code> object <code>rootDirectory</code> is created from the path, and the second <code>PrintDirectoryTree</code> method is called with the <code>rootDirectory</code> object and <code>RootLevel</code>, which is an integer constant with a value of zero.</p><p><code>PrintDirectoryTree(DirectoryInfo, int)</code>:</p><p>This second method handles the brunt of the work. It takes a <code>DirectoryInfo</code> and an integer as parameters. The <code>DirectoryInfo</code> is the current directory, and the integer is the depth of the directory relative to the root. For ease of reading, the output is indented for each level deep the current directory is, so that the output looks like this:</p>
+</div>
+<p>This code is somewhat more complicated than the bare minimum to complete this task, as it includes exception checking to handle any issues with getting the directories. Below you will find a break-down of the code into smaller segments with explanations of each.
+</p>
+<p><code>Main</code>:
+</p>
+<p>The main method takes an input from a user as a string, which is to be used as the path to the root directory. It then calls the <code>PrintDirectoryTree</code> method with this string as the parameter.
+</p>
+<p><code>PrintDirectoryTree(string)</code>:
+</p>
+<p>This is the first of two methods that handle the actual directory tree printing. This method takes a string representing the path to the root directory as a parameter. It checks if the path is an actual directory, and if not, throws a <code>DirectoryNotFoundException</code> which is then handled in the catch block. If the path is a real directory, a <code>DirectoryInfo</code> object <code>rootDirectory</code> is created from the path, and the second <code>PrintDirectoryTree</code> method is called with the <code>rootDirectory</code> object and <code>RootLevel</code>, which is an integer constant with a value of zero.
+</p>
+<p><code>PrintDirectoryTree(DirectoryInfo, int)</code>:
+</p>
+<p>This second method handles the brunt of the work. It takes a <code>DirectoryInfo</code> and an integer as parameters. The <code>DirectoryInfo</code> is the current directory, and the integer is the depth of the directory relative to the root. For ease of reading, the output is indented for each level deep the current directory is, so that the output looks like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">-Root
@@ -208,7 +226,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Once the current directory is printed, its sub directories are retrieved, and this method is then called on each of them with a depth level value of one more than the current. That part is the recursion: the method calling itself. The program will run in this manner until it has visited every directory in the tree. When it reached a directory with no sub directories, the method will return automatically.</p><p>This method also catches an <code>UnauthorizedAccessException</code>, which is thrown if any of the sub directories of the current directory are protected by the system. The error message is printed at the current indentation level for consistency.</p><p>The method below provides a more basic approach to this problem:</p>
+</div>
+<p>Once the current directory is printed, its sub directories are retrieved, and this method is then called on each of them with a depth level value of one more than the current. That part is the recursion: the method calling itself. The program will run in this manner until it has visited every directory in the tree. When it reached a directory with no sub directories, the method will return automatically.
+</p>
+<p>This method also catches an <code>UnauthorizedAccessException</code>, which is thrown if any of the sub directories of the current directory are protected by the system. The error message is printed at the current indentation level for consistency.
+</p>
+<p>The method below provides a more basic approach to this problem:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">internal</span> <span class="k">static</span> <span class="k">void</span> <span class="n">PrintDirectoryTree</span><span class="p">(</span><span class="kt">string</span> <span class="n">directoryName</span><span class="p">)</span>
@@ -232,7 +257,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This does not include the specific error checking or output formatting of the first approach, but it effectively does the same thing. Since it only uses strings as opposed to <code>DirectoryInfo</code>, it cannot provide access to other directory properties like permissions.</p>
+</div>
+<p>This does not include the specific error checking or output formatting of the first approach, but it effectively does the same thing. Since it only uses strings as opposed to <code>DirectoryInfo</code>, it cannot provide access to other directory properties like permissions.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

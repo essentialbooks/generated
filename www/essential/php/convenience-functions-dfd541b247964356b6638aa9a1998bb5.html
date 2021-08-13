@@ -127,7 +127,15 @@
 </div>
 
 
-      <h1 id="64e0bad9-5c48-4e82-a6c2-de25f61a9ea4" class="">Raw direct IO<a class="header-anchor" href="#64e0bad9-5c48-4e82-a6c2-de25f61a9ea4" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p><a href="http://php.net/manual/en/function.file-get-contents.php"><code>file_get_contents</code></a> and <a href="http://php.net/manual/en/function.file-put-contents.php"><code>file_put_contents</code></a> provide the ability to read/write from/to a file to/from a PHP string in a single call.</p><p><a href="http://php.net/manual/en/function.file-put-contents.php"><code>file_put_contents</code></a> can also be used with the <code>FILE_APPEND</code> bitmask flag to append to, instead of truncate and overwrite, the file. It can be used along with <code>LOCK_EX</code> bitmask to acquire an exclusive lock to the file while proceeding to writing. Bitmask flags can be joined with the <code>|</code> bitwise-OR operator.</p>
+      
+  <h1 id="64e0bad9-5c48-4e82-a6c2-de25f61a9ea4" class="">Raw direct IO
+  <a class="header-anchor" href="#64e0bad9-5c48-4e82-a6c2-de25f61a9ea4" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p><a href="http://php.net/manual/en/function.file-get-contents.php"><code>file_get_contents</code></a> and <a href="http://php.net/manual/en/function.file-put-contents.php"><code>file_put_contents</code></a> provide the ability to read/write from/to a file to/from a PHP string in a single call.
+</p>
+<p><a href="http://php.net/manual/en/function.file-put-contents.php"><code>file_put_contents</code></a> can also be used with the <code>FILE_APPEND</code> bitmask flag to append to, instead of truncate and overwrite, the file. It can be used along with <code>LOCK_EX</code> bitmask to acquire an exclusive lock to the file while proceeding to writing. Bitmask flags can be joined with the <code>|</code> bitwise-OR operator.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$path = &#34;file.txt&#34;;
@@ -141,7 +149,10 @@ file_put_contents($path, $contents);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>FILE_APPEND</code> is handy for appending to log files while <code>LOCK_EX</code> helps prevent race condition of file writing from multiple processes. For example, to write to a log file about the current session:</p>
+</div>
+<p><code>FILE_APPEND</code> is handy for appending to log files while <code>LOCK_EX</code> helps prevent race condition of file writing from multiple processes. For example, to write to a log file about the current session:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">file_put_contents(&#34;logins.log&#34;, &#34;{$_SESSION[&#34;username&#34;]} logged in&#34;, FILE_APPEND | LOCK_EX);</pre>
@@ -149,7 +160,11 @@ file_put_contents($path, $contents);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="9547922c-5226-48e9-bbc3-f7c926f5d1a6" class="">CSV IO<a class="header-anchor" href="#9547922c-5226-48e9-bbc3-f7c926f5d1a6" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1>
+</div>
+  <h1 id="9547922c-5226-48e9-bbc3-f7c926f5d1a6" class="">CSV IO
+  <a class="header-anchor" href="#9547922c-5226-48e9-bbc3-f7c926f5d1a6" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">fgetcsv($file, $length, $separator)</pre>
@@ -157,7 +172,12 @@ file_put_contents($path, $contents);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <a href="http://php.net/fgetcsv"><code>fgetcsv</code></a> parses line from open file checking for csv fields. It returns CSV fields in an array on success or <code>FALSE</code> on failure.</p><p>By default, it will read only one line of the CSV file.</p>
+</div>
+<p>The <a href="http://php.net/fgetcsv"><code>fgetcsv</code></a> parses line from open file checking for csv fields. It returns CSV fields in an array on success or <code>FALSE</code> on failure.
+</p>
+<p>By default, it will read only one line of the CSV file.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$file = fopen(&#34;contacts.csv&#34;,&#34;r&#34;);
@@ -168,7 +188,10 @@ fclose($file);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code><strong>contacts.csv</strong></code></p>
+</div>
+<p><code><strong>contacts.csv</strong></code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Kai Jim, Refsnes, Stavanger, Norway
@@ -177,7 +200,10 @@ Hege, Refsnes, Stavanger, Norway</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output:</p>
+</div>
+<p>Output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Array
@@ -195,7 +221,13 @@ Array
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="3b5e533c-dda9-4b40-9b62-40501cfdd2b2" class="">Reading a file to stdout directly<a class="header-anchor" href="#3b5e533c-dda9-4b40-9b62-40501cfdd2b2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p><a href="http://php.net/readfile"><code>readfile</code></a> copies a file to the output buffer. readfile() will not present any memory issues, even when sending large files, on its own.</p>
+</div>
+  <h1 id="3b5e533c-dda9-4b40-9b62-40501cfdd2b2" class="">Reading a file to stdout directly
+  <a class="header-anchor" href="#3b5e533c-dda9-4b40-9b62-40501cfdd2b2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p><a href="http://php.net/readfile"><code>readfile</code></a> copies a file to the output buffer. readfile() will not present any memory issues, even when sending large files, on its own.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$file = &#39;monkey.gif&#39;;
@@ -215,7 +247,13 @@ if (file_exists($file)) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="cd141b69-3ef8-4ad1-8394-57cfbd4957dc" class="">Or from a file pointer<a class="header-anchor" href="#cd141b69-3ef8-4ad1-8394-57cfbd4957dc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Alternatively, to seek a point in the file to start copying to stdout, use <a href="http://php.net/fpassthru"><code>fpassthru</code></a> instead. In the following example, the last 1024 bytes are copied to stdout:</p>
+</div>
+  <h2 id="cd141b69-3ef8-4ad1-8394-57cfbd4957dc" class="">Or from a file pointer
+  <a class="header-anchor" href="#cd141b69-3ef8-4ad1-8394-57cfbd4957dc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Alternatively, to seek a point in the file to start copying to stdout, use <a href="http://php.net/fpassthru"><code>fpassthru</code></a> instead. In the following example, the last 1024 bytes are copied to stdout:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$fh = fopen(&#34;file.txt&#34;, &#34;rb&#34;);
@@ -225,7 +263,13 @@ fpassthru($fh);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="b057ddac-8749-46e1-8a18-996a905c64db" class="">Reading a file into an array<a class="header-anchor" href="#b057ddac-8749-46e1-8a18-996a905c64db" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p><a href="http://php.net/manual/en/function.file.php"><code>file</code></a> returns the lines in the passed file in an array. Each element of the array corresponds to a line in the file, with the newline still attached.</p>
+</div>
+  <h1 id="b057ddac-8749-46e1-8a18-996a905c64db" class="">Reading a file into an array
+  <a class="header-anchor" href="#b057ddac-8749-46e1-8a18-996a905c64db" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p><a href="http://php.net/manual/en/function.file.php"><code>file</code></a> returns the lines in the passed file in an array. Each element of the array corresponds to a line in the file, with the newline still attached.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">print_r(file(&#34;test.txt&#34;));</pre>
@@ -233,7 +277,10 @@ fpassthru($fh);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code><strong>test.txt</strong></code></p>
+</div>
+<p><code><strong>test.txt</strong></code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Welcome to File handling
@@ -242,7 +289,10 @@ This is to test file handling</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output:</p>
+</div>
+<p>Output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Array 

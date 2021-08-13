@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>Methods that perform asynchronous operations don’t need to use <code>await</code> if:</p><ul id="d98129f5-9071-4c27-9664-2c31998d1e36" class="bulleted-list"><li>There is only one asynchronous call inside the method</li><li>The asynchronous call is at the end of the method</li><li>Catching/handling exception that may happen within the Task is not necessary</li></ul><p>Consider this method that returns a <code>Task</code>:</p>
+      
+<p>Methods that perform asynchronous operations don’t need to use <code>await</code> if:
+</p>
+  <ul id="d98129f5-9071-4c27-9664-2c31998d1e36" class="bulleted-list">
+    <li>There is only one asynchronous call inside the method
+    </li>
+    <li>The asynchronous call is at the end of the method
+    </li>
+    <li>Catching/handling exception that may happen within the Task is not necessary
+    </li>
+  </ul>
+<p>Consider this method that returns a <code>Task</code>:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;</span> <span class="n">GetUserAsync</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
@@ -141,7 +154,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If <code>GetByKeyAsync</code> has the same signature as <code>GetUserAsync</code> (returning a <code>Task&lt;User&gt;</code>), the method can be simplified:</p>
+</div>
+<p>If <code>GetByKeyAsync</code> has the same signature as <code>GetUserAsync</code> (returning a <code>Task&lt;User&gt;</code>), the method can be simplified:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;</span> <span class="n">GetUserAsync</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
@@ -155,7 +171,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this case, the method doesn’t need to be marked <code>async</code>, even though it’s preforming an asynchronous operation. The Task returned by <code>GetByKeyAsync</code> is passed directly to the calling method, where it will be <code>await</code>ed.</p><p><strong>Important</strong>: Returning the <code>Task</code> instead of awaiting it, changes the exception behavior of the method, as it won’t throw the exception inside the method which starts the task but in the method which awaits it.</p>
+</div>
+<p>In this case, the method doesn’t need to be marked <code>async</code>, even though it’s preforming an asynchronous operation. The Task returned by <code>GetByKeyAsync</code> is passed directly to the calling method, where it will be <code>await</code>ed.
+</p>
+<p><strong>Important</strong>: Returning the <code>Task</code> instead of awaiting it, changes the exception behavior of the method, as it won’t throw the exception inside the method which starts the task but in the method which awaits it.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="n">Task</span> <span class="n">SaveAsync</span><span class="p">()</span>
@@ -178,7 +199,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will improve performance as it will save the compiler the generation of an extra <strong>async</strong> state machine.</p>
+</div>
+<p>This will improve performance as it will save the compiler the generation of an extra <strong>async</strong> state machine.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

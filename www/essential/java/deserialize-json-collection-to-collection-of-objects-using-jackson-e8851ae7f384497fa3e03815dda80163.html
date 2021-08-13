@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Suppose you have a pojo class <code>Person</code></p>
+      
+<p>Suppose you have a pojo class <code>Person</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Person {
@@ -141,7 +144,23 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And you want to parse it into a JSON array or a map of Person objects. Due to type erasure you cannot construct classes of <code>List&lt;Person&gt;</code> and <code>Map&lt;String, Person&gt;</code> at runtime directly <em>(and thus use them to deserialize JSON)</em>. To overcome this limitation jackson provides two approaches - <code>TypeFactory</code> and <code>TypeReference</code>.</p><p><strong>TypeFactory</strong></p><p>The approach taken here is to use a factory (and its static utility function) to build your type for you. The parameters it takes are the collection you want to use (list, set, etc.) and the class you want to store in that collection.</p><p><strong>TypeReference</strong></p><p>The type reference approach seems simpler because it saves you a bit of typing and looks cleaner. TypeReference accepts a type parameter, where you pass the desired type <code>List&lt;Person&gt;</code>. You simply instantiate this TypeReference object and use it as your type container.</p><p>Now let’s look at how to actually deserialize your JSON into a Java object. If your JSON is formatted as an array, you can deserialize it as a List. If there is a more complex nested structure, you will want to deserialize to a Map. We will look at examples of both.</p><h1 id="494ed558-4a53-432c-ac43-c91b305e91d6" class="">Deserializing JSON array<a class="header-anchor" href="#494ed558-4a53-432c-ac43-c91b305e91d6" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1>
+</div>
+<p>And you want to parse it into a JSON array or a map of Person objects. Due to type erasure you cannot construct classes of <code>List&lt;Person&gt;</code> and <code>Map&lt;String, Person&gt;</code> at runtime directly <em>(and thus use them to deserialize JSON)</em>. To overcome this limitation jackson provides two approaches - <code>TypeFactory</code> and <code>TypeReference</code>.
+</p>
+<p><strong>TypeFactory</strong>
+</p>
+<p>The approach taken here is to use a factory (and its static utility function) to build your type for you. The parameters it takes are the collection you want to use (list, set, etc.) and the class you want to store in that collection.
+</p>
+<p><strong>TypeReference</strong>
+</p>
+<p>The type reference approach seems simpler because it saves you a bit of typing and looks cleaner. TypeReference accepts a type parameter, where you pass the desired type <code>List&lt;Person&gt;</code>. You simply instantiate this TypeReference object and use it as your type container.
+</p>
+<p>Now let’s look at how to actually deserialize your JSON into a Java object. If your JSON is formatted as an array, you can deserialize it as a List. If there is a more complex nested structure, you will want to deserialize to a Map. We will look at examples of both.
+</p>
+  <h1 id="494ed558-4a53-432c-ac43-c91b305e91d6" class="">Deserializing JSON array
+  <a class="header-anchor" href="#494ed558-4a53-432c-ac43-c91b305e91d6" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String jsonString = &#34;[{\&#34;name\&#34;: \&#34;Alice\&#34;}, {\&#34;name\&#34;: \&#34;Bob\&#34;}]&#34;</pre>
@@ -149,7 +168,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="988fab3c-15d1-43a0-b356-9d4eed36a282" class="">TypeFactory approach<a class="header-anchor" href="#988fab3c-15d1-43a0-b356-9d4eed36a282" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+</div>
+  <h2 id="988fab3c-15d1-43a0-b356-9d4eed36a282" class="">TypeFactory approach
+  <a class="header-anchor" href="#988fab3c-15d1-43a0-b356-9d4eed36a282" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">CollectionType listType = 
@@ -159,7 +182,11 @@ List&lt;Preson&gt; list = mapper.readValue(jsonString, listType);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="810c2232-1913-4b4a-a9f1-c596d80f2366" class="">TypeReference approach<a class="header-anchor" href="#810c2232-1913-4b4a-a9f1-c596d80f2366" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+</div>
+  <h2 id="810c2232-1913-4b4a-a9f1-c596d80f2366" class="">TypeReference approach
+  <a class="header-anchor" href="#810c2232-1913-4b4a-a9f1-c596d80f2366" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">TypeReference&lt;Person&gt; listType = new TypeReference&lt;List&lt;Person&gt;&gt;() {};
@@ -168,7 +195,11 @@ List&lt;Person&gt; list = mapper.readValue(jsonString, listType);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="d51b2670-43f7-4f7c-a95f-2c152a25c859" class="">Deserializing JSON map<a class="header-anchor" href="#d51b2670-43f7-4f7c-a95f-2c152a25c859" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1>
+</div>
+  <h1 id="d51b2670-43f7-4f7c-a95f-2c152a25c859" class="">Deserializing JSON map
+  <a class="header-anchor" href="#d51b2670-43f7-4f7c-a95f-2c152a25c859" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String jsonString = &#34;{\&#34;0\&#34;: {\&#34;name\&#34;: \&#34;Alice\&#34;}, \&#34;1\&#34;: {\&#34;name\&#34;: \&#34;Bob\&#34;}}&#34;</pre>
@@ -176,7 +207,11 @@ List&lt;Person&gt; list = mapper.readValue(jsonString, listType);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="b9218e3d-ca1b-461d-813c-897d2801595e" class="">TypeFactory approach<a class="header-anchor" href="#b9218e3d-ca1b-461d-813c-897d2801595e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+</div>
+  <h2 id="b9218e3d-ca1b-461d-813c-897d2801595e" class="">TypeFactory approach
+  <a class="header-anchor" href="#b9218e3d-ca1b-461d-813c-897d2801595e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">CollectionType mapType = 
@@ -186,7 +221,11 @@ List&lt;Person&gt; list = mapper.readValue(jsonString, mapType);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="92564aba-b0cd-4070-9fbd-aa730cb82e55" class="">TypeReference approach<a class="header-anchor" href="#92564aba-b0cd-4070-9fbd-aa730cb82e55" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+</div>
+  <h2 id="92564aba-b0cd-4070-9fbd-aa730cb82e55" class="">TypeReference approach
+  <a class="header-anchor" href="#92564aba-b0cd-4070-9fbd-aa730cb82e55" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">TypeReference&lt;Person&gt; mapType = new TypeReference&lt;Map&lt;String, Person&gt;&gt;() {};
@@ -195,7 +234,13 @@ Map&lt;String, Person&gt; list = mapper.readValue(jsonString, mapType);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="775ef235-63c9-4813-a388-b684677b0be1" class="">Details<a class="header-anchor" href="#775ef235-63c9-4813-a388-b684677b0be1" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Import statement used:</p>
+</div>
+  <h1 id="775ef235-63c9-4813-a388-b684677b0be1" class="">Details
+  <a class="header-anchor" href="#775ef235-63c9-4813-a388-b684677b0be1" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Import statement used:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import com.fasterxml.jackson.core.type.TypeReference;
@@ -205,7 +250,10 @@ import com.fasterxml.jackson.databind.type.CollectionType;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Instances used:</p>
+</div>
+<p>Instances used:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ObjectMapper mapper = new ObjectMapper();
@@ -214,7 +262,20 @@ TypeFactory factory = mapper.getTypeFactory();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="41a6e3ca-98e3-4cc2-ad2a-aa914f89b0b0" class="">Note<a class="header-anchor" href="#41a6e3ca-98e3-4cc2-ad2a-aa914f89b0b0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>While <code>TypeReference</code> approach may look better it has several drawbacks:</p><ol id="f4ca4a7b-86d3-4eca-8691-644942783bdc" class="numbered-list" start="1"><li><code>TypeReference</code> should be instantiated using anonymous class</li><li>You should provide generic explicity</li></ol><p>Failing to do so may lead to loss of generic type argument which will lead to deserialization failure.</p>
+</div>
+  <h1 id="41a6e3ca-98e3-4cc2-ad2a-aa914f89b0b0" class="">Note
+  <a class="header-anchor" href="#41a6e3ca-98e3-4cc2-ad2a-aa914f89b0b0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>While <code>TypeReference</code> approach may look better it has several drawbacks:
+</p>
+  <ol id="f4ca4a7b-86d3-4eca-8691-644942783bdc" class="numbered-list" start="1">
+    <li><code>TypeReference</code> should be instantiated using anonymous class
+    </li>
+    <li>You should provide generic explicity
+    </li>
+  </ol>
+<p>Failing to do so may lead to loss of generic type argument which will lead to deserialization failure.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

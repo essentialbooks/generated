@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>A programming best practice is to free any memory that has been allocated directly by your own code, or implicitly by calling an internal or external function, such as a library API like <a href="https://linux.die.net/man/3/strdup"><code>strdup()</code></a>. Failing to free memory can introduce a memory leak, which could accumulate into a substantial amount of wasted memory that is unavailable to your program (or the system), possibly leading to crashes or undefined behavior. Problems are more likely to occur if the leak is incurred repeatedly in a loop or recursive function. The risk of program failure increases the longer a leaking program runs. Sometimes problems appear instantly; other times problems won’t be seen for hours or even years of constant operation. Memory exhaustion failures can be catastrophic, depending on the circumstances.</p><p>The following infinite loop is an example of a leak that will eventually exhaust available memory leak by calling <code>getline()</code>, a function that implicitly allocates new memory, without freeing that memory.</p>
+      
+<p>A programming best practice is to free any memory that has been allocated directly by your own code, or implicitly by calling an internal or external function, such as a library API like <a href="https://linux.die.net/man/3/strdup"><code>strdup()</code></a>. Failing to free memory can introduce a memory leak, which could accumulate into a substantial amount of wasted memory that is unavailable to your program (or the system), possibly leading to crashes or undefined behavior. Problems are more likely to occur if the leak is incurred repeatedly in a loop or recursive function. The risk of program failure increases the longer a leaking program runs. Sometimes problems appear instantly; other times problems won’t be seen for hours or even years of constant operation. Memory exhaustion failures can be catastrophic, depending on the circumstances.
+</p>
+<p>The following infinite loop is an example of a leak that will eventually exhaust available memory leak by calling <code>getline()</code>, a function that implicitly allocates new memory, without freeing that memory.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdlib.h&gt;
@@ -154,7 +159,10 @@ int main(void)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In contrast, the code below also uses the <code>getline()</code> function, but this time, the allocated memory is correctly freed, avoiding a leak.</p>
+</div>
+<p>In contrast, the code below also uses the <code>getline()</code> function, but this time, the allocated memory is correctly freed, avoiding a leak.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdlib.h&gt;
@@ -186,7 +194,13 @@ int main(void)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Leaking memory doesn’t always have tangible consequences and isn’t necessarily a functional problem. While “best practice” dictates rigorously freeing memory at strategic points and conditions, to reduce memory footprint and lower risk of memory exhaustion, there can be exceptions. For example, if a program is bounded in duration and scope, the risk of allocation failure might be considered too small to worry about. In that case, bypassing explicit deallocation might be considered acceptable. For example, most modern operating systems automatically free all memory consumed by a program when it terminates, whether it is due to program failure, a system call to <code>exit()</code>, process termination, or reaching end of <code>main()</code>. Explicitly freeing memory at the point of imminent program termination could actually be redundant or introduce a performance penalty.</p><p>Allocation can fail if insufficient memory is available, and handling failures should be accounted for at appropriate levels of the call stack. <code>getline()</code>, shown above is an interesting use-case because it is a library function that not only allocates memory it leaves to the caller to free, but can fail for a number of reasons, all of which must be taken into account. Therefore, it is essential when using a C API, to read the <a href="https://linux.die.net/man/3/getline"><em>documentation (man page)</em></a> and pay particular attention to error conditions and memory usage, and be aware which software layer bears the burden of freeing returned memory.</p><p>Another common memory handling practice is to consistently set memory pointers to NULL immediately after the memory referenced by those pointers is freed, so those pointers can be tested for validity at any time (e.g. checked for NULL / non-NULL), because accessing freed memory can lead to severe problems such as getting garbage data (read operation), or data corruption (write operation) and/or a program crash. In most modern operating systems, freeing memory location 0 (<code>NULL</code>) is a NOP (e.g. it is harmless), as required by the C standard — so by setting a pointer to NULL, there is no risk of double-freeing memory if the pointer is passed to <code>free()</code>. Keep in mind that double-freeing memory can lead to very time consuming, confusing, and <em>difficult to diagnose</em> failures.</p>
+</div>
+<p>Leaking memory doesn’t always have tangible consequences and isn’t necessarily a functional problem. While “best practice” dictates rigorously freeing memory at strategic points and conditions, to reduce memory footprint and lower risk of memory exhaustion, there can be exceptions. For example, if a program is bounded in duration and scope, the risk of allocation failure might be considered too small to worry about. In that case, bypassing explicit deallocation might be considered acceptable. For example, most modern operating systems automatically free all memory consumed by a program when it terminates, whether it is due to program failure, a system call to <code>exit()</code>, process termination, or reaching end of <code>main()</code>. Explicitly freeing memory at the point of imminent program termination could actually be redundant or introduce a performance penalty.
+</p>
+<p>Allocation can fail if insufficient memory is available, and handling failures should be accounted for at appropriate levels of the call stack. <code>getline()</code>, shown above is an interesting use-case because it is a library function that not only allocates memory it leaves to the caller to free, but can fail for a number of reasons, all of which must be taken into account. Therefore, it is essential when using a C API, to read the <a href="https://linux.die.net/man/3/getline"><em>documentation (man page)</em></a> and pay particular attention to error conditions and memory usage, and be aware which software layer bears the burden of freeing returned memory.
+</p>
+<p>Another common memory handling practice is to consistently set memory pointers to NULL immediately after the memory referenced by those pointers is freed, so those pointers can be tested for validity at any time (e.g. checked for NULL / non-NULL), because accessing freed memory can lead to severe problems such as getting garbage data (read operation), or data corruption (write operation) and/or a program crash. In most modern operating systems, freeing memory location 0 (<code>NULL</code>) is a NOP (e.g. it is harmless), as required by the C standard — so by setting a pointer to NULL, there is no risk of double-freeing memory if the pointer is passed to <code>free()</code>. Keep in mind that double-freeing memory can lead to very time consuming, confusing, and <em>difficult to diagnose</em> failures.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

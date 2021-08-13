@@ -127,7 +127,19 @@
 </div>
 
 
-      <p>probably <em>the</em> most common misconception about <code>asnycio</code> is that it lets you run any task in parallel - sidestepping the GIL (global interpreter lock) and therefore execute blocking jobs in parallel (on separate threads). it does <strong>not</strong>!</p><p><code>asyncio</code> (and libraries that are built to collaborate with <code>asyncio</code>) build on coroutines: functions that (collaboratively) yield the control flow back to the calling function. note <code>asyncio.sleep</code> in the examples above. this is an example of a non-blocking coroutine that waits ‘in the background’ and gives the control flow back to the calling function (when called with <code>await</code>). <code>time.sleep</code> is an example of a blocking function. the execution flow of the program will just stop there and only return after <code>time.sleep</code> has finished.</p><p>a real-live example is the <a href="http://docs.python-requests.org/en/master/"><code>requests</code></a> library which consists (for the time being) on blocking functions only. there is no concurrency if you call any of its functions within <code>asyncio</code>. <a href="https://aiohttp.readthedocs.io/en/stable/"><code>aiohttp</code></a> on the other hand was built with <code>asyncio</code> in mind. its coroutines will run concurrently.</p><ul id="622de047-500f-425f-9071-6a0fcb33f102" class="bulleted-list"><li>if you have long-running CPU-bound tasks you would like to run in parallel <code>asyncio</code> is <strong>not</strong> for you. for that you need <a href="https://docs.python.org/3/library/threading.html?highlight=threading#module-threading"><code>threads</code></a> or <a href="https://docs.python.org/3/library/multiprocessing.html?#module-multiprocessing"><code>multiprocessing</code></a>.</li><li>if you have IO-bound jobs running, you <em>may</em> run them concurrently using <code>asyncio</code>.</li></ul>
+      
+<p>probably <em>the</em> most common misconception about <code>asnycio</code> is that it lets you run any task in parallel - sidestepping the GIL (global interpreter lock) and therefore execute blocking jobs in parallel (on separate threads). it does <strong>not</strong>!
+</p>
+<p><code>asyncio</code> (and libraries that are built to collaborate with <code>asyncio</code>) build on coroutines: functions that (collaboratively) yield the control flow back to the calling function. note <code>asyncio.sleep</code> in the examples above. this is an example of a non-blocking coroutine that waits ‘in the background’ and gives the control flow back to the calling function (when called with <code>await</code>). <code>time.sleep</code> is an example of a blocking function. the execution flow of the program will just stop there and only return after <code>time.sleep</code> has finished.
+</p>
+<p>a real-live example is the <a href="http://docs.python-requests.org/en/master/"><code>requests</code></a> library which consists (for the time being) on blocking functions only. there is no concurrency if you call any of its functions within <code>asyncio</code>. <a href="https://aiohttp.readthedocs.io/en/stable/"><code>aiohttp</code></a> on the other hand was built with <code>asyncio</code> in mind. its coroutines will run concurrently.
+</p>
+  <ul id="622de047-500f-425f-9071-6a0fcb33f102" class="bulleted-list">
+    <li>if you have long-running CPU-bound tasks you would like to run in parallel <code>asyncio</code> is <strong>not</strong> for you. for that you need <a href="https://docs.python.org/3/library/threading.html?highlight=threading#module-threading"><code>threads</code></a> or <a href="https://docs.python.org/3/library/multiprocessing.html?#module-multiprocessing"><code>multiprocessing</code></a>.
+    </li>
+    <li>if you have IO-bound jobs running, you <em>may</em> run them concurrently using <code>asyncio</code>.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

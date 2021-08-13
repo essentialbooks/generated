@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>The <code>Collections</code> class offers two standard static methods to sort a list:</p><ul id="b8219e59-0eae-46ca-bdc6-eee86f42e20d" class="bulleted-list"><li><code>sort(List&lt;T&gt; list)</code> applicable to lists where <code>T extends Comparable&lt;? super T&gt;</code>, and</li><li><code>sort(List&lt;T&gt; list, Comparator&lt;? super T&gt; c)</code> applicable to lists of any type.</li></ul><p>Applying the former requires amending the class of list elements being sorted, which is not always possible. It might also be undesirable as although it provides the default sorting, other sorting orders may be required in different circumstances, or sorting is just a one off task.</p><p>Consider we have a task of sorting objects that are instances of the following class:</p>
+      
+<p>The <code>Collections</code> class offers two standard static methods to sort a list:
+</p>
+  <ul id="b8219e59-0eae-46ca-bdc6-eee86f42e20d" class="bulleted-list">
+    <li><code>sort(List&lt;T&gt; list)</code> applicable to lists where <code>T extends Comparable&lt;? super T&gt;</code>, and
+    </li>
+    <li><code>sort(List&lt;T&gt; list, Comparator&lt;? super T&gt; c)</code> applicable to lists of any type.
+    </li>
+  </ul>
+<p>Applying the former requires amending the class of list elements being sorted, which is not always possible. It might also be undesirable as although it provides the default sorting, other sorting orders may be required in different circumstances, or sorting is just a one off task.
+</p>
+<p>Consider we have a task of sorting objects that are instances of the following class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class User {
@@ -148,7 +161,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In order to use <code>Collections.sort(List&lt;User&gt; list)</code> we need to modify the <code>User</code> class to implement the <code>Comparable</code> interface. For example</p>
+</div>
+<p>In order to use <code>Collections.sort(List&lt;User&gt; list)</code> we need to modify the <code>User</code> class to implement the <code>Comparable</code> interface. For example
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class User implements Comparable&lt;User&gt; {
@@ -175,7 +191,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>(Aside: many standard Java classes such as <code>String</code>, <code>Long</code>, <code>Integer</code> implement the <code>Comparable</code> interface. This makes lists of those elements sortable by default, and simplifies implementation of <code>compare</code> or <code>compareTo</code> in other classes.)</p><p>With the modification above, the we can easily sort a list of <code>User</code> objects based on the classes <em>natural ordering</em>. (In this case, we have defined that to be ordering based on <code>id</code> values). For example:</p>
+</div>
+<p>(Aside: many standard Java classes such as <code>String</code>, <code>Long</code>, <code>Integer</code> implement the <code>Comparable</code> interface. This makes lists of those elements sortable by default, and simplifies implementation of <code>compare</code> or <code>compareTo</code> in other classes.)
+</p>
+<p>With the modification above, the we can easily sort a list of <code>User</code> objects based on the classes <em>natural ordering</em>. (In this case, we have defined that to be ordering based on <code>id</code> values). For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">List&lt;User&gt; users = Lists.newArrayList(
@@ -190,7 +211,12 @@ System.out.print(users);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, suppose that we wanted to sort <code>User</code> objects by <code>name</code> rather than by <code>id</code>. Alternatively, suppose that we had not been able to change the class to make it implement <code>Comparable</code>.</p><p>This is where the <code>sort</code> method with the <code>Comparator</code> argument is useful:</p>
+</div>
+<p>However, suppose that we wanted to sort <code>User</code> objects by <code>name</code> rather than by <code>id</code>. Alternatively, suppose that we had not been able to change the class to make it implement <code>Comparable</code>.
+</p>
+<p>This is where the <code>sort</code> method with the <code>Comparator</code> argument is useful:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Collections.sort(users, new Comparator&lt;User&gt;() {
@@ -206,7 +232,10 @@ System.out.print(users);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In Java 8 you can use a <em>lambda</em> instead of an anonymous class. The latter reduces to a one-liner:</p>
+</div>
+<p>In Java 8 you can use a <em>lambda</em> instead of an anonymous class. The latter reduces to a one-liner:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Collections.sort(users, (l, r) -&gt; l.username.compareTo(r.username));</pre>
@@ -214,7 +243,10 @@ System.out.print(users);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Further, there Java 8 adds a default <code>sort</code> method on the <code>List</code> interface, which simplifies sorting even more.</p>
+</div>
+<p>Further, there Java 8 adds a default <code>sort</code> method on the <code>List</code> interface, which simplifies sorting even more.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">users.sort((l, r) -&gt; l.username.compareTo(r.username))</pre>

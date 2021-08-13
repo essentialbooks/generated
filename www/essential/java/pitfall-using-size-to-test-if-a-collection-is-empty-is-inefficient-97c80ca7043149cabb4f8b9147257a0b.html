@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>The Java Collections Framework provides two related methods for all <code>Collection</code> objects:</p><ul id="7c0e3aca-dce1-4533-9b52-d46db1349667" class="bulleted-list"><li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html#size--"><code>size()</code></a> returns the number of entries in a <code>Collection</code>, and</li><li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html#isEmpty--"><code>isEmpty()</code></a> method returns true if (and only if) the <code>Collection</code> is empty.</li></ul><p>Both methods can be used to test for collection emptiness. For example:</p>
+      
+<p>The Java Collections Framework provides two related methods for all <code>Collection</code> objects:
+</p>
+  <ul id="7c0e3aca-dce1-4533-9b52-d46db1349667" class="bulleted-list">
+    <li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html#size--"><code>size()</code></a> returns the number of entries in a <code>Collection</code>, and
+    </li>
+    <li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html#isEmpty--"><code>isEmpty()</code></a> method returns true if (and only if) the <code>Collection</code> is empty.
+    </li>
+  </ul>
+<p>Both methods can be used to test for collection emptiness. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Collection&lt;String&gt; strings = new ArrayList&lt;&gt;();
@@ -137,7 +148,21 @@ boolean isEmpty = strings.isEmpty();         // Best</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>While these approaches look the same, some collection implementations do not store the size. For such a collection, the implementation of <code>size()</code> needs to calculate the size each time it is called. For instance:</p><ul id="8b57181a-cb42-4ca6-9b71-29d60ccd32a4" class="bulleted-list"><li>A simple linked list class (but not the <code>java.util.LinkedList</code>) might need to traverse the list to count the elements.</li><li>The <code>ConcurrentHashMap</code> class needs to sum the entries in all of the map’s “segments”.</li><li>A lazy implementation of a collection might need to realize the entire collection in memory in order to count the elements.</li></ul><p>By contrast, an <code>isEmpty()</code> method only needs to test if there is <em>at least one</em> element in the collection. This does not entail counting the elements.</p><p>While <code>size() == 0</code> is not always less efficient that <code>isEmpty()</code>, it is inconceivable for a properly implemented <code>isEmpty()</code> to be less efficient than <code>size() == 0</code>. Hence <code>isEmpty()</code> is preferred.</p>
+</div>
+<p>While these approaches look the same, some collection implementations do not store the size. For such a collection, the implementation of <code>size()</code> needs to calculate the size each time it is called. For instance:
+</p>
+  <ul id="8b57181a-cb42-4ca6-9b71-29d60ccd32a4" class="bulleted-list">
+    <li>A simple linked list class (but not the <code>java.util.LinkedList</code>) might need to traverse the list to count the elements.
+    </li>
+    <li>The <code>ConcurrentHashMap</code> class needs to sum the entries in all of the map’s “segments”.
+    </li>
+    <li>A lazy implementation of a collection might need to realize the entire collection in memory in order to count the elements.
+    </li>
+  </ul>
+<p>By contrast, an <code>isEmpty()</code> method only needs to test if there is <em>at least one</em> element in the collection. This does not entail counting the elements.
+</p>
+<p>While <code>size() == 0</code> is not always less efficient that <code>isEmpty()</code>, it is inconceivable for a properly implemented <code>isEmpty()</code> to be less efficient than <code>size() == 0</code>. Hence <code>isEmpty()</code> is preferred.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

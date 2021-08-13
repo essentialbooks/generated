@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>To load a class we first need to define it. The class is defined by the <code>ClassLoader</code>. There’s just one problem, Oracle didn’t write the <code>ClassLoader</code>’s code with this feature available. To define the class we will need to access a method named <code>defineClass()</code> which is a private method of the <code>ClassLoader</code>.</p><p>To access it, what we will do is create a new class, <code>ByteClassLoader</code>, and extend it to <code>ClassLoader</code>. Now that we have extended our class to <code>ClassLoader</code>, we can access the <code>ClassLoader</code>‘s private methods. To make <code>defineClass()</code> available, we will create a new method that will act like a mirror for the private <code>defineClass()</code> method. To call the private method we will need the class name, <code>name</code>, the class bytes, <code>classBytes</code>, the first byte’s offset, which will be <code>0</code> because <code>classBytes</code>’ data starts at <code>classBytes[0]</code>, and the last byte’s offset, which will be <code>classBytes.lenght</code> because it represents the size of the data, which will be the last offset.</p>
+      
+<p>To load a class we first need to define it. The class is defined by the <code>ClassLoader</code>. There’s just one problem, Oracle didn’t write the <code>ClassLoader</code>’s code with this feature available. To define the class we will need to access a method named <code>defineClass()</code> which is a private method of the <code>ClassLoader</code>.
+</p>
+<p>To access it, what we will do is create a new class, <code>ByteClassLoader</code>, and extend it to <code>ClassLoader</code>. Now that we have extended our class to <code>ClassLoader</code>, we can access the <code>ClassLoader</code>‘s private methods. To make <code>defineClass()</code> available, we will create a new method that will act like a mirror for the private <code>defineClass()</code> method. To call the private method we will need the class name, <code>name</code>, the class bytes, <code>classBytes</code>, the first byte’s offset, which will be <code>0</code> because <code>classBytes</code>’ data starts at <code>classBytes[0]</code>, and the last byte’s offset, which will be <code>classBytes.lenght</code> because it represents the size of the data, which will be the last offset.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class ByteClassLoader extends ClassLoader {
@@ -141,7 +146,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, we have a public <code>defineClass()</code> method. It can be called by passing the name of the class and the class bytes as arguments.</p><p>Let’s say we have class named <code>MyClass</code> in the package <code>stackoverflow</code>…</p><p>To call the method we need the class bytes so we create a <code>Path</code> object representing our class’ path by using the <code>Paths.get()</code> method and passing the path of the binary class as an argument. Now, we can get the class bytes with <code>Files.readAllBytes(path)</code>. So we create a <code>ByteClassLoader</code> instance and use the method we created, <code>defineClass()</code>. We already have the class bytes but to call our method we also need the class name which is given by the package name (dot) the class canonical name, in this case <code>stackoverflow.MyClass</code>.</p>
+</div>
+<p>Now, we have a public <code>defineClass()</code> method. It can be called by passing the name of the class and the class bytes as arguments.
+</p>
+<p>Let’s say we have class named <code>MyClass</code> in the package <code>stackoverflow</code>…
+</p>
+<p>To call the method we need the class bytes so we create a <code>Path</code> object representing our class’ path by using the <code>Paths.get()</code> method and passing the path of the binary class as an argument. Now, we can get the class bytes with <code>Files.readAllBytes(path)</code>. So we create a <code>ByteClassLoader</code> instance and use the method we created, <code>defineClass()</code>. We already have the class bytes but to call our method we also need the class name which is given by the package name (dot) the class canonical name, in this case <code>stackoverflow.MyClass</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Path path = Paths.get(&#34;MyClass.class&#34;);
@@ -152,7 +164,12 @@ loader.defineClass(&#34;stackoverflow.MyClass&#34;, Files.readAllBytes(path);</p
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Note</strong>: The <code>defineClass()</code> method returns a <code>Class&lt;?&gt;</code> object. You can save it if you want.</p><p>To load the class, we just call <code>loadClass()</code> and pass the class name. This method can throw an <code>ClassNotFoundException</code> so we need to use a try cath block</p>
+</div>
+<p><strong>Note</strong>: The <code>defineClass()</code> method returns a <code>Class&lt;?&gt;</code> object. You can save it if you want.
+</p>
+<p>To load the class, we just call <code>loadClass()</code> and pass the class name. This method can throw an <code>ClassNotFoundException</code> so we need to use a try cath block
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">try{

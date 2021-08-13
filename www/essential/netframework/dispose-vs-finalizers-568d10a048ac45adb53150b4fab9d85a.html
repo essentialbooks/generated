@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Implement Dispose() method (and declare the containing class as IDisposable) as a means to ensure any memory-heavy resources are freed as soon as the object is no longer used. The “catch” is that there is no strong guarantee the the Dispose() method would ever be invoked (unlike finalizers that always get invoked at the end of the life of the object).</p><p>One scenario is a program calling Dispose() on objects it explicitly creates:</p>
+      
+<p>Implement Dispose() method (and declare the containing class as IDisposable) as a means to ensure any memory-heavy resources are freed as soon as the object is no longer used. The “catch” is that there is no strong guarantee the the Dispose() method would ever be invoked (unlike finalizers that always get invoked at the end of the life of the object).
+</p>
+<p>One scenario is a program calling Dispose() on objects it explicitly creates:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private void SomeFunction()
@@ -150,7 +155,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Another scenario is declaring a class to be instantiated by the framework. In this case the new class usually inherits a base class, for instance in MVC one creates a controller class as a subclass of System.Web.Mvc.ControllerBase. When the base class implements IDisposable interface, this is a good hint that Dispose() would be invoked properly by the framework - but again there is no strong guarantee.</p><p>Thus Dispose() is not a substitute for a finalizer; instead, the two should be used for different purposes:</p><ul id="c8dbdd45-221c-4d0f-bb8e-15998a610b7d" class="bulleted-list"><li>A finalizer eventually frees resources to avoid memory leaks that would occur otherwise</li><li>Dispose() frees resources (possibly the same ones) as soon as these are no longer needed, to ease pressure on overall memory allocation.</li></ul>
+</div>
+<p>Another scenario is declaring a class to be instantiated by the framework. In this case the new class usually inherits a base class, for instance in MVC one creates a controller class as a subclass of System.Web.Mvc.ControllerBase. When the base class implements IDisposable interface, this is a good hint that Dispose() would be invoked properly by the framework - but again there is no strong guarantee.
+</p>
+<p>Thus Dispose() is not a substitute for a finalizer; instead, the two should be used for different purposes:
+</p>
+  <ul id="c8dbdd45-221c-4d0f-bb8e-15998a610b7d" class="bulleted-list">
+    <li>A finalizer eventually frees resources to avoid memory leaks that would occur otherwise
+    </li>
+    <li>Dispose() frees resources (possibly the same ones) as soon as these are no longer needed, to ease pressure on overall memory allocation.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

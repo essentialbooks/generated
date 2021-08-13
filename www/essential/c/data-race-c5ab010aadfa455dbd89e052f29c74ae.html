@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>C11 introduced support for multiple threads of execution, which affords the possibility of data races. A program contains a data race if an object in it is accessed1 by two different threads, where at least one of the accesses is non-atomic, at least one modifies the object, and program semantics fail to ensure that the two accesses cannot overlap temporally.2 Note well that actual concurrency of the accesses involved is not a condition for a data race; data races cover a broader class of issues arising from (allowed) inconsistencies in different threads’ views of memory.</p><p>Consider this example:</p>
+      
+<p>C11 introduced support for multiple threads of execution, which affords the possibility of data races. A program contains a data race if an object in it is accessed1 by two different threads, where at least one of the accesses is non-atomic, at least one modifies the object, and program semantics fail to ensure that the two accesses cannot overlap temporally.2 Note well that actual concurrency of the accesses involved is not a condition for a data race; data races cover a broader class of issues arising from (allowed) inconsistencies in different threads’ views of memory.
+</p>
+<p>Consider this example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;threads.h&gt;
@@ -154,7 +159,28 @@ int main( void )
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The main thread calls <code>thrd_create</code> to start a new thread running function <code>Function</code>. The second thread modifies <code>a</code>, and the main thread reads <code>a</code>. Neither of those access is atomic, and the two threads do nothing either individually or jointly to ensure that they do not overlap, so there is a data race.</p><p>Among the ways this program could avoid the data race are</p><ul id="0cdde5c4-8822-418e-80c3-ac764b3d563e" class="bulleted-list"><li>the main thread could perform its read of <code>a</code> before starting the other thread;</li><li>the main thread could perform its read of <code>a</code> after ensuring via <code>thrd_join</code> that the other has terminated;</li><li>the threads could synchronize their accesses via a mutex, each one locking that mutex before accessing <code>a</code> and unlocking it afterward.</li></ul><p>As the mutex option demonstrates, avoiding a data race does not require ensuring a specific order of operations, such as the child thread modifying <code>a</code> before the main thread reads it; it is sufficient (for avoiding a data race) to ensure that for a given execution, one access will happen before the other.</p><hr id="dc09985b-4b38-48e1-95e9-f579b657a8dc"/><p>1 Modifying or reading an object.</p><p>2 (Quoted from ISO:IEC 9889:201x, section 5.1.2.4 “Multi-threaded executions and data races”)</p><p>The execution of a program contains a data race if it contains two conflicting actions in different threads, at least one of which is not atomic, and neither happens before the other. Any such data race results in undefined behavior.</p>
+</div>
+<p>The main thread calls <code>thrd_create</code> to start a new thread running function <code>Function</code>. The second thread modifies <code>a</code>, and the main thread reads <code>a</code>. Neither of those access is atomic, and the two threads do nothing either individually or jointly to ensure that they do not overlap, so there is a data race.
+</p>
+<p>Among the ways this program could avoid the data race are
+</p>
+  <ul id="0cdde5c4-8822-418e-80c3-ac764b3d563e" class="bulleted-list">
+    <li>the main thread could perform its read of <code>a</code> before starting the other thread;
+    </li>
+    <li>the main thread could perform its read of <code>a</code> after ensuring via <code>thrd_join</code> that the other has terminated;
+    </li>
+    <li>the threads could synchronize their accesses via a mutex, each one locking that mutex before accessing <code>a</code> and unlocking it afterward.
+    </li>
+  </ul>
+<p>As the mutex option demonstrates, avoiding a data race does not require ensuring a specific order of operations, such as the child thread modifying <code>a</code> before the main thread reads it; it is sufficient (for avoiding a data race) to ensure that for a given execution, one access will happen before the other.
+</p>
+<hr id="dc09985b-4b38-48e1-95e9-f579b657a8dc"/>
+<p>1 Modifying or reading an object.
+</p>
+<p>2 (Quoted from ISO:IEC 9889:201x, section 5.1.2.4 “Multi-threaded executions and data races”)
+</p>
+<p>The execution of a program contains a data race if it contains two conflicting actions in different threads, at least one of which is not atomic, and neither happens before the other. Any such data race results in undefined behavior.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

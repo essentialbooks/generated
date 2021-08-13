@@ -127,7 +127,21 @@
 </div>
 
 
-      <p><em>Before proceeding, it is recommended to have a brief idea about Adjacency Matrix and BFS</em></p><p><a href="https://en.wikipedia.org/wiki/Dijkstra&#x27;s_algorithm">Dijkstra’s algorithm</a> is known as single-source shortest path algorithm. It is used for finding the shortest paths between nodes in a graph, which may represent, for example, road networks. It was conceived by <a href="https://en.wikipedia.org/wiki/Edsger_W._Dijkstra">Edsger W. Dijkstra</a> in 1956 and published three years later.</p><p>We can find shortest path using Breadth First Search (BFS) searching algorithm. This algorithm works fine, but the problem is, it assumes the cost of traversing each path is same, that means the cost of each edge is same. Dijkstra’s algorithm helps us to find the shortest path where the cost of each path is not the same.</p><p>At first we will see, how to modify BFS to write Dijkstra’s algorithm, then we will add priority queue to make it a complete Dijkstra’s algorithm.</p><p>Let’s say, the distance of each node from the source is kept in <strong>d[]</strong> array. As in, <strong>d[3]</strong> represents that <strong>d[3]</strong> time is taken to reach <strong>node 3</strong> from <strong>source</strong>. If we don’t know the distance, we will store <em>infinity</em> in <strong>d[3]</strong>. Also, let <strong>cost[u][v]</strong> represent the cost of <strong>u-v</strong>. That means it takes <strong>cost[u][v]</strong> to go from <strong>u</strong> node to <strong>v</strong> node.</p><img class="img" src="/img/447561ddbd77549b172d0e65ea81df8094647a39.png"><p>We need to understand Edge Relaxation. Let’s say, from your house, that is <strong>source</strong>, it takes <em>10</em> minutes to go to place <strong>A</strong>. And it takes <em>25</em> minutes to go to place <strong>B</strong>. We have,</p>
+      
+<p><em>Before proceeding, it is recommended to have a brief idea about Adjacency Matrix and BFS</em>
+</p>
+<p><a href="https://en.wikipedia.org/wiki/Dijkstra&#x27;s_algorithm">Dijkstra’s algorithm</a> is known as single-source shortest path algorithm. It is used for finding the shortest paths between nodes in a graph, which may represent, for example, road networks. It was conceived by <a href="https://en.wikipedia.org/wiki/Edsger_W._Dijkstra">Edsger W. Dijkstra</a> in 1956 and published three years later.
+</p>
+<p>We can find shortest path using Breadth First Search (BFS) searching algorithm. This algorithm works fine, but the problem is, it assumes the cost of traversing each path is same, that means the cost of each edge is same. Dijkstra’s algorithm helps us to find the shortest path where the cost of each path is not the same.
+</p>
+<p>At first we will see, how to modify BFS to write Dijkstra’s algorithm, then we will add priority queue to make it a complete Dijkstra’s algorithm.
+</p>
+<p>Let’s say, the distance of each node from the source is kept in <strong>d[]</strong> array. As in, <strong>d[3]</strong> represents that <strong>d[3]</strong> time is taken to reach <strong>node 3</strong> from <strong>source</strong>. If we don’t know the distance, we will store <em>infinity</em> in <strong>d[3]</strong>. Also, let <strong>cost[u][v]</strong> represent the cost of <strong>u-v</strong>. That means it takes <strong>cost[u][v]</strong> to go from <strong>u</strong> node to <strong>v</strong> node.
+</p>
+<img class="img" src="/img/447561ddbd77549b172d0e65ea81df8094647a39.png">
+<p>We need to understand Edge Relaxation. Let’s say, from your house, that is <strong>source</strong>, it takes <em>10</em> minutes to go to place <strong>A</strong>. And it takes <em>25</em> minutes to go to place <strong>B</strong>. We have,
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">d[A] = 10
@@ -136,7 +150,10 @@ d[B] = 25</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now let’s say it takes <em>7</em> minutes to go from place <strong>A</strong> to place <strong>B</strong>, that means:</p>
+</div>
+<p>Now let’s say it takes <em>7</em> minutes to go from place <strong>A</strong> to place <strong>B</strong>, that means:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cost[A][B] = 7</pre>
@@ -144,7 +161,10 @@ d[B] = 25</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then we can go to place <strong>B</strong> from <strong>source</strong> by going to place <strong>A</strong> from <strong>source</strong> and then from place <strong>A</strong>, going to place <strong>B</strong>, which will take <em>10 + 7 = 17</em> minutes, instead of <em>25</em> minutes. So,</p>
+</div>
+<p>Then we can go to place <strong>B</strong> from <strong>source</strong> by going to place <strong>A</strong> from <strong>source</strong> and then from place <strong>A</strong>, going to place <strong>B</strong>, which will take <em>10 + 7 = 17</em> minutes, instead of <em>25</em> minutes. So,
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">d[A] + cost[A][B] &lt; d[B]</pre>
@@ -152,7 +172,10 @@ d[B] = 25</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then we update,</p>
+</div>
+<p>Then we update,
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">d[B] = d[A] + cost[A][B]</pre>
@@ -160,7 +183,15 @@ d[B] = 25</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is called relaxation. We will go from node <strong>u</strong> to node <strong>v</strong> and if <strong>d[u] + cost[u][v] &lt; d[v]</strong> then we will update <strong>d[v] = d[u] + cost[u][v]</strong>.</p><p>In BFS, we didn’t need to visit any node twice. We only checked if a node is visited or not. If it was not visited, we pushed the node in queue, marked it as visited and incremented the distance by 1. In Dijkstra, we can push a node in queue and instead of updating it with visited, we <em>relax</em> or update the new edge. Let’s look at one example:</p><img class="img" src="/img/f13e425bef10581a7f67a0299d1a53ec2dc5d601.png"><p>Let’s assume, <strong>Node 1</strong> is the <strong>Source</strong>. Then,</p>
+</div>
+<p>This is called relaxation. We will go from node <strong>u</strong> to node <strong>v</strong> and if <strong>d[u] + cost[u][v] &lt; d[v]</strong> then we will update <strong>d[v] = d[u] + cost[u][v]</strong>.
+</p>
+<p>In BFS, we didn’t need to visit any node twice. We only checked if a node is visited or not. If it was not visited, we pushed the node in queue, marked it as visited and incremented the distance by 1. In Dijkstra, we can push a node in queue and instead of updating it with visited, we <em>relax</em> or update the new edge. Let’s look at one example:
+</p>
+<img class="img" src="/img/f13e425bef10581a7f67a0299d1a53ec2dc5d601.png">
+<p>Let’s assume, <strong>Node 1</strong> is the <strong>Source</strong>. Then,
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">d[1] = 0
@@ -169,7 +200,14 @@ d[2] = d[3] = d[4] = infinity (or a large value)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We set, <strong>d[2], d[3]</strong> and <strong>d[4]</strong> to <em>infinity</em> because we don’t know the distance yet. And the distance of <strong>source</strong> is of course <em>0</em>. Now, we go to other nodes from <strong>source</strong> and if we can update them, then we’ll push them in the queue. Say for example, we’ll traverse <strong>edge 1-2</strong>. As <strong>d[1] + 2 &lt; d[2]</strong> which will make <strong>d[2] = 2</strong>. Similarly, we’ll traverse <strong>edge 1-3</strong> which makes <strong>d[3] = 5</strong>.</p><p>We can clearly see that <em>5</em> is not the shortest distance we can cross to go to <strong>node 3</strong>. So traversing a node only once, like BFS, doesn’t work here. If we go from <strong>node 2</strong> to <strong>node 3</strong> using <strong>edge 2-3</strong>, we can update <strong>d[3] = d[2] + 1 = 3</strong>. So we can see that one node can be updated many times. How many times you ask? The maximum number of times a node can be updated is the number of in-degree of a node.</p><p>Let’s see the pseudo-code for visiting any node multiple times. We will simply modify BFS:</p>
+</div>
+<p>We set, <strong>d[2], d[3]</strong> and <strong>d[4]</strong> to <em>infinity</em> because we don’t know the distance yet. And the distance of <strong>source</strong> is of course <em>0</em>. Now, we go to other nodes from <strong>source</strong> and if we can update them, then we’ll push them in the queue. Say for example, we’ll traverse <strong>edge 1-2</strong>. As <strong>d[1] + 2 &lt; d[2]</strong> which will make <strong>d[2] = 2</strong>. Similarly, we’ll traverse <strong>edge 1-3</strong> which makes <strong>d[3] = 5</strong>.
+</p>
+<p>We can clearly see that <em>5</em> is not the shortest distance we can cross to go to <strong>node 3</strong>. So traversing a node only once, like BFS, doesn’t work here. If we go from <strong>node 2</strong> to <strong>node 3</strong> using <strong>edge 2-3</strong>, we can update <strong>d[3] = d[2] + 1 = 3</strong>. So we can see that one node can be updated many times. How many times you ask? The maximum number of times a node can be updated is the number of in-degree of a node.
+</p>
+<p>Let’s see the pseudo-code for visiting any node multiple times. We will simply modify BFS:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">procedure BFSmodified(G, source):
@@ -190,7 +228,16 @@ Return distance</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This can be used to find the shortest path of all node from the source. The complexity of this code is not so good. Here’s why,</p><p>In BFS, when we go from <strong>node 1</strong> to all other nodes, we follow <em>first come, first serve</em> method. For example, we went to <strong>node 3</strong> from <strong>source</strong> before processing <strong>node 2</strong>. If we go to <strong>node 3</strong> from <strong>source</strong>, we update <strong>node 4</strong> as <strong>5 + 3 = 8</strong>. When we again update <strong>node 3</strong> from <strong>node 2</strong>, we need to update <strong>node 4</strong> as <strong>3 + 3 = 6</strong> again! So <strong>node 4</strong> is updated twice.</p><p><em>Dijkstra</em> proposed, instead of going for <em>First come, first serve</em> method, if we update the nearest nodes first, then it’ll take less updates. If we processed <strong>node 2</strong> before, then <strong>node 3</strong> would have been updated before, and after updating <strong>node 4</strong> accordingly, we’d easily get the shortest distance! The idea is to choose from the queue, the node, that is closest to the <strong>source</strong>. So we will use <em>Priority Queue</em> here so that when we pop the queue, it will bring us the closest node <strong>u</strong> from <strong>source</strong>. How will it do that? It’ll check the value of <strong>d[u]</strong> with it.</p><p>Let’s see the pseudo-code:</p>
+</div>
+<p>This can be used to find the shortest path of all node from the source. The complexity of this code is not so good. Here’s why,
+</p>
+<p>In BFS, when we go from <strong>node 1</strong> to all other nodes, we follow <em>first come, first serve</em> method. For example, we went to <strong>node 3</strong> from <strong>source</strong> before processing <strong>node 2</strong>. If we go to <strong>node 3</strong> from <strong>source</strong>, we update <strong>node 4</strong> as <strong>5 + 3 = 8</strong>. When we again update <strong>node 3</strong> from <strong>node 2</strong>, we need to update <strong>node 4</strong> as <strong>3 + 3 = 6</strong> again! So <strong>node 4</strong> is updated twice.
+</p>
+<p><em>Dijkstra</em> proposed, instead of going for <em>First come, first serve</em> method, if we update the nearest nodes first, then it’ll take less updates. If we processed <strong>node 2</strong> before, then <strong>node 3</strong> would have been updated before, and after updating <strong>node 4</strong> accordingly, we’d easily get the shortest distance! The idea is to choose from the queue, the node, that is closest to the <strong>source</strong>. So we will use <em>Priority Queue</em> here so that when we pop the queue, it will bring us the closest node <strong>u</strong> from <strong>source</strong>. How will it do that? It’ll check the value of <strong>d[u]</strong> with it.
+</p>
+<p>Let’s see the pseudo-code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">procedure dijkstra(G, source):
@@ -213,7 +260,18 @@ Return distance</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The pseudo-code returns distance of all other nodes from the <strong>source</strong>. If we want to know distance of a single node <strong>v</strong>, we can simply return the value when <strong>v</strong> is popped from the queue.</p><p>Now, does Dijkstra’s Algorithm work when there’s a negative edge? If there’s a negative cycle, then infinity loop will occur, as it will keep reducing the cost every time. Even if there is a negative edge, Dijkstra won’t work, unless we return right after the target is popped. But then, it won’t be a Dijkstra algorithm. We’ll need <a href="http://stackoverflow.com/documentation/algorithm/4791/bellman-ford-algorithm/24021/single-source-shortest-path-algorithm-given-there-is-a-negative-cycle-in-a-grap">Bellman–Ford</a> algorithm for processing negative edge/cycle.</p><p><strong>Complexity:</strong></p><p>The complexity of BFS is <strong>O(log(V+E))</strong> where <strong>V</strong> is the number of nodes and <strong>E</strong> is the number of edges. For Dijkstra, the complexity is similar, but sorting of <em>Priority Queue</em> takes <strong>O(logV)</strong>. So the total complexity is: <strong>O(Vlog(V)+E)</strong></p><p>Below is a Java example to solve Dijkstra’s Shortest Path Algorithm using Adjacency Matrix</p>
+</div>
+<p>The pseudo-code returns distance of all other nodes from the <strong>source</strong>. If we want to know distance of a single node <strong>v</strong>, we can simply return the value when <strong>v</strong> is popped from the queue.
+</p>
+<p>Now, does Dijkstra’s Algorithm work when there’s a negative edge? If there’s a negative cycle, then infinity loop will occur, as it will keep reducing the cost every time. Even if there is a negative edge, Dijkstra won’t work, unless we return right after the target is popped. But then, it won’t be a Dijkstra algorithm. We’ll need <a href="http://stackoverflow.com/documentation/algorithm/4791/bellman-ford-algorithm/24021/single-source-shortest-path-algorithm-given-there-is-a-negative-cycle-in-a-grap">Bellman–Ford</a> algorithm for processing negative edge/cycle.
+</p>
+<p><strong>Complexity:</strong>
+</p>
+<p>The complexity of BFS is <strong>O(log(V+E))</strong> where <strong>V</strong> is the number of nodes and <strong>E</strong> is the number of edges. For Dijkstra, the complexity is similar, but sorting of <em>Priority Queue</em> takes <strong>O(logV)</strong>. So the total complexity is: <strong>O(Vlog(V)+E)</strong>
+</p>
+<p>Below is a Java example to solve Dijkstra’s Shortest Path Algorithm using Adjacency Matrix
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import java.util.*;
@@ -294,7 +352,10 @@ class ShortestPath
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Expected output of the program is</p>
+</div>
+<p>Expected output of the program is
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Vertex   Distance from Source

@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>Occasionally there comes time for you to implicitly return-by-reference.</p><blockquote id="7f112a51-1e72-496f-8b0f-ae1aa7794e4e" class="">Returning by reference is useful when you want to use a function to find to which variable a reference should be bound. Do not use return-by-reference to increase performance. The engine will automatically optimize this on its own. Only return references when you have a valid technical reason to do so.</blockquote><p><em>Taken from the </em><a href="http://php.net/manual/en/language.references.return.php"><em>PHP Documentation for Returning By Reference</em></a><em>.</em></p><p>There are many different forms return by reference can take, including the following example:</p>
+      
+<p>Occasionally there comes time for you to implicitly return-by-reference.
+</p>
+<blockquote id="7f112a51-1e72-496f-8b0f-ae1aa7794e4e" class="">Returning by reference is useful when you want to use a function to find to which variable a reference should be bound. Do not use return-by-reference to increase performance. The engine will automatically optimize this on its own. Only return references when you have a valid technical reason to do so.
+</blockquote>
+<p><em>Taken from the </em><a href="http://php.net/manual/en/language.references.return.php"><em>PHP Documentation for Returning By Reference</em></a><em>.</em>
+</p>
+<p>There are many different forms return by reference can take, including the following example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">function parent(&amp;$var) {
@@ -146,7 +155,10 @@ parent(child()); // returns &#34;updated&#34;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Return by reference is not only limited to function references. You also have the ability to implicitly call the function:</p>
+</div>
+<p>Return by reference is not only limited to function references. You also have the ability to implicitly call the function:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">function &amp;myFunction() {
@@ -161,7 +173,21 @@ echo myFunction();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You cannot directly <em>reference</em> a function call, it has to be assigned to a variable before harnessing it. To see how that works, simply try <code>echo &amp;myFunction();</code>.</p><hr id="bc95d7b7-bddb-4fd5-ba1e-8fecb7c542fe"/><h1 id="fa1e686c-60e3-4003-983e-d5fb10aa20c0" class="">Notes<a class="header-anchor" href="#fa1e686c-60e3-4003-983e-d5fb10aa20c0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><ul id="35fb2c19-3acf-40e5-94d1-407fc3720e69" class="bulleted-list"><li>You are required to specify a reference (<code>&amp;</code>) in both places you intend on using it. That means, for your function definition (<code>function &amp;myFunction() {...</code>) and in the calling reference (<code>function callFunction(&amp;$variable) {...</code> or <code>&amp;myFunction();</code>).</li><li>You can only return a variable by reference. Hence the instantiation of <code>$a</code> in the example above. This means you can not return an expression, otherwise an <code><strong>E_NOTICE</strong></code> PHP error will be generated (<code><em>Notice: Only variable references should be returned by reference in ......</em></code>).</li><li>Return by reference does have legitimate use cases, but I should warn that they should be used sparingly, only after exploring all other potential options of achieving the same goal.</li></ul>
+</div>
+<p>You cannot directly <em>reference</em> a function call, it has to be assigned to a variable before harnessing it. To see how that works, simply try <code>echo &amp;myFunction();</code>.
+</p>
+<hr id="bc95d7b7-bddb-4fd5-ba1e-8fecb7c542fe"/>
+  <h1 id="fa1e686c-60e3-4003-983e-d5fb10aa20c0" class="">Notes
+  <a class="header-anchor" href="#fa1e686c-60e3-4003-983e-d5fb10aa20c0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <ul id="35fb2c19-3acf-40e5-94d1-407fc3720e69" class="bulleted-list">
+    <li>You are required to specify a reference (<code>&amp;</code>) in both places you intend on using it. That means, for your function definition (<code>function &amp;myFunction() {...</code>) and in the calling reference (<code>function callFunction(&amp;$variable) {...</code> or <code>&amp;myFunction();</code>).
+    </li>
+    <li>You can only return a variable by reference. Hence the instantiation of <code>$a</code> in the example above. This means you can not return an expression, otherwise an <code><strong>E_NOTICE</strong></code> PHP error will be generated (<code><em>Notice: Only variable references should be returned by reference in ......</em></code>).
+    </li>
+    <li>Return by reference does have legitimate use cases, but I should warn that they should be used sparingly, only after exploring all other potential options of achieving the same goal.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>We can illustrate this problem with the following pseudo-code</p>
+      
+<p>We can illustrate this problem with the following pseudo-code
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">function foo() {
@@ -138,7 +141,20 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Your first question here is an obvious one</p><blockquote id="163fa766-e4eb-44fb-bc81-17bc3b928caa" class="">Where did $bob come from?</blockquote><p>Are you confused? Good. You’ve just learned why globals are confusing and considered a <strong>bad practice</strong>.</p><p>If this were a real program, your next bit of fun is to go track down all instances of <code>$bob</code> and hope you find the right one (this gets worse if <code>$bob</code> is used everywhere). Worse, if someone else goes and defines <code>$bob</code> (or you forgot and reused that variable) your code can break (in the above code example, having the wrong object, or no object at all, would cause a fatal error).</p><p>Since virtually all PHP programs make use of code like <code>include(&#x27;file.php&#x27;);</code> your job maintaining code like this becomes exponentially harder the more files you add.</p><p>Also, this makes the task of testing your applications very difficult. Suppose you use a global variable to hold your database connection:</p>
+</div>
+<p>Your first question here is an obvious one
+</p>
+<blockquote id="163fa766-e4eb-44fb-bc81-17bc3b928caa" class="">Where did $bob come from?
+</blockquote>
+<p>Are you confused? Good. You’ve just learned why globals are confusing and considered a <strong>bad practice</strong>.
+</p>
+<p>If this were a real program, your next bit of fun is to go track down all instances of <code>$bob</code> and hope you find the right one (this gets worse if <code>$bob</code> is used everywhere). Worse, if someone else goes and defines <code>$bob</code> (or you forgot and reused that variable) your code can break (in the above code example, having the wrong object, or no object at all, would cause a fatal error).
+</p>
+<p>Since virtually all PHP programs make use of code like <code>include(&#x27;file.php&#x27;);</code> your job maintaining code like this becomes exponentially harder the more files you add.
+</p>
+<p>Also, this makes the task of testing your applications very difficult. Suppose you use a global variable to hold your database connection:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$dbConnector = new DBConnector(...);function doSomething() {global $dbConnector;$dbConnector-&gt;execute(&#34;...&#34;);}</pre>
@@ -146,7 +162,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In order to unit test this function, you have to override the global <code>$dbConnector</code> variable, run the tests and then reset it to its original value, which is very bug prone:</p>
+</div>
+<p>In order to unit test this function, you have to override the global <code>$dbConnector</code> variable, run the tests and then reset it to its original value, which is very bug prone:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/*** @test*/function testSomething() {global $dbConnector;$bkp = $dbConnector; // Make backup$dbConnector = Mock::create(&#39;DBConnector&#39;); // OverrideassertTrue(foo());$dbConnector = $bkp; // Restore}</pre>
@@ -154,7 +173,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>How do we avoid Globals?</strong></p><p>The best way to avoid globals is a philosophy called <a href="http://stackoverflow.com/documentation/php/779/dependency-injection#t=201607211643374820405"><strong>Dependency Injection</strong></a>. This is where we pass the tools we need into the function or class.</p>
+</div>
+<p><strong>How do we avoid Globals?</strong>
+</p>
+<p>The best way to avoid globals is a philosophy called <a href="http://stackoverflow.com/documentation/php/779/dependency-injection#t=201607211643374820405"><strong>Dependency Injection</strong></a>. This is where we pass the tools we need into the function or class.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">function foo(\Bar $bob) {
@@ -164,7 +188,39 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is <strong>much</strong> easier to understand and maintain. There’s no guessing where <code>$bob</code> was set up because the caller is responsible for knowing that (it’s passing us what we need to know). Better still, we can use <a href="http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration">type declarations</a> to restrict what’s being passed.</p><p>So we know that <code>$bob</code> is either an instance of the <code>Bar</code> class, or an instance of a child of <code>Bar</code>, meaning we know we can use the methods of that class. Combined with a standard autoloader (available since PHP 5.3), we can now go track down where <code>Bar</code> is defined. PHP 7.0 or later includes expanded type declarations, where you can also use scalar types (like <code>int</code> or <code>string</code>).</p><p><strong>Superglobal variables</strong></p><p>Super globals in PHP are predefined variables, which are always available, can be accessed from any scope throughout the script.</p><p>There is no need to do global $variable; to access them within functions/methods, classes or files.</p><p>These PHP superglobal variables are listed below:</p><ul id="7da3d702-d986-499e-998d-bbac6c22d949" class="bulleted-list"><li><a href="http://php.net/manual/en/reserved.variables.globals.php">$GLOBALS</a></li><li><a href="http://php.net/manual/en/reserved.variables.server.php">$_SERVER</a></li><li><a href="http://php.net/manual/en/reserved.variables.request.php">$_REQUEST</a></li><li><a href="http://php.net/manual/en/reserved.variables.post.php">$_POST</a></li><li><a href="http://php.net/manual/en/reserved.variables.get.php">$_GET</a></li><li><a href="http://php.net/manual/en/reserved.variables.files.php">$_FILES</a></li><li><a href="http://php.net/manual/en/reserved.variables.environment.php">$_ENV</a></li><li><a href="http://php.net/manual/en/reserved.variables.cookies.php">$_COOKIE</a></li><li><a href="http://php.net/manual/en/reserved.variables.session.php">$_SESSION</a></li></ul>
+</div>
+<p>This is <strong>much</strong> easier to understand and maintain. There’s no guessing where <code>$bob</code> was set up because the caller is responsible for knowing that (it’s passing us what we need to know). Better still, we can use <a href="http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration">type declarations</a> to restrict what’s being passed.
+</p>
+<p>So we know that <code>$bob</code> is either an instance of the <code>Bar</code> class, or an instance of a child of <code>Bar</code>, meaning we know we can use the methods of that class. Combined with a standard autoloader (available since PHP 5.3), we can now go track down where <code>Bar</code> is defined. PHP 7.0 or later includes expanded type declarations, where you can also use scalar types (like <code>int</code> or <code>string</code>).
+</p>
+<p><strong>Superglobal variables</strong>
+</p>
+<p>Super globals in PHP are predefined variables, which are always available, can be accessed from any scope throughout the script.
+</p>
+<p>There is no need to do global $variable; to access them within functions/methods, classes or files.
+</p>
+<p>These PHP superglobal variables are listed below:
+</p>
+  <ul id="7da3d702-d986-499e-998d-bbac6c22d949" class="bulleted-list">
+    <li><a href="http://php.net/manual/en/reserved.variables.globals.php">$GLOBALS</a>
+    </li>
+    <li><a href="http://php.net/manual/en/reserved.variables.server.php">$_SERVER</a>
+    </li>
+    <li><a href="http://php.net/manual/en/reserved.variables.request.php">$_REQUEST</a>
+    </li>
+    <li><a href="http://php.net/manual/en/reserved.variables.post.php">$_POST</a>
+    </li>
+    <li><a href="http://php.net/manual/en/reserved.variables.get.php">$_GET</a>
+    </li>
+    <li><a href="http://php.net/manual/en/reserved.variables.files.php">$_FILES</a>
+    </li>
+    <li><a href="http://php.net/manual/en/reserved.variables.environment.php">$_ENV</a>
+    </li>
+    <li><a href="http://php.net/manual/en/reserved.variables.cookies.php">$_COOKIE</a>
+    </li>
+    <li><a href="http://php.net/manual/en/reserved.variables.session.php">$_SESSION</a>
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

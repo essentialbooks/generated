@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The <code>@lru_cache</code> decorator can be used wrap an expensive, computationally-intensive function with a <a href="https://en.wikipedia.org/wiki/Cache_algorithms#Examples">Least Recently Used</a> cache. This allows function calls to be memoized, so that future calls with the same parameters can return instantly instead of having to be recomputed.</p>
+      
+<p>The <code>@lru_cache</code> decorator can be used wrap an expensive, computationally-intensive function with a <a href="https://en.wikipedia.org/wiki/Cache_algorithms#Examples">Least Recently Used</a> cache. This allows function calls to be memoized, so that future calls with the same parameters can return instantly instead of having to be recomputed.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@lru_cache(maxsize=None)  # Boundless cache
@@ -141,7 +144,20 @@ def fibonacci(n):
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In the example above, the value of <code>fibonacci(3)</code> is only calculated once, whereas if <code>fibonacci</code> didn’t have an LRU cache, <code>fibonacci(3)</code> would have been computed upwards of 230 times. Hence, <code>@lru_cache</code> is especially great for recursive functions or dynamic programming, where an expensive function could be called multiple times with the same exact parameters.</p><p><code>@lru_cache</code> has two arguments</p><ul id="674b1ab0-4266-420e-9581-968c1c2f7122" class="bulleted-list"><li><code>maxsize</code>: Number of calls to save. When the number of unique calls exceeds <code>maxsize</code>, the LRU cache will remove the least recently used calls.</li><li><code>typed</code> (added in 3.3): Flag for determining if equivalent arguments of different types belong to different cache records (i.e. if <code>3.0</code> and <code>3</code> count as different arguments)</li></ul><p>We can see cache stats too:</p>
+</div>
+<p>In the example above, the value of <code>fibonacci(3)</code> is only calculated once, whereas if <code>fibonacci</code> didn’t have an LRU cache, <code>fibonacci(3)</code> would have been computed upwards of 230 times. Hence, <code>@lru_cache</code> is especially great for recursive functions or dynamic programming, where an expensive function could be called multiple times with the same exact parameters.
+</p>
+<p><code>@lru_cache</code> has two arguments
+</p>
+  <ul id="674b1ab0-4266-420e-9581-968c1c2f7122" class="bulleted-list">
+    <li><code>maxsize</code>: Number of calls to save. When the number of unique calls exceeds <code>maxsize</code>, the LRU cache will remove the least recently used calls.
+    </li>
+    <li><code>typed</code> (added in 3.3): Flag for determining if equivalent arguments of different types belong to different cache records (i.e. if <code>3.0</code> and <code>3</code> count as different arguments)
+    </li>
+  </ul>
+<p>We can see cache stats too:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; fib.cache_info()
@@ -150,7 +166,11 @@ CacheInfo(hits=13, misses=16, maxsize=None, currsize=16)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>NOTE</em>: Since <code>@lru_cache</code> uses dictionaries to cache results, all parameters for the function must be hashable for the cache to work.</p><p><a href="https://docs.python.org/3/library/functools.html#functools.lru_cache">Official Python docs for </a><a href="https://docs.python.org/3/library/functools.html#functools.lru_cache"><code>@lru_cache</code></a>. <code>@lru_cache</code> was added in 3.2.</p>
+</div>
+<p><em>NOTE</em>: Since <code>@lru_cache</code> uses dictionaries to cache results, all parameters for the function must be hashable for the cache to work.
+</p>
+<p><a href="https://docs.python.org/3/library/functools.html#functools.lru_cache">Official Python docs for </a><a href="https://docs.python.org/3/library/functools.html#functools.lru_cache"><code>@lru_cache</code></a>. <code>@lru_cache</code> was added in 3.2.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

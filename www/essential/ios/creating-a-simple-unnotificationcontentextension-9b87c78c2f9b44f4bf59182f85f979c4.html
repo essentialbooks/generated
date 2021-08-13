@@ -127,7 +127,38 @@
 </div>
 
 
-      <p><strong>Step 1</strong></p><p>Making the environment suitable for Notification. Make sure you enabled <strong>Background Modes</strong> and <strong>Push Notification</strong> </p><img class="img" src="/img/8da7158c758f748b809db75d8e73e162eb2dbf25.png"><img class="img" src="/img/3336ab879c197178693b241792036b33d6e37389.png"><p><strong>Step 2: Creating an UNNotificationContentExtension</strong></p><p>Click on the <strong>+</strong> icon in the bottom which creates a target template and select Notification Content Extention -&gt; next -&gt; create a name for the content extension -&gt; finish</p><img class="img" src="/img/b233bcbe3b9743cfbd37cb8ab830df5789deae79.png"><p><strong>Step 3:Configuring the info.plist file of the created extension</strong></p><img class="img" src="/img/dde2cb8a597df86673117025f5bf2695038d83e6.png"><p>The dictionary in NSExtension signifies how the notification content is displayed, these are performed on long pressing the received notification</p><ul id="3e685769-9b73-4330-aee5-0ad5c7e06313" class="bulleted-list"><li>UNNotificationExtensionOverridesDefaultTitle: We can give custom title for our notification by default it displays the name of the application <code>self.title = myTitle</code></li><li>UNNotificationDefaultContentHidden: This boolean determines whether the default body of the notification is to be hidden or not</li><li>UNNotificationCategory: Category is created in <code>UNUserNotificationCenter</code> in your application. Here it can be either a string or an array of strings, so each category can gave different types of data from which we can create different UI’s. The payload we send must contain the category name in order to display this particular extension</li><li>UNNotificationExtensionInitialContentSizeRatio: The size of the initial content ie when displaying the ContentExtension for the first time the initial size with respect to width of the device. here 1 denotes the height will be equal to the width</li></ul><p><strong>Step 4: Creating </strong><code><strong>UNNotificationAction</strong></code><strong> and </strong><code><strong>UNNotificationCategory</strong></code><strong> in our application</strong></p><p>In your app’s AppDelegate.swift <code>didFinishLaunchingWithOptions</code> function add</p>
+      
+<p><strong>Step 1</strong>
+</p>
+<p>Making the environment suitable for Notification. Make sure you enabled <strong>Background Modes</strong> and <strong>Push Notification</strong> 
+</p>
+<img class="img" src="/img/8da7158c758f748b809db75d8e73e162eb2dbf25.png">
+<img class="img" src="/img/3336ab879c197178693b241792036b33d6e37389.png">
+<p><strong>Step 2: Creating an UNNotificationContentExtension</strong>
+</p>
+<p>Click on the <strong>+</strong> icon in the bottom which creates a target template and select Notification Content Extention -&gt; next -&gt; create a name for the content extension -&gt; finish
+</p>
+<img class="img" src="/img/b233bcbe3b9743cfbd37cb8ab830df5789deae79.png">
+<p><strong>Step 3:Configuring the info.plist file of the created extension</strong>
+</p>
+<img class="img" src="/img/dde2cb8a597df86673117025f5bf2695038d83e6.png">
+<p>The dictionary in NSExtension signifies how the notification content is displayed, these are performed on long pressing the received notification
+</p>
+  <ul id="3e685769-9b73-4330-aee5-0ad5c7e06313" class="bulleted-list">
+    <li>UNNotificationExtensionOverridesDefaultTitle: We can give custom title for our notification by default it displays the name of the application <code>self.title = myTitle</code>
+    </li>
+    <li>UNNotificationDefaultContentHidden: This boolean determines whether the default body of the notification is to be hidden or not
+    </li>
+    <li>UNNotificationCategory: Category is created in <code>UNUserNotificationCenter</code> in your application. Here it can be either a string or an array of strings, so each category can gave different types of data from which we can create different UI’s. The payload we send must contain the category name in order to display this particular extension
+    </li>
+    <li>UNNotificationExtensionInitialContentSizeRatio: The size of the initial content ie when displaying the ContentExtension for the first time the initial size with respect to width of the device. here 1 denotes the height will be equal to the width
+    </li>
+  </ul>
+<p><strong>Step 4: Creating </strong><code><strong>UNNotificationAction</strong></code><strong> and </strong><code><strong>UNNotificationCategory</strong></code><strong> in our application</strong>
+</p>
+<p>In your app’s AppDelegate.swift <code>didFinishLaunchingWithOptions</code> function add
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let userNotificationAction:UNNotificationAction = UNNotificationAction.init(identifier: &#34;ID1&#34;, title: &#34;வணக்கம்&#34;, options: .destructive)
@@ -142,7 +173,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We created two <code>UNNotificationAction</code> with identifiers <code>ID1</code> and <code>ID2</code> and added those actions to a <code>UNNotificationCategory</code> with identifier <code>CATID1</code> (the categoryID in ContentExtension’s info.plist file are same, what we created here should be used in payload and the plist file). We set the category to our application’s <code>UNUserNotificationCenter</code> and in next line we are registering for the notification which calls the <code>didRegisterForRemoteNotificationsWithDeviceToken</code> function where we get the device token</p><p>Note: dont forget to <code>import UserNotifications</code> in your AppDelegate.swift and add <code>UNUserNotificationCenterDelegate</code></p><p><strong>Step 5: Sample payload for the NotificationContent</strong></p>
+</div>
+<p>We created two <code>UNNotificationAction</code> with identifiers <code>ID1</code> and <code>ID2</code> and added those actions to a <code>UNNotificationCategory</code> with identifier <code>CATID1</code> (the categoryID in ContentExtension’s info.plist file are same, what we created here should be used in payload and the plist file). We set the category to our application’s <code>UNUserNotificationCenter</code> and in next line we are registering for the notification which calls the <code>didRegisterForRemoteNotificationsWithDeviceToken</code> function where we get the device token
+</p>
+<p>Note: dont forget to <code>import UserNotifications</code> in your AppDelegate.swift and add <code>UNUserNotificationCenterDelegate</code>
+</p>
+<p><strong>Step 5: Sample payload for the NotificationContent</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&#39;aps&#39;: {
@@ -160,7 +198,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Step 6: Configuring the ContentExtension</strong></p><p>The corresponding actions for the category is automatically displayed while the notification action is performed. Lets us see the code how its being performed</p>
+</div>
+<p><strong>Step 6: Configuring the ContentExtension</strong>
+</p>
+<p>The corresponding actions for the category is automatically displayed while the notification action is performed. Lets us see the code how its being performed
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import UIKit
@@ -200,7 +243,14 @@ func didReceive(_ response: UNNotificationResponse, completionHandler completion
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Step 7: Result</strong></p><p>After receiving and long press/Clicking View notification, the notification looks like this</p><img class="img" src="/img/a32693234c1e4436005698e16fb02aba39a9e216.jpg"><p>The title is “Koushik” since we gave <code>self.title = &quot;Koushik&quot;</code> and <code>UNNotificationExtensionOverrideDefaultTitle</code> as YES. In step 3 we gave <code>UNNotificationExtensionDefaultContentHidden</code> as NO if its YES then the notification will look like images 3 and 4.</p>
+</div>
+<p><strong>Step 7: Result</strong>
+</p>
+<p>After receiving and long press/Clicking View notification, the notification looks like this
+</p>
+<img class="img" src="/img/a32693234c1e4436005698e16fb02aba39a9e216.jpg">
+<p>The title is “Koushik” since we gave <code>self.title = &quot;Koushik&quot;</code> and <code>UNNotificationExtensionOverrideDefaultTitle</code> as YES. In step 3 we gave <code>UNNotificationExtensionDefaultContentHidden</code> as NO if its YES then the notification will look like images 3 and 4.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

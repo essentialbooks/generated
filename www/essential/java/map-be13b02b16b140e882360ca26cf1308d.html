@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Use the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html#map-java.util.function.Function-"><code>map()</code></a> method of <code>Optional</code> to work with values that might be <code>null</code> without doing explicit <code>null</code> checks:</p><p>(Note that the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html#map-java.util.function.Function-"><code>map()</code></a> and <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html#filter-java.util.function.Predicate-"><code>filter()</code></a> operations are evaluated immediately, unlike their Stream counterparts which are only evaluated upon a <em>terminal operation</em>.)</p><p>Syntax:</p>
+      
+<p>Use the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html#map-java.util.function.Function-"><code>map()</code></a> method of <code>Optional</code> to work with values that might be <code>null</code> without doing explicit <code>null</code> checks:
+</p>
+<p>(Note that the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html#map-java.util.function.Function-"><code>map()</code></a> and <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html#filter-java.util.function.Predicate-"><code>filter()</code></a> operations are evaluated immediately, unlike their Stream counterparts which are only evaluated upon a <em>terminal operation</em>.)
+</p>
+<p>Syntax:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public &lt;U&gt; Optional&lt;U&gt; map(Function&lt;? super T,? extends U&gt; mapper)</pre>
@@ -135,7 +142,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Code examples:</p>
+</div>
+<p>Code examples:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String value = null;
@@ -147,6 +157,7 @@ return Optional.ofNullable(value).map(String::toUpperCase).orElse(&#34;NONE&#34;
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String value = &#34;something&#34;;
@@ -157,7 +168,12 @@ return Optional.ofNullable(value).map(String::toUpperCase).orElse(&#34;NONE&#34;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Because <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html#map-java.util.function.Function-">Optional.map()</a> returns an empty optional when its mapping function returns null, you can chain several map() operations as a form of null-safe dereferencing. This is also known as <strong>Null-safe chaining</strong>.</p><p>Consider the following example:</p>
+</div>
+<p>Because <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html#map-java.util.function.Function-">Optional.map()</a> returns an empty optional when its mapping function returns null, you can chain several map() operations as a form of null-safe dereferencing. This is also known as <strong>Null-safe chaining</strong>.
+</p>
+<p>Consider the following example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String value = foo.getBar().getBaz().toString();</pre>
@@ -165,7 +181,12 @@ return Optional.ofNullable(value).map(String::toUpperCase).orElse(&#34;NONE&#34;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Any of <code>getBar</code>, <code>getBaz</code>, and <code>toString</code> can potentially throw a <code>NullPointerException</code>.</p><p>Here is an alternative way to get the value from <code>toString()</code> using <code>Optional</code>:</p>
+</div>
+<p>Any of <code>getBar</code>, <code>getBaz</code>, and <code>toString</code> can potentially throw a <code>NullPointerException</code>.
+</p>
+<p>Here is an alternative way to get the value from <code>toString()</code> using <code>Optional</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String value = Optional.ofNullable(foo)
@@ -177,7 +198,12 @@ return Optional.ofNullable(value).map(String::toUpperCase).orElse(&#34;NONE&#34;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will return an empty string if any of the mapping functions returned null.</p><p>Below is an another example, but slightly different. It will print the value only if none of the mapping functions returned null.</p>
+</div>
+<p>This will return an empty string if any of the mapping functions returned null.
+</p>
+<p>Below is an another example, but slightly different. It will print the value only if none of the mapping functions returned null.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Optional.ofNullable(foo)

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>SQL injection is a kind of attack that allows a malicious user to modify the SQL query, adding unwanted commands to it. For example, the following code is <strong>vulnerable</strong>:</p>
+      
+<p>SQL injection is a kind of attack that allows a malicious user to modify the SQL query, adding unwanted commands to it. For example, the following code is <strong>vulnerable</strong>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Do not use this vulnerable code!
@@ -137,7 +140,10 @@ $conn-&gt;query($sql);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This allows any user of this script to modify our database basically at will. For example consider the following query string:</p>
+</div>
+<p>This allows any user of this script to modify our database basically at will. For example consider the following query string:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">page.php?user=0;%20TRUNCATE%20TABLE%20users;</pre>
@@ -145,7 +151,10 @@ $conn-&gt;query($sql);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This makes our example query look like this</p>
+</div>
+<p>This makes our example query look like this
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT name, email, user_level FROM users WHERE userID = 0; TRUNCATE TABLE users;</pre>
@@ -153,7 +162,20 @@ $conn-&gt;query($sql);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>While this is an extreme example (most SQL injection attacks do not aim to delete data, nor do most PHP query execution functions support multi-query), this is an example of how a SQL injection attack can be made possible by the careless assembly of the query. Unfortunately, attacks like this are very common, and are highly effective due to coders who fail to take proper precautions to protect their data.</p><p>To prevent SQL injection from occurring, <strong>prepared statements</strong> are the recommended solution. Instead of concatenating user data directly to the query, a <em>placeholder</em> is used instead. The data is then sent separately, which means there is no chance of the SQL engine confusing user data for a set of instructions.</p><blockquote id="c6e2f98f-e7b2-4b17-bd8e-4a6e9a2739a8" class="">While the topic here is PDO, please note that the PHP MySQLi extension also supports prepared statements</blockquote><p>PDO supports two kinds of placeholders (placeholders cannot be used for column or table names, only values):</p><ol id="c28d0705-639a-4b87-a076-4390bca97228" class="numbered-list" start="1"><li>Named placeholders. A colon(<code>:</code>), followed by a distinct name (eg. <code>:user</code>)</li></ol>
+</div>
+<p>While this is an extreme example (most SQL injection attacks do not aim to delete data, nor do most PHP query execution functions support multi-query), this is an example of how a SQL injection attack can be made possible by the careless assembly of the query. Unfortunately, attacks like this are very common, and are highly effective due to coders who fail to take proper precautions to protect their data.
+</p>
+<p>To prevent SQL injection from occurring, <strong>prepared statements</strong> are the recommended solution. Instead of concatenating user data directly to the query, a <em>placeholder</em> is used instead. The data is then sent separately, which means there is no chance of the SQL engine confusing user data for a set of instructions.
+</p>
+<blockquote id="c6e2f98f-e7b2-4b17-bd8e-4a6e9a2739a8" class="">While the topic here is PDO, please note that the PHP MySQLi extension also supports prepared statements
+</blockquote>
+<p>PDO supports two kinds of placeholders (placeholders cannot be used for column or table names, only values):
+</p>
+  <ol id="c28d0705-639a-4b87-a076-4390bca97228" class="numbered-list" start="1">
+    <li>Named placeholders. A colon(<code>:</code>), followed by a distinct name (eg. <code>:user</code>)
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// using named placeholders
@@ -165,7 +187,12 @@ $result = $prep-&gt;fetchAll();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="de480e02-fb3a-4aca-ab4b-b5ab396f0b41" class="numbered-list" start="1"><li>Traditional SQL positional placeholders, represented as <code>?</code>:</li></ol>
+</div>
+  <ol id="de480e02-fb3a-4aca-ab4b-b5ab396f0b41" class="numbered-list" start="1">
+    <li>Traditional SQL positional placeholders, represented as <code>?</code>:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// using question-mark placeholders
@@ -177,7 +204,12 @@ $result = $prep-&gt;fetchAll();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If ever you need to dynamically change table or column names, know that this is at your own security risks and a bad practice. Though, it can be done by string concatenation. One way to improve security of such queries is to set a table of allowed values and compare the value you want to concatenate to this table.</p><p>Be aware that it is important to set connection charset through DSN only, otherwise your application could be prone to an <a href="https://stackoverflow.com/questions/134099/are-pdo-prepared-statements-sufficient-to-prevent-sql-injection/12202218#12202218">obscure vulnerability</a> if some odd encoding is used. For PDO versions prior to 5.3.6 setting charset through DSN is not available and thus the only option is to set <code>PDO::ATTR_EMULATE_PREPARES</code> attribute to <code>false</code> on the connection right after it’s created.</p>
+</div>
+<p>If ever you need to dynamically change table or column names, know that this is at your own security risks and a bad practice. Though, it can be done by string concatenation. One way to improve security of such queries is to set a table of allowed values and compare the value you want to concatenate to this table.
+</p>
+<p>Be aware that it is important to set connection charset through DSN only, otherwise your application could be prone to an <a href="https://stackoverflow.com/questions/134099/are-pdo-prepared-statements-sufficient-to-prevent-sql-injection/12202218#12202218">obscure vulnerability</a> if some odd encoding is used. For PDO versions prior to 5.3.6 setting charset through DSN is not available and thus the only option is to set <code>PDO::ATTR_EMULATE_PREPARES</code> attribute to <code>false</code> on the connection right after it’s created.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$conn-&gt;setAttribute(PDO::ATTR_EMULATE_PREPARES, false);</pre>
@@ -185,7 +217,11 @@ $result = $prep-&gt;fetchAll();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This causes PDO to use the underlying DBMS’s native prepared statements instead of just emulating it.</p><p>However, be aware that PDO will <a href="https://github.com/php/php-src/blob/master/ext/pdo_mysql/mysql_driver.c#L210">silently fallback</a> to emulating statements that MySQL cannot prepare natively: those that it can are <a href="http://dev.mysql.com/doc/en/sql-syntax-prepared-statements.html">listed in the manual</a> (<a href="https://stackoverflow.com/questions/134099/are-pdo-prepared-statements-sufficient-to-prevent-sql-injection/12202218#12202218">source</a>).</p>
+</div>
+<p>This causes PDO to use the underlying DBMS’s native prepared statements instead of just emulating it.
+</p>
+<p>However, be aware that PDO will <a href="https://github.com/php/php-src/blob/master/ext/pdo_mysql/mysql_driver.c#L210">silently fallback</a> to emulating statements that MySQL cannot prepare natively: those that it can are <a href="http://dev.mysql.com/doc/en/sql-syntax-prepared-statements.html">listed in the manual</a> (<a href="https://stackoverflow.com/questions/134099/are-pdo-prepared-statements-sufficient-to-prevent-sql-injection/12202218#12202218">source</a>).
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

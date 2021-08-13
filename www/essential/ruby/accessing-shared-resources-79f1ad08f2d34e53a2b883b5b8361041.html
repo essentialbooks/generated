@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Use a mutex to synchronise access to a variable which is accessed from multiple threads:</p>
+      
+<p>Use a mutex to synchronise access to a variable which is accessed from multiple threads:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">counter = 0
@@ -143,7 +146,12 @@ end.each(&amp;:join) # Wait for all threads to finish before killing the process
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Otherwise, the value of <code>counter</code> currently visible to one thread could be changed by another thread.</p><p>Example <strong>without</strong> <code>Mutex</code> (see e.g. <code>Thread 0</code>, where <code>Before</code> and <code>After</code> differ by more than <code>1</code>):</p>
+</div>
+<p>Otherwise, the value of <code>counter</code> currently visible to one thread could be changed by another thread.
+</p>
+<p>Example <strong>without</strong> <code>Mutex</code> (see e.g. <code>Thread 0</code>, where <code>Before</code> and <code>After</code> differ by more than <code>1</code>):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">2.2.0 :224 &gt; counter = 0; 3.times.map { |i| Thread.new { puts &#34;[Thread #{i}] Before: #{counter}&#34;; counter += 1; puts &#34;[Thread #{i}] After: #{counter}&#34;; } }.each(&amp;:join)
@@ -157,7 +165,10 @@ end.each(&amp;:join) # Wait for all threads to finish before killing the process
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Example <strong>with</strong> <code>Mutex</code>:</p>
+</div>
+<p>Example <strong>with</strong> <code>Mutex</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">2.2.0 :226 &gt; mutex = Mutex.new; counter = 0; 3.times.map { |i| Thread.new { mutex.synchronize { puts &#34;[Thread #{i}] Before: #{counter}&#34;; counter += 1; puts &#34;[Thread #{i}] After: #{counter}&#34;; } } }.each(&amp;:join)

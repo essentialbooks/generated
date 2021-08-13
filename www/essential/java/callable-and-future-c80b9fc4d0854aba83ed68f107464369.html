@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>While <code>Runnable</code> provides a means to wrap code to be executed in a different thread, it has a limitation in that it cannot return a result from the execution. The only way to get some return value from the execution of a <code>Runnable</code> is to assign the result to a variable accessible in a scope outside of the <code>Runnable</code>.</p><p><code>Callable</code> was introduced in Java 5 as a peer to <code>Runnable</code>. <code>Callable</code> is essentially the same except it has a <code>call</code> method instead of <code>run</code>. The <code>call</code> method has the additional capability to return a result and is also allowed to throw checked exceptions.</p><p><strong>The result from a </strong><em><strong>Callable task submission</strong></em><strong> is available to be tapped via a </strong>Future****</p><p><code>Future</code> can be considered a container of sorts that houses the result of the <code>Callable</code> computation. Computation of the callable can carry on in another thread, and any attempt to tap the result of a <code>Future</code> will block and will only return the result once it is available.</p><p><strong>Callable Interface</strong></p>
+      
+<p>While <code>Runnable</code> provides a means to wrap code to be executed in a different thread, it has a limitation in that it cannot return a result from the execution. The only way to get some return value from the execution of a <code>Runnable</code> is to assign the result to a variable accessible in a scope outside of the <code>Runnable</code>.
+</p>
+<p><code>Callable</code> was introduced in Java 5 as a peer to <code>Runnable</code>. <code>Callable</code> is essentially the same except it has a <code>call</code> method instead of <code>run</code>. The <code>call</code> method has the additional capability to return a result and is also allowed to throw checked exceptions.
+</p>
+<p><strong>The result from a </strong><em><strong>Callable task submission</strong></em><strong> is available to be tapped via a </strong>Future****
+</p>
+<p><code>Future</code> can be considered a container of sorts that houses the result of the <code>Callable</code> computation. Computation of the callable can carry on in another thread, and any attempt to tap the result of a <code>Future</code> will block and will only return the result once it is available.
+</p>
+<p><strong>Callable Interface</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public interface Callable&lt;V&gt; {
@@ -137,7 +148,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Future</strong></p>
+</div>
+<p><strong>Future</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">interface Future&lt;V&gt; {
@@ -151,7 +165,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Using Callable and Future example:</strong></p>
+</div>
+<p><strong>Using Callable and Future example:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public static void main(String[] args) throws Exception {
@@ -167,7 +184,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Our Callable that does a lengthy computation</strong></p>
+</div>
+<p><strong>Our Callable that does a lengthy computation</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class ComplexCalculator implements Callable&lt;String&gt; {
@@ -184,7 +204,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Output</strong></p>
+</div>
+<p><strong>Output</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Time At Task Submission : Thu Aug 04 15:05:15 EDT 2016
@@ -195,7 +218,21 @@ Time At the Point of Printing the Result : Thu Aug 04 15:05:25 EDT 2016</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Other operations permitted on Future</strong></p><p>While <code>get()</code> is the method to extract the actual result Future has provision</p><ul id="64b10b80-10a9-414e-a444-4dd6c88d208a" class="bulleted-list"><li><code>get(long timeout, TimeUnit unit)</code> defines maximum time period during current thread will wait for a result;</li><li>To cancel the task call <code>cancel(mayInterruptIfRunning)</code>. The flag <code>mayInterrupt</code> indicates that task should be interrupted if it was started and is running right now;</li><li>To check if task is completed/finished by calling <code>isDone()</code>;</li><li>To check if the lengthy task were cancelled <code>isCancelled()</code>.</li></ul>
+</div>
+<p><strong>Other operations permitted on Future</strong>
+</p>
+<p>While <code>get()</code> is the method to extract the actual result Future has provision
+</p>
+  <ul id="64b10b80-10a9-414e-a444-4dd6c88d208a" class="bulleted-list">
+    <li><code>get(long timeout, TimeUnit unit)</code> defines maximum time period during current thread will wait for a result;
+    </li>
+    <li>To cancel the task call <code>cancel(mayInterruptIfRunning)</code>. The flag <code>mayInterrupt</code> indicates that task should be interrupted if it was started and is running right now;
+    </li>
+    <li>To check if task is completed/finished by calling <code>isDone()</code>;
+    </li>
+    <li>To check if the lengthy task were cancelled <code>isCancelled()</code>.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

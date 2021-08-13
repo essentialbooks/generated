@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>On 32-bit systems, integers greater than <code>0x7FFFFFFF</code> cannot be stored primitively, while integers between <code>0x0000000080000000</code> and <code>0x7FFFFFFFFFFFFFFF</code> can be stored primitively on 64-bit systems but not 32-bit systems (<code>signed long long</code>). However, since 64-bit systems and many other languages support storing <code>signed long long</code> integers, it is sometimes necessary to store this range of integers in exact value. There are several ways to do so, such as creating an array with two numbers, or converting the integer into its decimal human-readable form. This has several advantages, such as the convenience in presenting to the user, and the ability to manipulate it with bcmath directly.</p><p>The <a href="https://php.net/pack"><code>pack</code></a>/<a href="https://php.net/unpack"><code>unpack</code></a> methods can be used to convert between binary bytes and decimal form of the numbers (both of type <code>string</code>, but one is binary and one is ASCII), but they will always try to cast the ASCII string into a 32-bit int on 32-bit systems. The following snippet provides an alternative:</p>
+      
+<p>On 32-bit systems, integers greater than <code>0x7FFFFFFF</code> cannot be stored primitively, while integers between <code>0x0000000080000000</code> and <code>0x7FFFFFFFFFFFFFFF</code> can be stored primitively on 64-bit systems but not 32-bit systems (<code>signed long long</code>). However, since 64-bit systems and many other languages support storing <code>signed long long</code> integers, it is sometimes necessary to store this range of integers in exact value. There are several ways to do so, such as creating an array with two numbers, or converting the integer into its decimal human-readable form. This has several advantages, such as the convenience in presenting to the user, and the ability to manipulate it with bcmath directly.
+</p>
+<p>The <a href="https://php.net/pack"><code>pack</code></a>/<a href="https://php.net/unpack"><code>unpack</code></a> methods can be used to convert between binary bytes and decimal form of the numbers (both of type <code>string</code>, but one is binary and one is ASCII), but they will always try to cast the ASCII string into a 32-bit int on 32-bit systems. The following snippet provides an alternative:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/** Use pack(&#34;J&#34;) or pack(&#34;p&#34;) for 64-bit systems */

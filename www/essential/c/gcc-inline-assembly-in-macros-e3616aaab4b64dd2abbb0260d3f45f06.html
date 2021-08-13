@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>We can put assembly instructions inside a macro and use the macro like you would call a function.</p>
+      
+<p>We can put assembly instructions inside a macro and use the macro like you would call a function.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define mov(x,y) \
@@ -145,7 +148,12 @@ mov(state[0][1], sbox[si][sj]);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Using inline assembly instructions embedded in C code can improve the run time of a program. This is very helpful in time critical situations like cryptographic algorithms such as AES. For example, for a simple shift operation that is needed in the AES algorithm, we can substitute a direct <code>Rotate Right</code> assembly instruction with C shift operator <code>&gt;&gt;</code>.</p><p>In an implementation of ‘AES256’, in ‘AddRoundKey()’ function we have some statements like this:</p>
+</div>
+<p>Using inline assembly instructions embedded in C code can improve the run time of a program. This is very helpful in time critical situations like cryptographic algorithms such as AES. For example, for a simple shift operation that is needed in the AES algorithm, we can substitute a direct <code>Rotate Right</code> assembly instruction with C shift operator <code>&gt;&gt;</code>.
+</p>
+<p>In an implementation of ‘AES256’, in ‘AddRoundKey()’ function we have some statements like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">unsigned int w;          // 32-bit
@@ -161,7 +169,12 @@ subkey[3] = w;           // hold 8 bit, LSB, rightmost group of 8-bits
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>They simply assign the bit value of <code>w</code> to <code>subkey</code> array.</p><p>We can change three shift + assign and one assign C expression with only one assembly <code>Rotate Right</code> operation.</p>
+</div>
+<p>They simply assign the bit value of <code>w</code> to <code>subkey</code> array.
+</p>
+<p>We can change three shift + assign and one assign C expression with only one assembly <code>Rotate Right</code> operation.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">__asm__ (&#34;l.ror  %0,%1,%2&#34; : &#34;=r&#34; (* (unsigned int *) subkey)  : &#34;r&#34; (w), &#34;r&#34; (0x10));</pre>
@@ -169,7 +182,9 @@ subkey[3] = w;           // hold 8 bit, LSB, rightmost group of 8-bits
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The final result is exactly same.</p>
+</div>
+<p>The final result is exactly same.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

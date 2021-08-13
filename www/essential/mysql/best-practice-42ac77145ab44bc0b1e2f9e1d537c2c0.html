@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Limit root (and any other SUPER-privileged user) to</p>
+      
+<p>Limit root (and any other SUPER-privileged user) to
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">GRANT ... TO root@localhost ...</pre>
@@ -135,7 +138,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>That prevents access from other servers. You should hand out SUPER to very few people, and they should be aware of their responsibility. The application should not have SUPER.</p><p>Limit application logins to the one database it uses:</p>
+</div>
+<p>That prevents access from other servers. You should hand out SUPER to very few people, and they should be aware of their responsibility. The application should not have SUPER.
+</p>
+<p>Limit application logins to the one database it uses:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">GRANT ... ON dbname.* ...</pre>
@@ -143,7 +151,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>That way, someone who hacks into the application code can’t get past dbname. This can be further refined via either of these:</p>
+</div>
+<p>That way, someone who hacks into the application code can’t get past dbname. This can be further refined via either of these:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">GRANT SELECT ON dname.* ...    -- &#34;read only&#34;
@@ -152,7 +163,10 @@ GRANT ... ON dname.tblname ... -- &#34;just one table&#34;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The readonly may also need ‘safe’ things like</p>
+</div>
+<p>The readonly may also need ‘safe’ things like
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">GRANT SELECT, CREATE TEMPORARY TABLE ON dname.* ...    -- &#34;read only&#34;</pre>
@@ -160,7 +174,11 @@ GRANT ... ON dname.tblname ... -- &#34;just one table&#34;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As you say, there is no absolute security. My point here is there you can do a few things to slow hackers down. (Same goes for honest people goofing.)</p><p>In rare cases, you may need the application to do something available only to root. this can be done via a “Stored Procedure” that has <code>SECURITY DEFINER</code> (and root defines it). That will expose only what the SP does, which might, for example, be one particular action on one particular table.</p>
+</div>
+<p>As you say, there is no absolute security. My point here is there you can do a few things to slow hackers down. (Same goes for honest people goofing.)
+</p>
+<p>In rare cases, you may need the application to do something available only to root. this can be done via a “Stored Procedure” that has <code>SECURITY DEFINER</code> (and root defines it). That will expose only what the SP does, which might, for example, be one particular action on one particular table.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

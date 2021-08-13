@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="p">(</span>
@@ -139,7 +140,35 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Main notes:</p><ul id="7f5224da-4f32-4e8f-ac17-7ddcc0e92326" class="bulleted-list"><li>Starts with 1 and increments by 1 automatically when you fail to specify it on <code>INSERT</code>, or specify it as <code>NULL</code>.</li><li>The ids are always distinct from each other, but…</li><li>Do not make any assumptions (no gaps, consecutively generated, not reused, etc) about the values of the id other than being unique at any given instant.</li></ul><p>Subtle notes:</p><ul id="70bd8d92-7365-4ccf-8704-77581d92249d" class="bulleted-list"><li>On restart of server, the ‘next’ value is ‘computed’ as <code>MAX(id)+1</code>.</li><li>If the last operation before shutdown or crash was to delete the highest id, that id <em>may</em> be reused (this is engine-dependent). So, <em>do not trust auto_increments to be permanently unique</em>; they are only unique at any moment.</li><li>For multi-master or clustered solutions, see <code>auto_increment_offset</code> and <code>auto_increment_increment</code>.</li><li>It is OK to have something else as the <code>PRIMARY KEY</code> and simply do <code>INDEX(id)</code>. (This is an optimization in some situations.)</li><li>Using the <code>AUTO_INCREMENT</code> as the “<code>PARTITION</code> key” is rarely beneficial; do something different.</li><li>Various operations <em>may</em> “burn” values. This happens when they pre-allocate value(s), then don’t use them: <code>INSERT IGNORE</code> (with dup key), <code>REPLACE</code> (which is <code>DELETE</code> plus <code>INSERT</code>) and others. <code>ROLLBACK</code> is another cause for gaps in ids.</li><li>In Replication, you cannot trust ids to arrive at the slave(s) in ascending order. Although ids are assigned in consecutive order, InnoDB statements are sent to slaves in <code>COMMIT</code> order.</li></ul>
+</div>
+<p>Main notes:
+</p>
+  <ul id="7f5224da-4f32-4e8f-ac17-7ddcc0e92326" class="bulleted-list">
+    <li>Starts with 1 and increments by 1 automatically when you fail to specify it on <code>INSERT</code>, or specify it as <code>NULL</code>.
+    </li>
+    <li>The ids are always distinct from each other, but…
+    </li>
+    <li>Do not make any assumptions (no gaps, consecutively generated, not reused, etc) about the values of the id other than being unique at any given instant.
+    </li>
+  </ul>
+<p>Subtle notes:
+</p>
+  <ul id="70bd8d92-7365-4ccf-8704-77581d92249d" class="bulleted-list">
+    <li>On restart of server, the ‘next’ value is ‘computed’ as <code>MAX(id)+1</code>.
+    </li>
+    <li>If the last operation before shutdown or crash was to delete the highest id, that id <em>may</em> be reused (this is engine-dependent). So, <em>do not trust auto_increments to be permanently unique</em>; they are only unique at any moment.
+    </li>
+    <li>For multi-master or clustered solutions, see <code>auto_increment_offset</code> and <code>auto_increment_increment</code>.
+    </li>
+    <li>It is OK to have something else as the <code>PRIMARY KEY</code> and simply do <code>INDEX(id)</code>. (This is an optimization in some situations.)
+    </li>
+    <li>Using the <code>AUTO_INCREMENT</code> as the “<code>PARTITION</code> key” is rarely beneficial; do something different.
+    </li>
+    <li>Various operations <em>may</em> “burn” values. This happens when they pre-allocate value(s), then don’t use them: <code>INSERT IGNORE</code> (with dup key), <code>REPLACE</code> (which is <code>DELETE</code> plus <code>INSERT</code>) and others. <code>ROLLBACK</code> is another cause for gaps in ids.
+    </li>
+    <li>In Replication, you cannot trust ids to arrive at the slave(s) in ascending order. Although ids are assigned in consecutive order, InnoDB statements are sent to slaves in <code>COMMIT</code> order.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

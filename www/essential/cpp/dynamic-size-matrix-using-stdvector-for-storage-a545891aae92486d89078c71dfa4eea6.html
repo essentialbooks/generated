@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Unfortunately as of C++14 there’s no dynamic size matrix class in the C++ standard library. Matrix classes that support dynamic size are however available from a number of 3rd party libraries, including the Boost Matrix library (a sub-library within the Boost library).</p><p>If you don’t want a dependency on Boost or some other library, then one poor man’s dynamic size matrix in C++ is just like</p>
+      
+<p>Unfortunately as of C++14 there’s no dynamic size matrix class in the C++ standard library. Matrix classes that support dynamic size are however available from a number of 3rd party libraries, including the Boost Matrix library (a sub-library within the Boost library).
+</p>
+<p>If you don’t want a dependency on Boost or some other library, then one poor man’s dynamic size matrix in C++ is just like
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">m</span><span class="p">(</span> <span class="mi">3</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span> <span class="mi">7</span> <span class="p">)</span> <span class="p">);</span>
@@ -136,7 +141,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>… where <code>vector</code> is <code>std::vector</code>. The matrix is here created by copying a row vector <em>n</em> times where <em>n</em> is the number of rows, here 3. It has the advantage of providing the same <code>m[y]</code> indexing notation as for a fixed size raw array matrix, but it’s a bit inefficient because it involves a dynamic allocation for each row, and it’s a bit unsafe because it’s possible to inadvertently resize a row.</p><p>A more safe and efficient approach is to use a single vector as <em>storage</em> for the matrix, and map the client code’s (<em>x</em>, <em>y</em>) to a corresponding index in that vector:</p>
+</div>
+<p>… where <code>vector</code> is <code>std::vector</code>. The matrix is here created by copying a row vector <em>n</em> times where <em>n</em> is the number of rows, here 3. It has the advantage of providing the same <code>m[y]</code> indexing notation as for a fixed size raw array matrix, but it’s a bit inefficient because it involves a dynamic allocation for each row, and it’s a bit unsafe because it’s possible to inadvertently resize a row.
+</p>
+<p>A more safe and efficient approach is to use a single vector as <em>storage</em> for the matrix, and map the client code’s (<em>x</em>, <em>y</em>) to a corresponding index in that vector:
+</p>
+
 <div class="code-box lang-gcc">
 	<div>
 	<pre class="chroma">#include &lt;algorithm&gt;        // std::copy
@@ -235,6 +245,7 @@ auto main() -&gt; int
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">   1   2   3   4   5   6   7
@@ -245,7 +256,11 @@ auto main() -&gt; int
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above code is not industrial grade: it’s designed to show the basic principles, and serve the needs of students learning C++.</p><p>For example, one may define <code>operator()</code> overloads to simplify the indexing notation.</p>
+</div>
+<p>The above code is not industrial grade: it’s designed to show the basic principles, and serve the needs of students learning C++.
+</p>
+<p>For example, one may define <code>operator()</code> overloads to simplify the indexing notation.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

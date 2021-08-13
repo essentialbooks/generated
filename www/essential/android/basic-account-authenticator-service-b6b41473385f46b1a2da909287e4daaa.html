@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>The Android Account Authenticator system can be used to make the client authenticate with a remote server. Three pieces of information are required:</p><ul id="63e9ea6b-3645-4463-9232-27a41e7fa8f4" class="bulleted-list"><li>A service, triggered by the <code>android.accounts.AccountAuthenticator</code>. Its <code>onBind</code> method should return a subclass of <code>AbstractAccountAuthenticator</code>.</li><li>An activity to prompt the user for credentials (Login activity)</li><li>An xml resource file to describe the account</li></ul><p><strong>1. The service:</strong></p><p>Place the following permissions in your AndroidManifest.xml:</p>
+      
+<p>The Android Account Authenticator system can be used to make the client authenticate with a remote server. Three pieces of information are required:
+</p>
+  <ul id="63e9ea6b-3645-4463-9232-27a41e7fa8f4" class="bulleted-list">
+    <li>A service, triggered by the <code>android.accounts.AccountAuthenticator</code>. Its <code>onBind</code> method should return a subclass of <code>AbstractAccountAuthenticator</code>.
+    </li>
+    <li>An activity to prompt the user for credentials (Login activity)
+    </li>
+    <li>An xml resource file to describe the account
+    </li>
+  </ul>
+<p><strong>1. The service:</strong>
+</p>
+<p>Place the following permissions in your AndroidManifest.xml:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;uses-permission android:name=&#34;android.permission.GET_ACCOUNTS&#34; /&gt;
@@ -138,7 +153,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Declare the service in the manifest file:</p>
+</div>
+<p>Declare the service in the manifest file:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;service android:name=&#34;com.example.MyAuthenticationService&#34;&gt;
@@ -153,7 +171,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that the <code>android.accounts.AccountAuthenticator</code> is included within the <code>intent-filter</code> tag. The xml resource (named <code>authenticator</code> here) is specified in the <code>meta-data</code> tag.</p><p><strong>The service class:</strong></p>
+</div>
+<p>Note that the <code>android.accounts.AccountAuthenticator</code> is included within the <code>intent-filter</code> tag. The xml resource (named <code>authenticator</code> here) is specified in the <code>meta-data</code> tag.
+</p>
+<p><strong>The service class:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MyAuthenticationService extends Service {
@@ -186,7 +209,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>2. The xml resource:</strong></p>
+</div>
+<p><strong>2. The xml resource:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;account-authenticator xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
@@ -198,7 +224,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Do not directly assign a string to <code>android:label</code> or assign missing drawables. It will crash without warning.</p><p><strong>3. Extend the AbstractAccountAuthenticator class:</strong></p>
+</div>
+<p>Do not directly assign a string to <code>android:label</code> or assign missing drawables. It will crash without warning.
+</p>
+<p><strong>3. Extend the AbstractAccountAuthenticator class:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MyAuthenticator extends AbstractAccountAuthenticator {
@@ -260,7 +291,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>addAccount()</code> method in <code>AbstractAccountAuthenticator</code> class is important as this method is called when adding an account from the “Add Account” screen in under settings. <code>AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE</code> is important, as it will include the AccountAuthenticatorResponse object that is needed to return the account keys upon successful user verification.</p>
+</div>
+<p>The <code>addAccount()</code> method in <code>AbstractAccountAuthenticator</code> class is important as this method is called when adding an account from the “Add Account” screen in under settings. <code>AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE</code> is important, as it will include the AccountAuthenticatorResponse object that is needed to return the account keys upon successful user verification.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

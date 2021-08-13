@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Receiving from a channel with <code>&lt;- chan</code> or <code>for range</code> loop blocks.</p><p>Sometimes you want to limit time waiting for a value on a channel.</p><p>It’s possible with <code>select</code>:</p>
+      
+<p>Receiving from a channel with <code>&lt;- chan</code> or <code>for range</code> loop blocks.
+</p>
+<p>Sometimes you want to limit time waiting for a value on a channel.
+</p>
+<p>It’s possible with <code>select</code>:
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
@@ -155,6 +162,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">Timed out before worker finished
@@ -163,7 +171,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Let&#x27;s dig into how this works:</p>
+</div>
+<p>Let&#x27;s dig into how this works:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="k">select</span> <span class="p">{</span>
@@ -176,7 +187,19 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="4b172db6-2e1f-483c-87c3-569d644ef775" class="bulleted-list"><li><code>time.After</code> returns a channel on which a value will be enqueued after a given time (100 milliseconds in our example). It&#x27;s worth nothing that it&#x27;s at least 100 ms and can be more. Let&#x27;s call it a timeout channel.</li><li>we don&#x27;t care about the value read from timeout channel. We only care that value was sent on the channel</li><li>we use <code>select</code> to wait on 2 channels: <code>chResult</code> and a timeout channel</li><li><code>select</code> finishes when receive on one of the 2 channels completes</li><li>we either get the value on <code>chResult</code> before timeout expires or we receive the value from timeout channel</li></ul>
+</div>
+  <ul id="4b172db6-2e1f-483c-87c3-569d644ef775" class="bulleted-list">
+    <li><code>time.After</code> returns a channel on which a value will be enqueued after a given time (100 milliseconds in our example). It&#x27;s worth nothing that it&#x27;s at least 100 ms and can be more. Let&#x27;s call it a timeout channel.
+    </li>
+    <li>we don&#x27;t care about the value read from timeout channel. We only care that value was sent on the channel
+    </li>
+    <li>we use <code>select</code> to wait on 2 channels: <code>chResult</code> and a timeout channel
+    </li>
+    <li><code>select</code> finishes when receive on one of the 2 channels completes
+    </li>
+    <li>we either get the value on <code>chResult</code> before timeout expires or we receive the value from timeout channel
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

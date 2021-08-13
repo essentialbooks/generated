@@ -127,7 +127,74 @@
 </div>
 
 
-      <p>Canvas allows you to <code>context.translate</code>, <code>context.rotate</code> and <code>context.scale</code> in order to draw your shape in the position &amp; size you require.</p><p>Canvas itself uses a transformation matrix to efficiently track transformations.</p><ul id="73d96825-460a-454d-bbf9-32ecd741d3d8" class="bulleted-list"><li>You can change Canvas’s matrix with <code>context.transform</code></li><li>You can change Canvas’s matrix with individual <code>translate, rotate &amp; scale</code> commands</li><li>You can completely overwrite Canvas’s matrix with <code>context.setTransform</code>,</li><li><em>But you can’t read Canvas’s internal transformation matrix – it’s write-only.</em></li></ul><h1 id="e63785fd-0c88-4170-9989-da9703c4dd3b" class=""><em>Why use a transformation matrix?</em><a class="header-anchor" href="#e63785fd-0c88-4170-9989-da9703c4dd3b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>A transformation matrix allows you to aggregate many individual translations, rotations &amp; scalings into a single, easily reapplied matrix.</p><p>During complex animations you might apply dozens (or hundreds) of transformations to a shape. By using a transformation matrix you can (almost) instantly reapply those dozens of transformations with a single line of code.</p><p>Some Example uses:</p><ul id="af2e8daa-b649-4f82-a211-7424ff54a34b" class="bulleted-list"><li><strong>Test if the mouse is inside a shape that you have translated, rotated &amp; scaled</strong></li></ul><p>There is a built-in <code>context.isPointInPath</code> that tests if a point (eg the mouse) is inside a path-shape, but this built-in test is very slow compared to testing using a matrix.</p><p>Efficiently testing if the mouse is inside a shape involves taking the mouse position reported by the browser and transforming it in the same way that the shape was transformed. Then you can apply hit-testing as if the shape was not transformed.</p><ul id="d1af4cbf-e4ae-4258-845d-296a662647e6" class="bulleted-list"><li><strong>Redraw a shape that has been extensively translated, rotated &amp; scaled.</strong></li></ul><p>Instead of reapplying individual transformations with multiple <code>.translate, .rotate, .scale</code> you can apply all the aggregated transformations in a single line of code.</p><ul id="dbcd36b4-02f9-43cd-ab71-f96712a91db0" class="bulleted-list"><li><strong>Collision test shapes that have been translated, rotated &amp; scaled</strong></li></ul><p>You can use geometry &amp; trigonometry to calculate the points that make up transformed shapes, but it’s faster to use a transformation matrix to calculate those points.</p><h1 id="304200cf-97a5-4400-afcd-0acc6495f868" class=""><em>A Transformation Matrix “Class”</em><a class="header-anchor" href="#304200cf-97a5-4400-afcd-0acc6495f868" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>This code mirrors the native <code>context.translate</code>, <code>context.rotate</code>, <code>context.scale</code> transformation commands. Unlike the native canvas matrix, this matrix is readable and reusable.</p><p>Methods:</p><ul id="a9bca433-7e32-4e06-81cc-e6a7bd1d4b3a" class="bulleted-list"><li><code>translate</code>, <code>rotate</code>, <code>scale</code> mirror the context transformation commands and allow you to feed transformations into the matrix. The matrix efficiently holds the aggregated transformations.</li><li><code>setContextTransform</code> takes a context and sets that context’s matrix equal to this transformation matrix. This efficiently reapplies all transformations stored in this matrix to the context.</li><li><code>resetContextTransform</code> resets the context’s transformation to it’s default state (==untransformed).</li><li><code>getTransformedPoint</code> takes an untransformed coordinate point and converts it into a transformed point.</li><li><code>getScreenPoint</code> takes a transformed coordinate point and converts it into an untransformed point.</li><li><code>getMatrix</code> returns the aggregated transformations in the form of a matrix array.</li></ul><p><strong>Code:</strong></p>
+      
+<p>Canvas allows you to <code>context.translate</code>, <code>context.rotate</code> and <code>context.scale</code> in order to draw your shape in the position &amp; size you require.
+</p>
+<p>Canvas itself uses a transformation matrix to efficiently track transformations.
+</p>
+  <ul id="73d96825-460a-454d-bbf9-32ecd741d3d8" class="bulleted-list">
+    <li>You can change Canvas’s matrix with <code>context.transform</code>
+    </li>
+    <li>You can change Canvas’s matrix with individual <code>translate, rotate &amp; scale</code> commands
+    </li>
+    <li>You can completely overwrite Canvas’s matrix with <code>context.setTransform</code>,
+    </li>
+    <li><em>But you can’t read Canvas’s internal transformation matrix – it’s write-only.</em>
+    </li>
+  </ul>
+  <h1 id="e63785fd-0c88-4170-9989-da9703c4dd3b" class=""><em>Why use a transformation matrix?</em>
+  <a class="header-anchor" href="#e63785fd-0c88-4170-9989-da9703c4dd3b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>A transformation matrix allows you to aggregate many individual translations, rotations &amp; scalings into a single, easily reapplied matrix.
+</p>
+<p>During complex animations you might apply dozens (or hundreds) of transformations to a shape. By using a transformation matrix you can (almost) instantly reapply those dozens of transformations with a single line of code.
+</p>
+<p>Some Example uses:
+</p>
+  <ul id="af2e8daa-b649-4f82-a211-7424ff54a34b" class="bulleted-list">
+    <li><strong>Test if the mouse is inside a shape that you have translated, rotated &amp; scaled</strong>
+    </li>
+  </ul>
+<p>There is a built-in <code>context.isPointInPath</code> that tests if a point (eg the mouse) is inside a path-shape, but this built-in test is very slow compared to testing using a matrix.
+</p>
+<p>Efficiently testing if the mouse is inside a shape involves taking the mouse position reported by the browser and transforming it in the same way that the shape was transformed. Then you can apply hit-testing as if the shape was not transformed.
+</p>
+  <ul id="d1af4cbf-e4ae-4258-845d-296a662647e6" class="bulleted-list">
+    <li><strong>Redraw a shape that has been extensively translated, rotated &amp; scaled.</strong>
+    </li>
+  </ul>
+<p>Instead of reapplying individual transformations with multiple <code>.translate, .rotate, .scale</code> you can apply all the aggregated transformations in a single line of code.
+</p>
+  <ul id="dbcd36b4-02f9-43cd-ab71-f96712a91db0" class="bulleted-list">
+    <li><strong>Collision test shapes that have been translated, rotated &amp; scaled</strong>
+    </li>
+  </ul>
+<p>You can use geometry &amp; trigonometry to calculate the points that make up transformed shapes, but it’s faster to use a transformation matrix to calculate those points.
+</p>
+  <h1 id="304200cf-97a5-4400-afcd-0acc6495f868" class=""><em>A Transformation Matrix “Class”</em>
+  <a class="header-anchor" href="#304200cf-97a5-4400-afcd-0acc6495f868" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>This code mirrors the native <code>context.translate</code>, <code>context.rotate</code>, <code>context.scale</code> transformation commands. Unlike the native canvas matrix, this matrix is readable and reusable.
+</p>
+<p>Methods:
+</p>
+  <ul id="a9bca433-7e32-4e06-81cc-e6a7bd1d4b3a" class="bulleted-list">
+    <li><code>translate</code>, <code>rotate</code>, <code>scale</code> mirror the context transformation commands and allow you to feed transformations into the matrix. The matrix efficiently holds the aggregated transformations.
+    </li>
+    <li><code>setContextTransform</code> takes a context and sets that context’s matrix equal to this transformation matrix. This efficiently reapplies all transformations stored in this matrix to the context.
+    </li>
+    <li><code>resetContextTransform</code> resets the context’s transformation to it’s default state (==untransformed).
+    </li>
+    <li><code>getTransformedPoint</code> takes an untransformed coordinate point and converts it into a transformed point.
+    </li>
+    <li><code>getScreenPoint</code> takes a transformed coordinate point and converts it into an untransformed point.
+    </li>
+    <li><code>getMatrix</code> returns the aggregated transformations in the form of a matrix array.
+    </li>
+  </ul>
+<p><strong>Code:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var TransformationMatrix=( function(){
@@ -209,7 +276,22 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Demo:</strong></p><p>This demo uses the Transformation Matrix “Class” above to:</p><ul id="c947b4ea-5d8e-473b-8429-7a811c33eb89" class="bulleted-list"><li>Track (==save) a rectangle’s transformation matrix.</li><li>Redraw the transformed rectangle without using context transformation commands.</li><li>Test if the mouse has clicked inside the transformed rectangle.</li></ul><p><em>Code:</em></p>
+</div>
+<p><strong>Demo:</strong>
+</p>
+<p>This demo uses the Transformation Matrix “Class” above to:
+</p>
+  <ul id="c947b4ea-5d8e-473b-8429-7a811c33eb89" class="bulleted-list">
+    <li>Track (==save) a rectangle’s transformation matrix.
+    </li>
+    <li>Redraw the transformed rectangle without using context transformation commands.
+    </li>
+    <li>Test if the mouse has clicked inside the transformed rectangle.
+    </li>
+  </ul>
+<p><em>Code:</em>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;!doctype html&gt;

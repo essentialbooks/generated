@@ -127,7 +127,12 @@
 </div>
 
 
-      <p><strong>Using generics to define the type in instanceof</strong></p><p>Consider the following generic class <code>Example</code> declared with the formal parameter <code>&lt;T&gt;</code>:</p>
+      
+<p><strong>Using generics to define the type in instanceof</strong>
+</p>
+<p>Consider the following generic class <code>Example</code> declared with the formal parameter <code>&lt;T&gt;</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Example&lt;T&gt; {
@@ -139,7 +144,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will always give a Compilation error because as soon as the compiler compiles the <em>Java source</em> into <em>Java bytecode</em> it applies a process known as <em>type erasure</em>, which converts all generic code into non-generic code, making impossible to distinguish among T types at runtime. The type used with <code>instanceof</code> has to be <a href="https://docs.oracle.com/javase/tutorial/java/generics/nonReifiableVarargsType.html"><em>reifiable</em></a>, which means that all information about the type has to be available at runtime, and this is usually not the case for generic types.</p><p>The following class represents what two different classes of <code>Example</code>, <code>Example&lt;String&gt;</code> and <code>Example&lt;Number&gt;</code>, look like after generics has stripped off by <em>type erasure</em>:</p>
+</div>
+<p>This will always give a Compilation error because as soon as the compiler compiles the <em>Java source</em> into <em>Java bytecode</em> it applies a process known as <em>type erasure</em>, which converts all generic code into non-generic code, making impossible to distinguish among T types at runtime. The type used with <code>instanceof</code> has to be <a href="https://docs.oracle.com/javase/tutorial/java/generics/nonReifiableVarargsType.html"><em>reifiable</em></a>, which means that all information about the type has to be available at runtime, and this is usually not the case for generic types.
+</p>
+<p>The following class represents what two different classes of <code>Example</code>, <code>Example&lt;String&gt;</code> and <code>Example&lt;Number&gt;</code>, look like after generics has stripped off by <em>type erasure</em>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Example { // formal parameter is gone
@@ -151,7 +161,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since types are gone, it’s not possible for the JVM to know which type is <code>T</code>.</p><hr id="5cefa99f-c444-47ac-bc56-3d5291bc45f3"/><p><strong>Exception to the previous rule</strong></p><p>You can always use <em>unbounded wildcard</em> (?) for specifying a type in the <code>instanceof</code> as follows:</p>
+</div>
+<p>Since types are gone, it’s not possible for the JVM to know which type is <code>T</code>.
+</p>
+<hr id="5cefa99f-c444-47ac-bc56-3d5291bc45f3"/>
+<p><strong>Exception to the previous rule</strong>
+</p>
+<p>You can always use <em>unbounded wildcard</em> (?) for specifying a type in the <code>instanceof</code> as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public boolean isAList(Object obj) {
@@ -161,7 +179,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This can be useful to evaluate whether an instance <code>obj</code> is a <code>List</code> or not:</p>
+</div>
+<p>This can be useful to evaluate whether an instance <code>obj</code> is a <code>List</code> or not:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">System.out.println(isAList(&#34;foo&#34;)); // prints false
@@ -171,7 +192,15 @@ System.out.println(isAList(new ArrayList&lt;Float&gt;()); // prints true</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In fact, unbounded wildcard is considered a reifiable type.</p><hr id="60cae216-5112-4800-905f-de83daa7af92"/><p><strong>Using a generic instance with instanceof</strong></p><p>The other side of the coin is that using an instance <code>t</code> of <code>T</code> with <code>instanceof</code> is legal, as shown in the following example:</p>
+</div>
+<p>In fact, unbounded wildcard is considered a reifiable type.
+</p>
+<hr id="60cae216-5112-4800-905f-de83daa7af92"/>
+<p><strong>Using a generic instance with instanceof</strong>
+</p>
+<p>The other side of the coin is that using an instance <code>t</code> of <code>T</code> with <code>instanceof</code> is legal, as shown in the following example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Example&lt;T&gt; {
@@ -183,7 +212,10 @@ System.out.println(isAList(new ArrayList&lt;Float&gt;()); // prints true</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>because after the type erasure the class will look like the following:</p>
+</div>
+<p>because after the type erasure the class will look like the following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Example { // formal parameter is gone
@@ -195,7 +227,10 @@ System.out.println(isAList(new ArrayList&lt;Float&gt;()); // prints true</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since, even if the type erasure happen anyway, now the JVM can distinguish among different types in memory, even if they use the same reference type (<code>Object</code>), as the following snippet shows:</p>
+</div>
+<p>Since, even if the type erasure happen anyway, now the JVM can distinguish among different types in memory, even if they use the same reference type (<code>Object</code>), as the following snippet shows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Object obj1 = new String(&#34;foo&#34;); // reference type Object, object type String

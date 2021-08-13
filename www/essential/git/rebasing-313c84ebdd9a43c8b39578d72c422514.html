@@ -127,14 +127,70 @@
 </div>
 
 
-      <h2 id="d4e5c43e-0e0e-44c6-87cf-1e975ea44ba4" class="">Syntax<a class="header-anchor" href="#d4e5c43e-0e0e-44c6-87cf-1e975ea44ba4" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><ul id="967620e1-c011-44c0-9fb5-dd572cae2fe3" class="bulleted-list"><li><code>git rebase [-i | --interactive] [options] [--exec &lt;cmd&gt;] [--onto &lt;newbase&gt;] [&lt;upstream&gt;] [&lt;branch&gt;]</code></li><li><code>git rebase [-i | --interactive] [options] [--exec &lt;cmd&gt;] [--onto &lt;newbase&gt;] --root [&lt;branch&gt;]</code></li><li><code>git rebase --continue | --skip | --abort | --edit-tod</code></li></ul><div id="c8b33424-db8b-4096-9f86-b3dae6429ea9" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th width="0">Parameter</th><th width="0">Details</th></tr></thead><tbody><tr id="a80a8771-b9ed-4444-82ca-bd97a880245e"><td class="cell-title col-type-title">–continue</td><td class="cell-|)[F col-type-text">Restart the rebasing process after having resolved a merge conflict.</td></tr>
-<tr id="c9ddb5f9-fc00-4c21-b412-b4b4a994e1d7"><td class="cell-title col-type-title">–abort</td><td class="cell-|)[F col-type-text">Abort the rebase operation and reset HEAD to the original branch. If branch was provided when the rebase operation was started, then HEAD will be reset to branch. Otherwise HEAD will be reset to where it was when the rebase operation was started.</td></tr>
-<tr id="fa88cd32-a7c2-4a7a-8b47-134df6324650"><td class="cell-title col-type-title">–keep-empty</td><td class="cell-|)[F col-type-text">Keep the commits that do not change anything from its parents in the result.</td></tr>
-<tr id="d5e01ac9-cf43-47c9-aa8a-9b4ec631dcaf"><td class="cell-title col-type-title">–skip</td><td class="cell-|)[F col-type-text">Restart the rebasing process by skipping the current patch.</td></tr>
-<tr id="e6df96b7-51fd-45f3-a66d-934b44f6f4a5"><td class="cell-title col-type-title">-m, --merge</td><td class="cell-|)[F col-type-text">Use merging strategies to rebase. When the recursive (default) merge strategy is used, this allows rebase to be aware of renames on the upstream side. Note that a rebase merge works by replaying each commit from the working branch on top of the upstream branch. Because of this, when a merge conflict happens, the side reported as ours is the so-far rebased series, starting with upstream, and theirs is the working branch. In other words, the sides are swapped.</td></tr>
-<tr id="7bf5ae8a-92b8-41e1-a30f-07f98bde68f0"><td class="cell-title col-type-title">–stat</td><td class="cell-|)[F col-type-text">Show a diffstat of what changed upstream since the last rebase. The diffstat is also controlled by the configuration option rebase.stat.</td></tr>
-<tr id="052da883-80bc-4c42-adcc-935402d325e8"><td class="cell-title col-type-title">-x, --exec command</td><td class="cell-|)[F col-type-text">Perform interactive rebase, stopping between each commit and executing command</td></tr>
-</tbody></table></div><p>Keep in mind that rebase rewrites the repository history.</p><p>Rebasing commits that exists in the remote repository could rewrite repository nodes used by other developers as base node for their developments. Unless you really know what you are doing, it is a best practice to rebase before pushing your changes.</p>
+      
+  <h2 id="d4e5c43e-0e0e-44c6-87cf-1e975ea44ba4" class="">Syntax
+  <a class="header-anchor" href="#d4e5c43e-0e0e-44c6-87cf-1e975ea44ba4" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+  <ul id="967620e1-c011-44c0-9fb5-dd572cae2fe3" class="bulleted-list">
+    <li><code>git rebase [-i | --interactive] [options] [--exec &lt;cmd&gt;] [--onto &lt;newbase&gt;] [&lt;upstream&gt;] [&lt;branch&gt;]</code>
+    </li>
+    <li><code>git rebase [-i | --interactive] [options] [--exec &lt;cmd&gt;] [--onto &lt;newbase&gt;] --root [&lt;branch&gt;]</code>
+    </li>
+    <li><code>git rebase --continue | --skip | --abort | --edit-tod</code>
+    </li>
+  </ul>
+<div id="c8b33424-db8b-4096-9f86-b3dae6429ea9" class="collection-content">
+<h4 class="collection-title"></h4>
+<table class="collection-content">
+<thead>
+<tr>
+<th width="0">Parameter</th>
+<th width="0">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr id="a80a8771-b9ed-4444-82ca-bd97a880245e">
+<td class="cell-title col-type-title">–continue</td>
+<td class="cell-|)[F col-type-text">Restart the rebasing process after having resolved a merge conflict.</td>
+</tr>
+
+<tr id="c9ddb5f9-fc00-4c21-b412-b4b4a994e1d7">
+<td class="cell-title col-type-title">–abort</td>
+<td class="cell-|)[F col-type-text">Abort the rebase operation and reset HEAD to the original branch. If branch was provided when the rebase operation was started, then HEAD will be reset to branch. Otherwise HEAD will be reset to where it was when the rebase operation was started.</td>
+</tr>
+
+<tr id="fa88cd32-a7c2-4a7a-8b47-134df6324650">
+<td class="cell-title col-type-title">–keep-empty</td>
+<td class="cell-|)[F col-type-text">Keep the commits that do not change anything from its parents in the result.</td>
+</tr>
+
+<tr id="d5e01ac9-cf43-47c9-aa8a-9b4ec631dcaf">
+<td class="cell-title col-type-title">–skip</td>
+<td class="cell-|)[F col-type-text">Restart the rebasing process by skipping the current patch.</td>
+</tr>
+
+<tr id="e6df96b7-51fd-45f3-a66d-934b44f6f4a5">
+<td class="cell-title col-type-title">-m, --merge</td>
+<td class="cell-|)[F col-type-text">Use merging strategies to rebase. When the recursive (default) merge strategy is used, this allows rebase to be aware of renames on the upstream side. Note that a rebase merge works by replaying each commit from the working branch on top of the upstream branch. Because of this, when a merge conflict happens, the side reported as ours is the so-far rebased series, starting with upstream, and theirs is the working branch. In other words, the sides are swapped.</td>
+</tr>
+
+<tr id="7bf5ae8a-92b8-41e1-a30f-07f98bde68f0">
+<td class="cell-title col-type-title">–stat</td>
+<td class="cell-|)[F col-type-text">Show a diffstat of what changed upstream since the last rebase. The diffstat is also controlled by the configuration option rebase.stat.</td>
+</tr>
+
+<tr id="052da883-80bc-4c42-adcc-935402d325e8">
+<td class="cell-title col-type-title">-x, --exec command</td>
+<td class="cell-|)[F col-type-text">Perform interactive rebase, stopping between each commit and executing command</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+<p>Keep in mind that rebase rewrites the repository history.
+</p>
+<p>Rebasing commits that exists in the remote repository could rewrite repository nodes used by other developers as base node for their developments. Unless you really know what you are doing, it is a best practice to rebase before pushing your changes.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

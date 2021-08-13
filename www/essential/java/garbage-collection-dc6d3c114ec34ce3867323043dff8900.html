@@ -127,7 +127,32 @@
 </div>
 
 
-      <h2 id="8b5e7b63-11aa-4e4c-8246-3a0a37482e70" class="">The C++ approach - new and delete<a class="header-anchor" href="#8b5e7b63-11aa-4e4c-8246-3a0a37482e70" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>In a language like C++, the application program is responsible for managing the memory used by dynamically allocated memory. When an object is created in the C++ heap using the <code>new</code> operator, there needs to be a corresponding use of the <code>delete</code> operator to dispose of the object:</p><ul id="4c1ede30-8f57-45ee-886c-65c78110c635" class="bulleted-list"><li>If program forgets to <code>delete</code> an object and just “forgets” about it, the associated memory is lost to the application. The term for this situation is a <em>memory leak</em>, and it too much memory leaks an application is liable to use more and more memory, and eventually crash.</li><li>On the other hand, if an application attempts to <code>delete</code> the same object twice, or use an object after it has been deleted, then the application is liable to crash due to problems with memory corruption</li></ul><p>In a complicated C++ program, implementing memory management using <code>new</code> and <code>delete</code> can be time consuming. Indeed, memory management is a common source of bugs.</p><h2 id="3864aa79-6a96-49ea-acbd-c4fb9117a6ac" class="">The Java approach - garbage collection<a class="header-anchor" href="#3864aa79-6a96-49ea-acbd-c4fb9117a6ac" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Java takes a different approach. Instead of an explicit <code>delete</code> operator, Java provides an automatic mechanism known as garbage collection to reclaim the memory used by objects that are no longer needed. The Java runtime system takes responsibility for finding the objects to be disposed of. This task is performed by a component called a <em>garbage collector</em>, or GC for short.</p><p>At any time during the execution of a Java program, we can divide the set of all existing objects into two distinct subsets1:</p><ul id="1aabf842-39f9-461d-9175-cfa82e319bfb" class="bulleted-list"><li>Reachable objects are defined by the JLS as follows:</li></ul>
+      
+  <h2 id="8b5e7b63-11aa-4e4c-8246-3a0a37482e70" class="">The C++ approach - new and delete
+  <a class="header-anchor" href="#8b5e7b63-11aa-4e4c-8246-3a0a37482e70" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>In a language like C++, the application program is responsible for managing the memory used by dynamically allocated memory. When an object is created in the C++ heap using the <code>new</code> operator, there needs to be a corresponding use of the <code>delete</code> operator to dispose of the object:
+</p>
+  <ul id="4c1ede30-8f57-45ee-886c-65c78110c635" class="bulleted-list">
+    <li>If program forgets to <code>delete</code> an object and just “forgets” about it, the associated memory is lost to the application. The term for this situation is a <em>memory leak</em>, and it too much memory leaks an application is liable to use more and more memory, and eventually crash.
+    </li>
+    <li>On the other hand, if an application attempts to <code>delete</code> the same object twice, or use an object after it has been deleted, then the application is liable to crash due to problems with memory corruption
+    </li>
+  </ul>
+<p>In a complicated C++ program, implementing memory management using <code>new</code> and <code>delete</code> can be time consuming. Indeed, memory management is a common source of bugs.
+</p>
+  <h2 id="3864aa79-6a96-49ea-acbd-c4fb9117a6ac" class="">The Java approach - garbage collection
+  <a class="header-anchor" href="#3864aa79-6a96-49ea-acbd-c4fb9117a6ac" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Java takes a different approach. Instead of an explicit <code>delete</code> operator, Java provides an automatic mechanism known as garbage collection to reclaim the memory used by objects that are no longer needed. The Java runtime system takes responsibility for finding the objects to be disposed of. This task is performed by a component called a <em>garbage collector</em>, or GC for short.
+</p>
+<p>At any time during the execution of a Java program, we can divide the set of all existing objects into two distinct subsets1:
+</p>
+  <ul id="1aabf842-39f9-461d-9175-cfa82e319bfb" class="bulleted-list">
+    <li>Reachable objects are defined by the JLS as follows:
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt; A reachable object is any object that can be accessed in any potential continuing computation from any live thread.
@@ -137,7 +162,46 @@ In practice, this means that there is a chain of references starting from an in-
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="f154df58-5871-496a-98ec-b16a21ea5602" class="bulleted-list"><li>Unreachable objects are objects that <em>cannot possibly</em> be reached as above.</li></ul><p>Any objects that are unreachable are <em>eligible</em> for garbage collection. This does not mean that they <em>will</em> be garbage collected. In fact:</p><ul id="80939fd0-4f1e-418d-9726-3ac5a5a94244" class="bulleted-list"><li>An unreachable object <em>does not</em> get collected immediately on becoming unreachable1.</li><li>An unreachable object <em>may not ever</em> be garbage collected.</li></ul><p>The Java language Specification gives a lot of latitude to a JVM implementation to decide when to collect unreachable objects. It also (in practice) gives permission for a JVM implementation to be conservative in how it detects unreachable objects.</p><p>The one thing that the JLS guarantees is that no <em>reachable</em> objects will ever be garbage collected.</p><h2 id="0099cd69-2559-499e-a263-83f77f29f857" class="">What happens when an object becomes unreachable<a class="header-anchor" href="#0099cd69-2559-499e-a263-83f77f29f857" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>First of all, nothing specifically happens when an object <em>becomes</em> unreachable. Things only happen when the garbage collector runs <em>and</em> it detects that the object is unreachable. Furthermore, it is common for a GC run to not detect all unreachable objects.</p><p>When the GC detects an unreachable object, the following events can occur.</p><ol id="86bf3249-a126-4957-bea9-e003b19dcb27" class="numbered-list" start="1"><li>If there are any <code>Reference</code> objects that refer to the object, those references will be cleared before the object is deleted.</li><li>If the object is <em>finalizable</em>, then it will be finalized. This happens before the object is deleted.</li><li>The object can be deleted, and the memory it occupies can be reclaimed.</li></ol><p>Note that there is a clear sequence in which the above events <em>can</em> occur, but nothing requires the garbage collector to perform the final deletion of any specific object in any specific time-frame.</p><h2 id="c22b2819-c07a-45e8-be02-6831d333e0ce" class="">Examples of reachable and unreachable objects<a class="header-anchor" href="#c22b2819-c07a-45e8-be02-6831d333e0ce" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Consider the following example classes:</p>
+</div>
+  <ul id="f154df58-5871-496a-98ec-b16a21ea5602" class="bulleted-list">
+    <li>Unreachable objects are objects that <em>cannot possibly</em> be reached as above.
+    </li>
+  </ul>
+<p>Any objects that are unreachable are <em>eligible</em> for garbage collection. This does not mean that they <em>will</em> be garbage collected. In fact:
+</p>
+  <ul id="80939fd0-4f1e-418d-9726-3ac5a5a94244" class="bulleted-list">
+    <li>An unreachable object <em>does not</em> get collected immediately on becoming unreachable1.
+    </li>
+    <li>An unreachable object <em>may not ever</em> be garbage collected.
+    </li>
+  </ul>
+<p>The Java language Specification gives a lot of latitude to a JVM implementation to decide when to collect unreachable objects. It also (in practice) gives permission for a JVM implementation to be conservative in how it detects unreachable objects.
+</p>
+<p>The one thing that the JLS guarantees is that no <em>reachable</em> objects will ever be garbage collected.
+</p>
+  <h2 id="0099cd69-2559-499e-a263-83f77f29f857" class="">What happens when an object becomes unreachable
+  <a class="header-anchor" href="#0099cd69-2559-499e-a263-83f77f29f857" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>First of all, nothing specifically happens when an object <em>becomes</em> unreachable. Things only happen when the garbage collector runs <em>and</em> it detects that the object is unreachable. Furthermore, it is common for a GC run to not detect all unreachable objects.
+</p>
+<p>When the GC detects an unreachable object, the following events can occur.
+</p>
+  <ol id="86bf3249-a126-4957-bea9-e003b19dcb27" class="numbered-list" start="1">
+    <li>If there are any <code>Reference</code> objects that refer to the object, those references will be cleared before the object is deleted.
+    </li>
+    <li>If the object is <em>finalizable</em>, then it will be finalized. This happens before the object is deleted.
+    </li>
+    <li>The object can be deleted, and the memory it occupies can be reclaimed.
+    </li>
+  </ol>
+<p>Note that there is a clear sequence in which the above events <em>can</em> occur, but nothing requires the garbage collector to perform the final deletion of any specific object in any specific time-frame.
+</p>
+  <h2 id="c22b2819-c07a-45e8-be02-6831d333e0ce" class="">Examples of reachable and unreachable objects
+  <a class="header-anchor" href="#c22b2819-c07a-45e8-be02-6831d333e0ce" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Consider the following example classes:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// A node in simple &#34;open&#34; linked-list.
@@ -167,7 +231,10 @@ public class ListTest {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Let us examine what happens when <code>test()</code> is called. Statements T1, T2 and T3 create <code>Node</code> objects, and the objects are all reachable via the <code>n1</code>, <code>n2</code> and <code>n3</code> variables respectively. Statement T4 assigns the reference to the 2nd <code>Node</code> object to the <code>next</code> field of the first one. When that is done, the 2nd <code>Node</code> is reachable via two paths:</p>
+</div>
+<p>Let us examine what happens when <code>test()</code> is called. Statements T1, T2 and T3 create <code>Node</code> objects, and the objects are all reachable via the <code>n1</code>, <code>n2</code> and <code>n3</code> variables respectively. Statement T4 assigns the reference to the 2nd <code>Node</code> object to the <code>next</code> field of the first one. When that is done, the 2nd <code>Node</code> is reachable via two paths:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">n2 -&gt; Node2
@@ -176,7 +243,16 @@ n1 -&gt; Node1, Node1.next -&gt; Node2</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In statement T5, we assign <code>null</code> to <code>n2</code>. This breaks the first of the reachability chains for <code>Node2</code>, but the second one remains unbroken, so <code>Node2</code> is still reachable.</p><p>In statement T6, we assign <code>null</code> to <code>n3</code>. This breaks the only reachability chain for <code>Node3</code>, which makes <code>Node3</code> unreachable. However, <code>Node1</code> and <code>Node2</code> are both still reachable via the <code>n1</code> variable.</p><p>Finally, when the <code>test()</code> method returns, its local variables <code>n1</code>, <code>n2</code> and <code>n3</code> go out of scope, and therefore cannot be accessed by anything. This breaks the remaining reachability chains for <code>Node1</code> and <code>Node2</code>, and all of the <code>Node</code> objects are nor unreachable and <em>eligible</em> for garbage collection.</p><hr id="476feeb1-28ae-4f18-9b61-6b77a6d9efad"/><p>1 - This is a simplification that ignores finalization, and <code>Reference</code> classes. 2 - Hypothetically, a Java implementation could do this, but the performance cost of doing this makes it impractical.</p>
+</div>
+<p>In statement T5, we assign <code>null</code> to <code>n2</code>. This breaks the first of the reachability chains for <code>Node2</code>, but the second one remains unbroken, so <code>Node2</code> is still reachable.
+</p>
+<p>In statement T6, we assign <code>null</code> to <code>n3</code>. This breaks the only reachability chain for <code>Node3</code>, which makes <code>Node3</code> unreachable. However, <code>Node1</code> and <code>Node2</code> are both still reachable via the <code>n1</code> variable.
+</p>
+<p>Finally, when the <code>test()</code> method returns, its local variables <code>n1</code>, <code>n2</code> and <code>n3</code> go out of scope, and therefore cannot be accessed by anything. This breaks the remaining reachability chains for <code>Node1</code> and <code>Node2</code>, and all of the <code>Node</code> objects are nor unreachable and <em>eligible</em> for garbage collection.
+</p>
+<hr id="476feeb1-28ae-4f18-9b61-6b77a6d9efad"/>
+<p>1 - This is a simplification that ignores finalization, and <code>Reference</code> classes. 2 - Hypothetically, a Java implementation could do this, but the performance cost of doing this makes it impractical.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

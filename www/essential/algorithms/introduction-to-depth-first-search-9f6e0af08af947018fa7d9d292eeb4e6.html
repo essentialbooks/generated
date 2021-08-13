@@ -127,7 +127,55 @@
 </div>
 
 
-      <p><a href="https://en.wikipedia.org/wiki/Depth-first_search">Depth-first search</a> is an algorithm for traversing or searching tree or graph data structures. One starts at the root and explores as far as possible along each branch before backtracking. A version of depth-first search was investigated in the 19th century French mathematician Charles Pierre Trémaux as a strategy for solving mazes.</p><p>Depth-first search is a systematic way to find all the vertices reachable from a source vertex. Like breadth-first search, DFS traverse a connected component of a given graph and defines a spanning tree. The basic idea of depth-first search is methodically exploring every edge. We start over from a different vertices as necessary. As soon as we discover a vertex, DFS starts exploring from it (unlike BFS, which puts a vertex on a queue so that it explores from it later).</p><p>Let’s look at an example. We’ll traverse this graph:</p><img class="img" src="/img/1fb42ef65457f9ec629eeb6c044a44b0bc7c4d53.png"><p>We’ll traverse the graph following these rules:</p><ul id="014c22d1-7489-41a9-887b-fca445892c93" class="bulleted-list"><li>We’ll start from the source.</li><li>No node will be visited twice.</li><li>The nodes we didn’t visit yet, will be colored white.</li><li>The node we visited, but didn’t visit all of its child nodes, will be colored grey.</li><li>Completely traversed nodes will be colored black.</li></ul><p>Let’s look at it step by step:</p><img class="img" src="/img/0509731b2b37ec28facf1b3a4751fc61675b1d59.png"><p></p><img class="img" src="/img/3a725d9392c54e5e48080696e488a537c8f25e87.png"><img class="img" src="/img/230fc0765f989924c3acfaaa3a2ae7e264af71aa.png"><img class="img" src="/img/1cad53c86fa4c38c836750233d4c0b05c3e1d23a.png"><img class="img" src="/img/c9407cb926bd284ba2317a497eec6af7e08e9d20.png"><img class="img" src="/img/fa127bf33d9cfcbbf857383bb804485e5d9b34cf.png"><p>We can see one important keyword. That is <strong>backedge</strong>. You can see. <strong>5-1</strong> is called backedge. This is because, we’re not yet done with <strong>node-1</strong>, so going from another node to <strong>node-1</strong> means there’s a cycle in the graph. In DFS, if we can go from one gray node to another, we can be certain that the graph has a cycle. This is one of the ways of detecting cycle in a graph. Depending on <strong>source</strong> node and the order of the nodes we visit, we can find out any edge in a cycle as <strong>backedge</strong>. For example: if we went to <strong>5</strong> from <strong>1</strong> first, we’d have found out <strong>2-1</strong> as backedge.</p><p>The edge that we take to go from gray node to white node are called <strong>tree edge</strong>. If we only keep the <strong>tree edge</strong>‘s and remove others, we’ll get <strong>DFS tree</strong>.</p><p>In undirected graph, if we can visit a already visited node, that must be a <strong>backedge</strong>. But for directed graphs, we must check the colors. <em>If and only if we can go from one gray node to another gray node, that is called a backedge</em>.</p><p>In DFS, we can also keep timestamps for each node, which can be used in many ways (e.g.: Topological Sort).</p><ol id="c1f95432-922b-405e-a028-47755fac0a53" class="numbered-list" start="1"><li>When a node <strong>v</strong> is changed from white to gray the time is recorded in <strong>d[v]</strong>.</li><li>When a node <strong>v</strong> is changed from gray to black the time is recorded in <strong>f[v]</strong>.</li></ol><p>Here <strong>d[]</strong> means <em>discovery time</em> and <strong>f[]</strong> means <em>finishing time</em>. Our pesudo-code will look like:</p>
+      
+<p><a href="https://en.wikipedia.org/wiki/Depth-first_search">Depth-first search</a> is an algorithm for traversing or searching tree or graph data structures. One starts at the root and explores as far as possible along each branch before backtracking. A version of depth-first search was investigated in the 19th century French mathematician Charles Pierre Trémaux as a strategy for solving mazes.
+</p>
+<p>Depth-first search is a systematic way to find all the vertices reachable from a source vertex. Like breadth-first search, DFS traverse a connected component of a given graph and defines a spanning tree. The basic idea of depth-first search is methodically exploring every edge. We start over from a different vertices as necessary. As soon as we discover a vertex, DFS starts exploring from it (unlike BFS, which puts a vertex on a queue so that it explores from it later).
+</p>
+<p>Let’s look at an example. We’ll traverse this graph:
+</p>
+<img class="img" src="/img/1fb42ef65457f9ec629eeb6c044a44b0bc7c4d53.png">
+<p>We’ll traverse the graph following these rules:
+</p>
+  <ul id="014c22d1-7489-41a9-887b-fca445892c93" class="bulleted-list">
+    <li>We’ll start from the source.
+    </li>
+    <li>No node will be visited twice.
+    </li>
+    <li>The nodes we didn’t visit yet, will be colored white.
+    </li>
+    <li>The node we visited, but didn’t visit all of its child nodes, will be colored grey.
+    </li>
+    <li>Completely traversed nodes will be colored black.
+    </li>
+  </ul>
+<p>Let’s look at it step by step:
+</p>
+<img class="img" src="/img/0509731b2b37ec28facf1b3a4751fc61675b1d59.png">
+<p>
+</p>
+<img class="img" src="/img/3a725d9392c54e5e48080696e488a537c8f25e87.png">
+<img class="img" src="/img/230fc0765f989924c3acfaaa3a2ae7e264af71aa.png">
+<img class="img" src="/img/1cad53c86fa4c38c836750233d4c0b05c3e1d23a.png">
+<img class="img" src="/img/c9407cb926bd284ba2317a497eec6af7e08e9d20.png">
+<img class="img" src="/img/fa127bf33d9cfcbbf857383bb804485e5d9b34cf.png">
+<p>We can see one important keyword. That is <strong>backedge</strong>. You can see. <strong>5-1</strong> is called backedge. This is because, we’re not yet done with <strong>node-1</strong>, so going from another node to <strong>node-1</strong> means there’s a cycle in the graph. In DFS, if we can go from one gray node to another, we can be certain that the graph has a cycle. This is one of the ways of detecting cycle in a graph. Depending on <strong>source</strong> node and the order of the nodes we visit, we can find out any edge in a cycle as <strong>backedge</strong>. For example: if we went to <strong>5</strong> from <strong>1</strong> first, we’d have found out <strong>2-1</strong> as backedge.
+</p>
+<p>The edge that we take to go from gray node to white node are called <strong>tree edge</strong>. If we only keep the <strong>tree edge</strong>‘s and remove others, we’ll get <strong>DFS tree</strong>.
+</p>
+<p>In undirected graph, if we can visit a already visited node, that must be a <strong>backedge</strong>. But for directed graphs, we must check the colors. <em>If and only if we can go from one gray node to another gray node, that is called a backedge</em>.
+</p>
+<p>In DFS, we can also keep timestamps for each node, which can be used in many ways (e.g.: Topological Sort).
+</p>
+  <ol id="c1f95432-922b-405e-a028-47755fac0a53" class="numbered-list" start="1">
+    <li>When a node <strong>v</strong> is changed from white to gray the time is recorded in <strong>d[v]</strong>.
+    </li>
+    <li>When a node <strong>v</strong> is changed from gray to black the time is recorded in <strong>f[v]</strong>.
+    </li>
+  </ol>
+<p>Here <strong>d[]</strong> means <em>discovery time</em> and <strong>f[]</strong> means <em>finishing time</em>. Our pesudo-code will look like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure DFS(G):
@@ -159,7 +207,29 @@ f[u] := time</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Complexity:</strong></p><p>Each nodes and edges are visited once. So the complexity of DFS is <strong>O(V+E)</strong>, where <strong>V</strong> denotes the number of nodes and <strong>E</strong> denotes the number of edges.</p><p><strong>Applications of Depth First Search:</strong></p><ul id="96a55426-db98-4130-ad9a-31edf13a8c0b" class="bulleted-list"><li>Finding all pair shortest path in an undirected graph.</li><li>Detecting cycle in a graph.</li><li>Path finding.</li><li>Topological Sort.</li><li>Testing if a graph is bipartite.</li><li>Finding Strongly Connected Component.</li><li>Solving puzzles with one solution.</li></ul>
+</div>
+<p><strong>Complexity:</strong>
+</p>
+<p>Each nodes and edges are visited once. So the complexity of DFS is <strong>O(V+E)</strong>, where <strong>V</strong> denotes the number of nodes and <strong>E</strong> denotes the number of edges.
+</p>
+<p><strong>Applications of Depth First Search:</strong>
+</p>
+  <ul id="96a55426-db98-4130-ad9a-31edf13a8c0b" class="bulleted-list">
+    <li>Finding all pair shortest path in an undirected graph.
+    </li>
+    <li>Detecting cycle in a graph.
+    </li>
+    <li>Path finding.
+    </li>
+    <li>Topological Sort.
+    </li>
+    <li>Testing if a graph is bipartite.
+    </li>
+    <li>Finding Strongly Connected Component.
+    </li>
+    <li>Solving puzzles with one solution.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

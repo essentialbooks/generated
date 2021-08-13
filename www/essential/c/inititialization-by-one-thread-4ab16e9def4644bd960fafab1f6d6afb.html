@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>In most cases all data that is accessed by several threads should be initialized before the threads are created. This ensures that all threads start with a clear state and no <em>race condition</em> occurs.</p><p>If this is not possible <code>once_flag</code> and <code>call_once</code> can be used</p>
+      
+<p>In most cases all data that is accessed by several threads should be initialized before the threads are created. This ensures that all threads start with a clear state and no <em>race condition</em> occurs.
+</p>
+<p>If this is not possible <code>once_flag</code> and <code>call_once</code> can be used
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;threads.h&gt;
@@ -169,7 +174,17 @@ int myThreadFunc(void* a) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>once_flag</code> is used to coordinate different threads that might want to initialize the same data <code>Big</code>. The call to <code>call_once</code> guarantees that</p><ul id="3b51523c-b3f8-4822-bebc-7ce6804965f9" class="bulleted-list"><li><code>initBig</code> is called exactly once</li><li><code>call_once</code> blocks until such a call to <code>initBig</code> has been made, either by the same or another thread.</li></ul><p>Besides allocation, a typical thing to do in such a once-called function is a dynamic initialization of a thread control data structures such as <code>mtx_t</code> or <code>cnd_t</code> that can’t be initialized statically, using <code>mtx_init</code> or <code>cnd_init</code>, respectively.</p>
+</div>
+<p>The <code>once_flag</code> is used to coordinate different threads that might want to initialize the same data <code>Big</code>. The call to <code>call_once</code> guarantees that
+</p>
+  <ul id="3b51523c-b3f8-4822-bebc-7ce6804965f9" class="bulleted-list">
+    <li><code>initBig</code> is called exactly once
+    </li>
+    <li><code>call_once</code> blocks until such a call to <code>initBig</code> has been made, either by the same or another thread.
+    </li>
+  </ul>
+<p>Besides allocation, a typical thing to do in such a once-called function is a dynamic initialization of a thread control data structures such as <code>mtx_t</code> or <code>cnd_t</code> that can’t be initialized statically, using <code>mtx_init</code> or <code>cnd_init</code>, respectively.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

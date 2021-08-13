@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>Sometimes a poorly designed 3rd-party library will write unwanted diagnostics to <code>System.out</code> or <code>System.err</code> streams. The recommended solutions to this would be to either find a better library or (in the case of open source) fix the problem and contribute a patch to the developers.</p><p>If the above solutions are not feasible, then you should consider redirecting the streams.</p><p><strong>Redirection on the command line</strong></p><p>On a UNIX, Linux or MacOSX system can be done from the shell using <code>\&gt;</code> redirection. For example:</p>
+      
+<p>Sometimes a poorly designed 3rd-party library will write unwanted diagnostics to <code>System.out</code> or <code>System.err</code> streams. The recommended solutions to this would be to either find a better library or (in the case of open source) fix the problem and contribute a patch to the developers.
+</p>
+<p>If the above solutions are not feasible, then you should consider redirecting the streams.
+</p>
+<p><strong>Redirection on the command line</strong>
+</p>
+<p>On a UNIX, Linux or MacOSX system can be done from the shell using <code>\&gt;</code> redirection. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ java -jar app.jar arg1 arg2 &gt; /dev/null 2&gt;&amp;1
@@ -136,7 +145,18 @@ $ java -jar app.jar arg1 arg2 &gt; out.log 2&gt; error.log</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The first one redirects standard output and standard error to “/dev/null”, which throws away anything written to those streams. The second of redirects standard output to “out.log” and standard error to “error.log”.</p><p>(For more information on redirection, refer to the documentation of the command shell you are using. Similar advice applies to Windows.)</p><p>Alternatively, you could implement the redirection in a wrapper script or batch file that launches the Java application.</p><p><strong>Redirection within a Java application</strong></p><p>It is also possible to redired the streams <em>within</em> a Java application using <code>System.setOut()</code> and <code>System.setErr()</code>. For example, the following snippet redirects standard output and standard error to 2 log files:</p>
+</div>
+<p>The first one redirects standard output and standard error to “/dev/null”, which throws away anything written to those streams. The second of redirects standard output to “out.log” and standard error to “error.log”.
+</p>
+<p>(For more information on redirection, refer to the documentation of the command shell you are using. Similar advice applies to Windows.)
+</p>
+<p>Alternatively, you could implement the redirection in a wrapper script or batch file that launches the Java application.
+</p>
+<p><strong>Redirection within a Java application</strong>
+</p>
+<p>It is also possible to redired the streams <em>within</em> a Java application using <code>System.setOut()</code> and <code>System.setErr()</code>. For example, the following snippet redirects standard output and standard error to 2 log files:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">System.setOut(new PrintStream(new FileOutputStream(new File(&#34;out.log&#34;))));
@@ -145,7 +165,10 @@ System.setErr(new PrintStream(new FileOutputStream(new File(&#34;err.log&#34;)))
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you want to throw away the output entirely, you can create an output stream that “writes” to an invalid file descriptor. This is functionally equivalent to writing to “/dev/null” on UNIX.</p>
+</div>
+<p>If you want to throw away the output entirely, you can create an output stream that “writes” to an invalid file descriptor. This is functionally equivalent to writing to “/dev/null” on UNIX.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">System.setOut(new PrintStream(new FileOutputStream(new FileDescriptor())));
@@ -154,7 +177,15 @@ System.setErr(new PrintStream(new FileOutputStream(new FileDescriptor())));</pre
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Caution: be careful how you use <code>setOut</code> and <code>setErr</code>:</p><ol id="29b01853-df4d-4348-93ea-eb96f457f12b" class="numbered-list" start="1"><li>The redirection will affect the entire JVM.</li><li>By doing this, you are taking away the user’s ability to redirect the streams from the command line.</li></ol>
+</div>
+<p>Caution: be careful how you use <code>setOut</code> and <code>setErr</code>:
+</p>
+  <ol id="29b01853-df4d-4348-93ea-eb96f457f12b" class="numbered-list" start="1">
+    <li>The redirection will affect the entire JVM.
+    </li>
+    <li>By doing this, you are taking away the user’s ability to redirect the streams from the command line.
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

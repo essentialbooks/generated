@@ -127,7 +127,71 @@
 </div>
 
 
-      <p>The Java language provides 7 operators that perform arithmetic on integer and floating point values.</p><ul id="4b6ca1db-a324-4558-bdc5-bf77de0aa548" class="bulleted-list"><li>There are two <code>\+</code> operators:</li><li>The binary addition operator adds one number to another one. (There is also a binary <code>\+</code> operator that performs string concatenation. That is described in a separate example.)</li><li>The unary plus operator does nothing apart from triggering numeric promotion (see below)</li><li>There are two <code>\-</code> operators:</li><li>The binary subtraction operator subtracts one number from another one.</li><li>The unary minus operator is equivalent to subtracting its operand from zero.</li><li>The binary multiply operator (*) multiplies one number by another.</li><li>The binary divide operator (/) divides one number by another.</li><li>The binary remainder1 operator (%) calculates the remainder when one number is divided by another.</li></ul><ol id="68060768-4edf-414b-8d62-e4e82e268860" class="numbered-list" start="1"><li>This is often incorrectly referred to as the “modulus” operator. “Remainder” is the term that is used by the JLS. “Modulus” and “remainder” are not the same thing.</li></ol><h2 id="d34fc8d5-9dfa-4209-bfa5-39c93b31f17e" class="">Operand and result types, and numeric promotion<a class="header-anchor" href="#d34fc8d5-9dfa-4209-bfa5-39c93b31f17e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>The operators require numeric operands and produce numeric results. The operand types can be any primitive numeric type (i.e. <code>byte</code>, <code>short</code>, <code>char</code>, <code>int</code>, <code>long</code>, <code>float</code> or <code>double</code>) or any numeric wrapper type define in <code>java.lang</code>; i.e. (<code>Byte</code>, <code>Character</code>, <code>Short</code>, <code>Integer</code>, <code>Long</code>, <code>Float</code> or <code>Double</code>.</p><p>The result type is determined base on the types of the operand or operands, as follows:</p><ul id="fe95f253-f8c7-4188-afc1-07cffe40a861" class="bulleted-list"><li>If either of the operands is a <code>double</code> or <code>Double</code>, then the result type is <code>double</code>.</li><li>Otherwise, if either of the operands is a <code>float</code> or <code>Float</code>, then the result type is <code>float</code>.</li><li>Otherwise, if either of the operands is a <code>long</code> or <code>Long</code>, then the result type is <code>long</code>.</li><li>Otherwise, the result type is <code>int</code>. This covers <code>byte</code>, <code>short</code> and <code>char</code> operands as well as `int.</li></ul><p>The result type of the operation determines how the arithmetic operation is performed, and how the operands are handled</p><ul id="0ca368ba-5db0-4867-ad60-ad664427fdf5" class="bulleted-list"><li>If the result type is <code>double</code>, the operands are promoted to <code>double</code>, and the operation is performed using 64-bit (double precision binary) IEE 754 floating point arithmetic.</li><li>If the result type is <code>float</code>, the operands are promoted to <code>float</code>, and the operation is performed using 32-bit (single precision binary) IEE 754 floating point arithmetic.</li><li>If the result type is <code>long</code>, the operands are promoted to <code>long</code>, and the operation is performed using 64-bit signed twos-complement binary integer arithmetic.</li><li>If the result type is <code>int</code>, the operands are promoted to <code>int</code>, and the operation is performed using 32-bit signed twos-complement binary integer arithmetic.</li></ul><p>Promotion is performed in two stages:</p><ul id="3a4d0527-efab-4314-b992-58e4da64d307" class="bulleted-list"><li>If the operand type is a wrapper type, the operand value is <em>unboxed</em> to a value of the corresponding primitive type.</li><li>If necessary, the primitive type is promoted to the required type:</li></ul>
+      
+<p>The Java language provides 7 operators that perform arithmetic on integer and floating point values.
+</p>
+  <ul id="4b6ca1db-a324-4558-bdc5-bf77de0aa548" class="bulleted-list">
+    <li>There are two <code>\+</code> operators:
+    </li>
+    <li>The binary addition operator adds one number to another one. (There is also a binary <code>\+</code> operator that performs string concatenation. That is described in a separate example.)
+    </li>
+    <li>The unary plus operator does nothing apart from triggering numeric promotion (see below)
+    </li>
+    <li>There are two <code>\-</code> operators:
+    </li>
+    <li>The binary subtraction operator subtracts one number from another one.
+    </li>
+    <li>The unary minus operator is equivalent to subtracting its operand from zero.
+    </li>
+    <li>The binary multiply operator (*) multiplies one number by another.
+    </li>
+    <li>The binary divide operator (/) divides one number by another.
+    </li>
+    <li>The binary remainder1 operator (%) calculates the remainder when one number is divided by another.
+    </li>
+  </ul>
+  <ol id="68060768-4edf-414b-8d62-e4e82e268860" class="numbered-list" start="1">
+    <li>This is often incorrectly referred to as the “modulus” operator. “Remainder” is the term that is used by the JLS. “Modulus” and “remainder” are not the same thing.
+    </li>
+  </ol>
+  <h2 id="d34fc8d5-9dfa-4209-bfa5-39c93b31f17e" class="">Operand and result types, and numeric promotion
+  <a class="header-anchor" href="#d34fc8d5-9dfa-4209-bfa5-39c93b31f17e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>The operators require numeric operands and produce numeric results. The operand types can be any primitive numeric type (i.e. <code>byte</code>, <code>short</code>, <code>char</code>, <code>int</code>, <code>long</code>, <code>float</code> or <code>double</code>) or any numeric wrapper type define in <code>java.lang</code>; i.e. (<code>Byte</code>, <code>Character</code>, <code>Short</code>, <code>Integer</code>, <code>Long</code>, <code>Float</code> or <code>Double</code>.
+</p>
+<p>The result type is determined base on the types of the operand or operands, as follows:
+</p>
+  <ul id="fe95f253-f8c7-4188-afc1-07cffe40a861" class="bulleted-list">
+    <li>If either of the operands is a <code>double</code> or <code>Double</code>, then the result type is <code>double</code>.
+    </li>
+    <li>Otherwise, if either of the operands is a <code>float</code> or <code>Float</code>, then the result type is <code>float</code>.
+    </li>
+    <li>Otherwise, if either of the operands is a <code>long</code> or <code>Long</code>, then the result type is <code>long</code>.
+    </li>
+    <li>Otherwise, the result type is <code>int</code>. This covers <code>byte</code>, <code>short</code> and <code>char</code> operands as well as `int.
+    </li>
+  </ul>
+<p>The result type of the operation determines how the arithmetic operation is performed, and how the operands are handled
+</p>
+  <ul id="0ca368ba-5db0-4867-ad60-ad664427fdf5" class="bulleted-list">
+    <li>If the result type is <code>double</code>, the operands are promoted to <code>double</code>, and the operation is performed using 64-bit (double precision binary) IEE 754 floating point arithmetic.
+    </li>
+    <li>If the result type is <code>float</code>, the operands are promoted to <code>float</code>, and the operation is performed using 32-bit (single precision binary) IEE 754 floating point arithmetic.
+    </li>
+    <li>If the result type is <code>long</code>, the operands are promoted to <code>long</code>, and the operation is performed using 64-bit signed twos-complement binary integer arithmetic.
+    </li>
+    <li>If the result type is <code>int</code>, the operands are promoted to <code>int</code>, and the operation is performed using 32-bit signed twos-complement binary integer arithmetic.
+    </li>
+  </ul>
+<p>Promotion is performed in two stages:
+</p>
+  <ul id="3a4d0527-efab-4314-b992-58e4da64d307" class="bulleted-list">
+    <li>If the operand type is a wrapper type, the operand value is <em>unboxed</em> to a value of the corresponding primitive type.
+    </li>
+    <li>If necessary, the primitive type is promoted to the required type:
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">- Promotion of integers to `int` or `long` is loss-less.
@@ -137,7 +201,99 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="f984f686-647f-441c-b5b4-16c9a02a81ea" class="">The meaning of division<a class="header-anchor" href="#f984f686-647f-441c-b5b4-16c9a02a81ea" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>The / operator divides the left-hand operand <code>n</code> (the <em>dividend</em>) and the right-hand operand <code>d</code> (the <em>divisor</em>) and produces the result <code>q</code> (the <em>quotient</em>).</p><p>Java integer division rounds towards zero. The <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.17.2">JLS Section 15.17.2</a> specifies the behavior of Java integer division as follows:</p><blockquote id="33b923eb-8c5f-4f50-b08e-38f2c9dff868" class="">The quotient produced for operands n and d is an integer value q whose magnitude is as large as possible while satisfying |d ⋅ q| ≤ |n|. Moreover, q is positive when |n| ≥ |d| and n and d have the same sign, but q is negative when |n| ≥ |d| and n and d have opposite signs.</blockquote><p>There are a couple of special cases:</p><ul id="2b68299b-d527-4f54-9247-5a58a26f81bb" class="bulleted-list"><li>If the <code>n</code> is <code>MIN_VALUE</code>, and the divisor is -1, then integer overflow occurs and the result is <code>MIN_VALUE</code>. No exception is thrown in this case.</li><li>If <code>d</code> is 0, then `ArithmeticException is thrown.</li></ul><p>Java floating point division has more edge cases to consider. However the basic idea is that the result <code>q</code> is the value that is closest to satisfying <code>d . q = n</code>.</p><p>Floating point division will never result in an exception. Instead, operations that divide by zero result in an INF and NaN values; see below.</p><h2 id="483f4597-9de4-49af-8098-da29c0cc0004" class="">The meaning of remainder<a class="header-anchor" href="#483f4597-9de4-49af-8098-da29c0cc0004" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Unlike C and C++, the remainder operator in Java works with both integer and floating point operations.</p><p>For integer cases, the result of <code>a % b</code> is defined to be the number <code>r</code> such that <code>(a / b) * b + r</code> is equal to <code>a</code>, where <code>/</code>, <code>\*</code> and <code>\+</code> are the appropriate Java integer operators. This applies in all cases except when <code>b</code> is zero. That case, remainder results in an <code>ArithmeticException</code>.</p><p>It follows from the above definition that <code>a % b</code> can be negative only if <code>a</code> is negative, and it be positive only if <code>a</code> is positive. Moreover, the magnitude of <code>a % b</code> is always less than the magnitude of <code>b</code>.</p><p>Floating point remainder operation is a generalization of the integer case. The result of <code>a % b</code> is the remainder <code>r</code> is defined by the mathematical relation <code>r = a - (b ⋅ q)</code> where:</p><ul id="b709c914-04aa-4422-892d-49ae97385544" class="bulleted-list"><li><code>q</code> is an integer,</li><li>it is negative only if <code>a / b</code> is negative an positive only if <code>a / b</code> is positive, and</li><li>its magnitude is as large as possible without exceeding the magnitude of the true mathematical quotient of <code>a</code> and <code>b</code>.</li></ul><p>Floating point remainder can produce <code>INF</code> and <code>NaN</code> values in edge-cases such as when <code>b</code> is zero; see below. It will not throw an exception.</p><p>Important note:</p><blockquote id="304bfe6c-d0e0-4647-92dd-c153c6b11b92" class="">The result of a floating-point remainder operation as computed by % is not the same as that produced by the remainder operation defined by IEEE 754. The IEEE 754 remainder may be computed using the Math.IEEEremainder library method.</blockquote><h2 id="40456b3d-06d5-4b84-89d0-6e02363cc1e5" class="">Integer Overflow<a class="header-anchor" href="#40456b3d-06d5-4b84-89d0-6e02363cc1e5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Java 32 and 64 bit integer values are signed and use twos-complement binary representation. For example, the range of numbers representable as (32 bit) <code>int</code> -231 through +231 - 1.</p><p>When you add, subtract or multiple two N bit integers (N == 32 or 64), the result of the operation may be too large to represent as an N bit integer. In this case, the operation leads to <em>integer overflow</em>, and the result can be computed as follows:</p><ul id="814bef32-7515-4eed-a475-c06367be1c57" class="bulleted-list"><li>The mathematical operation is performed to give a intermediate two’s-complement representation of the entire number. This representation will be larger than N bits.</li><li>The bottom 32 or 64 bits of the intermediate representation are used as the result.</li></ul><p>It should be noted that integer overflow does not result in exceptions under any circumstances.</p><h2 id="c30ad904-7cc2-4416-912c-745d2ed57897" class="">Floating point INF and NAN values<a class="header-anchor" href="#c30ad904-7cc2-4416-912c-745d2ed57897" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Java uses IEE 754 floating point representations for <code>float</code> and <code>double</code>. These representations have some special values for representing values that fall outside of the domain of Real numbers:</p><ul id="9b20350d-75e5-4b96-ad86-7b2d5aacb26c" class="bulleted-list"><li>The “infinite” or INF values denote numbers that are too large. The <code>+INF</code> value denote numbers that are too large and positive. The <code>-INF</code> value denote numbers that are too large and negative.</li><li>The “indefinite” / “not a number” or NaN denote values resulting from meaningless operations.</li></ul><p>The INF values are produced by floating operations that cause overflow, or by division by zero.</p><p>The NaN values are produced by dividing zero by zero, or computing zero remainder zero.</p><p>Surprisingly, it is possible perform arithmetic using INF and NaN operands without triggering exceptions. For example:</p><ul id="ad88f84e-0b50-4c50-9b9f-31547baad88a" class="bulleted-list"><li>Adding +INF and a finite value gives +INF.</li><li>Adding +INF and +INF gives +INF.</li><li>Adding +INF and -INF gives NaN.</li><li>Dividing by INF gives either +0.0 or -0.0.</li><li>All operations with one or more NaN operands give NaN.</li></ul><p>For full details, please refer to the relevant subsections of <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html">JLS 15</a>. Note that this is largely “academic”. For typical calculations, an <code>INF</code> or <code>NaN</code> means that something has gone wrong; e.g. you have incomplete or incorrect input data, or the calculation has been programmed incorrectly.</p>
+</div>
+  <h2 id="f984f686-647f-441c-b5b4-16c9a02a81ea" class="">The meaning of division
+  <a class="header-anchor" href="#f984f686-647f-441c-b5b4-16c9a02a81ea" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>The / operator divides the left-hand operand <code>n</code> (the <em>dividend</em>) and the right-hand operand <code>d</code> (the <em>divisor</em>) and produces the result <code>q</code> (the <em>quotient</em>).
+</p>
+<p>Java integer division rounds towards zero. The <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.17.2">JLS Section 15.17.2</a> specifies the behavior of Java integer division as follows:
+</p>
+<blockquote id="33b923eb-8c5f-4f50-b08e-38f2c9dff868" class="">The quotient produced for operands n and d is an integer value q whose magnitude is as large as possible while satisfying |d ⋅ q| ≤ |n|. Moreover, q is positive when |n| ≥ |d| and n and d have the same sign, but q is negative when |n| ≥ |d| and n and d have opposite signs.
+</blockquote>
+<p>There are a couple of special cases:
+</p>
+  <ul id="2b68299b-d527-4f54-9247-5a58a26f81bb" class="bulleted-list">
+    <li>If the <code>n</code> is <code>MIN_VALUE</code>, and the divisor is -1, then integer overflow occurs and the result is <code>MIN_VALUE</code>. No exception is thrown in this case.
+    </li>
+    <li>If <code>d</code> is 0, then `ArithmeticException is thrown.
+    </li>
+  </ul>
+<p>Java floating point division has more edge cases to consider. However the basic idea is that the result <code>q</code> is the value that is closest to satisfying <code>d . q = n</code>.
+</p>
+<p>Floating point division will never result in an exception. Instead, operations that divide by zero result in an INF and NaN values; see below.
+</p>
+  <h2 id="483f4597-9de4-49af-8098-da29c0cc0004" class="">The meaning of remainder
+  <a class="header-anchor" href="#483f4597-9de4-49af-8098-da29c0cc0004" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Unlike C and C++, the remainder operator in Java works with both integer and floating point operations.
+</p>
+<p>For integer cases, the result of <code>a % b</code> is defined to be the number <code>r</code> such that <code>(a / b) * b + r</code> is equal to <code>a</code>, where <code>/</code>, <code>\*</code> and <code>\+</code> are the appropriate Java integer operators. This applies in all cases except when <code>b</code> is zero. That case, remainder results in an <code>ArithmeticException</code>.
+</p>
+<p>It follows from the above definition that <code>a % b</code> can be negative only if <code>a</code> is negative, and it be positive only if <code>a</code> is positive. Moreover, the magnitude of <code>a % b</code> is always less than the magnitude of <code>b</code>.
+</p>
+<p>Floating point remainder operation is a generalization of the integer case. The result of <code>a % b</code> is the remainder <code>r</code> is defined by the mathematical relation <code>r = a - (b ⋅ q)</code> where:
+</p>
+  <ul id="b709c914-04aa-4422-892d-49ae97385544" class="bulleted-list">
+    <li><code>q</code> is an integer,
+    </li>
+    <li>it is negative only if <code>a / b</code> is negative an positive only if <code>a / b</code> is positive, and
+    </li>
+    <li>its magnitude is as large as possible without exceeding the magnitude of the true mathematical quotient of <code>a</code> and <code>b</code>.
+    </li>
+  </ul>
+<p>Floating point remainder can produce <code>INF</code> and <code>NaN</code> values in edge-cases such as when <code>b</code> is zero; see below. It will not throw an exception.
+</p>
+<p>Important note:
+</p>
+<blockquote id="304bfe6c-d0e0-4647-92dd-c153c6b11b92" class="">The result of a floating-point remainder operation as computed by % is not the same as that produced by the remainder operation defined by IEEE 754. The IEEE 754 remainder may be computed using the Math.IEEEremainder library method.
+</blockquote>
+  <h2 id="40456b3d-06d5-4b84-89d0-6e02363cc1e5" class="">Integer Overflow
+  <a class="header-anchor" href="#40456b3d-06d5-4b84-89d0-6e02363cc1e5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Java 32 and 64 bit integer values are signed and use twos-complement binary representation. For example, the range of numbers representable as (32 bit) <code>int</code> -231 through +231 - 1.
+</p>
+<p>When you add, subtract or multiple two N bit integers (N == 32 or 64), the result of the operation may be too large to represent as an N bit integer. In this case, the operation leads to <em>integer overflow</em>, and the result can be computed as follows:
+</p>
+  <ul id="814bef32-7515-4eed-a475-c06367be1c57" class="bulleted-list">
+    <li>The mathematical operation is performed to give a intermediate two’s-complement representation of the entire number. This representation will be larger than N bits.
+    </li>
+    <li>The bottom 32 or 64 bits of the intermediate representation are used as the result.
+    </li>
+  </ul>
+<p>It should be noted that integer overflow does not result in exceptions under any circumstances.
+</p>
+  <h2 id="c30ad904-7cc2-4416-912c-745d2ed57897" class="">Floating point INF and NAN values
+  <a class="header-anchor" href="#c30ad904-7cc2-4416-912c-745d2ed57897" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Java uses IEE 754 floating point representations for <code>float</code> and <code>double</code>. These representations have some special values for representing values that fall outside of the domain of Real numbers:
+</p>
+  <ul id="9b20350d-75e5-4b96-ad86-7b2d5aacb26c" class="bulleted-list">
+    <li>The “infinite” or INF values denote numbers that are too large. The <code>+INF</code> value denote numbers that are too large and positive. The <code>-INF</code> value denote numbers that are too large and negative.
+    </li>
+    <li>The “indefinite” / “not a number” or NaN denote values resulting from meaningless operations.
+    </li>
+  </ul>
+<p>The INF values are produced by floating operations that cause overflow, or by division by zero.
+</p>
+<p>The NaN values are produced by dividing zero by zero, or computing zero remainder zero.
+</p>
+<p>Surprisingly, it is possible perform arithmetic using INF and NaN operands without triggering exceptions. For example:
+</p>
+  <ul id="ad88f84e-0b50-4c50-9b9f-31547baad88a" class="bulleted-list">
+    <li>Adding +INF and a finite value gives +INF.
+    </li>
+    <li>Adding +INF and +INF gives +INF.
+    </li>
+    <li>Adding +INF and -INF gives NaN.
+    </li>
+    <li>Dividing by INF gives either +0.0 or -0.0.
+    </li>
+    <li>All operations with one or more NaN operands give NaN.
+    </li>
+  </ul>
+<p>For full details, please refer to the relevant subsections of <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html">JLS 15</a>. Note that this is largely “academic”. For typical calculations, an <code>INF</code> or <code>NaN</code> means that something has gone wrong; e.g. you have incomplete or incorrect input data, or the calculation has been programmed incorrectly.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

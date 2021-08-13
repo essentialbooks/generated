@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Consider the following code to copy one file to another:</p>
+      
+<p>Consider the following code to copy one file to another:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import java.io.*;
@@ -148,7 +151,16 @@ public class FileCopy {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>(We have deliberated omitted normal argument checking, error reporting and so on because they are not relevant to <em>point</em> of this example.)</p><p>If you compile the above code and use it to copy a huge file, you will notice that it is very slow. In fact, it will be at least a couple of orders of magnitude slower than the standard OS file copy utilities.</p><p>(<em>Add actual performance measurements here!</em>)</p><p>The primary reason that the example above is slow (in the large file case) is that it is performing one-byte reads and one-byte writes on unbuffered byte streams. The simple way to improve performance is to wrap the streams with buffered streams. For example:</p>
+</div>
+<p>(We have deliberated omitted normal argument checking, error reporting and so on because they are not relevant to <em>point</em> of this example.)
+</p>
+<p>If you compile the above code and use it to copy a huge file, you will notice that it is very slow. In fact, it will be at least a couple of orders of magnitude slower than the standard OS file copy utilities.
+</p>
+<p>(<em>Add actual performance measurements here!</em>)
+</p>
+<p>The primary reason that the example above is slow (in the large file case) is that it is performing one-byte reads and one-byte writes on unbuffered byte streams. The simple way to improve performance is to wrap the streams with buffered streams. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import java.io.*;
@@ -171,7 +183,40 @@ public class FileCopy {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>These small changes will improve data copy rate by <em>at least</em> a couple of orders of magnitude, depending on various platform-related factors. The buffered stream wrappers cause the data to be read and written in larger chunks. The instances both have buffers implemented as byte arrays.</p><ul id="f70eb2f7-b9ca-49b6-b54d-49dc98b52694" class="bulleted-list"><li>With <code>is</code>, data is read from the file into the buffer a few kilobytes at a time. When <code>read()</code> is called, the implementation will typically return a byte from the buffer. It will only read from the underlying input stream if the buffer has been emptied.</li><li>The behavior for <code>os</code> is analogous. Calls to <code>os.write(int)</code> write single bytes into the buffer. Data is only written to the output stream when the buffer is full, or when <code>os</code> is flushed or closed.</li></ul><h2 id="67e39246-8884-4fb9-a7ed-048277746a97" class="">What about character-based streams?<a class="header-anchor" href="#67e39246-8884-4fb9-a7ed-048277746a97" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>As you should be aware, Java I/O provides different APIs for reading and writing binary and text data.</p><ul id="0a6572dd-5df7-4ae6-8c41-6a6d489d8ea7" class="bulleted-list"><li><code>InputStream</code> and <code>OutputStream</code> are the base APIs for stream-based binary I/O</li><li><code>Reader</code> and <code>Writer</code> are the base APIs for stream-based text I/O.</li></ul><p>For text I/O, <code>BufferedReader</code> and <code>BufferedWriter</code> are the equivalents for <code>BufferedInputStream</code> and <code>BufferedOutputStream</code>.</p><h2 id="5e5539cd-1ad5-482e-9f5f-21ba79fbe0c2" class="">Why do buffered streams make this much difference?<a class="header-anchor" href="#5e5539cd-1ad5-482e-9f5f-21ba79fbe0c2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>The real reason that buffered streams help performance is to do with the way that an application talks to the operating system:</p><ul id="23a3db85-eaf4-4011-a6a6-aef314924fdc" class="bulleted-list"><li>Java method in a Java application, or native procedure calls in the JVM’s native runtime libraries are fast. They typically take a couple of machine instructions and have minimal performance impact.</li><li>By contrast, JVM runtime calls to the operating system are not fast. They involve something known as a “syscall”. The typical pattern for a syscall is as follows:</li></ul>
+</div>
+<p>These small changes will improve data copy rate by <em>at least</em> a couple of orders of magnitude, depending on various platform-related factors. The buffered stream wrappers cause the data to be read and written in larger chunks. The instances both have buffers implemented as byte arrays.
+</p>
+  <ul id="f70eb2f7-b9ca-49b6-b54d-49dc98b52694" class="bulleted-list">
+    <li>With <code>is</code>, data is read from the file into the buffer a few kilobytes at a time. When <code>read()</code> is called, the implementation will typically return a byte from the buffer. It will only read from the underlying input stream if the buffer has been emptied.
+    </li>
+    <li>The behavior for <code>os</code> is analogous. Calls to <code>os.write(int)</code> write single bytes into the buffer. Data is only written to the output stream when the buffer is full, or when <code>os</code> is flushed or closed.
+    </li>
+  </ul>
+  <h2 id="67e39246-8884-4fb9-a7ed-048277746a97" class="">What about character-based streams?
+  <a class="header-anchor" href="#67e39246-8884-4fb9-a7ed-048277746a97" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>As you should be aware, Java I/O provides different APIs for reading and writing binary and text data.
+</p>
+  <ul id="0a6572dd-5df7-4ae6-8c41-6a6d489d8ea7" class="bulleted-list">
+    <li><code>InputStream</code> and <code>OutputStream</code> are the base APIs for stream-based binary I/O
+    </li>
+    <li><code>Reader</code> and <code>Writer</code> are the base APIs for stream-based text I/O.
+    </li>
+  </ul>
+<p>For text I/O, <code>BufferedReader</code> and <code>BufferedWriter</code> are the equivalents for <code>BufferedInputStream</code> and <code>BufferedOutputStream</code>.
+</p>
+  <h2 id="5e5539cd-1ad5-482e-9f5f-21ba79fbe0c2" class="">Why do buffered streams make this much difference?
+  <a class="header-anchor" href="#5e5539cd-1ad5-482e-9f5f-21ba79fbe0c2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>The real reason that buffered streams help performance is to do with the way that an application talks to the operating system:
+</p>
+  <ul id="23a3db85-eaf4-4011-a6a6-aef314924fdc" class="bulleted-list">
+    <li>Java method in a Java application, or native procedure calls in the JVM’s native runtime libraries are fast. They typically take a couple of machine instructions and have minimal performance impact.
+    </li>
+    <li>By contrast, JVM runtime calls to the operating system are not fast. They involve something known as a “syscall”. The typical pattern for a syscall is as follows:
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">1. Put the syscall arguments into registers.
@@ -188,7 +233,23 @@ public class FileCopy {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As you can imagine, performing a single syscall can thousands of machine instructions. Conservatively, <em>at least</em> two orders of magnitude longer than a regular method call. (Probably three or more.)</p><p>Given this, the reason that buffered streams make a big difference is that they drastically reduce the number of syscalls. Instead of doing a syscall for each <code>read()</code> call, the buffered input stream reads a large amount of data into a buffer as required. Most <code>read()</code> calls on the buffered stream do some simple bounds checking and return a <code>byte</code> that was read previously. Similar reasoning applies in the output stream case, and also the character stream cases.</p><p>(Some people think that buffered I/O performance comes from the mismatch between the read request size and the size of a disk block, disk rotational latency and things like that. In fact, a modern OS uses a number of strategies to ensure that the application <em>typically</em> doesn’t need to wait for the disk. This is not the real explanation.)</p><h2 id="5ceb77d8-69f8-42f2-81c2-8b65011f8476" class="">Are buffered streams always a win?<a class="header-anchor" href="#5ceb77d8-69f8-42f2-81c2-8b65011f8476" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Not always. Buffered streams are definitely a win if your application is going to do lots of “small” reads or writes. However, if your application only needs to perform large reads or writes to / from a large <code>byte[]</code> or <code>char[]</code>, then buffered streams will give you no real benefits. Indeed there might even be a (tiny) performance penalty.</p><h2 id="dc645109-f5bc-4aad-8a7f-747a32f75b67" class="">Is this the fastest way to copy a file in Java?<a class="header-anchor" href="#dc645109-f5bc-4aad-8a7f-747a32f75b67" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>No it isn’t. When you use Java’s stream-based APIs to copy a file, you incur the cost of at least one extra memory-to-memory copy of the data. It is possible to avoid this if your use the NIO <code>ByteBuffer</code> and <code>Channel</code> APIs. (<em>Add a link to a separate example here.</em>)</p>
+</div>
+<p>As you can imagine, performing a single syscall can thousands of machine instructions. Conservatively, <em>at least</em> two orders of magnitude longer than a regular method call. (Probably three or more.)
+</p>
+<p>Given this, the reason that buffered streams make a big difference is that they drastically reduce the number of syscalls. Instead of doing a syscall for each <code>read()</code> call, the buffered input stream reads a large amount of data into a buffer as required. Most <code>read()</code> calls on the buffered stream do some simple bounds checking and return a <code>byte</code> that was read previously. Similar reasoning applies in the output stream case, and also the character stream cases.
+</p>
+<p>(Some people think that buffered I/O performance comes from the mismatch between the read request size and the size of a disk block, disk rotational latency and things like that. In fact, a modern OS uses a number of strategies to ensure that the application <em>typically</em> doesn’t need to wait for the disk. This is not the real explanation.)
+</p>
+  <h2 id="5ceb77d8-69f8-42f2-81c2-8b65011f8476" class="">Are buffered streams always a win?
+  <a class="header-anchor" href="#5ceb77d8-69f8-42f2-81c2-8b65011f8476" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Not always. Buffered streams are definitely a win if your application is going to do lots of “small” reads or writes. However, if your application only needs to perform large reads or writes to / from a large <code>byte[]</code> or <code>char[]</code>, then buffered streams will give you no real benefits. Indeed there might even be a (tiny) performance penalty.
+</p>
+  <h2 id="dc645109-f5bc-4aad-8a7f-747a32f75b67" class="">Is this the fastest way to copy a file in Java?
+  <a class="header-anchor" href="#dc645109-f5bc-4aad-8a7f-747a32f75b67" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>No it isn’t. When you use Java’s stream-based APIs to copy a file, you incur the cost of at least one extra memory-to-memory copy of the data. It is possible to avoid this if your use the NIO <code>ByteBuffer</code> and <code>Channel</code> APIs. (<em>Add a link to a separate example here.</em>)
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

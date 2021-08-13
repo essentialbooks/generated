@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public void SaveNewEmployee(Employee newEmployee)
@@ -170,7 +171,54 @@ public class Employee
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="2b8ecec5-214c-4235-9017-76720691274e"/><h2 id="56ddf946-87a7-4273-b2c1-ec4a6e9f34c9" class="">Best practice for working with <a href="https://msdn.microsoft.com/en-us/library/h43ks021(v=vs.110).aspx">ADO.NET</a><a class="header-anchor" href="#56ddf946-87a7-4273-b2c1-ec4a6e9f34c9" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><ul id="49c591df-ce7d-433a-a3f7-568ff6f35eee" class="bulleted-list"><li>Rule of thumb is to open connection for minimal time. Close the connection explicitly once your procedure execution is over this will return the connection object back to connection pool. Default connection pool max size = 100. As connection pooling enhances the performance of physical connection to SQL Server.<a href="https://msdn.microsoft.com/en-us/library/8xx3tyca(v=vs.110).aspx">Connection Pooling in SQL Server</a></li><li>Wrap all database connections in a using block so they are always closed &amp; disposed even in the event of an Exception. See <a href="https://msdn.microsoft.com/en-us/library/yh598w02.aspx">using Statement (C# Reference)</a> for more information on using statements</li><li>Retrieve the connection strings by name from the app.config or web.config (depending on the application type)</li><li>This requires an assembly reference to <code>System.configuration</code></li><li>See <a href="https://msdn.microsoft.com/en-us/library/ms254494(v=vs.110).aspx">Connection Strings and Configuration Files</a> for additional information on how to structure your configuration file</li><li>Always use parameters for incoming values to</li><li>Avoid <a href="https://en.wikipedia.org/wiki/SQL_injection">sql injection</a> attacks</li><li>Avoid errors if malformed text is used like including a single quote which is the sql equivalent of escaping or starting a string (varchar/nvarchar)</li><li>Letting the database provider reuse query plans (not supported by all database providers) which increases efficiency</li><li>When working with parameters</li><li>Sql parameters type and size mismatch is a common cause of insert/ updated/ select failure</li><li>Give your Sql parameters meaningful names just like you do variables in your code</li><li>Specify the database data type of the column you are using, this ensures the wrong parameter types is not used which could lead to unexpected results</li><li>Validate your incoming parameters before you pass them into the command (as the saying goes, “<a href="https://en.wikipedia.org/wiki/Garbage_in,_garbage_out">garbage in, garbage out</a>”). Validate incoming values as early as possible in the stack</li><li>Use the correct types when assigning your parameter values, example: do not assign the string value of a DateTime, instead assign an actual DateTime instance to the value of the parameter</li><li>Specify the <a href="https://msdn.microsoft.com/en-us/library/system.data.sqlclient.sqlparameter.size(v=vs.110).aspx">size</a> of string-type parameters. This is because SQL Server can re-use execution plans if the parameters match in type <em>and</em> size. Use -1 for MAX</li><li>Do not use the method <a href="https://msdn.microsoft.com/en-us/library/system.data.sqlclient.sqlparametercollection.addwithvalue(v=vs.110).aspx">AddWithValue</a>, the main reason is it is very easy to forget to specify the parameter type or the precision/scale when needed. For additional information see <a href="http://blogs.msmvps.com/jcoehoorn/blog/2014/05/12/can-we-stop-using-addwithvalue-already/">Can we stop using AddWithValue already?</a></li><li>When using database connections</li><li>Open the connection as late as possible and close it as soon as possible. This is a general guideline when working with any external resource</li><li>Never share database connection instances (example: having a singleton host a shared instance of type <code>SqlConnection</code>). Have your code always create a new database connection instance when needed and then have the calling code dispose of it and “throw it away” when it is done. The reason for this is</li></ul>
+</div>
+<hr id="2b8ecec5-214c-4235-9017-76720691274e"/>
+  <h2 id="56ddf946-87a7-4273-b2c1-ec4a6e9f34c9" class="">Best practice for working with <a href="https://msdn.microsoft.com/en-us/library/h43ks021(v=vs.110).aspx">ADO.NET</a>
+  <a class="header-anchor" href="#56ddf946-87a7-4273-b2c1-ec4a6e9f34c9" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+  <ul id="49c591df-ce7d-433a-a3f7-568ff6f35eee" class="bulleted-list">
+    <li>Rule of thumb is to open connection for minimal time. Close the connection explicitly once your procedure execution is over this will return the connection object back to connection pool. Default connection pool max size = 100. As connection pooling enhances the performance of physical connection to SQL Server.<a href="https://msdn.microsoft.com/en-us/library/8xx3tyca(v=vs.110).aspx">Connection Pooling in SQL Server</a>
+    </li>
+    <li>Wrap all database connections in a using block so they are always closed &amp; disposed even in the event of an Exception. See <a href="https://msdn.microsoft.com/en-us/library/yh598w02.aspx">using Statement (C# Reference)</a> for more information on using statements
+    </li>
+    <li>Retrieve the connection strings by name from the app.config or web.config (depending on the application type)
+    </li>
+    <li>This requires an assembly reference to <code>System.configuration</code>
+    </li>
+    <li>See <a href="https://msdn.microsoft.com/en-us/library/ms254494(v=vs.110).aspx">Connection Strings and Configuration Files</a> for additional information on how to structure your configuration file
+    </li>
+    <li>Always use parameters for incoming values to
+    </li>
+    <li>Avoid <a href="https://en.wikipedia.org/wiki/SQL_injection">sql injection</a> attacks
+    </li>
+    <li>Avoid errors if malformed text is used like including a single quote which is the sql equivalent of escaping or starting a string (varchar/nvarchar)
+    </li>
+    <li>Letting the database provider reuse query plans (not supported by all database providers) which increases efficiency
+    </li>
+    <li>When working with parameters
+    </li>
+    <li>Sql parameters type and size mismatch is a common cause of insert/ updated/ select failure
+    </li>
+    <li>Give your Sql parameters meaningful names just like you do variables in your code
+    </li>
+    <li>Specify the database data type of the column you are using, this ensures the wrong parameter types is not used which could lead to unexpected results
+    </li>
+    <li>Validate your incoming parameters before you pass them into the command (as the saying goes, “<a href="https://en.wikipedia.org/wiki/Garbage_in,_garbage_out">garbage in, garbage out</a>”). Validate incoming values as early as possible in the stack
+    </li>
+    <li>Use the correct types when assigning your parameter values, example: do not assign the string value of a DateTime, instead assign an actual DateTime instance to the value of the parameter
+    </li>
+    <li>Specify the <a href="https://msdn.microsoft.com/en-us/library/system.data.sqlclient.sqlparameter.size(v=vs.110).aspx">size</a> of string-type parameters. This is because SQL Server can re-use execution plans if the parameters match in type <em>and</em> size. Use -1 for MAX
+    </li>
+    <li>Do not use the method <a href="https://msdn.microsoft.com/en-us/library/system.data.sqlclient.sqlparametercollection.addwithvalue(v=vs.110).aspx">AddWithValue</a>, the main reason is it is very easy to forget to specify the parameter type or the precision/scale when needed. For additional information see <a href="http://blogs.msmvps.com/jcoehoorn/blog/2014/05/12/can-we-stop-using-addwithvalue-already/">Can we stop using AddWithValue already?</a>
+    </li>
+    <li>When using database connections
+    </li>
+    <li>Open the connection as late as possible and close it as soon as possible. This is a general guideline when working with any external resource
+    </li>
+    <li>Never share database connection instances (example: having a singleton host a shared instance of type <code>SqlConnection</code>). Have your code always create a new database connection instance when needed and then have the calling code dispose of it and “throw it away” when it is done. The reason for this is
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">* Most database providers have some sort of connection pooling so creating new managed connections is cheap

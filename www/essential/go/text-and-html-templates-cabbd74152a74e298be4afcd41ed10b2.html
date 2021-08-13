@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Imagine you’re working on a web application and need to return HTML that lists most recent tweets. You need to load list of tweets from a database and create HTML based on that information.</p><p>Building that HTML string by building smaller strings and concatenating them with <code>+</code> would be tedious.</p><p>Packages <code>text/template</code> and <code>html/template</code> in Go standard library make implement data-driven templates for generating textual output:</p>
+      
+<p>Imagine you’re working on a web application and need to return HTML that lists most recent tweets. You need to load list of tweets from a database and create HTML based on that information.
+</p>
+<p>Building that HTML string by building smaller strings and concatenating them with <code>+</code> would be tedious.
+</p>
+<p>Packages <code>text/template</code> and <code>html/template</code> in Go standard library make implement data-driven templates for generating textual output:
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="kd">var</span> <span class="nx">tmplStr</span> <span class="p">=</span> <span class="s">`User </span><span class="cp">{{</span><span class="na">.User</span><span class="cp">}}</span><span class="s"> has </span><span class="cp">{{</span><span class="na">.TotalTweets</span><span class="cp">}}</span><span class="s"> tweets.
@@ -165,6 +172,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">User kjk has 124 tweets.
@@ -177,7 +185,24 @@ Most recent tweet: &#39;hello&#39;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Each template has a name. <code>template.New(&quot;tweets&quot;)</code> creates an empty template with name <code>tweets</code>.</p><p><code>t.Parse(s string)</code> parses the template.</p><p><code>t.Execute(w io.Writer, v interface{})</code> executes the template with a given value and writing the result to an <code>io.Writer</code>.</p><p><code>{{ ... }}</code> is an action are instructions for templating engine.</p><p><code>{{.TweetCount}}</code> means printing the value of <code>TweetCount</code> in current context.</p><p>Data passed to a template can be hierarchical (i.e. a struct withing a struct within a struct…).</p><p>Current context <code>.</code> refers to current scope within the data.</p><p>Initial <code>.</code> refers to top-level scope:</p>
+</div>
+<p>Each template has a name. <code>template.New(&quot;tweets&quot;)</code> creates an empty template with name <code>tweets</code>.
+</p>
+<p><code>t.Parse(s string)</code> parses the template.
+</p>
+<p><code>t.Execute(w io.Writer, v interface{})</code> executes the template with a given value and writing the result to an <code>io.Writer</code>.
+</p>
+<p><code>{{ ... }}</code> is an action are instructions for templating engine.
+</p>
+<p><code>{{.TweetCount}}</code> means printing the value of <code>TweetCount</code> in current context.
+</p>
+<p>Data passed to a template can be hierarchical (i.e. a struct withing a struct within a struct…).
+</p>
+<p>Current context <code>.</code> refers to current scope within the data.
+</p>
+<p>Initial <code>.</code> refers to top-level scope:
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="nx">tmplStr</span> <span class="o">:=</span> <span class="s">&#34;Data: {{.}}\n&#34;</span>
@@ -208,6 +233,7 @@ Most recent tweet: &#39;hello&#39;
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">Data: 5
@@ -218,7 +244,21 @@ Data: {3 hello}
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Values that don’t have pre-defined formatting are printed using <code>Stringer</code> interface. For custom formatting of your type in a template implement <code>String() string</code> method.</p><p><code>{{range .Tweets}}{{end}}</code> evaluates inner part for every element of <code>[]string</code> slice <code>Tweets</code> and sets current context <code>.</code> within the inner part to elements of <code>Tweets</code> slice.</p><p><code>{{index .RecentTweets 0}}</code> is equivalent to <code>RecentTweets[0]</code> in Go code.</p><p>Text in a template is copied verbatim. Having to preserve whitespace can lead to ugly templates.</p><p>To help write more readable templates We can add <code>-</code> at the beginning or end of action as seen in <code>{{end -}}</code>.</p><p>This remove whitespace before or after the action.</p><p><code>{{range .RecentTweets}}</code> changes variable scope and we don’t have access to data outside. If we need to access data from upper scope, we can define variables like <code>{{ $tweetCount := len .RecentTweets }}</code>.</p>
+</div>
+<p>Values that don’t have pre-defined formatting are printed using <code>Stringer</code> interface. For custom formatting of your type in a template implement <code>String() string</code> method.
+</p>
+<p><code>{{range .Tweets}}{{end}}</code> evaluates inner part for every element of <code>[]string</code> slice <code>Tweets</code> and sets current context <code>.</code> within the inner part to elements of <code>Tweets</code> slice.
+</p>
+<p><code>{{index .RecentTweets 0}}</code> is equivalent to <code>RecentTweets[0]</code> in Go code.
+</p>
+<p>Text in a template is copied verbatim. Having to preserve whitespace can lead to ugly templates.
+</p>
+<p>To help write more readable templates We can add <code>-</code> at the beginning or end of action as seen in <code>{{end -}}</code>.
+</p>
+<p>This remove whitespace before or after the action.
+</p>
+<p><code>{{range .RecentTweets}}</code> changes variable scope and we don’t have access to data outside. If we need to access data from upper scope, we can define variables like <code>{{ $tweetCount := len .RecentTweets }}</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

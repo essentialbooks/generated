@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>A function template can be overloaded under the rules for non-template function overloading (same name, but different parameter types) and in addition to that, the overloading is valid if</p><ul id="9683c506-e0d8-46ed-b90a-f287559c06a3" class="bulleted-list"><li>The return type is different, or</li><li>The template parameter list is different, except for the naming of parameters and the presence of default arguments (they are not part of the signature)</li></ul><p>For a normal function, comparing two parameter types is is easy for the compiler, since it has all informat. But a type within a template may not be determined yet. Therefore, the rule for when two parameter types are equal is approximative here and says that the non-depependend types and values need to match and the spelling of dependent types and expressions needs to be the same (more precisely, they need to conform to the so-called ODR-rules), except that template parameters may be renamed. However, if under such different spellings, two values within the types are deemed different, but will always instantiate to the same values, the overloading is invalid, but no diagnostic is required from the compiler.</p>
+      
+<p>A function template can be overloaded under the rules for non-template function overloading (same name, but different parameter types) and in addition to that, the overloading is valid if
+</p>
+  <ul id="9683c506-e0d8-46ed-b90a-f287559c06a3" class="bulleted-list">
+    <li>The return type is different, or
+    </li>
+    <li>The template parameter list is different, except for the naming of parameters and the presence of default arguments (they are not part of the signature)
+    </li>
+  </ul>
+<p>For a normal function, comparing two parameter types is is easy for the compiler, since it has all informat. But a type within a template may not be determined yet. Therefore, the rule for when two parameter types are equal is approximative here and says that the non-depependend types and values need to match and the spelling of dependent types and expressions needs to be the same (more precisely, they need to conform to the so-called ODR-rules), except that template parameters may be renamed. However, if under such different spellings, two values within the types are deemed different, but will always instantiate to the same values, the overloading is invalid, but no diagnostic is required from the compiler.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;typename T&gt;
@@ -139,7 +150,10 @@ void f(T) { }</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is a valid overload, as “T” and “T*” are different spellings. But the following is invalid, with no diagnostic required</p>
+</div>
+<p>This is a valid overload, as “T” and “T*” are different spellings. But the following is invalid, with no diagnostic required
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;typename T&gt;

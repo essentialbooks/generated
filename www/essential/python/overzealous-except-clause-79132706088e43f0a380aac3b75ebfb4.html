@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Exceptions are powerful, but a single overzealous except clause can take it all away in a single line.</p>
+      
+<p>Exceptions are powerful, but a single overzealous except clause can take it all away in a single line.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">try:</pre>
@@ -135,7 +138,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>res = get_result() res = res[0] log(‘got result: %r’ % res)</p>
+</div>
+<p>res = get_result() res = res[0] log(‘got result: %r’ % res)
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">except:</pre>
@@ -143,7 +149,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>if not res: res = ‘’ print(‘got exception’)</p>
+</div>
+<p>if not res: res = ‘’ print(‘got exception’)
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"></pre>
@@ -151,7 +160,22 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This example demonstrates 3 symptoms of the antipattern:</p><ol id="a02ba07f-71aa-4218-be93-70223c73d5bd" class="numbered-list" start="1"><li>The <code>except</code> with no exception type (line 5) will catch even healthy exceptions, including <a href="https://docs.python.org/2/library/exceptions.html#exceptions.KeyboardInterrupt"><code>KeyboardInterrupt</code></a>. That will prevent the program from exiting in some cases.</li><li>The except block does not reraise the error, meaning that we won’t be able to tell if the exception came from within <code>get_result</code> or because <code>res</code> was an empty list.</li><li>Worst of all, if we were worried about result being empty, we’ve caused something much worse. If <code>get_result</code> fails, <code>res</code> will stay completely unset, and the reference to <code>res</code> in the except block, will raise <a href="https://docs.python.org/2/library/exceptions.html#exceptions.NameError"><code>NameError</code></a>, completely masking the original error.</li></ol><p>Always think about the type of exception you’re trying to handle. Give <a href="https://docs.python.org/2/library/exceptions.html">the exceptions page a read</a> and get a feel for what basic exceptions exist.</p><p>Here is a fixed version of the example above:</p>
+</div>
+<p>This example demonstrates 3 symptoms of the antipattern:
+</p>
+  <ol id="a02ba07f-71aa-4218-be93-70223c73d5bd" class="numbered-list" start="1">
+    <li>The <code>except</code> with no exception type (line 5) will catch even healthy exceptions, including <a href="https://docs.python.org/2/library/exceptions.html#exceptions.KeyboardInterrupt"><code>KeyboardInterrupt</code></a>. That will prevent the program from exiting in some cases.
+    </li>
+    <li>The except block does not reraise the error, meaning that we won’t be able to tell if the exception came from within <code>get_result</code> or because <code>res</code> was an empty list.
+    </li>
+    <li>Worst of all, if we were worried about result being empty, we’ve caused something much worse. If <code>get_result</code> fails, <code>res</code> will stay completely unset, and the reference to <code>res</code> in the except block, will raise <a href="https://docs.python.org/2/library/exceptions.html#exceptions.NameError"><code>NameError</code></a>, completely masking the original error.
+    </li>
+  </ol>
+<p>Always think about the type of exception you’re trying to handle. Give <a href="https://docs.python.org/2/library/exceptions.html">the exceptions page a read</a> and get a feel for what basic exceptions exist.
+</p>
+<p>Here is a fixed version of the example above:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import traceback
@@ -163,7 +187,10 @@ except Exception:</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>log_exception(traceback.format_exc()) raise</p>
+</div>
+<p>log_exception(traceback.format_exc()) raise
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">try:
@@ -176,7 +203,9 @@ log(&#39;got result: %r&#39; % res)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We catch more specific exceptions, reraising where necessary. A few more lines, but infinitely more correct.</p>
+</div>
+<p>We catch more specific exceptions, reraising where necessary. A few more lines, but infinitely more correct.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

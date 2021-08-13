@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The <code>stackalloc</code> keyword creates a region of memory on the stack and returns a pointer to the start of that memory. Stack allocated memory is automatically removed when the scope it was created in is exited.</p>
+      
+<p>The <code>stackalloc</code> keyword creates a region of memory on the stack and returns a pointer to the start of that memory. Stack allocated memory is automatically removed when the scope it was created in is exited.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="c1">//Allocate 1024 bytes. This returns a pointer to the first byte.
@@ -143,7 +146,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>Used in an unsafe context.</em></p><p>As with all pointers in C# there is no bounds checking on reads and assignments. Reading beyond the bounds of the allocated memory will have unpredictable results - it may access some arbitrary location within memory or it may cause an access violation exception.</p>
+</div>
+<p><em>Used in an unsafe context.</em>
+</p>
+<p>As with all pointers in C# there is no bounds checking on reads and assignments. Reading beyond the bounds of the allocated memory will have unpredictable results - it may access some arbitrary location within memory or it may cause an access violation exception.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="c1">//Allocate 1 byte
@@ -157,7 +165,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Stack allocated memory is automatically removed when the scope it was created in is exited. This means that you should never return the memory created with stackalloc or store it beyond the lifetime of the scope.</p>
+</div>
+<p>Stack allocated memory is automatically removed when the scope it was created in is exited. This means that you should never return the memory created with stackalloc or store it beyond the lifetime of the scope.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">unsafe IntPtr Leak() {
@@ -178,7 +189,10 @@ unsafe void Bad() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>stackalloc</code> can only be used when declaring <em>and</em> initialising variables. The following is <em>not</em> valid:</p>
+</div>
+<p><code>stackalloc</code> can only be used when declaring <em>and</em> initialising variables. The following is <em>not</em> valid:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">byte</span><span class="p">*</span> <span class="n">ptr</span><span class="p">;</span>
@@ -189,7 +203,19 @@ unsafe void Bad() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Remarks:</strong></p><p><code>stackalloc</code> should only be used for performance optimizations (either for computation or interop). This is due to the fact that:</p><ul id="89d25cf1-fa8d-4d57-8118-a93999348a23" class="bulleted-list"><li>The garbage collector is not required as the memory is allocated on the stack rather than the heap - the memory is released as soon as the variable goes out of scope</li><li>It is faster to allocate memory on the stack rather than the heap</li><li>Increase the chance of cache hits on the CPU due to the locality of data</li></ul>
+</div>
+<p><strong>Remarks:</strong>
+</p>
+<p><code>stackalloc</code> should only be used for performance optimizations (either for computation or interop). This is due to the fact that:
+</p>
+  <ul id="89d25cf1-fa8d-4d57-8118-a93999348a23" class="bulleted-list">
+    <li>The garbage collector is not required as the memory is allocated on the stack rather than the heap - the memory is released as soon as the variable goes out of scope
+    </li>
+    <li>It is faster to allocate memory on the stack rather than the heap
+    </li>
+    <li>Increase the chance of cache hits on the CPU due to the locality of data
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

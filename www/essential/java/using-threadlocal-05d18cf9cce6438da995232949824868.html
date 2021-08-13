@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>A useful tool in Java Concurrency is <code>ThreadLocal</code> – this allows you to have a variable that will be unique to a given thread. Thus, if the same code runs in different threads, these executions will not share the value, but instead each thread has its own variable that is <em>local to the thread</em>.</p><p>For example, this is frequently used to establish the context (such as authorization information) of handling a request in a servlet. You might do something like this:</p>
+      
+<p>A useful tool in Java Concurrency is <code>ThreadLocal</code> – this allows you to have a variable that will be unique to a given thread. Thus, if the same code runs in different threads, these executions will not share the value, but instead each thread has its own variable that is <em>local to the thread</em>.
+</p>
+<p>For example, this is frequently used to establish the context (such as authorization information) of handling a request in a servlet. You might do something like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private static final ThreadLocal&lt;MyUserContext&gt; contexts = new ThreadLocal&lt;&gt;();
@@ -150,7 +155,11 @@ public void doGet(...) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, instead of passing <code>MyUserContext</code> into every single method, you can instead use <code>MyServlet.getContext()</code> where you need it. Now of course, this does introduce a variable that needs to be documented, but it’s thread-safe, which eliminates a lot of the downsides to using such a highly scoped variable.</p><p>The key advantage here is that every thread has its own thread local variable in that <code>contexts</code> container. As long as you use it from a defined entry point (like demanding that each servlet maintains its context, or perhaps by adding a servlet filter) you can rely on this context being there when you need it.</p>
+</div>
+<p>Now, instead of passing <code>MyUserContext</code> into every single method, you can instead use <code>MyServlet.getContext()</code> where you need it. Now of course, this does introduce a variable that needs to be documented, but it’s thread-safe, which eliminates a lot of the downsides to using such a highly scoped variable.
+</p>
+<p>The key advantage here is that every thread has its own thread local variable in that <code>contexts</code> container. As long as you use it from a defined entry point (like demanding that each servlet maintains its context, or perhaps by adding a servlet filter) you can rely on this context being there when you need it.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

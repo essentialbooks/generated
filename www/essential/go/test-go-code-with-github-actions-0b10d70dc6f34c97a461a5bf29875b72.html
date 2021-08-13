@@ -127,7 +127,25 @@
 </div>
 
 
-      <p>GitHub Actions allow you to run code in your repository, on GitHub servers, after every push. </p><p>This can be used for many things. This article discusses how to use it for running tests (as a replacement for hosted CI services like travis.ci).</p><p>A GitHub Action is defined by a <code>Dockerfile</code> in some GitHub repository. Since you can have multiple actions, you create a directory for each action.</p><p>An action is triggered by a workflow description in <code>.github/main.workflow</code> file in a repository.</p><p>Workflow is specific to each repository, actions can be shared.</p><p>A workflow running time (a sum of all actions in a workflow) is limited to 1 hr.</p><h1 id="0d64d8d3-8ca7-4168-bb36-0f0494b4f7f5" class="">Workflow<a class="header-anchor" href="#0d64d8d3-8ca7-4168-bb36-0f0494b4f7f5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Here&#x27;s the simplest workflow: </p>
+      
+<p>GitHub Actions allow you to run code in your repository, on GitHub servers, after every push. 
+</p>
+<p>This can be used for many things. This article discusses how to use it for running tests (as a replacement for hosted CI services like travis.ci).
+</p>
+<p>A GitHub Action is defined by a <code>Dockerfile</code> in some GitHub repository. Since you can have multiple actions, you create a directory for each action.
+</p>
+<p>An action is triggered by a workflow description in <code>.github/main.workflow</code> file in a repository.
+</p>
+<p>Workflow is specific to each repository, actions can be shared.
+</p>
+<p>A workflow running time (a sum of all actions in a workflow) is limited to 1 hr.
+</p>
+  <h1 id="0d64d8d3-8ca7-4168-bb36-0f0494b4f7f5" class="">Workflow
+  <a class="header-anchor" href="#0d64d8d3-8ca7-4168-bb36-0f0494b4f7f5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Here&#x27;s the simplest workflow: 
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="nx">workflow</span> <span class="s">&#34;run go test on push&#34;</span> <span class="p">{</span>
@@ -142,7 +160,51 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Explaining <code>workflow</code> section:</p><ul id="3c51810e-d5a4-4561-8606-d3cc553c7aff" class="bulleted-list"><li><code>run go test on push</code> is human-readable name of the workflow. It documents what the action is for</li><li><code>on = &quot;push&quot;</code> says that workflow will be executed on each push (including pushes into branches)</li><li><code>resolves = [&quot;test&quot;]</code> specifies a list of actions to execute. We just have one and it refers to <code>action &quot;test&quot;</code></li></ul><p>For a full list of options see <a href="https://developer.github.com/actions/managing-workflows/workflow-configuration-options/">documentation</a>.</p><p></p><p>Explaining: <code>action</code> section:</p><ul id="6677fd8a-08d1-479b-b4cc-483cdec1f44b" class="bulleted-list"><li><code>test</code> is a name by which we can refer an action from a workflow</li><li><code>uses</code> specifies a location of the action</li></ul><p>For more information see <a href="https://developer.github.com/actions/creating-github-actions/creating-a-new-action/">documentation</a>.</p><p></p><p>Actions can be re-used. <code>&quot;kjk/siser/action-go-test@master&quot;</code> specifies an action in <a href="https://github.com/kjk/siser/tree/master/action-go-test">https://github.com/kjk/siser/tree/master/action-go-test</a>. <code>@master</code> says that <code>master</code> branch should be used.</p><p>For simplicity I put the action in the same repository that uses the action but I could, for example, create a separate repository just for actions and re-use them in multiple repos.</p><h1 id="a18d0cf3-6ee7-401a-b79b-4aebdfef0b91" class="">Action<a class="header-anchor" href="#a18d0cf3-6ee7-401a-b79b-4aebdfef0b91" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Actions are Docker containers (describing docker is beyond the scope of this article).</p><p>Docker containers are infinitely flexible: you can run any logic in the container.</p><p>Our goal is to simply run <code>go test</code> on our code.</p><p><code>Dockerfile</code> describes how to build a container (with <code>docker build</code>).</p><p>Our <code>action-go-test/Dockerfile</code> is the simplest possible:</p>
+</div>
+<p>Explaining <code>workflow</code> section:
+</p>
+  <ul id="3c51810e-d5a4-4561-8606-d3cc553c7aff" class="bulleted-list">
+    <li><code>run go test on push</code> is human-readable name of the workflow. It documents what the action is for
+    </li>
+    <li><code>on = &quot;push&quot;</code> says that workflow will be executed on each push (including pushes into branches)
+    </li>
+    <li><code>resolves = [&quot;test&quot;]</code> specifies a list of actions to execute. We just have one and it refers to <code>action &quot;test&quot;</code>
+    </li>
+  </ul>
+<p>For a full list of options see <a href="https://developer.github.com/actions/managing-workflows/workflow-configuration-options/">documentation</a>.
+</p>
+<p>
+</p>
+<p>Explaining: <code>action</code> section:
+</p>
+  <ul id="6677fd8a-08d1-479b-b4cc-483cdec1f44b" class="bulleted-list">
+    <li><code>test</code> is a name by which we can refer an action from a workflow
+    </li>
+    <li><code>uses</code> specifies a location of the action
+    </li>
+  </ul>
+<p>For more information see <a href="https://developer.github.com/actions/creating-github-actions/creating-a-new-action/">documentation</a>.
+</p>
+<p>
+</p>
+<p>Actions can be re-used. <code>&quot;kjk/siser/action-go-test@master&quot;</code> specifies an action in <a href="https://github.com/kjk/siser/tree/master/action-go-test">https://github.com/kjk/siser/tree/master/action-go-test</a>. <code>@master</code> says that <code>master</code> branch should be used.
+</p>
+<p>For simplicity I put the action in the same repository that uses the action but I could, for example, create a separate repository just for actions and re-use them in multiple repos.
+</p>
+  <h1 id="a18d0cf3-6ee7-401a-b79b-4aebdfef0b91" class="">Action
+  <a class="header-anchor" href="#a18d0cf3-6ee7-401a-b79b-4aebdfef0b91" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Actions are Docker containers (describing docker is beyond the scope of this article).
+</p>
+<p>Docker containers are infinitely flexible: you can run any logic in the container.
+</p>
+<p>Our goal is to simply run <code>go test</code> on our code.
+</p>
+<p><code>Dockerfile</code> describes how to build a container (with <code>docker build</code>).
+</p>
+<p>Our <code>action-go-test/Dockerfile</code> is the simplest possible:
+</p>
+
 <div class="code-box lang-Docker">
 	<div>
 	<pre class="chroma"><span class="k">FROM</span><span class="s"> golang:latest</span><span class="err">
@@ -161,7 +223,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>There is an existing, publicly available <code>golang:latest</code> <a href="https://hub.docker.com/_/golang">docker image</a> in official Docker hub repository of images.</p><p>You can use specific versions like <code>golang:1.11.6</code>. We ask for the latest.</p><p><code>LABEL</code> statement are for just documentation.</p><p>A file <code>action-go-test/entrypoint.sh</code> describes the code that will be executed when we run the container with <code>docker run</code>. It runs <code>go test</code>:</p>
+</div>
+<p>There is an existing, publicly available <code>golang:latest</code> <a href="https://hub.docker.com/_/golang">docker image</a> in official Docker hub repository of images.
+</p>
+<p>You can use specific versions like <code>golang:1.11.6</code>. We ask for the latest.
+</p>
+<p><code>LABEL</code> statement are for just documentation.
+</p>
+<p>A file <code>action-go-test/entrypoint.sh</code> describes the code that will be executed when we run the container with <code>docker run</code>. It runs <code>go test</code>:
+</p>
+
 <div class="code-box lang-Bash">
 	<div>
 	<pre class="chroma"><span class="cp">#!/bin/bash
@@ -174,7 +245,33 @@ go test</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To note:</p><ul id="29c48392-1026-4b5d-b27a-aa8ef8f3ad30" class="bulleted-list"><li><code>set -e</code> tells bash to stop execution when a command fails, as opposed to continue executing the rest of the script. If a compilation fails, you don&#x27;t want to run the test. In our case we only have one command <code>go test</code> so it makes no difference, but it&#x27;s a good habit to have in case we&#x27;ll expand the script in the future</li><li><code>export GOPATH=</code> exists because our package uses go modules. <code>golang:latest</code> image has a working directory (where our code will be mounted) inside <code>GOPATH</code> and that&#x27;s not allowed for modules, so we change the <code>GOPATH</code> </li></ul><p>Now in the commit list you&#x27;ll see:</p><img class="img" src="/img/c0f604d0c54460fc650e8c03e30a53a584fc4324.png"><p>Yellow dot means: &quot;action execution in progress&quot;.</p><p>Green check mark means: &quot;action finished running successfully&quot;.</p><p>Red cross means: &quot;action failed&quot;.</p><p>When you click on them, you&#x27;ll see a short summary of checks:</p><img class="img" src="/img/d87a37e239c23380618edcdec411e4dc75be38c3.png"><p></p><p>Link <code>details</code> points to a page like <a href="https://github.com/kjk/siser/runs/81810467">https://github.com/kjk/siser/runs/81810467</a> showing a log of action execution.</p><p>Actions can do a lot more. See <a href="https://github.com/sdras/awesome-actions">awesome actions</a> list and <a href="https://github.com/marketplace?type=actions">actions in GitHub Marketplace</a> for more inspiration.</p>
+</div>
+<p>To note:
+</p>
+  <ul id="29c48392-1026-4b5d-b27a-aa8ef8f3ad30" class="bulleted-list">
+    <li><code>set -e</code> tells bash to stop execution when a command fails, as opposed to continue executing the rest of the script. If a compilation fails, you don&#x27;t want to run the test. In our case we only have one command <code>go test</code> so it makes no difference, but it&#x27;s a good habit to have in case we&#x27;ll expand the script in the future
+    </li>
+    <li><code>export GOPATH=</code> exists because our package uses go modules. <code>golang:latest</code> image has a working directory (where our code will be mounted) inside <code>GOPATH</code> and that&#x27;s not allowed for modules, so we change the <code>GOPATH</code> 
+    </li>
+  </ul>
+<p>Now in the commit list you&#x27;ll see:
+</p>
+<img class="img" src="/img/c0f604d0c54460fc650e8c03e30a53a584fc4324.png">
+<p>Yellow dot means: &quot;action execution in progress&quot;.
+</p>
+<p>Green check mark means: &quot;action finished running successfully&quot;.
+</p>
+<p>Red cross means: &quot;action failed&quot;.
+</p>
+<p>When you click on them, you&#x27;ll see a short summary of checks:
+</p>
+<img class="img" src="/img/d87a37e239c23380618edcdec411e4dc75be38c3.png">
+<p>
+</p>
+<p>Link <code>details</code> points to a page like <a href="https://github.com/kjk/siser/runs/81810467">https://github.com/kjk/siser/runs/81810467</a> showing a log of action execution.
+</p>
+<p>Actions can do a lot more. See <a href="https://github.com/sdras/awesome-actions">awesome actions</a> list and <a href="https://github.com/marketplace?type=actions">actions in GitHub Marketplace</a> for more inspiration.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

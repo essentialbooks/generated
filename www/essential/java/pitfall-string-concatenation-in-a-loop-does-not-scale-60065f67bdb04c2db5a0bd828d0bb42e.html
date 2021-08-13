@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Consider the following code as an illustration:</p>
+      
+<p>Consider the following code as an illustration:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public String joinWords(List&lt;String&gt; words) {
@@ -141,7 +144,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Unfortunate this code is inefficient if the <code>words</code> list is long. The root of the problem is this statement:</p>
+</div>
+<p>Unfortunate this code is inefficient if the <code>words</code> list is long. The root of the problem is this statement:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">message = message + &#34; &#34; + word;</pre>
@@ -149,7 +155,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For each loop iteration, this statement creates a new <code>message</code> string containing a copy of all characters in the original <code>message</code> string with extra characters appended to it. This generates a lot of temporary strings, and does a lot of copying.</p><p>When we analyse <code>joinWords</code>, assuming that there are N words with an average length of M, we find that O(N) temporary strings are created and O(M.N2) characters will be copied in the process. The N2 component is particularly troubling.</p><p>The recommended approach for this kind of problem1 is to use a <code>StringBuilder</code> instead of string concatenation as follows:</p>
+</div>
+<p>For each loop iteration, this statement creates a new <code>message</code> string containing a copy of all characters in the original <code>message</code> string with extra characters appended to it. This generates a lot of temporary strings, and does a lot of copying.
+</p>
+<p>When we analyse <code>joinWords</code>, assuming that there are N words with an average length of M, we find that O(N) temporary strings are created and O(M.N2) characters will be copied in the process. The N2 component is particularly troubling.
+</p>
+<p>The recommended approach for this kind of problem1 is to use a <code>StringBuilder</code> instead of string concatenation as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public String joinWords2(List&lt;String&gt; words) {
@@ -163,7 +176,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The analysis of <code>joinWords2</code> needs to take account of the overheads of “growing” the <code>StringBuilder</code> backing array that holds the builder’s characters. However, it turns out that the number of new objects created is O(logN) and that the number of characters copied is O(M.N) characters. The latter includes characters copied in the final <code>toString()</code> call.</p><p>(It may be possible to tune this further, by creating the <code>StringBuilder</code> with the correct capacity to start with. However, the overall complexity remains the same.)</p><p>Returning to the original <code>joinWords</code> method, it turns out that the critical statement will be optimized by a typical Java compiler to something like this:</p>
+</div>
+<p>The analysis of <code>joinWords2</code> needs to take account of the overheads of “growing” the <code>StringBuilder</code> backing array that holds the builder’s characters. However, it turns out that the number of new objects created is O(logN) and that the number of characters copied is O(M.N) characters. The latter includes characters copied in the final <code>toString()</code> call.
+</p>
+<p>(It may be possible to tune this further, by creating the <code>StringBuilder</code> with the correct capacity to start with. However, the overall complexity remains the same.)
+</p>
+<p>Returning to the original <code>joinWords</code> method, it turns out that the critical statement will be optimized by a typical Java compiler to something like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">StringBuilder tmp = new StringBuilder();
@@ -173,7 +193,18 @@ message = tmp.toString();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, the Java compiler will not “hoist” the <code>StringBuilder</code> out of the loop, as we did by hand in the code for <code>joinWords2</code>.</p><p>Reference:</p><ul id="048989fb-2043-4c23-bb9b-a858e766dc58" class="bulleted-list"><li><a href="http://outoffactserror.blogspot.com/2017/03/is-javas-string-operator-in-loop-slow.html">“Is Java’s String ‘+’ operator in a loop slow?”</a></li></ul><hr id="a1635150-47d9-4509-873c-c4b0b5312a99"/><p>1 - In Java 8 and later, the <code>Joiner</code> class can be used to solve this particular problem. However, that is not what this example is <em>really supposed to be about</em>.</p>
+</div>
+<p>However, the Java compiler will not “hoist” the <code>StringBuilder</code> out of the loop, as we did by hand in the code for <code>joinWords2</code>.
+</p>
+<p>Reference:
+</p>
+  <ul id="048989fb-2043-4c23-bb9b-a858e766dc58" class="bulleted-list">
+    <li><a href="http://outoffactserror.blogspot.com/2017/03/is-javas-string-operator-in-loop-slow.html">“Is Java’s String ‘+’ operator in a loop slow?”</a>
+    </li>
+  </ul>
+<hr id="a1635150-47d9-4509-873c-c4b0b5312a99"/>
+<p>1 - In Java 8 and later, the <code>Joiner</code> class can be used to solve this particular problem. However, that is not what this example is <em>really supposed to be about</em>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

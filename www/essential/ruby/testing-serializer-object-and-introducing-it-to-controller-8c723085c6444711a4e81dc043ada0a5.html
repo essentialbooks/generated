@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Let say you want to build your API to comply <a href="http://jsonapi.org/">jsonapi.org specification</a> and the result should look like:</p>
+      
+<p>Let say you want to build your API to comply <a href="http://jsonapi.org/">jsonapi.org specification</a> and the result should look like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">{&#34;article&#34;: {&#34;id&#34;: &#34;305&#34;,&#34;type&#34;: &#34;articles&#34;,&#34;attributes&#34;: {&#34;title&#34;: &#34;Asking Alexandria&#34;}}}</pre>
@@ -135,7 +138,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Test for Serializer object may look like this:</p>
+</div>
+<p>Test for Serializer object may look like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"># spec/serializers/article_serializer_spec.rbrequire &#39;rails_helper&#39;RSpec.describe ArticleSerializer dosubject { described_class.new(article) }let(:article) { instance_double(Article, id: 678, title: &#34;Bring Me The Horizon&#34;) }describe &#34;#as_json&#34; dolet(:result) { subject.as_json }it &#39;root should be article Hash&#39; doexpect(result).to match({article: be_kind_of(Hash)})endcontext &#39;article hash&#39; dolet(:article_hash) { result.fetch(:article) }it &#39;should contain type and id&#39; doexpect(article_hash).to match({id: article.id.to_s,type: &#39;articles&#39;,attributes: be_kind_of(Hash)})endcontext &#39;attributes&#39; dolet(:article_hash_attributes) { article_hash.fetch(:attributes) }it doexpect(article_hash_attributes).to match({title: /[Hh]orizon/,})endendendendend</pre>
@@ -143,7 +149,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Serializer object may look like this:</p>
+</div>
+<p>Serializer object may look like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"># app/serializers/article_serializer.rbclass ArticleSerializerattr_reader :articledef initialize(article)@article = articleenddef as_json{article: {id: article.id.to_s,type: &#39;articles&#39;,attributes: {title: article.title}}}endend</pre>
@@ -151,7 +160,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When we run our “serializers” specs everything passes.</p><p>That’s pretty boring. Let’s introduce a typo to our Article Serializer: Instead of <code>type: &quot;articles&quot;</code> let’s return <code>type: &quot;events&quot;</code> and rerun our tests.</p>
+</div>
+<p>When we run our “serializers” specs everything passes.
+</p>
+<p>That’s pretty boring. Let’s introduce a typo to our Article Serializer: Instead of <code>type: &quot;articles&quot;</code> let’s return <code>type: &quot;events&quot;</code> and rerun our tests.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">rspec spec/serializers/article_serializer_spec.rb.F.Failures:1) ArticleSerializer#as_json article hash should contain type and idFailure/Error:expect(article_hash).to match({id: article.id.to_s,type: &#39;articles&#39;,attributes: be_kind_of(Hash)})expected {:id=&gt;&#34;678&#34;, :type=&gt;&#34;event&#34;,:attributes=&gt;{:title=&gt;&#34;Bring Me The Horizon&#34;}} to match {:id=&gt;&#34;678&#34;,:type=&gt;&#34;articles&#34;, :attributes=&gt;(be a kind of Hash)}Diff:@@ -1,4 +1,4 @@-:attributes =&gt; (be a kind of Hash),+:attributes =&gt; {:title=&gt;&#34;Bring Me The Horizon&#34;},:id =&gt; &#34;678&#34;,-:type =&gt; &#34;articles&#34;,+:type =&gt; &#34;events&#34;,# ./spec/serializers/article_serializer_spec.rb:20:in `block (4levels) in &lt;top (required)&gt;&#39;</pre>
@@ -159,7 +173,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Once you’ve run the test it’s pretty easy to spot the error.</p><p>Once you fix the error (correct the type to be <code>article</code>) you can introduce it to Controller like this:</p>
+</div>
+<p>Once you’ve run the test it’s pretty easy to spot the error.
+</p>
+<p>Once you fix the error (correct the type to be <code>article</code>) you can introduce it to Controller like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"># app/controllers/v2/articles_controller.rbmodule V2class ArticlesController &lt; ApplicationControllerdef showrender json: serializer.as_jsonendprivatedef article@article ||= Article.find(params[:id])enddef serializer@serializer ||= ArticleSerializer.new(article)endendend</pre>
@@ -167,7 +186,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This example is based on article: http://www.eq8.eu/blogs/30-pure-rspec-json-api-testing</p>
+</div>
+<p>This example is based on article: http://www.eq8.eu/blogs/30-pure-rspec-json-api-testing
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

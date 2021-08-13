@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Imagine you have all dates in all responses in some custom format, for instance <code>/Date(1465935152)/</code> and you want apply general rule to deserialize all Json dates to java <code>Date</code> instances. In this case you need to implement custom Json Deserializer.</p><p>Example of json:</p>
+      
+<p>Imagine you have all dates in all responses in some custom format, for instance <code>/Date(1465935152)/</code> and you want apply general rule to deserialize all Json dates to java <code>Date</code> instances. In this case you need to implement custom Json Deserializer.
+</p>
+<p>Example of json:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">{
@@ -140,7 +145,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Suppose we have this class below:</p>
+</div>
+<p>Suppose we have this class below:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class User {
@@ -157,7 +165,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Custom deserializer:</p>
+</div>
+<p>Custom deserializer:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class DateDeSerializer implements JsonDeserializer&lt;Date&gt; {
@@ -179,7 +190,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And the usage:</p>
+</div>
+<p>And the usage:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Gson gson = new GsonBuilder()
@@ -191,7 +205,16 @@ User user = gson.fromJson(json, User.class);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Serialize and deserialize Jackson JSON strings with Date types</strong></p><p>This also applies to the case where you want to make Gson Date conversion compatible with Jackson, for example.</p><p>Jackson usually serializes Date to “milliseconds since epoch” whereas Gson uses a readable format like <code>Aug 31, 2016 10:26:17</code> to represent Date. This leads to JsonSyntaxExceptions in Gson when you try to deserialize a Jackson format Date.</p><p>To circumvent this, you can add a custom serializer and a custom deserializer:</p>
+</div>
+<p><strong>Serialize and deserialize Jackson JSON strings with Date types</strong>
+</p>
+<p>This also applies to the case where you want to make Gson Date conversion compatible with Jackson, for example.
+</p>
+<p>Jackson usually serializes Date to “milliseconds since epoch” whereas Gson uses a readable format like <code>Aug 31, 2016 10:26:17</code> to represent Date. This leads to JsonSyntaxExceptions in Gson when you try to deserialize a Jackson format Date.
+</p>
+<p>To circumvent this, you can add a custom serializer and a custom deserializer:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">JsonSerializer&lt;Date&gt; ser = new JsonSerializer&lt;Date&gt;() {

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>A common thought pattern for inexperienced Java programmers is that exceptions are “a problem” or “a burden” and the best way to deal with this is catch them all1 as soon as possible. This leads to code like this:</p>
+      
+<p>A common thought pattern for inexperienced Java programmers is that exceptions are “a problem” or “a burden” and the best way to deal with this is catch them all1 as soon as possible. This leads to code like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">....
@@ -141,7 +144,10 @@ try {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above code has a significant flaw. The <code>catch</code> is actually going to catch more exceptions than the programmer is expecting. Suppose that the value of the <code>fileName</code> is <code>null</code>, due to a bug elsewhere in the application. This will cause the <code>FileInputStream</code> constructor to throw a <code>NullPointerException</code>. The handler will catch this, and report to the user:</p>
+</div>
+<p>The above code has a significant flaw. The <code>catch</code> is actually going to catch more exceptions than the programmer is expecting. Suppose that the value of the <code>fileName</code> is <code>null</code>, due to a bug elsewhere in the application. This will cause the <code>FileInputStream</code> constructor to throw a <code>NullPointerException</code>. The handler will catch this, and report to the user:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Could not open file null</pre>
@@ -149,7 +155,26 @@ try {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>which is unhelpful and confusing. Worse still, suppose that the it was the “process the input” code that threw the unexpected exception (checked or unchecked!). Now the user will get the misleading message for a problem that didn’t occur while opening the file, and may not be related to I/O at all.</p><p>The root of the problem is that the programmer has coded a handler for <code>Exception</code>. This is almost always a mistake:</p><ul id="b97b0b4c-39a9-43df-8e07-a21e2fddf7ec" class="bulleted-list"><li>Catching <code>Exception</code> will catch all checked exceptions, and most unchecked exceptions as well.</li><li>Catching <code>RuntimeException</code> will catch most unchecked exceptions.</li><li>Catching <code>Error</code> will catch unchecked exceptions that signal JVM internal errors. These errors are generally not recoverable, and should not be caught.</li><li>Catching <code>Throwable</code> will catch all possible exceptions.</li></ul><p>The problem with catching too broad a set of exceptions is that the handler typically cannot handle all of them appropriately. In the case of the <code>Exception</code> and so on, it is difficult for the programmer to predict what <em>could</em> be caught; i.e. what to expect.</p><p>In general, the correct solution is to deal with the exceptions that <em>are</em> thrown. For example, you can catch them and handle them in situ:</p>
+</div>
+<p>which is unhelpful and confusing. Worse still, suppose that the it was the “process the input” code that threw the unexpected exception (checked or unchecked!). Now the user will get the misleading message for a problem that didn’t occur while opening the file, and may not be related to I/O at all.
+</p>
+<p>The root of the problem is that the programmer has coded a handler for <code>Exception</code>. This is almost always a mistake:
+</p>
+  <ul id="b97b0b4c-39a9-43df-8e07-a21e2fddf7ec" class="bulleted-list">
+    <li>Catching <code>Exception</code> will catch all checked exceptions, and most unchecked exceptions as well.
+    </li>
+    <li>Catching <code>RuntimeException</code> will catch most unchecked exceptions.
+    </li>
+    <li>Catching <code>Error</code> will catch unchecked exceptions that signal JVM internal errors. These errors are generally not recoverable, and should not be caught.
+    </li>
+    <li>Catching <code>Throwable</code> will catch all possible exceptions.
+    </li>
+  </ul>
+<p>The problem with catching too broad a set of exceptions is that the handler typically cannot handle all of them appropriately. In the case of the <code>Exception</code> and so on, it is difficult for the programmer to predict what <em>could</em> be caught; i.e. what to expect.
+</p>
+<p>In general, the correct solution is to deal with the exceptions that <em>are</em> thrown. For example, you can catch them and handle them in situ:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">try {
@@ -162,7 +187,13 @@ try {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>or you can declare them as <code>thrown</code> by the enclosing method.</p><hr id="1f9b6e82-f793-4cf9-b579-095f06e14e34"/><p>There are very few situations where catching <code>Exception</code> is appropriate. The only one that arises commonly is something like this:</p>
+</div>
+<p>or you can declare them as <code>thrown</code> by the enclosing method.
+</p>
+<hr id="1f9b6e82-f793-4cf9-b579-095f06e14e34"/>
+<p>There are very few situations where catching <code>Exception</code> is appropriate. The only one that arises commonly is something like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public static void main(String[] args) {
@@ -179,7 +210,12 @@ try {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here we genuinely want to deal with all exceptions, so catching <code>Exception</code> (or even <code>Throwable</code>) is correct.</p><hr id="2d3cfcec-45c4-476e-a274-8a27a803da20"/><p>1 - Also known as <a href="http://c2.com/cgi/wiki?PokemonExceptionHandling">Pokemon Exception Handling</a>.</p>
+</div>
+<p>Here we genuinely want to deal with all exceptions, so catching <code>Exception</code> (or even <code>Throwable</code>) is correct.
+</p>
+<hr id="2d3cfcec-45c4-476e-a274-8a27a803da20"/>
+<p>1 - Also known as <a href="http://c2.com/cgi/wiki?PokemonExceptionHandling">Pokemon Exception Handling</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

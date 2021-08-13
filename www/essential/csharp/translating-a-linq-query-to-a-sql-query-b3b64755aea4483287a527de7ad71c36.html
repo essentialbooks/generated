@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The <code>IQueryable</code> and <code>IQueryable&lt;T&gt;</code> interfaces allows developers to translate a LINQ query (a ‘language-integrated’ query) to a specific datasource, for example a relational database. Take this LINQ query written in C#:</p>
+      
+<p>The <code>IQueryable</code> and <code>IQueryable&lt;T&gt;</code> interfaces allows developers to translate a LINQ query (a ‘language-integrated’ query) to a specific datasource, for example a relational database. Take this LINQ query written in C#:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">var</span> <span class="n">query</span> <span class="p">=</span> <span class="k">from</span> <span class="n">book</span> <span class="k">in</span> <span class="n">books</span>
@@ -138,7 +141,22 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If the variable <code>books</code> is of a type that implements <code>IQueryable&lt;Book&gt;</code> then the query above gets passed to the provider (set on the <code>IQueryable.Provider</code> property) in the form of an expression tree, a data structure that reflects the structure of the code.</p><p>The provider can inspect the expression tree at runtime to determine:</p><ul id="cb8c6228-f33d-4865-8f53-df5da6e48b97" class="bulleted-list"><li>that there is a predicate for the <code>Author</code> property of the <code>Book</code> class;</li><li>that the comparison method used is ‘equals’ (<code>==</code>);</li><li>that the value it should equal is <code>&quot;Stephen King&quot;</code>.</li></ul><p>With this information the provider can translate the C# query to a SQL query at runtime and pass that query to a relational database to fetch only those books that match the predicate:</p>
+</div>
+<p>If the variable <code>books</code> is of a type that implements <code>IQueryable&lt;Book&gt;</code> then the query above gets passed to the provider (set on the <code>IQueryable.Provider</code> property) in the form of an expression tree, a data structure that reflects the structure of the code.
+</p>
+<p>The provider can inspect the expression tree at runtime to determine:
+</p>
+  <ul id="cb8c6228-f33d-4865-8f53-df5da6e48b97" class="bulleted-list">
+    <li>that there is a predicate for the <code>Author</code> property of the <code>Book</code> class;
+    </li>
+    <li>that the comparison method used is ‘equals’ (<code>==</code>);
+    </li>
+    <li>that the value it should equal is <code>&quot;Stephen King&quot;</code>.
+    </li>
+  </ul>
+<p>With this information the provider can translate the C# query to a SQL query at runtime and pass that query to a relational database to fetch only those books that match the predicate:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">select</span> <span class="o">*</span>
@@ -148,7 +166,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The provider gets called when the <code>query</code> variable is iterated over (<code>IQueryable</code> implements <code>IEnumerable</code>).</p><p>(The provider used in this example would require some extra metadata to know which table to query and to know how to match properties of the C# class to columns of the table, but such metadata is outside of the scope of the <code>IQueryable</code> interface.)</p>
+</div>
+<p>The provider gets called when the <code>query</code> variable is iterated over (<code>IQueryable</code> implements <code>IEnumerable</code>).
+</p>
+<p>(The provider used in this example would require some extra metadata to know which table to query and to know how to match properties of the C# class to columns of the table, but such metadata is outside of the scope of the <code>IQueryable</code> interface.)
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p><a href="http://stackoverflow.com/documentation/c%2B%2B/1752/virtual-member-functions">Member functions can also be declared </a><a href="http://stackoverflow.com/documentation/c%2B%2B/1752/virtual-member-functions"><code>virtual</code></a><a href="http://stackoverflow.com/documentation/c%2B%2B/1752/virtual-member-functions">.</a> In this case, if called on a pointer or reference to an instance, they will not be accessed directly; rather, they will look up the function in the virtual function table (a list of pointers-to-member-functions for virtual functions, more commonly known as the <code>vtable</code> or <code>vftable</code>), and use that to call the version appropriate for the instance’s dynamic (actual) type. If the function is called directly, from a variable of a class, no lookup is performed.</p>
+      
+<p><a href="http://stackoverflow.com/documentation/c%2B%2B/1752/virtual-member-functions">Member functions can also be declared </a><a href="http://stackoverflow.com/documentation/c%2B%2B/1752/virtual-member-functions"><code>virtual</code></a><a href="http://stackoverflow.com/documentation/c%2B%2B/1752/virtual-member-functions">.</a> In this case, if called on a pointer or reference to an instance, they will not be accessed directly; rather, they will look up the function in the virtual function table (a list of pointers-to-member-functions for virtual functions, more commonly known as the <code>vtable</code> or <code>vftable</code>), and use that to call the version appropriate for the instance’s dynamic (actual) type. If the function is called directly, from a variable of a class, no lookup is performed.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct Base {
@@ -163,7 +166,12 @@ slicer(d);  // Output:  In Base.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that while <code>pd</code> is <code>Base*</code>, and <code>rd</code> is a <code>Base&amp;</code>, calling <code>func()</code> on either of the two calls <code>Derived::func()</code> instead of <code>Base::func()</code>; this is because the <code>vtable</code> for <code>Derived</code> updates the <code>Base::func()</code> entry to instead point to <code>Derived::func()</code>. Conversely, note how passing an instance to <code>slicer()</code> always results in <code>Base::func()</code> being called, even when the passed instance is a <code>Derived</code>; this is because of something known as <em>data slicing</em>, where passing a <code>Derived</code> instance into a <code>Base</code> parameter by value renders the portion of the <code>Derived</code> instance that isn’t a <code>Base</code> instance inaccessible.</p><p>When a member function is defined as virtual, all derived class member functions with the same signature override it, regardless of whether the overriding function is specified as <code>virtual</code> or not. This can make derived classes harder for programmers to parse, however, as there’s no indication as to which function(s) is/are <code>virtual</code>.</p>
+</div>
+<p>Note that while <code>pd</code> is <code>Base*</code>, and <code>rd</code> is a <code>Base&amp;</code>, calling <code>func()</code> on either of the two calls <code>Derived::func()</code> instead of <code>Base::func()</code>; this is because the <code>vtable</code> for <code>Derived</code> updates the <code>Base::func()</code> entry to instead point to <code>Derived::func()</code>. Conversely, note how passing an instance to <code>slicer()</code> always results in <code>Base::func()</code> being called, even when the passed instance is a <code>Derived</code>; this is because of something known as <em>data slicing</em>, where passing a <code>Derived</code> instance into a <code>Base</code> parameter by value renders the portion of the <code>Derived</code> instance that isn’t a <code>Base</code> instance inaccessible.
+</p>
+<p>When a member function is defined as virtual, all derived class member functions with the same signature override it, regardless of whether the overriding function is specified as <code>virtual</code> or not. This can make derived classes harder for programmers to parse, however, as there’s no indication as to which function(s) is/are <code>virtual</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct B {
@@ -178,7 +186,10 @@ struct D : B {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note, however, that a derived function only overrides a base function if their signatures match; even if a derived function is explicitly declared <code>virtual</code>, it will instead create a new virtual function if the signatures are mismatched.</p>
+</div>
+<p>Note, however, that a derived function only overrides a base function if their signatures match; even if a derived function is explicitly declared <code>virtual</code>, it will instead create a new virtual function if the signatures are mismatched.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct BadB {
@@ -192,7 +203,10 @@ struct BadD : BadB {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As of C++11, intent to override can be made explicit with the context-sensitive keyword <code>override</code>. This tells the compiler that the programmer expects it to override a base class function, which causes the compiler to omit an error if it <em>doesn’t</em> override anything.</p>
+</div>
+<p>As of C++11, intent to override can be made explicit with the context-sensitive keyword <code>override</code>. This tells the compiler that the programmer expects it to override a base class function, which causes the compiler to omit an error if it <em>doesn’t</em> override anything.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct CPP11B {
@@ -207,7 +221,14 @@ struct CPP11D : CPP11B {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This also has the benefit of telling programmers that the function is both virtual, and also declared in at least one base class, which can make complex classes easier to parse.</p><p>When a function is declared <code>virtual</code>, and defined outside the class definition, the <code>virtual</code> specifier must be included in the function declaration, and not repeated in the definition.</p><p>This also holds true for <code>override</code>.</p>
+</div>
+<p>This also has the benefit of telling programmers that the function is both virtual, and also declared in at least one base class, which can make complex classes easier to parse.
+</p>
+<p>When a function is declared <code>virtual</code>, and defined outside the class definition, the <code>virtual</code> specifier must be included in the function declaration, and not repeated in the definition.
+</p>
+<p>This also holds true for <code>override</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct VB {
@@ -220,7 +241,10 @@ virtual void VB::g() {} // Error.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If a base class overloads a <code>virtual</code> function, only overloads that are explicitly specified as <code>virtual</code> will be virtual.</p>
+</div>
+<p>If a base class overloads a <code>virtual</code> function, only overloads that are explicitly specified as <code>virtual</code> will be virtual.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct BOverload {
@@ -242,7 +266,9 @@ bo-&gt;func(1); // Calls BOverload::func(int).</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For more information, see <a href="http://stackoverflow.com/documentation/c%2B%2B/1752/virtual-member-functions">the relevant topic</a>.</p>
+</div>
+<p>For more information, see <a href="http://stackoverflow.com/documentation/c%2B%2B/1752/virtual-member-functions">the relevant topic</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

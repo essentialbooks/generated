@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-gcc">
 	<div>
 	<pre class="chroma">// A fixed size raw array matrix (that is, a 2D raw array).
@@ -164,6 +165,7 @@ auto main() -&gt; int
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">   1   2   3   4   5   6   7
@@ -174,7 +176,13 @@ auto main() -&gt; int
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>C++ doesn’t support special syntax for indexing a multi-dimensional array. Instead such an array is viewed as an array of arrays (possibly of arrays, and so on), and the ordinary single index notation <code>[</code><code><em>i</em></code><code>\]</code> is used for each level. In the example above <code>m[y]</code> refers to row <code>y</code> of <code>m</code>, where <code>y</code> is a zero-based index. Then this row can be indexed in turn, e.g. <code>m[y]</code>, which refers to the <code>x</code>th item – or column – of row <code>y</code>.</p><p>I.e. the last index varies fastest, and in the declaration the range of this index, which here is the number of columns per row, is the last and “innermost” size specified.</p><p>Since C++ doesn’t provide built-in support for dynamic size arrays, other than dynamic allocation, a dynamic size matrix is often implemented as a class. Then the raw array matrix indexing notation <code>m[y]</code> has some cost, either by exposing the implementation (so that e.g. a view of a transposed matrix becomes practically impossible) or by adding some overhead and slight inconvenience when it’s done by returning a proxy object from <code>operator[]</code>. And so the indexing notation for such an abstraction can and will usually be different, both in look-and-feel and in the order of indices, e.g. <code>m(x,y)</code> or <code>m.at(x,y)</code> or <code>m.item(x,y)</code>.</p>
+</div>
+<p>C++ doesn’t support special syntax for indexing a multi-dimensional array. Instead such an array is viewed as an array of arrays (possibly of arrays, and so on), and the ordinary single index notation <code>[</code><code><em>i</em></code><code>\]</code> is used for each level. In the example above <code>m[y]</code> refers to row <code>y</code> of <code>m</code>, where <code>y</code> is a zero-based index. Then this row can be indexed in turn, e.g. <code>m[y]</code>, which refers to the <code>x</code>th item – or column – of row <code>y</code>.
+</p>
+<p>I.e. the last index varies fastest, and in the declaration the range of this index, which here is the number of columns per row, is the last and “innermost” size specified.
+</p>
+<p>Since C++ doesn’t provide built-in support for dynamic size arrays, other than dynamic allocation, a dynamic size matrix is often implemented as a class. Then the raw array matrix indexing notation <code>m[y]</code> has some cost, either by exposing the implementation (so that e.g. a view of a transposed matrix becomes practically impossible) or by adding some overhead and slight inconvenience when it’s done by returning a proxy object from <code>operator[]</code>. And so the indexing notation for such an abstraction can and will usually be different, both in look-and-feel and in the order of indices, e.g. <code>m(x,y)</code> or <code>m.at(x,y)</code> or <code>m.item(x,y)</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

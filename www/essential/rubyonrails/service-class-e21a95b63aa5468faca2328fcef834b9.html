@@ -127,7 +127,30 @@
 </div>
 
 
-      <p>Controller is an entry point to our application. However, it’s not the only possible entry point. I would like to have my logic accessible from:</p><ul id="9fc4c2e0-1c9f-4e98-b7fd-8a099e008b65" class="bulleted-list"><li>Rake tasks</li><li>background jobs</li><li>console</li><li>tests</li></ul><p>If I throw my logic into a controller it won’t be accessible from all these places. So let’s try “skinny controller, fat model” approach and move the logic to a model. But which one? If a given piece of logic involves <code>User</code>, <code>Cart</code> and <code>Product</code> models – where should it live?</p><p>A class which inherits from <code>ActiveRecord::Base</code> already has a lot of responsibilities. It handles query interface, associations and validations. If you add even more code to your model it will quickly become an unmaintainable mess with hundreds of public methods.</p><p>A service is just a regular Ruby object. Its class does not have to inherit from any specific class. Its name is a verb phrase, for example <code>CreateUserAccount</code> rather than <code>UserCreation</code> or <code>UserCreationService</code>. It lives in app/services directory. You have to create this directory by yourself, but Rails will autoload classes inside for you.</p><p><strong>A service object does one thing</strong></p><p>A service object (aka method object) performs one action. It holds the business logic to perform that action. Here is an example:</p>
+      
+<p>Controller is an entry point to our application. However, it’s not the only possible entry point. I would like to have my logic accessible from:
+</p>
+  <ul id="9fc4c2e0-1c9f-4e98-b7fd-8a099e008b65" class="bulleted-list">
+    <li>Rake tasks
+    </li>
+    <li>background jobs
+    </li>
+    <li>console
+    </li>
+    <li>tests
+    </li>
+  </ul>
+<p>If I throw my logic into a controller it won’t be accessible from all these places. So let’s try “skinny controller, fat model” approach and move the logic to a model. But which one? If a given piece of logic involves <code>User</code>, <code>Cart</code> and <code>Product</code> models – where should it live?
+</p>
+<p>A class which inherits from <code>ActiveRecord::Base</code> already has a lot of responsibilities. It handles query interface, associations and validations. If you add even more code to your model it will quickly become an unmaintainable mess with hundreds of public methods.
+</p>
+<p>A service is just a regular Ruby object. Its class does not have to inherit from any specific class. Its name is a verb phrase, for example <code>CreateUserAccount</code> rather than <code>UserCreation</code> or <code>UserCreationService</code>. It lives in app/services directory. You have to create this directory by yourself, but Rails will autoload classes inside for you.
+</p>
+<p><strong>A service object does one thing</strong>
+</p>
+<p>A service object (aka method object) performs one action. It holds the business logic to perform that action. Here is an example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"># app/services/accept_invite.rb
@@ -141,7 +164,32 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The three conventions I follow are:</p><p>Services go under the <code>app/services directory</code>. I encourage you to use subdirectories for business logic-heavy domains. For instance:</p><ul id="0c2f490e-e29d-4475-9373-71d6214e7868" class="bulleted-list"><li>The file <code>app/services/invite/accept.rb</code> will define <code>Invite::Accept</code> while <code>app/services/invite/create.rb</code> will define <code>Invite::Create</code></li><li>Services start with a verb (and do not end with Service): <code>ApproveTransaction</code>, <code>SendTestNewsletter</code>, <code>ImportUsersFromCsv</code></li><li>Services respond to the <code>call</code> method. I found using another verb makes it a bit redundant: <code>ApproveTransaction.approve()</code> does not read well. Also, the <code>call</code> method is the de facto method for <code>lambda</code>, <code>procs</code>, and method objects.</li></ul><p><strong>Benefits</strong></p><p><em><strong>Service objects show what my application does</strong></em></p><p>I can just glance over the services directory to see what my application does: <code>ApproveTransaction</code>, <code>CancelTransaction</code>, <code>BlockAccount</code>, <code>SendTransactionApprovalReminder</code>…</p><p>A quick look into a service object and I know what business logic is involved. I don’t have to go through the controllers, <code>ActiveRecord</code> model callbacks and observers to understand what “approving a transaction” involves.</p><p><em><strong>Clean-up models and controllers</strong></em></p><p>Controllers turn the request (params, session, cookies) into arguments, pass them down to the service and redirect or render according to the service response.</p>
+</div>
+<p>The three conventions I follow are:
+</p>
+<p>Services go under the <code>app/services directory</code>. I encourage you to use subdirectories for business logic-heavy domains. For instance:
+</p>
+  <ul id="0c2f490e-e29d-4475-9373-71d6214e7868" class="bulleted-list">
+    <li>The file <code>app/services/invite/accept.rb</code> will define <code>Invite::Accept</code> while <code>app/services/invite/create.rb</code> will define <code>Invite::Create</code>
+    </li>
+    <li>Services start with a verb (and do not end with Service): <code>ApproveTransaction</code>, <code>SendTestNewsletter</code>, <code>ImportUsersFromCsv</code>
+    </li>
+    <li>Services respond to the <code>call</code> method. I found using another verb makes it a bit redundant: <code>ApproveTransaction.approve()</code> does not read well. Also, the <code>call</code> method is the de facto method for <code>lambda</code>, <code>procs</code>, and method objects.
+    </li>
+  </ul>
+<p><strong>Benefits</strong>
+</p>
+<p><em><strong>Service objects show what my application does</strong></em>
+</p>
+<p>I can just glance over the services directory to see what my application does: <code>ApproveTransaction</code>, <code>CancelTransaction</code>, <code>BlockAccount</code>, <code>SendTransactionApprovalReminder</code>…
+</p>
+<p>A quick look into a service object and I know what business logic is involved. I don’t have to go through the controllers, <code>ActiveRecord</code> model callbacks and observers to understand what “approving a transaction” involves.
+</p>
+<p><em><strong>Clean-up models and controllers</strong></em>
+</p>
+<p>Controllers turn the request (params, session, cookies) into arguments, pass them down to the service and redirect or render according to the service response.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class InviteController &lt; ApplicationController
@@ -158,7 +206,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Models only deal with associations, scopes, validations and persistence.</p>
+</div>
+<p>Models only deal with associations, scopes, validations and persistence.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Invite &lt; ActiveRecord::Base
@@ -173,7 +224,33 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This makes models and controllers much easier to test and maintain!</p><p><strong>When to use Service Class</strong></p><p>Reach for Service Objects when an action meets one or more of these criteria:</p><ul id="8a3fc360-b8af-47f1-a871-24d7c1f9a4d6" class="bulleted-list"><li>The action is complex (e.g. closing the books at the end of an accounting period)</li><li>The action reaches across multiple models (e.g. an e-commerce purchase using Order, CreditCard and Customer objects)</li><li>The action interacts with an external service (e.g. posting to social networks)</li><li>The action is not a core concern of the underlying model (e.g. sweeping up outdated data after a certain time period).</li><li>There are multiple ways of performing the action (e.g. authenticating with an access token or password).</li></ul><p><strong>Sources</strong></p><p><a href="http://blog.sundaycoding.com/blog/2014/11/25/my-take-on-services-in-rails/">Adam Niedzielski Blog</a></p><p><a href="http://brewhouse.io/blog/2014/04/30/gourmet-service-objects.html">Brew House Blog</a></p><p><a href="http://blog.codeclimate.com/blog/2012/10/17/7-ways-to-decompose-fat-activerecord-models/">Code Climate Blog</a></p>
+</div>
+<p>This makes models and controllers much easier to test and maintain!
+</p>
+<p><strong>When to use Service Class</strong>
+</p>
+<p>Reach for Service Objects when an action meets one or more of these criteria:
+</p>
+  <ul id="8a3fc360-b8af-47f1-a871-24d7c1f9a4d6" class="bulleted-list">
+    <li>The action is complex (e.g. closing the books at the end of an accounting period)
+    </li>
+    <li>The action reaches across multiple models (e.g. an e-commerce purchase using Order, CreditCard and Customer objects)
+    </li>
+    <li>The action interacts with an external service (e.g. posting to social networks)
+    </li>
+    <li>The action is not a core concern of the underlying model (e.g. sweeping up outdated data after a certain time period).
+    </li>
+    <li>There are multiple ways of performing the action (e.g. authenticating with an access token or password).
+    </li>
+  </ul>
+<p><strong>Sources</strong>
+</p>
+<p><a href="http://blog.sundaycoding.com/blog/2014/11/25/my-take-on-services-in-rails/">Adam Niedzielski Blog</a>
+</p>
+<p><a href="http://brewhouse.io/blog/2014/04/30/gourmet-service-objects.html">Brew House Blog</a>
+</p>
+<p><a href="http://blog.codeclimate.com/blog/2012/10/17/7-ways-to-decompose-fat-activerecord-models/">Code Climate Blog</a>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

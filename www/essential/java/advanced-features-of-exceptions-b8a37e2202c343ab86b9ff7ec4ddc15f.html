@@ -127,7 +127,17 @@
 </div>
 
 
-      <p>This example covers some advanced features and use-cases for Exceptions.</p><h2 id="95b1cdb2-edce-43f2-91de-72abb853d851" class="">Examining the callstack programmatically<a class="header-anchor" href="#95b1cdb2-edce-43f2-91de-72abb853d851" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>The primary use of exception stacktraces is to provide information about an application error and its context so that the programmer can diagnose and fix the problem. Sometimes it can be used for other things. For example, a <code>SecurityManager</code> class may need to examine the call stack to decide whether the code that is making a call should be trusted.</p><p>You can use exceptions to examine the call stack programatically as follows:</p>
+      
+<p>This example covers some advanced features and use-cases for Exceptions.
+</p>
+  <h2 id="95b1cdb2-edce-43f2-91de-72abb853d851" class="">Examining the callstack programmatically
+  <a class="header-anchor" href="#95b1cdb2-edce-43f2-91de-72abb853d851" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>The primary use of exception stacktraces is to provide information about an application error and its context so that the programmer can diagnose and fix the problem. Sometimes it can be used for other things. For example, a <code>SecurityManager</code> class may need to examine the call stack to decide whether the code that is making a call should be trusted.
+</p>
+<p>You can use exceptions to examine the call stack programatically as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Exception ex = new Exception();   // this captures the call stack
@@ -138,7 +148,25 @@ System.out.println(&#34;Called from method &#34; + frames[1].getMethodName());</
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>There are some important caveats on this:</p><ol id="e0aad8a7-9dab-4129-821e-bb57dbc0b3ca" class="numbered-list" start="1"><li>The information available in a <code>StackTraceElement</code> is limited. There is no more information available than is displayed by <code>printStackTrace</code>. (The values of the local variables in the frame are not available.)</li><li>The javadocs for <code>getStackTrace()</code> state that a JVM is permitted to leave out frames:</li></ol><blockquote id="ee2cff98-d471-4d4c-b1a1-5da6de6e77df" class="">Some virtual machines may, under some circumstances, omit one or more stack frames from the stack trace. In the extreme case, a virtual machine that has no stack trace information concerning this throwable is permitted to return a zero-length array from this method.</blockquote><h2 id="b891400f-8885-49dd-84bd-6dd6fbf8cb7c" class="">Optimizing exception construction<a class="header-anchor" href="#b891400f-8885-49dd-84bd-6dd6fbf8cb7c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>As mentioned elsewhere, constructing an exception is rather expensive because it entails capturing and recording information about all stack frames on the current thread. Sometimes, we know that that information is never going to be used for a given exception; e.g. the stacktrace will never be printed. In that case, there is an implementation trick that we can use in a custom exception to cause the information to not be captured.</p><p>The stack frame information needed for stacktraces, is captured when the <code>Throwable</code> constructors call the <code>Throwable.fillInStackTrace()</code> method. This method is <code>public</code>, which means that a subclass can override it. The trick is to override the method inherited from <code>Throwable</code> with one that does nothing; e.g.</p>
+</div>
+<p>There are some important caveats on this:
+</p>
+  <ol id="e0aad8a7-9dab-4129-821e-bb57dbc0b3ca" class="numbered-list" start="1">
+    <li>The information available in a <code>StackTraceElement</code> is limited. There is no more information available than is displayed by <code>printStackTrace</code>. (The values of the local variables in the frame are not available.)
+    </li>
+    <li>The javadocs for <code>getStackTrace()</code> state that a JVM is permitted to leave out frames:
+    </li>
+  </ol>
+<blockquote id="ee2cff98-d471-4d4c-b1a1-5da6de6e77df" class="">Some virtual machines may, under some circumstances, omit one or more stack frames from the stack trace. In the extreme case, a virtual machine that has no stack trace information concerning this throwable is permitted to return a zero-length array from this method.
+</blockquote>
+  <h2 id="b891400f-8885-49dd-84bd-6dd6fbf8cb7c" class="">Optimizing exception construction
+  <a class="header-anchor" href="#b891400f-8885-49dd-84bd-6dd6fbf8cb7c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>As mentioned elsewhere, constructing an exception is rather expensive because it entails capturing and recording information about all stack frames on the current thread. Sometimes, we know that that information is never going to be used for a given exception; e.g. the stacktrace will never be printed. In that case, there is an implementation trick that we can use in a custom exception to cause the information to not be captured.
+</p>
+<p>The stack frame information needed for stacktraces, is captured when the <code>Throwable</code> constructors call the <code>Throwable.fillInStackTrace()</code> method. This method is <code>public</code>, which means that a subclass can override it. The trick is to override the method inherited from <code>Throwable</code> with one that does nothing; e.g.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MyException extends Exception {
@@ -153,7 +181,17 @@ System.out.println(&#34;Called from method &#34; + frames[1].getMethodName());</
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The problem with this approach is that an exception that overrides <code>fillInStackTrace()</code> can never capture the stacktrace, and is useless in scenarios where you need one.</p><h2 id="a75a99c7-3046-4497-9131-e78eae4ed4cd" class="">Erasing or replacing the stacktrace<a class="header-anchor" href="#a75a99c7-3046-4497-9131-e78eae4ed4cd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>In some situations, the stacktrace for an exception created in the normal way contains either incorrect information, or information that the developer does not want to reveal to the user. For these scenarios, the <code>Throwable.setStackTrace</code> can be used to replace the array of <code>StackTraceElement</code> objects that holds the information.</p><p>For example, the following can be used to discard an exception’s stack information:</p>
+</div>
+<p>The problem with this approach is that an exception that overrides <code>fillInStackTrace()</code> can never capture the stacktrace, and is useless in scenarios where you need one.
+</p>
+  <h2 id="a75a99c7-3046-4497-9131-e78eae4ed4cd" class="">Erasing or replacing the stacktrace
+  <a class="header-anchor" href="#a75a99c7-3046-4497-9131-e78eae4ed4cd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>In some situations, the stacktrace for an exception created in the normal way contains either incorrect information, or information that the developer does not want to reveal to the user. For these scenarios, the <code>Throwable.setStackTrace</code> can be used to replace the array of <code>StackTraceElement</code> objects that holds the information.
+</p>
+<p>For example, the following can be used to discard an exception’s stack information:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">exception.setStackTrace(new StackTraceElement[0]);</pre>
@@ -161,7 +199,13 @@ System.out.println(&#34;Called from method &#34; + frames[1].getMethodName());</
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="bfb69805-b25f-4335-9be3-85f012fd26b3" class="">Suppressed exceptions<a class="header-anchor" href="#bfb69805-b25f-4335-9be3-85f012fd26b3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Java 7 introduced the <em>try-with-resources</em> construct, and the associated concept of exception suppression. Consider the following snippet:</p>
+</div>
+  <h2 id="bfb69805-b25f-4335-9be3-85f012fd26b3" class="">Suppressed exceptions
+  <a class="header-anchor" href="#bfb69805-b25f-4335-9be3-85f012fd26b3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Java 7 introduced the <em>try-with-resources</em> construct, and the associated concept of exception suppression. Consider the following snippet:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">try (Writer w = new BufferedWriter(new FileWriter(someFilename))) {
@@ -172,7 +216,15 @@ System.out.println(&#34;Called from method &#34; + frames[1].getMethodName());</
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When the exception is thrown, the <code>try</code> will call <code>close()</code> on the <code>w</code> which will flush any buffered output and then close the <code>FileWriter</code>. But what happens if an <code>IOException</code> is thrown while flushing the output?</p><p>What happens is that any exception that is thrown while cleaning up a resource is <em>suppressed</em>. The exception is caught, and added to the primary exception’s suppressed exception list. Next the <em>try-with-resources</em> will continue with the cleanup of the other resources. Finally, primary exception will be rethrown.</p><p>A similar pattern occurs if an exception it thrown during the resource initialization, or if the <code>try</code> block completes normally. The first exception thrown becomes the primary exception, and subsequent ones arising from cleanup are suppressed.</p><p>The suppressed exceptions can be retrieved from the primary exception object by calling <code>getSuppressedExceptions</code>.</p>
+</div>
+<p>When the exception is thrown, the <code>try</code> will call <code>close()</code> on the <code>w</code> which will flush any buffered output and then close the <code>FileWriter</code>. But what happens if an <code>IOException</code> is thrown while flushing the output?
+</p>
+<p>What happens is that any exception that is thrown while cleaning up a resource is <em>suppressed</em>. The exception is caught, and added to the primary exception’s suppressed exception list. Next the <em>try-with-resources</em> will continue with the cleanup of the other resources. Finally, primary exception will be rethrown.
+</p>
+<p>A similar pattern occurs if an exception it thrown during the resource initialization, or if the <code>try</code> block completes normally. The first exception thrown becomes the primary exception, and subsequent ones arising from cleanup are suppressed.
+</p>
+<p>The suppressed exceptions can be retrieved from the primary exception object by calling <code>getSuppressedExceptions</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

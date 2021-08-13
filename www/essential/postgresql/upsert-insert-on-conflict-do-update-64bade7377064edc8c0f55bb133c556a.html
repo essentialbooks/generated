@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>since <a href="https://www.postgresql.org/docs/9.5/static/sql-insert.html">version 9.5</a> postgres offers <code>UPSERT</code> functionality with <code>INSERT</code> statement.</p><p>Say you have a table called my_table, created in several previous examples. We insert a row, returning PK value of inserted row:</p>
+      
+<p>since <a href="https://www.postgresql.org/docs/9.5/static/sql-insert.html">version 9.5</a> postgres offers <code>UPSERT</code> functionality with <code>INSERT</code> statement.
+</p>
+<p>Say you have a table called my_table, created in several previous examples. We insert a row, returning PK value of inserted row:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">b=# INSERT INTO my_table (name,contact_number) values (&#39;one&#39;,333) RETURNING id;
@@ -141,7 +146,10 @@ INSERT 0 1</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now if we try to insert row with existing unique key it will raise an exception:</p>
+</div>
+<p>Now if we try to insert row with existing unique key it will raise an exception:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">b=# INSERT INTO my_table values (2,&#39;one&#39;,333);
@@ -151,7 +159,10 @@ DETAIL:  Key (id)=(2) already exists.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Upsert functionality offers ability to insert it anyway, solving the conflict:</p>
+</div>
+<p>Upsert functionality offers ability to insert it anyway, solving the conflict:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">b=# INSERT INTO my_table values (2,&#39;one&#39;,333) ON CONFLICT (id) DO UPDATE SET name = my_table.name||&#39; changed to: &#34;two&#34; at &#39;||now() returning *;

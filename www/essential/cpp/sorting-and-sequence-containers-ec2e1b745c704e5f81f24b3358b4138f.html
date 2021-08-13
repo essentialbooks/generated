@@ -127,7 +127,14 @@
 </div>
 
 
-      <p><code>std::sort</code>, found in the standard library header <code>algorithm</code>, is a standard library algorithm for sorting a range of values, defined by a pair of iterators. <code>std::sort</code> takes as the last parameter a functor used to compare two values; this is how it determines the order. Note that <code>std::sort</code> is not <a href="https://en.wikipedia.org/wiki/Sorting_algorithm#Stability">stable</a>.</p><p>The comparison function <em>must</em> impose a <a href="https://en.wikipedia.org/wiki/Weak_ordering#Strict_weak_orderings">Strict, Weak Ordering</a> on the elements. A simple less-than (or greater-than) comparison will suffice.</p><p>A container with random-access iterators can be sorted using the <code>std::sort</code> algorithm:</p>
+      
+<p><code>std::sort</code>, found in the standard library header <code>algorithm</code>, is a standard library algorithm for sorting a range of values, defined by a pair of iterators. <code>std::sort</code> takes as the last parameter a functor used to compare two values; this is how it determines the order. Note that <code>std::sort</code> is not <a href="https://en.wikipedia.org/wiki/Sorting_algorithm#Stability">stable</a>.
+</p>
+<p>The comparison function <em>must</em> impose a <a href="https://en.wikipedia.org/wiki/Weak_ordering#Strict_weak_orderings">Strict, Weak Ordering</a> on the elements. A simple less-than (or greater-than) comparison will suffice.
+</p>
+<p>A container with random-access iterators can be sorted using the <code>std::sort</code> algorithm:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;vector&gt;
@@ -141,7 +148,10 @@ std::sort(MyVector.begin(), MyVector.end());</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>std::sort</code> requires that its iterators are random access iterators. The sequence containers <code>std::list</code> and <code>std::forward_list</code> (requiring C++11) do not provide random access iterators, so they cannot be used with <code>std::sort</code>. However, they do have <code>sort</code> member functions which implement a sorting algorithm that works with their own iterator types.</p>
+</div>
+<p><code>std::sort</code> requires that its iterators are random access iterators. The sequence containers <code>std::list</code> and <code>std::forward_list</code> (requiring C++11) do not provide random access iterators, so they cannot be used with <code>std::sort</code>. However, they do have <code>sort</code> member functions which implement a sorting algorithm that works with their own iterator types.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;list&gt;
@@ -156,7 +166,10 @@ MyList.sort();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Their member <code>sort</code> functions always sort the entire list, so they cannot sort a sub-range of elements. However, since <code>list</code> and <code>forward_list</code> have fast splicing operations, you could extract the elements to be sorted from the list, sort them, then stuff them back where they were quite efficiently like this:</p>
+</div>
+<p>Their member <code>sort</code> functions always sort the entire list, so they cannot sort a sub-range of elements. However, since <code>list</code> and <code>forward_list</code> have fast splicing operations, you could extract the elements to be sorted from the list, sort them, then stuff them back where they were quite efficiently like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void sort_sublist(std::list&lt;int&gt;&amp; mylist, std::list&lt;int&gt;::const_iterator start, std::list&lt;int&gt;::const_iterator end) {

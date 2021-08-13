@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>All non-static member functions have a hidden parameter, a pointer to an instance of the class, named <code>this</code>; this parameter is silently inserted at the beginning of the parameter list, and handled entirely by the compiler. When a member of the class is accessed inside a member function, it is silently accessed through <code>this</code>; this allows the compiler to use a single non-static member function for all instances, and allows a member function to call other member functions polymorphically.</p>
+      
+<p>All non-static member functions have a hidden parameter, a pointer to an instance of the class, named <code>this</code>; this parameter is silently inserted at the beginning of the parameter list, and handled entirely by the compiler. When a member of the class is accessed inside a member function, it is silently accessed through <code>this</code>; this allows the compiler to use a single non-static member function for all instances, and allows a member function to call other member functions polymorphically.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">struct</span> <span class="nc">ThisPointer</span> <span class="p">{</span>
@@ -175,7 +178,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In a constructor, <code>this</code> can safely be used to (implicitly or explicitly) access any field that has already been initialized, or any field in a parent class; conversely, (implicitly or explicitly) accessing any fields that haven’t yet been initialized, or any fields in a derived class, is unsafe (due to the derived class not yet being constructed, and thus its fields neither being initialized nor existing). It is also unsafe to call virtual member functions through <code>this</code> in the constructor, as any derived class functions will not be considered (due to the derived class not yet being constructed, and thus its constructor not yet updating the vtable).</p><p></p><p>Also note that while in a constructor, the type of the object is the type which that constructor constructs. This holds true even if the object is declared as a derived type. For example, in the below example, <code>ctd_good</code> and <code>ctd_bad</code> are type <code>CtorThisBase</code> inside <code>CtorThisBase()</code>, and type <code>CtorThis</code> inside <code>CtorThis()</code>, even though their canonical type is <code>CtorThisDerived</code>. As the more-derived classes are constructed around the base class, the instance gradually goes through the class hierarchy until it is a fully-constructed instance of its intended type.</p>
+</div>
+<p>In a constructor, <code>this</code> can safely be used to (implicitly or explicitly) access any field that has already been initialized, or any field in a parent class; conversely, (implicitly or explicitly) accessing any fields that haven’t yet been initialized, or any fields in a derived class, is unsafe (due to the derived class not yet being constructed, and thus its fields neither being initialized nor existing). It is also unsafe to call virtual member functions through <code>this</code> in the constructor, as any derived class functions will not be considered (due to the derived class not yet being constructed, and thus its constructor not yet updating the vtable).
+</p>
+<p>
+</p>
+<p>Also note that while in a constructor, the type of the object is the type which that constructor constructs. This holds true even if the object is declared as a derived type. For example, in the below example, <code>ctd_good</code> and <code>ctd_bad</code> are type <code>CtorThisBase</code> inside <code>CtorThisBase()</code>, and type <code>CtorThis</code> inside <code>CtorThis()</code>, even though their canonical type is <code>CtorThisDerived</code>. As the more-derived classes are constructed around the base class, the instance gradually goes through the class hierarchy until it is a fully-constructed instance of its intended type.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">class</span> <span class="nc">CtorThisBase</span> <span class="p">{</span>
@@ -219,7 +229,27 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With these classes and member functions:</p><ul id="220e3ad0-3de6-4772-a3fe-7058fa99b14b" class="bulleted-list"><li>In the good constructor, for <code>ctd_good</code>:</li><li><code>CtorThisBase</code> is fully constructed by the time the <code>CtorThis</code> constructor is entered. Therefore, <code>s</code> is in a valid state while initialising <code>i</code>, and can thus be accessed.</li><li><code>i</code> is initialised before <code>j(this-&gt;i)</code> is reached. Therefore, <code>i</code> is in a valid state while initialising <code>j</code>, and can thus be accessed.</li><li><code>j</code> is initialised before <code>k(j)</code> is reached. Therefore, <code>j</code> is in a valid state while initialising <code>k</code>, and can thus be accessed.</li><li>In the bad constructor, for <code>ctd_bad</code>:</li><li><code>k</code> is initialised after <code>j(this-&gt;k)</code> is reached. Therefore, <code>k</code> is in an invalid state while initialising <code>j</code>, and accessing it causes undefined behaviour.</li><li><code>CtorThisDerived</code> is not constructed until after <code>CtorThis</code> is constructed. Therefore, <code>b</code> is in an invalid state while initialising <code>k</code>, and accessing it causes undefined behaviour.</li><li>The object <code>ctd_bad</code> is still a <code>CtorThis</code> until it leaves <code>CtorThis()</code>, and will not be updated to use <code>CtorThisDerived</code>’s vtable until <code>CtorThisDerived()</code>. Therefore, <code>virt_func()</code> will call <code>CtorThis::virt_func()</code>, regardless of whether it is intended to call that or <code>CtorThisDerived::virt_func()</code>.</li></ul>
+</div>
+<p>With these classes and member functions:
+</p>
+  <ul id="220e3ad0-3de6-4772-a3fe-7058fa99b14b" class="bulleted-list">
+    <li>In the good constructor, for <code>ctd_good</code>:
+    </li>
+    <li><code>CtorThisBase</code> is fully constructed by the time the <code>CtorThis</code> constructor is entered. Therefore, <code>s</code> is in a valid state while initialising <code>i</code>, and can thus be accessed.
+    </li>
+    <li><code>i</code> is initialised before <code>j(this-&gt;i)</code> is reached. Therefore, <code>i</code> is in a valid state while initialising <code>j</code>, and can thus be accessed.
+    </li>
+    <li><code>j</code> is initialised before <code>k(j)</code> is reached. Therefore, <code>j</code> is in a valid state while initialising <code>k</code>, and can thus be accessed.
+    </li>
+    <li>In the bad constructor, for <code>ctd_bad</code>:
+    </li>
+    <li><code>k</code> is initialised after <code>j(this-&gt;k)</code> is reached. Therefore, <code>k</code> is in an invalid state while initialising <code>j</code>, and accessing it causes undefined behaviour.
+    </li>
+    <li><code>CtorThisDerived</code> is not constructed until after <code>CtorThis</code> is constructed. Therefore, <code>b</code> is in an invalid state while initialising <code>k</code>, and accessing it causes undefined behaviour.
+    </li>
+    <li>The object <code>ctd_bad</code> is still a <code>CtorThis</code> until it leaves <code>CtorThis()</code>, and will not be updated to use <code>CtorThisDerived</code>’s vtable until <code>CtorThisDerived()</code>. Therefore, <code>virt_func()</code> will call <code>CtorThis::virt_func()</code>, regardless of whether it is intended to call that or <code>CtorThisDerived::virt_func()</code>.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

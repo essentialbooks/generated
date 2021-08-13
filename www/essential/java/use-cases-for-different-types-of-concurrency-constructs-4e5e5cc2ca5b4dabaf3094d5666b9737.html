@@ -127,7 +127,36 @@
 </div>
 
 
-      <ol id="59a571f8-5123-4502-a9e6-0714c7823dc9" class="numbered-list" start="1"><li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html">ExecutorService</a></li></ol><p><code>ExecutorService executor = Executors.newFixedThreadPool(50);</code></p><p>It is simple and easy to use. It hides low level details of <code>ThreadPoolExecutor</code>.</p><p>I prefer this one when number of <code>Callable/Runnable</code> tasks are small in number and piling of tasks in unbounded queue does not increase memory &amp; degrade the performance of the system. If you have <code>CPU/Memory</code> constraints, I prefer to use <code>ThreadPoolExecutor</code> with capacity constraints &amp; <code>RejectedExecutionHandler</code> to handle rejection of tasks.</p><ol id="1055743e-ad66-4155-abab-ba03c341170e" class="numbered-list" start="1"><li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CountDownLatch.html">CountDownLatch</a></li></ol><p><code>CountDownLatch</code> will be initialized with a given count. This count is decremented by calls to the <code>countDown()</code> method. Threads waiting for this count to reach zero can call one of the <code>await()</code> methods. Calling <code>await()</code> blocks the thread until the count reaches zero. <em>This class enables a java thread to wait until other set of threads completes their tasks.</em></p><p><em>Use cases:</em></p><ol id="057b0e7a-3b55-4afc-a283-41a53488277c" class="numbered-list" start="1"><li>Achieving Maximum Parallelism: Sometimes we want to start a number of threads at the same time to achieve maximum parallelism</li><li>Wait N threads to completes before start execution</li><li>Deadlock detection.</li><li><a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ThreadPoolExecutor.html">ThreadPoolExecutor</a> : It provides more control. If application is constrained by number of pending Runnable/Callable tasks, you can use bounded queue by setting the max capacity. Once the queue reaches maximum capacity, you can define RejectionHandler. Java provides four types of <code>RejectedExecutionHandler</code> <a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ThreadPoolExecutor.html">policies</a>.</li></ol>
+      
+  <ol id="59a571f8-5123-4502-a9e6-0714c7823dc9" class="numbered-list" start="1">
+    <li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html">ExecutorService</a>
+    </li>
+  </ol>
+<p><code>ExecutorService executor = Executors.newFixedThreadPool(50);</code>
+</p>
+<p>It is simple and easy to use. It hides low level details of <code>ThreadPoolExecutor</code>.
+</p>
+<p>I prefer this one when number of <code>Callable/Runnable</code> tasks are small in number and piling of tasks in unbounded queue does not increase memory &amp; degrade the performance of the system. If you have <code>CPU/Memory</code> constraints, I prefer to use <code>ThreadPoolExecutor</code> with capacity constraints &amp; <code>RejectedExecutionHandler</code> to handle rejection of tasks.
+</p>
+  <ol id="1055743e-ad66-4155-abab-ba03c341170e" class="numbered-list" start="1">
+    <li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CountDownLatch.html">CountDownLatch</a>
+    </li>
+  </ol>
+<p><code>CountDownLatch</code> will be initialized with a given count. This count is decremented by calls to the <code>countDown()</code> method. Threads waiting for this count to reach zero can call one of the <code>await()</code> methods. Calling <code>await()</code> blocks the thread until the count reaches zero. <em>This class enables a java thread to wait until other set of threads completes their tasks.</em>
+</p>
+<p><em>Use cases:</em>
+</p>
+  <ol id="057b0e7a-3b55-4afc-a283-41a53488277c" class="numbered-list" start="1">
+    <li>Achieving Maximum Parallelism: Sometimes we want to start a number of threads at the same time to achieve maximum parallelism
+    </li>
+    <li>Wait N threads to completes before start execution
+    </li>
+    <li>Deadlock detection.
+    </li>
+    <li><a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ThreadPoolExecutor.html">ThreadPoolExecutor</a> : It provides more control. If application is constrained by number of pending Runnable/Callable tasks, you can use bounded queue by setting the max capacity. Once the queue reaches maximum capacity, you can define RejectionHandler. Java provides four types of <code>RejectedExecutionHandler</code> <a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ThreadPoolExecutor.html">policies</a>.
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">1. `ThreadPoolExecutor.AbortPolicy`, the handler throws a runtime RejectedExecutionException upon rejection.
@@ -141,7 +170,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you want to simulate <code>CountDownLatch</code> behaviour, you can use <code>invokeAll()</code> method.</p><ol id="f97bb0a5-b976-461f-a2a5-5314ddc592ec" class="numbered-list" start="1"><li>One more mechanism you did not quote is <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html">ForkJoinPool</a></li></ol><p>The <code>ForkJoinPool</code> was added to Java in Java 7. The <code>ForkJoinPool</code> is similar to the Java <code>ExecutorService</code> but with one difference. The <code>ForkJoinPool</code> makes it easy for tasks to split their work up into smaller tasks which are then submitted to the <code>ForkJoinPool</code> too. Task stealing happens in <code>ForkJoinPool</code> when free worker threads steal tasks from busy worker thread queue.</p><p>Java 8 has introduced one more API in <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html">ExecutorService</a> to create work stealing pool. You don’t have to create <code>RecursiveTask</code> and <code>RecursiveAction</code> but still can use <code>ForkJoinPool</code>.</p>
+</div>
+<p>If you want to simulate <code>CountDownLatch</code> behaviour, you can use <code>invokeAll()</code> method.
+</p>
+  <ol id="f97bb0a5-b976-461f-a2a5-5314ddc592ec" class="numbered-list" start="1">
+    <li>One more mechanism you did not quote is <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html">ForkJoinPool</a>
+    </li>
+  </ol>
+<p>The <code>ForkJoinPool</code> was added to Java in Java 7. The <code>ForkJoinPool</code> is similar to the Java <code>ExecutorService</code> but with one difference. The <code>ForkJoinPool</code> makes it easy for tasks to split their work up into smaller tasks which are then submitted to the <code>ForkJoinPool</code> too. Task stealing happens in <code>ForkJoinPool</code> when free worker threads steal tasks from busy worker thread queue.
+</p>
+<p>Java 8 has introduced one more API in <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html">ExecutorService</a> to create work stealing pool. You don’t have to create <code>RecursiveTask</code> and <code>RecursiveAction</code> but still can use <code>ForkJoinPool</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public static ExecutorService newWorkStealingPool()</pre>
@@ -149,7 +189,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="a6da3133-5f6e-4257-854e-cdfaf2781567" class="">Creates a work-stealing thread pool using all available processors as its target parallelism level.</blockquote><p>By default, it will take number of CPU cores as parameter.</p><p>All these four mechanism are complimentary to each other. Depending on level of granularity you want to control, you have to chose right ones.</p>
+</div>
+<blockquote id="a6da3133-5f6e-4257-854e-cdfaf2781567" class="">Creates a work-stealing thread pool using all available processors as its target parallelism level.
+</blockquote>
+<p>By default, it will take number of CPU cores as parameter.
+</p>
+<p>All these four mechanism are complimentary to each other. Depending on level of granularity you want to control, you have to chose right ones.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

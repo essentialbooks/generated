@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>Many repetitive jobs can be performed more efficiently if you utilize more of your computer’s resources (i.e. CPU’s and RAM). Below is an example of running multiple jobs in parallel.</p><p>Suppose you have a <code>&lt; list of files &gt;</code>, say output from <code>ls</code>. Also, let these files are bz2 compressed and the following order of tasks need to be operated on them.</p><ol id="e3457bd0-3598-40be-b7f8-1976bf60fbee" class="numbered-list" start="1"><li>Decompress the bz2 files using <code>bzcat</code> to stdout</li><li>Grep (e.g. filter) lines with specific keyword(s) using <code>grep &lt;some key word&gt;</code></li><li>Pipe the output to be concatenated into one single gzipped file using <code>gzip</code></li></ol><p>Running this using a while-loop may look like this</p>
+      
+<p>Many repetitive jobs can be performed more efficiently if you utilize more of your computer’s resources (i.e. CPU’s and RAM). Below is an example of running multiple jobs in parallel.
+</p>
+<p>Suppose you have a <code>&lt; list of files &gt;</code>, say output from <code>ls</code>. Also, let these files are bz2 compressed and the following order of tasks need to be operated on them.
+</p>
+  <ol id="e3457bd0-3598-40be-b7f8-1976bf60fbee" class="numbered-list" start="1">
+    <li>Decompress the bz2 files using <code>bzcat</code> to stdout
+    </li>
+    <li>Grep (e.g. filter) lines with specific keyword(s) using <code>grep &lt;some key word&gt;</code>
+    </li>
+    <li>Pipe the output to be concatenated into one single gzipped file using <code>gzip</code>
+    </li>
+  </ol>
+<p>Running this using a while-loop may look like this
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">filenames=&#34;file_list.txt&#34;
@@ -141,7 +156,10 @@ done &lt; &#34;$filenames&#34;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Using GNU Parallel, we can run 3 parallel jobs at once by simply doing</p>
+</div>
+<p>Using GNU Parallel, we can run 3 parallel jobs at once by simply doing
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">parallel -j 3 &#34;bzcat {} | grep puppies&#34; ::: $( cat filelist.txt ) | gzip &gt; output.gz</pre>
@@ -149,7 +167,9 @@ done &lt; &#34;$filenames&#34;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This command is simple, concise and more efficient when number of files and file size is large. The jobs gets initiated by <code>parallel</code>, option <code>-j 3</code> launches 3 parallel jobs and input to the parallel jobs is taken in by <code>:::</code>. The output is eventually piped to <code>gzip &gt; output.gz</code></p>
+</div>
+<p>This command is simple, concise and more efficient when number of files and file size is large. The jobs gets initiated by <code>parallel</code>, option <code>-j 3</code> launches 3 parallel jobs and input to the parallel jobs is taken in by <code>:::</code>. The output is eventually piped to <code>gzip &gt; output.gz</code>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

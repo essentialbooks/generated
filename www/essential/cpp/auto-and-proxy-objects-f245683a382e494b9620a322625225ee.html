@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Sometimes <code>auto</code> may behave not quite as was expected by a programmer. It type deduces the expression, even when type deduction is not the right thing to do.</p><p>As an example, when proxy objects are used in the code:</p>
+      
+<p>Sometimes <code>auto</code> may behave not quite as was expected by a programmer. It type deduces the expression, even when type deduction is not the right thing to do.
+</p>
+<p>As an example, when proxy objects are used in the code:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">flags</span><span class="p">{</span><span class="nb">true</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="nb">false</span><span class="p">};</span>
@@ -138,7 +143,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here <code>flag</code> would be not <code>bool</code>, but <code>std::vector&lt;bool&gt;::reference</code>, since for <code>bool</code> specialization of template <code>vector</code> the <code>operator []</code> returns a proxy object with conversion operator <code>operator bool</code> defined.</p><p>When <code>flags.push_back(true)</code> modifies the container, this pseudo-reference could end up dangling, referring to an element that no longer exists.</p><p>It also makes the next situation possible:</p>
+</div>
+<p>Here <code>flag</code> would be not <code>bool</code>, but <code>std::vector&lt;bool&gt;::reference</code>, since for <code>bool</code> specialization of template <code>vector</code> the <code>operator []</code> returns a proxy object with conversion operator <code>operator bool</code> defined.
+</p>
+<p>When <code>flags.push_back(true)</code> modifies the container, this pseudo-reference could end up dangling, referring to an element that no longer exists.
+</p>
+<p>It also makes the next situation possible:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">bool</span> <span class="n">b</span><span class="p">);</span>
@@ -152,7 +164,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>vector</code> is discarded immediately, so <code>flag</code> is a pseudo-reference to an element that has been discarded. The call to <code>foo</code> invokes undefined behavior.</p><p>In cases like this you can declare a variable with <code>auto</code> and initialize it by casting to the type you want to be deduced:</p>
+</div>
+<p>The <code>vector</code> is discarded immediately, so <code>flag</code> is a pseudo-reference to an element that has been discarded. The call to <code>foo</code> invokes undefined behavior.
+</p>
+<p>In cases like this you can declare a variable with <code>auto</code> and initialize it by casting to the type you want to be deduced:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">auto</span> <span class="n">flag</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">(</span><span class="n">getFlags</span><span class="p">()[</span><span class="mi">5</span><span class="p">]);</span>
@@ -161,7 +178,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>but at that point, simply replacing <code>auto</code> with <code>bool</code> makes more sense.</p><p>Another case where proxy objects can cause problems is <a href="/essential/cpp/expression-templates-9a0f90cc690546608751556567fcd897">expression templates</a>. In that case, the templates are sometimes not designed to last beyond the current full-expression for efficiency sake, and using the proxy object on the next causes undefined behavior.</p>
+</div>
+<p>but at that point, simply replacing <code>auto</code> with <code>bool</code> makes more sense.
+</p>
+<p>Another case where proxy objects can cause problems is <a href="/essential/cpp/expression-templates-9a0f90cc690546608751556567fcd897">expression templates</a>. In that case, the templates are sometimes not designed to last beyond the current full-expression for efficiency sake, and using the proxy object on the next causes undefined behavior.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

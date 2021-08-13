@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>There’s no guarantee that a process will finish running so you might want to add a timeout.</p>
+      
+<p>There’s no guarantee that a process will finish running so you might want to add a timeout.
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="nx">cmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nf">Command</span><span class="p">(</span><span class="s">&#34;go&#34;</span><span class="p">,</span> <span class="s">&#34;version&#34;</span><span class="p">)</span>
@@ -157,6 +160,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">didTimeout: true, err: signal: killed
@@ -165,7 +169,21 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Before calling <code>cmd.Wait()</code> we use <code>time.AfterFunc()</code> to kill the process after a timeout expired.</p><p><code>cmd.Process.Kill()</code> makes <code>cmd.Wait()</code> exit with an error (<code>signal: killed</code> on Unix).</p><p>If <code>cmd.Wait()</code> finishes before a timeout, we cancel the timer.</p><p>Variable <code>timedOut</code> is <code>int32</code> and not <code>bool</code>.</p><p>We use <code>atomic.StoreInt32</code> and <code>atomic.LoadInt32</code> because there is a subtle timing issues.</p><p>If a process finishes as usual, after <code>cmd.Wait()</code> exits and before we call <code>stopTimer.Stop()</code>, the timer might expire and execute the function anyway.</p><p>This is exceedingly unlikely but something to keep in mind.</p>
+</div>
+<p>Before calling <code>cmd.Wait()</code> we use <code>time.AfterFunc()</code> to kill the process after a timeout expired.
+</p>
+<p><code>cmd.Process.Kill()</code> makes <code>cmd.Wait()</code> exit with an error (<code>signal: killed</code> on Unix).
+</p>
+<p>If <code>cmd.Wait()</code> finishes before a timeout, we cancel the timer.
+</p>
+<p>Variable <code>timedOut</code> is <code>int32</code> and not <code>bool</code>.
+</p>
+<p>We use <code>atomic.StoreInt32</code> and <code>atomic.LoadInt32</code> because there is a subtle timing issues.
+</p>
+<p>If a process finishes as usual, after <code>cmd.Wait()</code> exits and before we call <code>stopTimer.Stop()</code>, the timer might expire and execute the function anyway.
+</p>
+<p>This is exceedingly unlikely but something to keep in mind.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

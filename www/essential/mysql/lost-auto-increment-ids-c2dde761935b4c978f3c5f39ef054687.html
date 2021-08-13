@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Several ‘insert’ functions can “burn” ids. Here is an example, using InnoDB (other Engines may work differently):</p>
+      
+<p>Several ‘insert’ functions can “burn” ids. Here is an example, using InnoDB (other Engines may work differently):
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">Burn</span> <span class="p">(</span>
@@ -165,7 +168,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Think of it (roughly) this way: First the insert looks to see how many rows <em>might</em> be inserted. Then grab that many values from the auto_increment for that table. Finally, insert the rows, using ids as needed, and burning any left overs.</p><p>The only time the leftover are recoverable is if the system is shutdown and restarted. On restart, effectively <code>MAX(id)</code> is performed. This may reuse ids that were burned or that were freed up by <code>DELETEs</code> of the highest id(s).</p><p>Essentially any flavor of <code>INSERT</code> (including <code>REPLACE</code>, which is <code>DELETE</code> + <code>INSERT</code>) can burn ids. In InnoDB, the global (not session!) variable [<code>innodb_autoinc_lock_mode</code>] <a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-auto-increment-handling.html">1</a> can be used to control some of what is going on.</p><p>When “normalizing” long strings into an <code>AUTO INCREMENT id</code>, burning can easily happen. This <em>could</em> lead to overflowing the size of the <code>INT</code> you chose.</p>
+</div>
+<p>Think of it (roughly) this way: First the insert looks to see how many rows <em>might</em> be inserted. Then grab that many values from the auto_increment for that table. Finally, insert the rows, using ids as needed, and burning any left overs.
+</p>
+<p>The only time the leftover are recoverable is if the system is shutdown and restarted. On restart, effectively <code>MAX(id)</code> is performed. This may reuse ids that were burned or that were freed up by <code>DELETEs</code> of the highest id(s).
+</p>
+<p>Essentially any flavor of <code>INSERT</code> (including <code>REPLACE</code>, which is <code>DELETE</code> + <code>INSERT</code>) can burn ids. In InnoDB, the global (not session!) variable [<code>innodb_autoinc_lock_mode</code>] <a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-auto-increment-handling.html">1</a> can be used to control some of what is going on.
+</p>
+<p>When “normalizing” long strings into an <code>AUTO INCREMENT id</code>, burning can easily happen. This <em>could</em> lead to overflowing the size of the <code>INT</code> you chose.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

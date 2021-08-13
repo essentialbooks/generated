@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>Using existing functions that accept cancellable context is easy.</p><p>Writing a function that can be cancelled via context is much harder.</p><p>When a time experies or you call cancel function returned by <code>context.WithCancel()</code> or <code>context.WithTimeout()</code>, a channel in the context is signalled.</p><p>When writing a cancellable function, you have to periodically check channel returned by <code>context.Done()</code> and return immediately if it has been signalled.</p><p>It does make for an awkward code:</p>
+      
+<p>Using existing functions that accept cancellable context is easy.
+</p>
+<p>Writing a function that can be cancelled via context is much harder.
+</p>
+<p>When a time experies or you call cancel function returned by <code>context.WithCancel()</code> or <code>context.WithTimeout()</code>, a channel in the context is signalled.
+</p>
+<p>When writing a cancellable function, you have to periodically check channel returned by <code>context.Done()</code> and return immediately if it has been signalled.
+</p>
+<p>It does make for an awkward code:
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="kd">func</span> <span class="nf">longMathOp</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
@@ -163,6 +174,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">Called longMathOp() with 200ms timeout. res; 4955, err: &lt;nil&gt;
@@ -172,7 +184,19 @@ Called longMathOp() with 10ms timeout. res: 0, err: context deadline exceeded
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For clarity, this is an artificial task.</p><p>Our <code>longMathOp</code> function performs simple operation 100 times and simulates slowness by sleeping for 1 ms on every iteration.</p><p>We can expect it to take ~100 ms.</p><p>A <code>select</code> with <code>default</code> clause is non-blocking. If there’s nothing in the <code>ctx.Done()</code> channel, we don’t wait for values and immediately execute <code>default</code> part, which is where the logic of the program lives.</p><p>We can see in our test that if timeout is greater than 100 ms, the function finishes.</p><p>If timeout is smaller than 100 ms, <code>ctx.Done()</code> channel is signalled, we detect it in <code>longMathOp</code> and return <code>ctx.Err()</code>.</p>
+</div>
+<p>For clarity, this is an artificial task.
+</p>
+<p>Our <code>longMathOp</code> function performs simple operation 100 times and simulates slowness by sleeping for 1 ms on every iteration.
+</p>
+<p>We can expect it to take ~100 ms.
+</p>
+<p>A <code>select</code> with <code>default</code> clause is non-blocking. If there’s nothing in the <code>ctx.Done()</code> channel, we don’t wait for values and immediately execute <code>default</code> part, which is where the logic of the program lives.
+</p>
+<p>We can see in our test that if timeout is greater than 100 ms, the function finishes.
+</p>
+<p>If timeout is smaller than 100 ms, <code>ctx.Done()</code> channel is signalled, we detect it in <code>longMathOp</code> and return <code>ctx.Err()</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

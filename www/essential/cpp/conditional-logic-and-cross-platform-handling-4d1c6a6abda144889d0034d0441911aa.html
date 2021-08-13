@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>In a nutshell, conditional pre-processing logic is about making code-logic available or unavailable for compilation using macro definitions.</p><p>Three prominent use-cases are:</p><ul id="93d84dc2-745c-4212-97a9-5b5af1040e08" class="bulleted-list"><li>different <strong>app profiles</strong> (e.g. debug, release, testing, optimised) that can be candidates of the same app (e.g. with extra logging).</li><li><strong>cross-platform compiles</strong> - single code-base, multiple compilation platforms.</li><li>utilising a common code-base for multiple <strong>application versions</strong> (e.g. Basic, Premium and Pro versions of a software) - with slightly different features.</li></ul><p><strong>Example a:</strong> A cross-platform approach for removing files (illustrative):</p>
+      
+<p>In a nutshell, conditional pre-processing logic is about making code-logic available or unavailable for compilation using macro definitions.
+</p>
+<p>Three prominent use-cases are:
+</p>
+  <ul id="93d84dc2-745c-4212-97a9-5b5af1040e08" class="bulleted-list">
+    <li>different <strong>app profiles</strong> (e.g. debug, release, testing, optimised) that can be candidates of the same app (e.g. with extra logging).
+    </li>
+    <li><strong>cross-platform compiles</strong> - single code-base, multiple compilation platforms.
+    </li>
+    <li>utilising a common code-base for multiple <strong>application versions</strong> (e.g. Basic, Premium and Pro versions of a software) - with slightly different features.
+    </li>
+  </ul>
+<p><strong>Example a:</strong> A cross-platform approach for removing files (illustrative):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#ifdef _WIN32
@@ -152,7 +167,12 @@ bool remove_file(const std::string &amp;path)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Macros like <code>_WIN32</code>, <code>__APPLE__</code> or <code>__unix__</code> are normally predefined by corresponding implementations.</p><p><strong>Example b:</strong> Enabling additional logging for a debug build:</p>
+</div>
+<p>Macros like <code>_WIN32</code>, <code>__APPLE__</code> or <code>__unix__</code> are normally predefined by corresponding implementations.
+</p>
+<p><strong>Example b:</strong> Enabling additional logging for a debug build:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void s_PrintAppStateOnUserPrompt()
@@ -170,7 +190,10 @@ bool remove_file(const std::string &amp;path)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Example c:</strong> Enable a premium feature in a separate product build (note: this is illustrative. it is often a better idea to allow a feature to be unlocked without the need to reinstall an application)</p>
+</div>
+<p><strong>Example c:</strong> Enable a premium feature in a separate product build (note: this is illustrative. it is often a better idea to allow a feature to be unlocked without the need to reinstall an application)
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void MainWindow::OnProcessButtonClick()
@@ -185,7 +208,14 @@ bool remove_file(const std::string &amp;path)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Some common tricks:</strong></p><p><em>Defining symbols at invocation time:</em></p><p>The preprocessor can be called with predefined symbols (with optional initialisation). For example this command (<code>gcc -E</code> runs only the preprocessor)</p>
+</div>
+<p><strong>Some common tricks:</strong>
+</p>
+<p><em>Defining symbols at invocation time:</em>
+</p>
+<p>The preprocessor can be called with predefined symbols (with optional initialisation). For example this command (<code>gcc -E</code> runs only the preprocessor)
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">gcc -E -DOPTIMISE_FOR_OS_X -DTESTING_MODE=1 Sample.cpp</pre>
@@ -193,7 +223,14 @@ bool remove_file(const std::string &amp;path)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>processes Sample.cpp in the same way as it would if <code>#define OPTIMISE_FOR_OS_X</code> and <code>#define TESTING_MODE 1</code> were added to the top of Sample.cpp.</p><p><em>Ensuring a macro is defined:</em></p><p>If a macro isn’t defined and its value is compared or checked, the preprocessor almost always silently assumes the value to be <code>0</code>. There are a few ways to work with this. One approach is to assume that the default settings are represented as 0, and any changes (e.g. to the app build profile) needs to be explicitly done (e.g. ENABLE_EXTRA_DEBUGGING=0 by default, set -DENABLE_EXTRA_DEBUGGING=1 to override). Another approach is make all definitions and defaults explicit. This can be achieved using a combination of <code>#ifndef</code> and <code>#error</code> directives:</p>
+</div>
+<p>processes Sample.cpp in the same way as it would if <code>#define OPTIMISE_FOR_OS_X</code> and <code>#define TESTING_MODE 1</code> were added to the top of Sample.cpp.
+</p>
+<p><em>Ensuring a macro is defined:</em>
+</p>
+<p>If a macro isn’t defined and its value is compared or checked, the preprocessor almost always silently assumes the value to be <code>0</code>. There are a few ways to work with this. One approach is to assume that the default settings are represented as 0, and any changes (e.g. to the app build profile) needs to be explicitly done (e.g. ENABLE_EXTRA_DEBUGGING=0 by default, set -DENABLE_EXTRA_DEBUGGING=1 to override). Another approach is make all definitions and defaults explicit. This can be achieved using a combination of <code>#ifndef</code> and <code>#error</code> directives:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#ifndef (ENABLE_EXTRA_DEBUGGING)

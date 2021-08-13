@@ -127,7 +127,14 @@
 </div>
 
 
-      <blockquote id="06911d95-2efc-488d-ab7e-346050b2fc03" class="">In object-oriented design, the chain-of-responsibility pattern is a design pattern consisting of a source of command objects and a series of processing objects. Each processing object contains logic that defines the types of command objects that it can handle; the rest are passed to the next processing object in the chain. A mechanism also exists for adding new processing objects to the end of this chain. Wikipedia</blockquote><p>Setting up the classes that made up the chain of responsibility.</p><p>First we create an interface for all the <code>processing</code> objects.</p>
+      
+<blockquote id="06911d95-2efc-488d-ab7e-346050b2fc03" class="">In object-oriented design, the chain-of-responsibility pattern is a design pattern consisting of a source of command objects and a series of processing objects. Each processing object contains logic that defines the types of command objects that it can handle; the rest are passed to the next processing object in the chain. A mechanism also exists for adding new processing objects to the end of this chain. Wikipedia
+</blockquote>
+<p>Setting up the classes that made up the chain of responsibility.
+</p>
+<p>First we create an interface for all the <code>processing</code> objects.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">protocol PurchasePower {  
@@ -149,7 +156,10 @@ extension PurchasePower {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then we create the <code>command</code> object.</p>
+</div>
+<p>Then we create the <code>command</code> object.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct PurchaseRequest {
@@ -160,7 +170,10 @@ extension PurchasePower {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Finally, creating objects that made up the chain of responsibility.</p>
+</div>
+<p>Finally, creating objects that made up the chain of responsibility.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class ManagerPower : PurchasePower {
@@ -184,7 +197,10 @@ class PresidentPower : PurchasePower {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Initiate and chaining it together :</p>
+</div>
+<p>Initiate and chaining it together :
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let manager = ManagerPower()
@@ -197,7 +213,12 @@ director.successor = president</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="88223d34-e887-4470-a357-2e2665e202e7" class="">The mechanism for chaining up objects here is property access</blockquote><p>Creating request to run it :</p>
+</div>
+<blockquote id="88223d34-e887-4470-a357-2e2665e202e7" class="">The mechanism for chaining up objects here is property access
+</blockquote>
+<p>Creating request to run it :
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">manager.process(request: PurchaseRequest(amount: 2, purpose: &#34;buying a pen&#34;))  // Manager will approve $ 2.0 for buying a pen
@@ -207,6 +228,7 @@ manager.process(request: PurchaseRequest(amount: 90, purpose: &#34;buying a prin
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">manager.process(request: PurchaseRequest(amount: 2000, purpose: &#34;invest in stock&#34;)) // President will approve $ 2000.0 for invest in stock</pre>

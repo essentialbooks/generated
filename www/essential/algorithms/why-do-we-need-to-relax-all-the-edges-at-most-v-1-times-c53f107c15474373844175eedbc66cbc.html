@@ -127,7 +127,21 @@
 </div>
 
 
-      <p><em>To understand this example, it is recommended to have a brief idea on Bellman-Ford single source shortest path algorithm which can be found </em><a href="http://stackoverflow.com/documentation/algorithm/4791/bellman-ford-algorithm/24021/single-source-shortest-path-algorithm-given-there-is-a-negative-cycle-in-a-grap"><em>here</em></a></p><p>In Bellman-Ford algorithm, to find out the shortest path, we need to <em>relax</em> all the edges of the graph. This process is repeated at most <strong>(V-1)</strong> times, where <strong>V</strong> is the number of vertices in the graph.</p><p>The number of iterations needed to find out the shortest path from <strong>source</strong> to all other vertices depends on the order that we select to <em>relax</em> the edges.</p><p>Let’s take a look at an example:</p><img class="img" src="/img/16f0fa46e7bcf7a2dd8a32360dab445eb635f91c.png"><p>Here, the <strong>source</strong> vertex is 1. We will find out the shortest distance between the <strong>source</strong> and all the other vertices. We can clearly see that, to reach <strong>vertex 4</strong>, in the worst case, it’ll take <strong>(V-1)</strong> edges. Now depending on the order in which the edges are discovered, it might take <strong>(V-1)</strong> times to discover <strong>vertex 4</strong>. Didn’t get it? Let’s use Bellman-Ford algorithm to find out the shortest path here:</p><p>We’re going to use this sequence:</p>
+      
+<p><em>To understand this example, it is recommended to have a brief idea on Bellman-Ford single source shortest path algorithm which can be found </em><a href="http://stackoverflow.com/documentation/algorithm/4791/bellman-ford-algorithm/24021/single-source-shortest-path-algorithm-given-there-is-a-negative-cycle-in-a-grap"><em>here</em></a>
+</p>
+<p>In Bellman-Ford algorithm, to find out the shortest path, we need to <em>relax</em> all the edges of the graph. This process is repeated at most <strong>(V-1)</strong> times, where <strong>V</strong> is the number of vertices in the graph.
+</p>
+<p>The number of iterations needed to find out the shortest path from <strong>source</strong> to all other vertices depends on the order that we select to <em>relax</em> the edges.
+</p>
+<p>Let’s take a look at an example:
+</p>
+<img class="img" src="/img/16f0fa46e7bcf7a2dd8a32360dab445eb635f91c.png">
+<p>Here, the <strong>source</strong> vertex is 1. We will find out the shortest distance between the <strong>source</strong> and all the other vertices. We can clearly see that, to reach <strong>vertex 4</strong>, in the worst case, it’ll take <strong>(V-1)</strong> edges. Now depending on the order in which the edges are discovered, it might take <strong>(V-1)</strong> times to discover <strong>vertex 4</strong>. Didn’t get it? Let’s use Bellman-Ford algorithm to find out the shortest path here:
+</p>
+<p>We’re going to use this sequence:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+--------+--------+--------+--------+
@@ -139,7 +153,49 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For our first iteration:</p><ol id="8a32b796-7546-48c9-be44-e1ebbdd6b4b8" class="numbered-list" start="1"><li><strong>d[3]</strong> + <strong>cost[3][4]</strong> = <strong>infinity</strong>. It won’t change anything.</li><li><strong>d[2]</strong> + <strong>cost[2][3]</strong> = <strong>infinity</strong>. It won’t change anything.</li><li><strong>d[1]</strong> + <strong>cost[1][2]</strong> = <strong>2</strong> &lt; <strong>d[2]</strong>. <strong>d[2]</strong> = <strong>2</strong>. <strong>parent[2]</strong> = <strong>1</strong>.</li></ol><p>We can see that our <em>relaxation</em> process only changed <strong>d[2]</strong>. Our graph will look like:</p><img class="img" src="/img/530b3c2f7e09139feea1f5e0d22b88df478f30f2.png"><p>Second iteration:</p><ol id="3273022c-e133-4996-81b8-0fa6fa89b814" class="numbered-list" start="1"><li><strong>d[3]</strong> + <strong>cost[3][4]</strong> = <strong>infinity</strong>. It won’t change anything.</li><li><strong>d[2]</strong> + <strong>cost[2][3]</strong> = <strong>5</strong> &lt; <strong>d[3]</strong>. <strong>d[3]</strong> = <strong>5</strong>. <strong>parent[3]</strong> = <strong>2.</strong></li><li>It won’t be changed.</li></ol><p>This time the <em>relaxation</em> process changed <strong>d[3]</strong>. Our graph will look like:</p><img class="img" src="/img/cd56d888749caa2ae3b5879653d678877594d5a0.png"><p>Third iteration:</p><ol id="0a04ccec-2e7c-4692-a486-45fc122f22e0" class="numbered-list" start="1"><li><strong>d[3]</strong> + <strong>cost[3][4]</strong> = <strong>7</strong> &lt; <strong>d[4]</strong>. <strong>d[4]</strong> = <strong>7</strong>. <strong>parent[4]</strong> = <strong>3</strong>.</li><li>It won’t be changed.</li><li>It won’t be changed.</li></ol><p>Our third iteration finally found out the shortest path to <strong>4</strong> from <strong>1</strong>. Our graph will look like:</p><img class="img" src="/img/d2d628cca1063d9981bca4b24079d0a89baa154f.png"><p>So, it took <strong>3</strong> iterations to find out the shortest path. After this one, no matter how many times we <em>relax</em> the edges, the values in <strong>d[]</strong> will remain the same. Now, if we considered another sequence:</p>
+</div>
+<p>For our first iteration:
+</p>
+  <ol id="8a32b796-7546-48c9-be44-e1ebbdd6b4b8" class="numbered-list" start="1">
+    <li><strong>d[3]</strong> + <strong>cost[3][4]</strong> = <strong>infinity</strong>. It won’t change anything.
+    </li>
+    <li><strong>d[2]</strong> + <strong>cost[2][3]</strong> = <strong>infinity</strong>. It won’t change anything.
+    </li>
+    <li><strong>d[1]</strong> + <strong>cost[1][2]</strong> = <strong>2</strong> &lt; <strong>d[2]</strong>. <strong>d[2]</strong> = <strong>2</strong>. <strong>parent[2]</strong> = <strong>1</strong>.
+    </li>
+  </ol>
+<p>We can see that our <em>relaxation</em> process only changed <strong>d[2]</strong>. Our graph will look like:
+</p>
+<img class="img" src="/img/530b3c2f7e09139feea1f5e0d22b88df478f30f2.png">
+<p>Second iteration:
+</p>
+  <ol id="3273022c-e133-4996-81b8-0fa6fa89b814" class="numbered-list" start="1">
+    <li><strong>d[3]</strong> + <strong>cost[3][4]</strong> = <strong>infinity</strong>. It won’t change anything.
+    </li>
+    <li><strong>d[2]</strong> + <strong>cost[2][3]</strong> = <strong>5</strong> &lt; <strong>d[3]</strong>. <strong>d[3]</strong> = <strong>5</strong>. <strong>parent[3]</strong> = <strong>2.</strong>
+    </li>
+    <li>It won’t be changed.
+    </li>
+  </ol>
+<p>This time the <em>relaxation</em> process changed <strong>d[3]</strong>. Our graph will look like:
+</p>
+<img class="img" src="/img/cd56d888749caa2ae3b5879653d678877594d5a0.png">
+<p>Third iteration:
+</p>
+  <ol id="0a04ccec-2e7c-4692-a486-45fc122f22e0" class="numbered-list" start="1">
+    <li><strong>d[3]</strong> + <strong>cost[3][4]</strong> = <strong>7</strong> &lt; <strong>d[4]</strong>. <strong>d[4]</strong> = <strong>7</strong>. <strong>parent[4]</strong> = <strong>3</strong>.
+    </li>
+    <li>It won’t be changed.
+    </li>
+    <li>It won’t be changed.
+    </li>
+  </ol>
+<p>Our third iteration finally found out the shortest path to <strong>4</strong> from <strong>1</strong>. Our graph will look like:
+</p>
+<img class="img" src="/img/d2d628cca1063d9981bca4b24079d0a89baa154f.png">
+<p>So, it took <strong>3</strong> iterations to find out the shortest path. After this one, no matter how many times we <em>relax</em> the edges, the values in <strong>d[]</strong> will remain the same. Now, if we considered another sequence:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+--------+--------+--------+--------+
@@ -151,7 +207,21 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We’d get:</p><ol id="d382f9c2-5749-492e-8411-eb7fe6b6733d" class="numbered-list" start="1"><li><strong>d[1]</strong> + <strong>cost[1][2]</strong> = <strong>2</strong> &lt; <strong>d[2]</strong>. <strong>d[2]</strong> = <strong>2</strong>.</li><li><strong>d[2]</strong> + <strong>cost[2][3]</strong> = <strong>5</strong> &lt; <strong>d[3]</strong>. <strong>d[3]</strong> = <strong>5</strong>.</li><li><strong>d[3]</strong> + <strong>cost[3][4]</strong> = <strong>7</strong> &lt; <strong>d[4]</strong>. <strong>d[4]</strong> = <strong>5</strong>.</li></ol><p>Our very first iteration has found the shortest path from <strong>source</strong> to all the other nodes. Another sequence <strong>1-&gt;2</strong>, <strong>3-&gt;4</strong>, <strong>2-&gt;3</strong> is possible, which will give us shortest path after <strong>2</strong> iterations. We can come to the decision that, no matter how we arrange the sequence, it won’t take more than <strong>3</strong> iterations to find out shortest path from the <strong>source</strong> in this example.</p><p>We can conclude that, for the best case, it’ll take <strong>1</strong> iteration to find out the shortest path from <strong>source</strong>. For the worst case, it’ll take <strong>(V-1)</strong> iterations, which is why we repeat the process of <em>relaxation</em> <strong>(V-1)</strong> times.</p>
+</div>
+<p>We’d get:
+</p>
+  <ol id="d382f9c2-5749-492e-8411-eb7fe6b6733d" class="numbered-list" start="1">
+    <li><strong>d[1]</strong> + <strong>cost[1][2]</strong> = <strong>2</strong> &lt; <strong>d[2]</strong>. <strong>d[2]</strong> = <strong>2</strong>.
+    </li>
+    <li><strong>d[2]</strong> + <strong>cost[2][3]</strong> = <strong>5</strong> &lt; <strong>d[3]</strong>. <strong>d[3]</strong> = <strong>5</strong>.
+    </li>
+    <li><strong>d[3]</strong> + <strong>cost[3][4]</strong> = <strong>7</strong> &lt; <strong>d[4]</strong>. <strong>d[4]</strong> = <strong>5</strong>.
+    </li>
+  </ol>
+<p>Our very first iteration has found the shortest path from <strong>source</strong> to all the other nodes. Another sequence <strong>1-&gt;2</strong>, <strong>3-&gt;4</strong>, <strong>2-&gt;3</strong> is possible, which will give us shortest path after <strong>2</strong> iterations. We can come to the decision that, no matter how we arrange the sequence, it won’t take more than <strong>3</strong> iterations to find out shortest path from the <strong>source</strong> in this example.
+</p>
+<p>We can conclude that, for the best case, it’ll take <strong>1</strong> iteration to find out the shortest path from <strong>source</strong>. For the worst case, it’ll take <strong>(V-1)</strong> iterations, which is why we repeat the process of <em>relaxation</em> <strong>(V-1)</strong> times.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

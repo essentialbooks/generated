@@ -127,7 +127,34 @@
 </div>
 
 
-      <p>NIO appeared in Java 1.4 and introduced the concept of “Channels”, which are supposed to be faster than regular I/O. Network-wise, the <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/channels/SelectableChannel.html"><code>SelectableChannel</code></a> is the most interesting as it allows to monitor different states of the Channel. It works in a similar manner as the C <code>select()</code> system call: we get woken-up when certain types of events occur:</p><ul id="f0431f9f-b79c-4031-a113-332fb1769a60" class="bulleted-list"><li>connection received (<code>OP_ACCEPT</code>)</li><li>connection realized (<code>OP_CONNECT</code>)</li><li>data available in read FIFO (<code>OP_READ</code>)</li><li>data can be pushed to write FIFO (<code>OP_WRITE</code>)</li></ul><p>It allows for separation between <em>detecting</em> socket I/O (something can be read/written/…) and <em>performing</em> the I/O (read/write/…). Especially, all I/O detection can be done in a single thread for multiple sockets (clients), while performing I/O can be handled in a thread pool or anywhere else. That allows for an application to scale easily to the number of connected clients.</p><p>The following example shows the basics:</p><ol id="117c5134-c723-40a0-9b6f-490bfc2833a6" class="numbered-list" start="1"><li>Create a <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/channels/Selector.html"><code>Selector</code></a></li><li>Create a <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/channels/SocketChannel.html"><code>SocketChannel</code></a></li><li>Register the <code>SocketChannel</code>to the <code>Selector</code></li><li>Loop with the <code>Selector</code> to detect events</li></ol>
+      
+<p>NIO appeared in Java 1.4 and introduced the concept of “Channels”, which are supposed to be faster than regular I/O. Network-wise, the <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/channels/SelectableChannel.html"><code>SelectableChannel</code></a> is the most interesting as it allows to monitor different states of the Channel. It works in a similar manner as the C <code>select()</code> system call: we get woken-up when certain types of events occur:
+</p>
+  <ul id="f0431f9f-b79c-4031-a113-332fb1769a60" class="bulleted-list">
+    <li>connection received (<code>OP_ACCEPT</code>)
+    </li>
+    <li>connection realized (<code>OP_CONNECT</code>)
+    </li>
+    <li>data available in read FIFO (<code>OP_READ</code>)
+    </li>
+    <li>data can be pushed to write FIFO (<code>OP_WRITE</code>)
+    </li>
+  </ul>
+<p>It allows for separation between <em>detecting</em> socket I/O (something can be read/written/…) and <em>performing</em> the I/O (read/write/…). Especially, all I/O detection can be done in a single thread for multiple sockets (clients), while performing I/O can be handled in a thread pool or anywhere else. That allows for an application to scale easily to the number of connected clients.
+</p>
+<p>The following example shows the basics:
+</p>
+  <ol id="117c5134-c723-40a0-9b6f-490bfc2833a6" class="numbered-list" start="1">
+    <li>Create a <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/channels/Selector.html"><code>Selector</code></a>
+    </li>
+    <li>Create a <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/channels/SocketChannel.html"><code>SocketChannel</code></a>
+    </li>
+    <li>Register the <code>SocketChannel</code>to the <code>Selector</code>
+    </li>
+    <li>Loop with the <code>Selector</code> to detect events
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Selector sel = Selector.open(); // Create the Selector
@@ -173,7 +200,10 @@ System.out.println(&#34;done&#34;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Would give the following output:</p>
+</div>
+<p>Would give the following output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Initiating connection

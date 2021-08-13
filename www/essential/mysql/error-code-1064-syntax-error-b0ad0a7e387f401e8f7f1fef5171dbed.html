@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">select</span> <span class="n">LastName</span><span class="p">,</span> <span class="n">FirstName</span><span class="p">,</span>
@@ -136,7 +137,25 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Returns message:</p><blockquote id="e1e8fc74-5254-44ce-806a-7188b40b6a37" class="">Error Code: 1064. You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘from Person’ at line 2.</blockquote><p>Getting a “1064 error” message from MySQL means the query cannot be parsed without syntax errors. In other words it can’t make sense of the query.</p><p>The quotation in the error message begins with the first character of the query that MySQL can’t figure out how to parse. In this example MySQL can’t make sense, in context, of <code>from Person</code>. In this case, there’s an extra comma immediately before <code>from Person</code>. The comma tells MySQL to expect another column description in the <code>SELECT</code> clause</p><p>A syntax error always says <code>... near &#x27;...&#x27;</code>. The thing at the beginning of the quotes is very near where the error is. To locate an error, look at the first token in the quotes and at the last token before the quotes.</p><p>Sometimes you will get <code>... near &#x27;&#x27;</code>; that is, nothing in the quotes. That means the first character MySQL can’t figure out is right at the end or the beginning of the statement. This suggests the query contains unbalanced quotes (<code>\&#x27;</code> or <code>&quot;</code>) or unbalanced parentheses or that you did not terminate the statement before correctly.</p><p>In the case of a Stored Routine, you may have forgotten to properly use <code>DELIMITER</code>.</p><p>So, when you get Error 1064, look at the text of the query, and find the point mentioned in the error message. Visually inspect the text of the query right around that point.</p><p>If you ask somebody to help you troubleshoot Error 1064, it’s best to provide both the text of the whole query and the text of the error message.</p>
+</div>
+<p>Returns message:
+</p>
+<blockquote id="e1e8fc74-5254-44ce-806a-7188b40b6a37" class="">Error Code: 1064. You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘from Person’ at line 2.
+</blockquote>
+<p>Getting a “1064 error” message from MySQL means the query cannot be parsed without syntax errors. In other words it can’t make sense of the query.
+</p>
+<p>The quotation in the error message begins with the first character of the query that MySQL can’t figure out how to parse. In this example MySQL can’t make sense, in context, of <code>from Person</code>. In this case, there’s an extra comma immediately before <code>from Person</code>. The comma tells MySQL to expect another column description in the <code>SELECT</code> clause
+</p>
+<p>A syntax error always says <code>... near &#x27;...&#x27;</code>. The thing at the beginning of the quotes is very near where the error is. To locate an error, look at the first token in the quotes and at the last token before the quotes.
+</p>
+<p>Sometimes you will get <code>... near &#x27;&#x27;</code>; that is, nothing in the quotes. That means the first character MySQL can’t figure out is right at the end or the beginning of the statement. This suggests the query contains unbalanced quotes (<code>\&#x27;</code> or <code>&quot;</code>) or unbalanced parentheses or that you did not terminate the statement before correctly.
+</p>
+<p>In the case of a Stored Routine, you may have forgotten to properly use <code>DELIMITER</code>.
+</p>
+<p>So, when you get Error 1064, look at the text of the query, and find the point mentioned in the error message. Visually inspect the text of the query right around that point.
+</p>
+<p>If you ask somebody to help you troubleshoot Error 1064, it’s best to provide both the text of the whole query and the text of the error message.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

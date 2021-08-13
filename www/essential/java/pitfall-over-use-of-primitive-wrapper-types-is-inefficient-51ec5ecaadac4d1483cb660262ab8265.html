@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Consider these two pieces of code:</p>
+      
+<p>Consider these two pieces of code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int a = 1000;
@@ -136,7 +139,10 @@ int b = a + 1;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>and</p>
+</div>
+<p>and
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Integer a = 1000;
@@ -145,7 +151,14 @@ Integer b = a + 1;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Question: Which version is more efficient?</p><p>Answer: The two versions look almost the identical, but the first version is a lot more efficient than the second one.</p><p>The second version is using a representation for the numbers that uses more space, and is relying on auto-boxing and auto-unboxing behind the scenes. In fact the second version is directly equivalent to the following code:</p>
+</div>
+<p>Question: Which version is more efficient?
+</p>
+<p>Answer: The two versions look almost the identical, but the first version is a lot more efficient than the second one.
+</p>
+<p>The second version is using a representation for the numbers that uses more space, and is relying on auto-boxing and auto-unboxing behind the scenes. In fact the second version is directly equivalent to the following code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Integer a = Integer.valueOf(1000);               // box 1000
@@ -154,7 +167,21 @@ Integer b = Integer.valueOf(a.intValue() + 1);   // unbox 1000, add 1, box 1001<
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Comparing this to the other version that uses <code>int</code>, there are clearly three extra method calls when <code>Integer</code> is used. In the case of <code>valueOf</code>, the calls are each going to create and initialize a new <code>Integer</code> object. All of this extra boxing and unboxing work is likely to make the second version an order of magnitude slower than the first one.</p><p>In addition to that, the second version is allocating objects on the heap in each <code>valueOf</code> call. While the space utilization is platform specific, it is likely to be in the region of 16 bytes for each <code>Integer</code> object. By contrast, the <code>int</code> version needs zero extra heap space, assuming that <code>a</code> and <code>b</code> are local variables.</p><hr id="4bdd1332-75b8-44a4-95f1-443fff89bbd4"/><p>Another big reason why primitives are faster then their boxed equivalent is how their respective array types are laid out in memory.</p><p>If you take <code>int[]</code> and <code>Integer[]</code> as an example, in the case of an <code>int[]</code> the <code>int</code> <em>values</em> are contiguously laid out in memory. But in the case of an <code>Integer[]</code> it’s not the values that are laid out, but references (pointers) to <code>Integer</code> objects, which in turn contain the actual <code>int</code> values.</p><p>Besides being an extra level of indirection, this can be a big tank when it comes to cache locality when iterating over the values. In the case of an <code>int[]</code> the CPU could fetch all the values in the array, into it’s cache at once, because they are contiguous in memory. But in the case of an <code>Integer[]</code> the CPU potentially has to do an additional memory fetch for each element, since the array only contains references to the actual values.</p><hr id="3f28f7d6-2afe-4de2-b29c-448f278994c6"/><p>In short, using primitive wrapper types is relatively expensive in both CPU and memory resources. Using them unnecessarily is in efficient.</p>
+</div>
+<p>Comparing this to the other version that uses <code>int</code>, there are clearly three extra method calls when <code>Integer</code> is used. In the case of <code>valueOf</code>, the calls are each going to create and initialize a new <code>Integer</code> object. All of this extra boxing and unboxing work is likely to make the second version an order of magnitude slower than the first one.
+</p>
+<p>In addition to that, the second version is allocating objects on the heap in each <code>valueOf</code> call. While the space utilization is platform specific, it is likely to be in the region of 16 bytes for each <code>Integer</code> object. By contrast, the <code>int</code> version needs zero extra heap space, assuming that <code>a</code> and <code>b</code> are local variables.
+</p>
+<hr id="4bdd1332-75b8-44a4-95f1-443fff89bbd4"/>
+<p>Another big reason why primitives are faster then their boxed equivalent is how their respective array types are laid out in memory.
+</p>
+<p>If you take <code>int[]</code> and <code>Integer[]</code> as an example, in the case of an <code>int[]</code> the <code>int</code> <em>values</em> are contiguously laid out in memory. But in the case of an <code>Integer[]</code> it’s not the values that are laid out, but references (pointers) to <code>Integer</code> objects, which in turn contain the actual <code>int</code> values.
+</p>
+<p>Besides being an extra level of indirection, this can be a big tank when it comes to cache locality when iterating over the values. In the case of an <code>int[]</code> the CPU could fetch all the values in the array, into it’s cache at once, because they are contiguous in memory. But in the case of an <code>Integer[]</code> the CPU potentially has to do an additional memory fetch for each element, since the array only contains references to the actual values.
+</p>
+<hr id="3f28f7d6-2afe-4de2-b29c-448f278994c6"/>
+<p>In short, using primitive wrapper types is relatively expensive in both CPU and memory resources. Using them unnecessarily is in efficient.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>In Swift, memory management is done for you automatically using Automatic Reference Counting. (See <a href="http://stackoverflow.com/documentation/swift/745/memory-management">Memory Management</a>) Allocation is the process of reserving a spot in memory for an object, and in Swift understanding the performance of such requires some understanding of the <strong>heap</strong> and the <strong>stack</strong>. The heap is a memory location where most objects get placed, and you may think of it as a storage shed. The stack, on the other hand, is a call stack of functions that have led to the current execution. (Hence, a stack trace is a sort of printout of the functions on the call stack.)</p><p>Allocating and deallocating from the stack is a very efficient operation, however in comparison heap allocation is costly. When designing for performance, you should keep this in mind.</p><p>Classes:</p>
+      
+<p>In Swift, memory management is done for you automatically using Automatic Reference Counting. (See <a href="http://stackoverflow.com/documentation/swift/745/memory-management">Memory Management</a>) Allocation is the process of reserving a spot in memory for an object, and in Swift understanding the performance of such requires some understanding of the <strong>heap</strong> and the <strong>stack</strong>. The heap is a memory location where most objects get placed, and you may think of it as a storage shed. The stack, on the other hand, is a call stack of functions that have led to the current execution. (Hence, a stack trace is a sort of printout of the functions on the call stack.)
+</p>
+<p>Allocating and deallocating from the stack is a very efficient operation, however in comparison heap allocation is costly. When designing for performance, you should keep this in mind.
+</p>
+<p>Classes:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class MyClass {
@@ -139,7 +146,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Classes in Swift are reference types and therefore several things happen. First, the actual object will be allocated onto the heap. Then, any references to that object must be added to the stack. This makes classes a more expensive object for allocation.</p><p>Structs:</p>
+</div>
+<p>Classes in Swift are reference types and therefore several things happen. First, the actual object will be allocated onto the heap. Then, any references to that object must be added to the stack. This makes classes a more expensive object for allocation.
+</p>
+<p>Structs:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct MyStruct {
@@ -151,7 +163,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Because structs are value types and therefore copied when passed around, they are allocated on the stack. This makes structs more efficient than classes, however, if you do need a notion of identity and/or reference semantics, a struct cannot provide you with those things.</p><h2 id="e95d220d-61b2-4bec-8937-119ca8b9ec51" class="">Warning about structs with Strings and properties that are classes<a class="header-anchor" href="#e95d220d-61b2-4bec-8937-119ca8b9ec51" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>While structs are generally cheeper than classes, you should be careful about structs with properties that are classes:</p>
+</div>
+<p>Because structs are value types and therefore copied when passed around, they are allocated on the stack. This makes structs more efficient than classes, however, if you do need a notion of identity and/or reference semantics, a struct cannot provide you with those things.
+</p>
+  <h2 id="e95d220d-61b2-4bec-8937-119ca8b9ec51" class="">Warning about structs with Strings and properties that are classes
+  <a class="header-anchor" href="#e95d220d-61b2-4bec-8937-119ca8b9ec51" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>While structs are generally cheeper than classes, you should be careful about structs with properties that are classes:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct MyStruct {
@@ -163,7 +183,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, due to reference counting and other factors, the performance is now more similar to a class. Further, if more than one property in the struct is a class, the performance impact may be even more negative than if the struct were a class instead.</p><p>Also, while Strings are structs, they internally store their characters on the heap, so are more expensive than most structs.</p>
+</div>
+<p>Here, due to reference counting and other factors, the performance is now more similar to a class. Further, if more than one property in the struct is a class, the performance impact may be even more negative than if the struct were a class instead.
+</p>
+<p>Also, while Strings are structs, they internally store their characters on the heap, so are more expensive than most structs.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

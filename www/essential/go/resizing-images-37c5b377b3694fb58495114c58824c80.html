@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>There are several libraries for resizing images in Go. Package <a href="https://godoc.org/golang.org/x/image/draw">golang.org/x/image/draw</a> is one of the options:</p>
+      
+<p>There are several libraries for resizing images in Go. Package <a href="https://godoc.org/golang.org/x/image/draw">golang.org/x/image/draw</a> is one of the options:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kd">func</span> <span class="nf">resize</span><span class="p">(</span><span class="nx">src</span> <span class="nx">image</span><span class="p">.</span><span class="nx">Image</span><span class="p">,</span> <span class="nx">dstSize</span> <span class="nx">image</span><span class="p">.</span><span class="nx">Point</span><span class="p">)</span> <span class="o">*</span><span class="nx">image</span><span class="p">.</span><span class="nx">RGBA</span> <span class="p">{</span>
@@ -144,7 +147,35 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Notable points:</p><ul id="2d6462ba-7071-45fe-8093-803ac55cd256" class="bulleted-list"><li>we return <code>image.RGBA</code>, not <code>image.Image</code> because Go&#x27;s best practice is to accept interface as arguments to functions, but return concrete types</li><li>image bounds don&#x27;t have to start at (0,0) so for the source image we ask for bounding rectangle. We create destination image ourselves so we create bounds that start at (0,0)</li><li>scaling interface is very generic and as a result somewhat complicated. Package <code>draw</code> is, at its core, a compositing engine which allows compositing (drawing) bitmap images with a specific operation. <code>draw.Over</code> is an operation that draws one image over another, optionally using a mask.</li><li>resizing is implementing as <code>Scaler</code> interface which takes destination image, a rectangle within destination image, source image, a rectangle within source images and paints source rectangle into destination rectangle. Resizing happens when destination rectangle has different dimension that source rectangle</li><li>the package implements 4 different scaling algorithms:<ul id="5ad463be-df1f-44d2-a2ba-f48632ac424f" class="bulleted-list"><li>nearest neighbor - fast, low quality</li><li>approximate bi-linear - slower, better quality</li><li>bi-linear - even slower, high quality</li><li>catmull-rom - slowest, highest qulity</li></ul></li><li><code>draw.CatmullRom</code> is a global variable for an instance implementing catmull-rom algorithm. Other algorithms are available as <code>draw.NearestNeighbor</code>, <code>draw.ApproxBiLinear</code> and <code>draw.BiLinear</code> package global variables</li><li>putting it all together: to resize a source image to a given size, we create a destination image of desired size and use <code>Scale</code> method of one of the global scalers to paint source image into a destination, with resizing being a side effect of using a scaler.</li></ul>
+</div>
+<p>Notable points:
+</p>
+  <ul id="2d6462ba-7071-45fe-8093-803ac55cd256" class="bulleted-list">
+    <li>we return <code>image.RGBA</code>, not <code>image.Image</code> because Go&#x27;s best practice is to accept interface as arguments to functions, but return concrete types
+    </li>
+    <li>image bounds don&#x27;t have to start at (0,0) so for the source image we ask for bounding rectangle. We create destination image ourselves so we create bounds that start at (0,0)
+    </li>
+    <li>scaling interface is very generic and as a result somewhat complicated. Package <code>draw</code> is, at its core, a compositing engine which allows compositing (drawing) bitmap images with a specific operation. <code>draw.Over</code> is an operation that draws one image over another, optionally using a mask.
+    </li>
+    <li>resizing is implementing as <code>Scaler</code> interface which takes destination image, a rectangle within destination image, source image, a rectangle within source images and paints source rectangle into destination rectangle. Resizing happens when destination rectangle has different dimension that source rectangle
+    </li>
+    <li>the package implements 4 different scaling algorithms:
+      <ul id="5ad463be-df1f-44d2-a2ba-f48632ac424f" class="bulleted-list">
+        <li>nearest neighbor - fast, low quality
+        </li>
+        <li>approximate bi-linear - slower, better quality
+        </li>
+        <li>bi-linear - even slower, high quality
+        </li>
+        <li>catmull-rom - slowest, highest qulity
+        </li>
+      </ul>
+    </li>
+    <li><code>draw.CatmullRom</code> is a global variable for an instance implementing catmull-rom algorithm. Other algorithms are available as <code>draw.NearestNeighbor</code>, <code>draw.ApproxBiLinear</code> and <code>draw.BiLinear</code> package global variables
+    </li>
+    <li>putting it all together: to resize a source image to a given size, we create a destination image of desired size and use <code>Scale</code> method of one of the global scalers to paint source image into a destination, with resizing being a side effect of using a scaler.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

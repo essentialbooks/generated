@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Escaping strings is an older (<strong>and less secure</strong>) method of securing data for insertion into a query. It works by using <a href="http://dev.mysql.com/doc/refman/5.7/en/mysql-real-escape-string.html">MySQL’s function mysql_real_escape_string()</a> to process and sanitize the data (in other words, PHP is not doing the escaping). The MySQLi API provides direct access to this function</p>
+      
+<p>Escaping strings is an older (<strong>and less secure</strong>) method of securing data for insertion into a query. It works by using <a href="http://dev.mysql.com/doc/refman/5.7/en/mysql-real-escape-string.html">MySQL’s function mysql_real_escape_string()</a> to process and sanitize the data (in other words, PHP is not doing the escaping). The MySQLi API provides direct access to this function
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$escaped = $conn-&gt;real_escape_string($_GET[&#39;var&#39;]);
@@ -137,7 +140,10 @@ $escaped = mysqli_real_escape_string($conn, $_GET[&#39;var&#39;]);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>At this point, you have a string that MySQL considers to be safe for use in a direct query</p>
+</div>
+<p>At this point, you have a string that MySQL considers to be safe for use in a direct query
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$sql = &#39;SELECT * FROM users WHERE username = &#34;&#39; . $escaped . &#39;&#34;&#39;;
@@ -146,7 +152,10 @@ $result = $conn-&gt;query($sql);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So why is this not as secure as <a href="http://stackoverflow.com/documentation/php/2784/php-mysqli/11958/prepared-statements-in-mysqli">prepared statements</a>? There are ways to trick MySQL to produce a string it considers safe. Consider the following example</p>
+</div>
+<p>So why is this not as secure as <a href="http://stackoverflow.com/documentation/php/2784/php-mysqli/11958/prepared-statements-in-mysqli">prepared statements</a>? There are ways to trick MySQL to produce a string it considers safe. Consider the following example
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$id = mysqli_real_escape_string(&#34;1 OR 1=1&#34;);    
@@ -155,7 +164,9 @@ $sql = &#39;SELECT * FROM table WHERE id = &#39; . $id;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>1 OR 1=1</code> does not represent data that MySQL will escape, yet this still represents SQL injection. There are <a href="http://stackoverflow.com/questions/5741187/sql-injection-that-gets-around-mysql-real-escape-string">other examples</a> as well that represent places where it returns unsafe data. The problem is that MySQL’s escaping function is designed to <strong>make data comply with SQL syntax</strong>. It’s NOT designed to make sure that <strong>MySQL can’t confuse user data for SQL instructions</strong>.</p>
+</div>
+<p><code>1 OR 1=1</code> does not represent data that MySQL will escape, yet this still represents SQL injection. There are <a href="http://stackoverflow.com/questions/5741187/sql-injection-that-gets-around-mysql-real-escape-string">other examples</a> as well that represent places where it returns unsafe data. The problem is that MySQL’s escaping function is designed to <strong>make data comply with SQL syntax</strong>. It’s NOT designed to make sure that <strong>MySQL can’t confuse user data for SQL instructions</strong>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

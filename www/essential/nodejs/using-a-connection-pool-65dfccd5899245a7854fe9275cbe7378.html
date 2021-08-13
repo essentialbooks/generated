@@ -127,7 +127,13 @@
 </div>
 
 
-      <h2 id="4d0fab13-e585-441b-ad12-58ef33a2b264" class="">a. Running multiple queries at same time<a class="header-anchor" href="#4d0fab13-e585-441b-ad12-58ef33a2b264" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>All queries in MySQL connection are done one after another. It means that if you want to do 10 queries and each query takes 2 seconds then it will take 20 seconds to complete whole execution. The solution is to create 10 connection and run each query in a different connection. This can be done automatically using connection pool</p>
+      
+  <h2 id="4d0fab13-e585-441b-ad12-58ef33a2b264" class="">a. Running multiple queries at same time
+  <a class="header-anchor" href="#4d0fab13-e585-441b-ad12-58ef33a2b264" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>All queries in MySQL connection are done one after another. It means that if you want to do 10 queries and each query takes 2 seconds then it will take 20 seconds to complete whole execution. The solution is to create 10 connection and run each query in a different connection. This can be done automatically using connection pool
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var pool  = mysql.createPool({
@@ -148,7 +154,19 @@ for(var i=0;i&lt;10;i++){
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It will run all the 10 queries in parallel.</p><p>When you use <code>pool</code> you don’t need the connection anymore. You can query directly the pool. MySQL module will search for the next free connection to execute your query.</p><h2 id="e1249b27-1900-4504-a86b-fc373f3b981a" class="">b. Achieving multi-tenancy on database server with different databases hosted on it.<a class="header-anchor" href="#e1249b27-1900-4504-a86b-fc373f3b981a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Multitenancy is a common requirement of enterprise application nowadays and creating connection pool for each database in database server is not recommended. so, what we can do instead is create connection pool with database server and then switch them between databases hosted on database server on demand.</p><p>Suppose our application has different databases for each firm hosted on database server. We will connect to respective firm database when user hits the application. Here is the example on how to do that:-</p>
+</div>
+<p>It will run all the 10 queries in parallel.
+</p>
+<p>When you use <code>pool</code> you don’t need the connection anymore. You can query directly the pool. MySQL module will search for the next free connection to execute your query.
+</p>
+  <h2 id="e1249b27-1900-4504-a86b-fc373f3b981a" class="">b. Achieving multi-tenancy on database server with different databases hosted on it.
+  <a class="header-anchor" href="#e1249b27-1900-4504-a86b-fc373f3b981a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Multitenancy is a common requirement of enterprise application nowadays and creating connection pool for each database in database server is not recommended. so, what we can do instead is create connection pool with database server and then switch them between databases hosted on database server on demand.
+</p>
+<p>Suppose our application has different databases for each firm hosted on database server. We will connect to respective firm database when user hits the application. Here is the example on how to do that:-
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var pool  = mysql.createPool({
@@ -172,7 +190,12 @@ pool.getConnection(function(err, connection){
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Let me break down the example:-</p><p>When defining pool configuration i did not gave the database name but only gave database server i.e</p>
+</div>
+<p>Let me break down the example:-
+</p>
+<p>When defining pool configuration i did not gave the database name but only gave database server i.e
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">{
@@ -185,7 +208,10 @@ pool.getConnection(function(err, connection){
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>so when we want to use the specific database on database server, we ask the connection to hit database by using:-</p>
+</div>
+<p>so when we want to use the specific database on database server, we ask the connection to hit database by using:-
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">connection.changeUser({database : &#34;firm1&#34;});</pre>
@@ -193,7 +219,9 @@ pool.getConnection(function(err, connection){
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>you can refer the official documentation <a href="https://github.com/mysqljs/mysql#switching-users-and-altering-connection-state">here</a></p>
+</div>
+<p>you can refer the official documentation <a href="https://github.com/mysqljs/mysql#switching-users-and-altering-connection-state">here</a>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

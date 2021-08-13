@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Example
@@ -168,7 +169,10 @@ s = Subexample.new</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To find a suitable method for <code>SubExample#subexample_method</code> Ruby first looks at ancestors chain of <code>SubExample</code></p>
+</div>
+<p>To find a suitable method for <code>SubExample#subexample_method</code> Ruby first looks at ancestors chain of <code>SubExample</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SubExample.ancestors # =&gt; [SubExample, Example, Object, Kernel, BasicObject]</pre>
@@ -176,7 +180,10 @@ s = Subexample.new</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It starts from <code>SubExample</code>. If we send <code>subexample_method</code> message Ruby chooses the one available one SubExample and ignores <code>Example#subexample_method</code>.</p>
+</div>
+<p>It starts from <code>SubExample</code>. If we send <code>subexample_method</code> message Ruby chooses the one available one SubExample and ignores <code>Example#subexample_method</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">s.subexample_method # =&gt; :subexample</pre>
@@ -184,7 +191,10 @@ s = Subexample.new</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>After <code>SubExample</code> it checks <code>Example</code>. If we send <code>example_method</code> Ruby checks if <code>SubExample</code> can reply to it or not and since it can’t Ruby goes up the chain and looks into <code>Example</code>.</p>
+</div>
+<p>After <code>SubExample</code> it checks <code>Example</code>. If we send <code>example_method</code> Ruby checks if <code>SubExample</code> can reply to it or not and since it can’t Ruby goes up the chain and looks into <code>Example</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">s.example_method # =&gt; :example</pre>
@@ -192,7 +202,10 @@ s = Subexample.new</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>After Ruby checks all defined methods then it runs <code>method_missing</code> to see if it can reply or not. If we send <code>missing_subexample_method</code> Ruby won’t be able to find a defined method on <code>SubExample</code> so it moves up to <code>Example</code>. It can’t find a defined method on <code>Example</code> or any other class higher in chain either. Ruby starts over and runs <code>method_missing</code>. <code>method_missing</code> of <code>SubExample</code> can reply to <code>missing_subexample_method</code>.</p>
+</div>
+<p>After Ruby checks all defined methods then it runs <code>method_missing</code> to see if it can reply or not. If we send <code>missing_subexample_method</code> Ruby won’t be able to find a defined method on <code>SubExample</code> so it moves up to <code>Example</code>. It can’t find a defined method on <code>Example</code> or any other class higher in chain either. Ruby starts over and runs <code>method_missing</code>. <code>method_missing</code> of <code>SubExample</code> can reply to <code>missing_subexample_method</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">s.missing_subexample_method # =&gt; :subexample</pre>
@@ -200,7 +213,10 @@ s = Subexample.new</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However if a method is defined Ruby uses defined version even if it is higher in the chain. For example if we send <code>not_missed_method</code> even though <code>method_missing</code> of <code>SubExample</code> can reply to it Ruby walks up on <code>SubExample</code> because it doesn’t have a defined method with that name and looks into <code>Example</code> which has one.</p>
+</div>
+<p>However if a method is defined Ruby uses defined version even if it is higher in the chain. For example if we send <code>not_missed_method</code> even though <code>method_missing</code> of <code>SubExample</code> can reply to it Ruby walks up on <code>SubExample</code> because it doesn’t have a defined method with that name and looks into <code>Example</code> which has one.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">s.not_missed_method # =&gt; :example</pre>

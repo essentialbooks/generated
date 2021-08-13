@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>A lambda expression evaluated in a class’ member function is implicitly a friend of that class:</p>
+      
+<p>A lambda expression evaluated in a class’ member function is implicitly a friend of that class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Foo
@@ -155,7 +158,12 @@ public:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Such a lambda is not only a friend of that class, it has the same access as the class it is declared within has.</p><p>Lambdas can capture the <code>this</code> pointer which represents the object instance the outer function was called on. This is done by adding <code>this</code> to the capture list:</p>
+</div>
+<p>Such a lambda is not only a friend of that class, it has the same access as the class it is declared within has.
+</p>
+<p>Lambdas can capture the <code>this</code> pointer which represents the object instance the outer function was called on. This is done by adding <code>this</code> to the capture list:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Foo
@@ -181,7 +189,18 @@ public:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When <code>this</code> is captured, the lambda can use member names of its containing class as though it were in its containing class. So an implicit <code>this-&gt;</code> is applied to such members.</p><p>Be aware that <code>this</code> is captured by value, but not the value of the type. It is captured by the value of <code>this</code>, which is a <em>pointer</em>. As such, the lambda does not <em>own</em> <code>this</code>. If the lambda out lives the lifetime of the object that created it, the lambda can become invalid.</p><p>This also means that the lambda can modify <code>this</code> without being declared <code>mutable</code>. It is the pointer which is <code>const</code>, not the object being pointed to. That is, unless the outer member function was itself a <code>const</code> function.</p><p>Also, be aware that the default capture clauses, both <code>[=]</code> and <code>[&amp;]</code>, will <em>also</em> capture <code>this</code> implicitly. And they both capture it by the value of the pointer. Indeed, it is an error to specify <code>this</code> in the capture list when a default is given.</p><p>Lambdas can capture a copy of the <code>this</code> object, created at the time the lambda is created. This is done by adding <code>*this</code> to the capture list:</p>
+</div>
+<p>When <code>this</code> is captured, the lambda can use member names of its containing class as though it were in its containing class. So an implicit <code>this-&gt;</code> is applied to such members.
+</p>
+<p>Be aware that <code>this</code> is captured by value, but not the value of the type. It is captured by the value of <code>this</code>, which is a <em>pointer</em>. As such, the lambda does not <em>own</em> <code>this</code>. If the lambda out lives the lifetime of the object that created it, the lambda can become invalid.
+</p>
+<p>This also means that the lambda can modify <code>this</code> without being declared <code>mutable</code>. It is the pointer which is <code>const</code>, not the object being pointed to. That is, unless the outer member function was itself a <code>const</code> function.
+</p>
+<p>Also, be aware that the default capture clauses, both <code>[=]</code> and <code>[&amp;]</code>, will <em>also</em> capture <code>this</code> implicitly. And they both capture it by the value of the pointer. Indeed, it is an error to specify <code>this</code> in the capture list when a default is given.
+</p>
+<p>Lambdas can capture a copy of the <code>this</code> object, created at the time the lambda is created. This is done by adding <code>*this</code> to the capture list:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Foo

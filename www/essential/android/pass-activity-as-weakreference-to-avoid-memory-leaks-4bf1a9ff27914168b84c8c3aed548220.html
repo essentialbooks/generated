@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>It is common for an AsyncTask to require a reference to the Activity that called it.</p><p>If the AsyncTask is an inner class of the Activity, then you can reference it and any member variables/methods directly.</p><p>If, however, the AsyncTask is not an inner class of the Activity, you will need to pass an Activity reference to the AsyncTask. When you do this, one potential problem that may occur is that the AsyncTask will keep the reference of the Activity until the AsyncTask has completed its work in its background thread. If the Activity is finished or killed before the AsyncTask’s background thread work is done, the AsyncTask will still have its reference to the Activity, and therefore it cannot be garbage collected.</p><p>As a result, this will cause a memory leak.</p><p>In order to prevent this from happening, make use of a <a href="https://developer.android.com/reference/java/lang/ref/WeakReference.html">WeakReference</a> in the AsyncTask instead of having a direct reference to the Activity.</p><p>Here is an example AsyncTask that utilizes a WeakReference:</p>
+      
+<p>It is common for an AsyncTask to require a reference to the Activity that called it.
+</p>
+<p>If the AsyncTask is an inner class of the Activity, then you can reference it and any member variables/methods directly.
+</p>
+<p>If, however, the AsyncTask is not an inner class of the Activity, you will need to pass an Activity reference to the AsyncTask. When you do this, one potential problem that may occur is that the AsyncTask will keep the reference of the Activity until the AsyncTask has completed its work in its background thread. If the Activity is finished or killed before the AsyncTask’s background thread work is done, the AsyncTask will still have its reference to the Activity, and therefore it cannot be garbage collected.
+</p>
+<p>As a result, this will cause a memory leak.
+</p>
+<p>In order to prevent this from happening, make use of a <a href="https://developer.android.com/reference/java/lang/ref/WeakReference.html">WeakReference</a> in the AsyncTask instead of having a direct reference to the Activity.
+</p>
+<p>Here is an example AsyncTask that utilizes a WeakReference:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private class MyAsyncTask extends AsyncTask&lt;String, Void, Void&gt; {
@@ -166,7 +179,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Calling the AsyncTask from an Activity:</strong></p>
+</div>
+<p><strong>Calling the AsyncTask from an Activity:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">new MyAsyncTask(this).execute(&#34;param1&#34;, &#34;param2&#34;);</pre>
@@ -174,7 +190,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Calling the AsyncTask from a Fragment:</strong></p>
+</div>
+<p><strong>Calling the AsyncTask from a Fragment:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">new MyAsyncTask(getActivity()).execute(&#34;param1&#34;, &#34;param2&#34;);</pre>

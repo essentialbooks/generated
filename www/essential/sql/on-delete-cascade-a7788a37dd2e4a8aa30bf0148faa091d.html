@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Assume you have a application that administers rooms. Assume further that your application operates on a per client basis (tenant). You have several clients. So your database will contain one table for clients, and one for rooms.</p><p>Now, every client has N rooms.</p><p>This should mean that you have a foreign key on your room table, referencing the client table.</p>
+      
+<p>Assume you have a application that administers rooms. Assume further that your application operates on a per client basis (tenant). You have several clients. So your database will contain one table for clients, and one for rooms.
+</p>
+<p>Now, every client has N rooms.
+</p>
+<p>This should mean that you have a foreign key on your room table, referencing the client table.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ALTER TABLE dbo.T_Room  WITH CHECK ADD  CONSTRAINT FK_T_Room_T_Client FOREIGN KEY(RM_CLI_ID)
@@ -137,7 +144,10 @@ GO</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Assuming a client moves on to some other software, you’ll have to delete his data in your software. But if you do</p>
+</div>
+<p>Assuming a client moves on to some other software, you’ll have to delete his data in your software. But if you do
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">DELETE FROM T_Client WHERE CLI_ID = x</pre>
@@ -145,7 +155,14 @@ GO</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then you’ll get a foreign key violation, because you can’t delete the client when he still has rooms.</p><p>Now you’d have write code in your application that deletes the client’s rooms before it deletes the client. Assume further that in the future, many more foreign key dependencies will be added in your database, because your application’s functionality expands. Horrible. For every modification in your database, you’ll have to adapt your application’s code in N places. Possibly you’ll have to adapt code in other applications as well (e.g. interfaces to other systems).</p><p>There is a better solution than doing it in your code. You can just add <code>ON DELETE CASCADE</code> to your foreign key.</p>
+</div>
+<p>Then you’ll get a foreign key violation, because you can’t delete the client when he still has rooms.
+</p>
+<p>Now you’d have write code in your application that deletes the client’s rooms before it deletes the client. Assume further that in the future, many more foreign key dependencies will be added in your database, because your application’s functionality expands. Horrible. For every modification in your database, you’ll have to adapt your application’s code in N places. Possibly you’ll have to adapt code in other applications as well (e.g. interfaces to other systems).
+</p>
+<p>There is a better solution than doing it in your code. You can just add <code>ON DELETE CASCADE</code> to your foreign key.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ALTER TABLE dbo.T_Room  -- WITH CHECK -- SQL-Server can specify WITH CHECK/WITH NOCHECK
@@ -156,7 +173,10 @@ ON DELETE CASCADE</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now you can say</p>
+</div>
+<p>Now you can say
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">DELETE FROM T_Client WHERE CLI_ID = x</pre>
@@ -164,7 +184,12 @@ ON DELETE CASCADE</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>and the rooms are automagically deleted when the client is deleted. Problem solved - with no application code changes.</p><p>One word of caution: In Microsoft SQL-Server, this won’t work if you have a table that references itselfs. So if you try to define a delete cascade on a recursive tree structure, like this:</p>
+</div>
+<p>and the rooms are automagically deleted when the client is deleted. Problem solved - with no application code changes.
+</p>
+<p>One word of caution: In Microsoft SQL-Server, this won’t work if you have a table that references itselfs. So if you try to define a delete cascade on a recursive tree structure, like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N&#39;[dbo].[FK_T_FMS_Navigation_T_FMS_Navigation]&#39;) AND parent_object_id = OBJECT_ID(N&#39;[dbo].[T_FMS_Navigation]&#39;))
@@ -180,7 +205,13 @@ GO</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>it won’t work, because Microsoft-SQL-server doesn’t allow you to set a foreign key with <code>ON DELETE CASCADE</code> on a recursive tree structure. One reason for this is, that the tree is possibly cyclic, and that would possibly lead to a deadlock.</p><p>PostgreSQL on the other hand can do this; the requirement is that the tree is non-cyclic. If the tree is cyclic, you’ll get a runtime error. In that case, you’ll just have to implement the delete function yourselfs.</p><p><strong>A word of caution:</strong> This means you can’t simply delete and re-insert the client table anymore, because if you do this, it will delete all entries in “T_Room”… (no non-delta updates anymore)</p>
+</div>
+<p>it won’t work, because Microsoft-SQL-server doesn’t allow you to set a foreign key with <code>ON DELETE CASCADE</code> on a recursive tree structure. One reason for this is, that the tree is possibly cyclic, and that would possibly lead to a deadlock.
+</p>
+<p>PostgreSQL on the other hand can do this; the requirement is that the tree is non-cyclic. If the tree is cyclic, you’ll get a runtime error. In that case, you’ll just have to implement the delete function yourselfs.
+</p>
+<p><strong>A word of caution:</strong> This means you can’t simply delete and re-insert the client table anymore, because if you do this, it will delete all entries in “T_Room”… (no non-delta updates anymore)
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

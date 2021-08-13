@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Bad locking:</p>
+      
+<p>Bad locking:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::mutex mtx;
@@ -154,7 +157,12 @@ void bad_lock_example() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>That is the wrong way to implement the locking and unlocking of the mutex. To ensure the correct release of the mutex with <code>unlock()</code> requires the programer to make sure that all the flows resulting in the exiting of the function result in a call to <code>unlock()</code>. As shown above this is a brittle processes as it requires any maintainers to continue following the pattern manually.</p><p>Using an appropriately crafted class to implement RAII, the problem is trivial:</p>
+</div>
+<p>That is the wrong way to implement the locking and unlocking of the mutex. To ensure the correct release of the mutex with <code>unlock()</code> requires the programer to make sure that all the flows resulting in the exiting of the function result in a call to <code>unlock()</code>. As shown above this is a brittle processes as it requires any maintainers to continue following the pattern manually.
+</p>
+<p>Using an appropriately crafted class to implement RAII, the problem is trivial:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::mutex mtx;
@@ -174,7 +182,9 @@ void good_lock_example() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>lock_guard</code> is an extremely simple class template that simply calls <code>lock()</code> on its argument in its constructor, keeps a reference to the argument, and calls <code>unlock()</code> on the argument in its destructor. That is, when the <code>lock_guard</code> goes out of scope, the <code>mutex</code> is guaranteed to be unlocked. It doesn’t matter if the reason it went out of scope is an exception or an early return - all cases are handled; regardless of the control flow, we have guaranteed that we will unlock correctly.</p>
+</div>
+<p><code>lock_guard</code> is an extremely simple class template that simply calls <code>lock()</code> on its argument in its constructor, keeps a reference to the argument, and calls <code>unlock()</code> on the argument in its destructor. That is, when the <code>lock_guard</code> goes out of scope, the <code>mutex</code> is guaranteed to be unlocked. It doesn’t matter if the reason it went out of scope is an exception or an early return - all cases are handled; regardless of the control flow, we have guaranteed that we will unlock correctly.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

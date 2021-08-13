@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>If you have already added a file to your Git repository and now want to <strong>stop tracking it</strong> (so that it won’t be present in future commits), you can remove it from the index:</p>
+      
+<p>If you have already added a file to your Git repository and now want to <strong>stop tracking it</strong> (so that it won’t be present in future commits), you can remove it from the index:
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">git rm --cached &lt;file&gt;</pre>
@@ -135,7 +138,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will remove the file from the repository and prevent further changes from being tracked by Git. The <code>--cached</code> option will make sure that the file is not physically deleted.</p><p>Note that previously added contents of the file will still be visible via the Git history.</p><p>Keep in mind that if anyone else pulls from the repository after you removed the file from the index, <strong>their copy will be physically deleted</strong>.</p><hr id="5d2de171-a803-4b7a-b25b-2a9e0abab076"/><p>You can make Git pretend that the working directory version of the file is up to date and read the index version instead (thus ignoring changes in it) with “<a href="https://www.kernel.org/pub/software/scm/git/docs/git-update-index.html#_skip_worktree_bit">skip worktree</a>” bit:</p>
+</div>
+<p>This will remove the file from the repository and prevent further changes from being tracked by Git. The <code>--cached</code> option will make sure that the file is not physically deleted.
+</p>
+<p>Note that previously added contents of the file will still be visible via the Git history.
+</p>
+<p>Keep in mind that if anyone else pulls from the repository after you removed the file from the index, <strong>their copy will be physically deleted</strong>.
+</p>
+<hr id="5d2de171-a803-4b7a-b25b-2a9e0abab076"/>
+<p>You can make Git pretend that the working directory version of the file is up to date and read the index version instead (thus ignoring changes in it) with “<a href="https://www.kernel.org/pub/software/scm/git/docs/git-update-index.html#_skip_worktree_bit">skip worktree</a>” bit:
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">git update-index --skip-worktree &lt;file&gt;</pre>
@@ -143,7 +156,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Writing is not affected by this bit, content safety is still first priority. You will never lose your precious ignored changes; on the other hand this bit conflicts with stashing: to remove this bit, use</p>
+</div>
+<p>Writing is not affected by this bit, content safety is still first priority. You will never lose your precious ignored changes; on the other hand this bit conflicts with stashing: to remove this bit, use
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">git update-index --no-skip-worktree &lt;file&gt;</pre>
@@ -151,7 +167,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="ef911be2-54e3-4cf5-9903-a9fe7ab5d212"/><p>It is sometimes <em><strong>wrongly</strong></em> recommended to lie to Git and have it assume that file is unchanged without examining it. It looks at first glance as ignoring any further changes to the file, without removing it from its index:</p>
+</div>
+<hr id="ef911be2-54e3-4cf5-9903-a9fe7ab5d212"/>
+<p>It is sometimes <em><strong>wrongly</strong></em> recommended to lie to Git and have it assume that file is unchanged without examining it. It looks at first glance as ignoring any further changes to the file, without removing it from its index:
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">git update-index --assume-unchanged &lt;file&gt;</pre>
@@ -159,7 +179,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will force git to ignore any change made in the file (keep in mind that if you pull any changes to this file, or you stash it, <strong>your ignored changes will be lost</strong>)</p><p>If you want git to “care” about this file again, run the following command:</p>
+</div>
+<p>This will force git to ignore any change made in the file (keep in mind that if you pull any changes to this file, or you stash it, <strong>your ignored changes will be lost</strong>)
+</p>
+<p>If you want git to “care” about this file again, run the following command:
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">git update-index --no-assume-unchanged &lt;file&gt;</pre>

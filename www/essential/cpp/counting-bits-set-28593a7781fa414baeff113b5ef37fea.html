@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>The population count of a bitstring is often needed in cryptography and other applications and the problem has been widely studied.</p><p>The naive way requires one iteration per bit:</p>
+      
+<p>The population count of a bitstring is often needed in cryptography and other applications and the problem has been widely studied.
+</p>
+<p>The naive way requires one iteration per bit:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">unsigned</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">;</span>
@@ -141,7 +146,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A nice trick (based on <a href="http://stackoverflow.com/documentation/c%2B%2B/3016/bit-manipulation/17299/remove-rightmost-set-bit">http://stackoverflow.com/documentation/c%2b%2b/3016/bit-manipulation/17299/remove-rightmost-set-bit</a> ) is:</p>
+</div>
+<p>A nice trick (based on <a href="http://stackoverflow.com/documentation/c%2B%2B/3016/bit-manipulation/17299/remove-rightmost-set-bit">http://stackoverflow.com/documentation/c%2b%2b/3016/bit-manipulation/17299/remove-rightmost-set-bit</a> ) is:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">unsigned</span> <span class="n">bits</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// accumulates the total number of bits set in `n`
@@ -154,7 +162,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It goes through as many iterations as there are set bits, so it’s good when <code>value</code> is expected to have few nonzero bits.</p><p>The method was first proposed by Peter Wegner (in <a href="http://cacm.acm.org/">CACM</a> 3 / 322 - 1960) and it’s well known since it appears in <em>C Programming Language</em> by Brian W. Kernighan and Dennis M. Ritchie.</p><p>This requires 12 arithmetic operations, one of which is a multication:</p>
+</div>
+<p>It goes through as many iterations as there are set bits, so it’s good when <code>value</code> is expected to have few nonzero bits.
+</p>
+<p>The method was first proposed by Peter Wegner (in <a href="http://cacm.acm.org/">CACM</a> 3 / 322 - 1960) and it’s well known since it appears in <em>C Programming Language</em> by Brian W. Kernighan and Dennis M. Ritchie.
+</p>
+<p>This requires 12 arithmetic operations, one of which is a multication:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">unsigned</span> <span class="nf">popcount</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">x</span><span class="p">)</span>
@@ -173,7 +188,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This kind of implementation has the best worst-case behavior (see <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming weight</a> for further details).</p><p>Many CPUs have a specific instruction (like x86’s <code>popcnt</code>) and the compiler could offer a specific (<strong>non standard</strong>) built in function. E.g. with g++ there is:</p>
+</div>
+<p>This kind of implementation has the best worst-case behavior (see <a href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming weight</a> for further details).
+</p>
+<p>Many CPUs have a specific instruction (like x86’s <code>popcnt</code>) and the compiler could offer a specific (<strong>non standard</strong>) built in function. E.g. with g++ there is:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">int</span> <span class="nf">__builtin_popcount</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">x</span><span class="p">);</span>

@@ -127,7 +127,12 @@
 </div>
 
 
-      <p><code>DirectByteBuffer</code> is special implementation of <code>ByteBuffer</code> that has no <code>byte[]</code> laying underneath.</p><p>We can allocate such ByteBuffer by calling:</p>
+      
+<p><code>DirectByteBuffer</code> is special implementation of <code>ByteBuffer</code> that has no <code>byte[]</code> laying underneath.
+</p>
+<p>We can allocate such ByteBuffer by calling:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ByteBuffer directBuffer = ByteBuffer.allocateDirect(16);</pre>
@@ -135,7 +140,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This operation will allocate 16 bytes of memory. The contents of direct buffers <em>may</em> reside outside of the normal garbage-collected heap.</p><p>We can verify whether ByteBuffer is direct by calling:</p>
+</div>
+<p>This operation will allocate 16 bytes of memory. The contents of direct buffers <em>may</em> reside outside of the normal garbage-collected heap.
+</p>
+<p>We can verify whether ByteBuffer is direct by calling:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">directBuffer.isDirect(); // true</pre>
@@ -143,7 +153,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The main characteristics of <code>DirectByteBuffer</code> is that JVM will try to natively work on allocated memory without any additional buffering so operations performed on it may be faster then those performed on ByteBuffers with arrays lying underneath.</p><p>It is recomended to use <code>DirectByteBuffer</code> with heavy IO operations that rely on speed of execution, like real time communication.</p><p>We have to be aware that if we try using <code>array()</code> method we will get <code>UnsupportedOperationException</code>. So it is a good practice to chech whether our ByteBuffer has it (byte array) before we try to access it:</p>
+</div>
+<p>The main characteristics of <code>DirectByteBuffer</code> is that JVM will try to natively work on allocated memory without any additional buffering so operations performed on it may be faster then those performed on ByteBuffers with arrays lying underneath.
+</p>
+<p>It is recomended to use <code>DirectByteBuffer</code> with heavy IO operations that rely on speed of execution, like real time communication.
+</p>
+<p>We have to be aware that if we try using <code>array()</code> method we will get <code>UnsupportedOperationException</code>. So it is a good practice to chech whether our ByteBuffer has it (byte array) before we try to access it:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">byte[] arrayOfBytes;
@@ -154,7 +171,11 @@ if(buffer.hasArray()) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Another use of direct byte buffer is interop through JNI. Since a direct byte buffer does not use a <code>byte[]</code>, but an actual block of memory, it is possible to access that memory directly through a pointer in native code. This can save a bit of trouble and overhead on marshalling between the Java and native representation of data.</p><p>The JNI interface defines several functions to handle direct byte buffers: <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/jni/spec/functions.html#nio_support">NIO Support</a>.</p>
+</div>
+<p>Another use of direct byte buffer is interop through JNI. Since a direct byte buffer does not use a <code>byte[]</code>, but an actual block of memory, it is possible to access that memory directly through a pointer in native code. This can save a bit of trouble and overhead on marshalling between the Java and native representation of data.
+</p>
+<p>The JNI interface defines several functions to handle direct byte buffers: <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/jni/spec/functions.html#nio_support">NIO Support</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

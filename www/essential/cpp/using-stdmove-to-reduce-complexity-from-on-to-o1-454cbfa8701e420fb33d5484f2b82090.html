@@ -127,7 +127,26 @@
 </div>
 
 
-      <p>C++11 introduced core language and standard library support for <strong>moving</strong> an object. The idea is that when an object <em>o</em> is a temporary and one wants a logical copy, then its safe to just pilfer <em>o</em>’s resources, such as a dynamically allocated buffer, leaving <em>o</em> logically empty but still destructible and copyable.</p><p>The core language support is mainly</p><ul id="6f522f92-2234-457b-b764-adbac9dfa295" class="bulleted-list"><li>the <strong>rvalue reference</strong> type builder <code>&amp;&amp;</code>, e.g., <code>std::string&amp;&amp;</code> is an rvalue reference to a <code>std::string</code>, indicating that that referred to object is a temporary whose resources can just be pilfered (i.e. moved)</li><li>special support for a <strong>move constructor</strong> <code>T( T&amp;&amp; )</code>, which is supposed to efficiently move resources from the specified other object, instead of actually copying those resources, and</li><li>special support for a <strong>move assignment operator</strong> <code>auto operator=(T&amp;&amp;) -&gt; T&amp;</code>, which also is supposed to move from the source.</li></ul><p>The standard library support is mainly the <code>std::move</code> function template from the <code>&lt;utility&gt;</code> header. This function produces an rvalue reference to the specified object, indicating that it can be moved from, just as if it were a temporary.</p><p>For a container actual copying is typically of O(<em>n</em>) complexity, where <em>n</em> is the number of items in the container, while moving is O(1), constant time. And for an algorithm that logically copies that container <em>n</em> times, this can reduce the complexity from the usually impractical O(<em>n</em>²) to just linear O(<em>n</em>).</p><p>In his article <a href="http://www.drdobbs.com/cpp/containters-that-never-change/240161543">“Containers That Never Change” in Dr. Dobbs Journal in September 19 2013</a>, Andrew Koenig presented an interesting example of algorithmic inefficiency when using a style of programming where variables are immutable after initialization. With this style loops are generally expressed using recursion. And for some algorithms such as generating a Collatz sequence, the recursion requires logically copying a container:</p>
+      
+<p>C++11 introduced core language and standard library support for <strong>moving</strong> an object. The idea is that when an object <em>o</em> is a temporary and one wants a logical copy, then its safe to just pilfer <em>o</em>’s resources, such as a dynamically allocated buffer, leaving <em>o</em> logically empty but still destructible and copyable.
+</p>
+<p>The core language support is mainly
+</p>
+  <ul id="6f522f92-2234-457b-b764-adbac9dfa295" class="bulleted-list">
+    <li>the <strong>rvalue reference</strong> type builder <code>&amp;&amp;</code>, e.g., <code>std::string&amp;&amp;</code> is an rvalue reference to a <code>std::string</code>, indicating that that referred to object is a temporary whose resources can just be pilfered (i.e. moved)
+    </li>
+    <li>special support for a <strong>move constructor</strong> <code>T( T&amp;&amp; )</code>, which is supposed to efficiently move resources from the specified other object, instead of actually copying those resources, and
+    </li>
+    <li>special support for a <strong>move assignment operator</strong> <code>auto operator=(T&amp;&amp;) -&gt; T&amp;</code>, which also is supposed to move from the source.
+    </li>
+  </ul>
+<p>The standard library support is mainly the <code>std::move</code> function template from the <code>&lt;utility&gt;</code> header. This function produces an rvalue reference to the specified object, indicating that it can be moved from, just as if it were a temporary.
+</p>
+<p>For a container actual copying is typically of O(<em>n</em>) complexity, where <em>n</em> is the number of items in the container, while moving is O(1), constant time. And for an algorithm that logically copies that container <em>n</em> times, this can reduce the complexity from the usually impractical O(<em>n</em>²) to just linear O(<em>n</em>).
+</p>
+<p>In his article <a href="http://www.drdobbs.com/cpp/containters-that-never-change/240161543">“Containers That Never Change” in Dr. Dobbs Journal in September 19 2013</a>, Andrew Koenig presented an interesting example of algorithmic inefficiency when using a style of programming where variables are immutable after initialization. With this style loops are generally expressed using recursion. And for some algorithms such as generating a Collatz sequence, the recursion requires logically copying a container:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Based on an example by Andrew Koenig in his Dr. Dobbs Journal article
@@ -188,7 +207,10 @@ auto main() -&gt; int
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output:</p>
+</div>
+<p>Output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">42 21 64 32 16 8 4 2</pre>
@@ -196,7 +218,14 @@ auto main() -&gt; int
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The number of item copy operations due to copying of the vectors is here roughly O(<em>n²</em>), since it’s the sum 1 + 2 + 3 + … <em>n</em>.</p><p>In concrete numbers, with g++ and Visual C++ compilers the above invocation of <code>collatz(42)</code> resulted in a Collatz sequence of 8 items and 36 item copy operations (8*7/2 = 28, plus some) in vector copy constructor calls.</p><p><em>All</em> of these item copy operations can be removed by simply moving vectors whose values are not needed anymore. To do this it’s necessary to remove <code>const</code> and reference for the vector type arguments, passing the vectors <em>by value</em>. The function returns are already automatically optimized. For the calls where vectors are passed, and not used again further on in the function, just apply <code>std::move</code> to <em>move</em> those buffers rather than actually copying them:</p>
+</div>
+<p>The number of item copy operations due to copying of the vectors is here roughly O(<em>n²</em>), since it’s the sum 1 + 2 + 3 + … <em>n</em>.
+</p>
+<p>In concrete numbers, with g++ and Visual C++ compilers the above invocation of <code>collatz(42)</code> resulted in a Collatz sequence of 8 items and 36 item copy operations (8*7/2 = 28, plus some) in vector copy constructor calls.
+</p>
+<p><em>All</em> of these item copy operations can be removed by simply moving vectors whose values are not needed anymore. To do this it’s necessary to remove <code>const</code> and reference for the vector type arguments, passing the vectors <em>by value</em>. The function returns are already automatically optimized. For the calls where vectors are passed, and not used again further on in the function, just apply <code>std::move</code> to <em>move</em> those buffers rather than actually copying them:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">using std::move;
@@ -240,7 +269,19 @@ auto collatz( int const n )
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, with g++ and Visual C++ compilers, the number of item copy operations due to vector copy constructor invocations, was exactly 0.</p><p>The algorithm is necessarily still O(<em>n</em>) in the length of the Collatz sequence produced, but this is a quite dramatic improvement: O(<em>n</em>²) → O(<em>n</em>).</p><hr id="90a8243e-214f-486a-a466-4e3db2227afb"/><p>With some language support one could perhaps use moving and still express and enforce the immutability of a variable <em>between its initialization and final move</em>, after which any use of that variable should be an error. Alas, as of C++14 C++ does not support that. For loop-free code the no use after move can be enforced via a re-declaration of the relevant name as an incomplete <code>struct</code>, as with <code>struct result;</code> above, but this is ugly and not likely to be understood by other programmers; also the diagnostics can be quite misleading.</p><p>Summing up, the C++ language and library support for moving allows drastic improvements in algorithm complexity, but due the support’s incompleteness, at the cost of forsaking the code correctness guarantees and code clarity that <code>const</code> can provide.</p><p>— For completeness, the instrumented vector class used to measure the number of item copy operations due to copy constructor invocations: </p>
+</div>
+<p>Here, with g++ and Visual C++ compilers, the number of item copy operations due to vector copy constructor invocations, was exactly 0.
+</p>
+<p>The algorithm is necessarily still O(<em>n</em>) in the length of the Collatz sequence produced, but this is a quite dramatic improvement: O(<em>n</em>²) → O(<em>n</em>).
+</p>
+<hr id="90a8243e-214f-486a-a466-4e3db2227afb"/>
+<p>With some language support one could perhaps use moving and still express and enforce the immutability of a variable <em>between its initialization and final move</em>, after which any use of that variable should be an error. Alas, as of C++14 C++ does not support that. For loop-free code the no use after move can be enforced via a re-declaration of the relevant name as an incomplete <code>struct</code>, as with <code>struct result;</code> above, but this is ugly and not likely to be understood by other programmers; also the diagnostics can be quite misleading.
+</p>
+<p>Summing up, the C++ language and library support for moving allows drastic improvements in algorithm complexity, but due the support’s incompleteness, at the cost of forsaking the code correctness guarantees and code clarity that <code>const</code> can provide.
+</p>
+<p>— For completeness, the instrumented vector class used to measure the number of item copy operations due to copy constructor invocations: 
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt; class Item &gt;

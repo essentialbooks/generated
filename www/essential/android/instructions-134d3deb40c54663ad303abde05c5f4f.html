@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Tested with A.S. v1.4.1 but should work with newer versions too.</p><ol id="8cb57c9c-553e-4026-93a4-00362ebe855f" class="numbered-list" start="1"><li>Create a new Android Studio project using the project wizard (Menu:/File/New Project):</li></ol>
+      
+<p>Tested with A.S. v1.4.1 but should work with newer versions too.
+</p>
+  <ol id="8cb57c9c-553e-4026-93a4-00362ebe855f" class="numbered-list" start="1">
+    <li>Create a new Android Studio project using the project wizard (Menu:/File/New Project):
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">- Call it &#34;**cvtest1**&#34;
@@ -139,7 +146,16 @@ You should have a *cvtest1* directory where this project is stored.  (the title 
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="1d1fbaa0-8b2a-4740-8c90-fc3873f1618f" class="numbered-list" start="1"><li>Verify that your app runs correctly. Try changing something like the “Hello World” text to confirm that the build/test cycle is OK for you. (I’m testing with an emulator of an API 19 device).</li><li>Download the OpenCV package for Android v3.1.0 and unzip it in some temporary directory somewhere. (Make sure it is the package specifically for Android and not just the OpenCV for Java package.) I’ll call this directory “<strong>unzip-dir</strong>” Below <strong>unzip-dir</strong> you should have a <strong>sdk/native/libs</strong> directory with subdirectories that start with things like <strong>arm</strong>…, <strong>mips</strong>… and <strong>x86</strong>… (one for each type of “architecture” Android runs on)</li><li>From Android Studio import OpenCV into your project as a module:</li></ol>
+</div>
+  <ol id="1d1fbaa0-8b2a-4740-8c90-fc3873f1618f" class="numbered-list" start="1">
+    <li>Verify that your app runs correctly. Try changing something like the “Hello World” text to confirm that the build/test cycle is OK for you. (I’m testing with an emulator of an API 19 device).
+    </li>
+    <li>Download the OpenCV package for Android v3.1.0 and unzip it in some temporary directory somewhere. (Make sure it is the package specifically for Android and not just the OpenCV for Java package.) I’ll call this directory “<strong>unzip-dir</strong>” Below <strong>unzip-dir</strong> you should have a <strong>sdk/native/libs</strong> directory with subdirectories that start with things like <strong>arm</strong>…, <strong>mips</strong>… and <strong>x86</strong>… (one for each type of “architecture” Android runs on)
+    </li>
+    <li>From Android Studio import OpenCV into your project as a module:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">**Menu:/File/New/Import_Module**:
@@ -152,7 +168,9 @@ You should have a *cvtest1* directory where this project is stored.  (the title 
 	<div class="code-box-nav">
 		
 	</div>
-</div><img class="img" src="/img/0b02b44cc25cc2e8190928e178e0f10082011496.jpg">
+</div>
+<img class="img" src="/img/0b02b44cc25cc2e8190928e178e0f10082011496.jpg">
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">But you also get an error message saying **failed to find target with hash string &#39;android-14&#39;...**.  This happens because the build.gradle file in the OpenCV zip file you downloaded says to compile using android API version 14,
@@ -161,7 +179,15 @@ You should have a *cvtest1* directory where this project is stored.  (the title 
 	<div class="code-box-nav">
 		
 	</div>
-</div><img class="img" src="/img/4ebd20a38c4a5b924499dec90b7a2a3734133bd2.jpg"><ol id="70efdd90-5748-4d9e-82a3-6f573888e570" class="numbered-list" start="1"><li>Open the project structure dialogue (<strong>Menu:/File/Project_Structure</strong>). Select the “app” module, click on the <strong>Dependencies</strong> tab and add <strong>:openCVLibrary310</strong> as a Module Dependency. When you select <strong>Add/Module_Dependency</strong> it should appear in the list of modules you can add. It will now show up as a dependency but you will get a few more <strong>cannot-find-android-14</strong> errors in the event log.</li><li>Look in the <strong>build.gradle</strong> file for your app module. There are multiple build.gradle files in an Android project. The one you want is in the <strong>cvtest1/app</strong> directory and from the project view it looks like <strong>build.gradle (Module: app)</strong>. Note the values of these four fields:</li></ol>
+</div>
+<img class="img" src="/img/4ebd20a38c4a5b924499dec90b7a2a3734133bd2.jpg">
+  <ol id="70efdd90-5748-4d9e-82a3-6f573888e570" class="numbered-list" start="1">
+    <li>Open the project structure dialogue (<strong>Menu:/File/Project_Structure</strong>). Select the “app” module, click on the <strong>Dependencies</strong> tab and add <strong>:openCVLibrary310</strong> as a Module Dependency. When you select <strong>Add/Module_Dependency</strong> it should appear in the list of modules you can add. It will now show up as a dependency but you will get a few more <strong>cannot-find-android-14</strong> errors in the event log.
+    </li>
+    <li>Look in the <strong>build.gradle</strong> file for your app module. There are multiple build.gradle files in an Android project. The one you want is in the <strong>cvtest1/app</strong> directory and from the project view it looks like <strong>build.gradle (Module: app)</strong>. Note the values of these four fields:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">- compileSDKVersion  (mine says 23)
@@ -172,7 +198,22 @@ You should have a *cvtest1* directory where this project is stored.  (the title 
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="2990e1ed-e460-498f-8cbb-c15e21d5ac4a" class="numbered-list" start="1"><li>Your project now has a <strong>cvtest1/OpenCVLibrary310</strong> directory but it is not visible from the project view:</li></ol><img class="img" src="/img/71fdba87fc7a492b298df107f67dd99b64df3b6c.png"><p>Use some other tool, such as any file manager, and go to this directory. You can also switch the project view from <strong>Android</strong> to <strong>Project Files</strong> and you can find this directory as shown in this screenshot:</p><img class="img" src="/img/f868c16cbf33e50eb8c7c3d4314676420064b0f5.png"><p>Inside there is another <strong>build.gradle</strong> file (it’s highlighted in the above screenshot). Update this file with the four values from step 6.</p><ol id="c39dd020-3919-4b33-a8a2-e665d5eaa941" class="numbered-list" start="1"><li>Resynch your project and then clean/rebuild it. (<strong>Menu:/Build/Clean_Project</strong>) It should clean and build without errors</li></ol>
+</div>
+  <ol id="2990e1ed-e460-498f-8cbb-c15e21d5ac4a" class="numbered-list" start="1">
+    <li>Your project now has a <strong>cvtest1/OpenCVLibrary310</strong> directory but it is not visible from the project view:
+    </li>
+  </ol>
+<img class="img" src="/img/71fdba87fc7a492b298df107f67dd99b64df3b6c.png">
+<p>Use some other tool, such as any file manager, and go to this directory. You can also switch the project view from <strong>Android</strong> to <strong>Project Files</strong> and you can find this directory as shown in this screenshot:
+</p>
+<img class="img" src="/img/f868c16cbf33e50eb8c7c3d4314676420064b0f5.png">
+<p>Inside there is another <strong>build.gradle</strong> file (it’s highlighted in the above screenshot). Update this file with the four values from step 6.
+</p>
+  <ol id="c39dd020-3919-4b33-a8a2-e665d5eaa941" class="numbered-list" start="1">
+    <li>Resynch your project and then clean/rebuild it. (<strong>Menu:/Build/Clean_Project</strong>) It should clean and build without errors
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">and you should see many references to **:openCVLibrary310** in the **0:Messages** screen.
@@ -188,7 +229,17 @@ You should see the openCVLibrary310 module with all the OpenCV functions under j
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="6310a484-7d00-4fa1-a22d-a97ad5563338" class="numbered-list" start="1"><li>Copy the <strong>{unzip-dir}/sdk/native/libs</strong> directory (and everything under it) to your Android project, to <strong>cvtest1/OpenCVLibrary310/src/main/</strong>, and then rename your copy from <strong>libs</strong> to <strong>jniLibs</strong>. You should now have a <strong>cvtest1/OpenCVLibrary310/src/main/jniLibs</strong> directory. Resynch your project and this directory should now appear in the project view under <strong>openCVLibrary310</strong>.</li></ol><img class="img" src="/img/090ca4c560a16d47375c8e364e7d8e8d5c81f9ab.png"><ol id="52e2e745-50a3-4006-8634-289a5f094bc6" class="numbered-list" start="1"><li>Go to the onCreate method of <em>MainActivity.java</em> and append this code:</li></ol>
+</div>
+  <ol id="6310a484-7d00-4fa1-a22d-a97ad5563338" class="numbered-list" start="1">
+    <li>Copy the <strong>{unzip-dir}/sdk/native/libs</strong> directory (and everything under it) to your Android project, to <strong>cvtest1/OpenCVLibrary310/src/main/</strong>, and then rename your copy from <strong>libs</strong> to <strong>jniLibs</strong>. You should now have a <strong>cvtest1/OpenCVLibrary310/src/main/jniLibs</strong> directory. Resynch your project and this directory should now appear in the project view under <strong>openCVLibrary310</strong>.
+    </li>
+  </ol>
+<img class="img" src="/img/090ca4c560a16d47375c8e364e7d8e8d5c81f9ab.png">
+  <ol id="52e2e745-50a3-4006-8634-289a5f094bc6" class="numbered-list" start="1">
+    <li>Go to the onCreate method of <em>MainActivity.java</em> and append this code:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if (!OpenCVLoader.initDebug()) {
@@ -200,7 +251,17 @@ You should see the openCVLibrary310 module with all the OpenCV functions under j
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then run your application. You should see lines like this in the Android Monitor:</p><img class="img" src="/img/d0802b71985c0766319dcb88bf8ae90b89a8ea87.jpg"><p>(I don’t know why that line with the error message is there)</p><ol id="887c38e1-b00f-441b-8028-8cb72b8bced7" class="numbered-list" start="1"><li>Now try to actually use some openCV code. In the example below I copied a .jpg file to the cache directory of the cvtest1 application on the android emulator. The code below loads this image, runs the canny edge detection algorithm and then writes the results back to a .png file in the same directory.</li></ol>
+</div>
+<p>Then run your application. You should see lines like this in the Android Monitor:
+</p>
+<img class="img" src="/img/d0802b71985c0766319dcb88bf8ae90b89a8ea87.jpg">
+<p>(I don’t know why that line with the error message is there)
+</p>
+  <ol id="887c38e1-b00f-441b-8028-8cb72b8bced7" class="numbered-list" start="1">
+    <li>Now try to actually use some openCV code. In the example below I copied a .jpg file to the cache directory of the cvtest1 application on the android emulator. The code below loads this image, runs the canny edge detection algorithm and then writes the results back to a .png file in the same directory.
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Put this code just below the code from the previous step and alter it to match your own files/directories.
@@ -216,6 +277,7 @@ You should see the openCVLibrary310 module with all the OpenCV functions under j
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Log.d (this.getClass().getSimpleName(), &#34;loading &#34; + inputFilePath + &#34;...&#34;);
@@ -227,6 +289,7 @@ Log.d (this.getClass().getSimpleName(), &#34;width of &#34; + inputFileName + &#
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// for the canny edge detection algorithm, play with these to see different results
@@ -242,7 +305,11 @@ Imgcodecs.imwrite(cannyFilename, im_canny);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="9ebe0a6f-9b21-4670-b992-4c09b43edc83" class="numbered-list" start="1"><li>Run your application. Your emulator should create a black and white “edge” image. You can use the Android Device Monitor to retrieve the output or write an activity to show it.</li></ol>
+</div>
+  <ol id="9ebe0a6f-9b21-4670-b992-4c09b43edc83" class="numbered-list" start="1">
+    <li>Run your application. Your emulator should create a black and white “edge” image. You can use the Android Device Monitor to retrieve the output or write an activity to show it.
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

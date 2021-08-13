@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Even if third-party libraries are good, a simple way to parse the JSON is provided by protocols You can imagine you have got an object <code>Todo</code> as</p>
+      
+<p>Even if third-party libraries are good, a simple way to parse the JSON is provided by protocols You can imagine you have got an object <code>Todo</code> as
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct Todo {
@@ -137,7 +140,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Whenever you receive the JSON, you can handle the plain <code>NSData</code> as shown in the other example using <code>NSJSONSerialization</code> object.</p><p>After that, using a simple protocol <code>JSONDecodable</code></p>
+</div>
+<p>Whenever you receive the JSON, you can handle the plain <code>NSData</code> as shown in the other example using <code>NSJSONSerialization</code> object.
+</p>
+<p>After that, using a simple protocol <code>JSONDecodable</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">typealias JSONDictionary = [String:AnyObject]
@@ -149,7 +157,10 @@ protocol JSONDecodable {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And making your <code>Todo</code> struct conforming to <code>JSONDecodable</code> does the trick</p>
+</div>
+<p>And making your <code>Todo</code> struct conforming to <code>JSONDecodable</code> does the trick
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">extension Todo: JSONDecodable {
@@ -162,7 +173,10 @@ protocol JSONDecodable {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can try it with this json code:</p>
+</div>
+<p>You can try it with this json code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">{
@@ -176,7 +190,10 @@ protocol JSONDecodable {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When you got it from the API, you can serialize it as the previous examples shown in an <code>AnyObject</code> instance. After that, you can check if the instance is a <code>JSONDictionary</code> instance</p>
+</div>
+<p>When you got it from the API, you can serialize it as the previous examples shown in an <code>AnyObject</code> instance. After that, you can check if the instance is a <code>JSONDictionary</code> instance
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">guard let jsonDictionary = dictionary as? JSONDictionary else { return }</pre>
@@ -184,7 +201,10 @@ protocol JSONDecodable {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The other thing to check, specific for this case because you have an array of <code>Todo</code> in the JSON, is the <code>todos</code> dictionary</p>
+</div>
+<p>The other thing to check, specific for this case because you have an array of <code>Todo</code> in the JSON, is the <code>todos</code> dictionary
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">guard let todosDictionary = jsonDictionary[&#34;todos&#34;] as? [JSONDictionary] else { return }</pre>
@@ -192,7 +212,10 @@ protocol JSONDecodable {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now that you got the array of dictionaries, you can convert each of them in a <code>Todo</code> object by using <code>flatMap</code> (it will automatically delete the <code>nil</code> values from the array)</p>
+</div>
+<p>Now that you got the array of dictionaries, you can convert each of them in a <code>Todo</code> object by using <code>flatMap</code> (it will automatically delete the <code>nil</code> values from the array)
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let todos: [Todo] = todosDictionary.flatMap { Todo.from(json: $0) }</pre>

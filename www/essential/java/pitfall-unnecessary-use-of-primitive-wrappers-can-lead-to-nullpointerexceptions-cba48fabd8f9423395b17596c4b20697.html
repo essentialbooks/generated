@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Sometimes, programmers who are new Java will use primitive types and wrappers interchangeably. This can lead to problems. Consider this example:</p>
+      
+<p>Sometimes, programmers who are new Java will use primitive types and wrappers interchangeably. This can lead to problems. Consider this example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MyRecord {
@@ -145,7 +148,24 @@ record.d = record.d + 1;    // throws a NullPointerException</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Our <code>MyRecord</code> class1 relies on default initialization to initialize the values on its fields. Thus, when we <code>new</code> a record, the <code>a</code> and <code>b</code> fields will be set to zero, and the <code>c</code> and <code>d</code> fields will be set to <code>null</code>.</p><p>When we try to use the default initialized fields, we see that the <code>int</code> fields works all of the time, but the <code>Integer</code> fields work in some cases and not others. Specifically, in the case that fails (with <code>d</code>), what happens is that the expression on the right-hand side attempts to unbox a <code>null</code> reference, and that is what causes the <code>NullPointerException</code> to be thrown.</p><p>There are a couple of ways to look at this:</p><ul id="5c77ca8c-e1a2-4817-bd12-fe09f18708fa" class="bulleted-list"><li>If the fields <code>c</code> and <code>d</code> need to be primitive wrappers, then either we should not be relying on default initialization, or we should be testing for <code>null</code>. For former is the correct approach <em>unless</em> there is a definite meaning for the fields in the <code>null</code> state.</li><li>If the fields don’t need to be primitive wrappers, then it is a mistake to make them primitive wrappers. In addition to this problem, the primitive wrappers have extra overheads relative to primitive types.</li></ul><p>The lesson here is to not use primitive wrapper types unless you really need to.</p><hr id="6f2c7611-6f95-4956-9c0c-7a0341364f25"/><p>1 - This class is not an example of good coding practice. For instance, a well-designed class would not have public fields. However, that is not the point of this example.</p>
+</div>
+<p>Our <code>MyRecord</code> class1 relies on default initialization to initialize the values on its fields. Thus, when we <code>new</code> a record, the <code>a</code> and <code>b</code> fields will be set to zero, and the <code>c</code> and <code>d</code> fields will be set to <code>null</code>.
+</p>
+<p>When we try to use the default initialized fields, we see that the <code>int</code> fields works all of the time, but the <code>Integer</code> fields work in some cases and not others. Specifically, in the case that fails (with <code>d</code>), what happens is that the expression on the right-hand side attempts to unbox a <code>null</code> reference, and that is what causes the <code>NullPointerException</code> to be thrown.
+</p>
+<p>There are a couple of ways to look at this:
+</p>
+  <ul id="5c77ca8c-e1a2-4817-bd12-fe09f18708fa" class="bulleted-list">
+    <li>If the fields <code>c</code> and <code>d</code> need to be primitive wrappers, then either we should not be relying on default initialization, or we should be testing for <code>null</code>. For former is the correct approach <em>unless</em> there is a definite meaning for the fields in the <code>null</code> state.
+    </li>
+    <li>If the fields don’t need to be primitive wrappers, then it is a mistake to make them primitive wrappers. In addition to this problem, the primitive wrappers have extra overheads relative to primitive types.
+    </li>
+  </ul>
+<p>The lesson here is to not use primitive wrapper types unless you really need to.
+</p>
+<hr id="6f2c7611-6f95-4956-9c0c-7a0341364f25"/>
+<p>1 - This class is not an example of good coding practice. For instance, a well-designed class would not have public fields. However, that is not the point of this example.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

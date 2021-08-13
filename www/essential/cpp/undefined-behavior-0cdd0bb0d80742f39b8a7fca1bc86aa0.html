@@ -127,7 +127,67 @@
 </div>
 
 
-      <h2 id="fca7b60f-f55f-4900-972d-7e6d2424937e" class="">Introduction<a class="header-anchor" href="#fca7b60f-f55f-4900-972d-7e6d2424937e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>What is undefined behavior (UB)? According to the ISO C++ Standard (§1.3.24, N4296), it is “behavior for which this International Standard imposes no requirements.”</p><p>This means that when a program encounters UB, it is allowed to do whatever it wants. This often means a crash, but it may simply do nothing, <a href="http://catb.org/jargon/html/N/nasal-demons.html">make demons fly out of your nose</a>, or even <em>appear</em> to work properly!</p><p>Needless to say, you should avoid writing code that invokes UB.</p><h2 id="6b5c3ff3-2335-43cc-928f-f0978643e7b4" class="">Remarks<a class="header-anchor" href="#6b5c3ff3-2335-43cc-928f-f0978643e7b4" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>If a program contains undefined behavior, the C++ standard places no constraints on its behavior.</p><ul id="98f572b1-9031-4cd0-afbb-d428cff33939" class="bulleted-list"><li>It may appear to work as the developer intended, but it may also crash or produce strange results.</li><li>The behavior may vary between runs of the same program.</li><li>Any part of the program may malfunction, including lines that come before the line that contains undefined behavior.</li><li>The implementation is not required to document the result of undefined behavior.</li></ul><p>An implementation <em>may</em> document the result of an operation that produces undefined behavior according to the standard, but a program that depends on such documented behavior is not portable.</p><p><strong>Why undefined behavior exists</strong></p><p>Intuitively, undefined behavior is considered a bad thing as such errors can’t be handled graciously through, say, exception handlers.</p><p>But leaving some behavior undefined is actually an integral part of C++‘s promise “you don’t pay for what you don’t use”. Undefined behavior allows a compiler to assume the developer knows what he’s doing and not introduce code to check for the mistakes highlighted in the above examples.</p><p><strong>Finding and avoiding undefined behavior</strong></p><p>Some tools can be used to discover undefined behavior during development:</p><ul id="f64844ca-4727-4a98-8996-e55bd2ab62ab" class="bulleted-list"><li>Most compilers have warning flags to warn about some cases of undefined behavior at compile time.</li><li>Newer versions of gcc and clang include a so-called “Undefined Behavior Sanitizer” flag (<code>-fsanitize=undefined</code>) that will check for undefined behavior at runtime, at a performance cost.</li><li><code>lint</code>-like tools may perform more thorough undefined behavior analysis.</li></ul><p><strong>Undefined, unspecified and </strong><a href="http://stackoverflow.com/documentation/c%2B%2B/1363/implementation-defined-behavior"><strong>implementation-defined</strong></a><strong> behavior</strong></p><p>From C++14 standard (ISO/IEC 14882:2014) section 1.9 (Program Execution):</p><blockquote id="45abd04b-507b-4f6f-b3f5-46131be1defd" class=""></blockquote><ol id="fb93f933-2044-4f00-8b60-9780aabac82c" class="numbered-list" start="1"><li>The semantic descriptions in this International Standard define a parameterized nondeterministic abstract machine. [CUT]</li><li>Certain aspects and operations of the abstract machine are described in this International Standard as <strong>implementation-defined</strong> (for example, <code>sizeof(int)</code>). These constitute <em>the parameters of the abstract machine</em>. Each implementation shall include documentation describing its characteristics and behavior in these respects. [CUT]</li><li>Certain other aspects and operations of the abstract machine are described in this International Standard as <strong>unspecified</strong> (for example, evaluation of expressions in a <em>new-initializer</em> if the allocation function fails to allocate memory). Where possible, this International Standard defines a set of allowable behaviors. These define the nondeterministic aspects of the abstract machine. An instance of the abstract machine can thus have more than one possible execution for a given program and a given input.</li><li>Certain other operations are described in this International Standard as <strong>undefined</strong> (or example, the effect of attempting to modify a <code>const</code> object). [ <em>Note</em>: this International Standard imposes no requirements on the behavior of programs that contain undefined behavior. —<em>end note</em> ]</li></ol>
+      
+  <h2 id="fca7b60f-f55f-4900-972d-7e6d2424937e" class="">Introduction
+  <a class="header-anchor" href="#fca7b60f-f55f-4900-972d-7e6d2424937e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>What is undefined behavior (UB)? According to the ISO C++ Standard (§1.3.24, N4296), it is “behavior for which this International Standard imposes no requirements.”
+</p>
+<p>This means that when a program encounters UB, it is allowed to do whatever it wants. This often means a crash, but it may simply do nothing, <a href="http://catb.org/jargon/html/N/nasal-demons.html">make demons fly out of your nose</a>, or even <em>appear</em> to work properly!
+</p>
+<p>Needless to say, you should avoid writing code that invokes UB.
+</p>
+  <h2 id="6b5c3ff3-2335-43cc-928f-f0978643e7b4" class="">Remarks
+  <a class="header-anchor" href="#6b5c3ff3-2335-43cc-928f-f0978643e7b4" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>If a program contains undefined behavior, the C++ standard places no constraints on its behavior.
+</p>
+  <ul id="98f572b1-9031-4cd0-afbb-d428cff33939" class="bulleted-list">
+    <li>It may appear to work as the developer intended, but it may also crash or produce strange results.
+    </li>
+    <li>The behavior may vary between runs of the same program.
+    </li>
+    <li>Any part of the program may malfunction, including lines that come before the line that contains undefined behavior.
+    </li>
+    <li>The implementation is not required to document the result of undefined behavior.
+    </li>
+  </ul>
+<p>An implementation <em>may</em> document the result of an operation that produces undefined behavior according to the standard, but a program that depends on such documented behavior is not portable.
+</p>
+<p><strong>Why undefined behavior exists</strong>
+</p>
+<p>Intuitively, undefined behavior is considered a bad thing as such errors can’t be handled graciously through, say, exception handlers.
+</p>
+<p>But leaving some behavior undefined is actually an integral part of C++‘s promise “you don’t pay for what you don’t use”. Undefined behavior allows a compiler to assume the developer knows what he’s doing and not introduce code to check for the mistakes highlighted in the above examples.
+</p>
+<p><strong>Finding and avoiding undefined behavior</strong>
+</p>
+<p>Some tools can be used to discover undefined behavior during development:
+</p>
+  <ul id="f64844ca-4727-4a98-8996-e55bd2ab62ab" class="bulleted-list">
+    <li>Most compilers have warning flags to warn about some cases of undefined behavior at compile time.
+    </li>
+    <li>Newer versions of gcc and clang include a so-called “Undefined Behavior Sanitizer” flag (<code>-fsanitize=undefined</code>) that will check for undefined behavior at runtime, at a performance cost.
+    </li>
+    <li><code>lint</code>-like tools may perform more thorough undefined behavior analysis.
+    </li>
+  </ul>
+<p><strong>Undefined, unspecified and </strong><a href="http://stackoverflow.com/documentation/c%2B%2B/1363/implementation-defined-behavior"><strong>implementation-defined</strong></a><strong> behavior</strong>
+</p>
+<p>From C++14 standard (ISO/IEC 14882:2014) section 1.9 (Program Execution):
+</p>
+<blockquote id="45abd04b-507b-4f6f-b3f5-46131be1defd" class="">
+</blockquote>
+  <ol id="fb93f933-2044-4f00-8b60-9780aabac82c" class="numbered-list" start="1">
+    <li>The semantic descriptions in this International Standard define a parameterized nondeterministic abstract machine. [CUT]
+    </li>
+    <li>Certain aspects and operations of the abstract machine are described in this International Standard as <strong>implementation-defined</strong> (for example, <code>sizeof(int)</code>). These constitute <em>the parameters of the abstract machine</em>. Each implementation shall include documentation describing its characteristics and behavior in these respects. [CUT]
+    </li>
+    <li>Certain other aspects and operations of the abstract machine are described in this International Standard as <strong>unspecified</strong> (for example, evaluation of expressions in a <em>new-initializer</em> if the allocation function fails to allocate memory). Where possible, this International Standard defines a set of allowable behaviors. These define the nondeterministic aspects of the abstract machine. An instance of the abstract machine can thus have more than one possible execution for a given program and a given input.
+    </li>
+    <li>Certain other operations are described in this International Standard as <strong>undefined</strong> (or example, the effect of attempting to modify a <code>const</code> object). [ <em>Note</em>: this International Standard imposes no requirements on the behavior of programs that contain undefined behavior. —<em>end note</em> ]
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

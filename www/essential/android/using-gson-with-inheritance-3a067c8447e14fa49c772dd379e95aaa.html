@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Gson does not support inheritance out of the box.</p><p>Let’s say we have the following class hierarchy:</p>
+      
+<p>Gson does not support inheritance out of the box.
+</p>
+<p>Let’s say we have the following class hierarchy:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class BaseClass {
@@ -159,7 +164,10 @@ public class DerivedClass2 extends BaseClass {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And now we want to serialize an instance of <code>DerivedClass1</code> to a JSON string</p>
+</div>
+<p>And now we want to serialize an instance of <code>DerivedClass1</code> to a JSON string
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">DerivedClass1 derivedClass1 = new DerivedClass1();
@@ -172,7 +180,10 @@ String derivedClass1Json = gson.toJson(derivedClass1);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, in another place, we receive this json string and want to deserialize it - but in compile time we only know it is supposed to be an instance of <code>BaseClass</code>:</p>
+</div>
+<p>Now, in another place, we receive this json string and want to deserialize it - but in compile time we only know it is supposed to be an instance of <code>BaseClass</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">BaseClass maybeDerivedClass1 = gson.fromJson(derivedClass1Json, BaseClass.class);
@@ -181,7 +192,16 @@ System.out.println(maybeDerivedClass1.getInt());</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But GSON does not know <code>derivedClass1Json</code> was originally an instance of <code>DerivedClass1</code>, so this will print out 10.</p><p><strong>How to solve this?</strong></p><p>You need to build your own <code>JsonDeserializer</code>, that handles such cases. The solution is not perfectly clean, but I could not come up with a better one.</p><p>First, add the following field to your base class</p>
+</div>
+<p>But GSON does not know <code>derivedClass1Json</code> was originally an instance of <code>DerivedClass1</code>, so this will print out 10.
+</p>
+<p><strong>How to solve this?</strong>
+</p>
+<p>You need to build your own <code>JsonDeserializer</code>, that handles such cases. The solution is not perfectly clean, but I could not come up with a better one.
+</p>
+<p>First, add the following field to your base class
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@SerializedName(&#34;type&#34;)
@@ -190,7 +210,10 @@ private String typeName;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And initialize it in the base class constructor</p>
+</div>
+<p>And initialize it in the base class constructor
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public BaseClass() {
@@ -200,7 +223,10 @@ private String typeName;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now add the following class:</p>
+</div>
+<p>Now add the following class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class JsonDeserializerWithInheritance&lt;T&gt; implements JsonDeserializer&lt;T&gt; {
@@ -227,7 +253,10 @@ private String typeName;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>All there is left to do is hook everything up -</p>
+</div>
+<p>All there is left to do is hook everything up -
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">GsonBuilder builder = new GsonBuilder();
@@ -238,7 +267,10 @@ private String typeName;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And now, running the following code-</p>
+</div>
+<p>And now, running the following code-
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">DerivedClass1 derivedClass1 = new DerivedClass1();
@@ -252,7 +284,9 @@ System.out.println(maybeDerivedClass1.getInt());</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Will print out 5.</p>
+</div>
+<p>Will print out 5.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

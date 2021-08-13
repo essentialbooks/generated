@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>This is a <em>protected</em> and <em>non-static</em> method of the <code>Object</code> class. This method is used to perform some final operations or clean up operations on an object before it gets removed from the memory.</p><blockquote id="3c11262a-239e-4677-a03a-1b061ff82e0e" class="">According to the doc, this method gets called by the garbage collector on an object when garbage collection determines that there are no more references to the object.</blockquote><p>But there are no guarantees that <code>finalize()</code> method would gets called if the object is still reachable or no Garbage Collectors run when the object become eligible. That’s why it’s better <strong>not rely</strong> on this method.</p><p>In Java core libraries some usage examples could be found, for instance in <code>FileInputStream.java</code>:</p>
+      
+<p>This is a <em>protected</em> and <em>non-static</em> method of the <code>Object</code> class. This method is used to perform some final operations or clean up operations on an object before it gets removed from the memory.
+</p>
+<blockquote id="3c11262a-239e-4677-a03a-1b061ff82e0e" class="">According to the doc, this method gets called by the garbage collector on an object when garbage collection determines that there are no more references to the object.
+</blockquote>
+<p>But there are no guarantees that <code>finalize()</code> method would gets called if the object is still reachable or no Garbage Collectors run when the object become eligible. That’s why it’s better <strong>not rely</strong> on this method.
+</p>
+<p>In Java core libraries some usage examples could be found, for instance in <code>FileInputStream.java</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">protected void finalize() throws IOException {
@@ -144,7 +153,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this case it’s the last chance to close the resource if that resource has not been closed before.</p><p>Generally it’s considered bad practice to use <code>finalize()</code> method in applications of any kind and should be avoided.</p><p>Finalizers are <em>not</em> meant for freeing resources (e.g., closing files). The garbage collector gets called when (if!) the system runs low on heap space. You can’t rely on it to be called when the system is running low on file handles or, for any other reason.</p><p>The intended use-case for finalizers is for an object that is about to be reclaimed to notify some other object about its impending doom. A better mechanism now exists for that purpose—the <code>java.lang.ref.WeakReference&lt;T&gt;</code> class. If you think you need write a <code>finalize()</code> method, then you should look into whether you can solve the same problem using <code>WeakReference</code> instead. If that won’t solve your problem, then you may need to re-think your design on a deeper level.</p><p>For further reading <a href="http://www.informit.com/articles/article.aspx?p=1216151&amp;seqNum=7">here</a> is an Item about <code>finalize()</code> method from “Effective Java” book by Joshua Bloch.</p>
+</div>
+<p>In this case it’s the last chance to close the resource if that resource has not been closed before.
+</p>
+<p>Generally it’s considered bad practice to use <code>finalize()</code> method in applications of any kind and should be avoided.
+</p>
+<p>Finalizers are <em>not</em> meant for freeing resources (e.g., closing files). The garbage collector gets called when (if!) the system runs low on heap space. You can’t rely on it to be called when the system is running low on file handles or, for any other reason.
+</p>
+<p>The intended use-case for finalizers is for an object that is about to be reclaimed to notify some other object about its impending doom. A better mechanism now exists for that purpose—the <code>java.lang.ref.WeakReference&lt;T&gt;</code> class. If you think you need write a <code>finalize()</code> method, then you should look into whether you can solve the same problem using <code>WeakReference</code> instead. If that won’t solve your problem, then you may need to re-think your design on a deeper level.
+</p>
+<p>For further reading <a href="http://www.informit.com/articles/article.aspx?p=1216151&amp;seqNum=7">here</a> is an Item about <code>finalize()</code> method from “Effective Java” book by Joshua Bloch.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,32 @@
 </div>
 
 
-      <p>If</p><ol id="13ca11f9-dc8b-4cc3-9bc4-961a61b27cbe" class="numbered-list" start="1"><li>you try to submit tasks to a shutdown Executor or</li><li>the queue is saturated (only possible with bounded ones) and maximum number of Threads has been reached,</li></ol><p><code>RejectedExecutionHandler.rejectedExecution(Runnable, ThreadPoolExecutor)</code> will be called.</p><p>The default behavior is that you’ll get a RejectedExecutionException thrown at the caller. But there are more predefined behaviors available:</p><ul id="fdf96eb6-4be7-491a-b8cd-f9622d43cb7b" class="bulleted-list"><li><strong>ThreadPoolExecutor.AbortPolicy</strong> (default, will throw REE)</li><li><strong>ThreadPoolExecutor.CallerRunsPolicy</strong> (executes task on caller’s thread - <em>blocking it</em>)</li><li><strong>ThreadPoolExecutor.DiscardPolicy</strong> (silently discard task)</li><li><strong>ThreadPoolExecutor.DiscardOldestPolicy</strong> (silently discard <strong>oldest</strong> task in queue and retry execution of the new task)</li></ul><p>You can set them using one of the ThreadPool <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ThreadPoolExecutor.html#ThreadPoolExecutor-int-int-long-java.util.concurrent.TimeUnit-java.util.concurrent.BlockingQueue-java.util.concurrent.RejectedExecutionHandler-">constructors</a>:</p>
+      
+<p>If
+</p>
+  <ol id="13ca11f9-dc8b-4cc3-9bc4-961a61b27cbe" class="numbered-list" start="1">
+    <li>you try to submit tasks to a shutdown Executor or
+    </li>
+    <li>the queue is saturated (only possible with bounded ones) and maximum number of Threads has been reached,
+    </li>
+  </ol>
+<p><code>RejectedExecutionHandler.rejectedExecution(Runnable, ThreadPoolExecutor)</code> will be called.
+</p>
+<p>The default behavior is that you’ll get a RejectedExecutionException thrown at the caller. But there are more predefined behaviors available:
+</p>
+  <ul id="fdf96eb6-4be7-491a-b8cd-f9622d43cb7b" class="bulleted-list">
+    <li><strong>ThreadPoolExecutor.AbortPolicy</strong> (default, will throw REE)
+    </li>
+    <li><strong>ThreadPoolExecutor.CallerRunsPolicy</strong> (executes task on caller’s thread - <em>blocking it</em>)
+    </li>
+    <li><strong>ThreadPoolExecutor.DiscardPolicy</strong> (silently discard task)
+    </li>
+    <li><strong>ThreadPoolExecutor.DiscardOldestPolicy</strong> (silently discard <strong>oldest</strong> task in queue and retry execution of the new task)
+    </li>
+  </ul>
+<p>You can set them using one of the ThreadPool <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ThreadPoolExecutor.html#ThreadPoolExecutor-int-int-long-java.util.concurrent.TimeUnit-java.util.concurrent.BlockingQueue-java.util.concurrent.RejectedExecutionHandler-">constructors</a>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public ThreadPoolExecutor(int corePoolSize,
@@ -148,7 +173,10 @@ public ThreadPoolExecutor(int corePoolSize,
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can as well implement your own behavior by extending <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/RejectedExecutionHandler.html#rejectedExecution-java.lang.Runnable-java.util.concurrent.ThreadPoolExecutor-">RejectedExecutionHandler</a> interface:</p>
+</div>
+<p>You can as well implement your own behavior by extending <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/RejectedExecutionHandler.html#rejectedExecution-java.lang.Runnable-java.util.concurrent.ThreadPoolExecutor-">RejectedExecutionHandler</a> interface:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void rejectedExecution(Runnable r, ThreadPoolExecutor executor)</pre>

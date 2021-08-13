@@ -127,7 +127,84 @@
 </div>
 
 
-      <p>Once you have node.js installed on your system, just follow the procedure below to get a basic web server running with support for both HTTP and HTTPS!</p><h2 id="cf140005-d87a-4b56-b2d6-9ecf34e84e43" class="">Step 1 : Build a Certificate Authority<a class="header-anchor" href="#cf140005-d87a-4b56-b2d6-9ecf34e84e43" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><ol id="63f4fb12-b509-4106-a742-7cf43aa2f326" class="numbered-list" start="1"><li>create the folder where you want to store your key &amp; certificate :</li></ol><p><code>mkdir conf</code></p><hr id="4b3bd64a-c7d7-4362-86a9-19c6204b8341"/><ol id="b1f42bba-041e-4538-aefb-332976d9ea06" class="numbered-list" start="1"><li>go to that directory :</li></ol><p><code>cd conf</code></p><hr id="dd58d0a3-713a-4e1e-9a04-3302fac3a906"/><ol id="d545ab57-107d-4b88-ad0c-5d61076f3b2f" class="numbered-list" start="1"><li>grab this <code>ca.cnf</code> file to use as a configuration shortcut :</li></ol><p><code>wget https://raw.githubusercontent.com/anders94/https-authorized-clients/master/keys/ca.cnf</code></p><hr id="bd3d6c20-f325-4d9e-9b0f-c72c266d7321"/><ol id="008a6e23-386a-499c-b3cf-03ca29a23920" class="numbered-list" start="1"><li>create a new certificate authority using this configuration :</li></ol><p><code>openssl req -new -x509 -days 9999 -config ca.cnf -keyout ca-key.pem -out ca-cert.pem</code></p><hr id="90e137e7-6da7-4584-8baf-e309f23bc50e"/><ol id="33c51103-67b7-495a-8e15-6b123100189b" class="numbered-list" start="1"><li>now that we have our certificate authority in <code>ca-key.pem</code> and <code>ca-cert.pem</code>, let’s generate a private key for the server :</li></ol><p><code>openssl genrsa -out key.pem 4096</code></p><hr id="09e30082-26d7-4651-94cc-cfe42428682c"/><ol id="eee1a53f-e332-4d5b-aeca-b01400282605" class="numbered-list" start="1"><li>grab this <code>server.cnf</code> file to use as a configuration shortcut :</li></ol><p><code>wget https://raw.githubusercontent.com/anders94/https-authorized-clients/master/keys/server.cnf</code></p><hr id="ae282b6f-83aa-4e77-b348-716606a5822c"/><ol id="af630f88-8ce1-402c-bb3d-07c4eb19df4a" class="numbered-list" start="1"><li>generate the certificate signing request using this configuration :</li></ol><p><code>openssl req -new -config server.cnf -key key.pem -out csr.pem</code></p><hr id="110f93b8-0762-4e75-ae22-ff53642db825"/><ol id="0eede17e-7cb5-42f2-9b0f-89050198554b" class="numbered-list" start="1"><li>sign the request :</li></ol><p><code>openssl x509 -req -extfile server.cnf -days 999 -passin &quot;pass:password&quot; -in csr.pem -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -out cert.pem</code></p><hr id="e4f71c56-a38b-4946-a978-af4330602583"/><h2 id="e9ac1bad-3a26-4105-8ca7-e58cc007f51d" class="">Step 2 : Install your certificate as a root certificate<a class="header-anchor" href="#e9ac1bad-3a26-4105-8ca7-e58cc007f51d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><ol id="d4577982-90d8-44de-bcec-d1a50fc56862" class="numbered-list" start="1"><li>copy your certificate to your root certificates’ folder :</li></ol><p><code>sudo cp ca-crt.pem /usr/local/share/ca-certificates/ca-crt.pem</code></p><hr id="6fc021ac-f01b-4c58-a91e-402e59f1fcf5"/><ol id="45c64280-0416-4ab5-b9f3-3cdd8750b16c" class="numbered-list" start="1"><li>update CA store :</li></ol><p><code>sudo update-ca-certificates</code></p>
+      
+<p>Once you have node.js installed on your system, just follow the procedure below to get a basic web server running with support for both HTTP and HTTPS!
+</p>
+  <h2 id="cf140005-d87a-4b56-b2d6-9ecf34e84e43" class="">Step 1 : Build a Certificate Authority
+  <a class="header-anchor" href="#cf140005-d87a-4b56-b2d6-9ecf34e84e43" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+  <ol id="63f4fb12-b509-4106-a742-7cf43aa2f326" class="numbered-list" start="1">
+    <li>create the folder where you want to store your key &amp; certificate :
+    </li>
+  </ol>
+<p><code>mkdir conf</code>
+</p>
+<hr id="4b3bd64a-c7d7-4362-86a9-19c6204b8341"/>
+  <ol id="b1f42bba-041e-4538-aefb-332976d9ea06" class="numbered-list" start="1">
+    <li>go to that directory :
+    </li>
+  </ol>
+<p><code>cd conf</code>
+</p>
+<hr id="dd58d0a3-713a-4e1e-9a04-3302fac3a906"/>
+  <ol id="d545ab57-107d-4b88-ad0c-5d61076f3b2f" class="numbered-list" start="1">
+    <li>grab this <code>ca.cnf</code> file to use as a configuration shortcut :
+    </li>
+  </ol>
+<p><code>wget https://raw.githubusercontent.com/anders94/https-authorized-clients/master/keys/ca.cnf</code>
+</p>
+<hr id="bd3d6c20-f325-4d9e-9b0f-c72c266d7321"/>
+  <ol id="008a6e23-386a-499c-b3cf-03ca29a23920" class="numbered-list" start="1">
+    <li>create a new certificate authority using this configuration :
+    </li>
+  </ol>
+<p><code>openssl req -new -x509 -days 9999 -config ca.cnf -keyout ca-key.pem -out ca-cert.pem</code>
+</p>
+<hr id="90e137e7-6da7-4584-8baf-e309f23bc50e"/>
+  <ol id="33c51103-67b7-495a-8e15-6b123100189b" class="numbered-list" start="1">
+    <li>now that we have our certificate authority in <code>ca-key.pem</code> and <code>ca-cert.pem</code>, let’s generate a private key for the server :
+    </li>
+  </ol>
+<p><code>openssl genrsa -out key.pem 4096</code>
+</p>
+<hr id="09e30082-26d7-4651-94cc-cfe42428682c"/>
+  <ol id="eee1a53f-e332-4d5b-aeca-b01400282605" class="numbered-list" start="1">
+    <li>grab this <code>server.cnf</code> file to use as a configuration shortcut :
+    </li>
+  </ol>
+<p><code>wget https://raw.githubusercontent.com/anders94/https-authorized-clients/master/keys/server.cnf</code>
+</p>
+<hr id="ae282b6f-83aa-4e77-b348-716606a5822c"/>
+  <ol id="af630f88-8ce1-402c-bb3d-07c4eb19df4a" class="numbered-list" start="1">
+    <li>generate the certificate signing request using this configuration :
+    </li>
+  </ol>
+<p><code>openssl req -new -config server.cnf -key key.pem -out csr.pem</code>
+</p>
+<hr id="110f93b8-0762-4e75-ae22-ff53642db825"/>
+  <ol id="0eede17e-7cb5-42f2-9b0f-89050198554b" class="numbered-list" start="1">
+    <li>sign the request :
+    </li>
+  </ol>
+<p><code>openssl x509 -req -extfile server.cnf -days 999 -passin &quot;pass:password&quot; -in csr.pem -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -out cert.pem</code>
+</p>
+<hr id="e4f71c56-a38b-4946-a978-af4330602583"/>
+  <h2 id="e9ac1bad-3a26-4105-8ca7-e58cc007f51d" class="">Step 2 : Install your certificate as a root certificate
+  <a class="header-anchor" href="#e9ac1bad-3a26-4105-8ca7-e58cc007f51d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+  <ol id="d4577982-90d8-44de-bcec-d1a50fc56862" class="numbered-list" start="1">
+    <li>copy your certificate to your root certificates’ folder :
+    </li>
+  </ol>
+<p><code>sudo cp ca-crt.pem /usr/local/share/ca-certificates/ca-crt.pem</code>
+</p>
+<hr id="6fc021ac-f01b-4c58-a91e-402e59f1fcf5"/>
+  <ol id="45c64280-0416-4ab5-b9f3-3cdd8750b16c" class="numbered-list" start="1">
+    <li>update CA store :
+    </li>
+  </ol>
+<p><code>sudo update-ca-certificates</code>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

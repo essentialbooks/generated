@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>This example uses C++14 and <code>boost::any</code>. In C++17 you can swap in <code>std::any</code> instead.</p><p>The syntax we end up with is:</p>
+      
+<p>This example uses C++14 and <code>boost::any</code>. In C++17 you can swap in <code>std::any</code> instead.
+</p>
+<p>The syntax we end up with is:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">const auto print =
@@ -140,7 +145,15 @@ super_any&lt;decltype(print)&gt; a = 7;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>which is almost optimal.</p><p>This example is based off of work by [@dyp](http://coliru.stacked-crooked.com/a/2ab8d7e41d24e616) and [@cpplearner](http://stackoverflow.com/a/38865269/1774667) as well as my own.</p><hr id="f87e7dcc-1b70-411b-8a71-d27798a10bcc"/><p>First we use a tag to pass around types:</p>
+</div>
+<p>which is almost optimal.
+</p>
+<p>This example is based off of work by [@dyp](http://coliru.stacked-crooked.com/a/2ab8d7e41d24e616) and [@cpplearner](http://stackoverflow.com/a/38865269/1774667) as well as my own.
+</p>
+<hr id="f87e7dcc-1b70-411b-8a71-d27798a10bcc"/>
+<p>First we use a tag to pass around types:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;class T&gt;struct tag_t{constexpr tag_t(){};};
@@ -149,7 +162,12 @@ template&lt;class T&gt;constexpr tag_t&lt;T&gt; tag{};</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This trait class gets the signature stored with an <code>any_method</code>:</p><p>This creates a function pointer type, and a factory for said function pointers, given an <code>any_method</code>:</p>
+</div>
+<p>This trait class gets the signature stored with an <code>any_method</code>:
+</p>
+<p>This creates a function pointer type, and a factory for said function pointers, given an <code>any_method</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;class any_method&gt;
@@ -178,7 +196,12 @@ struct any_method_function&lt;any_method, R(Args...)&gt;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>any_method_function::type</code> is the type of a function pointer we will store alongside the instance. <code>any_method_function::operator()</code> takes a <code>tag_t&lt;T&gt;</code> and writes a custom instance of the <code>any_method_function::type</code> that assumes the <code>any&amp;</code> is going to be a <code>T</code>.</p><p>We want to be able to type-erase more than one method at a time. So we bundle them up in a tuple, and write a helper wrapper to stick the tuple into static storage on a per-type basis and maintain a pointer to them.</p>
+</div>
+<p><code>any_method_function::type</code> is the type of a function pointer we will store alongside the instance. <code>any_method_function::operator()</code> takes a <code>tag_t&lt;T&gt;</code> and writes a custom instance of the <code>any_method_function::type</code> that assumes the <code>any&amp;</code> is going to be a <code>T</code>.
+</p>
+<p>We want to be able to type-erase more than one method at a time. So we bundle them up in a tuple, and write a helper wrapper to stick the tuple into static storage on a per-type basis and maintain a pointer to them.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;class...any_methods&gt;
@@ -217,7 +240,12 @@ public:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We could specialize this for a cases where the vtable is small (for example, 1 item), and use direct pointers stored in-class in those cases for efficiency.</p><p>Now we start the <code>super_any</code>. I use <code>super_any_t</code> to make the declaration of <code>super_any</code> a bit easier.</p>
+</div>
+<p>We could specialize this for a cases where the vtable is small (for example, 1 item), and use direct pointers stored in-class in those cases for efficiency.
+</p>
+<p>Now we start the <code>super_any</code>. I use <code>super_any_t</code> to make the declaration of <code>super_any</code> a bit easier.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;class...methods&gt;
@@ -226,7 +254,10 @@ struct super_any_t;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This searches the methods that the super any supports for SFINAE and better error messages:</p>
+</div>
+<p>This searches the methods that the super any supports for SFINAE and better error messages:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;class super_any, class method&gt;
@@ -256,7 +287,10 @@ struct super_method_applies:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Next we create the <code>any_method</code> type. An <code>any_method</code> is a pseudo-method-pointer. We create it globally and <code>const</code>ly using syntax like:</p>
+</div>
+<p>Next we create the <code>any_method</code> type. An <code>any_method</code> is a pseudo-method-pointer. We create it globally and <code>const</code>ly using syntax like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">const auto print=make_any_method( [](auto&amp;&amp;self, auto&amp;&amp;os){ os &lt;&lt; self; } );</pre>
@@ -264,7 +298,10 @@ struct super_method_applies:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>or in C++17:</p>
+</div>
+<p>or in C++17:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">const any_method print=[](auto&amp;&amp;self, auto&amp;&amp;os){ os &lt;&lt; self; };</pre>
@@ -272,7 +309,10 @@ struct super_method_applies:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that using a non-lambda can make things hairy, as we use the type for a lookup step. This can be fixed, but would make this example longer than it already is. So always initialize an any method from a lambda, or from a type parametarized on a lambda.</p>
+</div>
+<p>Note that using a non-lambda can make things hairy, as we use the type for a lookup step. This can be fixed, but would make this example longer than it already is. So always initialize an any method from a lambda, or from a type parametarized on a lambda.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;class Sig, bool const_method, class F&gt;
@@ -309,7 +349,10 @@ public:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A factory method, not needed in C++17 I believe:</p>
+</div>
+<p>A factory method, not needed in C++17 I believe:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;class Sig, bool is_const=false, class F&gt;
@@ -321,7 +364,10 @@ make_any_method( F&amp;&amp; f ) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is the augmented <code>any</code>. It is both an <code>any</code>, and it carries around a bundle of type-erasure function pointers that change whenever the contained <code>any</code> does:</p>
+</div>
+<p>This is the augmented <code>any</code>. It is both an <code>any</code>, and it carries around a bundle of type-erasure function pointers that change whenever the contained <code>any</code> does:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;class... methods&gt;
@@ -374,7 +420,10 @@ public:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Because we store the <code>any_method</code>s as <code>const</code> objects, this makes making a <code>super_any</code> a bit easier:</p>
+</div>
+<p>Because we store the <code>any_method</code>s as <code>const</code> objects, this makes making a <code>super_any</code> a bit easier:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;class...Ts&gt;
@@ -383,7 +432,10 @@ using super_any = super_any_t&lt; std::remove_cv_t&lt;Ts&gt;... &gt;;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Test code:</p>
+</div>
+<p>Test code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">const auto print = make_any_method&lt;void(std::ostream&amp;)&gt;([](auto&amp;&amp; p, std::ostream&amp; t){ t &lt;&lt; p &lt;&lt; &#34;\n&#34;; });
@@ -401,7 +453,11 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="http://coliru.stacked-crooked.com/a/fbd10edb3336cce1">live example</a>.</p><p>Originally posted <a href="http://stackoverflow.com/a/38837687/1774667">here</a> in a SO self question &amp; answer (and people noted above helped with the implementation).</p>
+</div>
+<p><a href="http://coliru.stacked-crooked.com/a/fbd10edb3336cce1">live example</a>.
+</p>
+<p>Originally posted <a href="http://stackoverflow.com/a/38837687/1774667">here</a> in a SO self question &amp; answer (and people noted above helped with the implementation).
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,29 @@
 </div>
 
 
-      <p>You can create new, empty context using <a href="https://golang.org/pkg/context/#TODO"><code>context.TODO()</code></a> and <a href="https://golang.org/pkg/context/#Background"><code>context.Background()</code></a>.</p><p>What’s the difference?</p><p>In terms of functionality: none. They are exactly the same value, bit-by-bit.</p><p>The difference is in intent.</p><p>Official documentation describes <code>context.TODO()</code> as:</p><blockquote id="801801da-dc43-4020-9259-3c141ab4c3b0" class=""><code>TODO</code> returns a non-nil, empty <code>Context</code>. Code should use <code>context.TODO</code> when it’s unclear which <code>Context</code> to use or it is not yet available (because the surrounding function has not yet been extended to accept a <code>Context</code> parameter). <code>TODO</code> is recognized by static analysis tools that determine whether <code>Contexts</code> are propagated correctly in a program.</blockquote><p>And <code>context.Background()</code> as:</p><blockquote id="3b43bd8b-1c8a-4be8-9400-c4d4f1f1297e" class=""><code>Background</code> returns a non-nil, empty <code>Context</code>. It is never canceled, has no values, and has no deadline. It is typically used by the main function, initialization, and tests, and as the top-level <code>Context</code> for incoming requests.</blockquote><p>Frankly, I’m not sure what they are trying to say.</p><p>I guess <code>context.TODO()</code> is meant to be used if you expect that at some point in the future you’ll no longer need to create context there, either because it’ll be passed from the outside or that there will be a more specific way to create it.</p><p>If you can’t decide, don’t sweat it. In practice they behave the same way so pick whichever.</p>
+      
+<p>You can create new, empty context using <a href="https://golang.org/pkg/context/#TODO"><code>context.TODO()</code></a> and <a href="https://golang.org/pkg/context/#Background"><code>context.Background()</code></a>.
+</p>
+<p>What’s the difference?
+</p>
+<p>In terms of functionality: none. They are exactly the same value, bit-by-bit.
+</p>
+<p>The difference is in intent.
+</p>
+<p>Official documentation describes <code>context.TODO()</code> as:
+</p>
+<blockquote id="801801da-dc43-4020-9259-3c141ab4c3b0" class=""><code>TODO</code> returns a non-nil, empty <code>Context</code>. Code should use <code>context.TODO</code> when it’s unclear which <code>Context</code> to use or it is not yet available (because the surrounding function has not yet been extended to accept a <code>Context</code> parameter). <code>TODO</code> is recognized by static analysis tools that determine whether <code>Contexts</code> are propagated correctly in a program.
+</blockquote>
+<p>And <code>context.Background()</code> as:
+</p>
+<blockquote id="3b43bd8b-1c8a-4be8-9400-c4d4f1f1297e" class=""><code>Background</code> returns a non-nil, empty <code>Context</code>. It is never canceled, has no values, and has no deadline. It is typically used by the main function, initialization, and tests, and as the top-level <code>Context</code> for incoming requests.
+</blockquote>
+<p>Frankly, I’m not sure what they are trying to say.
+</p>
+<p>I guess <code>context.TODO()</code> is meant to be used if you expect that at some point in the future you’ll no longer need to create context there, either because it’ll be passed from the outside or that there will be a more specific way to create it.
+</p>
+<p>If you can’t decide, don’t sweat it. In practice they behave the same way so pick whichever.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

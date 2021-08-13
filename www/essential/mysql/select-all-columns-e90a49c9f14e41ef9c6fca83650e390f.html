@@ -127,7 +127,10 @@
 </div>
 
 
-      <p><strong>Query</strong></p>
+      
+<p><strong>Query</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT * FROM stack;</pre>
@@ -135,7 +138,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Result</strong></p>
+</div>
+<p><strong>Result</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+------+----------+----------+
@@ -149,7 +155,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can select all columns from one table in a join by doing:</p>
+</div>
+<p>You can select all columns from one table in a join by doing:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT stack.* FROM stack JOIN Overflow ON stack.id = Overflow.id;</pre>
@@ -157,7 +166,39 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Best Practice</strong> Do not use <code>\*</code> unless you are debugging or fetching the row(s) into associative arrays, otherwise schema changes (ADD/DROP/rearrange columns) can lead to nasty application errors. Also, if you give the list of columns you need in your result set, MySQL’s query planner often can optimize the query.</p><p><strong>Pros:</strong></p><ol id="8c02c739-a838-4b77-8076-d3029e70821f" class="numbered-list" start="1"><li>When you add/remove columns, you don’t have to make changes where you did use <code>SELECT *</code></li><li>It’s shorter to write</li><li>You also see the answers, so can <code>SELECT *</code>-usage ever be justified?</li></ol><p><strong>Cons:</strong></p><ol id="adff3b00-291f-45f3-9027-ad7c524da4c7" class="numbered-list" start="1"><li>You are returning more data than you need. Say you add a VARBINARY column that contains 200k per row. You only need this data in one place for a single record - using <code>SELECT *</code> you can end up returning 2MB per 10 rows that you don’t need</li><li>Explicit about what data is used</li><li>Specifying columns means you get an error when a column is removed</li><li>The query processor has to do some more work - figuring out what columns exist on the table (thanks @vinodadhikary)</li><li>You can find where a column is used more easily</li><li>You get all columns in joins if you use SELECT *</li><li>You can’t safely use ordinal referencing (though using ordinal references for columns is bad practice in itself)</li><li>In complex queries with <code>TEXT</code> fields, the query may be slowed down by less-optimal temp table processing</li></ol>
+</div>
+<p><strong>Best Practice</strong> Do not use <code>\*</code> unless you are debugging or fetching the row(s) into associative arrays, otherwise schema changes (ADD/DROP/rearrange columns) can lead to nasty application errors. Also, if you give the list of columns you need in your result set, MySQL’s query planner often can optimize the query.
+</p>
+<p><strong>Pros:</strong>
+</p>
+  <ol id="8c02c739-a838-4b77-8076-d3029e70821f" class="numbered-list" start="1">
+    <li>When you add/remove columns, you don’t have to make changes where you did use <code>SELECT *</code>
+    </li>
+    <li>It’s shorter to write
+    </li>
+    <li>You also see the answers, so can <code>SELECT *</code>-usage ever be justified?
+    </li>
+  </ol>
+<p><strong>Cons:</strong>
+</p>
+  <ol id="adff3b00-291f-45f3-9027-ad7c524da4c7" class="numbered-list" start="1">
+    <li>You are returning more data than you need. Say you add a VARBINARY column that contains 200k per row. You only need this data in one place for a single record - using <code>SELECT *</code> you can end up returning 2MB per 10 rows that you don’t need
+    </li>
+    <li>Explicit about what data is used
+    </li>
+    <li>Specifying columns means you get an error when a column is removed
+    </li>
+    <li>The query processor has to do some more work - figuring out what columns exist on the table (thanks @vinodadhikary)
+    </li>
+    <li>You can find where a column is used more easily
+    </li>
+    <li>You get all columns in joins if you use SELECT *
+    </li>
+    <li>You can’t safely use ordinal referencing (though using ordinal references for columns is bad practice in itself)
+    </li>
+    <li>In complex queries with <code>TEXT</code> fields, the query may be slowed down by less-optimal temp table processing
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,26 @@
 </div>
 
 
-      <p>As Dispose() and finalizers are aimed to different purposes, a class managing external memory-heavy resources should implement both of them. The consequence is writing the class so that it handles well two possible scenarios:</p><ul id="246541cf-969b-4ca3-8358-60cf7264a96d" class="bulleted-list"><li>When only the finalizer is invoked</li><li>When Dispose() is invoked first and later the finalizer is invoked as well</li></ul><p>One solution is writing the cleanup code in such a way that running it once or twice would produce the same result as running it only once. Feasibility depends on the nature of the cleanup, for instance:</p><ul id="6ac50466-dfdc-4dc1-ac6a-5812424617eb" class="bulleted-list"><li>Closing an already closed database connection would probably have no effect so it works</li><li>Updating some “usage count” is dangerous and would produce a wrong result when called twice instead of once.</li></ul><p>A safer solution is ensuring by design that the cleanup code is called once and only once whatever the external context. This can be achieved the “classic way” using a dedicated flag:</p>
+      
+<p>As Dispose() and finalizers are aimed to different purposes, a class managing external memory-heavy resources should implement both of them. The consequence is writing the class so that it handles well two possible scenarios:
+</p>
+  <ul id="246541cf-969b-4ca3-8358-60cf7264a96d" class="bulleted-list">
+    <li>When only the finalizer is invoked
+    </li>
+    <li>When Dispose() is invoked first and later the finalizer is invoked as well
+    </li>
+  </ul>
+<p>One solution is writing the cleanup code in such a way that running it once or twice would produce the same result as running it only once. Feasibility depends on the nature of the cleanup, for instance:
+</p>
+  <ul id="6ac50466-dfdc-4dc1-ac6a-5812424617eb" class="bulleted-list">
+    <li>Closing an already closed database connection would probably have no effect so it works
+    </li>
+    <li>Updating some “usage count” is dangerous and would produce a wrong result when called twice instead of once.
+    </li>
+  </ul>
+<p>A safer solution is ensuring by design that the cleanup code is called once and only once whatever the external context. This can be achieved the “classic way” using a dedicated flag:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class DisposableFinalizable1: IDisposable
@@ -151,7 +170,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Alternately, the Garbage Collector provides a specific method SuppressFinalize() that allows skipping the finalizer after Dispose has been invoked:</p>
+</div>
+<p>Alternately, the Garbage Collector provides a specific method SuppressFinalize() that allows skipping the finalizer after Dispose has been invoked:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class DisposableFinalizable2 : IDisposable

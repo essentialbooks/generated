@@ -127,7 +127,14 @@
 </div>
 
 
-      <blockquote id="5c07957a-7818-44a9-ae43-8c0c8dd35685" class="">The observer pattern is where an object, called the subject, maintains a list of its dependents, called observers, and notifies them automatically of any state changes, usually by calling one of their methods. It is mainly used to implement distributed event handling systems. The Observer pattern is also a key part in the familiar model–view–controller (MVC) architectural pattern.Wikipedia reference</blockquote><p>Basically the observer pattern is used when you have an object which can notify observers of certain behaviors or state changes.</p><p>First lets create a global reference (outside of a class) for the Notification Centre :</p>
+      
+<blockquote id="5c07957a-7818-44a9-ae43-8c0c8dd35685" class="">The observer pattern is where an object, called the subject, maintains a list of its dependents, called observers, and notifies them automatically of any state changes, usually by calling one of their methods. It is mainly used to implement distributed event handling systems. The Observer pattern is also a key part in the familiar model–view–controller (MVC) architectural pattern.Wikipedia reference
+</blockquote>
+<p>Basically the observer pattern is used when you have an object which can notify observers of certain behaviors or state changes.
+</p>
+<p>First lets create a global reference (outside of a class) for the Notification Centre :
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let notifCentre = NotificationCenter.default</pre>
@@ -135,7 +142,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Great now we can call this from anywhere. We would then want to register a class as an observer…</p>
+</div>
+<p>Great now we can call this from anywhere. We would then want to register a class as an observer…
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">notifCentre.addObserver(self, selector: #selector(self.myFunc), name: &#34;myNotification&#34;, object: nil)</pre>
@@ -143,7 +153,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This adds the class as an observer for “readForMyFunc”. It also indicates that the function myFunc should be called when that notification is received. This function should be written in the same class:</p>
+</div>
+<p>This adds the class as an observer for “readForMyFunc”. It also indicates that the function myFunc should be called when that notification is received. This function should be written in the same class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">func myFunc(){
@@ -153,7 +166,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="1bb32f9f-72de-4b35-9d6c-68bbea0f4efe" class="">One of the advantages to this pattern is that you can add many classes as observers and thus perform many actions after one notification.</blockquote><p>The notification can now simply be sent(or posted if you prefer) from almost anywhere in the code with the line:</p>
+</div>
+<blockquote id="1bb32f9f-72de-4b35-9d6c-68bbea0f4efe" class="">One of the advantages to this pattern is that you can add many classes as observers and thus perform many actions after one notification.
+</blockquote>
+<p>The notification can now simply be sent(or posted if you prefer) from almost anywhere in the code with the line:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">notifCentre.post(name: &#34;myNotification&#34;, object: nil)</pre>
@@ -161,7 +179,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="831d5bdc-a4bc-4895-94da-4ac027dc08e5" class="">You can also pass information with the notification as a Dictionary</blockquote>
+</div>
+<blockquote id="831d5bdc-a4bc-4895-94da-4ac027dc08e5" class="">You can also pass information with the notification as a Dictionary
+</blockquote>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let myInfo = &#34;pass this on&#34;
@@ -170,7 +191,10 @@ notifCentre.post(name: &#34;myNotification&#34;, object: [&#34;moreInfo&#34;:myI
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But then you need to add a notification to your function:</p>
+</div>
+<p>But then you need to add a notification to your function:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">func myFunc(_ notification: Notification){

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Many C interfaces such as <a href="https://www.libsdl.org/">SDL2</a> have their own deletion functions. This means that you cannot use smart pointers directly:</p>
+      
+<p>Many C interfaces such as <a href="https://www.libsdl.org/">SDL2</a> have their own deletion functions. This means that you cannot use smart pointers directly:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">SDL_Surface</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">;</span> <span class="c1">// won&#39;t work, UNSAFE!
@@ -136,7 +139,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Instead, you need to define your own deleter. The examples here use the <a href="https://wiki.libsdl.org/SDL_Surface"><code>SDL_Surface</code></a> structure which should be freed using the <a href="https://wiki.libsdl.org/SDL_FreeSurface"><code>SDL_FreeSurface()</code></a> function, but they should be adaptable to many other C interfaces.</p><p>The deleter must be callable with a pointer argument, and therefore can be e.g. a simple function pointer:</p>
+</div>
+<p>Instead, you need to define your own deleter. The examples here use the <a href="https://wiki.libsdl.org/SDL_Surface"><code>SDL_Surface</code></a> structure which should be freed using the <a href="https://wiki.libsdl.org/SDL_FreeSurface"><code>SDL_FreeSurface()</code></a> function, but they should be adaptable to many other C interfaces.
+</p>
+<p>The deleter must be callable with a pointer argument, and therefore can be e.g. a simple function pointer:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">SDL_Surface</span><span class="p">,</span> <span class="kt">void</span><span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="n">SDL_Surface</span><span class="o">*</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">(</span><span class="n">pointer</span><span class="p">,</span> <span class="n">SDL_FreeSurface</span><span class="p">);</span>
@@ -145,7 +153,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Any other callable object will work, too, for example a class with an <code>operator()</code>:</p>
+</div>
+<p>Any other callable object will work, too, for example a class with an <code>operator()</code>:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">struct</span> <span class="nc">SurfaceDeleter</span> <span class="p">{</span>
@@ -162,7 +173,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This not only provides you with safe, zero overhead (if you use <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr"><code>unique_ptr</code></a>) automatic memory management, you also get exception safety.</p><p>Note that the deleter is part of the type for <code>unique_ptr</code>, and the implementation can use the <a href="http://stackoverflow.com/documentation/c%2B%2B/3944/empty-base-optimization#t=201607261453124463486">empty base optimization</a> to avoid any change in size for empty custom deleters. So while <code>std::unique_ptr&lt;SDL_Surface, SurfaceDeleter&gt;</code> and <code>std::unique_ptr&lt;SDL_Surface, void(*)(SDL_Surface*)&gt;</code> solve the same problem in a similar way, the former type is still only the size of a pointer while the latter type has to hold <em>two</em> pointers: both the <code>SDL_Surface*</code> and the function pointer! When having free function custom deleters, it is preferable to wrap the function in an empty type.</p><p>In cases where reference counting is important, one could use a <a href="http://en.cppreference.com/w/cpp/memory/shared_ptr"><code>shared_ptr</code></a> instead of an <code>unique_ptr</code>. The <code>shared_ptr</code> always stores a deleter, this erases the type of the deleter, which might be useful in APIs. The disadvantages of using <code>shared_ptr</code> over <code>unique_ptr</code> include a higher memory cost for storing the deleter and a performance cost for maintaining the reference count.</p>
+</div>
+<p>This not only provides you with safe, zero overhead (if you use <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr"><code>unique_ptr</code></a>) automatic memory management, you also get exception safety.
+</p>
+<p>Note that the deleter is part of the type for <code>unique_ptr</code>, and the implementation can use the <a href="http://stackoverflow.com/documentation/c%2B%2B/3944/empty-base-optimization#t=201607261453124463486">empty base optimization</a> to avoid any change in size for empty custom deleters. So while <code>std::unique_ptr&lt;SDL_Surface, SurfaceDeleter&gt;</code> and <code>std::unique_ptr&lt;SDL_Surface, void(*)(SDL_Surface*)&gt;</code> solve the same problem in a similar way, the former type is still only the size of a pointer while the latter type has to hold <em>two</em> pointers: both the <code>SDL_Surface*</code> and the function pointer! When having free function custom deleters, it is preferable to wrap the function in an empty type.
+</p>
+<p>In cases where reference counting is important, one could use a <a href="http://en.cppreference.com/w/cpp/memory/shared_ptr"><code>shared_ptr</code></a> instead of an <code>unique_ptr</code>. The <code>shared_ptr</code> always stores a deleter, this erases the type of the deleter, which might be useful in APIs. The disadvantages of using <code>shared_ptr</code> over <code>unique_ptr</code> include a higher memory cost for storing the deleter and a performance cost for maintaining the reference count.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="c1">// deleter required at construction time and is part of the type
@@ -175,7 +193,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With <code>template auto</code>, we can make it even easier to wrap our custom deleters:</p>
+</div>
+<p>With <code>template auto</code>, we can make it even easier to wrap our custom deleters:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span> <span class="n">DeleteFn</span><span class="o">&gt;</span>
@@ -193,7 +214,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With which the above example is simply:</p>
+</div>
+<p>With which the above example is simply:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">unique_ptr_deleter</span><span class="o">&lt;</span><span class="n">SDL_Surface</span><span class="p">,</span> <span class="n">SDL_FreeSurface</span><span class="o">&gt;</span> <span class="n">c</span><span class="p">(</span><span class="n">pointer</span><span class="p">);</span>
@@ -202,7 +226,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, the purpose of <code>auto</code> is to handle all free functions, whether they return <code>void</code> (e.g. <code>SDL_FreeSurface</code>) or not (e.g. <code>fclose</code>).</p>
+</div>
+<p>Here, the purpose of <code>auto</code> is to handle all free functions, whether they return <code>void</code> (e.g. <code>SDL_FreeSurface</code>) or not (e.g. <code>fclose</code>).
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Consider the following example:</p>
+      
+<p>Consider the following example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Example {
@@ -142,7 +145,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If this class is used is a single-threaded application, then the observable behavior will be exactly as you would expect. For instance:</p>
+</div>
+<p>If this class is used is a single-threaded application, then the observable behavior will be exactly as you would expect. For instance:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class SingleThreaded {
@@ -157,7 +163,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>will output:</p>
+</div>
+<p>will output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">0, 0
@@ -166,7 +175,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>As far as the “main” thread can tell</em>, the statements in the <code>main()</code> method and the <code>doIt()</code> method will be executed in the order that they are written in the source code. This is a clear requirement of the Java Language Specification (JLS).</p><p>Now consider the same class used in a multi-threaded application.</p>
+</div>
+<p><em>As far as the “main” thread can tell</em>, the statements in the <code>main()</code> method and the <code>doIt()</code> method will be executed in the order that they are written in the source code. This is a clear requirement of the Java Language Specification (JLS).
+</p>
+<p>Now consider the same class used in a multi-threaded application.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MultiThreaded {
@@ -188,7 +202,65 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>What will this print?</p><p>In fact, according to the JLS it is not possible to predict that this will print:</p><ul id="43e6cbbf-754d-4198-b27d-c69828820c24" class="bulleted-list"><li>You will probably see a few lines of <code>0, 0</code> to start with.</li><li>Then you probably see lines like <code>N, N</code> or <code>N, N + 1</code>.</li><li>You might see lines like <code>N + 1, N</code>.</li><li>In theory, you might even see that the <code>0, 0</code> lines continue forever1.</li></ul><p>1 - In practice the presence of the <code>println</code> statements is liable to cause some serendipitous synchronization and memory cache flushing. That is likely to hide some of the effects that would cause the above behavior.</p><p>So how can we explain these?</p><h2 id="12367d19-01d0-4479-9c05-82e5da06417f" class="">Reordering of assignments<a class="header-anchor" href="#12367d19-01d0-4479-9c05-82e5da06417f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>One possible explanation for unexpected results is that the JIT compiler has changed the order of the assignments in the <code>doIt()</code> method. The JLS requires that statements <em>appear to</em> execute in order <em>from the perspective of the current</em> thread. In this case, nothing in the code of the <code>doIt()</code> method can observe the effect of a (hypothetical) reordering of those two statement. This means that the JIT compiler would be permitted to do that.</p><p>Why would it do that?</p><p>On typical modern hardware, machine instructions are executed using a instruction pipeline which allows a sequence of instructions to be in different stages. Some phases of instruction execution take longer than others, and memory operations tend to take a longer time. A smart compiler can optimize the instruction throughput of the pipeline by ordering the instructions to maximize the amount of overlap. This may lead to executing parts of statements out of order. The JLS permits this provided that not affect the result of the computation <em>from the perspective of the current thread</em>.</p><h2 id="10ef9aa6-5d39-4a13-baa2-2e9592228719" class="">Effects of memory caches<a class="header-anchor" href="#10ef9aa6-5d39-4a13-baa2-2e9592228719" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>A second possible explanation is effect of memory caching. In a classical computer architecture, each processor has a small set of registers, and a larger amount of memory. Access to registers is much faster than access to main memory. In modern architectures, there are memory caches that are slower than registers, but faster than main memory.</p><p>A compiler will exploit this by trying to keep copies of variables in registers, or in the memory caches. If a variable does not <em>need</em> to be flushed to main memory, or does not <em>need</em> to be read from memory, there are significant performance benefits in not doing this. In cases where the JLS does not require memory operations to be visible to another thread, the Java JIT compiler is likely to not add the “read barrier” and “write barrier” instructions that will force main memory reads and writes. Once again, the performance benefits of doing this are significant.</p><h2 id="8adea107-8233-4b7a-ac25-768a3224252c" class="">Proper synchronization<a class="header-anchor" href="#8adea107-8233-4b7a-ac25-768a3224252c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>So far, we have seen that the JLS allows the JIT compiler to generate code that makes single-threaded code faster by reordering or avoiding memory operations. But what happens when other threads can observe the state of the (shared) variables in main memory?</p><p>The answer is, that the other threads are liable to observe variable states which would appear to be impossible … based on the code order of the Java statements. The solution to this is to use appropriate synchronization. The three main approaches are:</p><ul id="41df3314-e343-4241-b176-3f91ae4037d5" class="bulleted-list"><li>Using primitive mutexes and the <code>synchronized</code> constructs.</li><li>Using <code>volatile</code> variables.</li><li>Using higher level concurrency support; e.g. classes in the <code>java.util.concurrent</code> packages.</li></ul><p>But even with this, it is important to understand where synchronization is needed, and what effects that you can rely on. This is where the Java Memory Model comes in.</p><h2 id="eb098be2-4ab2-472e-bd99-2dd159287305" class="">The Memory Model<a class="header-anchor" href="#eb098be2-4ab2-472e-bd99-2dd159287305" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>The Java Memory Model is the section of the JLS that specifies the conditions under which one thread is guaranteed to see the effects of memory writes made by another thread. The Memory Model is specified with a fair degree of <em>formal rigor</em>, and (as a result) requires detailed and careful reading to understand. But the basic principle is that certain constructs create a “happens-before” relation between write of a variable by one thread, and a subsequent read of the same variable by another thread. If the “happens before” relation exists, the JIT compiler is <em>obliged</em> to generate code that will ensure that the read operation sees the value written by the write.</p><p>Armed with this, it is possible to reason about memory coherency in a Java program, and decide whether this will be predictable and consistent for <em>all</em> execution platforms.</p>
+</div>
+<p>What will this print?
+</p>
+<p>In fact, according to the JLS it is not possible to predict that this will print:
+</p>
+  <ul id="43e6cbbf-754d-4198-b27d-c69828820c24" class="bulleted-list">
+    <li>You will probably see a few lines of <code>0, 0</code> to start with.
+    </li>
+    <li>Then you probably see lines like <code>N, N</code> or <code>N, N + 1</code>.
+    </li>
+    <li>You might see lines like <code>N + 1, N</code>.
+    </li>
+    <li>In theory, you might even see that the <code>0, 0</code> lines continue forever1.
+    </li>
+  </ul>
+<p>1 - In practice the presence of the <code>println</code> statements is liable to cause some serendipitous synchronization and memory cache flushing. That is likely to hide some of the effects that would cause the above behavior.
+</p>
+<p>So how can we explain these?
+</p>
+  <h2 id="12367d19-01d0-4479-9c05-82e5da06417f" class="">Reordering of assignments
+  <a class="header-anchor" href="#12367d19-01d0-4479-9c05-82e5da06417f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>One possible explanation for unexpected results is that the JIT compiler has changed the order of the assignments in the <code>doIt()</code> method. The JLS requires that statements <em>appear to</em> execute in order <em>from the perspective of the current</em> thread. In this case, nothing in the code of the <code>doIt()</code> method can observe the effect of a (hypothetical) reordering of those two statement. This means that the JIT compiler would be permitted to do that.
+</p>
+<p>Why would it do that?
+</p>
+<p>On typical modern hardware, machine instructions are executed using a instruction pipeline which allows a sequence of instructions to be in different stages. Some phases of instruction execution take longer than others, and memory operations tend to take a longer time. A smart compiler can optimize the instruction throughput of the pipeline by ordering the instructions to maximize the amount of overlap. This may lead to executing parts of statements out of order. The JLS permits this provided that not affect the result of the computation <em>from the perspective of the current thread</em>.
+</p>
+  <h2 id="10ef9aa6-5d39-4a13-baa2-2e9592228719" class="">Effects of memory caches
+  <a class="header-anchor" href="#10ef9aa6-5d39-4a13-baa2-2e9592228719" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>A second possible explanation is effect of memory caching. In a classical computer architecture, each processor has a small set of registers, and a larger amount of memory. Access to registers is much faster than access to main memory. In modern architectures, there are memory caches that are slower than registers, but faster than main memory.
+</p>
+<p>A compiler will exploit this by trying to keep copies of variables in registers, or in the memory caches. If a variable does not <em>need</em> to be flushed to main memory, or does not <em>need</em> to be read from memory, there are significant performance benefits in not doing this. In cases where the JLS does not require memory operations to be visible to another thread, the Java JIT compiler is likely to not add the “read barrier” and “write barrier” instructions that will force main memory reads and writes. Once again, the performance benefits of doing this are significant.
+</p>
+  <h2 id="8adea107-8233-4b7a-ac25-768a3224252c" class="">Proper synchronization
+  <a class="header-anchor" href="#8adea107-8233-4b7a-ac25-768a3224252c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>So far, we have seen that the JLS allows the JIT compiler to generate code that makes single-threaded code faster by reordering or avoiding memory operations. But what happens when other threads can observe the state of the (shared) variables in main memory?
+</p>
+<p>The answer is, that the other threads are liable to observe variable states which would appear to be impossible … based on the code order of the Java statements. The solution to this is to use appropriate synchronization. The three main approaches are:
+</p>
+  <ul id="41df3314-e343-4241-b176-3f91ae4037d5" class="bulleted-list">
+    <li>Using primitive mutexes and the <code>synchronized</code> constructs.
+    </li>
+    <li>Using <code>volatile</code> variables.
+    </li>
+    <li>Using higher level concurrency support; e.g. classes in the <code>java.util.concurrent</code> packages.
+    </li>
+  </ul>
+<p>But even with this, it is important to understand where synchronization is needed, and what effects that you can rely on. This is where the Java Memory Model comes in.
+</p>
+  <h2 id="eb098be2-4ab2-472e-bd99-2dd159287305" class="">The Memory Model
+  <a class="header-anchor" href="#eb098be2-4ab2-472e-bd99-2dd159287305" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>The Java Memory Model is the section of the JLS that specifies the conditions under which one thread is guaranteed to see the effects of memory writes made by another thread. The Memory Model is specified with a fair degree of <em>formal rigor</em>, and (as a result) requires detailed and careful reading to understand. But the basic principle is that certain constructs create a “happens-before” relation between write of a variable by one thread, and a subsequent read of the same variable by another thread. If the “happens before” relation exists, the JIT compiler is <em>obliged</em> to generate code that will ensure that the read operation sees the value written by the write.
+</p>
+<p>Armed with this, it is possible to reason about memory coherency in a Java program, and decide whether this will be predictable and consistent for <em>all</em> execution platforms.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

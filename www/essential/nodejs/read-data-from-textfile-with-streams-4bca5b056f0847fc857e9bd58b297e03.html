@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>I/O in node is asynchronous, so interacting with the disk and network involves passing callbacks to functions. You might be tempted to write code that serves up a file from disk like this:</p>
+      
+<p>I/O in node is asynchronous, so interacting with the disk and network involves passing callbacks to functions. You might be tempted to write code that serves up a file from disk like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var http = require(&#39;http&#39;);
@@ -143,7 +146,14 @@ server.listen(8000);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This code works but it’s bulky and buffers up the entire data.txt file into memory for every request before writing the result back to clients. If data.txt is very large, your program could start eating a lot of memory as it serves lots of users concurrently, particularly for users on slow connections.</p><p>The user experience is poor too because users will need to wait for the whole file to be buffered into memory on your server before they can start receiving any contents.</p><p>Luckily both of the (req, res) arguments are streams, which means we can write this in a much better way using fs.createReadStream() instead of fs.readFile():</p>
+</div>
+<p>This code works but it’s bulky and buffers up the entire data.txt file into memory for every request before writing the result back to clients. If data.txt is very large, your program could start eating a lot of memory as it serves lots of users concurrently, particularly for users on slow connections.
+</p>
+<p>The user experience is poor too because users will need to wait for the whole file to be buffered into memory on your server before they can start receiving any contents.
+</p>
+<p>Luckily both of the (req, res) arguments are streams, which means we can write this in a much better way using fs.createReadStream() instead of fs.readFile():
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var http = require(&#39;http&#39;);
@@ -158,7 +168,9 @@ server.listen(8000);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here .pipe() takes care of listening for ‘data’ and ‘end’ events from the fs.createReadStream(). This code is not only cleaner, but now the data.txt file will be written to clients one chunk at a time immediately as they are received from the disk.</p>
+</div>
+<p>Here .pipe() takes care of listening for ‘data’ and ‘end’ events from the fs.createReadStream(). This code is not only cleaner, but now the data.txt file will be written to clients one chunk at a time immediately as they are received from the disk.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

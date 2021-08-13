@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>A function declared <code>inline</code> may be defined in multiple translation units, provided that all definitions are identical. It also must be defined in every translation unit in which it is used. Therefore, inline functions <em>should</em> be defined in headers and there is no need to mention them in the implementation file.</p><p>The program will behave as though there is a single definition of the function.</p><p><code>foo.h</code>:</p>
+      
+<p>A function declared <code>inline</code> may be defined in multiple translation units, provided that all definitions are identical. It also must be defined in every translation unit in which it is used. Therefore, inline functions <em>should</em> be defined in headers and there is no need to mention them in the implementation file.
+</p>
+<p>The program will behave as though there is a single definition of the function.
+</p>
+<p><code>foo.h</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#ifndef FOO_H
@@ -140,7 +147,10 @@ void bar();
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>foo.cpp</code>:</p>
+</div>
+<p><code>foo.cpp</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &#34;foo.h&#34;
@@ -151,7 +161,10 @@ void bar() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>main.cpp</code>:</p>
+</div>
+<p><code>main.cpp</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &#34;foo.h&#34;
@@ -163,7 +176,12 @@ int main() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this example, the simpler function <code>foo</code> is defined inline in the header file while the more complicated function <code>bar</code> is not inline and is defined in the implementation file. Both the <code>foo.cpp</code> and <code>main.cpp</code> translation units contain definitions of <code>foo</code>, but this program is well-formed since <code>foo</code> is inline.</p><p>A function defined within a class definition (which may be a member function or a friend function) is <em>implicitly</em> inline. Therefore, if a class is defined in a header, member functions of the class may be defined within the class definition, even though the definitions may be included in multiple translation units:</p>
+</div>
+<p>In this example, the simpler function <code>foo</code> is defined inline in the header file while the more complicated function <code>bar</code> is not inline and is defined in the implementation file. Both the <code>foo.cpp</code> and <code>main.cpp</code> translation units contain definitions of <code>foo</code>, but this program is well-formed since <code>foo</code> is inline.
+</p>
+<p>A function defined within a class definition (which may be a member function or a friend function) is <em>implicitly</em> inline. Therefore, if a class is defined in a header, member functions of the class may be defined within the class definition, even though the definitions may be included in multiple translation units:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// in foo.h
@@ -180,7 +198,9 @@ void Foo::baz() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The function <code>Foo::baz</code> is defined out-of-line, so it is <em>not</em> an inline function, and must not be defined in the header.</p>
+</div>
+<p>The function <code>Foo::baz</code> is defined out-of-line, so it is <em>not</em> an inline function, and must not be defined in the header.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

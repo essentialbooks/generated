@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>You can force deallocate objects even if their refcount isn’t 0 in both Python 2 and 3.</p><p>Both versions use the <code>ctypes</code> module to do so.</p><p><strong>WARNING:</strong> doing this <em>will</em> leave your Python environment unstable and prone to crashing without a traceback! Using this method could also introduce security problems (quite unlikely) Only deallocate objects you’re sure you’ll never reference again. Ever.</p>
+      
+<p>You can force deallocate objects even if their refcount isn’t 0 in both Python 2 and 3.
+</p>
+<p>Both versions use the <code>ctypes</code> module to do so.
+</p>
+<p><strong>WARNING:</strong> doing this <em>will</em> leave your Python environment unstable and prone to crashing without a traceback! Using this method could also introduce security problems (quite unlikely) Only deallocate objects you’re sure you’ll never reference again. Ever.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import ctypes
@@ -138,6 +145,7 @@ ctypes.pythonapi._Py_Dealloc(ctypes.py_object(deallocated))</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import ctypes, sys
@@ -147,7 +155,11 @@ deallocated = 12345
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>After running, any reference to the now deallocated object will cause Python to either produce undefined behavior or crash - without a traceback. There was probably a reason why the garbage collector didn’t remove that object…</p><p>If you deallocate <code>None</code>, you get a special message - <code>Fatal Python error: deallocating None</code> before crashing.</p>
+</div>
+<p>After running, any reference to the now deallocated object will cause Python to either produce undefined behavior or crash - without a traceback. There was probably a reason why the garbage collector didn’t remove that object…
+</p>
+<p>If you deallocate <code>None</code>, you get a special message - <code>Fatal Python error: deallocating None</code> before crashing.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

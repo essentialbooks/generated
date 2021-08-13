@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Let’s have a basic failing program:</p>
+      
+<p>Let’s have a basic failing program:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;
@@ -148,7 +151,10 @@ int main() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Build it (add -g to include debug info):</p>
+</div>
+<p>Build it (add -g to include debug info):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">g++ -g -o main main.cpp</pre>
@@ -156,7 +162,10 @@ int main() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Run:</p>
+</div>
+<p>Run:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ ./main
@@ -166,7 +175,10 @@ $</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Let’s debug it with valgrind:</p>
+</div>
+<p>Let’s debug it with valgrind:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ valgrind ./main
@@ -215,7 +227,10 @@ $</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>First we focus on this block:</p>
+</div>
+<p>First we focus on this block:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">==8515== Invalid read of size 4
@@ -226,7 +241,12 @@ $</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The first line tells us that segfault is caused by reading 4 bytes. The second and the third lines are call stack. It means that the invalid read is performed at the <code>fail()</code> function, line 8 of main.cpp, which is called by main, line 13 of main.cpp.</p><p>Looking at line 8 of main.cpp we see</p>
+</div>
+<p>The first line tells us that segfault is caused by reading 4 bytes. The second and the third lines are call stack. It means that the invalid read is performed at the <code>fail()</code> function, line 8 of main.cpp, which is called by main, line 13 of main.cpp.
+</p>
+<p>Looking at line 8 of main.cpp we see
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::cout &lt;&lt; *p3 &lt;&lt; std::endl;</pre>
@@ -234,7 +254,10 @@ $</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But we check the pointer first, so what’s wrong? Lets check the other block:</p>
+</div>
+<p>But we check the pointer first, so what’s wrong? Lets check the other block:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">==8515== Conditional jump or move depends on uninitialised value(s)
@@ -244,7 +267,10 @@ $</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It tells us that there is an unitialized variable at line 7 and we read it:</p>
+</div>
+<p>It tells us that there is an unitialized variable at line 7 and we read it:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if (p3) {</pre>
@@ -252,7 +278,10 @@ $</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Which points us to the line where we check p3 instead of p2. But how is it possible that p3 is uninitialized? We initialize it by:</p>
+</div>
+<p>Which points us to the line where we check p3 instead of p2. But how is it possible that p3 is uninitialized? We initialize it by:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int *p3 = p1;</pre>
@@ -260,7 +289,10 @@ $</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Valgrind advices us to rerun with <code>--track-origins=yes</code>, let’s do it:</p>
+</div>
+<p>Valgrind advices us to rerun with <code>--track-origins=yes</code>, let’s do it:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">valgrind --track-origins=yes ./main</pre>
@@ -268,7 +300,12 @@ $</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The argument for valgrind is just after valgrind. If we put it after our program, it would be passed to our program.</p><p>The output is almost the same, there is only one difference:</p>
+</div>
+<p>The argument for valgrind is just after valgrind. If we put it after our program, it would be passed to our program.
+</p>
+<p>The output is almost the same, there is only one difference:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">==8517== Conditional jump or move depends on uninitialised value(s)
@@ -280,7 +317,10 @@ $</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Which tells us that the uninitialized value we used at line 7 was created at line 3:</p>
+</div>
+<p>Which tells us that the uninitialized value we used at line 7 was created at line 3:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int *p1;</pre>
@@ -288,7 +328,9 @@ $</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>which guides us to our uninitialized pointer.</p>
+</div>
+<p>which guides us to our uninitialized pointer.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

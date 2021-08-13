@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Autoboxing can come at a substantial memory overhead. For example:</p>
+      
+<p>Autoboxing can come at a substantial memory overhead. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Map&lt;Integer, Integer&gt; square = new HashMap&lt;Integer, Integer&gt;();
@@ -138,7 +141,12 @@ for(int i = 256; i &lt; 1024; i++) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>will typically consume substantial amount of memory (about 60kb for 6k of actual data).</p><p>Furthermore, boxed integers usually require additional round-trips in the memory, and thus make CPU caches less effective. In above example, the memory accessed is spread out to five different locations that may be in entirely different regions of the memory: 1. the <code>HashMap</code> object, 2. the map’s <code>Entry[] table</code> object, 3. the <code>Entry</code> object, 4. the entrys <code>key</code> object (boxing the primitive key), 5. the entrys <code>value</code> object (boxing the primitive value).</p>
+</div>
+<p>will typically consume substantial amount of memory (about 60kb for 6k of actual data).
+</p>
+<p>Furthermore, boxed integers usually require additional round-trips in the memory, and thus make CPU caches less effective. In above example, the memory accessed is spread out to five different locations that may be in entirely different regions of the memory: 1. the <code>HashMap</code> object, 2. the map’s <code>Entry[] table</code> object, 3. the <code>Entry</code> object, 4. the entrys <code>key</code> object (boxing the primitive key), 5. the entrys <code>value</code> object (boxing the primitive value).
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Example {
@@ -149,7 +157,12 @@ for(int i = 256; i &lt; 1024; i++) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Reading <code>boxed</code> requires two memory accesses, accessing <code>primitive</code> only one.</p><p>When getting data from this map, the seemingly innocent code</p>
+</div>
+<p>Reading <code>boxed</code> requires two memory accesses, accessing <code>primitive</code> only one.
+</p>
+<p>When getting data from this map, the seemingly innocent code
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int sumOfSquares = 0;
@@ -160,7 +173,10 @@ for(int i = 256; i &lt; 1024; i++) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>is equivalent to:</p>
+</div>
+<p>is equivalent to:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int sumOfSquares = 0;
@@ -171,7 +187,15 @@ for(int i = 256; i &lt; 1024; i++) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Typically, the above code causes the <em>creation and garbage collection</em> of an <code>Integer</code> object for every <code>Map#get(Integer)</code> operation. (See Note below for more details.)</p><p>To reduce this overhead, several libraries offer optimized collections for primitive types that do <em>not</em> require boxing. In addition to avoiding the boxing overhead, these collection will require about 4x less memory per entry. While Java Hotspot <em>may</em> be able to optimize the autoboxing by working with objects on the stack instead of the heap, it is not possible to optimize the memory overhead and resulting memory indirection.</p><p>Java 8 streams also have optimized interfaces for primitive data types, such as <code>IntStream</code> that do not require boxing.</p><p>Note: a typical Java runtime maintains a simple cache of <code>Integer</code> and other primitive wrapper object that is used by the <code>valueOf</code> factory methods, and by autoboxing. For <code>Integer</code>, the default range of this cache is -128 to +127. Some JVMs provide a JVM command-line option for changing the cache size / range.</p>
+</div>
+<p>Typically, the above code causes the <em>creation and garbage collection</em> of an <code>Integer</code> object for every <code>Map#get(Integer)</code> operation. (See Note below for more details.)
+</p>
+<p>To reduce this overhead, several libraries offer optimized collections for primitive types that do <em>not</em> require boxing. In addition to avoiding the boxing overhead, these collection will require about 4x less memory per entry. While Java Hotspot <em>may</em> be able to optimize the autoboxing by working with objects on the stack instead of the heap, it is not possible to optimize the memory overhead and resulting memory indirection.
+</p>
+<p>Java 8 streams also have optimized interfaces for primitive data types, such as <code>IntStream</code> that do not require boxing.
+</p>
+<p>Note: a typical Java runtime maintains a simple cache of <code>Integer</code> and other primitive wrapper object that is used by the <code>valueOf</code> factory methods, and by autoboxing. For <code>Integer</code>, the default range of this cache is -128 to +127. Some JVMs provide a JVM command-line option for changing the cache size / range.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

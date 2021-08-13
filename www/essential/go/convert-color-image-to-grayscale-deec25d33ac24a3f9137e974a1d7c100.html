@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Some digital image processing algorithm such as edge detection, information carried by the image intensity (i.e. grayscale value) is sufficient. Using color information (<code>R, G, B</code> channel) may provides slightly better result, but the algorithm complexity will be increased. Thus, in this case, we need to convert the color image to grayscale image prior to applying such algorithm.</p><p>The following code is an example of converting arbitrary image to 8-bit grayscale image. The image is retrieved from remote location using <code>net/http</code> package, converted to grayscale, and finally saved as PNG image.</p>
+      
+<p>Some digital image processing algorithm such as edge detection, information carried by the image intensity (i.e. grayscale value) is sufficient. Using color information (<code>R, G, B</code> channel) may provides slightly better result, but the algorithm complexity will be increased. Thus, in this case, we need to convert the color image to grayscale image prior to applying such algorithm.
+</p>
+<p>The following code is an example of converting arbitrary image to 8-bit grayscale image. The image is retrieved from remote location using <code>net/http</code> package, converted to grayscale, and finally saved as PNG image.
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">main</span>
@@ -182,7 +187,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Color conversion occurs when assigning pixel through <code>Set(x, y int, c color.Color)</code> which is implemented in <a href="https://golang.org/src/image/image.go?s=19292:19335#L691"><code>image.go</code></a> as</p>
+</div>
+<p>Color conversion occurs when assigning pixel through <code>Set(x, y int, c color.Color)</code> which is implemented in <a href="https://golang.org/src/image/image.go?s=19292:19335#L691"><code>image.go</code></a> as
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Gray</span><span class="p">)</span> <span class="nf">Set</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">c</span> <span class="nx">color</span><span class="p">.</span><span class="nx">Color</span><span class="p">)</span> <span class="p">{</span>
@@ -197,7 +205,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>in which, <code>color.GrayModel</code> is defined in <a href="https://golang.org/src/image/color/color.go?s=2699:2728#L110"><code>color.go</code></a> as</p>
+</div>
+<p>in which, <code>color.GrayModel</code> is defined in <a href="https://golang.org/src/image/color/color.go?s=2699:2728#L110"><code>color.go</code></a> as
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kd">func</span> <span class="nf">grayModel</span><span class="p">(</span><span class="nx">c</span> <span class="nx">Color</span><span class="p">)</span> <span class="nx">Color</span> <span class="p">{</span>
@@ -222,7 +233,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Based on the above facts, the intensity <code>Y</code> is calculated with the following formula:</p><blockquote id="52c71820-f4d2-4b9b-ae20-a4e05c8828b3" class="">Luminance: Y = 0.299R + 0.587G + 0.114B</blockquote><p>If we want to apply different <a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0029740">formula/algorithms</a> to convert a color into an intesity, e.g.</p><blockquote id="15e147a3-30dc-4624-8a82-57a3610a584e" class="">Mean: Y = (R + G + B) / 3 Luma: Y = 0.2126R + 0.7152G + 0.0722B Luster: Y = (min(R, G, B) + max(R, G, B))/2</blockquote><p>then, the following snippets can be used.</p>
+</div>
+<p>Based on the above facts, the intensity <code>Y</code> is calculated with the following formula:
+</p>
+<blockquote id="52c71820-f4d2-4b9b-ae20-a4e05c8828b3" class="">Luminance: Y = 0.299R + 0.587G + 0.114B
+</blockquote>
+<p>If we want to apply different <a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0029740">formula/algorithms</a> to convert a color into an intesity, e.g.
+</p>
+<blockquote id="15e147a3-30dc-4624-8a82-57a3610a584e" class="">Mean: Y = (R + G + B) / 3 Luma: Y = 0.2126R + 0.7152G + 0.0722B Luster: Y = (min(R, G, B) + max(R, G, B))/2
+</blockquote>
+<p>then, the following snippets can be used.
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="c1">// Convert image to grayscale
@@ -240,7 +262,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above calculation is done by floating point multiplication, and certainly is not the most efficient one, but it’s enough for demonstrating the idea. The other point is, when calling <code>Set(x, y int, c color.Color)</code> with <code>color.Gray</code> as third argument, the color model will not perform color conversion as can be seen in the previous <code>grayModel</code> function.</p>
+</div>
+<p>The above calculation is done by floating point multiplication, and certainly is not the most efficient one, but it’s enough for demonstrating the idea. The other point is, when calling <code>Set(x, y int, c color.Color)</code> with <code>color.Gray</code> as third argument, the color model will not perform color conversion as can be seen in the previous <code>grayModel</code> function.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

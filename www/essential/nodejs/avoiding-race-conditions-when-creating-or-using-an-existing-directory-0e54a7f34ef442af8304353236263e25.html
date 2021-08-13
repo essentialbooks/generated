@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>Due to Node’s asynchronous nature, creating or using a directory by first:</p><ol id="c8edef8c-0f7e-4573-974d-683869534fbf" class="numbered-list" start="1"><li>checking for its existence with <code>fs.stat()</code>, then</li><li>creating or using it depending of the results of the existence check,</li></ol><p>can lead to a <a href="https://www.wikiwand.com/en/Race_condition#/File_systems">race condition</a> if the folder is created between the time of the check and the time of the creation. The method below wraps <code>fs.mkdir()</code> and <code>fs.mkdirSync()</code> in error-catching wrappers that let the exception pass if its code is <code>EEXIST</code> (already exists). If the error is something else, like <code>EPERM</code> (pemission denied), throw or pass an error like the native functions do.</p><p><strong>Asynchronous version with </strong><code><strong>fs.mkdir()</strong></code></p>
+      
+<p>Due to Node’s asynchronous nature, creating or using a directory by first:
+</p>
+  <ol id="c8edef8c-0f7e-4573-974d-683869534fbf" class="numbered-list" start="1">
+    <li>checking for its existence with <code>fs.stat()</code>, then
+    </li>
+    <li>creating or using it depending of the results of the existence check,
+    </li>
+  </ol>
+<p>can lead to a <a href="https://www.wikiwand.com/en/Race_condition#/File_systems">race condition</a> if the folder is created between the time of the check and the time of the creation. The method below wraps <code>fs.mkdir()</code> and <code>fs.mkdirSync()</code> in error-catching wrappers that let the exception pass if its code is <code>EEXIST</code> (already exists). If the error is something else, like <code>EPERM</code> (pemission denied), throw or pass an error like the native functions do.
+</p>
+<p><strong>Asynchronous version with </strong><code><strong>fs.mkdir()</strong></code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var fs = require(&#39;fs&#39;);function mkdir (dirPath, callback) {fs.mkdir(dirPath, (err) =&gt; {callback(err &amp;&amp; err.code !== &#39;EEXIST&#39; ? err : null);});}mkdir(&#39;./existingDir&#39;, (err) =&gt; {if (err)return console.error(err.code);// Do something with `./existingDir` here});</pre>
@@ -135,7 +148,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Synchronous version with </strong><code><strong>fs.mkdirSync()</strong></code></p>
+</div>
+<p><strong>Synchronous version with </strong><code><strong>fs.mkdirSync()</strong></code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">function mkdirSync (dirPath) {try {fs.mkdirSync(dirPath);} catch(e) {if ( e.code !== &#39;EEXIST&#39; ) throw e;}}mkdirSync(&#39;./existing-dir&#39;);// Do something with `./existing-dir` now</pre>

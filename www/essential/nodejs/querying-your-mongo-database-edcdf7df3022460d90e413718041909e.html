@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>A simple GET request. Let’s assume the Model from the example above is in the file <code>./db/models/Article.js</code>.</p>
+      
+<p>A simple GET request. Let’s assume the Model from the example above is in the file <code>./db/models/Article.js</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">const express = require(&#39;express&#39;);
@@ -152,7 +155,22 @@ app.use(&#39;/api&#39;, routes);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We can now get the data from our database by sending an HTTP request to this endpoint. A few key things, though:</p><ol id="5352b912-6a4f-487a-915d-b1d484eedb2f" class="numbered-list" start="1"><li>Limit does exactly what it looks like. I’m only getting 5 documents back.</li><li>Lean strips away some stuff from the raw BSON, reducing complexity and overhead. Not required. But useful.</li><li>When using <code>find</code> instead of <code>findOne</code>, confirm that the <code>doc.length</code> is greater than 0. This is because <code>find</code> always returns an array, so an empty array will not handle your error unless it is checked for length</li><li>I personally like to send the error message in that format. Change it to suit your needs. Same thing for the returned document.</li><li>The code in this example is written under the assumption that you have placed it in another file and not directly on the express server. To call this in the server, include these lines in your server code:</li></ol>
+</div>
+<p>We can now get the data from our database by sending an HTTP request to this endpoint. A few key things, though:
+</p>
+  <ol id="5352b912-6a4f-487a-915d-b1d484eedb2f" class="numbered-list" start="1">
+    <li>Limit does exactly what it looks like. I’m only getting 5 documents back.
+    </li>
+    <li>Lean strips away some stuff from the raw BSON, reducing complexity and overhead. Not required. But useful.
+    </li>
+    <li>When using <code>find</code> instead of <code>findOne</code>, confirm that the <code>doc.length</code> is greater than 0. This is because <code>find</code> always returns an array, so an empty array will not handle your error unless it is checked for length
+    </li>
+    <li>I personally like to send the error message in that format. Change it to suit your needs. Same thing for the returned document.
+    </li>
+    <li>The code in this example is written under the assumption that you have placed it in another file and not directly on the express server. To call this in the server, include these lines in your server code:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">const app = express();

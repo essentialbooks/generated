@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>Currently (as of version 2.11.0) there is no built-in functionality to move an already existing worktree. This is listed as an official bug (see https://git-scm.com/docs/git-worktree#_bugs).</p><p>To get around this limitation it is possible to perform manual operations directly in the <code>.git</code> reference files.</p><p>In this example, the main copy of the repo is living at <code>/home/user/project-main</code> and the secondary worktree is located at <code>/home/user/project-1</code> and we want to move it to <code>/home/user/project-2</code>.</p><p>Don’t perform any git command in between these steps, otherwise the garbage collector might be triggered and the references to the secondary tree can be lost. Perform these steps from the start until the end without interruption:</p><ol id="98dbd28b-9c6c-4c56-83e3-db2ad4e1353f" class="numbered-list" start="1"><li>Change the worktree’s <code>.git</code> file to point to the new location inside the main tree. The file <code>/home/user/project-1/.git</code> should now contain the following:</li></ol>
+      
+<p>Currently (as of version 2.11.0) there is no built-in functionality to move an already existing worktree. This is listed as an official bug (see https://git-scm.com/docs/git-worktree#_bugs).
+</p>
+<p>To get around this limitation it is possible to perform manual operations directly in the <code>.git</code> reference files.
+</p>
+<p>In this example, the main copy of the repo is living at <code>/home/user/project-main</code> and the secondary worktree is located at <code>/home/user/project-1</code> and we want to move it to <code>/home/user/project-2</code>.
+</p>
+<p>Don’t perform any git command in between these steps, otherwise the garbage collector might be triggered and the references to the secondary tree can be lost. Perform these steps from the start until the end without interruption:
+</p>
+  <ol id="98dbd28b-9c6c-4c56-83e3-db2ad4e1353f" class="numbered-list" start="1">
+    <li>Change the worktree’s <code>.git</code> file to point to the new location inside the main tree. The file <code>/home/user/project-1/.git</code> should now contain the following:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">gitdir: /home/user/project-main/.git/worktrees/project-2</pre>
@@ -135,7 +148,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="5c902977-c80f-4739-8517-57c821588de2" class="numbered-list" start="1"><li>Rename the worktree inside the <code>.git</code> directory of the main project by moving the worktree’s directory that exists in there:</li></ol>
+</div>
+  <ol id="5c902977-c80f-4739-8517-57c821588de2" class="numbered-list" start="1">
+    <li>Rename the worktree inside the <code>.git</code> directory of the main project by moving the worktree’s directory that exists in there:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ mv /home/user/project-main/.git/worktrees/project-1 /home/user/project-main/.git/worktrees/project-2</pre>
@@ -143,7 +161,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="e44c3a8d-f3a1-485d-8d9f-e71fa09b5538" class="numbered-list" start="1"><li>Change the reference inside <code>/home/user/project-main/.git/worktrees/project-2/gitdir</code> to point to the new location. In this example, the file would have the following contents:</li></ol>
+</div>
+  <ol id="e44c3a8d-f3a1-485d-8d9f-e71fa09b5538" class="numbered-list" start="1">
+    <li>Change the reference inside <code>/home/user/project-main/.git/worktrees/project-2/gitdir</code> to point to the new location. In this example, the file would have the following contents:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/home/user/project-2/.git</pre>
@@ -151,7 +174,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="c9541413-762a-46a6-9dec-8d1fef6c934b" class="numbered-list" start="1"><li>Finally, move your worktree to the new location:</li></ol>
+</div>
+  <ol id="c9541413-762a-46a6-9dec-8d1fef6c934b" class="numbered-list" start="1">
+    <li>Finally, move your worktree to the new location:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ mv /home/user/project-1 /home/user/project-2</pre>
@@ -159,7 +187,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you have done everything correctly, listing the existing worktrees should refer to the new location:</p>
+</div>
+<p>If you have done everything correctly, listing the existing worktrees should refer to the new location:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ git worktree list
@@ -169,7 +200,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It should now also be safe to run <code>git worktree prune</code>.</p>
+</div>
+<p>It should now also be safe to run <code>git worktree prune</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">static</span> <span class="k">class</span> <span class="nc">Program</span>
@@ -163,7 +164,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="4dbe419e-74d8-4a7f-9583-6696d7e7ef4b" class="">The reason [calling extension methods from dynamic code] doesn’t work is because in regular, non-dynamic code extension methods work by doing a full search of all the classes known to the compiler for a static class that has an extension method that matches. The search goes in order based on the namespace nesting and available using directives in each namespace.</blockquote><p>That means that in order to get a dynamic extension method invocation resolved correctly, somehow the DLR has to know <em>at runtime</em> what all the namespace nestings and <code>using</code> directives were <em>in your source code</em>. We do not have a mechanism handy for encoding all that information into the call site. We considered inventing such a mechanism, but decided that it was too high cost and produced too much schedule risk to be worth it.</p><p><a href="http://stackoverflow.com/a/5313149/1610754">Source</a></p>
+</div>
+<blockquote id="4dbe419e-74d8-4a7f-9583-6696d7e7ef4b" class="">The reason [calling extension methods from dynamic code] doesn’t work is because in regular, non-dynamic code extension methods work by doing a full search of all the classes known to the compiler for a static class that has an extension method that matches. The search goes in order based on the namespace nesting and available using directives in each namespace.
+</blockquote>
+<p>That means that in order to get a dynamic extension method invocation resolved correctly, somehow the DLR has to know <em>at runtime</em> what all the namespace nestings and <code>using</code> directives were <em>in your source code</em>. We do not have a mechanism handy for encoding all that information into the call site. We considered inventing such a mechanism, but decided that it was too high cost and produced too much schedule risk to be worth it.
+</p>
+<p><a href="http://stackoverflow.com/a/5313149/1610754">Source</a>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

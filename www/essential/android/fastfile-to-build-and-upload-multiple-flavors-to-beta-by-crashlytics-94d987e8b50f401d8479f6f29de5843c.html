@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>This is a sample <strong>Fastfile</strong> setup for a multi-flavor app. It gives you an option to build and deploy all flavors or a single flavor. After the deployment, it reports to <strong>Slack</strong> the status of the deployment, and sends a notification to testers in Beta by Crashlytics testers group.</p><p>To build and deploy all flavors use:</p>
+      
+<p>This is a sample <strong>Fastfile</strong> setup for a multi-flavor app. It gives you an option to build and deploy all flavors or a single flavor. After the deployment, it reports to <strong>Slack</strong> the status of the deployment, and sends a notification to testers in Beta by Crashlytics testers group.
+</p>
+<p>To build and deploy all flavors use:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">fastlane android beta</pre>
@@ -135,7 +140,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To build a single APK and deploy use:</p>
+</div>
+<p>To build a single APK and deploy use:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">fastlane android beta app:flavorName</pre>
@@ -143,7 +151,40 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Using a single Fastlane file, you can manage iOS, Android, and Mac apps. If you are using this file just for one app <code>platform</code> is not required.</p><p><strong>How It Works</strong></p><ol id="d72a3b38-01c5-4efa-a89c-dbb2a354e917" class="numbered-list" start="1"><li><code>android</code> argument tells fastlane that we will use <code>:android</code> platform.</li><li>Inside <code>:android</code> platform you can have multiple lanes. Currently, I have only <code>:beta</code> lane. The second argument from the command above specifies the lane we want to use.</li><li><code>options[:app]</code></li><li>There are two <strong>Gradle</strong> tasks. First, it runs <code>gradle clean</code>. If you provided a flavor with <code>app</code> key, fastfile runs <code>gradle assembleReleaseFlavor</code>. Otherwise, it runs <code>gradle assembleRelease</code> to build all build flavors.</li><li>If we are building for all flavors, an array of generated APK file names is stored inside <code>SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS</code>. We use this to loop through generated files and deploy them to <strong>Beta by Crashlytics</strong>. <code>notifications</code> and <code>groups</code> fields are optional. They are used to notify testers registered for the app on <strong>Beta by Crashlytics</strong>.</li><li>If you are familiar with Crashlytics, you might know that to activate an app in the portal, you have to run it on a device and use it first. Otherwise, Crashlytics will assume the app inactive and throw an error. In this scenario, I capture it and report to <strong>Slack</strong> as a failure, so you will know which app is inactive.</li><li>If deployment is successful, <strong>fastlane</strong> will send a success message to <strong>Slack</strong>.</li><li><code>#{/([^\/]*)$/.match(apk)}</code> this regex is used to get flavor name from APK path. You can remove it if it does not work for you.</li><li><code>get_version_name</code> and <code>get_version_code</code> are two <strong>Fastlane</strong> plugins to retrieve app version name and code. You have to install these gems if you want to use, or you can remove them. Read more about Plugins here.</li><li>The <code>else</code> statement will be executed if you are building and deploying a single APK. We don’t have to provide <code>apk_path</code> to Crashlytics since we have only one app.</li><li><code>error do</code> block at the end is used to get notified if anything else goes wrong during execution.</li></ol><p><strong>Note</strong></p><p>Don’t forget to replace <code>SLACK_URL</code>, <code>API_TOKEN</code>, <code>GROUP_NAME</code> and <code>BUILD_SECRET</code> with your own credentials.</p>
+</div>
+<p>Using a single Fastlane file, you can manage iOS, Android, and Mac apps. If you are using this file just for one app <code>platform</code> is not required.
+</p>
+<p><strong>How It Works</strong>
+</p>
+  <ol id="d72a3b38-01c5-4efa-a89c-dbb2a354e917" class="numbered-list" start="1">
+    <li><code>android</code> argument tells fastlane that we will use <code>:android</code> platform.
+    </li>
+    <li>Inside <code>:android</code> platform you can have multiple lanes. Currently, I have only <code>:beta</code> lane. The second argument from the command above specifies the lane we want to use.
+    </li>
+    <li><code>options[:app]</code>
+    </li>
+    <li>There are two <strong>Gradle</strong> tasks. First, it runs <code>gradle clean</code>. If you provided a flavor with <code>app</code> key, fastfile runs <code>gradle assembleReleaseFlavor</code>. Otherwise, it runs <code>gradle assembleRelease</code> to build all build flavors.
+    </li>
+    <li>If we are building for all flavors, an array of generated APK file names is stored inside <code>SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS</code>. We use this to loop through generated files and deploy them to <strong>Beta by Crashlytics</strong>. <code>notifications</code> and <code>groups</code> fields are optional. They are used to notify testers registered for the app on <strong>Beta by Crashlytics</strong>.
+    </li>
+    <li>If you are familiar with Crashlytics, you might know that to activate an app in the portal, you have to run it on a device and use it first. Otherwise, Crashlytics will assume the app inactive and throw an error. In this scenario, I capture it and report to <strong>Slack</strong> as a failure, so you will know which app is inactive.
+    </li>
+    <li>If deployment is successful, <strong>fastlane</strong> will send a success message to <strong>Slack</strong>.
+    </li>
+    <li><code>#{/([^\/]*)$/.match(apk)}</code> this regex is used to get flavor name from APK path. You can remove it if it does not work for you.
+    </li>
+    <li><code>get_version_name</code> and <code>get_version_code</code> are two <strong>Fastlane</strong> plugins to retrieve app version name and code. You have to install these gems if you want to use, or you can remove them. Read more about Plugins here.
+    </li>
+    <li>The <code>else</code> statement will be executed if you are building and deploying a single APK. We don’t have to provide <code>apk_path</code> to Crashlytics since we have only one app.
+    </li>
+    <li><code>error do</code> block at the end is used to get notified if anything else goes wrong during execution.
+    </li>
+  </ol>
+<p><strong>Note</strong>
+</p>
+<p>Don’t forget to replace <code>SLACK_URL</code>, <code>API_TOKEN</code>, <code>GROUP_NAME</code> and <code>BUILD_SECRET</code> with your own credentials.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">fastlane_version &#34;1.46.1&#34;

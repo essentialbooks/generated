@@ -127,7 +127,12 @@
 </div>
 
 
-      <p><a href="https://msdn.microsoft.com/en-us/library/system.linq.enumerable(v=vs.110).aspx">Many LINQ functions</a> both operate on an <code>IEnumerable&lt;TSource&gt;</code> and also return an <code>IEnumerable&lt;TResult&gt;</code>. The type parameters <code>TSource</code> and <code>TResult</code> may or may not refer to the same type, depending on the method in question and any functions passed to it.</p><p>A few examples of this are</p>
+      
+<p><a href="https://msdn.microsoft.com/en-us/library/system.linq.enumerable(v=vs.110).aspx">Many LINQ functions</a> both operate on an <code>IEnumerable&lt;TSource&gt;</code> and also return an <code>IEnumerable&lt;TResult&gt;</code>. The type parameters <code>TSource</code> and <code>TResult</code> may or may not refer to the same type, depending on the method in question and any functions passed to it.
+</p>
+<p>A few examples of this are
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">static</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">TResult</span><span class="p">&gt;</span> <span class="n">Select</span><span class="p">&lt;</span><span class="n">TSource</span><span class="p">,</span> <span class="n">TResult</span><span class="p">&gt;(</span>
@@ -149,7 +154,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>While some method chaining may require an entire set to be worked prior to moving on, LINQ takes advantage of <a href="http://stackoverflow.com/documentation/c%23/68/linq-queries/8001/deferred-execution">deferred execution</a> by using <a href="https://blogs.msdn.microsoft.com/oldnewthing/20080812-00/?p=21273/">yield return </a><a href="https://blogs.msdn.microsoft.com/oldnewthing/20080812-00/?p=21273/"><strong>MSDN</strong></a> which creates an Enumerable and an Enumerator behind the scenes. The process of chaining in LINQ is essentially building an enumerable (iterator) for the original set – which is deferred – until materialized by <a href="http://stackoverflow.com/documentation/c%23/68/linq-queries/17356/enumerating-the-enumerable">enumerating the enumerable</a>.</p><p>This allows these functions to be <a href="https://en.wikipedia.org/wiki/Fluent_interface">fluently chained </a><a href="https://en.wikipedia.org/wiki/Fluent_interface"><strong>wiki</strong></a>, where one function can act directly on the result of another. This style of code can be used to perform many sequence based operations in a single statement.</p><p>For example, it’s possible to combine <code>Select</code>, <code>Where</code> and <code>OrderBy</code> to transform, filter and sort a sequence in a single statement.</p>
+</div>
+<p>While some method chaining may require an entire set to be worked prior to moving on, LINQ takes advantage of <a href="http://stackoverflow.com/documentation/c%23/68/linq-queries/8001/deferred-execution">deferred execution</a> by using <a href="https://blogs.msdn.microsoft.com/oldnewthing/20080812-00/?p=21273/">yield return </a><a href="https://blogs.msdn.microsoft.com/oldnewthing/20080812-00/?p=21273/"><strong>MSDN</strong></a> which creates an Enumerable and an Enumerator behind the scenes. The process of chaining in LINQ is essentially building an enumerable (iterator) for the original set – which is deferred – until materialized by <a href="http://stackoverflow.com/documentation/c%23/68/linq-queries/17356/enumerating-the-enumerable">enumerating the enumerable</a>.
+</p>
+<p>This allows these functions to be <a href="https://en.wikipedia.org/wiki/Fluent_interface">fluently chained </a><a href="https://en.wikipedia.org/wiki/Fluent_interface"><strong>wiki</strong></a>, where one function can act directly on the result of another. This style of code can be used to perform many sequence based operations in a single statement.
+</p>
+<p>For example, it’s possible to combine <code>Select</code>, <code>Where</code> and <code>OrderBy</code> to transform, filter and sort a sequence in a single statement.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">var</span> <span class="n">someNumbers</span> <span class="p">=</span> <span class="p">{</span> <span class="m">4</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">1</span> <span class="p">};</span>
@@ -163,9 +175,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Output:</strong></p><blockquote id="146b4e28-b3ca-43af-ad15-889869f028d9" class="">2
+</div>
+<p><strong>Output:</strong>
+</p>
+<blockquote id="146b4e28-b3ca-43af-ad15-889869f028d9" class="">2
 4
-8</blockquote><p><a href="https://dotnetfiddle.net/3Gta8X">Live Demo on .NET Fiddle</a></p><p>Any functions that both extend and return the generic <code>IEnumerable&lt;T&gt;</code> type can be used as chained clauses in a single statement. This style of fluent programming is powerful, and should be considered when creating your own <a href="http://stackoverflow.com/documentation/c%23/20/extension-methods#t=201607220826369208865">extension methods</a>.</p>
+8
+</blockquote>
+<p><a href="https://dotnetfiddle.net/3Gta8X">Live Demo on .NET Fiddle</a>
+</p>
+<p>Any functions that both extend and return the generic <code>IEnumerable&lt;T&gt;</code> type can be used as chained clauses in a single statement. This style of fluent programming is powerful, and should be considered when creating your own <a href="http://stackoverflow.com/documentation/c%23/20/extension-methods#t=201607220826369208865">extension methods</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

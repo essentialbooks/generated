@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>How do you go about using an instance of a (possibly further) inherited generic type within a method declaration in the generic type itself being declared? This is one of the problems you will face when you dig a bit deeper into generics, but still a fairly common one.</p><p>Assume we have a <code>DataSeries&lt;T&gt;</code> type (interface here), which defines a generic data series containing values of type <code>T</code>. It is cumbersome to work with this type directly when we want to perform a lot of operations with e.g. double values, so we define <code>DoubleSeries extends DataSeries&lt;Double&gt;</code>. Now assume, the original <code>DataSeries&lt;T&gt;</code> type has a method <code>add(values)</code> which adds another series of the same length and returns a new one. How do we enforce the type of <code>values</code> and the type of the return to be <code>DoubleSeries</code> rather than <code>DataSeries&lt;Double&gt;</code> in our derived class?</p><p>The problem can be solved by adding a generic type parameter referring back to and extending the type being declared (applied to an interface here, but the same stands for classes):</p>
+      
+<p>How do you go about using an instance of a (possibly further) inherited generic type within a method declaration in the generic type itself being declared? This is one of the problems you will face when you dig a bit deeper into generics, but still a fairly common one.
+</p>
+<p>Assume we have a <code>DataSeries&lt;T&gt;</code> type (interface here), which defines a generic data series containing values of type <code>T</code>. It is cumbersome to work with this type directly when we want to perform a lot of operations with e.g. double values, so we define <code>DoubleSeries extends DataSeries&lt;Double&gt;</code>. Now assume, the original <code>DataSeries&lt;T&gt;</code> type has a method <code>add(values)</code> which adds another series of the same length and returns a new one. How do we enforce the type of <code>values</code> and the type of the return to be <code>DoubleSeries</code> rather than <code>DataSeries&lt;Double&gt;</code> in our derived class?
+</p>
+<p>The problem can be solved by adding a generic type parameter referring back to and extending the type being declared (applied to an interface here, but the same stands for classes):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public interface DataSeries&lt;T, DS extends DataSeries&lt;T, DS&gt;&gt; {
@@ -138,7 +145,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here <code>T</code> represents the data type the series holds, e.g. <code>Double</code> and <code>DS</code> the series itself. An inherited type (or types) can now be easily implemented by substituting the above mentioned parameter by a corresponding derived type, thus, yielding a concrete <code>Double</code>-based definition of the form:</p>
+</div>
+<p>Here <code>T</code> represents the data type the series holds, e.g. <code>Double</code> and <code>DS</code> the series itself. An inherited type (or types) can now be easily implemented by substituting the above mentioned parameter by a corresponding derived type, thus, yielding a concrete <code>Double</code>-based definition of the form:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public interface DoubleSeries extends DataSeries&lt;Double, DoubleSeries&gt; {
@@ -150,7 +160,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>At this moment even an IDE will implement the above interface with correct types in place, which, after a bit of content filling may look like this:</p>
+</div>
+<p>At this moment even an IDE will implement the above interface with correct types in place, which, after a bit of content filling may look like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class DoubleSeriesImpl implements DoubleSeries {
@@ -182,7 +195,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As you can see the <code>add</code> method is declared as <code>DoubleSeries add(DoubleSeries values)</code> and the compiler is happy.</p><p>The pattern can be further nested if required.</p>
+</div>
+<p>As you can see the <code>add</code> method is declared as <code>DoubleSeries add(DoubleSeries values)</code> and the compiler is happy.
+</p>
+<p>The pattern can be further nested if required.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

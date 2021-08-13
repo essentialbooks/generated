@@ -127,7 +127,21 @@
 </div>
 
 
-      <h2 id="9a899e1a-7334-4487-b1cc-97f2c77850fe" class="">Writing custom XML marshalling<a class="header-anchor" href="#9a899e1a-7334-4487-b1cc-97f2c77850fe" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Sometimes a type doesn’t have an obvious mapping to JSON.</p><p>How would you serialize <code>time.Time</code>? There are so many possibilities.</p><p>Go provides a default XML mapping for <code>time.Time</code>. We can implement custom marshaller for user-defined types like structs.</p><p>For existing types we can define a new (but compatible) type.</p><p>Here’s a custom marshalling and unmarshalling for <code>time.Time</code> that only serializes year/month/date part:</p>
+      
+  <h2 id="9a899e1a-7334-4487-b1cc-97f2c77850fe" class="">Writing custom XML marshalling
+  <a class="header-anchor" href="#9a899e1a-7334-4487-b1cc-97f2c77850fe" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Sometimes a type doesn’t have an obvious mapping to JSON.
+</p>
+<p>How would you serialize <code>time.Time</code>? There are so many possibilities.
+</p>
+<p>Go provides a default XML mapping for <code>time.Time</code>. We can implement custom marshaller for user-defined types like structs.
+</p>
+<p>For existing types we can define a new (but compatible) type.
+</p>
+<p>Here’s a custom marshalling and unmarshalling for <code>time.Time</code> that only serializes year/month/date part:
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="kd">type</span> <span class="nx">Event</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -201,6 +215,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">Standard time JSON: &lt;Event&gt;&lt;What&gt;earthquake&lt;/What&gt;&lt;When&gt;2020-07-12T07:34:51.565806306Z&lt;/When&gt;&lt;/Event&gt;
@@ -212,7 +227,19 @@ Decoded custom time: 2020-12-07
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Notice that receiver type of <code>UnmashalXML</code> is a pointer to the type.</p><p>This is necessary for changes to persist outside the function itself.</p><h2 id="0f8f8273-bd13-44e6-af21-3d2914e7cfd0" class="">Custom marshaling behind the scenes<a class="header-anchor" href="#0f8f8273-bd13-44e6-af21-3d2914e7cfd0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>How does custom marshaling works?</p><p>Package XML defines 2 interfaces: <a href="https://golang.org/pkg/encoding/xml/#Marshaler"><code>Marshaler</code></a> and <a href="https://golang.org/pkg/encoding/xml/#Unmarshaler"><code>Unmarshaler</code></a>.</p>
+</div>
+<p>Notice that receiver type of <code>UnmashalXML</code> is a pointer to the type.
+</p>
+<p>This is necessary for changes to persist outside the function itself.
+</p>
+  <h2 id="0f8f8273-bd13-44e6-af21-3d2914e7cfd0" class="">Custom marshaling behind the scenes
+  <a class="header-anchor" href="#0f8f8273-bd13-44e6-af21-3d2914e7cfd0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>How does custom marshaling works?
+</p>
+<p>Package XML defines 2 interfaces: <a href="https://golang.org/pkg/encoding/xml/#Marshaler"><code>Marshaler</code></a> and <a href="https://golang.org/pkg/encoding/xml/#Unmarshaler"><code>Unmarshaler</code></a>.
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kd">type</span> <span class="nx">Marshaler</span> <span class="kd">interface</span> <span class="p">{</span>
@@ -226,7 +253,11 @@ Decoded custom time: 2020-12-07
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>By implementing those functions we make our type conform to <code>Marshaler</code> or <code>Unmarshaler</code> interface.</p><p>XML encoder / decoder checks if the value being encoded conforms to those interfaces and will call those functions instead of executing default logic.</p>
+</div>
+<p>By implementing those functions we make our type conform to <code>Marshaler</code> or <code>Unmarshaler</code> interface.
+</p>
+<p>XML encoder / decoder checks if the value being encoded conforms to those interfaces and will call those functions instead of executing default logic.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

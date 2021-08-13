@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>We can do two things to improve the simple and sub-optimal disjoint-set subalgorithms:</p><ol id="62e407df-5a48-4913-a248-7d3df0814f0d" class="numbered-list" start="1"><li><strong>Path compression heuristic</strong>: <code>findSet</code> does not need to ever handle a tree with height bigger than <code>2</code>. If it ends up iterating such a tree, it can link the lower nodes directly to the root, optimizing future traversals;</li></ol>
+      
+<p>We can do two things to improve the simple and sub-optimal disjoint-set subalgorithms:
+</p>
+  <ol id="62e407df-5a48-4913-a248-7d3df0814f0d" class="numbered-list" start="1">
+    <li><strong>Path compression heuristic</strong>: <code>findSet</code> does not need to ever handle a tree with height bigger than <code>2</code>. If it ends up iterating such a tree, it can link the lower nodes directly to the root, optimizing future traversals;
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">subalgo findSet(v: a node):
@@ -138,7 +145,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="e064ff4f-c28b-4383-8dfd-c80c9f9a1ba4" class="numbered-list" start="1"><li><strong>Height-based merging heuristic</strong>: for each node, store the height of its subtree. When merging, make the taller tree the parent of the smaller one, thus not increasing anyone’s height.</li></ol>
+</div>
+  <ol id="e064ff4f-c28b-4383-8dfd-c80c9f9a1ba4" class="numbered-list" start="1">
+    <li><strong>Height-based merging heuristic</strong>: for each node, store the height of its subtree. When merging, make the taller tree the parent of the smaller one, thus not increasing anyone’s height.
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">subalgo unionSet(u, v: nodes):
@@ -149,6 +161,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if vRoot == uRoot:
@@ -165,7 +178,16 @@ else:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This leads to <code>O(alpha(n))</code> time for each operation, where <code>alpha</code> is the inverse of the fast-growing Ackermann function, thus it is very slow growing, and can be considered <code>O(1)</code> for practical purposes.</p><p>This makes the entire Kruskal’s algorithm <code>O(m log m + m) = O(m log m)</code>, because of the initial sorting.</p><p><strong>Note</strong></p><p>Path compression may reduce the height of the tree, hence comparing heights of the trees during union operation might not be a trivial task. Hence to avoid the complexity of storing and calculating the height of the trees the resulting parent can be picked randomly:</p>
+</div>
+<p>This leads to <code>O(alpha(n))</code> time for each operation, where <code>alpha</code> is the inverse of the fast-growing Ackermann function, thus it is very slow growing, and can be considered <code>O(1)</code> for practical purposes.
+</p>
+<p>This makes the entire Kruskal’s algorithm <code>O(m log m + m) = O(m log m)</code>, because of the initial sorting.
+</p>
+<p><strong>Note</strong>
+</p>
+<p>Path compression may reduce the height of the tree, hence comparing heights of the trees during union operation might not be a trivial task. Hence to avoid the complexity of storing and calculating the height of the trees the resulting parent can be picked randomly:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">subalgo unionSet(u, v: nodes):
@@ -176,6 +198,7 @@ else:
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if vRoot == uRoot:
@@ -188,7 +211,9 @@ else:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In practice this randomised algorithm together with path compression for <code>findSet</code> operation will result in comparable performance, yet much simpler to implement.</p>
+</div>
+<p>In practice this randomised algorithm together with path compression for <code>findSet</code> operation will result in comparable performance, yet much simpler to implement.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

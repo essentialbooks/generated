@@ -127,7 +127,22 @@
 </div>
 
 
-      <p><code>await</code> operator and <code>async</code> keyword come together:</p><blockquote id="5a2c2820-c8e7-4827-8cad-635ca08576dc" class="">The asynchronous method in which await is used must be modified by the async keyword.</blockquote><p>The opposite is not always true: you can mark a method as <code>async</code> without using <code>await</code> in its body.</p><p>What <code>await</code> actually does is to suspend execution of the code until the awaited task completes; any task can be awaited.</p><p><strong>Note:</strong> you cannot await for async method which returns nothing (void).</p><p>Actually, the word ‘suspends’ is a bit misleading because not only the execution stops, but the thread may become free for executing other operations. Under the hood, <code>await</code> is implemented by a bit of compiler magic: it splits a method into two parts - before and after <code>await</code>. The latter part is executed when the awaited task completes.</p><p>If we ignore some important details, the compiler roughly does this for you:</p>
+      
+<p><code>await</code> operator and <code>async</code> keyword come together:
+</p>
+<blockquote id="5a2c2820-c8e7-4827-8cad-635ca08576dc" class="">The asynchronous method in which await is used must be modified by the async keyword.
+</blockquote>
+<p>The opposite is not always true: you can mark a method as <code>async</code> without using <code>await</code> in its body.
+</p>
+<p>What <code>await</code> actually does is to suspend execution of the code until the awaited task completes; any task can be awaited.
+</p>
+<p><strong>Note:</strong> you cannot await for async method which returns nothing (void).
+</p>
+<p>Actually, the word ‘suspends’ is a bit misleading because not only the execution stops, but the thread may become free for executing other operations. Under the hood, <code>await</code> is implemented by a bit of compiler magic: it splits a method into two parts - before and after <code>await</code>. The latter part is executed when the awaited task completes.
+</p>
+<p>If we ignore some important details, the compiler roughly does this for you:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">TResult</span><span class="p">&gt;</span> <span class="n">DoIt</span><span class="p">()</span>
@@ -142,7 +157,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>becomes:</p>
+</div>
+<p>becomes:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">TResult</span><span class="p">&gt;</span> <span class="n">DoIt</span><span class="p">()</span>
@@ -163,7 +181,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Any usual method can be turned into async in the following way:</p>
+</div>
+<p>Any usual method can be turned into async in the following way:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">await</span> <span class="n">Task</span><span class="p">.</span><span class="n">Run</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="n">YourSyncMethod</span><span class="p">());</span>
@@ -172,7 +193,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This can be advantageous when you need to execute a long running method on the UI thread without freezing the UI.</p><p>But there is a very important remark here: <strong>Asynchronous does not always mean concurrent (parallel or even multi-threaded).</strong> Even on a single thread, <code>async</code>-<code>await</code> still allows for asynchronous code. For example, see this custom <a href="https://msdn.microsoft.com/en-us/library/system.threading.tasks.taskscheduler(v=vs.110).aspx">task scheduler</a>. Such a ‘crazy’ task scheduler can simply turn tasks into functions which are called within message loop processing.</p><p>We need to ask ourselves: What thread will execute the continuation of our method <code>DoIt_Continuation</code>?</p><p>By default the <code>await</code> operator schedules the execution of continuation with the current <a href="https://msdn.microsoft.com/en-us/library/system.threading.synchronizationcontext(v=vs.110).aspx">Synchronization context</a>. It means that by default for WinForms and WPF continuation runs in the UI thread. If, for some reason, you need to change this behavior, use <a href="https://msdn.microsoft.com/en-us/library/system.threading.tasks.task.configureawait(v=vs.110).aspx">method</a> <code>Task.ConfigureAwait()</code>:</p>
+</div>
+<p>This can be advantageous when you need to execute a long running method on the UI thread without freezing the UI.
+</p>
+<p>But there is a very important remark here: <strong>Asynchronous does not always mean concurrent (parallel or even multi-threaded).</strong> Even on a single thread, <code>async</code>-<code>await</code> still allows for asynchronous code. For example, see this custom <a href="https://msdn.microsoft.com/en-us/library/system.threading.tasks.taskscheduler(v=vs.110).aspx">task scheduler</a>. Such a ‘crazy’ task scheduler can simply turn tasks into functions which are called within message loop processing.
+</p>
+<p>We need to ask ourselves: What thread will execute the continuation of our method <code>DoIt_Continuation</code>?
+</p>
+<p>By default the <code>await</code> operator schedules the execution of continuation with the current <a href="https://msdn.microsoft.com/en-us/library/system.threading.synchronizationcontext(v=vs.110).aspx">Synchronization context</a>. It means that by default for WinForms and WPF continuation runs in the UI thread. If, for some reason, you need to change this behavior, use <a href="https://msdn.microsoft.com/en-us/library/system.threading.tasks.task.configureawait(v=vs.110).aspx">method</a> <code>Task.ConfigureAwait()</code>:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">await</span> <span class="n">Task</span><span class="p">.</span><span class="n">Run</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="n">YourSyncMethod</span><span class="p">()).</span><span class="n">ConfigureAwait</span><span class="p">(</span><span class="n">continueOnCapturedContext</span><span class="p">:</span> <span class="k">false</span><span class="p">);</span>

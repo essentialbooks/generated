@@ -127,7 +127,52 @@
 </div>
 
 
-      <h1 id="9eee78b9-970d-4064-bd31-b8aa06fbb2fd" class="">Summary<a class="header-anchor" href="#9eee78b9-970d-4064-bd31-b8aa06fbb2fd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>This goal is to reorganize all of your scattered commits into more meaningful commits for easier code reviews. If there are too many layers of changes across too many files at once, it is harder to do a code review. If you can reorganize your chronologically created commits into topical commits, then the code review process is easier (and possibly less bugs slip through the code review process).</p><p>This overly-simplified example is not the only strategy for using git to do better code reviews. It is the way I do it, and it’s something to inspire others to consider how to make code reviews and git history easier/better.</p><p>This also pedagogically demonstrates the power of rebase in general.</p><p>This example assumes you know about interactive rebasing.</p><h1 id="150d5b2e-b348-46ad-b0ee-5b69ba186026" class="">Assuming:<a class="header-anchor" href="#150d5b2e-b348-46ad-b0ee-5b69ba186026" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><ul id="9c42d839-0452-4cad-b845-8038a301e005" class="bulleted-list"><li>you’re working on a feature branch off of master</li><li>your feature has three main layers: front-end, back-end, DB</li><li>you have made a lot of commits while working on a feature branch. Each commit touches multiple layers at once</li><li>you want (in the end) only three commits in your branch</li><li>one containing all front end changes</li><li>one containing all back end changes</li><li>one containing all DB changes</li></ul><h1 id="ca7161e1-d799-41c2-ac81-ad90e185f95f" class="">Strategy:<a class="header-anchor" href="#ca7161e1-d799-41c2-ac81-ad90e185f95f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><ul id="54878751-afc1-42c2-af7d-906eee64ce10" class="bulleted-list"><li>we are going to change our chronological commits into “topical” commits.</li><li>first, split all commits into multiple, smaller commits – each containing only one topic at a time (in our example, the topics are front end, back end, DB changes)</li><li>Then reorder our topical commits together and ‘squash’ them into single topical commits</li></ul><h1 id="0fc6b430-37d4-47f2-ba76-921e26b78255" class="">Example:<a class="header-anchor" href="#0fc6b430-37d4-47f2-ba76-921e26b78255" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1>
+      
+  <h1 id="9eee78b9-970d-4064-bd31-b8aa06fbb2fd" class="">Summary
+  <a class="header-anchor" href="#9eee78b9-970d-4064-bd31-b8aa06fbb2fd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>This goal is to reorganize all of your scattered commits into more meaningful commits for easier code reviews. If there are too many layers of changes across too many files at once, it is harder to do a code review. If you can reorganize your chronologically created commits into topical commits, then the code review process is easier (and possibly less bugs slip through the code review process).
+</p>
+<p>This overly-simplified example is not the only strategy for using git to do better code reviews. It is the way I do it, and it’s something to inspire others to consider how to make code reviews and git history easier/better.
+</p>
+<p>This also pedagogically demonstrates the power of rebase in general.
+</p>
+<p>This example assumes you know about interactive rebasing.
+</p>
+  <h1 id="150d5b2e-b348-46ad-b0ee-5b69ba186026" class="">Assuming:
+  <a class="header-anchor" href="#150d5b2e-b348-46ad-b0ee-5b69ba186026" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <ul id="9c42d839-0452-4cad-b845-8038a301e005" class="bulleted-list">
+    <li>you’re working on a feature branch off of master
+    </li>
+    <li>your feature has three main layers: front-end, back-end, DB
+    </li>
+    <li>you have made a lot of commits while working on a feature branch. Each commit touches multiple layers at once
+    </li>
+    <li>you want (in the end) only three commits in your branch
+    </li>
+    <li>one containing all front end changes
+    </li>
+    <li>one containing all back end changes
+    </li>
+    <li>one containing all DB changes
+    </li>
+  </ul>
+  <h1 id="ca7161e1-d799-41c2-ac81-ad90e185f95f" class="">Strategy:
+  <a class="header-anchor" href="#ca7161e1-d799-41c2-ac81-ad90e185f95f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <ul id="54878751-afc1-42c2-af7d-906eee64ce10" class="bulleted-list">
+    <li>we are going to change our chronological commits into “topical” commits.
+    </li>
+    <li>first, split all commits into multiple, smaller commits – each containing only one topic at a time (in our example, the topics are front end, back end, DB changes)
+    </li>
+    <li>Then reorder our topical commits together and ‘squash’ them into single topical commits
+    </li>
+  </ul>
+  <h1 id="0fc6b430-37d4-47f2-ba76-921e26b78255" class="">Example:
+  <a class="header-anchor" href="#0fc6b430-37d4-47f2-ba76-921e26b78255" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">$ git log --oneline master..
@@ -139,7 +184,10 @@ $ git rebase -i master</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will be shown in text editor:</p>
+</div>
+<p>This will be shown in text editor:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">pick 43b075a first draft: page.html and db.sql
@@ -149,7 +197,10 @@ pick 975430b db adding works: db.sql logic.rb</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Change it to this:</p>
+</div>
+<p>Change it to this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">e 43b075a first draft: page.html and db.sql
@@ -159,7 +210,10 @@ e 975430b db adding works: db.sql logic.rb</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then git will apply one commit at a time. After each commit, it will show a prompt, and then you can do the following:</p>
+</div>
+<p>Then git will apply one commit at a time. After each commit, it will show a prompt, and then you can do the following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Stopped at 43b075a92a952faf999e76c4e4d7fa0f44576579... first draft: page.html and db.sql
@@ -191,7 +245,10 @@ $ git rebase --continue</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then you will repeat those steps for every commit. In the end, you have this:</p>
+</div>
+<p>Then you will repeat those steps for every commit. In the end, you have this:
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">$ git log --oneline
@@ -205,7 +262,10 @@ $ git rebase --continue</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we run rebase one more time to reorder and squash:</p>
+</div>
+<p>Now we run rebase one more time to reorder and squash:
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">git rebase -i master</pre>
@@ -213,7 +273,10 @@ $ git rebase --continue</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will be shown in text editor:</p>
+</div>
+<p>This will be shown in text editor:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">pick 08c275d first draft: db.sql
@@ -226,7 +289,10 @@ pick 0309336 db adding works: logic.rb</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Change it to this:</p>
+</div>
+<p>Change it to this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">pick 08c275d first draft: db.sql
@@ -239,7 +305,12 @@ s  3264de2 adding todo items: page.html</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>NOTICE: make sure that you tell git rebase to apply/squash the smaller topical commits <em>in the order they were chronologically commited</em>. Otherwise you might have false, needless merge conflicts to deal with.</p><p>When that interactive rebase is all said and done, you get this:</p>
+</div>
+<p>NOTICE: make sure that you tell git rebase to apply/squash the smaller topical commits <em>in the order they were chronologically commited</em>. Otherwise you might have false, needless merge conflicts to deal with.
+</p>
+<p>When that interactive rebase is all said and done, you get this:
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">$ git log --oneline master..
@@ -250,7 +321,12 @@ e8d8f7e adding todos: business logic layer
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="988c9771-2c7a-4582-b4f1-38f6199e6009" class="">Recap<a class="header-anchor" href="#988c9771-2c7a-4582-b4f1-38f6199e6009" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>You have now rebased your chronological commits into topical commits. In real life, you may not need to do this every single time, but when you do want or need to do this, now you can. Plus, hopefully you learned more about git rebase.</p>
+</div>
+  <h1 id="988c9771-2c7a-4582-b4f1-38f6199e6009" class="">Recap
+  <a class="header-anchor" href="#988c9771-2c7a-4582-b4f1-38f6199e6009" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>You have now rebased your chronological commits into topical commits. In real life, you may not need to do this every single time, but when you do want or need to do this, now you can. Plus, hopefully you learned more about git rebase.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

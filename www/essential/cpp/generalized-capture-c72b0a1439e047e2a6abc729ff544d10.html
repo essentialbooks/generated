@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Lambdas can capture expressions, rather than just variables. This permits lambdas to store move-only types:</p>
+      
+<p>Lambdas can capture expressions, rather than just variables. This permits lambdas to store move-only types:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto p = std::make_unique&lt;T&gt;(...);
@@ -140,7 +143,10 @@ auto lamb = [p = std::move(p)]() //Overrides capture-by-value of `p`.
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This moves the outer <code>p</code> variable into the lambda capture variable, also called <code>p</code>. <code>lamb</code> now owns the memory allocated by <code>make_unique</code>. Because the closure contains a type that is non-copyable, this means that <code>lamb</code> is itself non-copyable. But it can be moved:</p>
+</div>
+<p>This moves the outer <code>p</code> variable into the lambda capture variable, also called <code>p</code>. <code>lamb</code> now owns the memory allocated by <code>make_unique</code>. Because the closure contains a type that is non-copyable, this means that <code>lamb</code> is itself non-copyable. But it can be moved:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto lamb_copy = lamb; //Illegal
@@ -149,7 +155,13 @@ auto lamb_move = std::move(lamb); //legal.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now <code>lamb_move</code> owns the memory.</p><hr id="90a98bfc-6014-4a67-8af1-1de2e7c2765e"/><p>Note that <code>std::function&lt;&gt;</code> requires that the values stored be copyable. You can write your own <a href="https://stackoverflow.com/documentation/c%2B%2B/2872/type-erasure/18042/a-move-only-stdfunction#t=201608061624094409548">move-only-requiring </a><a href="https://stackoverflow.com/documentation/c%2B%2B/2872/type-erasure/18042/a-move-only-stdfunction#t=201608061624094409548"><code>std::function</code></a>, or you could just stuff the lambda into a <code>shared_ptr</code> wrapper:</p>
+</div>
+<p>Now <code>lamb_move</code> owns the memory.
+</p>
+<hr id="90a98bfc-6014-4a67-8af1-1de2e7c2765e"/>
+<p>Note that <code>std::function&lt;&gt;</code> requires that the values stored be copyable. You can write your own <a href="https://stackoverflow.com/documentation/c%2B%2B/2872/type-erasure/18042/a-move-only-stdfunction#t=201608061624094409548">move-only-requiring </a><a href="https://stackoverflow.com/documentation/c%2B%2B/2872/type-erasure/18042/a-move-only-stdfunction#t=201608061624094409548"><code>std::function</code></a>, or you could just stuff the lambda into a <code>shared_ptr</code> wrapper:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto shared_lambda = [](auto&amp;&amp; f){
@@ -163,7 +175,13 @@ auto lamb_shared = shared_lambda(std::move(lamb_move));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>takes our move-only lambda and stuffs its state into a shared pointer then returns a lambda that <em>can</em> be copied, and then stored in a <code>std::function</code> or similar.</p><hr id="4b7b5c6f-5ef5-4c0f-8e58-533e1f7edd62"/><p>Generalized capture uses <code>auto</code> type deduction for the variable’s type. It will declare these captures as values by default, but they can be references as well:</p>
+</div>
+<p>takes our move-only lambda and stuffs its state into a shared pointer then returns a lambda that <em>can</em> be copied, and then stored in a <code>std::function</code> or similar.
+</p>
+<hr id="4b7b5c6f-5ef5-4c0f-8e58-533e1f7edd62"/>
+<p>Generalized capture uses <code>auto</code> type deduction for the variable’s type. It will declare these captures as values by default, but they can be references as well:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int a = 0;
@@ -178,7 +196,10 @@ lamb(20); //`a` becomes 20.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Generalize capture does not need to capture an external variable at all. It can capture an arbitrary expression:</p>
+</div>
+<p>Generalize capture does not need to capture an external variable at all. It can capture an arbitrary expression:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto lamb = [p = std::make_unique&lt;T&gt;(...)]()
@@ -189,7 +210,9 @@ lamb(20); //`a` becomes 20.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is useful for giving lambdas arbitrary values that they can hold and potentially modify, without having to declare them externally to the lambda. Of course, that is only useful if you do not intend to access those variables after the lambda has completed its work.</p>
+</div>
+<p>This is useful for giving lambdas arbitrary values that they can hold and potentially modify, without having to declare them externally to the lambda. Of course, that is only useful if you do not intend to access those variables after the lambda has completed its work.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

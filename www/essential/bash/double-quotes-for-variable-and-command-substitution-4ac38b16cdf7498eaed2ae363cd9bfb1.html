@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Variable substitutions should only be used inside double quotes.</p>
+      
+<p>Variable substitutions should only be used inside double quotes.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">calculation=&#39;2 * 3&#39;
@@ -138,7 +141,12 @@ echo &#34;$(($calculation))&#34;    # prints 6</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Outside of double quotes, <code>$var</code> takes the value of <code>var</code>, splits it into whitespace-delimited parts, and interprets each part as a glob (wildcard) pattern. Unless you want this behavior, always put <code>$var</code> inside double quotes: <code>&quot;$var&quot;</code>.</p><p>The same applies to command substitutions: <code>&quot;$(mycommand)&quot;</code> is the output of <code>mycommand</code>, <code>$(mycommand)</code> is the result of split+glob on the output.</p>
+</div>
+<p>Outside of double quotes, <code>$var</code> takes the value of <code>var</code>, splits it into whitespace-delimited parts, and interprets each part as a glob (wildcard) pattern. Unless you want this behavior, always put <code>$var</code> inside double quotes: <code>&quot;$var&quot;</code>.
+</p>
+<p>The same applies to command substitutions: <code>&quot;$(mycommand)&quot;</code> is the output of <code>mycommand</code>, <code>$(mycommand)</code> is the result of split+glob on the output.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">echo &#34;$var&#34;             # good
@@ -151,7 +159,10 @@ make -D &#34;THING=$var&#34;    # also good</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Command substitutions get their own quoting contexts. Writing arbitrarily nested substitutions is easy because the parser will keep track of nesting depth instead of greedily searching for the first <code>&quot;</code> character. The StackOverflow syntax highlighter parses this wrong, however. For example:</p>
+</div>
+<p>Command substitutions get their own quoting contexts. Writing arbitrarily nested substitutions is easy because the parser will keep track of nesting depth instead of greedily searching for the first <code>&quot;</code> character. The StackOverflow syntax highlighter parses this wrong, however. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">echo &#34;formatted text: $(printf &#34;a + b = %04d&#34; &#34;${c}&#34;)&#34; # “formatted text: a + b = 0000”</pre>
@@ -159,7 +170,10 @@ make -D &#34;THING=$var&#34;    # also good</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Variable arguments to a command substitution should be double-quoted inside the expansions as well:</p>
+</div>
+<p>Variable arguments to a command substitution should be double-quoted inside the expansions as well:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">echo &#34;$(mycommand &#34;$arg1&#34; &#34;$arg2&#34;)&#34;</pre>

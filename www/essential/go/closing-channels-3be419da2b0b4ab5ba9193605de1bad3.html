@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>You can close a channel with <code>close(chan)</code>.</p><p>Main purpose of closing a channel is to notify worker goroutines that their work is done and they can finish.</p><p>This ensures you don’t leak goroutines.</p><p><strong>Closing a channel ends </strong><code><strong>range</strong></code><strong> loop over it:</strong></p>
+      
+<p>You can close a channel with <code>close(chan)</code>.
+</p>
+<p>Main purpose of closing a channel is to notify worker goroutines that their work is done and they can finish.
+</p>
+<p>This ensures you don’t leak goroutines.
+</p>
+<p><strong>Closing a channel ends </strong><code><strong>range</strong></code><strong> loop over it:</strong>
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">)</span>
@@ -150,6 +159,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">received from channel: foo
@@ -159,7 +169,10 @@ range loop finished because ch was closed
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>A receive from closed channels returns zero value immediately:</strong></p>
+</div>
+<p><strong>A receive from closed channels returns zero value immediately:</strong>
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">)</span>
@@ -175,6 +188,7 @@ range loop finished because ch was closed
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">Receive from closed channel immediately returns zero value of the type: &#34;&#34;
@@ -183,7 +197,10 @@ range loop finished because ch was closed
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>When receiving, you can optionally test if channel is closed:</strong></p>
+</div>
+<p><strong>When receiving, you can optionally test if channel is closed:</strong>
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
@@ -204,6 +221,7 @@ range loop finished because ch was closed
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">received 8, is channel closed: false
@@ -213,7 +231,10 @@ received 0, is channel closed: true
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Closing channel twice panics:</strong></p>
+</div>
+<p><strong>Closing channel twice panics:</strong>
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">)</span>
@@ -228,6 +249,7 @@ received 0, is channel closed: true
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">panic: close of closed channel
@@ -240,7 +262,10 @@ exit status 2</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Sending to closed channel panics:</strong></p>
+</div>
+<p><strong>Sending to closed channel panics:</strong>
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
@@ -255,6 +280,7 @@ exit status 2</pre>
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">panic: send on closed channel

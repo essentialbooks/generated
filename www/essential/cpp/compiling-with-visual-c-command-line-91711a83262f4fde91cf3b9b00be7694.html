@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>For programmers coming from GCC or Clang to Visual Studio, or programmers more comfortable with the command line in general, you can use the Visual C++ compiler from the command line as well as the IDE.</p><p>If you desire to compile your code from the command line in Visual Studio, you first need to set up the command line environment. This can be done either by opening the <a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0"><code>Visual Studio Command Prompt</code></a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0">/</a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0"><code>Developer Command Prompt</code></a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0">/</a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0"><code>x86 Native Tools Command Prompt</code></a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0">/</a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0"><code>x64 Native Tools Command Prompt</code></a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0"> or similar</a> (as provided by your version of Visual Studio), or at the command prompt, by navigating to the <code>VC</code> subdirectory of the compiler’s install directory (typically <code>\Program Files (x86)\Microsoft Visual Studio x\VC</code>, where <code>x</code> is the version number (such as <code>10.0</code> for 2010, or <code>14.0</code> for 2015) and running the <code>VCVARSALL</code> batch file with a command-line parameter specified <a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_1">here</a>.</p><p>Note that unlike GCC, Visual Studio doesn’t provide a front-end for the linker (<code>link.exe</code>) via the compiler (<code>cl.exe</code>), but instead provides the linker as a separate program, which the compiler calls as it exits. <code>cl.exe</code> and <code>link.exe</code> can be used separately with different files and options, or <code>cl</code> can be told to pass files and options to <code>link</code> if both tasks are done together. Any linking options specified to <code>cl</code> will be translated into options for <code>link</code>, and any files not processed by <code>cl</code> will be passed directly to <code>link</code>. As this is mainly a simple guide to compiling with the Visual Studio command line, arguments for <code>link</code> will not be described at this time; if you need a list, see <a href="https://msdn.microsoft.com/en-us/library/y0zzbyt4.aspx">here</a>.</p><p>Note that arguments to <code>cl</code> are case-sensitive, while arguments to <code>link</code> are not.</p><p>[Be advised that some of the following examples use the Windows shell “current directory” variable, <code>%cd%</code>, when specifying absolute path names. For anyone unfamiliar with this variable, it expands to the current working directory. From the command line, it will be the directory you were in when you ran <code>cl</code>, and is specified in the command prompt by default (if your command prompt is <code>C:\src&gt;</code>, for example, then <code>%cd%</code> is <code>C:\src\</code>).]</p><p>Assuming a single source file named <code>main.cpp</code> in the current folder, the command to compile and link an unoptimised executable (useful for initial development and debugging) is (use either of the following):</p>
+      
+<p>For programmers coming from GCC or Clang to Visual Studio, or programmers more comfortable with the command line in general, you can use the Visual C++ compiler from the command line as well as the IDE.
+</p>
+<p>If you desire to compile your code from the command line in Visual Studio, you first need to set up the command line environment. This can be done either by opening the <a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0"><code>Visual Studio Command Prompt</code></a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0">/</a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0"><code>Developer Command Prompt</code></a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0">/</a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0"><code>x86 Native Tools Command Prompt</code></a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0">/</a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0"><code>x64 Native Tools Command Prompt</code></a><a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_0"> or similar</a> (as provided by your version of Visual Studio), or at the command prompt, by navigating to the <code>VC</code> subdirectory of the compiler’s install directory (typically <code>\Program Files (x86)\Microsoft Visual Studio x\VC</code>, where <code>x</code> is the version number (such as <code>10.0</code> for 2010, or <code>14.0</code> for 2015) and running the <code>VCVARSALL</code> batch file with a command-line parameter specified <a href="https://msdn.microsoft.com/en-us/library/f2ccy3wt.aspx#Anchor_1">here</a>.
+</p>
+<p>Note that unlike GCC, Visual Studio doesn’t provide a front-end for the linker (<code>link.exe</code>) via the compiler (<code>cl.exe</code>), but instead provides the linker as a separate program, which the compiler calls as it exits. <code>cl.exe</code> and <code>link.exe</code> can be used separately with different files and options, or <code>cl</code> can be told to pass files and options to <code>link</code> if both tasks are done together. Any linking options specified to <code>cl</code> will be translated into options for <code>link</code>, and any files not processed by <code>cl</code> will be passed directly to <code>link</code>. As this is mainly a simple guide to compiling with the Visual Studio command line, arguments for <code>link</code> will not be described at this time; if you need a list, see <a href="https://msdn.microsoft.com/en-us/library/y0zzbyt4.aspx">here</a>.
+</p>
+<p>Note that arguments to <code>cl</code> are case-sensitive, while arguments to <code>link</code> are not.
+</p>
+<p>[Be advised that some of the following examples use the Windows shell “current directory” variable, <code>%cd%</code>, when specifying absolute path names. For anyone unfamiliar with this variable, it expands to the current working directory. From the command line, it will be the directory you were in when you ran <code>cl</code>, and is specified in the command prompt by default (if your command prompt is <code>C:\src&gt;</code>, for example, then <code>%cd%</code> is <code>C:\src\</code>).]
+</p>
+<p>Assuming a single source file named <code>main.cpp</code> in the current folder, the command to compile and link an unoptimised executable (useful for initial development and debugging) is (use either of the following):
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">cl main.cpp
@@ -142,7 +155,10 @@ cl /Od main.cpp
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Assuming an additional source file “niam.cpp” in the same directory, use the following:</p>
+</div>
+<p>Assuming an additional source file “niam.cpp” in the same directory, use the following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cl main.cpp niam.cpp
@@ -153,7 +169,10 @@ cl /Od main.cpp
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can also use wildcards, as one would expect:</p>
+</div>
+<p>You can also use wildcards, as one would expect:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cl main.cpp src\*.cpp
@@ -166,7 +185,10 @@ cl /Od main.cpp
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To rename or relocate the executable, use one of the following:</p>
+</div>
+<p>To rename or relocate the executable, use one of the following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cl /o name main.cpp
@@ -190,7 +212,15 @@ cl /Fefolder\name main.cpp
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Both <code>/o</code> and <code>/Fe</code> pass their parameter (let’s call it <code>o-param</code>) to <code>link</code> as <code>/OUT:o-param</code>, appending the appropriate extension (generally <code>.exe</code> or <code>.dll</code>) to “name” <code>o-param</code>s as necessary. While both <code>/o</code> and <code>/Fe</code> are to my knowledge identical in functionality, the latter is preferred for Visual Studio. <code>/o</code> is marked as deprecated, and appears to mainly be provided for programmers more familiar with GCC or Clang.</p><p>Note that while the space between <code>/o</code> and the specified folder and/or name is optional, there <em>cannot</em> be a space between <code>/Fe</code> and the specified folder and/or name.</p><hr id="72796db4-585e-4492-a346-88646df487f2"/><p>Similarly, to produce an optimised executable (for use in production), use:</p>
+</div>
+<p>Both <code>/o</code> and <code>/Fe</code> pass their parameter (let’s call it <code>o-param</code>) to <code>link</code> as <code>/OUT:o-param</code>, appending the appropriate extension (generally <code>.exe</code> or <code>.dll</code>) to “name” <code>o-param</code>s as necessary. While both <code>/o</code> and <code>/Fe</code> are to my knowledge identical in functionality, the latter is preferred for Visual Studio. <code>/o</code> is marked as deprecated, and appears to mainly be provided for programmers more familiar with GCC or Clang.
+</p>
+<p>Note that while the space between <code>/o</code> and the specified folder and/or name is optional, there <em>cannot</em> be a space between <code>/Fe</code> and the specified folder and/or name.
+</p>
+<hr id="72796db4-585e-4492-a346-88646df487f2"/>
+<p>Similarly, to produce an optimised executable (for use in production), use:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cl /O1 main.cpp
@@ -212,7 +242,11 @@ cl /GL main.cpp other.cpp
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="d699a91f-dffc-4e4b-b55d-8d80150e3012"/><p>Finally, to produce a platform-specific optimized executable (for use in production on the machine with the specified architecture), choose the appropriate command prompt or <a href="https://msdn.microsoft.com/en-us/library/x4d2c09s.aspx"><code>VCVARSALL</code></a><a href="https://msdn.microsoft.com/en-us/library/x4d2c09s.aspx"> parameter</a> for the target platform. <code>link</code> should detect the desired platform from the object files; if not, use the <a href="https://msdn.microsoft.com/en-us/library/5wy54dk2.aspx"><code>/MACHINE</code></a><a href="https://msdn.microsoft.com/en-us/library/5wy54dk2.aspx"> option</a> to explicitly specify the target platform.</p>
+</div>
+<hr id="d699a91f-dffc-4e4b-b55d-8d80150e3012"/>
+<p>Finally, to produce a platform-specific optimized executable (for use in production on the machine with the specified architecture), choose the appropriate command prompt or <a href="https://msdn.microsoft.com/en-us/library/x4d2c09s.aspx"><code>VCVARSALL</code></a><a href="https://msdn.microsoft.com/en-us/library/x4d2c09s.aspx"> parameter</a> for the target platform. <code>link</code> should detect the desired platform from the object files; if not, use the <a href="https://msdn.microsoft.com/en-us/library/5wy54dk2.aspx"><code>/MACHINE</code></a><a href="https://msdn.microsoft.com/en-us/library/5wy54dk2.aspx"> option</a> to explicitly specify the target platform.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// If compiling for x64, and LINK doesn&#39;t automatically detect target platform:
@@ -221,7 +255,10 @@ cl main.cpp /link /machine:X64</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Any of the above will produce an executable with the name specified by <code>/o</code> or <code>/Fe</code>, or if neither is provided, with a name identical to the first source or object file specified to the compiler.</p>
+</div>
+<p>Any of the above will produce an executable with the name specified by <code>/o</code> or <code>/Fe</code>, or if neither is provided, with a name identical to the first source or object file specified to the compiler.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cl a.cpp b.cpp c.cpp
@@ -239,7 +276,11 @@ cl /o yo zp.obj pz.cpp
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="391e75ae-b516-48b4-a4f5-67bf38dbbf10"/><p>To compile a file(s) without linking, use:</p>
+</div>
+<hr id="391e75ae-b516-48b4-a4f5-67bf38dbbf10"/>
+<p>To compile a file(s) without linking, use:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cl /c main.cpp
@@ -248,7 +289,10 @@ cl /o yo zp.obj pz.cpp
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This tells <code>cl</code> to exit without calling <code>link</code>, and produces an object file, which can later be linked with other files to produce a binary.</p>
+</div>
+<p>This tells <code>cl</code> to exit without calling <code>link</code>, and produces an object file, which can later be linked with other files to produce a binary.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cl main.obj niam.cpp
@@ -263,7 +307,10 @@ link main.obj niam.obj
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>There are other valuable command line parameters as well, which it would be very useful for users to know:</p>
+</div>
+<p>There are other valuable command line parameters as well, which it would be very useful for users to know:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cl /EHsc main.cpp
@@ -299,7 +346,10 @@ cl main.cpp /link /LINKER_OPTION
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For anyone more familiar with *nix systems and/or GCC/Clang, <code>cl</code>, <code>link</code>, and other Visual Studio command line tools can accept parameters specified with a hyphen (such as <code>-c</code>) instead of a slash (such as <code>/c</code>). Additionally, Windows recognises either a slash or a backslash as a valid path separator, so *nix-style paths can be used as well. This makes it easy to convert simple compiler command lines from <code>g++</code> or <code>clang++</code> to <code>cl</code>, or vice versa, with minimal changes.</p>
+</div>
+<p>For anyone more familiar with *nix systems and/or GCC/Clang, <code>cl</code>, <code>link</code>, and other Visual Studio command line tools can accept parameters specified with a hyphen (such as <code>-c</code>) instead of a slash (such as <code>/c</code>). Additionally, Windows recognises either a slash or a backslash as a valid path separator, so *nix-style paths can be used as well. This makes it easy to convert simple compiler command lines from <code>g++</code> or <code>clang++</code> to <code>cl</code>, or vice versa, with minimal changes.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">g++ -o app src/main.cpp
@@ -308,7 +358,13 @@ cl  -o app src/main.cpp</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Of course, when porting command lines that use more complex <code>g++</code> or <code>clang++</code> options, you need to look up equivalent commands in the applicable compiler documentations and/or on resource sites, but this makes it easier to get things started with minimal time spent learning about new compilers.</p><p>In case you need specific language features for your code, a specific release of MSVC was required. From <a href="https://blogs.msdn.microsoft.com/vcblog/2016/06/07/standards-version-switches-in-the-compiler/">Visual C++ 2015 Update 3</a> on it is possible to choose the version of the standard to compile with via the <code>/std</code> flag. Possible values are <code>/std:c++14</code> and <code>/std:c++latest</code> (<code>/std:c++17</code> will follow soon).</p><p>Note: In older versions of this compiler, specific feature flags were available however this was mostly used for previews of new features.</p>
+</div>
+<p>Of course, when porting command lines that use more complex <code>g++</code> or <code>clang++</code> options, you need to look up equivalent commands in the applicable compiler documentations and/or on resource sites, but this makes it easier to get things started with minimal time spent learning about new compilers.
+</p>
+<p>In case you need specific language features for your code, a specific release of MSVC was required. From <a href="https://blogs.msdn.microsoft.com/vcblog/2016/06/07/standards-version-switches-in-the-compiler/">Visual C++ 2015 Update 3</a> on it is possible to choose the version of the standard to compile with via the <code>/std</code> flag. Possible values are <code>/std:c++14</code> and <code>/std:c++latest</code> (<code>/std:c++17</code> will follow soon).
+</p>
+<p>Note: In older versions of this compiler, specific feature flags were available however this was mostly used for previews of new features.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

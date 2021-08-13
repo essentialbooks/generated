@@ -127,7 +127,18 @@
 </div>
 
 
-      <p><a href="https://isocpp.org/files/papers/N3690.pdf">The standard (17.6.4.2.1/1)</a> generally forbids extending the <code>std</code> namespace:</p><blockquote id="be4e8e56-22a2-4277-933a-8df11052a513" class="">The behavior of a C++ program is undefined if it adds declarations or definitions to namespace std or to a namespace within namespace std unless otherwise specified.</blockquote><p>The same goes for <code>posix</code> (17.6.4.2.2/1):</p><blockquote id="18a36f12-6766-426c-b274-600b8ef2a4fe" class="">The behavior of a C++ program is undefined if it adds declarations or definitions to namespace posix or to a namespace within namespace posix unless otherwise specified.</blockquote><p>Consider the following:</p>
+      
+<p><a href="https://isocpp.org/files/papers/N3690.pdf">The standard (17.6.4.2.1/1)</a> generally forbids extending the <code>std</code> namespace:
+</p>
+<blockquote id="be4e8e56-22a2-4277-933a-8df11052a513" class="">The behavior of a C++ program is undefined if it adds declarations or definitions to namespace std or to a namespace within namespace std unless otherwise specified.
+</blockquote>
+<p>The same goes for <code>posix</code> (17.6.4.2.2/1):
+</p>
+<blockquote id="18a36f12-6766-426c-b274-600b8ef2a4fe" class="">The behavior of a C++ program is undefined if it adds declarations or definitions to namespace posix or to a namespace within namespace posix unless otherwise specified.
+</blockquote>
+<p>Consider the following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;algorithm&gt;
@@ -140,7 +151,12 @@ namespace std
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Nothing in the standard forbids <code>algorithm</code> (or one of the headers it includes) defining the same definition, and so this code would violate the <a href="https://en.wikipedia.org/wiki/One_Definition_Rule">One Definition Rule</a>.</p><p>So, in general, this is forbidden. There are <a href="http://en.cppreference.com/w/cpp/language/extending_std">specific exceptions allowed</a>, though. Perhaps most usefully, it is allowed to add specializations for user defined types. So, for example, suppose your code has</p>
+</div>
+<p>Nothing in the standard forbids <code>algorithm</code> (or one of the headers it includes) defining the same definition, and so this code would violate the <a href="https://en.wikipedia.org/wiki/One_Definition_Rule">One Definition Rule</a>.
+</p>
+<p>So, in general, this is forbidden. There are <a href="http://en.cppreference.com/w/cpp/language/extending_std">specific exceptions allowed</a>, though. Perhaps most usefully, it is allowed to add specializations for user defined types. So, for example, suppose your code has
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class foo
@@ -151,7 +167,10 @@ namespace std
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then the following is fine</p>
+</div>
+<p>Then the following is fine
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">namespace std

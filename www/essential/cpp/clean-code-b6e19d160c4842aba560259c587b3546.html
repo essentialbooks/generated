@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Debugging starts with understanding the code you are trying to debug.</p><p>Bad code:</p>
+      
+<p>Debugging starts with understanding the code you are trying to debug.
+</p>
+<p>Bad code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int main() {
@@ -151,7 +156,10 @@ return 0; }</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Better code:</p>
+</div>
+<p>Better code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::vector&lt;int&gt; createSemiRandomData() {
@@ -189,7 +197,47 @@ int main() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Regardless of the coding styles you prefer and use, having a consistent coding (and formatting) style will help you understanding the code.</p><p>Looking at the code above, one can identify a couple of improvements to improve readability and debuggability:</p><h2 id="59df943c-b0e2-4c76-bc6f-54b909515e69" class="">The use of separate functions for separate actions<a class="header-anchor" href="#59df943c-b0e2-4c76-bc6f-54b909515e69" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>The use of separate functions allow you to skip over some functions in the debugger if you ain’t interested in the details. In this specific case, you might not be interested in the creation or printing of the data and only want to step into the sorting.</p><p>Another advantage is that you need to read less code (and memorize it) while stepping through the code. You now only need to read 3 lines of code in <code>main()</code> in order to understand it, instead of the whole function.</p><p>The third advantage is that you simply have less code to look at, which helps a trained eye in spotting this bug within seconds.</p><h2 id="dd185c94-525b-4678-a901-1cba6c46c527" class="">Using consistent formatting/constructions<a class="header-anchor" href="#dd185c94-525b-4678-a901-1cba6c46c527" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>The use of consistent formatting and constructions will remove clutter from the code making it easier to focus on the code instead of text. A lot of discussions have been fed on the ‘right’ formatting style. Regardless of that style, having a single consistent style in the code will improve familiarity and make it easier to focus on the code.</p><p>As formatting code is time consuming task, it is recommended to use a dedicated tool for this. Most IDEs have at least some kind of support for this and can do formatting more consistent than humans.</p><p>You might note that the style is not limited to spaces and newlines as we no longer mix the free-style and the member functions to get begin/end of the container. (<code>v.begin()</code> vs <code>std::end(v)</code>).</p><h2 id="c8e98281-3923-4ce2-a0a4-0905d89b05fc" class="">Point attention to the important parts of your code.<a class="header-anchor" href="#c8e98281-3923-4ce2-a0a4-0905d89b05fc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Regardless of the style you determine to choose, the above code contains a couple of markers which might give you a hint on what might be important:</p><ul id="23470b9b-7c84-4ded-a6b3-8fa495a8d0f9" class="bulleted-list"><li>A comment stating <code>optimized</code>, this indicates some fancy techniques</li><li>Some early returns in <code>sortVector()</code> indicate that we are doing something special</li><li>The <code>std::ref()</code> indicates that something is going on with the <code>sortVector()</code></li></ul><h2 id="a14b5b74-f732-43ae-887f-e5090df17b5b" class="">Conclusion<a class="header-anchor" href="#a14b5b74-f732-43ae-887f-e5090df17b5b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Having clean code will help you understanding the code and will reduce the time you need to debug it. In the second example, a code reviewer might even spot the bug at first glance, while the bug might be hidden in the details in the first one. (PS: The bug is in the compare with <code>2</code>.)</p>
+</div>
+<p>Regardless of the coding styles you prefer and use, having a consistent coding (and formatting) style will help you understanding the code.
+</p>
+<p>Looking at the code above, one can identify a couple of improvements to improve readability and debuggability:
+</p>
+  <h2 id="59df943c-b0e2-4c76-bc6f-54b909515e69" class="">The use of separate functions for separate actions
+  <a class="header-anchor" href="#59df943c-b0e2-4c76-bc6f-54b909515e69" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>The use of separate functions allow you to skip over some functions in the debugger if you ain’t interested in the details. In this specific case, you might not be interested in the creation or printing of the data and only want to step into the sorting.
+</p>
+<p>Another advantage is that you need to read less code (and memorize it) while stepping through the code. You now only need to read 3 lines of code in <code>main()</code> in order to understand it, instead of the whole function.
+</p>
+<p>The third advantage is that you simply have less code to look at, which helps a trained eye in spotting this bug within seconds.
+</p>
+  <h2 id="dd185c94-525b-4678-a901-1cba6c46c527" class="">Using consistent formatting/constructions
+  <a class="header-anchor" href="#dd185c94-525b-4678-a901-1cba6c46c527" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>The use of consistent formatting and constructions will remove clutter from the code making it easier to focus on the code instead of text. A lot of discussions have been fed on the ‘right’ formatting style. Regardless of that style, having a single consistent style in the code will improve familiarity and make it easier to focus on the code.
+</p>
+<p>As formatting code is time consuming task, it is recommended to use a dedicated tool for this. Most IDEs have at least some kind of support for this and can do formatting more consistent than humans.
+</p>
+<p>You might note that the style is not limited to spaces and newlines as we no longer mix the free-style and the member functions to get begin/end of the container. (<code>v.begin()</code> vs <code>std::end(v)</code>).
+</p>
+  <h2 id="c8e98281-3923-4ce2-a0a4-0905d89b05fc" class="">Point attention to the important parts of your code.
+  <a class="header-anchor" href="#c8e98281-3923-4ce2-a0a4-0905d89b05fc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Regardless of the style you determine to choose, the above code contains a couple of markers which might give you a hint on what might be important:
+</p>
+  <ul id="23470b9b-7c84-4ded-a6b3-8fa495a8d0f9" class="bulleted-list">
+    <li>A comment stating <code>optimized</code>, this indicates some fancy techniques
+    </li>
+    <li>Some early returns in <code>sortVector()</code> indicate that we are doing something special
+    </li>
+    <li>The <code>std::ref()</code> indicates that something is going on with the <code>sortVector()</code>
+    </li>
+  </ul>
+  <h2 id="a14b5b74-f732-43ae-887f-e5090df17b5b" class="">Conclusion
+  <a class="header-anchor" href="#a14b5b74-f732-43ae-887f-e5090df17b5b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Having clean code will help you understanding the code and will reduce the time you need to debug it. In the second example, a code reviewer might even spot the bug at first glance, while the bug might be hidden in the details in the first one. (PS: The bug is in the compare with <code>2</code>.)
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

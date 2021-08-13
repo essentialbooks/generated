@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>RxSwift provides not only the ways to control your data, but to represent user actions in a reactive way also.</p><p>RxCocoa contains everything you need. It wraps most of the UI components’ properties into <code>Observable</code>s, but not really. There are some upgraded <code>Observable</code>s called <code>ControlEvent</code>s (which represent events) and <code>ControlProperties</code> (which represent properties, surprise!). These things holds <code>Observable</code> streams under the hood, but also have some nuances:</p><ul id="1f62a834-f921-4ac7-8e83-14057ad57140" class="bulleted-list"><li>It never fails, so no errors.</li><li>It will <code>Complete</code> sequence on control being deallocated.</li><li>It delivers events on the main thread (<code>MainScheduler.instance</code>).</li></ul><p>Basically, you can work with them as usual:</p>
+      
+<p>RxSwift provides not only the ways to control your data, but to represent user actions in a reactive way also.
+</p>
+<p>RxCocoa contains everything you need. It wraps most of the UI components’ properties into <code>Observable</code>s, but not really. There are some upgraded <code>Observable</code>s called <code>ControlEvent</code>s (which represent events) and <code>ControlProperties</code> (which represent properties, surprise!). These things holds <code>Observable</code> streams under the hood, but also have some nuances:
+</p>
+  <ul id="1f62a834-f921-4ac7-8e83-14057ad57140" class="bulleted-list">
+    <li>It never fails, so no errors.
+    </li>
+    <li>It will <code>Complete</code> sequence on control being deallocated.
+    </li>
+    <li>It delivers events on the main thread (<code>MainScheduler.instance</code>).
+    </li>
+  </ul>
+<p>Basically, you can work with them as usual:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">button.rx_tap.subscribeNext { _ in   // control event
@@ -145,7 +160,14 @@ textField.rx_text.subscribeNext { text in // control property
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is very important to use: as long as you use Rx, forget about the <code>@IBAction</code> stuff, everything you need you can bind and configure at once. For example, <code>viewDidLoad</code> method of your view controller is a good candidate to describe how the UI-components work.</p><p>Ok, another example: suppose we have a textfield, a button, and a label. We want to <strong>validate text</strong> in the textfield when we <strong>tap</strong> the button, and <strong>display</strong> the results in the label. Yep, seems like an another validate-email task, huh?</p><p>First of all, we grab the <code>button.rx_tap</code> ControlEvent:</p>
+</div>
+<p>This is very important to use: as long as you use Rx, forget about the <code>@IBAction</code> stuff, everything you need you can bind and configure at once. For example, <code>viewDidLoad</code> method of your view controller is a good candidate to describe how the UI-components work.
+</p>
+<p>Ok, another example: suppose we have a textfield, a button, and a label. We want to <strong>validate text</strong> in the textfield when we <strong>tap</strong> the button, and <strong>display</strong> the results in the label. Yep, seems like an another validate-email task, huh?
+</p>
+<p>First of all, we grab the <code>button.rx_tap</code> ControlEvent:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">----()-----------------------()-----&gt;</pre>
@@ -153,7 +175,10 @@ textField.rx_text.subscribeNext { text in // control property
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here empty parenthesis show user taps. Next, we take what’s written in the textField with <code>withLatestFrom</code> operator (take a look at it <a href="http://rxmarbles.com/#withLatestFrom">here</a>, imagine that upper stream represents user taps, bottom one represents text in the text field).</p>
+</div>
+<p>Here empty parenthesis show user taps. Next, we take what’s written in the textField with <code>withLatestFrom</code> operator (take a look at it <a href="http://rxmarbles.com/#withLatestFrom">here</a>, imagine that upper stream represents user taps, bottom one represents text in the text field).
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">button.rx_tap.withLatestFrom(textField.rx_text)
@@ -164,7 +189,12 @@ textField.rx_text.subscribeNext { text in // control property
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Nice, we have a stream of strings to validate, emitted only when we need to validate.</p><p>Any <code>Observable</code> has such familiar operators as <code>map</code> or <code>filter</code>, we’ll take <code>map</code> to validate the text. Create <code>validateEmail</code> function yourself, use any regex you want.</p>
+</div>
+<p>Nice, we have a stream of strings to validate, emitted only when we need to validate.
+</p>
+<p>Any <code>Observable</code> has such familiar operators as <code>map</code> or <code>filter</code>, we’ll take <code>map</code> to validate the text. Create <code>validateEmail</code> function yourself, use any regex you want.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">button.rx_tap                                // ControlEvent&lt;Void&gt;
@@ -179,7 +209,9 @@ textField.rx_text.subscribeNext { text in // control property
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Done! If you need more custom logic (like showing error views in case of error, making a transition to another screen on success…), just subscribe to the final <code>Bool</code> stream and write it there.</p>
+</div>
+<p>Done! If you need more custom logic (like showing error views in case of error, making a transition to another screen on success…), just subscribe to the final <code>Bool</code> stream and write it there.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

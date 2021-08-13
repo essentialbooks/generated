@@ -127,7 +127,51 @@
 </div>
 
 
-      <img class="img" src="/img/d4eb04c0de79d1494ab7ca4a6b772ef10dd07723.png"><p>The Just-In-Time (JIT) compiler is a component of the Java™ Runtime Environment that improves the performance of Java applications at run time.</p><ul id="6394e1e4-a490-4dba-9657-f9144c0cf55e" class="bulleted-list"><li>Java programs consists of classes, which contain platform-neutral bytecodes that can be interpreted by a JVM on many different computer architectures.</li><li>At run time, the JVM loads the class files, determines the semantics of each individual bytecode, and performs the appropriate computation.</li></ul><blockquote id="bd62bcb8-c061-439c-869b-4154fd95ef8f" class="">The additional processor and memory usage during interpretation means that a Java application performs more slowly than a native application.</blockquote><blockquote id="5c16d5b9-6cef-4969-9037-1cd6309d7af3" class="">The JIT compiler helps improve the performance of Java programs by compiling bytecodes into native machine code at run time.</blockquote><p>The JIT compiler is enabled by default, and is activated when a Java method is called. The JIT compiler compiles the bytecodes of that method into native machine code, compiling it <code>&quot;just in time&quot;</code> to run.</p><p>When a method has been compiled, the JVM calls the compiled code of that method directly instead of interpreting it. Theoretically, if compilation did not require processor time and memory usage, compiling every method could allow the speed of the Java program to approach that of a native application.</p><p>JIT compilation does require processor time and memory usage. When the JVM first starts up, thousands of methods are called. Compiling all of these methods can significantly affect startup time, even if the program eventually achieves very good peak performance.</p><hr id="381660e2-8b80-4914-9b50-f42492c4f89b"/><ul id="d2e9458f-400e-4d6f-9390-6fca2e263edc" class="bulleted-list"><li>In practice, methods are not compiled the first time they are called. For each method, the JVM maintains a <code>call count</code> which is incremented every time the method is called.</li><li>The JVM interprets a method until its call count exceeds a JIT compilation threshold.</li><li>Therefore, often-used methods are compiled soon after the JVM has started, and less-used methods are compiled much later, or not at all.</li><li>The JIT compilation threshold helps the JVM start quickly and still have improved performance.</li><li>The threshold has been carefully selected to obtain an optimal balance between startup times and long term performance.</li><li>After a method is compiled, its call count is reset to zero and subsequent calls to the method continue to increment its count.</li><li>When the call count of a method reaches a JIT recompilation threshold, the JIT compiler compiles it a second time, applying a larger selection of optimizations than on the previous compilation.</li><li>This process is repeated until the maximum optimization level is reached.</li></ul><blockquote id="64e2ea69-4524-408c-abb4-adfe945a1524" class="">The busiest methods of a Java program are always optimized most aggressively, maximizing the performance benefits of using the JIT compiler.</blockquote><p>The JIT compiler can also measure <code>operational data at run time</code>, and use that data to improve the quality of further recompilations.</p><blockquote id="8961af28-a83d-4eec-bf41-614374767a1f" class="">The JIT compiler can be disabled, in which case the entire Java program will be interpreted. Disabling the JIT compiler is not recommended except to diagnose or work around JIT compilation problems.</blockquote>
+      
+<img class="img" src="/img/d4eb04c0de79d1494ab7ca4a6b772ef10dd07723.png">
+<p>The Just-In-Time (JIT) compiler is a component of the Java™ Runtime Environment that improves the performance of Java applications at run time.
+</p>
+  <ul id="6394e1e4-a490-4dba-9657-f9144c0cf55e" class="bulleted-list">
+    <li>Java programs consists of classes, which contain platform-neutral bytecodes that can be interpreted by a JVM on many different computer architectures.
+    </li>
+    <li>At run time, the JVM loads the class files, determines the semantics of each individual bytecode, and performs the appropriate computation.
+    </li>
+  </ul>
+<blockquote id="bd62bcb8-c061-439c-869b-4154fd95ef8f" class="">The additional processor and memory usage during interpretation means that a Java application performs more slowly than a native application.
+</blockquote>
+<blockquote id="5c16d5b9-6cef-4969-9037-1cd6309d7af3" class="">The JIT compiler helps improve the performance of Java programs by compiling bytecodes into native machine code at run time.
+</blockquote>
+<p>The JIT compiler is enabled by default, and is activated when a Java method is called. The JIT compiler compiles the bytecodes of that method into native machine code, compiling it <code>&quot;just in time&quot;</code> to run.
+</p>
+<p>When a method has been compiled, the JVM calls the compiled code of that method directly instead of interpreting it. Theoretically, if compilation did not require processor time and memory usage, compiling every method could allow the speed of the Java program to approach that of a native application.
+</p>
+<p>JIT compilation does require processor time and memory usage. When the JVM first starts up, thousands of methods are called. Compiling all of these methods can significantly affect startup time, even if the program eventually achieves very good peak performance.
+</p>
+<hr id="381660e2-8b80-4914-9b50-f42492c4f89b"/>
+  <ul id="d2e9458f-400e-4d6f-9390-6fca2e263edc" class="bulleted-list">
+    <li>In practice, methods are not compiled the first time they are called. For each method, the JVM maintains a <code>call count</code> which is incremented every time the method is called.
+    </li>
+    <li>The JVM interprets a method until its call count exceeds a JIT compilation threshold.
+    </li>
+    <li>Therefore, often-used methods are compiled soon after the JVM has started, and less-used methods are compiled much later, or not at all.
+    </li>
+    <li>The JIT compilation threshold helps the JVM start quickly and still have improved performance.
+    </li>
+    <li>The threshold has been carefully selected to obtain an optimal balance between startup times and long term performance.
+    </li>
+    <li>After a method is compiled, its call count is reset to zero and subsequent calls to the method continue to increment its count.
+    </li>
+    <li>When the call count of a method reaches a JIT recompilation threshold, the JIT compiler compiles it a second time, applying a larger selection of optimizations than on the previous compilation.
+    </li>
+    <li>This process is repeated until the maximum optimization level is reached.
+    </li>
+  </ul>
+<blockquote id="64e2ea69-4524-408c-abb4-adfe945a1524" class="">The busiest methods of a Java program are always optimized most aggressively, maximizing the performance benefits of using the JIT compiler.
+</blockquote>
+<p>The JIT compiler can also measure <code>operational data at run time</code>, and use that data to improve the quality of further recompilations.
+</p>
+<blockquote id="8961af28-a83d-4eec-bf41-614374767a1f" class="">The JIT compiler can be disabled, in which case the entire Java program will be interpreted. Disabling the JIT compiler is not recommended except to diagnose or work around JIT compilation problems.
+</blockquote>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Firstly, make sure that the agent being used has the following attributes in the Manifest.mf:</p>
+      
+<p>Firstly, make sure that the agent being used has the following attributes in the Manifest.mf:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Can-Redefine-Classes: true
@@ -136,7 +139,12 @@ Can-Retransform-Classes: true</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Starting a java agent will let the agent access the class Instrumentation. With Instrumentation you can call <em>addTransformer(ClassFileTransformer transformer)</em>. ClassFileTransformers will let you rewrite the bytes of classes. The class has only a single method which supplies the ClassLoader that loads the class, the class’s name, a java.lang.Class instance of it, it’s ProtectionDomain, and lastly the bytes of the class itself.</p><p>It looks like this:</p>
+</div>
+<p>Starting a java agent will let the agent access the class Instrumentation. With Instrumentation you can call <em>addTransformer(ClassFileTransformer transformer)</em>. ClassFileTransformers will let you rewrite the bytes of classes. The class has only a single method which supplies the ClassLoader that loads the class, the class’s name, a java.lang.Class instance of it, it’s ProtectionDomain, and lastly the bytes of the class itself.
+</p>
+<p>It looks like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">byte[] transform(ClassLoader loader, String className, Class&lt;?&gt; classBeingRedefined, 
@@ -145,7 +153,12 @@ Can-Retransform-Classes: true</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Modifying a class purely from bytes can take ages. To remedy this there are libraries that can be used to convert the class bytes into something more usable.</p><p>In this example I’ll be using ASM, but other alternatives like Javassist and BCEL have similar features.</p>
+</div>
+<p>Modifying a class purely from bytes can take ages. To remedy this there are libraries that can be used to convert the class bytes into something more usable.
+</p>
+<p>In this example I’ll be using ASM, but other alternatives like Javassist and BCEL have similar features.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ClassNode getNode(byte[] bytes) {
@@ -165,7 +178,12 @@ Can-Retransform-Classes: true</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>From here changes can be made to the ClassNode object. This makes changing field/method access incredibly easy. Plus with ASM’s Tree API modifying the bytecode of methods is a breeze.</p><p>Once the edits are finished you can convert the ClassNode back into bytes with the following method and return them in the <em>transform</em> method:</p>
+</div>
+<p>From here changes can be made to the ClassNode object. This makes changing field/method access incredibly easy. Plus with ASM’s Tree API modifying the bytecode of methods is a breeze.
+</p>
+<p>Once the edits are finished you can convert the ClassNode back into bytes with the following method and return them in the <em>transform</em> method:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public static byte[] getNodeBytes(ClassNode cn, boolean useMaxs) {

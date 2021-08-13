@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>To create a background session</p>
+      
+<p>To create a background session
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Swift:
@@ -142,6 +145,7 @@ let session = NSURLSession(configuration: bgSessionConfig)
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Objective-C:
@@ -154,7 +158,25 @@ NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Additionally, in iOS, you must set up support for handling background app relaunch. When your app’s <code>application:handleEventsForBackgroundURLSession:completionHandler:</code> method (Objective-C) or <code>application(_:handleEventsForBackgroundURLSession:completionHandler:)</code> method (Swift) gets called, it means your app has been relaunched in the background to handle activity on a session.</p><p>In that method, you should create a new session with the provided identifier and configure it with a delegate to handle events just like you normally would in the foreground. Additionally, you should store the provided completion handler in a dictionary, using the session as the key.</p><p>When the delegate’s <code>URLSessionDidFinishEventsForBackgroundURLSession:</code> (Obj-C) / <code>URLSessionDidFinishEventsForBackgroundURLSession</code> (Swift) method gets called to tell you that there are no more events to handle, your app should look up the completion handler for that session, remove the session from the dictionary, and call the completion handler, thus telling the operating system that you no longer have any outstanding processing related to the session. (If you are still doing something for some reason when you get that delegate call, wait until done.) As soon as you call that method, the background session immediately gets invalidated.</p><p>If your application then receives an <code>application:application:didFinishLaunchingWithOptions:</code> call (likely indicating that the user foregrounded your app while you were busy processing background events), it is safe to create a background session with that same identifier, because the old session with that identifier no longer exists.</p><p>If you’re curious about the details, at a high level, when you create a background session, you’re doing two things:</p><ul id="4a70c088-d5c6-4cc8-9552-70719eeb667f" class="bulleted-list"><li>Creating a session in an external daemon (nsurlsessiond) to handle the downloads</li><li>Creating a session within your app that talks to that external daemon via NSXPC</li></ul><p>Normally, it is dangerous to create two sessions with the same session ID in a single launch of the app, because they both are trying to talk to the same session in the background daemon. This is why the official documentation says to never create multiple sessions with the same identifier. However, if the first session was a temporary session created as part of a <code>handleEventsForBackgroundURLSession</code> call, the association between the now-invalidated in-app session and the session in the background daemon no longer exists.</p>
+</div>
+<p>Additionally, in iOS, you must set up support for handling background app relaunch. When your app’s <code>application:handleEventsForBackgroundURLSession:completionHandler:</code> method (Objective-C) or <code>application(_:handleEventsForBackgroundURLSession:completionHandler:)</code> method (Swift) gets called, it means your app has been relaunched in the background to handle activity on a session.
+</p>
+<p>In that method, you should create a new session with the provided identifier and configure it with a delegate to handle events just like you normally would in the foreground. Additionally, you should store the provided completion handler in a dictionary, using the session as the key.
+</p>
+<p>When the delegate’s <code>URLSessionDidFinishEventsForBackgroundURLSession:</code> (Obj-C) / <code>URLSessionDidFinishEventsForBackgroundURLSession</code> (Swift) method gets called to tell you that there are no more events to handle, your app should look up the completion handler for that session, remove the session from the dictionary, and call the completion handler, thus telling the operating system that you no longer have any outstanding processing related to the session. (If you are still doing something for some reason when you get that delegate call, wait until done.) As soon as you call that method, the background session immediately gets invalidated.
+</p>
+<p>If your application then receives an <code>application:application:didFinishLaunchingWithOptions:</code> call (likely indicating that the user foregrounded your app while you were busy processing background events), it is safe to create a background session with that same identifier, because the old session with that identifier no longer exists.
+</p>
+<p>If you’re curious about the details, at a high level, when you create a background session, you’re doing two things:
+</p>
+  <ul id="4a70c088-d5c6-4cc8-9552-70719eeb667f" class="bulleted-list">
+    <li>Creating a session in an external daemon (nsurlsessiond) to handle the downloads
+    </li>
+    <li>Creating a session within your app that talks to that external daemon via NSXPC
+    </li>
+  </ul>
+<p>Normally, it is dangerous to create two sessions with the same session ID in a single launch of the app, because they both are trying to talk to the same session in the background daemon. This is why the official documentation says to never create multiple sessions with the same identifier. However, if the first session was a temporary session created as part of a <code>handleEventsForBackgroundURLSession</code> call, the association between the now-invalidated in-app session and the session in the background daemon no longer exists.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

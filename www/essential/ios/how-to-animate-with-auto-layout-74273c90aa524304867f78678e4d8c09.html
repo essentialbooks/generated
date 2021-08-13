@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>Without Auto Layout, animation is accomplished changing a view’s frame over time. With Auto Layout, the constraints dictate the view frame, so you have to animate the constraints instead. This indirection makes animation harder to visualize.</p><p>Here are the ways to animate with Auto Layout:</p><ol id="b5c55c0d-fa49-4ea7-ade9-0876934565af" class="numbered-list" start="1"><li><strong>Change the constant of the constraint</strong> after creation using periodic calls (<code>CADisplayLink</code>, <code>dispatch_source_t</code>, <code>dispatch_after</code>, <code>NSTimer</code>). Then call <code>layoutIfNeeded</code> to update the constraint. Example:</li></ol><p><strong>Objective-C:</strong></p>
+      
+<p>Without Auto Layout, animation is accomplished changing a view’s frame over time. With Auto Layout, the constraints dictate the view frame, so you have to animate the constraints instead. This indirection makes animation harder to visualize.
+</p>
+<p>Here are the ways to animate with Auto Layout:
+</p>
+  <ol id="b5c55c0d-fa49-4ea7-ade9-0876934565af" class="numbered-list" start="1">
+    <li><strong>Change the constant of the constraint</strong> after creation using periodic calls (<code>CADisplayLink</code>, <code>dispatch_source_t</code>, <code>dispatch_after</code>, <code>NSTimer</code>). Then call <code>layoutIfNeeded</code> to update the constraint. Example:
+    </li>
+  </ol>
+<p><strong>Objective-C:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">self.someConstraint.constant = 10.0;
@@ -138,7 +149,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Swift:</strong></p>
+</div>
+<p><strong>Swift:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">self.someConstraint.constant = 10.0
@@ -147,7 +161,12 @@ UIView.animate(withDuration: 0.25, animations: self.view.layoutIfNeeded)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="010f9753-e74c-4bf3-89d9-90961ca105eb" class="numbered-list" start="1"><li><strong>Change the constraints</strong> and call <code>[view layoutIfNeeded]</code> inside an animation block. This interpolates between the two positions ignoring constraints during the animation.</li></ol>
+</div>
+  <ol id="010f9753-e74c-4bf3-89d9-90961ca105eb" class="numbered-list" start="1">
+    <li><strong>Change the constraints</strong> and call <code>[view layoutIfNeeded]</code> inside an animation block. This interpolates between the two positions ignoring constraints during the animation.
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[UIView animateWithDuration:0.5 animations:^{
@@ -157,7 +176,20 @@ UIView.animate(withDuration: 0.25, animations: self.view.layoutIfNeeded)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="811f1563-2d7b-49b7-a6da-041a258d75c0" class="numbered-list" start="1"><li><strong>Change the priority of the constraints</strong>. This is less CPU intensive than adding and removing constraints.</li><li><strong>Remove all constraints and use autosizing masks</strong>. For the later, you have to set <code>view.translatesAutoresizingMaskIntoConstraints = YES</code>.</li><li><strong>Use constraints that don’t interfere with the intended animation</strong>.</li><li><strong>Use a container view</strong>. Position the superview using constraints. Then add a subview with constraints that don’t fight the animation, eg: a center relative to the superview. This unloads part of the constraints to the superview, so they don’t fight the animation in the subview.</li><li><strong>Animate layers instead views</strong>. Layer transforms don’t trigger the Auto Layout.</li></ol>
+</div>
+  <ol id="811f1563-2d7b-49b7-a6da-041a258d75c0" class="numbered-list" start="1">
+    <li><strong>Change the priority of the constraints</strong>. This is less CPU intensive than adding and removing constraints.
+    </li>
+    <li><strong>Remove all constraints and use autosizing masks</strong>. For the later, you have to set <code>view.translatesAutoresizingMaskIntoConstraints = YES</code>.
+    </li>
+    <li><strong>Use constraints that don’t interfere with the intended animation</strong>.
+    </li>
+    <li><strong>Use a container view</strong>. Position the superview using constraints. Then add a subview with constraints that don’t fight the animation, eg: a center relative to the superview. This unloads part of the constraints to the superview, so they don’t fight the animation in the subview.
+    </li>
+    <li><strong>Animate layers instead views</strong>. Layer transforms don’t trigger the Auto Layout.
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">CABasicAnimation* ba = [CABasicAnimation animationWithKeyPath:@&#34;transform&#34;];
@@ -169,7 +201,17 @@ ba.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.1, 1.1, 1)
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="756e7724-dd7a-4a01-a3db-0d1cd8553910" class="numbered-list" start="1"><li><strong>Override layoutSubviews</strong>. Call <code>[super layoutSubviews]</code> and fine tune the constraints.</li><li><strong>Change the frame in viewDidLayoutSubviews</strong>. Auto Layout is applied in <code>layoutSubviews</code>, so once done, change it in <code>viewDidLayoutSubviews</code>.</li><li><strong>Opt out from Auto Layout</strong> and set views manually. You can do this overriding <code>layoutSubviews</code>/<code>layout</code> without calling the super class’s implementation.</li></ol><p>Quick tip: if the parent of the animated view is not being interpolated (that is, the animation jumps from beginning to end state), call <code>layoutIfNeeded()</code> in the deepest view that is the parent of the view that is animated (in other words, that is not affected by the animation). I don’t know exactly why this works.</p>
+</div>
+  <ol id="756e7724-dd7a-4a01-a3db-0d1cd8553910" class="numbered-list" start="1">
+    <li><strong>Override layoutSubviews</strong>. Call <code>[super layoutSubviews]</code> and fine tune the constraints.
+    </li>
+    <li><strong>Change the frame in viewDidLayoutSubviews</strong>. Auto Layout is applied in <code>layoutSubviews</code>, so once done, change it in <code>viewDidLayoutSubviews</code>.
+    </li>
+    <li><strong>Opt out from Auto Layout</strong> and set views manually. You can do this overriding <code>layoutSubviews</code>/<code>layout</code> without calling the super class’s implementation.
+    </li>
+  </ol>
+<p>Quick tip: if the parent of the animated view is not being interpolated (that is, the animation jumps from beginning to end state), call <code>layoutIfNeeded()</code> in the deepest view that is the parent of the view that is animated (in other words, that is not affected by the animation). I don’t know exactly why this works.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

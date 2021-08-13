@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Objective-C supports a special type called `instancetype that can only be used as type returned by a method. It evaluates to the class of the receiving object.</p><p>Consider the following class hierarchy:</p>
+      
+<p>Objective-C supports a special type called `instancetype that can only be used as type returned by a method. It evaluates to the class of the receiving object.
+</p>
+<p>Consider the following class hierarchy:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@interface Foo : NSObject
@@ -142,7 +147,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When <code>[[Foo alloc] initWithString:@&quot;abc&quot;]</code> is called, the compiler can infer that the return type is <code>Foo *</code>. The <code>Bar</code> class derived from <code>Foo</code> but did not override the declaration of the initializer. Yet, thanks to <code>instancetype</code>, the compiler can infer that <code>[[Bar alloc] initWithString:@&quot;xyz&quot;]</code> returns a value of type <code>Bar *</code>.</p><p>Consider the return type of <code>-[Foo initWithString:]</code> being <code>Foo *</code> instead: if you would call <code>[[Bar alloc] initWithString:]</code>, the compiler would infer that a <code>Foo *</code> is returned, not a <code>Bar *</code> as is the intention of the developer. The <code>instancetype</code> solved this issue.</p><p>Before the introduction of <code>instancetype</code>, initializers, static methods like singleton accessors and other methods that want to return an instance of the receiving class needed to return an <code>id</code>. The problem is that <code>id</code> means <em>“an object of any type”</em>. The compiler is thus not able to detect that <code>NSString *wrong = [[Foo alloc] initWithString:@&quot;abc&quot;];</code> is assigning to a variable with an incorrect type.</p><p>Due to this issue, <strong>initializers should always use </strong><code><strong>instancetype</strong></code><strong> instead of </strong><code><strong>id</strong></code> as the return value.</p>
+</div>
+<p>When <code>[[Foo alloc] initWithString:@&quot;abc&quot;]</code> is called, the compiler can infer that the return type is <code>Foo *</code>. The <code>Bar</code> class derived from <code>Foo</code> but did not override the declaration of the initializer. Yet, thanks to <code>instancetype</code>, the compiler can infer that <code>[[Bar alloc] initWithString:@&quot;xyz&quot;]</code> returns a value of type <code>Bar *</code>.
+</p>
+<p>Consider the return type of <code>-[Foo initWithString:]</code> being <code>Foo *</code> instead: if you would call <code>[[Bar alloc] initWithString:]</code>, the compiler would infer that a <code>Foo *</code> is returned, not a <code>Bar *</code> as is the intention of the developer. The <code>instancetype</code> solved this issue.
+</p>
+<p>Before the introduction of <code>instancetype</code>, initializers, static methods like singleton accessors and other methods that want to return an instance of the receiving class needed to return an <code>id</code>. The problem is that <code>id</code> means <em>“an object of any type”</em>. The compiler is thus not able to detect that <code>NSString *wrong = [[Foo alloc] initWithString:@&quot;abc&quot;];</code> is assigning to a variable with an incorrect type.
+</p>
+<p>Due to this issue, <strong>initializers should always use </strong><code><strong>instancetype</strong></code><strong> instead of </strong><code><strong>id</strong></code> as the return value.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

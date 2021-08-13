@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Normally, elision is an optimization. While virtually every compiler support copy elision in the simplest of cases, having elision still places a particular burden on users. Namely, the type who’s copy/move is being elided <em>must</em> still have the copy/move operation that was elided.</p><p>For example:</p>
+      
+<p>Normally, elision is an optimization. While virtually every compiler support copy elision in the simplest of cases, having elision still places a particular burden on users. Namely, the type who’s copy/move is being elided <em>must</em> still have the copy/move operation that was elided.
+</p>
+<p>For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::mutex a_mutex;
@@ -139,7 +144,22 @@ std::lock_guard&lt;std::mutex&gt; get_lock()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This might be useful in cases where <code>a_mutex</code> is a mutex that is privately held by some system, yet an external user might want to have a scoped lock to it.</p><p>This is also not legal, because <code>std::lock_guard</code> cannot be copied or moved. Even though virtually every C++ compiler will elide the copy/move, the standard still <em>requires</em> the type to have that operation available.</p><p>Until C++17.</p><p>C++17 mandates elision by effectively redefining the very meaning of certain expressions so that no copy/moving takes place. Consider the above code.</p><p>Under pre-C++17 wording, that code says to create a temporary and then use the temporary to copy/move into the return value, but the temporary copy can be elided. Under C++17 wording, that does not create a temporary at all.</p><p>In C++17, any <a href="http://stackoverflow.com/documentation/c%2B%2B/763/value-categories/2603/prvalue#t=201607301613191630536">prvalue expression</a>, when used to initialize an object of the same type as the expression, does not generate a temporary. The expression directly initializes that object. If you return a prvalue of the same type as the return value, then the type need not have a copy/move constructor. And therefore, under C++17 rules, the above code can work.</p><p>The C++17 wording works in cases where the prvalue’s type matches the type being initialized. So given <code>get_lock</code> above, this will also not require a copy/move:</p>
+</div>
+<p>This might be useful in cases where <code>a_mutex</code> is a mutex that is privately held by some system, yet an external user might want to have a scoped lock to it.
+</p>
+<p>This is also not legal, because <code>std::lock_guard</code> cannot be copied or moved. Even though virtually every C++ compiler will elide the copy/move, the standard still <em>requires</em> the type to have that operation available.
+</p>
+<p>Until C++17.
+</p>
+<p>C++17 mandates elision by effectively redefining the very meaning of certain expressions so that no copy/moving takes place. Consider the above code.
+</p>
+<p>Under pre-C++17 wording, that code says to create a temporary and then use the temporary to copy/move into the return value, but the temporary copy can be elided. Under C++17 wording, that does not create a temporary at all.
+</p>
+<p>In C++17, any <a href="http://stackoverflow.com/documentation/c%2B%2B/763/value-categories/2603/prvalue#t=201607301613191630536">prvalue expression</a>, when used to initialize an object of the same type as the expression, does not generate a temporary. The expression directly initializes that object. If you return a prvalue of the same type as the return value, then the type need not have a copy/move constructor. And therefore, under C++17 rules, the above code can work.
+</p>
+<p>The C++17 wording works in cases where the prvalue’s type matches the type being initialized. So given <code>get_lock</code> above, this will also not require a copy/move:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::lock_guard the_lock = get_lock();</pre>
@@ -147,7 +167,14 @@ std::lock_guard&lt;std::mutex&gt; get_lock()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since the result of <code>get_lock</code> is a prvalue expression being used to initialize an object of the same type, no copying or moving will happen. That expression never creates a temporary; it is used to directly initialize <code>the_lock</code>. There is no elision because there is no copy/move to be elided elide.</p><p>The term “guaranteed copy elision” is therefore something of a misnomer, but <a href="http://wg21.link/P0135">that is the name of the feature as it is proposed for C++17 standardization</a>. It does not guarantee elision at all; it <em>eliminates</em> the copy/move altogether, redefining C++ so that there never was a copy/move to be elided.</p><p>This feature only works in cases involving a prvalue expression. As such, this uses the usual elision rules:</p>
+</div>
+<p>Since the result of <code>get_lock</code> is a prvalue expression being used to initialize an object of the same type, no copying or moving will happen. That expression never creates a temporary; it is used to directly initialize <code>the_lock</code>. There is no elision because there is no copy/move to be elided elide.
+</p>
+<p>The term “guaranteed copy elision” is therefore something of a misnomer, but <a href="http://wg21.link/P0135">that is the name of the feature as it is proposed for C++17 standardization</a>. It does not guarantee elision at all; it <em>eliminates</em> the copy/move altogether, redefining C++ so that there never was a copy/move to be elided.
+</p>
+<p>This feature only works in cases involving a prvalue expression. As such, this uses the usual elision rules:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::mutex a_mutex;
@@ -161,7 +188,10 @@ std::lock_guard&lt;std::mutex&gt; get_lock()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>While this is a valid case for copy elision, C++17 rules do not <em>eliminate</em> the copy/move in this case. As such, the type must still have a copy/move constructor to use to initialize the return value. And since <code>lock_guard</code> does not, this is still a compile error. Implementations are allowed to refuse to elide copies when passing or returning an object of trivially-copyable type. This is to allow moving such objects around in registers, which some ABIs might mandate in their calling conventions.</p>
+</div>
+<p>While this is a valid case for copy elision, C++17 rules do not <em>eliminate</em> the copy/move in this case. As such, the type must still have a copy/move constructor to use to initialize the return value. And since <code>lock_guard</code> does not, this is still a compile error. Implementations are allowed to refuse to elide copies when passing or returning an object of trivially-copyable type. This is to allow moving such objects around in registers, which some ABIs might mandate in their calling conventions.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct trivially_copyable {

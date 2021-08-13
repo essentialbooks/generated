@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>First of all, the problem of handling spaces in arguments is NOT actually a Java problem. Rather it is a problem that needs to be handled by the command shell that you are using when you run a Java program.</p><p>As an example, let us suppose that we have the following simple program that prints the size of a file:</p>
+      
+<p>First of all, the problem of handling spaces in arguments is NOT actually a Java problem. Rather it is a problem that needs to be handled by the command shell that you are using when you run a Java program.
+</p>
+<p>As an example, let us suppose that we have the following simple program that prints the size of a file:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import java.io.File;
@@ -145,7 +150,10 @@ public class PrintFileSizes {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now suppose that we want print the size of a file whose pathname has spaces in it; e.g. <code>/home/steve/Test File.txt</code>. If we run the command like this:</p>
+</div>
+<p>Now suppose that we want print the size of a file whose pathname has spaces in it; e.g. <code>/home/steve/Test File.txt</code>. If we run the command like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ java PrintFileSizes /home/steve/Test File.txt</pre>
@@ -153,7 +161,15 @@ public class PrintFileSizes {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>the shell won’t know that <code>/home/steve/Test File.txt</code> is actually one pathname. Instead, it will pass 2 distinct arguments to the Java application, which will attempt to find their respective file sizes, and fail because files with those paths (probably) do not exist.</p><h2 id="4eef4f2d-bb60-4d14-b27a-3ffc83b8248a" class="">Solutions using a POSIX shell<a class="header-anchor" href="#4eef4f2d-bb60-4d14-b27a-3ffc83b8248a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>POSIX shells include <code>sh</code> as well derivatives such as <code>bash</code> and <code>ksh</code>. If you are using one of these shells, then you can solve the problem by <em>quoting</em> the argument.</p>
+</div>
+<p>the shell won’t know that <code>/home/steve/Test File.txt</code> is actually one pathname. Instead, it will pass 2 distinct arguments to the Java application, which will attempt to find their respective file sizes, and fail because files with those paths (probably) do not exist.
+</p>
+  <h2 id="4eef4f2d-bb60-4d14-b27a-3ffc83b8248a" class="">Solutions using a POSIX shell
+  <a class="header-anchor" href="#4eef4f2d-bb60-4d14-b27a-3ffc83b8248a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>POSIX shells include <code>sh</code> as well derivatives such as <code>bash</code> and <code>ksh</code>. If you are using one of these shells, then you can solve the problem by <em>quoting</em> the argument.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ java PrintFileSizes &#34;/home/steve/Test File.txt&#34;</pre>
@@ -161,7 +177,10 @@ public class PrintFileSizes {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The double-quotes around the pathname tell the shell that it should be passed as a single argument. The quotes will be removed when this happens. There are a couple of other ways to do this:</p>
+</div>
+<p>The double-quotes around the pathname tell the shell that it should be passed as a single argument. The quotes will be removed when this happens. There are a couple of other ways to do this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ java PrintFileSizes &#39;/home/steve/Test File.txt&#39;</pre>
@@ -169,7 +188,10 @@ public class PrintFileSizes {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Single (straight) quotes are treated like double-quotes except that they also suppress various expansions within the argument.</p>
+</div>
+<p>Single (straight) quotes are treated like double-quotes except that they also suppress various expansions within the argument.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ java PrintFileSizes /home/steve/Test\ File.txt</pre>
@@ -177,7 +199,30 @@ public class PrintFileSizes {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A backslash escapes the following space, and causes it not to be interpreted as an argument separator.</p><p>For more comprehensive documentation, including descriptions of how to deal with other special characters in arguments, please refer to the <a href="http://stackoverflow.com/documentation/bash/729/quoting">quoting topic</a> in the <a href="http://stackoverflow.com/documentation/bash">Bash</a> documentation.</p><h2 id="8c5f6475-fb61-4055-8c74-d75dbb063220" class="">Solution for Windows<a class="header-anchor" href="#8c5f6475-fb61-4055-8c74-d75dbb063220" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>The fundamental problem for Windows is that at the OS level, the arguments are passed to a child process as a single string (<a href="https://blogs.msdn.microsoft.com/twistylittlepassagesallalike/2011/04/23/everyone-quotes-command-line-arguments-the-wrong-way/">source</a>). This means that the ultimate responsibility of parsing (or re-parsing) the command line falls on either program or its runtime libraries. There is lots of inconsistency.</p><p>In the Java case, to cut a long story short:</p><ul id="ff70fb1c-f266-4625-91b5-cd23f84d1742" class="bulleted-list"><li>You can put double-quotes around an argument in a <code>java</code> command, and that will allow you to pass arguments with spaces in them.</li><li>Apparently, the <code>java</code> command itself is parsing the command string, and it gets it more or less right</li><li>However, when you try to combine this with the use of <code>SET</code> and variable substitution in a batch file, it gets really complicated as to whether double-quotes get removed.</li><li>The <code>cmd.exe</code> shell apparently has other escaping mechanisms; e.g. doubling double-quotes, and using <code>^</code> escapes.</li></ul><p>For more detail, please refer to the <a href="http://stackoverflow.com/documentation/batch-file">Batch-File</a> documentation.</p>
+</div>
+<p>A backslash escapes the following space, and causes it not to be interpreted as an argument separator.
+</p>
+<p>For more comprehensive documentation, including descriptions of how to deal with other special characters in arguments, please refer to the <a href="http://stackoverflow.com/documentation/bash/729/quoting">quoting topic</a> in the <a href="http://stackoverflow.com/documentation/bash">Bash</a> documentation.
+</p>
+  <h2 id="8c5f6475-fb61-4055-8c74-d75dbb063220" class="">Solution for Windows
+  <a class="header-anchor" href="#8c5f6475-fb61-4055-8c74-d75dbb063220" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>The fundamental problem for Windows is that at the OS level, the arguments are passed to a child process as a single string (<a href="https://blogs.msdn.microsoft.com/twistylittlepassagesallalike/2011/04/23/everyone-quotes-command-line-arguments-the-wrong-way/">source</a>). This means that the ultimate responsibility of parsing (or re-parsing) the command line falls on either program or its runtime libraries. There is lots of inconsistency.
+</p>
+<p>In the Java case, to cut a long story short:
+</p>
+  <ul id="ff70fb1c-f266-4625-91b5-cd23f84d1742" class="bulleted-list">
+    <li>You can put double-quotes around an argument in a <code>java</code> command, and that will allow you to pass arguments with spaces in them.
+    </li>
+    <li>Apparently, the <code>java</code> command itself is parsing the command string, and it gets it more or less right
+    </li>
+    <li>However, when you try to combine this with the use of <code>SET</code> and variable substitution in a batch file, it gets really complicated as to whether double-quotes get removed.
+    </li>
+    <li>The <code>cmd.exe</code> shell apparently has other escaping mechanisms; e.g. doubling double-quotes, and using <code>^</code> escapes.
+    </li>
+  </ul>
+<p>For more detail, please refer to the <a href="http://stackoverflow.com/documentation/batch-file">Batch-File</a> documentation.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

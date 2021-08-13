@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>All Java exceptions are instances of classes in the Exception class hierarchy. This can be represented as follows:</p><ul id="ff8c5b31-3349-4eae-a279-4dde68ed72a5" class="bulleted-list"><li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Throwable.html"><code>java.lang.Throwable</code></a> - This is the base class for all exception classes. Its methods and constructors implement a range of functionality common to all exceptions.</li></ul>
+      
+<p>All Java exceptions are instances of classes in the Exception class hierarchy. This can be represented as follows:
+</p>
+  <ul id="ff8c5b31-3349-4eae-a279-4dde68ed72a5" class="bulleted-list">
+    <li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Throwable.html"><code>java.lang.Throwable</code></a> - This is the base class for all exception classes. Its methods and constructors implement a range of functionality common to all exceptions.
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">- [`java.lang.Exception`][2] - This is the superclass of all normal exceptions.
@@ -139,7 +146,54 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Notes:</p><ol id="5a1eedf8-91c7-4564-a026-d2d131fc105b" class="numbered-list" start="1"><li>The distinction between <em>checked</em> and <em>unchecked</em> exceptions is described below.</li><li>The <code>Throwable</code>, <code>Exception</code> and <code>RuntimeException</code> class should be treated as <code>abstract</code>; see http://stackoverflow.com/documentation/java/5381/java-pitfalls-exception-usage/18023/pitfall-throwing-throwable-exception-error-or-runtimeexception#t=201610240803173325134.</li><li>The <code>Error</code> exceptions are thrown by the JVM in situations where it would be unsafe or unwise for an application to attempt to recover.</li><li>It would be unwise to declare custom subtypes of <code>Throwable</code>. Java tools and libraries may assume that <code>Error</code> and <code>Exception</code> are the only direct subtypes of <code>Throwable</code>, and misbehave if that assumption is incorrect.</li></ol><h2 id="908b62f6-dfa9-4059-b88d-c588770c66ae" class="">Checked versus Unchecked Exceptions<a class="header-anchor" href="#908b62f6-dfa9-4059-b88d-c588770c66ae" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>One of the criticisms of exception support in some programming languages is that is difficult to know which exceptions a given method or procedure might throw. Given that an unhandled exception is liable to cause a program to crash, this can make exceptions a source of fragility.</p><p>The Java language addresses this concern with the checked exception mechanism. First, Java classifies exceptions into two categories:</p><ul id="6b19de5e-d800-453d-83eb-ecd859631394" class="bulleted-list"><li>Checked exceptions typically represent anticipated events that an application should be able to deal with. For instance, <code>IOException</code> and its subtypes represent error conditions that can occur in I/O operations. Examples include, file opens failing because a file or directory does not exist, network reads and writes failing because a network connection has been broken and so on.</li><li>Unchecked exceptions typically represent unanticipated events that an application cannot deal with. These are typically the result of a bug in the application.</li></ul><p>(In the following, “thrown” refers to any exception thrown explicitly (by a <code>throw</code> statement), or implicitly (in a failed dereference, type cast and so on). Similarly, “propagated” refers to an exception that was thrown in a nested call, and not caught within that call. The sample code below will illustrate this.)</p><p>The second part of the checked exception mechanism is that there are restrictions on methods where a checked exception may occur:</p><ul id="52babb64-1674-4982-847f-2e02a7723cca" class="bulleted-list"><li>When a checked exception is thrown or propagated in a method, it <em>must</em> either be caught by the method, or listed in the method’s <code>throws</code> clause. (The significance of the <code>throws</code> clause is described in <a href="http://stackoverflow.com/documentation/java/89/exceptions-and-exception-handling/25209/">this example</a>.)</li><li>When a checked exception is thrown or propagated in an initializer block, it must be caught the the block.</li><li>A checked exception cannot be propagated by a method call in a field initialization expression. (There is no way to catch such an exception.)</li></ul><p>In short, a checked exception must be either handled, or declared.</p><p>These restrictions do not apply to unchecked exceptions. This includes all cases where an exception is thrown implicitly, since all such cases throw unchecked exceptions.</p><h2 id="46bfbb11-af55-4e0f-a704-e9e1d4e9c383" class="">Checked exception examples<a class="header-anchor" href="#46bfbb11-af55-4e0f-a704-e9e1d4e9c383" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>These code snippets are intended to illustrate the checked exception restrictions. In each case, we show a version of the code with a compilation error, and a second version with the error corrected.</p>
+</div>
+<p>Notes:
+</p>
+  <ol id="5a1eedf8-91c7-4564-a026-d2d131fc105b" class="numbered-list" start="1">
+    <li>The distinction between <em>checked</em> and <em>unchecked</em> exceptions is described below.
+    </li>
+    <li>The <code>Throwable</code>, <code>Exception</code> and <code>RuntimeException</code> class should be treated as <code>abstract</code>; see http://stackoverflow.com/documentation/java/5381/java-pitfalls-exception-usage/18023/pitfall-throwing-throwable-exception-error-or-runtimeexception#t=201610240803173325134.
+    </li>
+    <li>The <code>Error</code> exceptions are thrown by the JVM in situations where it would be unsafe or unwise for an application to attempt to recover.
+    </li>
+    <li>It would be unwise to declare custom subtypes of <code>Throwable</code>. Java tools and libraries may assume that <code>Error</code> and <code>Exception</code> are the only direct subtypes of <code>Throwable</code>, and misbehave if that assumption is incorrect.
+    </li>
+  </ol>
+  <h2 id="908b62f6-dfa9-4059-b88d-c588770c66ae" class="">Checked versus Unchecked Exceptions
+  <a class="header-anchor" href="#908b62f6-dfa9-4059-b88d-c588770c66ae" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>One of the criticisms of exception support in some programming languages is that is difficult to know which exceptions a given method or procedure might throw. Given that an unhandled exception is liable to cause a program to crash, this can make exceptions a source of fragility.
+</p>
+<p>The Java language addresses this concern with the checked exception mechanism. First, Java classifies exceptions into two categories:
+</p>
+  <ul id="6b19de5e-d800-453d-83eb-ecd859631394" class="bulleted-list">
+    <li>Checked exceptions typically represent anticipated events that an application should be able to deal with. For instance, <code>IOException</code> and its subtypes represent error conditions that can occur in I/O operations. Examples include, file opens failing because a file or directory does not exist, network reads and writes failing because a network connection has been broken and so on.
+    </li>
+    <li>Unchecked exceptions typically represent unanticipated events that an application cannot deal with. These are typically the result of a bug in the application.
+    </li>
+  </ul>
+<p>(In the following, “thrown” refers to any exception thrown explicitly (by a <code>throw</code> statement), or implicitly (in a failed dereference, type cast and so on). Similarly, “propagated” refers to an exception that was thrown in a nested call, and not caught within that call. The sample code below will illustrate this.)
+</p>
+<p>The second part of the checked exception mechanism is that there are restrictions on methods where a checked exception may occur:
+</p>
+  <ul id="52babb64-1674-4982-847f-2e02a7723cca" class="bulleted-list">
+    <li>When a checked exception is thrown or propagated in a method, it <em>must</em> either be caught by the method, or listed in the method’s <code>throws</code> clause. (The significance of the <code>throws</code> clause is described in <a href="http://stackoverflow.com/documentation/java/89/exceptions-and-exception-handling/25209/">this example</a>.)
+    </li>
+    <li>When a checked exception is thrown or propagated in an initializer block, it must be caught the the block.
+    </li>
+    <li>A checked exception cannot be propagated by a method call in a field initialization expression. (There is no way to catch such an exception.)
+    </li>
+  </ul>
+<p>In short, a checked exception must be either handled, or declared.
+</p>
+<p>These restrictions do not apply to unchecked exceptions. This includes all cases where an exception is thrown implicitly, since all such cases throw unchecked exceptions.
+</p>
+  <h2 id="46bfbb11-af55-4e0f-a704-e9e1d4e9c383" class="">Checked exception examples
+  <a class="header-anchor" href="#46bfbb11-af55-4e0f-a704-e9e1d4e9c383" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>These code snippets are intended to illustrate the checked exception restrictions. In each case, we show a version of the code with a compilation error, and a second version with the error corrected.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// This declares a custom checked exception.
@@ -155,7 +209,10 @@ public class MyException2 extends RuntimeException {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The first example shows how explicitly thrown checked exceptions can be declared as “thrown” if they should not be handled in the method.</p>
+</div>
+<p>The first example shows how explicitly thrown checked exceptions can be declared as “thrown” if they should not be handled in the method.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// INCORRECT
@@ -181,7 +238,10 @@ public void methodThrowingCheckedException(boolean flag) throws MyException {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The second example shows how a propagated checked exception can be dealt with.</p>
+</div>
+<p>The second example shows how a propagated checked exception can be dealt with.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// INCORRECT 
@@ -211,7 +271,10 @@ public void methodWithPropagatedCheckedException() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The final example shows how to deal with a checked exception in a static field initializer.</p>
+</div>
+<p>The final example shows how to deal with a checked exception in a static field initializer.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// INCORRECT
@@ -237,7 +300,9 @@ public class Test {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that in this last case, we also have to deal with the problems that <code>is</code> cannot be assigned to more than once, and yet also has to be assigned to, even in the case of an exception.</p>
+</div>
+<p>Note that in this last case, we also have to deal with the problems that <code>is</code> cannot be assigned to more than once, and yet also has to be assigned to, even in the case of an exception.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

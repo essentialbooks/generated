@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>The Foundation framework provides the <code>Operation</code> type, which represents a high-level object that encapsulates a portion of work that may be executed on a queue. Not only does the queue coordinate the performance of those operations, but you can also establish dependencies between operations, create cancelable operations, constrain the degree of concurrency employed by the operation queue, etc.</p><p><code>Operation</code>s become ready to execute when all of its dependencies are finished executing. The <code>isReady</code> property then changes to <code>true</code>.</p><p>Create a simple non-concurrent <code>Operation</code> subclass:</p>
+      
+<p>The Foundation framework provides the <code>Operation</code> type, which represents a high-level object that encapsulates a portion of work that may be executed on a queue. Not only does the queue coordinate the performance of those operations, but you can also establish dependencies between operations, create cancelable operations, constrain the degree of concurrency employed by the operation queue, etc.
+</p>
+<p><code>Operation</code>s become ready to execute when all of its dependencies are finished executing. The <code>isReady</code> property then changes to <code>true</code>.
+</p>
+<p>Create a simple non-concurrent <code>Operation</code> subclass:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class MyOperation: Operation {
@@ -146,6 +153,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class MyOperation: NSOperation {
@@ -163,7 +171,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Add an operation to an <code>OperationQueue</code>:</p>
+</div>
+<p>Add an operation to an <code>OperationQueue</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">myQueue.addOperation(operation)</pre>
@@ -171,7 +182,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will execute the operation concurrently on the queue.</p><p><strong>Manage dependencies on an </strong><code><strong>Operation</strong></code><strong>.</strong></p><p>Dependencies define other <code>Operation</code>s that must execute on a queue before that <code>Operation</code> is considered ready to execute.</p>
+</div>
+<p>This will execute the operation concurrently on the queue.
+</p>
+<p><strong>Manage dependencies on an </strong><code><strong>Operation</strong></code><strong>.</strong>
+</p>
+<p>Dependencies define other <code>Operation</code>s that must execute on a queue before that <code>Operation</code> is considered ready to execute.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">operation2.addDependency(operation1)
@@ -181,7 +199,10 @@ operation2.removeDependency(operation1)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Run an <code>Operation</code> without a queue:</p>
+</div>
+<p>Run an <code>Operation</code> without a queue:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">operation.start()</pre>
@@ -189,7 +210,20 @@ operation2.removeDependency(operation1)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Dependencies will be ignored. If this is a concurrent operation, the task may still be executed concurrently if its <code>start</code> method offloads work to background queues.</p><p><strong>Concurrent Operations.</strong></p><p>If the task that an <code>Operation</code> is to perform is, itself, asynchronous, (e.g. a <code>URLSession</code> data task), you should implement the <code>Operation</code> as a concurrent operation. In this case, your <code>isAsynchronous</code> implementation should return <code>true</code>, you’d generally have <code>start</code> method that performs some setup, then calls its <code>main</code> method which actually executes the task.</p><p>When implementing an asynchronous <code>Operation</code> begins you must implement <code>isExecuting</code>, <code>isFinished</code> methods and KVO. So, when execution starts, <code>isExecuting</code> property changes to <code>true</code>. When an <code>Operation</code> finishes its task, <code>isExecuting</code> is set to <code>false</code>, and <code>isFinished</code> is set to <code>true</code>. If the operation it is cancelled both <code>isCancelled</code> and <code>isFinished</code> change to <code>true</code>. All of these properties are key-value observable.</p><p><strong>Cancel an </strong><code><strong>Operation</strong></code><strong>.</strong></p><p>Calling <code>cancel</code> simply changes the <code>isCancelled</code> property to <code>true</code>. To respond to cancellation from within your own <code>Operation</code> subclass, you should check the value of <code>isCancelled</code> at least periodically within <code>main</code> and respond appropriately.</p>
+</div>
+<p>Dependencies will be ignored. If this is a concurrent operation, the task may still be executed concurrently if its <code>start</code> method offloads work to background queues.
+</p>
+<p><strong>Concurrent Operations.</strong>
+</p>
+<p>If the task that an <code>Operation</code> is to perform is, itself, asynchronous, (e.g. a <code>URLSession</code> data task), you should implement the <code>Operation</code> as a concurrent operation. In this case, your <code>isAsynchronous</code> implementation should return <code>true</code>, you’d generally have <code>start</code> method that performs some setup, then calls its <code>main</code> method which actually executes the task.
+</p>
+<p>When implementing an asynchronous <code>Operation</code> begins you must implement <code>isExecuting</code>, <code>isFinished</code> methods and KVO. So, when execution starts, <code>isExecuting</code> property changes to <code>true</code>. When an <code>Operation</code> finishes its task, <code>isExecuting</code> is set to <code>false</code>, and <code>isFinished</code> is set to <code>true</code>. If the operation it is cancelled both <code>isCancelled</code> and <code>isFinished</code> change to <code>true</code>. All of these properties are key-value observable.
+</p>
+<p><strong>Cancel an </strong><code><strong>Operation</strong></code><strong>.</strong>
+</p>
+<p>Calling <code>cancel</code> simply changes the <code>isCancelled</code> property to <code>true</code>. To respond to cancellation from within your own <code>Operation</code> subclass, you should check the value of <code>isCancelled</code> at least periodically within <code>main</code> and respond appropriately.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">operation.cancel()</pre>

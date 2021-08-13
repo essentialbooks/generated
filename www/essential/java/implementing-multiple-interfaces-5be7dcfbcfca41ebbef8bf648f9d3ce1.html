@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Sometimes you may want to have a lambda expression implementing more than one interface. This is mostly useful with marker interfaces (such as <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html">java.io.Serializable</a>) since they don’t add abstract methods.</p><p>For example, you want to create a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/TreeSet.html"><code>TreeSet</code></a> with a custom <code>Comparator</code> and then serialize it and send it over the network. The trivial approach:</p>
+      
+<p>Sometimes you may want to have a lambda expression implementing more than one interface. This is mostly useful with marker interfaces (such as <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html">java.io.Serializable</a>) since they don’t add abstract methods.
+</p>
+<p>For example, you want to create a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/TreeSet.html"><code>TreeSet</code></a> with a custom <code>Comparator</code> and then serialize it and send it over the network. The trivial approach:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">TreeSet&lt;Long&gt; ts = new TreeSet&lt;&gt;((x, y) -&gt; Long.compare(y, x));</pre>
@@ -135,7 +140,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>doesn’t work since the lambda for the comparator does not implement <code>Serializable</code>. You can fix this by using intersection types and explicitly specifying that this lambda needs to be serializable:</p>
+</div>
+<p>doesn’t work since the lambda for the comparator does not implement <code>Serializable</code>. You can fix this by using intersection types and explicitly specifying that this lambda needs to be serializable:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">TreeSet&lt;Long&gt; ts = new TreeSet&lt;&gt;(
@@ -144,7 +152,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you’re frequently using intersection types (for example, if you’re using a framework such as <a href="http://spark.apache.org/">Apache Spark</a> where almost everything has to be serializable), you can create empty interfaces and use them in your code instead:</p>
+</div>
+<p>If you’re frequently using intersection types (for example, if you’re using a framework such as <a href="http://spark.apache.org/">Apache Spark</a> where almost everything has to be serializable), you can create empty interfaces and use them in your code instead:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public interface SerializableComparator extends Comparator&lt;Long&gt;, Serializable {}
@@ -156,7 +167,9 @@ public class CustomTreeSet {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This way you’re guaranteed that the passed comparator will be serializable.</p>
+</div>
+<p>This way you’re guaranteed that the passed comparator will be serializable.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

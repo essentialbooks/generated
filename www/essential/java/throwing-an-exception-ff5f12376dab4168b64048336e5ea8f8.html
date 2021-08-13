@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The following example shows the basics of throwing an exception:</p>
+      
+<p>The following example shows the basics of throwing an exception:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public void checkNumber(int number) throws IllegalArgumentException {
@@ -139,7 +142,28 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The exception is thrown on the 3rd line. This statement can be broken down into two parts:</p><ul id="3963e47e-842f-4e7d-8d37-52d7df1f65c0" class="bulleted-list"><li><code>new IllegalArgumentException(...)</code> is creating an instance of the <code>IllegalArgumentException</code> class, with a message that describes the error that exception is reporting.</li><li><code>throw ...</code> is then throwing the exception object.</li></ul><p>When the exception is thrown, it causes the enclosing statements to <em>terminate abnormally</em> until the exception is <em>handled</em>. This is described in other examples.</p><p>It is good practice to both create and throw the exception object in a single statement, as shown above. It is also good practice to include a meaningful error message in the exception to help the programmer to understand the cause of the problem. However, this is not necessarily the message that you should be showing to the end user. (For a start, Java has no direct support for internationalizing exception messages.)</p><p>There are a couple more points to be made:</p><ul id="19d1ad7a-7952-4c70-b74c-ed87b26f27b8" class="bulleted-list"><li>We have declared the <code>checkNumber</code> as <code>throws IllegalArgumentException</code>. This was not strictly necessary, since <code>IllegalArgumentException</code> is a checked exception; see http://stackoverflow.com/documentation/java/89/exceptions/3058/types-of-exceptions-unchecked-and-checked-exceptions#t=201610240630113832437. However, it is good practice to do this, and also to include the exceptions thrown a method’s javadoc comments.</li><li>Code immediately after a <code>throw</code> statement is <em>unreachable</em>. Hence if we wrote this:</li></ul>
+</div>
+<p>The exception is thrown on the 3rd line. This statement can be broken down into two parts:
+</p>
+  <ul id="3963e47e-842f-4e7d-8d37-52d7df1f65c0" class="bulleted-list">
+    <li><code>new IllegalArgumentException(...)</code> is creating an instance of the <code>IllegalArgumentException</code> class, with a message that describes the error that exception is reporting.
+    </li>
+    <li><code>throw ...</code> is then throwing the exception object.
+    </li>
+  </ul>
+<p>When the exception is thrown, it causes the enclosing statements to <em>terminate abnormally</em> until the exception is <em>handled</em>. This is described in other examples.
+</p>
+<p>It is good practice to both create and throw the exception object in a single statement, as shown above. It is also good practice to include a meaningful error message in the exception to help the programmer to understand the cause of the problem. However, this is not necessarily the message that you should be showing to the end user. (For a start, Java has no direct support for internationalizing exception messages.)
+</p>
+<p>There are a couple more points to be made:
+</p>
+  <ul id="19d1ad7a-7952-4c70-b74c-ed87b26f27b8" class="bulleted-list">
+    <li>We have declared the <code>checkNumber</code> as <code>throws IllegalArgumentException</code>. This was not strictly necessary, since <code>IllegalArgumentException</code> is a checked exception; see http://stackoverflow.com/documentation/java/89/exceptions/3058/types-of-exceptions-unchecked-and-checked-exceptions#t=201610240630113832437. However, it is good practice to do this, and also to include the exceptions thrown a method’s javadoc comments.
+    </li>
+    <li>Code immediately after a <code>throw</code> statement is <em>unreachable</em>. Hence if we wrote this:
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">throw new IllegalArgumentException(&#34;it is bad&#34;);
@@ -150,7 +174,15 @@ the compiler would report a compilation error for the `return` statement.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="8b3381b7-bad1-41e2-9a11-9dfa723eb272" class="">Exception chaining<a class="header-anchor" href="#8b3381b7-bad1-41e2-9a11-9dfa723eb272" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Many standard exceptions have a constructor with a second <code>cause</code> argument in addition to the conventional <code>message</code> argument. The <code>cause</code> allows you to chain exceptions. Here is an example.</p><p>First we define an unchecked exception that our application is going throw when it encounters a non-recoverable error. Note that we have included a constructor that accepts a <code>cause</code> argument.</p>
+</div>
+  <h2 id="8b3381b7-bad1-41e2-9a11-9dfa723eb272" class="">Exception chaining
+  <a class="header-anchor" href="#8b3381b7-bad1-41e2-9a11-9dfa723eb272" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Many standard exceptions have a constructor with a second <code>cause</code> argument in addition to the conventional <code>message</code> argument. The <code>cause</code> allows you to chain exceptions. Here is an example.
+</p>
+<p>First we define an unchecked exception that our application is going throw when it encounters a non-recoverable error. Note that we have included a constructor that accepts a <code>cause</code> argument.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class AppErrorException extends RuntimeException {
@@ -170,7 +202,10 @@ the compiler would report a compilation error for the `return` statement.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Next, here is some code that illustrates exception chaining.</p>
+</div>
+<p>Next, here is some code that illustrates exception chaining.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public String readFirstLine(String file) throws AppErrorException {
@@ -189,7 +224,9 @@ the compiler would report a compilation error for the `return` statement.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>throw</code> within the <code>try</code> block detects a problem and reports it via an exception with a simple message. By contrast, the <code>throw</code> within the <code>catch</code> block is handling the <code>IOException</code> by wrapping it in a new (checked) exception. However, it is not throwing away the original exception. By passing the <code>IOException</code> as the <code>cause</code>, we record it so that it can be printed in the stacktrace, as explained in http://stackoverflow.com/documentation/java/89/exceptions-and-exception-handling/1815/creating-and-reading-stacktraces#t=20161028160848944857.</p>
+</div>
+<p>The <code>throw</code> within the <code>try</code> block detects a problem and reports it via an exception with a simple message. By contrast, the <code>throw</code> within the <code>catch</code> block is handling the <code>IOException</code> by wrapping it in a new (checked) exception. However, it is not throwing away the original exception. By passing the <code>IOException</code> as the <code>cause</code>, we record it so that it can be printed in the stacktrace, as explained in http://stackoverflow.com/documentation/java/89/exceptions-and-exception-handling/1815/creating-and-reading-stacktraces#t=20161028160848944857.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

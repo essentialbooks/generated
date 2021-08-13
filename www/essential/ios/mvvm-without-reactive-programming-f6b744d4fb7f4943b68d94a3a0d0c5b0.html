@@ -127,7 +127,23 @@
 </div>
 
 
-      <p>I’ll start with a really short explanation what is and why use Model-View-ViewModel (MVVM) design pattern in your iOS apps. When iOS first appeared, Apple suggested to use MVC (Model-View-Controller) as a design pattern. They showed it in all of their examples and all first developers were happy using it because it nicely separated concerns between business logic and user interface. As applications became larger and more complex a new problem appeared appropriately called Massive View Controllers (MVC). Because all business logic was added in the ViewController, with time they usually became too large and complex. To avoid MVC issue, a new design pattern was introduced to the world of iOS - Model-View-ViewModel (MVVM) pattern.</p><img class="img" src="/img/05b19856ec4ce8ce745e379682df2de5794f6d47.png"><p>The diagram above shows how MVVM looks like. You have a standard ViewController + View (in storyboard, XIB or Code), which acts as MVVM’s View (in later text - View will reference MVVM’s View). A view has a reference to a ViewModel, where our business logic is. It’s important to notice that ViewModel doesn’t know anything about the View and never has a reference to the view. ViewModel has a reference to a Model.</p><p>This is enough with a theoretical part of the MVVM. More about it can be read <a href="https://www.objc.io/issues/13-architecture/mvvm/">here</a>.</p><p>One of the <strong>main issues with MVVM</strong> is how to update View via the ViewModel when ViewModel doesn’t have any references and doesn’t even know anything about the View.</p><p>The main part of this example is to show how to use MVVM (more precisely, how to bind ViewModel and View) without any reactive programming (ReactiveCocoa, ReactiveSwift or RxSwif). Just as a note: if you want to use Reactive programming, even better since MVVM bindings are done really easy using it. But this example is on how to use MVVM without Reactive programming.</p><p>Let’s create a simple example to demonstrate how to use MVVM.</p><p>Our <code>MVVMExampleViewController</code> is a simple ViewController with a label and a button. When button is pressed, the label text should be set to ‘Hello’. Since deciding what to do on user user interaction is part of the business logic, ViewModel will have to decide what to do when user presses the button. MVVM’s View shouldn’t do any business logic.</p>
+      
+<p>I’ll start with a really short explanation what is and why use Model-View-ViewModel (MVVM) design pattern in your iOS apps. When iOS first appeared, Apple suggested to use MVC (Model-View-Controller) as a design pattern. They showed it in all of their examples and all first developers were happy using it because it nicely separated concerns between business logic and user interface. As applications became larger and more complex a new problem appeared appropriately called Massive View Controllers (MVC). Because all business logic was added in the ViewController, with time they usually became too large and complex. To avoid MVC issue, a new design pattern was introduced to the world of iOS - Model-View-ViewModel (MVVM) pattern.
+</p>
+<img class="img" src="/img/05b19856ec4ce8ce745e379682df2de5794f6d47.png">
+<p>The diagram above shows how MVVM looks like. You have a standard ViewController + View (in storyboard, XIB or Code), which acts as MVVM’s View (in later text - View will reference MVVM’s View). A view has a reference to a ViewModel, where our business logic is. It’s important to notice that ViewModel doesn’t know anything about the View and never has a reference to the view. ViewModel has a reference to a Model.
+</p>
+<p>This is enough with a theoretical part of the MVVM. More about it can be read <a href="https://www.objc.io/issues/13-architecture/mvvm/">here</a>.
+</p>
+<p>One of the <strong>main issues with MVVM</strong> is how to update View via the ViewModel when ViewModel doesn’t have any references and doesn’t even know anything about the View.
+</p>
+<p>The main part of this example is to show how to use MVVM (more precisely, how to bind ViewModel and View) without any reactive programming (ReactiveCocoa, ReactiveSwift or RxSwif). Just as a note: if you want to use Reactive programming, even better since MVVM bindings are done really easy using it. But this example is on how to use MVVM without Reactive programming.
+</p>
+<p>Let’s create a simple example to demonstrate how to use MVVM.
+</p>
+<p>Our <code>MVVMExampleViewController</code> is a simple ViewController with a label and a button. When button is pressed, the label text should be set to ‘Hello’. Since deciding what to do on user user interaction is part of the business logic, ViewModel will have to decide what to do when user presses the button. MVVM’s View shouldn’t do any business logic.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class MVVMExampleViewController: UIViewController {
@@ -148,7 +164,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>MVVMExampleViewModel</code> is a simple ViewModel.</p>
+</div>
+<p><code>MVVMExampleViewModel</code> is a simple ViewModel.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class MVVMExampleViewModel {
@@ -161,7 +180,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You might wonder, how to set the ViewModel’s reference in the View. I usually do it when ViewController is being initialized or before it will be shown. For this simple example, I would do something like this in the <code>AppDelegate</code>:</p>
+</div>
+<p>You might wonder, how to set the ViewModel’s reference in the View. I usually do it when ViewController is being initialized or before it will be shown. For this simple example, I would do something like this in the <code>AppDelegate</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -&gt; Bool {
@@ -175,7 +197,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>The real question now is: how to update View from ViewModel without giving a reference to the View to the ViewModel?</strong> (Remember, we won’t use any of the Reactive Programming iOS libraries)</p><p>You could think about using KVO, but that would just complicate things too much. Some smart people have thought about the issue and came up with the <a href="https://github.com/ReactiveKit/Bond">Bond library</a>. The library might seem complicated and a little harder to understand at first, so I’ll just take one small part of it and make our MVVM fully functional.</p><p>Let’s introduce the <code>Dynamic</code> class which is the core of our simple yet fully functional MVVM pattern.</p>
+</div>
+<p><strong>The real question now is: how to update View from ViewModel without giving a reference to the View to the ViewModel?</strong> (Remember, we won’t use any of the Reactive Programming iOS libraries)
+</p>
+<p>You could think about using KVO, but that would just complicate things too much. Some smart people have thought about the issue and came up with the <a href="https://github.com/ReactiveKit/Bond">Bond library</a>. The library might seem complicated and a little harder to understand at first, so I’ll just take one small part of it and make our MVVM fully functional.
+</p>
+<p>Let’s introduce the <code>Dynamic</code> class which is the core of our simple yet fully functional MVVM pattern.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Dynamic&lt;T&gt; {
@@ -205,7 +234,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>Dynamic</code> class is using Generics and Closures to bind our ViewModel with our View. I won’t go into details about this class, we can do it in the comments (to make this example shorter). Let’s now update our <code>MVVMExampleViewController</code> and <code>MVVMExampleViewModel</code> to use those classes.</p><p>Our updated <code>MVVMExampleViewController</code></p>
+</div>
+<p><code>Dynamic</code> class is using Generics and Closures to bind our ViewModel with our View. I won’t go into details about this class, we can do it in the comments (to make this example shorter). Let’s now update our <code>MVVMExampleViewController</code> and <code>MVVMExampleViewModel</code> to use those classes.
+</p>
+<p>Our updated <code>MVVMExampleViewController</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class MVVMExampleViewController: UIViewController {
@@ -240,7 +274,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Updated <code>MVVMExampleViewModel</code>:</p>
+</div>
+<p>Updated <code>MVVMExampleViewModel</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class MVVMExampleViewModel {
@@ -259,7 +296,11 @@ func userTriggeredSayHelloButton() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>That is it. Your <code>ViewModel</code> is now able to update <code>View</code> without it having a reference to the <code>View</code>.</p><p>This is a really simple example, but I think you have an idea how powerful this can be. I won’t go into details about benefits of the MVVM, but once you switch from MVC to MVVM, you won’t go back. Just try it and see for yourself.</p>
+</div>
+<p>That is it. Your <code>ViewModel</code> is now able to update <code>View</code> without it having a reference to the <code>View</code>.
+</p>
+<p>This is a really simple example, but I think you have an idea how powerful this can be. I won’t go into details about benefits of the MVVM, but once you switch from MVC to MVVM, you won’t go back. Just try it and see for yourself.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

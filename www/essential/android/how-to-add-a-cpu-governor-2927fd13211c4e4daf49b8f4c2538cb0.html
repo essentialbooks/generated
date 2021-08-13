@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>The CPU governor itself is just 1 C file, which is located in kernel_source/drivers/cpufreq/, for example: cpufreq_smartass2.c. You are responsible yourself for find the governor (look in an existing kernel repo for your device) But in order to successfully call and compile this file into your kernel you will have to make the following changes:</p><ol id="95ef2078-475f-49d8-9410-f5e154103e2e" class="numbered-list" start="1"><li>Copy your governor file (cpufreq_govname.c) and browse to kernel_source/drivers/cpufreq, now paste it.</li><li>and open Kconfig (this is the interface of the config menu layout) when adding a kernel, you want it to show up in your config. You can do that by adding the choice of governor.</li></ol>
+      
+<p>The CPU governor itself is just 1 C file, which is located in kernel_source/drivers/cpufreq/, for example: cpufreq_smartass2.c. You are responsible yourself for find the governor (look in an existing kernel repo for your device) But in order to successfully call and compile this file into your kernel you will have to make the following changes:
+</p>
+  <ol id="95ef2078-475f-49d8-9410-f5e154103e2e" class="numbered-list" start="1">
+    <li>Copy your governor file (cpufreq_govname.c) and browse to kernel_source/drivers/cpufreq, now paste it.
+    </li>
+    <li>and open Kconfig (this is the interface of the config menu layout) when adding a kernel, you want it to show up in your config. You can do that by adding the choice of governor.
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">config CPU_FREQ_GOV_GOVNAMEHERE
@@ -139,7 +148,10 @@ governor&#39; - a custom governor!</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>for example, for smartassV2.</p>
+</div>
+<p>for example, for smartassV2.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">config CPU_FREQ_GOV_SMARTASS2
@@ -151,7 +163,10 @@ governor&#39; - a custom governor!</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>next to adding the choice, you also must declare the possibility that the governor gets chosen as default governor.</p>
+</div>
+<p>next to adding the choice, you also must declare the possibility that the governor gets chosen as default governor.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">config CPU_FREQ_DEFAULT_GOV_GOVNAMEHERE
@@ -163,7 +178,10 @@ Use the CPUFreq governor &#39;govname&#39; as default.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>for example, for smartassV2.</p>
+</div>
+<p>for example, for smartassV2.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">config CPU_FREQ_DEFAULT_GOV_SMARTASS2
@@ -175,7 +193,12 @@ Use the CPUFreq governor &#39;govname&#39; as default.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>– can’t find the right place to put it? Just search for <code>“CPU_FREQ_GOV_CONSERVATIVE”</code>, and place the code beneath, same thing counts for <code>“CPU_FREQ_DEFAULT_GOV_CONSERVATIVE”</code></p><p>Now that Kconfig is finished you can save and close the file. 3. While still in the <code>/drivers/cpufreq</code> folder, open Makefile. In Makefile, add the line corresponding to your CPU Governor. for example:</p>
+</div>
+<p>– can’t find the right place to put it? Just search for <code>“CPU_FREQ_GOV_CONSERVATIVE”</code>, and place the code beneath, same thing counts for <code>“CPU_FREQ_DEFAULT_GOV_CONSERVATIVE”</code>
+</p>
+<p>Now that Kconfig is finished you can save and close the file. 3. While still in the <code>/drivers/cpufreq</code> folder, open Makefile. In Makefile, add the line corresponding to your CPU Governor. for example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">obj-$(CONFIG_CPU_FREQ_GOV_SMARTASS2)    += cpufreq_smartass2.o</pre>
@@ -183,7 +206,10 @@ Use the CPUFreq governor &#39;govname&#39; as default.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Be ware that you do not call the native C file, but the O file! which is the compiled C file. Save the file. 4. Move to: <code>kernel_source/includes/linux</code>. Now open <code>cpufreq.h</code> Scroll down until you see something like:</p>
+</div>
+<p>Be ware that you do not call the native C file, but the O file! which is the compiled C file. Save the file. 4. Move to: <code>kernel_source/includes/linux</code>. Now open <code>cpufreq.h</code> Scroll down until you see something like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND)
@@ -193,7 +219,12 @@ Use the CPUFreq governor &#39;govname&#39; as default.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>(other cpu governors are also listed there)</p><p>Now add your entry with the selected CPU Governor, example:</p>
+</div>
+<p>(other cpu governors are also listed there)
+</p>
+<p>Now add your entry with the selected CPU Governor, example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_SMARTASS2)
@@ -203,7 +234,13 @@ Use the CPUFreq governor &#39;govname&#39; as default.</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Save the file and close it.</p><p>The initial CPU Governor setup is now complete. when you’ve done all steps successfully, you should be able to choose your governor from the menu (<code>menuconfig</code>, <code>xconfig</code>, <code>gconfig</code>, <code>nconfig</code>). Once checked in the menu it will be included to the kernel.</p><p>Commit that is nearly the same as above instructions: <a href="https://github.com/broodplank/samsung-kernel-msm7x30/commit/bd319103c20c9a9357852d6f535aaa999cee867a">Add smartassV2 and lulzactive governor commit</a></p>
+</div>
+<p>Save the file and close it.
+</p>
+<p>The initial CPU Governor setup is now complete. when you’ve done all steps successfully, you should be able to choose your governor from the menu (<code>menuconfig</code>, <code>xconfig</code>, <code>gconfig</code>, <code>nconfig</code>). Once checked in the menu it will be included to the kernel.
+</p>
+<p>Commit that is nearly the same as above instructions: <a href="https://github.com/broodplank/samsung-kernel-msm7x30/commit/bd319103c20c9a9357852d6f535aaa999cee867a">Add smartassV2 and lulzactive governor commit</a>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

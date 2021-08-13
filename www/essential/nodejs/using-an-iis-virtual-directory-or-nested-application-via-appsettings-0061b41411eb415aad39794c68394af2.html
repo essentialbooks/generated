@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Using a Virtual Directory or Nested Application in IIS is a common scenario and most likely one that you’ll want to take advantage of when using IISNode.</p><p>IISNode doesn’t provide direct support for Virtual Directories or Nested Applications via configuration so to achieve this we’ll need to take advantage of a feature of IISNode that isn’t part of the configuration and is much lesser known. All children of the <code>&lt;appSettings&gt;</code> element with the <code>Web.config</code> are added to the <code>process.env</code> object as properties using the appSetting key.</p><p>Lets create a Virtual Directory in our <code>&lt;appSettings&gt;</code></p>
+      
+<p>Using a Virtual Directory or Nested Application in IIS is a common scenario and most likely one that you’ll want to take advantage of when using IISNode.
+</p>
+<p>IISNode doesn’t provide direct support for Virtual Directories or Nested Applications via configuration so to achieve this we’ll need to take advantage of a feature of IISNode that isn’t part of the configuration and is much lesser known. All children of the <code>&lt;appSettings&gt;</code> element with the <code>Web.config</code> are added to the <code>process.env</code> object as properties using the appSetting key.
+</p>
+<p>Lets create a Virtual Directory in our <code>&lt;appSettings&gt;</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;appSettings&gt;
@@ -137,7 +144,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Within our Node.js App we can access the <code>virtualDirPath</code> setting</p>
+</div>
+<p>Within our Node.js App we can access the <code>virtualDirPath</code> setting
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">console.log(process.env.virtualDirPath); // prints /foo</pre>
@@ -145,7 +155,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now that we can use the <code>&lt;appSettings&gt;</code> element for configuration, lets take advantage of that and use it in our server code.</p>
+</div>
+<p>Now that we can use the <code>&lt;appSettings&gt;</code> element for configuration, lets take advantage of that and use it in our server code.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Access the virtualDirPath appSettings and give it a default value of &#39;/&#39;
@@ -165,7 +178,10 @@ server.get(virtualDirPath, (req, res) =&gt; {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We can use the virtualDirPath with our static resources as well</p>
+</div>
+<p>We can use the virtualDirPath with our static resources as well
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Public Directory
@@ -176,7 +192,10 @@ server.use(&#39;/bower_components&#39;, express.static(path.join(virtualDirPath,
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Lets put all of that together</p>
+</div>
+<p>Lets put all of that together
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">const express = require(&#39;express&#39;);

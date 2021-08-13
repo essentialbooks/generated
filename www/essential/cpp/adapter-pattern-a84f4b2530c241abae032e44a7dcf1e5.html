@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>Convert the interface of a class into another interface clients expect. Adapter (or Wrapper) lets classes work together that couldn’t otherwise because of incompatible interfaces. Adapter pattern’s motivation is that we can reuse existing software if we can modify the interface.</p><ol id="11de0820-39d9-4730-b278-126f4d37f688" class="numbered-list" start="1"><li>Adapter pattern relies on object composition.</li><li>Client calls operation on Adapter object.</li><li>Adapter calls Adaptee to carry out the operation.</li><li>In STL, stack adapted from vector: When stack executes push(), underlying vector does vector::push_back().</li></ol><p><strong>Example:</strong></p>
+      
+<p>Convert the interface of a class into another interface clients expect. Adapter (or Wrapper) lets classes work together that couldn’t otherwise because of incompatible interfaces. Adapter pattern’s motivation is that we can reuse existing software if we can modify the interface.
+</p>
+  <ol id="11de0820-39d9-4730-b278-126f4d37f688" class="numbered-list" start="1">
+    <li>Adapter pattern relies on object composition.
+    </li>
+    <li>Client calls operation on Adapter object.
+    </li>
+    <li>Adapter calls Adaptee to carry out the operation.
+    </li>
+    <li>In STL, stack adapted from vector: When stack executes push(), underlying vector does vector::push_back().
+    </li>
+  </ol>
+<p><strong>Example:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;
@@ -189,7 +204,16 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Summary of the code:</strong></p><ol id="c52d643d-88f4-4728-9bcc-9603613394c9" class="numbered-list" start="1"><li>The client thinks he is talking to a <code>Rectangle</code></li><li>The target is the <code>Rectangle</code> class. This is what the client invokes method on.</li></ol>
+</div>
+<p><strong>Summary of the code:</strong>
+</p>
+  <ol id="c52d643d-88f4-4728-9bcc-9603613394c9" class="numbered-list" start="1">
+    <li>The client thinks he is talking to a <code>Rectangle</code>
+    </li>
+    <li>The target is the <code>Rectangle</code> class. This is what the client invokes method on.
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Rectangle *r = new RectangleAdapter(x,y,w,h);
@@ -198,7 +222,12 @@ r-&gt;draw();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="2c7ce8b3-f45b-462c-b36f-535d6e2f37d2" class="numbered-list" start="1"><li>Note that the adapter class uses multiple inheritance.</li></ol>
+</div>
+  <ol id="2c7ce8b3-f45b-462c-b36f-535d6e2f37d2" class="numbered-list" start="1">
+    <li>Note that the adapter class uses multiple inheritance.
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class RectangleAdapter: public Rectangle, private LegacyRectangle {
@@ -208,7 +237,14 @@ r-&gt;draw();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="0f9b4284-54de-4452-ab66-8ad6578048da" class="numbered-list" start="1"><li>The Adapter <code>RectangleAdapter</code> lets the <code>LegacyRectangle</code> responds to request (<code>draw()</code> on a <code>Rectangle</code>) by inheriting BOTH classes.</li><li>The <code>LegacyRectangle</code> class does not have the same methods (<code>draw()</code>) as <code>Rectangle</code>, but the <code>Adapter(RectangleAdapter)</code> can take the <code>Rectangle</code> method calls and turn around and invoke method on the <code>LegacyRectangle</code>, <code>oldDraw()</code>.</li></ol>
+</div>
+  <ol id="0f9b4284-54de-4452-ab66-8ad6578048da" class="numbered-list" start="1">
+    <li>The Adapter <code>RectangleAdapter</code> lets the <code>LegacyRectangle</code> responds to request (<code>draw()</code> on a <code>Rectangle</code>) by inheriting BOTH classes.
+    </li>
+    <li>The <code>LegacyRectangle</code> class does not have the same methods (<code>draw()</code>) as <code>Rectangle</code>, but the <code>Adapter(RectangleAdapter)</code> can take the <code>Rectangle</code> method calls and turn around and invoke method on the <code>LegacyRectangle</code>, <code>oldDraw()</code>.
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class RectangleAdapter: public Rectangle, private LegacyRectangle {
@@ -227,7 +263,13 @@ r-&gt;draw();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Adapter</strong> design pattern translates the interface for one class into a compatible but different interface. So, this is similar to the <strong>proxy</strong> pattern in that it’s a single-component wrapper. But the interface for the adapter class and the original class may be different.</p><p>As we’ve seen in the example above, this <strong>adapter</strong> pattern is useful to expose a different interface for an existing API to allow it to work with other code. Also, by using adapter pattern, we can take heterogeneous interfaces, and transform them to provide consistent API.</p><p><strong>Bridge pattern</strong> has a structure similar to an object adapter, but Bridge has a different intent: It is meant to <strong>separate</strong> an interface from its implementation so that they can be varied easily and independently. An <strong>adapter</strong> is meant to <strong>change the interface</strong> of an <strong>existing</strong> object.</p>
+</div>
+<p><strong>Adapter</strong> design pattern translates the interface for one class into a compatible but different interface. So, this is similar to the <strong>proxy</strong> pattern in that it’s a single-component wrapper. But the interface for the adapter class and the original class may be different.
+</p>
+<p>As we’ve seen in the example above, this <strong>adapter</strong> pattern is useful to expose a different interface for an existing API to allow it to work with other code. Also, by using adapter pattern, we can take heterogeneous interfaces, and transform them to provide consistent API.
+</p>
+<p><strong>Bridge pattern</strong> has a structure similar to an object adapter, but Bridge has a different intent: It is meant to <strong>separate</strong> an interface from its implementation so that they can be varied easily and independently. An <strong>adapter</strong> is meant to <strong>change the interface</strong> of an <strong>existing</strong> object.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

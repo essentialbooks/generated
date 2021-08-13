@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Most Rails developers start by modifying their model information within the template itself:</p>
+      
+<p>Most Rails developers start by modifying their model information within the template itself:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;h1&gt;&lt;%= &#34;#{ @user.first_name } #{ @user.last_name }&#34; %&gt;&lt;/h1&gt;
@@ -136,7 +139,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For models with a lot of data, this can quickly become cumbersome and lead to copy-pasting logic from one template to another.</p><p>This example uses <code>SimpleDelegator</code> from the stdlib.</p><p>All requests to a <code>SimpleDelegator</code> object are passed to the parent object by default. You can override any method with presentation logic, or you can add new methods that are specific to this view.</p><p><code>SimpleDelegator</code> provides two methods: <code>__setobj__</code> to set what object is being delegated to, and <code>__getobj__</code> to get that object.</p>
+</div>
+<p>For models with a lot of data, this can quickly become cumbersome and lead to copy-pasting logic from one template to another.
+</p>
+<p>This example uses <code>SimpleDelegator</code> from the stdlib.
+</p>
+<p>All requests to a <code>SimpleDelegator</code> object are passed to the parent object by default. You can override any method with presentation logic, or you can add new methods that are specific to this view.
+</p>
+<p><code>SimpleDelegator</code> provides two methods: <code>__setobj__</code> to set what object is being delegated to, and <code>__getobj__</code> to get that object.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class UserDecorator &lt; SimpleDelegator
@@ -163,7 +175,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Some decorators rely on magic to wire-up this behavior, but you can make it more obvious where the presentation logic is coming from by initializing the object on the page.</p>
+</div>
+<p>Some decorators rely on magic to wire-up this behavior, but you can make it more obvious where the presentation logic is coming from by initializing the object on the page.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;% user = UserDecorator.new(@user, self) %&gt;
@@ -173,7 +188,11 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>By passing a reference to the view object into the decorator, we can still access all of the rest of the view helpers while building the presentation logic without having to include it.</p><p>Now the view template is only concerned with inserting data into the page, and it is much more clear.</p>
+</div>
+<p>By passing a reference to the view object into the decorator, we can still access all of the rest of the view helpers while building the presentation logic without having to include it.
+</p>
+<p>Now the view template is only concerned with inserting data into the page, and it is much more clear.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

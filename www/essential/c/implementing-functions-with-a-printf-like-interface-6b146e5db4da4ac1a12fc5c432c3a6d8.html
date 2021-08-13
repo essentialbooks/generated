@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>One common use of variable-length argument lists is to implement functions that are a thin wrapper around the <code>printf()</code> family of functions. One such example is a set of error reporting functions.</p><p><code><strong>errmsg.h</strong></code></p>
+      
+<p>One common use of variable-length argument lists is to implement functions that are a thin wrapper around the <code>printf()</code> family of functions. One such example is a set of error reporting functions.
+</p>
+<p><code><strong>errmsg.h</strong></code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#ifndef ERRMSG_H_INCLUDED
@@ -145,7 +150,14 @@ void warnmsg(int errnum, const char *fmt, ...);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is a bare-bones example; such packages can be much elaborate. Normally, programmers will use either <code>errmsg()</code> or <code>warnmsg()</code>, which themselves use <code>verrmsg()</code> internally. If someone comes up with a need to do more, though, then the exposed <code>verrmsg()</code> function will be useful. You could avoid exposing it until you have a need for it (<a href="https://en.wikipedia.org/wiki/You_aren&#x27;t_gonna_need_it">YAGNI — you aren’t gonna need it</a>), but the need will arise eventually (you <em>are</em> gonna need it — YAGNI).</p><p><code><strong>errmsg.c</strong></code></p><p>This code only needs to forward the variadic arguments to the <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/vfprintf.html"><code>vfprintf()</code></a> function for outputting to standard error. It also reports the system error message corresponding to the system error number (<code>errno</code>) passed to the functions.</p>
+</div>
+<p>This is a bare-bones example; such packages can be much elaborate. Normally, programmers will use either <code>errmsg()</code> or <code>warnmsg()</code>, which themselves use <code>verrmsg()</code> internally. If someone comes up with a need to do more, though, then the exposed <code>verrmsg()</code> function will be useful. You could avoid exposing it until you have a need for it (<a href="https://en.wikipedia.org/wiki/You_aren&#x27;t_gonna_need_it">YAGNI — you aren’t gonna need it</a>), but the need will arise eventually (you <em>are</em> gonna need it — YAGNI).
+</p>
+<p><code><strong>errmsg.c</strong></code>
+</p>
+<p>This code only needs to forward the variadic arguments to the <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/vfprintf.html"><code>vfprintf()</code></a> function for outputting to standard error. It also reports the system error message corresponding to the system error number (<code>errno</code>) passed to the functions.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &#34;errmsg.h&#34;
@@ -185,7 +197,12 @@ warnmsg(int errnum, const char *fmt, ...)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Using </strong><code><strong>errmsg.h</strong></code></p><p>Now you can use those functions as follows:</p>
+</div>
+<p><strong>Using </strong><code><strong>errmsg.h</strong></code>
+</p>
+<p>Now you can use those functions as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &#34;errmsg.h&#34;
@@ -219,7 +236,20 @@ int main(int argc, char **argv)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If either the <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/open.html"><code>open()</code></a> or <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/read.html"><code>read()</code></a> system calls fails, the error is written to standard error and the program exits with exit code 1. If the <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/close.html"><code>close()</code></a> system call fails, the error is merely printed as a warning message, and the program continues.</p><p><strong>Checking the correct use of </strong><code><strong>printf()</strong></code><strong> formats</strong></p><p>If you are using GCC (the GNU C Compiler, which is part of the GNU Compiler Collection), or using Clang, then you can have the compiler check that the arguments you pass to the error message functions match what <code>printf()</code> expects. Since not all compilers support the extension, it needs to be compiled conditionally, which is a little bit fiddly. However, the protection it gives is worth the effort.</p><p>First, we need to know how to detect that the compiler is GCC or Clang emulating GCC. The answer is that GCC defines <code>__GNUC__</code> to indicate that.</p><p>See <a href="https://gcc.gnu.org/onlinedocs/gcc-7.1.0/gcc/Common-Function-Attributes.html#Common-Function-Attributes">common function attributes</a> for information about the attributes — specifically the <code>format</code> attribute.</p><p><strong>Rewritten </strong><code><strong>errmsg.h</strong></code></p>
+</div>
+<p>If either the <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/open.html"><code>open()</code></a> or <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/read.html"><code>read()</code></a> system calls fails, the error is written to standard error and the program exits with exit code 1. If the <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/close.html"><code>close()</code></a> system call fails, the error is merely printed as a warning message, and the program continues.
+</p>
+<p><strong>Checking the correct use of </strong><code><strong>printf()</strong></code><strong> formats</strong>
+</p>
+<p>If you are using GCC (the GNU C Compiler, which is part of the GNU Compiler Collection), or using Clang, then you can have the compiler check that the arguments you pass to the error message functions match what <code>printf()</code> expects. Since not all compilers support the extension, it needs to be compiled conditionally, which is a little bit fiddly. However, the protection it gives is worth the effort.
+</p>
+<p>First, we need to know how to detect that the compiler is GCC or Clang emulating GCC. The answer is that GCC defines <code>__GNUC__</code> to indicate that.
+</p>
+<p>See <a href="https://gcc.gnu.org/onlinedocs/gcc-7.1.0/gcc/Common-Function-Attributes.html#Common-Function-Attributes">common function attributes</a> for information about the attributes — specifically the <code>format</code> attribute.
+</p>
+<p><strong>Rewritten </strong><code><strong>errmsg.h</strong></code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#ifndef ERRMSG_H_INCLUDED
@@ -247,7 +277,10 @@ void warnmsg(int errnum, const char *fmt, ...)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, if you make a mistake like:</p>
+</div>
+<p>Now, if you make a mistake like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">errmsg(EXIT_FAILURE, errno, &#34;Failed to open file &#39;%d&#39; for reading&#34;, filename);</pre>
@@ -255,7 +288,10 @@ void warnmsg(int errnum, const char *fmt, ...)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>(where the <code>%d</code> should be <code>%s</code>), then the compiler will complain:</p>
+</div>
+<p>(where the <code>%d</code> should be <code>%s</code>), then the compiler will complain:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ gcc -O3 -g -std=c11 -Wall -Wextra -Werror -Wmissing-prototypes -Wstrict-prototypes \

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>In this example we want to create a class that will generate and output to console, a random number between a range of two integers which are passed as arguments during the initialization.</p>
+      
+<p>In this example we want to create a class that will generate and output to console, a random number between a range of two integers which are passed as arguments during the initialization.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class SimpleRangeRandom implements Runnable {
@@ -162,7 +165,10 @@ public void run() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now if we want to make this class Serializable there will be some problems. The Thread is one of the certain system-level classes that are not Serializable. So we need to declare the thread as <strong>transient</strong>. By doing this we will be able to serialize the objects of this class but we will still have an issue. As you can see in the constructor we set the min and the max values of our randomizer and after this we start the thread which is responsible for generating and printing the random value. Thus when restoring the persisted object by calling the <em><strong>readObject()</strong></em> the constructor will not run again as there is no creation of a new object. In that case we need to develop a <strong>Custom Serialization</strong> by providing two methods inside the class. Those methods are:</p>
+</div>
+<p>Now if we want to make this class Serializable there will be some problems. The Thread is one of the certain system-level classes that are not Serializable. So we need to declare the thread as <strong>transient</strong>. By doing this we will be able to serialize the objects of this class but we will still have an issue. As you can see in the constructor we set the min and the max values of our randomizer and after this we start the thread which is responsible for generating and printing the random value. Thus when restoring the persisted object by calling the <em><strong>readObject()</strong></em> the constructor will not run again as there is no creation of a new object. In that case we need to develop a <strong>Custom Serialization</strong> by providing two methods inside the class. Those methods are:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private void writeObject(ObjectOutputStream out) throws IOException;
@@ -171,7 +177,10 @@ private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundE
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Thus by adding our implementation in the <em><strong>readObject()</strong></em> we can initiate and start our thread:</p>
+</div>
+<p>Thus by adding our implementation in the <em><strong>readObject()</strong></em> we can initiate and start our thread:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class RangeRandom implements Serializable, Runnable {
@@ -216,7 +225,10 @@ private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundE
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here is the main for our example:</p>
+</div>
+<p>Here is the main for our example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Main {
@@ -242,6 +254,7 @@ public static void main(String[] args) {
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">RangeRandom rangeRandom2 = null;
@@ -269,7 +282,9 @@ public static void main(String[] args) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you run the main you will see that there are two threads running for each RangeRandom instance and that is because the <em><strong>Thread.start()</strong></em> method is now in both the constructor and the <em><strong>readObject()</strong></em>.</p>
+</div>
+<p>If you run the main you will see that there are two threads running for each RangeRandom instance and that is because the <em><strong>Thread.start()</strong></em> method is now in both the constructor and the <em><strong>readObject()</strong></em>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

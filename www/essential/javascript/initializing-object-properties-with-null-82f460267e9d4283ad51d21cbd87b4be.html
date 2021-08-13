@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>All modern JavaScript JIT compilers trying to optimize code based on expected object structures. Some tip from <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/The_performance_hazards_of__%5B%5BPrototype%5D%5D_mutation#How_JavaScript_engines_optimize_property_accesses">mdn</a>.</p><blockquote id="3ef62a1f-a491-447b-a438-d9809b151d8a" class="">Fortunately, the objects and properties are often “predictable”, and in such cases their underlying structure can also be predictable. JITs can rely on this to make predictable accesses faster.</blockquote><p>The best way to make object predictable is to define a whole structure in a constructor. So if you’re going to add some extra properties after object creation, define them in a constructor with <code>null</code>. This will help the optimizer to predict object behavior for its whole life cycle. However all compilers have different optimizers, and the performance increase can be different, but overall it’s good practice to define all properties in a constructor, even when their value is not yet known.</p><p>Time for some testing. In my test, I’m creating a big array of some class instances with a for loop. Within the loop, I’m assigning the same string to all object’s “x” property before array initialization. If constructor initializes “x” property with null, array always processes better even if it’s doing extra statement.</p><p>This is code:</p>
+      
+<p>All modern JavaScript JIT compilers trying to optimize code based on expected object structures. Some tip from <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/The_performance_hazards_of__%5B%5BPrototype%5D%5D_mutation#How_JavaScript_engines_optimize_property_accesses">mdn</a>.
+</p>
+<blockquote id="3ef62a1f-a491-447b-a438-d9809b151d8a" class="">Fortunately, the objects and properties are often “predictable”, and in such cases their underlying structure can also be predictable. JITs can rely on this to make predictable accesses faster.
+</blockquote>
+<p>The best way to make object predictable is to define a whole structure in a constructor. So if you’re going to add some extra properties after object creation, define them in a constructor with <code>null</code>. This will help the optimizer to predict object behavior for its whole life cycle. However all compilers have different optimizers, and the performance increase can be different, but overall it’s good practice to define all properties in a constructor, even when their value is not yet known.
+</p>
+<p>Time for some testing. In my test, I’m creating a big array of some class instances with a for loop. Within the loop, I’m assigning the same string to all object’s “x” property before array initialization. If constructor initializes “x” property with null, array always processes better even if it’s doing extra statement.
+</p>
+<p>This is code:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">function</span> <span class="nx">f1</span><span class="p">()</span> <span class="p">{</span>
@@ -179,7 +190,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is the result for Chrome and Firefox.</p>
+</div>
+<p>This is the result for Chrome and Firefox.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">FireFox     Chrome
@@ -190,7 +204,9 @@ f2      1,700       9,600</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As we can see, the performance improvements are very different between the two.</p>
+</div>
+<p>As we can see, the performance improvements are very different between the two.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,37 @@
 </div>
 
 
-      <p>Visual Studio helps manage user and application settings. Using this approach has these benefits over using the <code>appSettings</code> section of the configuration file.</p><ol id="4a3c2d1e-c53e-456f-8ed1-c7dc37d521fb" class="numbered-list" start="1"><li>Settings can be made strongly typed. Any type which can be serialized can be used for a settings value.</li><li>Application settings can be easily separated from user settings. Application settings are stored in a single configuration file: <code>web.config</code> for Web sites and Web applications, and app.config, renamed as <em>assembly</em>.exe.config, where <em>assembly</em> is the name of the executable. User settings (not used by Web projects) are stored in a <code>user.config</code> file in the user’s Application Data folder (which varies with the operating system version).</li><li>Application settings from class libraries can be combined into a single configuration file without risk of name collisions, since each class library can have its own custom settings section.</li></ol><p>In most project types, the <a href="https://msdn.microsoft.com/en-us/library/z2f953x9.aspx">Project Properties Designer</a> has a <a href="https://msdn.microsoft.com/en-us/library/a65txexh.aspx">Settings</a> tab which is the starting point for creating custom application and user settings. Initially, the Settings tab will be blank, with a single link to create a default settings file. Clicking the link results in these changes:</p><ol id="82f27081-1006-4ebc-aa2a-f06ae5d9fa89" class="numbered-list" start="1"><li>If a configuration file (<code>app.config</code> or <code>web.config</code>) does not exist for the project, one will be created.</li><li>The Settings tab will be replaced with a grid control which enables you to create, edit, and delete individual settings entries.</li><li>In Solution Explorer, a <code>Settings.settings</code> item is added under the Properties special folder. Opening this item will open the Settings tab.</li><li>A new file with a new partial class is added under the <code>Properties</code> folder in the project folder. This new file is named <code>Settings.Designer.__</code> (.cs, .vb, etc.), and the class is named <code>Settings</code>. The class is code-generated, so it should not be edited, but the class is a partial class, so you can extend the class by putting additional members in a separate file. Furthermore, the class is implemented using the Singleton Pattern, exposing the singleton instance with the property named <code>Default</code>.</li></ol><p>As you add each new entry to the Settings tab, Visual Studio does these two things:</p><ol id="a404c607-a17c-44c0-ac81-c9b5888ad4f4" class="numbered-list" start="1"><li>Saves the setting in the configuration file, in a custom configuration section designed to be managed by the Settings class.</li><li>Creates a new member in the Settings class to read, write, and present the setting in the specific type selected from the Settings tab.</li></ol>
+      
+<p>Visual Studio helps manage user and application settings. Using this approach has these benefits over using the <code>appSettings</code> section of the configuration file.
+</p>
+  <ol id="4a3c2d1e-c53e-456f-8ed1-c7dc37d521fb" class="numbered-list" start="1">
+    <li>Settings can be made strongly typed. Any type which can be serialized can be used for a settings value.
+    </li>
+    <li>Application settings can be easily separated from user settings. Application settings are stored in a single configuration file: <code>web.config</code> for Web sites and Web applications, and app.config, renamed as <em>assembly</em>.exe.config, where <em>assembly</em> is the name of the executable. User settings (not used by Web projects) are stored in a <code>user.config</code> file in the user’s Application Data folder (which varies with the operating system version).
+    </li>
+    <li>Application settings from class libraries can be combined into a single configuration file without risk of name collisions, since each class library can have its own custom settings section.
+    </li>
+  </ol>
+<p>In most project types, the <a href="https://msdn.microsoft.com/en-us/library/z2f953x9.aspx">Project Properties Designer</a> has a <a href="https://msdn.microsoft.com/en-us/library/a65txexh.aspx">Settings</a> tab which is the starting point for creating custom application and user settings. Initially, the Settings tab will be blank, with a single link to create a default settings file. Clicking the link results in these changes:
+</p>
+  <ol id="82f27081-1006-4ebc-aa2a-f06ae5d9fa89" class="numbered-list" start="1">
+    <li>If a configuration file (<code>app.config</code> or <code>web.config</code>) does not exist for the project, one will be created.
+    </li>
+    <li>The Settings tab will be replaced with a grid control which enables you to create, edit, and delete individual settings entries.
+    </li>
+    <li>In Solution Explorer, a <code>Settings.settings</code> item is added under the Properties special folder. Opening this item will open the Settings tab.
+    </li>
+    <li>A new file with a new partial class is added under the <code>Properties</code> folder in the project folder. This new file is named <code>Settings.Designer.__</code> (.cs, .vb, etc.), and the class is named <code>Settings</code>. The class is code-generated, so it should not be edited, but the class is a partial class, so you can extend the class by putting additional members in a separate file. Furthermore, the class is implemented using the Singleton Pattern, exposing the singleton instance with the property named <code>Default</code>.
+    </li>
+  </ol>
+<p>As you add each new entry to the Settings tab, Visual Studio does these two things:
+</p>
+  <ol id="a404c607-a17c-44c0-ac81-c9b5888ad4f4" class="numbered-list" start="1">
+    <li>Saves the setting in the configuration file, in a custom configuration section designed to be managed by the Settings class.
+    </li>
+    <li>Creates a new member in the Settings class to read, write, and present the setting in the specific type selected from the Settings tab.
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

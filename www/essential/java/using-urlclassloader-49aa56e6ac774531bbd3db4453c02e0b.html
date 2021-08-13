@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>There are several ways to implement a plugin system for a Java application. One of the simplest is to use <em>URLClassLoader</em>. The following example will involve a bit of JavaFX code.</p><p>Suppose we have a module of a main application. This module is supposed to load plugins in form of Jars from ‘plugins’ folder. Initial code:</p>
+      
+<p>There are several ways to implement a plugin system for a Java application. One of the simplest is to use <em>URLClassLoader</em>. The following example will involve a bit of JavaFX code.
+</p>
+<p>Suppose we have a module of a main application. This module is supposed to load plugins in form of Jars from ‘plugins’ folder. Initial code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">main</span><span class="p">;</span>
@@ -154,7 +159,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then, we create an interface which will represent a plugin.</p>
+</div>
+<p>Then, we create an interface which will represent a plugin.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">main</span><span class="p">;</span>
@@ -171,7 +179,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We want to load classes which implement this interface, so first we need to filter files which have a ‘.jar’ extension:</p>
+</div>
+<p>We want to load classes which implement this interface, so first we need to filter files which have a ‘.jar’ extension:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">File[] files=pluginDirectory.listFiles((dir, name) -&gt; name.endsWith(&#34;.jar&#34;));</pre>
@@ -179,7 +190,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If there are any files, we need to create collections of URLs and class names:</p>
+</div>
+<p>If there are any files, we need to create collections of URLs and class names:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if(files!=null &amp;&amp; files.length&gt;0)
@@ -204,7 +218,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Let’s add a static HashSet to <em>MainApplication</em> which will hold loaded plugins:</p>
+</div>
+<p>Let’s add a static HashSet to <em>MainApplication</em> which will hold loaded plugins:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">static HashSet&lt;Plugin&gt; plugins=new HashSet&lt;&gt;();</pre>
@@ -212,7 +229,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Next, we instantiate a <em>URLClassLoader</em>, and iterate over class names, instantiating classes which implement <em>Plugin</em> interface:</p>
+</div>
+<p>Next, we instantiate a <em>URLClassLoader</em>, and iterate over class names, instantiating classes which implement <em>Plugin</em> interface:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">URLClassLoader urlClassLoader=new URLClassLoader(urls.toArray(new URL[urls.size()]));
@@ -237,7 +257,10 @@ classes.forEach(className-&gt;{
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then, we can call plugin’s methods, for example, to initialize them:</p>
+</div>
+<p>Then, we can call plugin’s methods, for example, to initialize them:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if(!plugins.isEmpty())loadedPlugins.getChildren().add(new Label(&#34;Loaded plugins:&#34;));
@@ -249,7 +272,10 @@ classes.forEach(className-&gt;{
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The final code of <em>MainApplication</em>:</p>
+</div>
+<p>The final code of <em>MainApplication</em>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">main</span><span class="p">;</span>
@@ -318,7 +344,10 @@ classes.forEach(className-&gt;{
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Let’s create two plugins. Obviously, the plugin’s source should be in a separate module.</p>
+</div>
+<p>Let’s create two plugins. Obviously, the plugin’s source should be in a separate module.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">plugins</span><span class="p">;</span>
@@ -333,7 +362,10 @@ classes.forEach(className-&gt;{
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Second plugin:</p>
+</div>
+<p>Second plugin:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">plugins</span><span class="p">;</span>
@@ -352,7 +384,11 @@ classes.forEach(className-&gt;{
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>These plugins have to be packaged into standard Jars - this process depends on your IDE or other tools.</p><p>When Jars will be put into ‘plugins’ directly, <em>MainApplication</em> will detect them and instantiate appropriate classes.</p>
+</div>
+<p>These plugins have to be packaged into standard Jars - this process depends on your IDE or other tools.
+</p>
+<p>When Jars will be put into ‘plugins’ directly, <em>MainApplication</em> will detect them and instantiate appropriate classes.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

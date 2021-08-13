@@ -127,7 +127,10 @@
 </div>
 
 
-      <p><code>async</code> functions do not replace the <code>Promise</code> type; they add language keywords that make promises easier to call. They are interchangeable:</p>
+      
+<p><code>async</code> functions do not replace the <code>Promise</code> type; they add language keywords that make promises easier to call. They are interchangeable:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="nx">async</span> <span class="kd">function</span> <span class="nx">doAsyncThing</span><span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
@@ -152,7 +155,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Any function that uses chains of promises can be rewritten using <code>await</code>:</p>
+</div>
+<p>Any function that uses chains of promises can be rewritten using <code>await</code>:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">function</span> <span class="nx">newUnicorn</span><span class="p">()</span> <span class="p">{</span>
@@ -173,7 +179,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The function can be rewritten using <code>async</code> / <code>await</code> as follows:</p>
+</div>
+<p>The function can be rewritten using <code>async</code> / <code>await</code> as follows:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="nx">async</span> <span class="kd">function</span> <span class="nx">newUnicorn</span><span class="p">()</span> <span class="p">{</span>
@@ -195,7 +204,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This <code>async</code> variant of <code>newUnicorn()</code> appears to return a <code>Promise</code>, but really there were multiple <code>await</code> keywords. Each one returned a <code>Promise</code>, so really we had a collection of promises rather than a chain.</p><p>In fact we can think of it as a <code>function*</code> generator, with each <code>await</code> being a <code>yield new Promise</code>. However, the results of each promise are needed by the next to continue the function. This is why the additional keyword <code>async</code> is needed on the function (as well as the <code>await</code> keyword when calling the promises) as it tells Javascript to automatically creates an observer for this iteration. The <code>Promise</code> returned by <code>async function newUnicorn()</code> resolves when this iteration completes.</p><p>Practically, you don’t need to consider that; <code>await</code> hides the promise and <code>async</code> hides the generator iteration.</p><p>You can call <code>async</code> functions as if they were promises, and <code>await</code> any promise or any <code>async</code> function. You don’t need to <code>await</code> an async function, just as you can execute a promise without a <code>.then()</code>.</p><p>You can also use an <code>async</code> <a href="https://en.wikipedia.org/wiki/Immediately-invoked_function_expression">IIFE</a> if you want to execute that code immediately:</p>
+</div>
+<p>This <code>async</code> variant of <code>newUnicorn()</code> appears to return a <code>Promise</code>, but really there were multiple <code>await</code> keywords. Each one returned a <code>Promise</code>, so really we had a collection of promises rather than a chain.
+</p>
+<p>In fact we can think of it as a <code>function*</code> generator, with each <code>await</code> being a <code>yield new Promise</code>. However, the results of each promise are needed by the next to continue the function. This is why the additional keyword <code>async</code> is needed on the function (as well as the <code>await</code> keyword when calling the promises) as it tells Javascript to automatically creates an observer for this iteration. The <code>Promise</code> returned by <code>async function newUnicorn()</code> resolves when this iteration completes.
+</p>
+<p>Practically, you don’t need to consider that; <code>await</code> hides the promise and <code>async</code> hides the generator iteration.
+</p>
+<p>You can call <code>async</code> functions as if they were promises, and <code>await</code> any promise or any <code>async</code> function. You don’t need to <code>await</code> an async function, just as you can execute a promise without a <code>.then()</code>.
+</p>
+<p>You can also use an <code>async</code> <a href="https://en.wikipedia.org/wiki/Immediately-invoked_function_expression">IIFE</a> if you want to execute that code immediately:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="p">(</span><span class="nx">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>

@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">var</span> <span class="nx">gradient</span> <span class="o">=</span> <span class="nx">createRadialGradient</span><span class="p">(</span> 
@@ -142,7 +143,66 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Creates a reusable radial gradient (object). The gradient object is an object that you can use (and reuse!) to make your path strokes and fills become gradient colored.</p><p><strong>About…</strong></p><p>The Canvas radial gradient is <em>extremely different</em> from traditional radial gradients.</p><p>The “official” (almost undecipherable!) definition of Canvas’s radial gradient is at the bottom of this posting. Don’t look at it if you have a weak disposition!!</p><p>In (almost understandable) terms:</p><ul id="5298099f-e685-47b9-a96a-98b981517d03" class="bulleted-list"><li>The radial gradient has 2 circles: a “casting” circle and a “display” circle.</li><li>The casting circle casts light into the display circle.</li><li>That light is the gradient.</li><li>The shape of that gradient light is determined by the relative size and position of both circles.</li></ul><p>Creating a gradient object is a 2-step process:</p><ol id="9294c1de-995f-481c-b8ce-c49884c35e96" class="numbered-list" start="1"><li>Create the gradient object itself. During creation you define a line on the canvas where the gradient will start and end. The gradient object is created with <code>var gradient = context.radialLinearGradient</code>.</li><li>Then add 2 (or more) colors that make up the gradient. This is done by adding multiple color stops to the gradient object with <code>gradient.addColorStop</code>.</li></ol><p>Arguments:</p><ul id="46c07d18-bc47-4884-8f56-d84985d96e5e" class="bulleted-list"><li><strong>centerX1,centerY1,radius1</strong> defines a first circle where the gradient will be displayed.</li><li><strong>centerX2,centerY2,radius2</strong> defines a second circle which is casting gradient light into the first circle.</li><li><strong>gradientPercentPosition</strong> is a float number between 0.00 and 1.00 assigned to a color stop. It is basically a percentage waypoint defining where this particular color stop applies along the gradient.</li><li>The gradient begins at percentage 0.00.</li><li>The gradient ends at percentage 1.00.</li><li><em>Technical note:</em> The term “percentage” is not technically correct since the values go from 0.00 to 1.00 rather than 0% to 100%.</li><li><strong>CssColor</strong> is a CSS color assigned to this particular color stop.</li></ul><p><em>Side Note:</em> The gradient object is not internal to the Canvas element nor it’s Context. It is a separate and reusable JavaScript object that you can assign to any Path you desire. You can even use this object to color a Path on a different Canvas element(!)</p><p><strong>Color stops</strong> are (percentage) waypoints along the gradient line. At each color stop waypoint, the gradient is fully (==opaquely) colored with it’s assigned color. Interim points along the gradient line between color stops are colored as gradients of the this and the previous color.</p><p><strong>Important hint about Canvas gradients!</strong></p><p>When you create a gradient object, the entire radial gradient is “invisibly” cast upon the canvas.</p><p>When you <code>stroke()</code> or <code>fill()</code> a path, the invisible gradient is revealed, but only revealed over that path being stroked or filled.</p><ol id="817d7332-e804-47d6-9940-5a78c8ec97eb" class="numbered-list" start="1"><li>If you create a green-to-red radial gradient like this:
+</div>
+<p>Creates a reusable radial gradient (object). The gradient object is an object that you can use (and reuse!) to make your path strokes and fills become gradient colored.
+</p>
+<p><strong>About…</strong>
+</p>
+<p>The Canvas radial gradient is <em>extremely different</em> from traditional radial gradients.
+</p>
+<p>The “official” (almost undecipherable!) definition of Canvas’s radial gradient is at the bottom of this posting. Don’t look at it if you have a weak disposition!!
+</p>
+<p>In (almost understandable) terms:
+</p>
+  <ul id="5298099f-e685-47b9-a96a-98b981517d03" class="bulleted-list">
+    <li>The radial gradient has 2 circles: a “casting” circle and a “display” circle.
+    </li>
+    <li>The casting circle casts light into the display circle.
+    </li>
+    <li>That light is the gradient.
+    </li>
+    <li>The shape of that gradient light is determined by the relative size and position of both circles.
+    </li>
+  </ul>
+<p>Creating a gradient object is a 2-step process:
+</p>
+  <ol id="9294c1de-995f-481c-b8ce-c49884c35e96" class="numbered-list" start="1">
+    <li>Create the gradient object itself. During creation you define a line on the canvas where the gradient will start and end. The gradient object is created with <code>var gradient = context.radialLinearGradient</code>.
+    </li>
+    <li>Then add 2 (or more) colors that make up the gradient. This is done by adding multiple color stops to the gradient object with <code>gradient.addColorStop</code>.
+    </li>
+  </ol>
+<p>Arguments:
+</p>
+  <ul id="46c07d18-bc47-4884-8f56-d84985d96e5e" class="bulleted-list">
+    <li><strong>centerX1,centerY1,radius1</strong> defines a first circle where the gradient will be displayed.
+    </li>
+    <li><strong>centerX2,centerY2,radius2</strong> defines a second circle which is casting gradient light into the first circle.
+    </li>
+    <li><strong>gradientPercentPosition</strong> is a float number between 0.00 and 1.00 assigned to a color stop. It is basically a percentage waypoint defining where this particular color stop applies along the gradient.
+    </li>
+    <li>The gradient begins at percentage 0.00.
+    </li>
+    <li>The gradient ends at percentage 1.00.
+    </li>
+    <li><em>Technical note:</em> The term “percentage” is not technically correct since the values go from 0.00 to 1.00 rather than 0% to 100%.
+    </li>
+    <li><strong>CssColor</strong> is a CSS color assigned to this particular color stop.
+    </li>
+  </ul>
+<p><em>Side Note:</em> The gradient object is not internal to the Canvas element nor it’s Context. It is a separate and reusable JavaScript object that you can assign to any Path you desire. You can even use this object to color a Path on a different Canvas element(!)
+</p>
+<p><strong>Color stops</strong> are (percentage) waypoints along the gradient line. At each color stop waypoint, the gradient is fully (==opaquely) colored with it’s assigned color. Interim points along the gradient line between color stops are colored as gradients of the this and the previous color.
+</p>
+<p><strong>Important hint about Canvas gradients!</strong>
+</p>
+<p>When you create a gradient object, the entire radial gradient is “invisibly” cast upon the canvas.
+</p>
+<p>When you <code>stroke()</code> or <code>fill()</code> a path, the invisible gradient is revealed, but only revealed over that path being stroked or filled.
+</p>
+  <ol id="817d7332-e804-47d6-9940-5a78c8ec97eb" class="numbered-list" start="1">
+    <li>If you create a green-to-red radial gradient like this:
+      
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="c1">// create a radialGradient
@@ -161,7 +221,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div></li><li>Then Canvas will “invisibly” see your gradient creation like this:<img class="img" src="/img/965dd2eed6022cc83077147c94f9eb5df7afaaf7.png"></li><li>But until you <code>stroke()</code> or <code>fill()</code> with the gradient, you will see none of the gradient on the Canvas.</li><li>Finally, if you stroke or fill a path using the gradient, the “invisible” gradient becomes visible on the Canvas … but only where the path is drawn.<img class="img" src="/img/f265f89b2749b676b7770f861ed3d74361904441.png"></li></ol>
+</div>
+    </li>
+    <li>Then Canvas will “invisibly” see your gradient creation like this:
+      <img class="img" src="/img/965dd2eed6022cc83077147c94f9eb5df7afaaf7.png">
+    </li>
+    <li>But until you <code>stroke()</code> or <code>fill()</code> with the gradient, you will see none of the gradient on the Canvas.
+    </li>
+    <li>Finally, if you stroke or fill a path using the gradient, the “invisible” gradient becomes visible on the Canvas … but only where the path is drawn.
+      <img class="img" src="/img/f265f89b2749b676b7770f861ed3d74361904441.png">
+    </li>
+  </ol>
+
 <div class="code-box lang-HTML">
 	<div>
 	<pre class="chroma"><span class="cp">&lt;!doctype html&gt;</span>
@@ -211,7 +282,34 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="bf356845-9f5d-4993-a957-987df04ebdde" class="">The scary official details<a class="header-anchor" href="#bf356845-9f5d-4993-a957-987df04ebdde" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p><strong>Who decides what `createRadialGradient does?</strong></p><p>The <a href="http://www.w3.org/">W3C</a> issues the official recommended specifications that browsers use to build the Html5 Canvas element.</p><p>The <a href="http://www.w3.org/TR/2dcontext/#dom-context-2d-createradialgradient">W3C specification for </a><a href="http://www.w3.org/TR/2dcontext/#dom-context-2d-createradialgradient"><code>createRadialGradient</code></a> cryptically reads like this:</p><p><strong>What does </strong><code><strong>createRadialGradient</strong></code><strong> create</strong></p><blockquote id="37913a3b-452c-4825-91d4-fc04b8c94341" class="">createRadialGradient … effectively creates a cone, touched by the two circles defined in the creation of the gradient, with the part of the cone before the start circle (0.0) using the color of the first offset, the part of the cone after the end circle (1.0) using the color of the last offset, and areas outside the cone untouched by the gradient (transparent black).</blockquote><p><strong>How does it work internally</strong></p><blockquote id="8cdeceae-30b8-42de-9d28-e9a9e5c7270e" class="">The createRadialGradient(x0, y0, r0, x1, y1, r1) method takes six arguments, the first three representing the start circle with origin (x0, y0) and radius r0, and the last three representing the end circle with origin (x1, y1) and radius r1. The values are in coordinate space units. If either of r0 or r1 are negative, an IndexSizeError exception must be thrown. Otherwise, the method must return a radial CanvasGradient initialized with the two specified circles.</blockquote><p>Radial gradients must be rendered by following these steps:</p><ol id="e74f6b91-c390-431d-94c2-dfe582dfa9b6" class="numbered-list" start="1"><li>If x0 = x1 and y0 = y1 and r0 = r1, then the radial gradient must paint nothing. Abort these steps.</li><li>Let x(ω) = (x1-x0)ω + x0; Let y(ω) = (y1-y0)ω + y0; Let r(ω) = (r1-r0)ω + r0 Let the color at ω be the color at that position on the gradient (with the colors coming from the interpolation and extrapolation described above).</li><li>For all values of ω where r(ω) &gt; 0, starting with the value of ω nearest to positive infinity and ending with the value of ω nearest to negative infinity, draw the circumference of the circle with radius r(ω) at position (x(ω), y(ω)), with the color at ω, but only painting on the parts of the canvas that have not yet been painted on by earlier circles in this step for this rendering of the gradient.</li></ol>
+</div>
+  <h1 id="bf356845-9f5d-4993-a957-987df04ebdde" class="">The scary official details
+  <a class="header-anchor" href="#bf356845-9f5d-4993-a957-987df04ebdde" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p><strong>Who decides what `createRadialGradient does?</strong>
+</p>
+<p>The <a href="http://www.w3.org/">W3C</a> issues the official recommended specifications that browsers use to build the Html5 Canvas element.
+</p>
+<p>The <a href="http://www.w3.org/TR/2dcontext/#dom-context-2d-createradialgradient">W3C specification for </a><a href="http://www.w3.org/TR/2dcontext/#dom-context-2d-createradialgradient"><code>createRadialGradient</code></a> cryptically reads like this:
+</p>
+<p><strong>What does </strong><code><strong>createRadialGradient</strong></code><strong> create</strong>
+</p>
+<blockquote id="37913a3b-452c-4825-91d4-fc04b8c94341" class="">createRadialGradient … effectively creates a cone, touched by the two circles defined in the creation of the gradient, with the part of the cone before the start circle (0.0) using the color of the first offset, the part of the cone after the end circle (1.0) using the color of the last offset, and areas outside the cone untouched by the gradient (transparent black).
+</blockquote>
+<p><strong>How does it work internally</strong>
+</p>
+<blockquote id="8cdeceae-30b8-42de-9d28-e9a9e5c7270e" class="">The createRadialGradient(x0, y0, r0, x1, y1, r1) method takes six arguments, the first three representing the start circle with origin (x0, y0) and radius r0, and the last three representing the end circle with origin (x1, y1) and radius r1. The values are in coordinate space units. If either of r0 or r1 are negative, an IndexSizeError exception must be thrown. Otherwise, the method must return a radial CanvasGradient initialized with the two specified circles.
+</blockquote>
+<p>Radial gradients must be rendered by following these steps:
+</p>
+  <ol id="e74f6b91-c390-431d-94c2-dfe582dfa9b6" class="numbered-list" start="1">
+    <li>If x0 = x1 and y0 = y1 and r0 = r1, then the radial gradient must paint nothing. Abort these steps.
+    </li>
+    <li>Let x(ω) = (x1-x0)ω + x0; Let y(ω) = (y1-y0)ω + y0; Let r(ω) = (r1-r0)ω + r0 Let the color at ω be the color at that position on the gradient (with the colors coming from the interpolation and extrapolation described above).
+    </li>
+    <li>For all values of ω where r(ω) &gt; 0, starting with the value of ω nearest to positive infinity and ending with the value of ω nearest to negative infinity, draw the circumference of the circle with radius r(ω) at position (x(ω), y(ω)), with the color at ω, but only painting on the parts of the canvas that have not yet been painted on by earlier circles in this step for this rendering of the gradient.
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

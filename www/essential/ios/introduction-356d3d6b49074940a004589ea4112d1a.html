@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Typically, when using <code>UIControl</code> or <code>UIButton</code>, we add a <code>selector</code> as a callback action for when an event occurs on a button or control, such as the user pressing the button or touching the control.</p><p>For example, we would do the following:</p>
+      
+<p>Typically, when using <code>UIControl</code> or <code>UIButton</code>, we add a <code>selector</code> as a callback action for when an event occurs on a button or control, such as the user pressing the button or touching the control.
+</p>
+<p>For example, we would do the following:
+</p>
+
 <div class="code-box lang-Swift">
 	<div>
 	<pre class="chroma"><span class="kd">import</span> <span class="nc">UIKit</span>
@@ -155,7 +160,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When it comes to <code>selector</code>, the compiler only needs to know that it exists.. This can be done through a <code>protocol</code> and not be implemented.</p><p>For example, the following would crash your application:</p>
+</div>
+<p>When it comes to <code>selector</code>, the compiler only needs to know that it exists.. This can be done through a <code>protocol</code> and not be implemented.
+</p>
+<p>For example, the following would crash your application:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import UIKit
@@ -184,7 +194,15 @@ class ViewController: UIViewController, ButtonEvent {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is because your application does NOT implement the <code>onButtonPress</code> function.</p><p>Now what if you could do all of this alongside the initialization of the button? What if you didn’t have to specify callbacks and could instead specify blocks that can be added and removed at any time? Why worry about implementing selectors?</p><hr id="6e5ced42-fb06-4de8-a140-5593de70619b"/><p><strong>Solution</strong></p>
+</div>
+<p>This is because your application does NOT implement the <code>onButtonPress</code> function.
+</p>
+<p>Now what if you could do all of this alongside the initialization of the button? What if you didn’t have to specify callbacks and could instead specify blocks that can be added and removed at any time? Why worry about implementing selectors?
+</p>
+<hr id="6e5ced42-fb06-4de8-a140-5593de70619b"/>
+<p><strong>Solution</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import Foundation
@@ -234,7 +252,17 @@ extension UIControl {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above is a simple extension on <code>UIControl</code>. It adds an inner private class that has a callback <code>func run(_ control: UIControl)</code> that is used as the events’ action.</p><p>Next we use <code>object association</code> to add and remove the target because it will not be retained by the <code>UIControl</code>.</p><p>The event handler function returns a <code>Protocol</code> in order to hide the inner workings of the <code>Target</code> class but also to allow you to <code>enable</code> and <code>disable</code> the target at any given time.</p><hr id="a9cca201-cef4-419f-af65-08f730c9fd6f"/><p><strong>Usage Example:</strong></p>
+</div>
+<p>The above is a simple extension on <code>UIControl</code>. It adds an inner private class that has a callback <code>func run(_ control: UIControl)</code> that is used as the events’ action.
+</p>
+<p>Next we use <code>object association</code> to add and remove the target because it will not be retained by the <code>UIControl</code>.
+</p>
+<p>The event handler function returns a <code>Protocol</code> in order to hide the inner workings of the <code>Target</code> class but also to allow you to <code>enable</code> and <code>disable</code> the target at any given time.
+</p>
+<hr id="a9cca201-cef4-419f-af65-08f730c9fd6f"/>
+<p><strong>Usage Example:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import Foundation

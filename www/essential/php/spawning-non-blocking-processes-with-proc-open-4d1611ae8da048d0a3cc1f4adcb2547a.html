@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>PHP has no support for running code concurrently unless you install extensions such as <a href="http://stackoverflow.com/documentation/php/1583/multi-threading-extension#t=201609251928593249974"><code>pthread</code></a>. This can be sometimes bypassed by using <a href="http://php.net/manual/en/function.proc-open.php"><code>proc_open()</code></a> and <a href="http://php.net/manual/en/function.stream-set-blocking.php"><code>stream_set_blocking()</code></a> and reading their output asynchronously.</p><p>If we split code into smaller chunks we can run it as multiple suprocesses. Then using <a href="http://php.net/manual/en/function.stream-set-blocking.php"><code>stream_set_blocking()</code></a> function we can make each subprocess also non-blocking. This means we can spawn multiple subprocesses and then check for their output in a loop (similarly to an even loop) and wait until all of them finish.</p><p>As an example we can have a small subprocess that just runs a loop and in each iteration sleeps randomly for 100 - 1000ms (note, the delay is always the same for one subprocess).</p>
+      
+<p>PHP has no support for running code concurrently unless you install extensions such as <a href="http://stackoverflow.com/documentation/php/1583/multi-threading-extension#t=201609251928593249974"><code>pthread</code></a>. This can be sometimes bypassed by using <a href="http://php.net/manual/en/function.proc-open.php"><code>proc_open()</code></a> and <a href="http://php.net/manual/en/function.stream-set-blocking.php"><code>stream_set_blocking()</code></a> and reading their output asynchronously.
+</p>
+<p>If we split code into smaller chunks we can run it as multiple suprocesses. Then using <a href="http://php.net/manual/en/function.stream-set-blocking.php"><code>stream_set_blocking()</code></a> function we can make each subprocess also non-blocking. This means we can spawn multiple subprocesses and then check for their output in a loop (similarly to an even loop) and wait until all of them finish.
+</p>
+<p>As an example we can have a small subprocess that just runs a loop and in each iteration sleeps randomly for 100 - 1000ms (note, the delay is always the same for one subprocess).
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;?php
@@ -144,7 +151,20 @@ for ($i = 0; $i &lt; 5; $i++) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then the main process will spawn subprocesses and read their output. We can split it into smaller blocks:</p><ul id="5c9fa534-03cf-48ab-a1d3-92798a64cffd" class="bulleted-list"><li>Spawn subprocesses with <a href="http://php.net/manual/en/function.proc-open.php">proc_open()</a> .</li><li>Make each subprocess non-blocking with <a href="http://php.net/manual/en/function.stream-set-blocking.php"><code>stream_set_blocking()</code></a>.</li><li>Run a loop until all subprocesses finish using <a href="http://php.net/manual/en/function.proc-get-status.php"><code>proc_get_status()</code></a>.</li><li>Properly close file handles with the output pipe for each subprocess using <a href="http://php.net/manual/en/function.fclose.php"><code>fclose()</code></a> and close process handles with <a href="http://php.net/manual/en/function.proc-close.php"><code>proc_close()</code></a>.</li></ul>
+</div>
+<p>Then the main process will spawn subprocesses and read their output. We can split it into smaller blocks:
+</p>
+  <ul id="5c9fa534-03cf-48ab-a1d3-92798a64cffd" class="bulleted-list">
+    <li>Spawn subprocesses with <a href="http://php.net/manual/en/function.proc-open.php">proc_open()</a> .
+    </li>
+    <li>Make each subprocess non-blocking with <a href="http://php.net/manual/en/function.stream-set-blocking.php"><code>stream_set_blocking()</code></a>.
+    </li>
+    <li>Run a loop until all subprocesses finish using <a href="http://php.net/manual/en/function.proc-get-status.php"><code>proc_get_status()</code></a>.
+    </li>
+    <li>Properly close file handles with the output pipe for each subprocess using <a href="http://php.net/manual/en/function.fclose.php"><code>fclose()</code></a> and close process handles with <a href="http://php.net/manual/en/function.proc-close.php"><code>proc_close()</code></a>.
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;?php
@@ -187,7 +207,10 @@ foreach (range(1, 3) as $i) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The output then contains mixture from all three subprocesses as they we’re read by <a href="http://php.net/manual/en/function.fread.php">fread()</a> (note, that in this case <code>proc1</code> ended much earlier than the other two):</p>
+</div>
+<p>The output then contains mixture from all three subprocesses as they we’re read by <a href="http://php.net/manual/en/function.fread.php">fread()</a> (note, that in this case <code>proc1</code> ended much earlier than the other two):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ php non-blocking-proc_open.php 

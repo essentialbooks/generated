@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>A common mistake for Java beginners is to use the <code>==</code> operator to test if two strings are equal. For example:</p>
+      
+<p>A common mistake for Java beginners is to use the <code>==</code> operator to test if two strings are equal. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Hello {
@@ -145,7 +148,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above program is supposed to test the first command line argument and print different messages when it and isn’t the word “hello”. But the problem is that it won’t work. That program will output “Are you feeling grumpy today?” no matter what the first command line argument is.</p><p>In this particular case the <code>String</code> “hello” is put in the string pool while the <code>String</code> args[0] resides on the heap. This means there are two objects representing the same literal, each with its reference. Since <code>==</code> tests for references, not actual equality, the comparison will yield a false most of the times. This doesn’t mean that it will always do so.</p><p>When you use <code>==</code> to test strings, what you are actually testing is if two <code>String</code> objects are the same Java object. Unfortunately, that is not what string equality means in Java. In fact, the correct way to test strings is to use the <code>equals(Object)</code> method. For a pair of strings, we usually want to test if they consist of the same characters in the same order.</p>
+</div>
+<p>The above program is supposed to test the first command line argument and print different messages when it and isn’t the word “hello”. But the problem is that it won’t work. That program will output “Are you feeling grumpy today?” no matter what the first command line argument is.
+</p>
+<p>In this particular case the <code>String</code> “hello” is put in the string pool while the <code>String</code> args[0] resides on the heap. This means there are two objects representing the same literal, each with its reference. Since <code>==</code> tests for references, not actual equality, the comparison will yield a false most of the times. This doesn’t mean that it will always do so.
+</p>
+<p>When you use <code>==</code> to test strings, what you are actually testing is if two <code>String</code> objects are the same Java object. Unfortunately, that is not what string equality means in Java. In fact, the correct way to test strings is to use the <code>equals(Object)</code> method. For a pair of strings, we usually want to test if they consist of the same characters in the same order.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Hello2 {
@@ -163,7 +173,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But it actually gets worse. The problem is that <code>==</code> <em>will</em> give the expected answer in some circumstances. For example</p>
+</div>
+<p>But it actually gets worse. The problem is that <code>==</code> <em>will</em> give the expected answer in some circumstances. For example
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Test1 {
@@ -181,7 +194,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Interestingly, this will print “same”, even though we are testing the strings the wrong way. Why is that? Because the <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.10.5">Java Language Specification (Section 3.10.5: String Literals)</a> stipulates that any two string &gt;&gt;literals&lt;&lt; consisting of the same characters will actually be represented by the same Java object. Hence, the <code>==</code> test will give true for equal literals. (The string literals are “interned” and added to a shared “string pool” when your code is loaded, but that is actually an implementation detail.)</p><p>To add to the confusion, the Java Language Specification also stipulates that when you have a compile-time constant expression that concatenates two string literals, that is equivalent to a single literal. Thus:</p>
+</div>
+<p>Interestingly, this will print “same”, even though we are testing the strings the wrong way. Why is that? Because the <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.10.5">Java Language Specification (Section 3.10.5: String Literals)</a> stipulates that any two string &gt;&gt;literals&lt;&lt; consisting of the same characters will actually be represented by the same Java object. Hence, the <code>==</code> test will give true for equal literals. (The string literals are “interned” and added to a shared “string pool” when your code is loaded, but that is actually an implementation detail.)
+</p>
+<p>To add to the confusion, the Java Language Specification also stipulates that when you have a compile-time constant expression that concatenates two string literals, that is equivalent to a single literal. Thus:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Test1 {
@@ -205,7 +223,11 @@ public static void main(String[] args) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will output “1. same” and “2. different”. In the first case, the <code>\+</code> expression is evaluated at compile time and we compare one <code>String</code> object with itself. In the second case, it is evaluated at run time and we compare two different <code>String</code> objects</p><p>In summary, using <code>==</code> to test strings in Java is almost always incorrect, but it is not guaranteed to give the wrong answer.</p>
+</div>
+<p>This will output “1. same” and “2. different”. In the first case, the <code>\+</code> expression is evaluated at compile time and we compare one <code>String</code> object with itself. In the second case, it is evaluated at run time and we compare two different <code>String</code> objects
+</p>
+<p>In summary, using <code>==</code> to test strings in Java is almost always incorrect, but it is not guaranteed to give the wrong answer.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

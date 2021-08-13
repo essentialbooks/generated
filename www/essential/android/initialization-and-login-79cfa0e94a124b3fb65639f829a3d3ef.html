@@ -127,7 +127,22 @@
 </div>
 
 
-      <ol id="e70b6238-9c72-4c53-8523-888bf962a8b4" class="numbered-list" start="1"><li>Create a new application here: <a href="https://vk.com/editapp?act=create">create application</a></li><li>Choose standalone applicaton and confirm app creation via SMS.</li><li>Fill <strong>Package namefor Android</strong> as your current package name. <em>You can get your package name inside android manifest file, at the very begginning.</em></li><li>Get your <strong>Certificate fingerprint</strong> by executing this command in your shell/cmd:</li></ol><p>keytool -exportcert -alias androiddebugkey -keystore path-to-debug-or-production-keystore -list -v</p><p>You can also get this fingerprint by SDK itself:</p>
+      
+  <ol id="e70b6238-9c72-4c53-8523-888bf962a8b4" class="numbered-list" start="1">
+    <li>Create a new application here: <a href="https://vk.com/editapp?act=create">create application</a>
+    </li>
+    <li>Choose standalone applicaton and confirm app creation via SMS.
+    </li>
+    <li>Fill <strong>Package namefor Android</strong> as your current package name. <em>You can get your package name inside android manifest file, at the very begginning.</em>
+    </li>
+    <li>Get your <strong>Certificate fingerprint</strong> by executing this command in your shell/cmd:
+    </li>
+  </ol>
+<p>keytool -exportcert -alias androiddebugkey -keystore path-to-debug-or-production-keystore -list -v
+</p>
+<p>You can also get this fingerprint by SDK itself:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
@@ -136,7 +151,20 @@ Log.d(&#34;MainActivity&#34;, fingerprints[0]);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="9e4dab82-d7a3-4280-83c6-62fca9ca9459" class="numbered-list" start="1"><li>Add recieved fingerprint into your <strong>Signing certificate fingerprint for Android:</strong> field in Vk app settings (where you entered your package name)</li><li>Then add this to your gradle file:</li></ol><p>compile ‘com.vk:androidsdk:1.6.5’</p><ol id="f1d590cc-5f2a-416b-b0ea-ab41d1759ff9" class="numbered-list" start="1"><li>Initialize the SDK on startup using the following method. The best way is to call it in the Applications onCreate method.</li></ol>
+</div>
+  <ol id="9e4dab82-d7a3-4280-83c6-62fca9ca9459" class="numbered-list" start="1">
+    <li>Add recieved fingerprint into your <strong>Signing certificate fingerprint for Android:</strong> field in Vk app settings (where you entered your package name)
+    </li>
+    <li>Then add this to your gradle file:
+    </li>
+  </ol>
+<p>compile ‘com.vk:androidsdk:1.6.5’
+</p>
+  <ol id="f1d590cc-5f2a-416b-b0ea-ab41d1759ff9" class="numbered-list" start="1">
+    <li>Initialize the SDK on startup using the following method. The best way is to call it in the Applications onCreate method.
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private static final int VK_ID = your_vk_id;
@@ -150,7 +178,14 @@ public static final String VK_API_VERSION = &#34;5.52&#34;; //current version
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is the best way to initizlize VKSdk. Don’t use the methid where VK_ID should be placed inside strings.xml because api will not work correctly after it.</p><ol id="cbacd308-7909-4bce-84d9-7ce7f23b7983" class="numbered-list" start="1"><li>Final step is to login using vksdk.</li></ol>
+</div>
+<p>This is the best way to initizlize VKSdk. Don’t use the methid where VK_ID should be placed inside strings.xml because api will not work correctly after it.
+</p>
+  <ol id="cbacd308-7909-4bce-84d9-7ce7f23b7983" class="numbered-list" start="1">
+    <li>Final step is to login using vksdk.
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public static final String[] VK_SCOPES = new String[]{

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>You can animate complex changes to your collection view using the <code>performBatchUpdates</code> method. Inside the update block, you can specify several modifications to have them animate all at once.</p>
+      
+<p>You can animate complex changes to your collection view using the <code>performBatchUpdates</code> method. Inside the update block, you can specify several modifications to have them animate all at once.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">collecitonView.performBatchUpdates({
@@ -137,11 +140,49 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Inside the update block, you can perform insertions, deletions, moves, and reloads. Here is how to determine which indexPath to use:</p><div id="d963cb19-9bf1-4f40-b61b-c1a31bd04d39" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th width="0">Type</th><th width="0">NSIndexPath</th></tr></thead><tbody><tr id="f5897583-6be2-4962-bef3-e992d28add58"><td class="cell-title col-type-title">Insertion</td><td class="cell-ylgZ col-type-text">Index in new array</td></tr>
-<tr id="a1e5cbb4-4210-4abe-af87-2b3f519f2343"><td class="cell-title col-type-title">Deletion</td><td class="cell-ylgZ col-type-text">Index in old array</td></tr>
-<tr id="e00db961-b3b8-47fb-a2b9-125c622db868"><td class="cell-title col-type-title">Move</td><td class="cell-ylgZ col-type-text">from: old array, to: new array</td></tr>
-<tr id="c72b935a-1c6c-4a1a-98ac-278978492951"><td class="cell-title col-type-title">Reload</td><td class="cell-ylgZ col-type-text">either new or old array (it shouldn’t matter)</td></tr>
-</tbody></table></div><p>You should only call reload on cells that have not moved, but their content has changed. It is important to note that a move will not refresh the content of a cell, but only move its location.</p><p>To verify that your batch update will be performed correctly, make sure the set of indexPaths for <code>deletion</code>, <code>move-from</code>, and <code>reload</code> are unique, and the set of indexPaths for <code>insertion</code>, <code>move-to</code>, and <code>reload</code> are unique.</p><p>Here’s an example of a proper batch update:</p>
+</div>
+<p>Inside the update block, you can perform insertions, deletions, moves, and reloads. Here is how to determine which indexPath to use:
+</p>
+<div id="d963cb19-9bf1-4f40-b61b-c1a31bd04d39" class="collection-content">
+<h4 class="collection-title"></h4>
+<table class="collection-content">
+<thead>
+<tr>
+<th width="0">Type</th>
+<th width="0">NSIndexPath</th>
+</tr>
+</thead>
+<tbody>
+<tr id="f5897583-6be2-4962-bef3-e992d28add58">
+<td class="cell-title col-type-title">Insertion</td>
+<td class="cell-ylgZ col-type-text">Index in new array</td>
+</tr>
+
+<tr id="a1e5cbb4-4210-4abe-af87-2b3f519f2343">
+<td class="cell-title col-type-title">Deletion</td>
+<td class="cell-ylgZ col-type-text">Index in old array</td>
+</tr>
+
+<tr id="e00db961-b3b8-47fb-a2b9-125c622db868">
+<td class="cell-title col-type-title">Move</td>
+<td class="cell-ylgZ col-type-text">from: old array, to: new array</td>
+</tr>
+
+<tr id="c72b935a-1c6c-4a1a-98ac-278978492951">
+<td class="cell-title col-type-title">Reload</td>
+<td class="cell-ylgZ col-type-text">either new or old array (it shouldn’t matter)</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+<p>You should only call reload on cells that have not moved, but their content has changed. It is important to note that a move will not refresh the content of a cell, but only move its location.
+</p>
+<p>To verify that your batch update will be performed correctly, make sure the set of indexPaths for <code>deletion</code>, <code>move-from</code>, and <code>reload</code> are unique, and the set of indexPaths for <code>insertion</code>, <code>move-to</code>, and <code>reload</code> are unique.
+</p>
+<p>Here’s an example of a proper batch update:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let from = [1, 2, 3, 4, 5]

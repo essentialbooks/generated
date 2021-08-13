@@ -127,7 +127,15 @@
 </div>
 
 
-      <p>(This assumes MySQL has been installed and that <code>sudo</code> is being used.)</p><h1 id="abbb6ae3-f3b7-4973-928f-b586a8988b7f" class="">Generating a CA and SSL keys<a class="header-anchor" href="#abbb6ae3-f3b7-4973-928f-b586a8988b7f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Make sure OpenSSL and libraries are installed:</p>
+      
+<p>(This assumes MySQL has been installed and that <code>sudo</code> is being used.)
+</p>
+  <h1 id="abbb6ae3-f3b7-4973-928f-b586a8988b7f" class="">Generating a CA and SSL keys
+  <a class="header-anchor" href="#abbb6ae3-f3b7-4973-928f-b586a8988b7f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Make sure OpenSSL and libraries are installed:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">apt-get -y install openssl
@@ -136,7 +144,10 @@ apt-get -y install libssl-dev</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Next make and enter a directory for the SSL files:</p>
+</div>
+<p>Next make and enter a directory for the SSL files:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mkdir /home/ubuntu/mysqlcerts
@@ -145,7 +156,10 @@ cd /home/ubuntu/mysqlcerts</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To generate keys, create a certificate authority (CA) to sign the keys (self-signed):</p>
+</div>
+<p>To generate keys, create a certificate authority (CA) to sign the keys (self-signed):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">openssl genrsa 2048 &gt; ca-key.pem
@@ -154,7 +168,10 @@ openssl req -new -x509 -nodes -days 3600 -key ca-key.pem -out ca.pem</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The values entered at each prompt won’t affect the configuration. Next create a key for the server, and sign using the CA from before:</p>
+</div>
+<p>The values entered at each prompt won’t affect the configuration. Next create a key for the server, and sign using the CA from before:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">openssl req -newkey rsa:2048 -days 3600 -nodes -keyout server-key.pem -out server-req.pem
@@ -165,7 +182,10 @@ openssl x509 -req -in server-req.pem -days 3600 -CA ca.pem -CAkey ca-key.pem -se
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then create a key for a client:</p>
+</div>
+<p>Then create a key for a client:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">openssl req -newkey rsa:2048 -days 3600 -nodes -keyout client-key.pem -out client-req.pem
@@ -175,7 +195,10 @@ openssl x509 -req -in client-req.pem -days 3600 -CA ca.pem -CAkey ca-key.pem -se
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To make sure everything was set up correctly, verify the keys:</p>
+</div>
+<p>To make sure everything was set up correctly, verify the keys:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">openssl verify -CAfile ca.pem server-cert.pem client-cert.pem</pre>
@@ -183,7 +206,13 @@ openssl x509 -req -in client-req.pem -days 3600 -CA ca.pem -CAkey ca-key.pem -se
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="541a142a-be84-4537-af00-20c77941feac" class="">Adding the keys to MySQL<a class="header-anchor" href="#541a142a-be84-4537-af00-20c77941feac" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Open the <a href="http://stackoverflow.com/documentation/mysql/3134/configuration-and-tuning/25294/minimal-innodb-configuration#t=201611070613476171669">MySQL configuration file</a>. For example:</p>
+</div>
+  <h1 id="541a142a-be84-4537-af00-20c77941feac" class="">Adding the keys to MySQL
+  <a class="header-anchor" href="#541a142a-be84-4537-af00-20c77941feac" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Open the <a href="http://stackoverflow.com/documentation/mysql/3134/configuration-and-tuning/25294/minimal-innodb-configuration#t=201611070613476171669">MySQL configuration file</a>. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">vim /etc/mysql/mysql.conf.d/mysqld.cnf</pre>
@@ -191,7 +220,10 @@ openssl x509 -req -in client-req.pem -days 3600 -CA ca.pem -CAkey ca-key.pem -se
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Under the <code>[mysqld]</code> section, add the following options:</p>
+</div>
+<p>Under the <code>[mysqld]</code> section, add the following options:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ssl-ca = /home/ubuntu/mysqlcerts/ca.pem
@@ -201,7 +233,10 @@ ssl-key = /home/ubuntu/mysqlcerts/server-key.pem</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Restart MySQL. For example:</p>
+</div>
+<p>Restart MySQL. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">service mysql restart</pre>
@@ -209,7 +244,13 @@ ssl-key = /home/ubuntu/mysqlcerts/server-key.pem</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="2ebf23c8-0b88-4d52-b0df-af22675f5892" class="">Test the SSL connection<a class="header-anchor" href="#2ebf23c8-0b88-4d52-b0df-af22675f5892" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Connect in the same way, passing in the extra options <code>ssl-ca</code>, <code>ssl-cert</code>, and <code>ssl-key</code>, using the generated client key. For example, assuming <code>cd /home/ubuntu/mysqlcerts</code>:</p>
+</div>
+  <h1 id="2ebf23c8-0b88-4d52-b0df-af22675f5892" class="">Test the SSL connection
+  <a class="header-anchor" href="#2ebf23c8-0b88-4d52-b0df-af22675f5892" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Connect in the same way, passing in the extra options <code>ssl-ca</code>, <code>ssl-cert</code>, and <code>ssl-key</code>, using the generated client key. For example, assuming <code>cd /home/ubuntu/mysqlcerts</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mysql --ssl-ca=ca.pem --ssl-cert=client-cert.pem --ssl-key=client-key.pem -h 127.0.0.1 -u superman -p</pre>
@@ -217,7 +258,10 @@ ssl-key = /home/ubuntu/mysqlcerts/server-key.pem</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>After logging in, verify the connection is indeed secure:</p>
+</div>
+<p>After logging in, verify the connection is indeed secure:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">superman@127.0.0.1 [None]&gt; SHOW VARIABLES LIKE &#39;%ssl%&#39;;
@@ -238,7 +282,10 @@ ssl-key = /home/ubuntu/mysqlcerts/server-key.pem</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You could also check:</p>
+</div>
+<p>You could also check:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">superman@127.0.0.1 [None]&gt; STATUS;
@@ -249,7 +296,13 @@ SSL:                    Cipher in use is DHE-RSA-AES256-SHA
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="4b9f4f28-b698-47e4-8d53-6f179830b3f3" class="">Enforcing SSL<a class="header-anchor" href="#4b9f4f28-b698-47e4-8d53-6f179830b3f3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>This is via <code>GRANT</code>, using <code>REQUIRE SSL</code>:</p>
+</div>
+  <h1 id="4b9f4f28-b698-47e4-8d53-6f179830b3f3" class="">Enforcing SSL
+  <a class="header-anchor" href="#4b9f4f28-b698-47e4-8d53-6f179830b3f3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>This is via <code>GRANT</code>, using <code>REQUIRE SSL</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">GRANT ALL PRIVILEGES ON *.* TO &#39;superman&#39;@&#39;127.0.0.1&#39; IDENTIFIED BY &#39;pass&#39; REQUIRE SSL;
@@ -258,7 +311,12 @@ FLUSH PRIVILEGES;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, <code>superman</code> <em>must</em> connect via SSL.</p><p>If you don’t want to manage client keys, use the client key from earlier and automatically use that for all clients. Open <a href="http://stackoverflow.com/documentation/mysql/3134/configuration-and-tuning/25294/minimal-innodb-configuration#t=201611070613476171669">MySQL configuration file</a>, for example:</p>
+</div>
+<p>Now, <code>superman</code> <em>must</em> connect via SSL.
+</p>
+<p>If you don’t want to manage client keys, use the client key from earlier and automatically use that for all clients. Open <a href="http://stackoverflow.com/documentation/mysql/3134/configuration-and-tuning/25294/minimal-innodb-configuration#t=201611070613476171669">MySQL configuration file</a>, for example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">vim /etc/mysql/mysql.conf.d/mysqld.cnf</pre>
@@ -266,7 +324,10 @@ FLUSH PRIVILEGES;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Under the <code>[client]</code> section, add the following options:</p>
+</div>
+<p>Under the <code>[client]</code> section, add the following options:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ssl-ca = /home/ubuntu/mysqlcerts/ca.pem
@@ -276,7 +337,10 @@ ssl-key = /home/ubuntu/mysqlcerts/client-key.pem</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now <code>superman</code> only has to type the following to login via SSL:</p>
+</div>
+<p>Now <code>superman</code> only has to type the following to login via SSL:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mysql -h 127.0.0.1 -u superman -p</pre>
@@ -284,7 +348,10 @@ ssl-key = /home/ubuntu/mysqlcerts/client-key.pem</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Connecting from another program, for example in Python, typically only requires an additional parameter to the connect function. A Python example:</p>
+</div>
+<p>Connecting from another program, for example in Python, typically only requires an additional parameter to the connect function. A Python example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import MySQLdb
@@ -294,7 +361,20 @@ conn = MySQLdb.connect(host=&#39;127.0.0.1&#39;, user=&#39;superman&#39;, passwd
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="ca66586e-d83a-4904-b805-8d3889ac338f" class="">References and further reading:<a class="header-anchor" href="#ca66586e-d83a-4904-b805-8d3889ac338f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><ul id="53ace7a9-0eae-428d-bab0-3157134eed9e" class="bulleted-list"><li>https://www.percona.com/blog/2013/06/22/setting-up-mysql-ssl-and-secure-connections/</li><li>https://lowendbox.com/blog/getting-started-with-mysql-over-ssl/</li><li>http://xmodulo.com/enable-ssl-mysql-server-client.html</li><li>https://ubuntuforums.org/showthread.php?t=1121458</li></ul>
+</div>
+  <h2 id="ca66586e-d83a-4904-b805-8d3889ac338f" class="">References and further reading:
+  <a class="header-anchor" href="#ca66586e-d83a-4904-b805-8d3889ac338f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+  <ul id="53ace7a9-0eae-428d-bab0-3157134eed9e" class="bulleted-list">
+    <li>https://www.percona.com/blog/2013/06/22/setting-up-mysql-ssl-and-secure-connections/
+    </li>
+    <li>https://lowendbox.com/blog/getting-started-with-mysql-over-ssl/
+    </li>
+    <li>http://xmodulo.com/enable-ssl-mysql-server-client.html
+    </li>
+    <li>https://ubuntuforums.org/showthread.php?t=1121458
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

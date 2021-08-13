@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>A <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html"><code>Stream</code></a> is a sequence of elements upon which sequential and parallel aggregate operations can be performed. Any given <code>Stream</code> can potentially have an unlimited amount of data flowing through it. As a result, data received from a <code>Stream</code> is processed individually as it arrives, as opposed to performing batch processing on the data altogether. When combined with <a href="https://stackoverflow.com/documentation/java/91/lambda-expressions">lambda expressions</a> they provide a concise way to perform operations on sequences of data using a functional approach.</p><p><strong>Example:</strong> (<a href="https://ideone.com/IUWRdv">see it work on Ideone</a>)</p>
+      
+<p>A <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html"><code>Stream</code></a> is a sequence of elements upon which sequential and parallel aggregate operations can be performed. Any given <code>Stream</code> can potentially have an unlimited amount of data flowing through it. As a result, data received from a <code>Stream</code> is processed individually as it arrives, as opposed to performing batch processing on the data altogether. When combined with <a href="https://stackoverflow.com/documentation/java/91/lambda-expressions">lambda expressions</a> they provide a concise way to perform operations on sequences of data using a functional approach.
+</p>
+<p><strong>Example:</strong> (<a href="https://ideone.com/IUWRdv">see it work on Ideone</a>)
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Stream&lt;String&gt; fruitStream = Stream.of(&#34;apple&#34;, &#34;banana&#34;, &#34;pear&#34;, &#34;kiwi&#34;, &#34;orange&#34;);
@@ -140,7 +145,51 @@ fruitStream.filter(s -&gt; s.contains(&#34;a&#34;))
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Output:</strong></p><blockquote id="62d61d72-8697-42b1-ad0d-b71c37ded949" class="">APPLE</blockquote><p>BANANA</p><p>ORANGE</p><p>PEAR</p><p>The operations performed by the above code can be summarized as follows:</p><ol id="d9ca5567-c220-4227-8568-86dffb03883a" class="numbered-list" start="1"><li>Create a <code>Stream&lt;String&gt;</code> containing a sequenced ordered <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html"><code>Stream</code></a> of fruit <code>String</code> elements using the static factory method <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#of-T...-"><code>Stream.of(values)</code></a>.</li><li>The <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#filter-java.util.function.Predicate-"><code>filter()</code></a> operation retains only elements that match a given predicate (the elements that when tested by the predicate return true). In this case, it retains the elements containing an <code>&quot;a&quot;</code>. The predicate is given as a <a href="https://stackoverflow.com/documentation/java/91/lambda-expressions">lambda expression</a>.</li><li>The <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#map-java.util.function.Function-"><code>map()</code></a> operation transforms each element using a given function, called a mapper. In this case, each fruit <code>String</code> is mapped to its uppercase <code>String</code> version using the <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html">method-reference</a> <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#toUpperCase--"><code>String::toUppercase</code></a>.</li></ol><blockquote id="874e7f2e-209c-4db8-8334-de9519581eda" class="">Note that the map() operation will return a stream with a different generic type if the mapping function returns a type different to its input parameter. For example on a Stream&lt;String&gt; calling .map(String::isEmpty) returns a Stream&lt;Boolean&gt;</blockquote><ol id="18aab3dd-ac3e-4de1-b42b-11020d857f6d" class="numbered-list" start="1"><li>The <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#sorted--"><code>sorted()</code></a> operation sorts the elements of the <code>Stream</code> according to their natural ordering (lexicographically, in the case of <code>String</code>).</li><li>Finally, the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#forEach-java.util.function.Consumer-"><code>forEach(action)</code></a> operation performs an action which acts on each element of the <code>Stream</code>, passing it to a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#sorted-java.util.Comparator-">Consumer</a>. In the example, each element is simply being printed to the console. This operation is a terminal operation, thus making it impossible to operate on it again.</li></ol><blockquote id="04ffe7d6-5c04-4186-af07-81ad91644799" class="">Note that operations defined on the Stream are performed because of the terminal operation. Without a terminal operation, the stream is not processed. Streams can not be reused. Once a terminal operation is called, the Stream object becomes unusable.</blockquote><img class="img" src="/img/654c79cc32f33bf96a0fbaf0fdac213a613ee1ef.png"><p>Operations (as seen above) are chained together to form what can be seen as a query on the data.</p><hr id="8d133f52-0284-45f2-b092-626881d7b3f0"/><h2 id="85375ba5-6426-45e2-af65-0293f3ef79d4" class="">Closing Streams<a class="header-anchor" href="#85375ba5-6426-45e2-af65-0293f3ef79d4" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><blockquote id="fb4559d7-1a17-405c-9008-b83de9ae6d7c" class="">Note that a Stream generally does not have to be closed. It is only required to close streams that operate on IO channels. Most Stream types don’t operate on resources and therefore don’t require closing.</blockquote><p>The <code>Stream</code> interface extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html"><code>AutoCloseable</code></a>. Streams can be closed by calling the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html#close--"><code>close</code></a> method or by using try-with-resource statements.</p><p>An example use case where a <code>Stream</code> should be closed is when you create a <code>Stream</code> of lines from a file:</p>
+</div>
+<p><strong>Output:</strong>
+</p>
+<blockquote id="62d61d72-8697-42b1-ad0d-b71c37ded949" class="">APPLE
+</blockquote>
+<p>BANANA
+</p>
+<p>ORANGE
+</p>
+<p>PEAR
+</p>
+<p>The operations performed by the above code can be summarized as follows:
+</p>
+  <ol id="d9ca5567-c220-4227-8568-86dffb03883a" class="numbered-list" start="1">
+    <li>Create a <code>Stream&lt;String&gt;</code> containing a sequenced ordered <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html"><code>Stream</code></a> of fruit <code>String</code> elements using the static factory method <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#of-T...-"><code>Stream.of(values)</code></a>.
+    </li>
+    <li>The <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#filter-java.util.function.Predicate-"><code>filter()</code></a> operation retains only elements that match a given predicate (the elements that when tested by the predicate return true). In this case, it retains the elements containing an <code>&quot;a&quot;</code>. The predicate is given as a <a href="https://stackoverflow.com/documentation/java/91/lambda-expressions">lambda expression</a>.
+    </li>
+    <li>The <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#map-java.util.function.Function-"><code>map()</code></a> operation transforms each element using a given function, called a mapper. In this case, each fruit <code>String</code> is mapped to its uppercase <code>String</code> version using the <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html">method-reference</a> <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#toUpperCase--"><code>String::toUppercase</code></a>.
+    </li>
+  </ol>
+<blockquote id="874e7f2e-209c-4db8-8334-de9519581eda" class="">Note that the map() operation will return a stream with a different generic type if the mapping function returns a type different to its input parameter. For example on a Stream&lt;String&gt; calling .map(String::isEmpty) returns a Stream&lt;Boolean&gt;
+</blockquote>
+  <ol id="18aab3dd-ac3e-4de1-b42b-11020d857f6d" class="numbered-list" start="1">
+    <li>The <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#sorted--"><code>sorted()</code></a> operation sorts the elements of the <code>Stream</code> according to their natural ordering (lexicographically, in the case of <code>String</code>).
+    </li>
+    <li>Finally, the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#forEach-java.util.function.Consumer-"><code>forEach(action)</code></a> operation performs an action which acts on each element of the <code>Stream</code>, passing it to a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#sorted-java.util.Comparator-">Consumer</a>. In the example, each element is simply being printed to the console. This operation is a terminal operation, thus making it impossible to operate on it again.
+    </li>
+  </ol>
+<blockquote id="04ffe7d6-5c04-4186-af07-81ad91644799" class="">Note that operations defined on the Stream are performed because of the terminal operation. Without a terminal operation, the stream is not processed. Streams can not be reused. Once a terminal operation is called, the Stream object becomes unusable.
+</blockquote>
+<img class="img" src="/img/654c79cc32f33bf96a0fbaf0fdac213a613ee1ef.png">
+<p>Operations (as seen above) are chained together to form what can be seen as a query on the data.
+</p>
+<hr id="8d133f52-0284-45f2-b092-626881d7b3f0"/>
+  <h2 id="85375ba5-6426-45e2-af65-0293f3ef79d4" class="">Closing Streams
+  <a class="header-anchor" href="#85375ba5-6426-45e2-af65-0293f3ef79d4" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<blockquote id="fb4559d7-1a17-405c-9008-b83de9ae6d7c" class="">Note that a Stream generally does not have to be closed. It is only required to close streams that operate on IO channels. Most Stream types don’t operate on resources and therefore don’t require closing.
+</blockquote>
+<p>The <code>Stream</code> interface extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html"><code>AutoCloseable</code></a>. Streams can be closed by calling the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html#close--"><code>close</code></a> method or by using try-with-resource statements.
+</p>
+<p>An example use case where a <code>Stream</code> should be closed is when you create a <code>Stream</code> of lines from a file:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">try (Stream&lt;String&gt; lines = Files.lines(Paths.get(&#34;somePath&#34;))) {
@@ -150,7 +199,10 @@ fruitStream.filter(s -&gt; s.contains(&#34;a&#34;))
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>Stream</code> interface also declares the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/BaseStream.html#onClose-java.lang.Runnable-"><code>Stream.onClose()</code></a> method which allows you to register <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html"><code>Runnable</code></a> handlers which will be called when the stream is closed. An example use case is where code which produces a stream needs to know when it is consumed to perform some cleanup.</p>
+</div>
+<p>The <code>Stream</code> interface also declares the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/BaseStream.html#onClose-java.lang.Runnable-"><code>Stream.onClose()</code></a> method which allows you to register <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html"><code>Runnable</code></a> handlers which will be called when the stream is closed. An example use case is where code which produces a stream needs to know when it is consumed to perform some cleanup.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public Stream&lt;String&gt;streamAndDelete(Path path) throws IOException {
@@ -160,7 +212,20 @@ fruitStream.filter(s -&gt; s.contains(&#34;a&#34;))
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The run handler will only execute if the <code>close()</code> method gets called, either explicitly or implicitly by a try-with-resources statement.</p><hr id="e4d9e8a2-595a-4b1c-ad6b-4c0fce3d8c0e"/><h2 id="3ece7b6a-1417-44ea-bef4-93667b0ddd2f" class="">Processing Order<a class="header-anchor" href="#3ece7b6a-1417-44ea-bef4-93667b0ddd2f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>A <code>Stream</code> object’s processing can be sequential or <a href="http://stackoverflow.com/documentation/java/88/streams/2785/parallel-stream#t=201607281158351104612">parallel</a>.</p><p>In a <strong>sequential</strong> mode, the elements are processed in the order of the source of the <code>Stream</code>. If the <code>Stream</code> is ordered (such as a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/SortedMap.html"><code>SortedMap</code></a> implementation or a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html"><code>List</code></a>) the processing is guaranteed to match the ordering of the source. In other cases, however, care should be taken not to depend on the ordering (see: <a href="http://stackoverflow.com/q/1882762/1667004">is the Java </a><a href="http://stackoverflow.com/q/1882762/1667004"><code>HashMap</code></a><a href="http://stackoverflow.com/q/1882762/1667004"> </a><a href="http://stackoverflow.com/q/1882762/1667004"><code>keySet()</code></a><a href="http://stackoverflow.com/q/1882762/1667004"> iteration order consistent?</a>).</p><p><strong>Example:</strong></p>
+</div>
+<p>The run handler will only execute if the <code>close()</code> method gets called, either explicitly or implicitly by a try-with-resources statement.
+</p>
+<hr id="e4d9e8a2-595a-4b1c-ad6b-4c0fce3d8c0e"/>
+  <h2 id="3ece7b6a-1417-44ea-bef4-93667b0ddd2f" class="">Processing Order
+  <a class="header-anchor" href="#3ece7b6a-1417-44ea-bef4-93667b0ddd2f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>A <code>Stream</code> object’s processing can be sequential or <a href="http://stackoverflow.com/documentation/java/88/streams/2785/parallel-stream#t=201607281158351104612">parallel</a>.
+</p>
+<p>In a <strong>sequential</strong> mode, the elements are processed in the order of the source of the <code>Stream</code>. If the <code>Stream</code> is ordered (such as a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/SortedMap.html"><code>SortedMap</code></a> implementation or a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html"><code>List</code></a>) the processing is guaranteed to match the ordering of the source. In other cases, however, care should be taken not to depend on the ordering (see: <a href="http://stackoverflow.com/q/1882762/1667004">is the Java </a><a href="http://stackoverflow.com/q/1882762/1667004"><code>HashMap</code></a><a href="http://stackoverflow.com/q/1882762/1667004"> </a><a href="http://stackoverflow.com/q/1882762/1667004"><code>keySet()</code></a><a href="http://stackoverflow.com/q/1882762/1667004"> iteration order consistent?</a>).
+</p>
+<p><strong>Example:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">List&lt;Integer&gt; integerList = Arrays.asList(0, 1, 2, 3, 42); 
@@ -175,7 +240,16 @@ System.out.println(howManyOddNumbers); // Output: 2</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://ideone.com/FuMz1c">Live on Ideone</a></p><p><strong>Parallel</strong> mode allows the use of multiple threads on multiple cores but there is no guarantee of the order in which elements are processed.</p><p>If multiple methods are called on a sequential <code>Stream</code>, not every method has to be invoked. For example, if a <code>Stream</code> is filtered and the number of elements is reduced to one, a subsequent call to a method such as <code>sort</code> will not occur. This can increase the performance of a sequential <code>Stream</code> — an optimization that is not possible with a parallel <code>Stream</code>.</p><p><strong>Example:</strong></p>
+</div>
+<p><a href="https://ideone.com/FuMz1c">Live on Ideone</a>
+</p>
+<p><strong>Parallel</strong> mode allows the use of multiple threads on multiple cores but there is no guarantee of the order in which elements are processed.
+</p>
+<p>If multiple methods are called on a sequential <code>Stream</code>, not every method has to be invoked. For example, if a <code>Stream</code> is filtered and the number of elements is reduced to one, a subsequent call to a method such as <code>sort</code> will not occur. This can increase the performance of a sequential <code>Stream</code> — an optimization that is not possible with a parallel <code>Stream</code>.
+</p>
+<p><strong>Example:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// parallel
@@ -188,7 +262,15 @@ System.out.println(howManyOddNumbersParallel); // Output: 2</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://ideone.com/FuMz1c">Live on Ideone</a></p><hr id="d39d1d55-0658-40f3-a021-f84fe6e77f54"/><h2 id="ce36f54a-0396-4972-88af-cbee7d0e68bd" class="">Differences from Containers (or <a href="https://stackoverflow.com/documentation/java/90/collections">Collections</a>)<a class="header-anchor" href="#ce36f54a-0396-4972-88af-cbee7d0e68bd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>While some actions can be performed on both Containers and Streams, they ultimately serve different purposes and support different operations. Containers are more focused on how the elements are stored and how those elements can be accessed efficiently. A <code>Stream</code>, on the other hand, doesn’t provide direct access and manipulation to its elements; it is more dedicated to the group of objects as a collective entity and performing operations on that entity as a whole. <code>Stream</code> and <code>Collection</code> are separate high-level abstractions for these differing purposes.</p>
+</div>
+<p><a href="https://ideone.com/FuMz1c">Live on Ideone</a>
+</p>
+<hr id="d39d1d55-0658-40f3-a021-f84fe6e77f54"/>
+  <h2 id="ce36f54a-0396-4972-88af-cbee7d0e68bd" class="">Differences from Containers (or <a href="https://stackoverflow.com/documentation/java/90/collections">Collections</a>)
+  <a class="header-anchor" href="#ce36f54a-0396-4972-88af-cbee7d0e68bd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>While some actions can be performed on both Containers and Streams, they ultimately serve different purposes and support different operations. Containers are more focused on how the elements are stored and how those elements can be accessed efficiently. A <code>Stream</code>, on the other hand, doesn’t provide direct access and manipulation to its elements; it is more dedicated to the group of objects as a collective entity and performing operations on that entity as a whole. <code>Stream</code> and <code>Collection</code> are separate high-level abstractions for these differing purposes.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

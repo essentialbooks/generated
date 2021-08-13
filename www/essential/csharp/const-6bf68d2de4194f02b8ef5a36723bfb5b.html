@@ -127,7 +127,12 @@
 </div>
 
 
-      <p><code>const</code> is used to represent values that <strong>will never change</strong> throughout the lifetime of the program. Its value is constant from <strong>compile-time</strong>, as opposed to the <a href="http://stackoverflow.com/documentation/c%23/26/keywords/110/readonly"><code>readonly</code></a> keyword, whose value is constant from run-time.</p><p>For example, since the speed of light will never change, we can store it in a constant.</p>
+      
+<p><code>const</code> is used to represent values that <strong>will never change</strong> throughout the lifetime of the program. Its value is constant from <strong>compile-time</strong>, as opposed to the <a href="http://stackoverflow.com/documentation/c%23/26/keywords/110/readonly"><code>readonly</code></a> keyword, whose value is constant from run-time.
+</p>
+<p>For example, since the speed of light will never change, we can store it in a constant.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">const</span> <span class="kt">double</span> <span class="n">c</span> <span class="p">=</span> <span class="m">299792458</span><span class="p">;</span>  <span class="c1">// Speed of light
@@ -141,7 +146,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is essentially the same as having <code>return mass * 299792458 * 299792458</code>, as the compiler will directly substitute <code>c</code> with its constant value.</p><p>As a result, <code>c</code> cannot be changed once declared. The following will produce a compile-time error:</p>
+</div>
+<p>This is essentially the same as having <code>return mass * 299792458 * 299792458</code>, as the compiler will directly substitute <code>c</code> with its constant value.
+</p>
+<p>As a result, <code>c</code> cannot be changed once declared. The following will produce a compile-time error:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">const</span> <span class="kt">double</span> <span class="n">c</span> <span class="p">=</span> <span class="m">299792458</span><span class="p">;</span>  <span class="c1">// Speed of light 
@@ -152,7 +162,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A constant can be prefixed with the same access modifiers as methods:</p>
+</div>
+<p>A constant can be prefixed with the same access modifiers as methods:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">private</span> <span class="k">const</span> <span class="kt">double</span> <span class="n">c</span> <span class="p">=</span> <span class="m">299792458</span><span class="p">;</span>
@@ -163,7 +176,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>const</code> members are <code>static</code> by nature. However using <code>static</code> explicitly is not permitted.</p><p>You can also define method-local constants:</p>
+</div>
+<p><code>const</code> members are <code>static</code> by nature. However using <code>static</code> explicitly is not permitted.
+</p>
+<p>You can also define method-local constants:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">double</span> <span class="n">CalculateEnergy</span><span class="p">(</span><span class="kt">double</span> <span class="n">mass</span><span class="p">)</span>
@@ -176,7 +194,19 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>These can not be prefixed with a <code>private</code> or <code>public</code> keyword, since they are implicitly local to the method they are defined in.</p><p>Not all types can be used in a <code>const</code> declaration. The value types that are allowed, are the pre-defined types <code>sbyte</code>, <code>byte</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code>, <code>char</code>, <code>float</code>, <code>double</code>, <code>decimal</code>, <code>bool</code>, and all <code>enum</code> types. Trying to declare <code>const</code> members with other value types (such as <code>TimeSpan</code> or <code>Guid</code>) will fail at compile-time.</p><p>For the special pre-defined reference type <code>string</code>, constants can be declared with any value. For all other reference types, constants can be declared but must always have the value <code>null</code>.</p><p>Because <code>const</code> values are known at compile-time, they are allowed as <code>case</code> labels in a <code>switch</code> statement, as standard arguments for optional parameters, as arguments to attribute specifications, and so on.</p><p>If <code>const</code> values are used across different assemblies, care must be taken with versioning. For example, if assembly A defines a <code>public const int MaxRetries = 3;</code>, and assembly B uses that constant, then if the value of <code>MaxRetries</code> is later changed to <code>5</code> in assembly A (which is then re-compiled), that change will not be effective in assembly B <em>unless</em> assembly B is also re-compiled (with a reference to the new version of A).</p><p>For that reason, if a value might change in future revisions of the program, and if the value needs to be publicly visible, do not declare that value <code>const</code> unless you know that all dependent assemblies will be re-compiled whenever something is changed. The alternative is using <code>static readonly</code> instead of <code>const</code>, which is resolved at runtime.</p>
+</div>
+<p>These can not be prefixed with a <code>private</code> or <code>public</code> keyword, since they are implicitly local to the method they are defined in.
+</p>
+<p>Not all types can be used in a <code>const</code> declaration. The value types that are allowed, are the pre-defined types <code>sbyte</code>, <code>byte</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code>, <code>char</code>, <code>float</code>, <code>double</code>, <code>decimal</code>, <code>bool</code>, and all <code>enum</code> types. Trying to declare <code>const</code> members with other value types (such as <code>TimeSpan</code> or <code>Guid</code>) will fail at compile-time.
+</p>
+<p>For the special pre-defined reference type <code>string</code>, constants can be declared with any value. For all other reference types, constants can be declared but must always have the value <code>null</code>.
+</p>
+<p>Because <code>const</code> values are known at compile-time, they are allowed as <code>case</code> labels in a <code>switch</code> statement, as standard arguments for optional parameters, as arguments to attribute specifications, and so on.
+</p>
+<p>If <code>const</code> values are used across different assemblies, care must be taken with versioning. For example, if assembly A defines a <code>public const int MaxRetries = 3;</code>, and assembly B uses that constant, then if the value of <code>MaxRetries</code> is later changed to <code>5</code> in assembly A (which is then re-compiled), that change will not be effective in assembly B <em>unless</em> assembly B is also re-compiled (with a reference to the new version of A).
+</p>
+<p>For that reason, if a value might change in future revisions of the program, and if the value needs to be publicly visible, do not declare that value <code>const</code> unless you know that all dependent assemblies will be re-compiled whenever something is changed. The alternative is using <code>static readonly</code> instead of <code>const</code>, which is resolved at runtime.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

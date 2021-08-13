@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>During exception handling there is a common use case when you catch a generic exception from a low-level function (such as a filesystem error or data transfer error) and throw a more specific high-level exception which indicates that some high-level operation could not be performed (such as being unable to publish a photo on Web). This allows exception handling to react to specific problems with high level operations and also allows, having only error an message, the programmer to find a place in the application where an exception occurred. Downside of this solution is that exception callstack is truncated and original exception is lost. This forces developers to manually include text of original exception into a newly created one.</p><p>Nested exceptions aim to solve the problem by attaching low-level exception, which describes the cause, to a high level exception, which describes what it means in this particular case.</p><p><code>std::nested_exception</code> allows to nest exceptions thanks to <code>std::throw_with_nested</code>:</p>
+      
+<p>During exception handling there is a common use case when you catch a generic exception from a low-level function (such as a filesystem error or data transfer error) and throw a more specific high-level exception which indicates that some high-level operation could not be performed (such as being unable to publish a photo on Web). This allows exception handling to react to specific problems with high level operations and also allows, having only error an message, the programmer to find a place in the application where an exception occurred. Downside of this solution is that exception callstack is truncated and original exception is lost. This forces developers to manually include text of original exception into a newly created one.
+</p>
+<p>Nested exceptions aim to solve the problem by attaching low-level exception, which describes the cause, to a high level exception, which describes what it means in this particular case.
+</p>
+<p><code>std::nested_exception</code> allows to nest exceptions thanks to <code>std::throw_with_nested</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdexcept&gt;
@@ -209,7 +216,10 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Possible output:</p>
+</div>
+<p>Possible output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">exception: run() failed
@@ -219,7 +229,9 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you work only with exceptions inherited from <code>std::exception</code>, code can even be simplified.</p>
+</div>
+<p>If you work only with exceptions inherited from <code>std::exception</code>, code can even be simplified.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

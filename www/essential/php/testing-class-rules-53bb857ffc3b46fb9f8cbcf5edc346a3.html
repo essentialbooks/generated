@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Let’s say, we have a simple <code>LoginForm</code> class with rules() method (used in login page as framework template):</p>
+      
+<p>Let’s say, we have a simple <code>LoginForm</code> class with rules() method (used in login page as framework template):
+</p>
+
 <div class="code-box lang-PHP">
 	<div>
 	<pre class="chroma">class LoginForm {
@@ -183,7 +186,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In order to perform tests on this class, we use <strong>Unit</strong> tests (checking source code to see if it fits our expectations):</p>
+</div>
+<p>In order to perform tests on this class, we use <strong>Unit</strong> tests (checking source code to see if it fits our expectations):
+</p>
+
 <div class="code-box lang-PHP">
 	<div>
 	<pre class="chroma">class LoginFormTest extends TestCase {
@@ -241,7 +247,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>How exactly <code>Unit</code> tests can help with (excluding general examples) in here? For example, it fits very well when we get unexpected results. For example, let’s take this rule from earlier:</p>
+</div>
+<p>How exactly <code>Unit</code> tests can help with (excluding general examples) in here? For example, it fits very well when we get unexpected results. For example, let’s take this rule from earlier:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[&#39;password&#39;, &#39;match&#39;, &#39;pattern&#39; =&gt; &#39;/^[a-z0-9]+$/i&#39;],</pre>
@@ -249,7 +258,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Instead, if we missed one important thing and wrote this:</p>
+</div>
+<p>Instead, if we missed one important thing and wrote this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[&#39;password&#39;, &#39;match&#39;, &#39;pattern&#39; =&gt; &#39;/^[a-z0-9]$/i&#39;],</pre>
@@ -257,7 +269,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With dozens of different rules (assuming we are using not just email and password), it’s difficult to detect mistakes. This unit test:</p>
+</div>
+<p>With dozens of different rules (assuming we are using not just email and password), it’s difficult to detect mistakes. This unit test:
+</p>
+
 <div class="code-box lang-PHP">
 	<div>
 	<pre class="chroma">// Initialize to valid and test this
@@ -269,7 +284,16 @@ $this-&gt;assertTrue($this-&gt;loginForm-&gt;validate($rules), &#34;Should be va
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Will pass our <strong>first</strong> example but not <strong>second</strong>. Why? Because in 2nd example we wrote a pattern with a typo (missed <code>\+</code> sign), meaning it only accepts one letter/number.</p><p><strong>Unit</strong> tests can be run in console with command: <code>phpunit [path_to_file]</code>. If everything is OK, we should be able to see that all tests are in <code>OK</code> state, else we will see either <code>Error</code> (syntax errors) or <code>Fail</code> (at least one line in that method did not pass).</p><p>With additional parameters like <code>--coverage</code> we can also see visually how many lines in backend code were tested and which passed/failed. This applies to any framework that has installed <a href="https://phpunit.de/">PHPUnit</a>.</p><p>Example how <code>PHPUnit</code> test looks like in console (general look, not according to this example):</p><img class="img" src="/img/6caa6215405317618d7821963d7dbc8a3a39bc49.png">
+</div>
+<p>Will pass our <strong>first</strong> example but not <strong>second</strong>. Why? Because in 2nd example we wrote a pattern with a typo (missed <code>\+</code> sign), meaning it only accepts one letter/number.
+</p>
+<p><strong>Unit</strong> tests can be run in console with command: <code>phpunit [path_to_file]</code>. If everything is OK, we should be able to see that all tests are in <code>OK</code> state, else we will see either <code>Error</code> (syntax errors) or <code>Fail</code> (at least one line in that method did not pass).
+</p>
+<p>With additional parameters like <code>--coverage</code> we can also see visually how many lines in backend code were tested and which passed/failed. This applies to any framework that has installed <a href="https://phpunit.de/">PHPUnit</a>.
+</p>
+<p>Example how <code>PHPUnit</code> test looks like in console (general look, not according to this example):
+</p>
+<img class="img" src="/img/6caa6215405317618d7821963d7dbc8a3a39bc49.png">
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

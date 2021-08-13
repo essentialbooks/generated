@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>A stream is an object that provides a low-level means to transfer data. They themselves do not act as data containers.</p><p>The data that we deal with is in form of byte array(<code>byte []</code>). The functions for reading and writing are all byte orientated, e.g. <code>WriteByte()</code>.</p><p>There are no functions for dealing with integers, strings etc. This makes the stream very general-purpose, but less simple to work with if, say, you just want to transfer text. Streams can be particularly very helpful when you are dealing with large amount of data.</p><p>We will need to use different type of Stream based where it needs to be written/read from (i.e. the backing store). For example, if the source is a file, we need to use <code>FileStream</code>:</p>
+      
+<p>A stream is an object that provides a low-level means to transfer data. They themselves do not act as data containers.
+</p>
+<p>The data that we deal with is in form of byte array(<code>byte []</code>). The functions for reading and writing are all byte orientated, e.g. <code>WriteByte()</code>.
+</p>
+<p>There are no functions for dealing with integers, strings etc. This makes the stream very general-purpose, but less simple to work with if, say, you just want to transfer text. Streams can be particularly very helpful when you are dealing with large amount of data.
+</p>
+<p>We will need to use different type of Stream based where it needs to be written/read from (i.e. the backing store). For example, if the source is a file, we need to use <code>FileStream</code>:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">string</span> <span class="n">filePath</span> <span class="p">=</span> <span class="s">@&#34;c:\Users\exampleuser\Documents\userinputlog.txt&#34;</span><span class="p">;</span>
@@ -142,7 +151,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Similarly, <code>MemoryStream</code> is used if the backing store is memory:</p>
+</div>
+<p>Similarly, <code>MemoryStream</code> is used if the backing store is memory:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="c1">// Read all bytes in from a file on the disk.
@@ -158,7 +170,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Similarly, <code>System.Net.Sockets.NetworkStream</code> is used for network access.</p><p>All Streams are derived from the generic class <code>System.IO.Stream</code>. Data cannot be directly read or written from streams. The .NET Framework provides helper classes such as <code>StreamReader</code>, <code>StreamWriter</code>, <code>BinaryReader</code> and <code>BinaryWriter</code> that convert between native types and the low-level stream interface, and transfer the data to or from the stream for you.</p><p>Reading and writing to streams can be done via <code>StreamReader</code> and <code>StreamWriter</code>. One should be careful when closing these. By default, closing will also close contained stream as well and make it unusable for further uses. This default behaviour can be change by using a <a href="https://msdn.microsoft.com/en-us/library/gg712952(v=vs.110).aspx">constructor</a> which has <code>bool leaveOpen</code> parameter and setting its value as <code>true</code>.</p><p><code>StreamWriter</code>:</p>
+</div>
+<p>Similarly, <code>System.Net.Sockets.NetworkStream</code> is used for network access.
+</p>
+<p>All Streams are derived from the generic class <code>System.IO.Stream</code>. Data cannot be directly read or written from streams. The .NET Framework provides helper classes such as <code>StreamReader</code>, <code>StreamWriter</code>, <code>BinaryReader</code> and <code>BinaryWriter</code> that convert between native types and the low-level stream interface, and transfer the data to or from the stream for you.
+</p>
+<p>Reading and writing to streams can be done via <code>StreamReader</code> and <code>StreamWriter</code>. One should be careful when closing these. By default, closing will also close contained stream as well and make it unusable for further uses. This default behaviour can be change by using a <a href="https://msdn.microsoft.com/en-us/library/gg712952(v=vs.110).aspx">constructor</a> which has <code>bool leaveOpen</code> parameter and setting its value as <code>true</code>.
+</p>
+<p><code>StreamWriter</code>:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">FileStream</span> <span class="n">fs</span> <span class="p">=</span> <span class="k">new</span> <span class="n">FileStream</span><span class="p">(</span><span class="s">&#34;sample.txt&#34;</span><span class="p">,</span> <span class="n">FileMode</span><span class="p">.</span><span class="n">Create</span><span class="p">);</span>
@@ -172,7 +193,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>StreamReader</code>:</p>
+</div>
+<p><code>StreamReader</code>:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">using</span> <span class="p">(</span><span class="kt">var</span> <span class="n">ms</span> <span class="p">=</span> <span class="k">new</span> <span class="n">MemoryStream</span><span class="p">())</span>
@@ -194,7 +218,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since Classes <code>Stream</code>, <code>StreamReader</code>, <code>StreamWriter</code>, etc. implement the <code>IDisposable</code> interface, we can call the <code>Dispose()</code> method on objects of these classes.</p>
+</div>
+<p>Since Classes <code>Stream</code>, <code>StreamReader</code>, <code>StreamWriter</code>, etc. implement the <code>IDisposable</code> interface, we can call the <code>Dispose()</code> method on objects of these classes.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

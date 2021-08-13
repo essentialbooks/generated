@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>A common problem in code that uses multidimensional arrays, arrays of pointers, etc. is the fact that <code>Type**</code> and <code>Type[M][N]</code> are fundamentally different types:</p>
+      
+<p>A common problem in code that uses multidimensional arrays, arrays of pointers, etc. is the fact that <code>Type**</code> and <code>Type[M][N]</code> are fundamentally different types:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -149,7 +152,10 @@ int main(void)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Sample compiler output:</p>
+</div>
+<p>Sample compiler output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">file1.c: In function &#39;main&#39;:
@@ -162,8 +168,21 @@ file1.c:3:10: note: expected &#39;char **&#39; but argument is of type &#39;char
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The error states that the <code>s</code> array in the <code>main</code> function is passed to the function <code>print_strings</code>, which expects a different pointer type than it received. It also includes a note expressing the type that is expected by <code>print_strings</code> and the type that was passed to it from <code>main</code>.</p><p>The problem is due to something called <em>array decay</em>. What happens when <code>s</code> with its type <code>char[4][20]</code> (array of 4 arrays of 20 chars) is passed to the function is it turns into a pointer to its first element as if you had written <code>&amp;s[0]</code>, which has the type <code>char (*)[20]</code> (pointer to 1 array of 20 chars). This occurs for any array, including an array of pointers, an array of arrays of arrays (3-D arrays), and an array of pointers to an array. Below is a table illustrating what happens when an array decays. Changes in the type description are highlighted to illustrate what happens:</p><p>Before Decay | | After Decay | |
-—————– | ———————————————— | —————– | ––––––––––––––––––––––––– |<code>char [20]</code> | <strong>array of (20 chars)</strong> | <code>char *</code> | <strong>pointer to (1 char)</strong> |<code>char [4][20]</code> | <strong>array of (4 arrays</strong> of 20 chars) | <code>char (*)[20]</code> | <strong>pointer to (1 array</strong> of 20 chars) |<code>char *[4]</code> | <strong>array of (4 pointers</strong> to 1 char) | <code>char **</code> | <strong>pointer to (1 pointer</strong> to 1 char) |<code>char [3][4][20]</code> | <strong>array of (3 arrays</strong> of 4 arrays of 20 chars) | <code>char (*)[4][20]</code> | <strong>pointer to (1 array</strong> of 4 arrays of 20 chars) |<code>char (*[4])[20]</code> | <strong>array of (4 pointers</strong> to 1 array of 20 chars) | <code>char (**)[20]</code> | <strong>pointer to (1 pointer</strong> to 1 array of 20 chars) |</p><p>If an array can decay to a pointer, then it can be said that a pointer may be considered an array of at least 1 element. An exception to this is a null pointer, which points to nothing and is consequently not an array.</p><p>Array decay only happens once. If an array has decayed to a pointer, it is now a pointer, not an array. Even if you have a pointer to an array, remember that the pointer might be considered an array of at least one element, so array decay has already occurred.</p><p>In other words, a pointer to an array (<code>char (*)[20]</code>) will never become a pointer to a pointer (<code>char **</code>). To fix the <code>print_strings</code> function, simply make it receive the correct type:</p>
+</div>
+<p>The error states that the <code>s</code> array in the <code>main</code> function is passed to the function <code>print_strings</code>, which expects a different pointer type than it received. It also includes a note expressing the type that is expected by <code>print_strings</code> and the type that was passed to it from <code>main</code>.
+</p>
+<p>The problem is due to something called <em>array decay</em>. What happens when <code>s</code> with its type <code>char[4][20]</code> (array of 4 arrays of 20 chars) is passed to the function is it turns into a pointer to its first element as if you had written <code>&amp;s[0]</code>, which has the type <code>char (*)[20]</code> (pointer to 1 array of 20 chars). This occurs for any array, including an array of pointers, an array of arrays of arrays (3-D arrays), and an array of pointers to an array. Below is a table illustrating what happens when an array decays. Changes in the type description are highlighted to illustrate what happens:
+</p>
+<p>Before Decay | | After Decay | |
+—————– | ———————————————— | —————– | ––––––––––––––––––––––––– |<code>char [20]</code> | <strong>array of (20 chars)</strong> | <code>char *</code> | <strong>pointer to (1 char)</strong> |<code>char [4][20]</code> | <strong>array of (4 arrays</strong> of 20 chars) | <code>char (*)[20]</code> | <strong>pointer to (1 array</strong> of 20 chars) |<code>char *[4]</code> | <strong>array of (4 pointers</strong> to 1 char) | <code>char **</code> | <strong>pointer to (1 pointer</strong> to 1 char) |<code>char [3][4][20]</code> | <strong>array of (3 arrays</strong> of 4 arrays of 20 chars) | <code>char (*)[4][20]</code> | <strong>pointer to (1 array</strong> of 4 arrays of 20 chars) |<code>char (*[4])[20]</code> | <strong>array of (4 pointers</strong> to 1 array of 20 chars) | <code>char (**)[20]</code> | <strong>pointer to (1 pointer</strong> to 1 array of 20 chars) |
+</p>
+<p>If an array can decay to a pointer, then it can be said that a pointer may be considered an array of at least 1 element. An exception to this is a null pointer, which points to nothing and is consequently not an array.
+</p>
+<p>Array decay only happens once. If an array has decayed to a pointer, it is now a pointer, not an array. Even if you have a pointer to an array, remember that the pointer might be considered an array of at least one element, so array decay has already occurred.
+</p>
+<p>In other words, a pointer to an array (<code>char (*)[20]</code>) will never become a pointer to a pointer (<code>char **</code>). To fix the <code>print_strings</code> function, simply make it receive the correct type:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void print_strings(char (*strings)[20], size_t n)
@@ -173,7 +192,10 @@ void print_strings(char strings[][20], size_t n)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A problem arises when you want the <code>print_strings</code> function to be generic for any array of chars: what if there are 30 chars instead of 20? Or 50? The answer is to add another parameter before the array parameter:</p>
+</div>
+<p>A problem arises when you want the <code>print_strings</code> function to be generic for any array of chars: what if there are 30 chars instead of 20? Or 50? The answer is to add another parameter before the array parameter:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -207,7 +229,10 @@ int main(void)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Compiling it produces no errors and results in the expected output:</p>
+</div>
+<p>Compiling it produces no errors and results in the expected output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Example 1

@@ -127,7 +127,17 @@
 </div>
 
 
-      <p>Reduction is the process of applying a binary operator to every element of a stream to result in one value.</p><p>The <code>sum()</code> method of an <code>IntStream</code> is an example of a reduction; it applies addition to every term of the Stream, resulting in one final value:</p><img class="img" src="/img/cea8ecc62da60cdda6a2fa9484e1f6400e044409.png"><p>This is equivalent to <code>(((1+2)+3)+4)</code></p><p>The <code>reduce</code> method of a Stream allows one to create a custom reduction. It is possible to use the <code>reduce</code> method to implement the <code>sum()</code> method:</p>
+      
+<p>Reduction is the process of applying a binary operator to every element of a stream to result in one value.
+</p>
+<p>The <code>sum()</code> method of an <code>IntStream</code> is an example of a reduction; it applies addition to every term of the Stream, resulting in one final value:
+</p>
+<img class="img" src="/img/cea8ecc62da60cdda6a2fa9484e1f6400e044409.png">
+<p>This is equivalent to <code>(((1+2)+3)+4)</code>
+</p>
+<p>The <code>reduce</code> method of a Stream allows one to create a custom reduction. It is possible to use the <code>reduce</code> method to implement the <code>sum()</code> method:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">IntStream istr;
@@ -139,7 +149,12 @@ OptionalInt istr.reduce((a,b)-&gt;a+b);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>Optional</code> version is returned so that empty Streams can be handled appropriately.</p><p>Another example of reduction is combining a <code>Stream&lt;LinkedList&lt;T&gt;&gt;</code> into a single <code>LinkedList&lt;T&gt;</code>:</p>
+</div>
+<p>The <code>Optional</code> version is returned so that empty Streams can be handled appropriately.
+</p>
+<p>Another example of reduction is combining a <code>Stream&lt;LinkedList&lt;T&gt;&gt;</code> into a single <code>LinkedList&lt;T&gt;</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Stream&lt;LinkedList&lt;T&gt;&gt; listStream;
@@ -156,7 +171,10 @@ Optional&lt;LinkedList&lt;T&gt;&gt; bigList = listStream.reduce((LinkedList&lt;T
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can also provide an <em>identity element</em>. For example, the identity element for addition is 0, as <code>x+0==x</code>. For multiplication, the identity element is 1, as <code>x*1==x</code>. In the case above, the identity element is an empty <code>LinkedList&lt;T&gt;</code>, because if you add an empty list to another list, the list that you are “adding” to doesn’t change:</p>
+</div>
+<p>You can also provide an <em>identity element</em>. For example, the identity element for addition is 0, as <code>x+0==x</code>. For multiplication, the identity element is 1, as <code>x*1==x</code>. In the case above, the identity element is an empty <code>LinkedList&lt;T&gt;</code>, because if you add an empty list to another list, the list that you are “adding” to doesn’t change:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Stream&lt;LinkedList&lt;T&gt;&gt; listStream;
@@ -173,7 +191,14 @@ LinkedList&lt;T&gt; bigList = listStream.reduce(new LinkedList&lt;T&gt;(), (Link
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that when an identity element is provided, the return value is not wrapped in an <code>Optional</code>—if called on an empty stream, <code>reduce()</code> will return the identity element.</p><p>The binary operator must also be <em>associative</em>, meaning that <code>(a+b)+c==a+(b+c)</code>. This is because the elements may be reduced in any order. For example, the above addition reduction could be performed like this:</p><img class="img" src="/img/f32ac080c200abcf0e09b646ef067a958af6319f.png"><p>This reduction is equivalent to writing <code>((1+2)+(3+4))</code>. The property of associativity also allows Java to reduce the <code>Stream</code> in parallel—a portion of the Stream can be reduced by each processor, with a reduction combining the result of each processor at the end.</p>
+</div>
+<p>Note that when an identity element is provided, the return value is not wrapped in an <code>Optional</code>—if called on an empty stream, <code>reduce()</code> will return the identity element.
+</p>
+<p>The binary operator must also be <em>associative</em>, meaning that <code>(a+b)+c==a+(b+c)</code>. This is because the elements may be reduced in any order. For example, the above addition reduction could be performed like this:
+</p>
+<img class="img" src="/img/f32ac080c200abcf0e09b646ef067a958af6319f.png">
+<p>This reduction is equivalent to writing <code>((1+2)+(3+4))</code>. The property of associativity also allows Java to reduce the <code>Stream</code> in parallel—a portion of the Stream can be reduced by each processor, with a reduction combining the result of each processor at the end.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

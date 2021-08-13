@@ -127,7 +127,22 @@
 </div>
 
 
-      <p><strong>What is Serialization</strong></p><p>Serialization is the process of converting an object’s state (including its references) to a sequence of bytes, as well as the process of rebuilding those bytes into a live object at some future time. Serialization is used when you want to persist the object. It is also used by Java RMI to pass objects between JVMs, either as arguments in a method invocation from a client to a server or as return values from a method invocation, or as exceptions thrown by remote methods. In general, serialization is used when we want the object to exist beyond the lifetime of the JVM.</p><p><code>java.io.Serializable</code> is a marker interface (has no body). It is just used to “mark” Java classes as serializable.</p><p>The serialization runtime associates with each serializable class a version number, called a <code>serialVersionUID</code>, which is used during <em>de</em>-serialization to verify that the sender and receiver of a serialized object have loaded classes for that object that are compatible with respect to serialization. If the receiver has loaded a class for the object that has a different <code>serialVersionUID</code> than that of the corresponding sender’s class, then deserialization will result in an <code>InvalidClassException</code>. A serializable class can declare its own <code>serialVersionUID</code> explicitly by declaring a field named <code>serialVersionUID</code> that must be <code>static, final,</code> and of type <code>long</code>:</p><p><code>ANY-ACCESS-MODIFIER static final long serialVersionUID = 1L;</code></p><p><strong>How to make a class eligible for serialization</strong></p><p>To persist an object the respective class must implement the <code>java.io.Serializable</code> interface.</p>
+      
+<p><strong>What is Serialization</strong>
+</p>
+<p>Serialization is the process of converting an object’s state (including its references) to a sequence of bytes, as well as the process of rebuilding those bytes into a live object at some future time. Serialization is used when you want to persist the object. It is also used by Java RMI to pass objects between JVMs, either as arguments in a method invocation from a client to a server or as return values from a method invocation, or as exceptions thrown by remote methods. In general, serialization is used when we want the object to exist beyond the lifetime of the JVM.
+</p>
+<p><code>java.io.Serializable</code> is a marker interface (has no body). It is just used to “mark” Java classes as serializable.
+</p>
+<p>The serialization runtime associates with each serializable class a version number, called a <code>serialVersionUID</code>, which is used during <em>de</em>-serialization to verify that the sender and receiver of a serialized object have loaded classes for that object that are compatible with respect to serialization. If the receiver has loaded a class for the object that has a different <code>serialVersionUID</code> than that of the corresponding sender’s class, then deserialization will result in an <code>InvalidClassException</code>. A serializable class can declare its own <code>serialVersionUID</code> explicitly by declaring a field named <code>serialVersionUID</code> that must be <code>static, final,</code> and of type <code>long</code>:
+</p>
+<p><code>ANY-ACCESS-MODIFIER static final long serialVersionUID = 1L;</code>
+</p>
+<p><strong>How to make a class eligible for serialization</strong>
+</p>
+<p>To persist an object the respective class must implement the <code>java.io.Serializable</code> interface.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import java.io.Serializable;
@@ -149,7 +164,12 @@ public class SerialClass implements Serializable {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>How to write an object into a file</strong></p><p>Now we need to write this object to a file system. We use <code>java.io.ObjectOutputStream</code> for this purpose.</p>
+</div>
+<p><strong>How to write an object into a file</strong>
+</p>
+<p>Now we need to write this object to a file system. We use <code>java.io.ObjectOutputStream</code> for this purpose.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import java.io.FileOutputStream;
@@ -174,7 +194,12 @@ public class PersistSerialClass {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>How to recreate an object from its serialized state</strong></p><p>The stored object can be read from file system at later time using <code>java.io.ObjectInputStream</code> as shown below:</p>
+</div>
+<p><strong>How to recreate an object from its serialized state</strong>
+</p>
+<p>The stored object can be read from file system at later time using <code>java.io.ObjectInputStream</code> as shown below:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import java.io.FileInputStream;
@@ -205,7 +230,13 @@ import java.io.java.lang.ClassNotFoundException;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The serialized class is in binary form. The deserialization can be problematic if the class definition changes: see the <a href="https://docs.oracle.com/javase/8/docs/platform/serialization/spec/version.html">Versioning of Serialized Objects chapter of the Java Serialization Specification</a> for details.</p><p>Serializing an object serializes the entire object graph of which it is the root, and operates correctly in the presence of cyclic graphs. A <code>reset()</code> method is provided to force the <code>ObjectOutputStream</code> to forget about objects that have already been serialized.</p><p><a href="http://stackoverflow.com/questions/910374/why-does-java-have-transient-fields">Transient-fields - Serialization</a></p>
+</div>
+<p>The serialized class is in binary form. The deserialization can be problematic if the class definition changes: see the <a href="https://docs.oracle.com/javase/8/docs/platform/serialization/spec/version.html">Versioning of Serialized Objects chapter of the Java Serialization Specification</a> for details.
+</p>
+<p>Serializing an object serializes the entire object graph of which it is the root, and operates correctly in the presence of cyclic graphs. A <code>reset()</code> method is provided to force the <code>ObjectOutputStream</code> to forget about objects that have already been serialized.
+</p>
+<p><a href="http://stackoverflow.com/questions/910374/why-does-java-have-transient-fields">Transient-fields - Serialization</a>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

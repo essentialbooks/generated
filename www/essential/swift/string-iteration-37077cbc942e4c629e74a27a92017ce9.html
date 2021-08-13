@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let string = &#34;My fantastic string&#34;
@@ -141,7 +142,16 @@ while index != string.endIndex {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note: <code>endIndex</code> is after the end of the string (i.e. <code>string[string.endIndex]</code> is an error, but <code>string[string.startIndex]</code> is fine). Also, in an empty string (<code>&quot;&quot;</code>), <code>string.startIndex == string.endIndex</code> is <code>true</code>. Be sure to check for empty strings, since you cannot call <code>startIndex.successor()</code> on an empty string.</p><p>In Swift 3, String indexes no longer have <code>successor()</code>, <code>predecessor()</code>, <code>advancedBy(_:)</code>, <code>advancedBy(_:limit:)</code>, or <code>distanceTo(_:)</code>.</p><p>Instead, those operations are moved to the collection, which is now responsible for incrementing and decrementing its indices.</p><p>Available methods are <code>.index(after:)</code>, <code>.index(before:)</code> and <code>.index(_:, offsetBy:)</code>.</p>
+</div>
+<p>Note: <code>endIndex</code> is after the end of the string (i.e. <code>string[string.endIndex]</code> is an error, but <code>string[string.startIndex]</code> is fine). Also, in an empty string (<code>&quot;&quot;</code>), <code>string.startIndex == string.endIndex</code> is <code>true</code>. Be sure to check for empty strings, since you cannot call <code>startIndex.successor()</code> on an empty string.
+</p>
+<p>In Swift 3, String indexes no longer have <code>successor()</code>, <code>predecessor()</code>, <code>advancedBy(_:)</code>, <code>advancedBy(_:limit:)</code>, or <code>distanceTo(_:)</code>.
+</p>
+<p>Instead, those operations are moved to the collection, which is now responsible for incrementing and decrementing its indices.
+</p>
+<p>Available methods are <code>.index(after:)</code>, <code>.index(before:)</code> and <code>.index(_:, offsetBy:)</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let string = &#34;My fantastic string&#34;
@@ -155,7 +165,12 @@ while currentIndex != string.endIndex {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>Note: we’re using </em><code><em>currentIndex</em></code><em> as a variable name to avoid confusion with the </em><code><em>.index</em></code><em> method.</em></p><p>And, for example, if you want to go the other way:</p>
+</div>
+<p><em>Note: we’re using </em><code><em>currentIndex</em></code><em> as a variable name to avoid confusion with the </em><code><em>.index</em></code><em> method.</em>
+</p>
+<p>And, for example, if you want to go the other way:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var index:String.Index? = string.endIndex.predecessor()
@@ -173,7 +188,10 @@ while index != nil {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>(Or you could just reverse the string first, but if you don’t need to go all the way through the string you probably would prefer a method like this)</p>
+</div>
+<p>(Or you could just reverse the string first, but if you don’t need to go all the way through the string you probably would prefer a method like this)
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var currentIndex: String.Index? = string.index(before: string.endIndex)
@@ -191,7 +209,10 @@ while currentIndex != nil {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note, <code>Index</code> is an object type, and not an <code>Int</code>. You cannot access a character of string as follows:</p>
+</div>
+<p>Note, <code>Index</code> is an object type, and not an <code>Int</code>. You cannot access a character of string as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let string = &#34;My string&#34;
@@ -201,7 +222,10 @@ string.characters[2] // and also can&#39;t do this</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But you can get a specific index as follows:</p>
+</div>
+<p>But you can get a specific index as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">index = string.startIndex.advanceBy(2)</pre>
@@ -210,6 +234,7 @@ string.characters[2] // and also can&#39;t do this</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">currentIndex = string.index(string.startIndex, offsetBy: 2)</pre>
@@ -217,7 +242,10 @@ string.characters[2] // and also can&#39;t do this</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And can go backwards like this:</p>
+</div>
+<p>And can go backwards like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">index = string.endIndex.advancedBy(-2)</pre>
@@ -226,6 +254,7 @@ string.characters[2] // and also can&#39;t do this</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">currentIndex = string.index(string.endIndex, offsetBy: -2)</pre>
@@ -233,7 +262,10 @@ string.characters[2] // and also can&#39;t do this</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you might exceed the string’s bounds, or you want to specify a limit you can use:</p>
+</div>
+<p>If you might exceed the string’s bounds, or you want to specify a limit you can use:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">index = string.startIndex.advanceBy(20, limit: string.endIndex)</pre>
@@ -242,6 +274,7 @@ string.characters[2] // and also can&#39;t do this</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">currentIndex = string.index(string.startIndex, offsetBy: 20, limitedBy: string.endIndex)</pre>
@@ -249,7 +282,10 @@ string.characters[2] // and also can&#39;t do this</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Alternatively one can just iterate through the characters in a string, but this might be less useful depending on the context:</p>
+</div>
+<p>Alternatively one can just iterate through the characters in a string, but this might be less useful depending on the context:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for c in string.characters {

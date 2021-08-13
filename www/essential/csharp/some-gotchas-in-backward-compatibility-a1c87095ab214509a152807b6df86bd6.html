@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>This small example shows how you can lose backward compatibility in your programs if you do not take care in advance about this. And ways to get more control of serialization process</p><p>At first, we will write an example of the first version of the program:</p><p>Version 1</p>
+      
+<p>This small example shows how you can lose backward compatibility in your programs if you do not take care in advance about this. And ways to get more control of serialization process
+</p>
+<p>At first, we will write an example of the first version of the program:
+</p>
+<p>Version 1
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="na">[Serializable]</span>
@@ -147,7 +154,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And now, let us assume that in the second version of the program added a new class. And we need to store it in an array.</p><p>Now code will look like this:</p><p>Version 2</p>
+</div>
+<p>And now, let us assume that in the second version of the program added a new class. And we need to store it in an array.
+</p>
+<p>Now code will look like this:
+</p>
+<p>Version 2
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="na">[Serializable]</span>
@@ -189,7 +203,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And code for serialize and deserialize</p>
+</div>
+<p>And code for serialize and deserialize
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">private</span> <span class="k">static</span> <span class="kt">byte</span><span class="p">[]</span> <span class="n">SerializeData</span><span class="p">(</span><span class="kt">object</span> <span class="n">obj</span><span class="p">)</span>
@@ -213,7 +230,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And so, what would happen when you serialize the data in the program of v2 and will try to deserialize them in the program of v1?</p><p>You get an exception:</p>
+</div>
+<p>And so, what would happen when you serialize the data in the program of v2 and will try to deserialize them in the program of v1?
+</p>
+<p>You get an exception:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">System.Runtime.Serialization.SerializationException was unhandled
@@ -232,7 +254,18 @@ StackTrace:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Why?</p><p>The ObjectManager has a different logic to resolve dependencies for arrays and for reference and value types. We added an array of new the reference type which is absent in our assembly.</p><p>When ObjectManager attempts to resolve dependencies it builds the graph. When it sees the array, it can not fix it immediately, so that it creates a dummy reference and then fixes the array later.</p><p>And since this type is not in the assembly and dependencies can’t be fixed. For some reason, it does not remove the array from the list of elements for the fixes and at the end, it throws an exception “IncorrectNumberOfFixups”.</p><p>It is some ‘gotchas’ in the process of serialization. For some reason, it does not work correctly only for arrays of new reference types.</p>
+</div>
+<p>Why?
+</p>
+<p>The ObjectManager has a different logic to resolve dependencies for arrays and for reference and value types. We added an array of new the reference type which is absent in our assembly.
+</p>
+<p>When ObjectManager attempts to resolve dependencies it builds the graph. When it sees the array, it can not fix it immediately, so that it creates a dummy reference and then fixes the array later.
+</p>
+<p>And since this type is not in the assembly and dependencies can’t be fixed. For some reason, it does not remove the array from the list of elements for the fixes and at the end, it throws an exception “IncorrectNumberOfFixups”.
+</p>
+<p>It is some ‘gotchas’ in the process of serialization. For some reason, it does not work correctly only for arrays of new reference types.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">A Note:
@@ -241,7 +274,15 @@ Similar code will work correctly if you do not use arrays with new classes</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And the first way to fix it and maintain compatibility?</p><ul id="b3352e69-2c80-4ea2-94f0-e6db6438aa53" class="bulleted-list"><li>Use a collection of new structures rather than classes or use a dictionary(possible classes), because a dictionary it’s a collection of keyvaluepair(it’s structure)</li><li>Use ISerializable, if you can’t change the old code</li></ul>
+</div>
+<p>And the first way to fix it and maintain compatibility?
+</p>
+  <ul id="b3352e69-2c80-4ea2-94f0-e6db6438aa53" class="bulleted-list">
+    <li>Use a collection of new structures rather than classes or use a dictionary(possible classes), because a dictionary it’s a collection of keyvaluepair(it’s structure)
+    </li>
+    <li>Use ISerializable, if you can’t change the old code
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

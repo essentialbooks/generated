@@ -127,7 +127,12 @@
 </div>
 
 
-      <p><strong>A closure is an anonymous function that can’t access outside scope.</strong></p><p>When defining an anonymous function as such, you’re creating a “namespace” for that function. It currently only has access to that namespace.</p>
+      
+<p><strong>A closure is an anonymous function that can’t access outside scope.</strong>
+</p>
+<p>When defining an anonymous function as such, you’re creating a “namespace” for that function. It currently only has access to that namespace.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$externalVariable = &#34;Hello&#34;;
@@ -141,7 +146,10 @@ $myFunction = function() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It doesn’t have access to any external variables. To grant this permission for this namespace to access external variables, you need to introduce it via closures (<code><em>use()</em></code>).</p>
+</div>
+<p>It doesn’t have access to any external variables. To grant this permission for this namespace to access external variables, you need to introduce it via closures (<code><em>use()</em></code>).
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$myFunction = function() use($externalVariable, $secondExternalVariable) {
@@ -151,7 +159,23 @@ $myFunction = function() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is heavily attributed to PHP’s tight variable scoping - <em>If a variable isn’t defined within the scope, or isn’t brought in with </em><code><em>global</em></code><em> then it does not exist.</em></p><p>Also note:</p><blockquote id="4bd94361-6181-4b88-a4d4-c7f517a33747" class="">Inheriting variables from the parent scope is not the same as using global variables. Global variables exist in the global scope, which is the same no matter what function is executing.</blockquote><blockquote id="c2e3cb2f-3950-43fa-9052-bc312df3b250" class="">The parent scope of a closure is the function in which the closure was declared (not necessarily the function it was called from).</blockquote><p><em>Taken from the </em><a href="http://php.net/manual/en/functions.anonymous.php"><em>PHP Documentation for Anonymous Functions</em></a></p><hr id="ff6a2eb4-7efa-4a33-9b96-ae240cb355b2"/><p>In PHP, closures use an <strong>early-binding</strong> approach. This means that variables passed to the closure’s namespace using <code>use</code> keyword will have the same values when the closure was defined.</p><p>To change this behavior you should pass the variable <strong>by-reference</strong>.</p>
+</div>
+<p>This is heavily attributed to PHP’s tight variable scoping - <em>If a variable isn’t defined within the scope, or isn’t brought in with </em><code><em>global</em></code><em> then it does not exist.</em>
+</p>
+<p>Also note:
+</p>
+<blockquote id="4bd94361-6181-4b88-a4d4-c7f517a33747" class="">Inheriting variables from the parent scope is not the same as using global variables. Global variables exist in the global scope, which is the same no matter what function is executing.
+</blockquote>
+<blockquote id="c2e3cb2f-3950-43fa-9052-bc312df3b250" class="">The parent scope of a closure is the function in which the closure was declared (not necessarily the function it was called from).
+</blockquote>
+<p><em>Taken from the </em><a href="http://php.net/manual/en/functions.anonymous.php"><em>PHP Documentation for Anonymous Functions</em></a>
+</p>
+<hr id="ff6a2eb4-7efa-4a33-9b96-ae240cb355b2"/>
+<p>In PHP, closures use an <strong>early-binding</strong> approach. This means that variables passed to the closure’s namespace using <code>use</code> keyword will have the same values when the closure was defined.
+</p>
+<p>To change this behavior you should pass the variable <strong>by-reference</strong>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$rate = .05;
@@ -169,6 +193,7 @@ print $calculateTax(100); // 5</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$rate = .05;
@@ -185,7 +210,10 @@ print $calculateTax(100); // 10</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Default arguments are not implicitly required when defining anonymous functions with/without closures.</p>
+</div>
+<p>Default arguments are not implicitly required when defining anonymous functions with/without closures.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$message = &#39;Im yelling at you&#39;;

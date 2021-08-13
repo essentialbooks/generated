@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>When a table has an <code>AUTO_INCREMENT</code> <code>PRIMARY KEY</code>, normally one does not insert into that column. Instead, specify all the other columns, then ask what the new id was.</p>
+      
+<p>When a table has an <code>AUTO_INCREMENT</code> <code>PRIMARY KEY</code>, normally one does not insert into that column. Instead, specify all the other columns, then ask what the new id was.
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">t</span> <span class="p">(</span>
@@ -143,7 +146,18 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that <code>LAST_INSERT_ID()</code> is tied to the session, so even if multiple connections are inserting into the same table, each with get its own id.</p><p>Your client API probably has an alternative way of getting the <code>LAST_INSERT_ID()</code> without actually performing a <code>SELECT</code> and handing the value back to the client instead of leaving it in an <code>@variable</code> inside MySQL. Such is usually preferable.</p><p><strong>Longer, more detailed, example</strong></p><p>The “normal” usage of IODKU is to trigger “duplicate key” based on some <code>UNIQUE</code> key, not the <code>AUTO_INCREMENT PRIMARY KEY</code>. The following demonstrates such. Note that it does <em>not</em> supply the <code>id</code> in the INSERT.</p><p>Setup for examples to follow:</p>
+</div>
+<p>Note that <code>LAST_INSERT_ID()</code> is tied to the session, so even if multiple connections are inserting into the same table, each with get its own id.
+</p>
+<p>Your client API probably has an alternative way of getting the <code>LAST_INSERT_ID()</code> without actually performing a <code>SELECT</code> and handing the value back to the client instead of leaving it in an <code>@variable</code> inside MySQL. Such is usually preferable.
+</p>
+<p><strong>Longer, more detailed, example</strong>
+</p>
+<p>The “normal” usage of IODKU is to trigger “duplicate key” based on some <code>UNIQUE</code> key, not the <code>AUTO_INCREMENT PRIMARY KEY</code>. The following demonstrates such. Note that it does <em>not</em> supply the <code>id</code> in the INSERT.
+</p>
+<p>Setup for examples to follow:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">iodku</span> <span class="p">(</span>
@@ -162,7 +176,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Result:</p>
+</div>
+<p>Result:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Query OK, 2 rows affected (0.00 sec)
@@ -177,7 +194,12 @@ Records: 2  Duplicates: 0  Warnings: 0
 	<div class="code-box-nav">
 		
 	</div>
-</div><p></p><p>The case of IODKU performing an “update” and <code>LAST_INSERT_ID()</code> retrieving the relevant <code>id</code>:</p>
+</div>
+<p>
+</p>
+<p>The case of IODKU performing an “update” and <code>LAST_INSERT_ID()</code> retrieving the relevant <code>id</code>:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">iodku</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">misc</span><span class="p">)</span>
@@ -191,7 +213,10 @@ Records: 2  Duplicates: 0  Warnings: 0
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Result:</p>
+</div>
+<p>Result:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="o">+</span><span class="c1">------------------+
@@ -203,7 +228,10 @@ Records: 2  Duplicates: 0  Warnings: 0
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The case where IODKU performs an “insert” and <code>LAST_INSERT_ID()</code> retrieves the new <code>id</code>:</p>
+</div>
+<p>The case where IODKU performs an “insert” and <code>LAST_INSERT_ID()</code> retrieves the new <code>id</code>:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">iodku</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">misc</span><span class="p">)</span>
@@ -217,7 +245,10 @@ Records: 2  Duplicates: 0  Warnings: 0
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Result:</p>
+</div>
+<p>Result:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="o">+</span><span class="c1">------------------+
@@ -229,7 +260,10 @@ Records: 2  Duplicates: 0  Warnings: 0
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Resulting table contents:</p>
+</div>
+<p>Resulting table contents:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">iodku</span><span class="p">;</span></pre>
@@ -238,6 +272,7 @@ Records: 2  Duplicates: 0  Warnings: 0
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+----+--------+------+

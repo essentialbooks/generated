@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Since C99, C has variable length arrays, VLA, that model arrays with bounds that are only known at initialization time. While you have to be careful not to allocate too large VLA (they might smash your stack), using <em>pointers to VLA</em> and using them in <code>sizeof</code> expressions is fine.</p>
+      
+<p>Since C99, C has variable length arrays, VLA, that model arrays with bounds that are only known at initialization time. While you have to be careful not to allocate too large VLA (they might smash your stack), using <em>pointers to VLA</em> and using them in <code>sizeof</code> expressions is fine.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">double sumAll(size_t n, size_t m, double A[n][m]) {
@@ -151,7 +154,14 @@ int main(int argc, char *argv[argc+1]) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here <code>matrix</code> is a pointer to elements of type <code>double[m]</code>, and the <code>sizeof</code> expression with <code>double[n][m]</code> ensures that it contains space for <code>n</code> such elements.</p><p>All this space is allocated contiguously and can thus be deallocated by a single call to <code>free</code>.</p><p>The presence of VLA in the language also affects the possible declarations of arrays and pointers in function headers. Now, a general integer expression is permitted inside the <code>[]</code> of array parameters. For both functions the expressions in <code>[]</code> use parameters that have declared before in the parameter list. For <code>sumAll</code> these are the lengths that the user code expects for the matrix. As for all array function parameters in C the innermost dimension is rewritten to a pointer type, so this is equivalent to the declaration</p>
+</div>
+<p>Here <code>matrix</code> is a pointer to elements of type <code>double[m]</code>, and the <code>sizeof</code> expression with <code>double[n][m]</code> ensures that it contains space for <code>n</code> such elements.
+</p>
+<p>All this space is allocated contiguously and can thus be deallocated by a single call to <code>free</code>.
+</p>
+<p>The presence of VLA in the language also affects the possible declarations of arrays and pointers in function headers. Now, a general integer expression is permitted inside the <code>[]</code> of array parameters. For both functions the expressions in <code>[]</code> use parameters that have declared before in the parameter list. For <code>sumAll</code> these are the lengths that the user code expects for the matrix. As for all array function parameters in C the innermost dimension is rewritten to a pointer type, so this is equivalent to the declaration
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">double sumAll(size_t n, size_t m, double (*A)[m]);</pre>
@@ -159,7 +169,13 @@ int main(int argc, char *argv[argc+1]) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>That is, <code>n</code> is not really part of the function interface, but the information can be useful for documentation and it could also be used by bounds checking compilers to warn about out-of-bounds access.</p><p>Likwise, for <code>main</code>, the expression <code>argc+1</code> is the minimal length that the C standard prescribes for the <code>argv</code> argument.</p><p>Note that officially VLA support is optional in C11, but we know of no compiler that implements C11 and that doesn’t have them. You could test with the macro <code>__STDC_NO_VLA__</code> if you must.</p>
+</div>
+<p>That is, <code>n</code> is not really part of the function interface, but the information can be useful for documentation and it could also be used by bounds checking compilers to warn about out-of-bounds access.
+</p>
+<p>Likwise, for <code>main</code>, the expression <code>argc+1</code> is the minimal length that the C standard prescribes for the <code>argv</code> argument.
+</p>
+<p>Note that officially VLA support is optional in C11, but we know of no compiler that implements C11 and that doesn’t have them. You could test with the macro <code>__STDC_NO_VLA__</code> if you must.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

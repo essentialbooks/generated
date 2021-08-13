@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>In the light of the latest <a href="https://httpoxy.org/">httpoxy</a> vulnerabilities, there is another variable, that is widely misused.</p><p><code>HTTP_X_FORWARDED_FOR</code> is often used to detect the client IP address, but without any additional checks, this can lead to security issues, especially when this IP is later used for authentication or in SQL queries without sanitization.</p><p>Most of the code samples available ignore the fact that <code>HTTP_X_FORWARDED_FOR</code> can actually be considered as information provided by the client itself and therefore <strong>is not</strong> a reliable source to detect clients IP address. Some of the samples do add a warning about the possible misuse, but still lack any additional check in the code itself.</p><p>So here is an example of function written in PHP, how to detect a client IP address, if you know that client may be behind a proxy and you know this proxy can be trusted. If you don’t known any trusted proxies, you can just use <code>REMOTE_ADDR</code></p>
+      
+<p>In the light of the latest <a href="https://httpoxy.org/">httpoxy</a> vulnerabilities, there is another variable, that is widely misused.
+</p>
+<p><code>HTTP_X_FORWARDED_FOR</code> is often used to detect the client IP address, but without any additional checks, this can lead to security issues, especially when this IP is later used for authentication or in SQL queries without sanitization.
+</p>
+<p>Most of the code samples available ignore the fact that <code>HTTP_X_FORWARDED_FOR</code> can actually be considered as information provided by the client itself and therefore <strong>is not</strong> a reliable source to detect clients IP address. Some of the samples do add a warning about the possible misuse, but still lack any additional check in the code itself.
+</p>
+<p>So here is an example of function written in PHP, how to detect a client IP address, if you know that client may be behind a proxy and you know this proxy can be trusted. If you don’t known any trusted proxies, you can just use <code>REMOTE_ADDR</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">function get_client_ip()

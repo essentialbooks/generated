@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>If you need to write a file using different locale settings to the default, you can use <a href="http://en.cppreference.com/w/cpp/locale/locale"><code>std::locale</code></a> and <a href="http://en.cppreference.com/w/cpp/io/basic_ios/imbue"><code>std::basic_ios::imbue()</code></a> to do that for a specific file stream:</p><p><strong>Guidance for use:</strong></p><ul id="8fa8212a-4166-4130-b1f4-e7a06f5d7ad1" class="bulleted-list"><li>You should always apply a local to a stream before opening the file.</li><li>Once the stream has been imbued you should not change the locale.</li></ul><p><strong>Reasons for Restrictions:</strong> Imbuing a file stream with a locale has undefined behavior if the current locale is not state independent or not pointing at the beginning of the file.</p><p>UTF-8 streams (and others) are not state independent. Also a file stream with a UTF-8 locale may try and read the BOM marker from the file when it is opened; so just opening the file may read characters from the file and it will not be at the beginning.</p>
+      
+<p>If you need to write a file using different locale settings to the default, you can use <a href="http://en.cppreference.com/w/cpp/locale/locale"><code>std::locale</code></a> and <a href="http://en.cppreference.com/w/cpp/io/basic_ios/imbue"><code>std::basic_ios::imbue()</code></a> to do that for a specific file stream:
+</p>
+<p><strong>Guidance for use:</strong>
+</p>
+  <ul id="8fa8212a-4166-4130-b1f4-e7a06f5d7ad1" class="bulleted-list">
+    <li>You should always apply a local to a stream before opening the file.
+    </li>
+    <li>Once the stream has been imbued you should not change the locale.
+    </li>
+  </ul>
+<p><strong>Reasons for Restrictions:</strong> Imbuing a file stream with a locale has undefined behavior if the current locale is not state independent or not pointing at the beginning of the file.
+</p>
+<p>UTF-8 streams (and others) are not state independent. Also a file stream with a UTF-8 locale may try and read the BOM marker from the file when it is opened; so just opening the file may read characters from the file and it will not be at the beginning.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
@@ -162,7 +177,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Explicitly switching to the classic “C” locale is useful if your program uses a different default locale and you want to ensure a fixed standard for reading and writing files. With a “C” preferred locale, the example writes</p>
+</div>
+<p>Explicitly switching to the classic “C” locale is useful if your program uses a different default locale and you want to ensure a fixed standard for reading and writing files. With a “C” preferred locale, the example writes
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">78,123.456
@@ -172,7 +190,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If, for example, the preferred locale is German and hence uses a different number format, the example writes</p>
+</div>
+<p>If, for example, the preferred locale is German and hence uses a different number format, the example writes
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">78 123,456
@@ -182,7 +203,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>(note the decimal comma in the first line).</p>
+</div>
+<p>(note the decimal comma in the first line).
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>When doing CPU intensive tasks like image resizing it doesn’t make sense to create more goroutines than available CPUs.</p><p>Things will not go any faster and you might even loose performance due to additional book keeping and switching between goroutines.</p><p>One way to limit concurrency (i.e. number of gorutines you launch at the same time) is to use a semaphore.</p><p>You can enter (acquire) semaphore and leave (release) a semaphore.</p><p>A semaphore has a fixed capacity. If you exceed semaphore’s capacity, acquire blocks until a release operation frees it.</p><p>A buffered channel is a natural semaphore.</p><p>Here’s an example of using a channel acting as a semaphore to limit number of goroutines active at any given time:</p>
+      
+<p>When doing CPU intensive tasks like image resizing it doesn’t make sense to create more goroutines than available CPUs.
+</p>
+<p>Things will not go any faster and you might even loose performance due to additional book keeping and switching between goroutines.
+</p>
+<p>One way to limit concurrency (i.e. number of gorutines you launch at the same time) is to use a semaphore.
+</p>
+<p>You can enter (acquire) semaphore and leave (release) a semaphore.
+</p>
+<p>A semaphore has a fixed capacity. If you exceed semaphore’s capacity, acquire blocks until a release operation frees it.
+</p>
+<p>A buffered channel is a natural semaphore.
+</p>
+<p>Here’s an example of using a channel acting as a semaphore to limit number of goroutines active at any given time:
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="kd">var</span> <span class="p">(</span>
@@ -187,6 +202,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">total tasks         : 32
@@ -196,7 +212,11 @@ max concurrent tasks: 4
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We use technique described in <a href="/essential/go/wait-for-goroutines-to-finish-ea3629ac73bb494283d0c92b2a4f78d1">waiting for goroutines to finish</a> to wait for all tasks to finish.</p><p>Often the right amount of concurrent tasks is equal to number of CPUs, which can be obtained with <a href="https://golang.org/pkg/runtime/#NumCPU"><code>runtime.NumCPU()</code></a>.</p>
+</div>
+<p>We use technique described in <a href="/essential/go/wait-for-goroutines-to-finish-ea3629ac73bb494283d0c92b2a4f78d1">waiting for goroutines to finish</a> to wait for all tasks to finish.
+</p>
+<p>Often the right amount of concurrent tasks is equal to number of CPUs, which can be obtained with <a href="https://golang.org/pkg/runtime/#NumCPU"><code>runtime.NumCPU()</code></a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

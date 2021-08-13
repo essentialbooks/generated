@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>String literals represent null-terminated, <a href="http://stackoverflow.com/documentation/c/3597/storage-classes/12393/static">static-duration</a> arrays of <code>char</code>. Because they have static storage duration, a string literal or a pointer to the same underlying array can safely be used in several ways that a pointer to an automatic array cannot. For example, returning a string literal from a function has well-defined behavior:</p>
+      
+<p>String literals represent null-terminated, <a href="http://stackoverflow.com/documentation/c/3597/storage-classes/12393/static">static-duration</a> arrays of <code>char</code>. Because they have static storage duration, a string literal or a pointer to the same underlying array can safely be used in several ways that a pointer to an automatic array cannot. For example, returning a string literal from a function has well-defined behavior:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">const char *get_hello() {
@@ -137,7 +140,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For historical reasons, the elements of the array corresponding to a string literal are not formally <code>const</code>. Nevertheless, any attempt to modify them has <a href="http://stackoverflow.com/documentation/c/364/undefined-behavior">undefined behavior</a>. Typically, a program that attempts to modify the array corresponding to a string literal will crash or otherwise malfunction.</p>
+</div>
+<p>For historical reasons, the elements of the array corresponding to a string literal are not formally <code>const</code>. Nevertheless, any attempt to modify them has <a href="http://stackoverflow.com/documentation/c/364/undefined-behavior">undefined behavior</a>. Typically, a program that attempts to modify the array corresponding to a string literal will crash or otherwise malfunction.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">char *foo = &#34;hello&#34;;
@@ -146,7 +152,10 @@ foo[0] = &#39;y&#39;;  /* Undefined behavior - BAD! */</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Where a pointer points to a string literal – or where it sometimes may do – it is advisable to declare that pointer’s referent <code>const</code> to avoid engaging such undefined behavior accidentally.</p>
+</div>
+<p>Where a pointer points to a string literal – or where it sometimes may do – it is advisable to declare that pointer’s referent <code>const</code> to avoid engaging such undefined behavior accidentally.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">const char *foo = &#34;hello&#34;;
@@ -155,7 +164,10 @@ foo[0] = &#39;y&#39;;  /* Undefined behavior - BAD! */</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>On the other hand, a pointer to or into the underlying array of a string literal is not itself inherently special; its value can freely be modified to point to something else:</p>
+</div>
+<p>On the other hand, a pointer to or into the underlying array of a string literal is not itself inherently special; its value can freely be modified to point to something else:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">char *foo = &#34;hello&#34;;
@@ -164,7 +176,10 @@ foo = &#34;World!&#34;; /* OK - we&#39;re just changing what foo points to */</p
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Furthermore, although initializers for <code>char</code> arrays can have the same form as string literals, use of such an initializer does not confer the characteristics of a string literal on the initialized array. The initializer simply designates the length and initial contents of the array. In particular, the elements are modifiable if not explicitly declared <code>const</code>:</p>
+</div>
+<p>Furthermore, although initializers for <code>char</code> arrays can have the same form as string literals, use of such an initializer does not confer the characteristics of a string literal on the initialized array. The initializer simply designates the length and initial contents of the array. In particular, the elements are modifiable if not explicitly declared <code>const</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">char foo[] = &#34;hello&#34;;

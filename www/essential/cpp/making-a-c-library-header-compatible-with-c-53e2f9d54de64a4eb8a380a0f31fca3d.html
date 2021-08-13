@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>A C library header can usually be included into a C++ program, since most declarations are valid in both C and C++. For example, consider the following <code>foo.h</code>:</p>
+      
+<p>A C library header can usually be included into a C++ program, since most declarations are valid in both C and C++. For example, consider the following <code>foo.h</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">typedef struct Foo {
@@ -138,7 +141,14 @@ Foo make_foo(int);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The definition of <code>make_foo</code> is separately compiled and distributed with the header in object form.</p><p>A C++ program can <code>#include &lt;foo.h&gt;</code>, but the compiler will not know that the <code>make_foo</code> function is defined as a C symbol, and will probably try to look for it with a mangled name, and fail to locate it. Even if it can find the definition of <code>make_foo</code> in the library, not all platforms use the same calling conventions for C and C++, and the C++ compiler will use the C++ calling convention when calling <code>make_foo</code>, which is likely to cause a segmentation fault if <code>make_foo</code> is expecting to be called with the C calling convention.</p><p>The way to remedy this problem is to wrap almost all the declarations in the header in an <code>extern &quot;C&quot;</code> block.</p>
+</div>
+<p>The definition of <code>make_foo</code> is separately compiled and distributed with the header in object form.
+</p>
+<p>A C++ program can <code>#include &lt;foo.h&gt;</code>, but the compiler will not know that the <code>make_foo</code> function is defined as a C symbol, and will probably try to look for it with a mangled name, and fail to locate it. Even if it can find the definition of <code>make_foo</code> in the library, not all platforms use the same calling conventions for C and C++, and the C++ compiler will use the C++ calling convention when calling <code>make_foo</code>, which is likely to cause a segmentation fault if <code>make_foo</code> is expecting to be called with the C calling convention.
+</p>
+<p>The way to remedy this problem is to wrap almost all the declarations in the header in an <code>extern &quot;C&quot;</code> block.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#ifdef __cplusplus
@@ -157,7 +167,9 @@ Foo make_foo(int);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now when <code>foo.h</code> is included from a C program, it will just appear as ordinary declarations, but when <code>foo.h</code> is included from a C++ program, <code>make_foo</code> will be inside an <code>extern &quot;C&quot;</code> block and the compiler will know to look for an unmangled name and use the C calling convention.</p>
+</div>
+<p>Now when <code>foo.h</code> is included from a C program, it will just appear as ordinary declarations, but when <code>foo.h</code> is included from a C++ program, <code>make_foo</code> will be inside an <code>extern &quot;C&quot;</code> block and the compiler will know to look for an unmangled name and use the C calling convention.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

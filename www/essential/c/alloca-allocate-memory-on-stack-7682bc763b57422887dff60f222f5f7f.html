@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Caveat: <code>alloca</code> is only mentioned here for the sake of completeness. It is entirely non-portable (not covered by any of the common standards) and has a number of potentially dangerous features that make it un-safe for the unaware. Modern C code should replace it with <em>Variable Length Arrays</em> (VLA).</p><p><a href="https://linux.die.net/man/3/alloca">Manual page</a></p>
+      
+<p>Caveat: <code>alloca</code> is only mentioned here for the sake of completeness. It is entirely non-portable (not covered by any of the common standards) and has a number of potentially dangerous features that make it un-safe for the unaware. Modern C code should replace it with <em>Variable Length Arrays</em> (VLA).
+</p>
+<p><a href="https://linux.die.net/man/3/alloca">Manual page</a>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;alloca.h&gt;
@@ -144,7 +149,44 @@ void foo(int size) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Allocate memory on the stack frame of the caller, the space referenced by the returned pointer is automatically <a href="https://linux.die.net/man/3/free">free</a>’d when the caller function finishes.</p><p>While this function is convenient for automatic memory management, be aware that requesting large allocation could cause a stack overflow, and that you cannot use <a href="https://linux.die.net/man/3/free"><code>free</code></a> with memory allocated with <a href="https://linux.die.net/man/3/alloca"><code>alloca</code></a> (which could cause more issue with stack overflow).</p><p>For these reason it is not recommended to use <a href="https://linux.die.net/man/3/alloca"><code>alloca</code></a> inside a loop nor a recursive function.</p><p>And because the memory is <a href="https://linux.die.net/man/3/free"><code>free</code></a>’d upon function return you cannot return the pointer as a function result (<a href="http://stackoverflow.com/documentation/c/364/undefined-behavior">the behavior would be undefined</a>).</p><h3 id="747af16b-18f5-420e-9d91-6491f17f7f2f" class="">Summary<a class="header-anchor" href="#747af16b-18f5-420e-9d91-6491f17f7f2f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><ul id="fa753c9b-40d3-4e2d-9141-d79116dc39b8" class="bulleted-list"><li>call identical to <a href="https://linux.die.net/man/3/malloc"><code>malloc</code></a></li><li>automatically free’d upon function return</li><li>incompatible with <a href="https://linux.die.net/man/3/free"><code>free</code></a>,<a href="https://linux.die.net/man/3/realloc"><code>realloc</code></a> functions (<a href="http://stackoverflow.com/documentation/c/364/undefined-behavior">undefined behavior</a>)</li><li>pointer cannot be returned as a function result (<a href="http://stackoverflow.com/documentation/c/364/undefined-behavior">undefined behavior</a>)</li><li>allocation size limited by stack space, which (on most machines) is a lot smaller than the heap space available for use by <code>malloc()</code></li><li>avoid using <code>alloca()</code> and VLAs (variable length arrays) in a single function</li><li><code>alloca()</code> is not as portable as <code>malloc()</code> et al</li></ul><h3 id="6bc4b315-9b40-4f4a-82df-be727b58e9bc" class="">Recommendation<a class="header-anchor" href="#6bc4b315-9b40-4f4a-82df-be727b58e9bc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><ul id="510dfa2f-3e2d-48c2-9108-008842fdc0ce" class="bulleted-list"><li>Do not use <code>alloca()</code> in new code</li></ul><p>Modern alternative.</p>
+</div>
+<p>Allocate memory on the stack frame of the caller, the space referenced by the returned pointer is automatically <a href="https://linux.die.net/man/3/free">free</a>’d when the caller function finishes.
+</p>
+<p>While this function is convenient for automatic memory management, be aware that requesting large allocation could cause a stack overflow, and that you cannot use <a href="https://linux.die.net/man/3/free"><code>free</code></a> with memory allocated with <a href="https://linux.die.net/man/3/alloca"><code>alloca</code></a> (which could cause more issue with stack overflow).
+</p>
+<p>For these reason it is not recommended to use <a href="https://linux.die.net/man/3/alloca"><code>alloca</code></a> inside a loop nor a recursive function.
+</p>
+<p>And because the memory is <a href="https://linux.die.net/man/3/free"><code>free</code></a>’d upon function return you cannot return the pointer as a function result (<a href="http://stackoverflow.com/documentation/c/364/undefined-behavior">the behavior would be undefined</a>).
+</p>
+  <h3 id="747af16b-18f5-420e-9d91-6491f17f7f2f" class="">Summary
+  <a class="header-anchor" href="#747af16b-18f5-420e-9d91-6491f17f7f2f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+  <ul id="fa753c9b-40d3-4e2d-9141-d79116dc39b8" class="bulleted-list">
+    <li>call identical to <a href="https://linux.die.net/man/3/malloc"><code>malloc</code></a>
+    </li>
+    <li>automatically free’d upon function return
+    </li>
+    <li>incompatible with <a href="https://linux.die.net/man/3/free"><code>free</code></a>,<a href="https://linux.die.net/man/3/realloc"><code>realloc</code></a> functions (<a href="http://stackoverflow.com/documentation/c/364/undefined-behavior">undefined behavior</a>)
+    </li>
+    <li>pointer cannot be returned as a function result (<a href="http://stackoverflow.com/documentation/c/364/undefined-behavior">undefined behavior</a>)
+    </li>
+    <li>allocation size limited by stack space, which (on most machines) is a lot smaller than the heap space available for use by <code>malloc()</code>
+    </li>
+    <li>avoid using <code>alloca()</code> and VLAs (variable length arrays) in a single function
+    </li>
+    <li><code>alloca()</code> is not as portable as <code>malloc()</code> et al
+    </li>
+  </ul>
+  <h3 id="6bc4b315-9b40-4f4a-82df-be727b58e9bc" class="">Recommendation
+  <a class="header-anchor" href="#6bc4b315-9b40-4f4a-82df-be727b58e9bc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+  <ul id="510dfa2f-3e2d-48c2-9108-008842fdc0ce" class="bulleted-list">
+    <li>Do not use <code>alloca()</code> in new code
+    </li>
+  </ul>
+<p>Modern alternative.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void foo(int size) {
@@ -158,7 +200,9 @@ void foo(int size) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This works where <code>alloca()</code> does, and works in places where <code>alloca()</code> doesn’t (inside loops, for example). It does assume either a C99 implementation or a C11 implementation that does not define <code>__STDC_NO_VLA__</code>.</p>
+</div>
+<p>This works where <code>alloca()</code> does, and works in places where <code>alloca()</code> doesn’t (inside loops, for example). It does assume either a C99 implementation or a C11 implementation that does not define <code>__STDC_NO_VLA__</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

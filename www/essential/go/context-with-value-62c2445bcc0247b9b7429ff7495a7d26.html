@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>In HTTP server each request is served by a handler function running in its own goroutine.</p><p>We often want to have common per-requested information available in a convenient way.</p><p>For example, at the beginning of handling a request we might check a cookie to see if a request is made by a logged in user and we want to have user info available everywhere.</p><p>We can do that by using context with value:</p>
+      
+<p>In HTTP server each request is served by a handler function running in its own goroutine.
+</p>
+<p>We often want to have common per-requested information available in a convenient way.
+</p>
+<p>For example, at the beginning of handling a request we might check a cookie to see if a request is made by a logged in user and we want to have user info available everywhere.
+</p>
+<p>We can do that by using context with value:
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="kd">type</span> <span class="nx">User</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -181,6 +190,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">User: &amp;main.User{Name:&#34;John&#34;, IsLoggedIn:false}
@@ -189,7 +199,29 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For clarity of the example we only show creating a context with value and retrieving value from context.</p><p>Because context value is an <code>interface{}</code>, it’s a good practice to write type-safe wrapper functions for setting and retrieving values.</p><p>The key used to set / get value is also an <code>interface{}</code>. Because context can be passed to functions in code you didn’t write, you want to ensure that the value used for key is unique.</p><p>That’s why we defined a non-exported type <code>userKeyType</code> and used a non-exported global variable <code>userKey</code> of that type.</p><p>This ensures that code outside of our package can’t possibly use this key.</p><p>This wouldn’t be true if the key was e.g. a string (or any type available to multiple packages).</p><p>We wrote two functions for retrieving the value.</p><p>One panics when value is not set, another one returns <code>nil</code>.</p><p>Which one to use is a policy decision for your code.</p><p>Sometimes missing a variable on context means a bug in your program and you should use <code>mustGetUserFromContext</code> variant which panics in that case.</p><p>Sometimes missing a variable is expected and you can use <code>getUserFromContext</code> variant.</p>
+</div>
+<p>For clarity of the example we only show creating a context with value and retrieving value from context.
+</p>
+<p>Because context value is an <code>interface{}</code>, it’s a good practice to write type-safe wrapper functions for setting and retrieving values.
+</p>
+<p>The key used to set / get value is also an <code>interface{}</code>. Because context can be passed to functions in code you didn’t write, you want to ensure that the value used for key is unique.
+</p>
+<p>That’s why we defined a non-exported type <code>userKeyType</code> and used a non-exported global variable <code>userKey</code> of that type.
+</p>
+<p>This ensures that code outside of our package can’t possibly use this key.
+</p>
+<p>This wouldn’t be true if the key was e.g. a string (or any type available to multiple packages).
+</p>
+<p>We wrote two functions for retrieving the value.
+</p>
+<p>One panics when value is not set, another one returns <code>nil</code>.
+</p>
+<p>Which one to use is a policy decision for your code.
+</p>
+<p>Sometimes missing a variable on context means a bug in your program and you should use <code>mustGetUserFromContext</code> variant which panics in that case.
+</p>
+<p>Sometimes missing a variable is expected and you can use <code>getUserFromContext</code> variant.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

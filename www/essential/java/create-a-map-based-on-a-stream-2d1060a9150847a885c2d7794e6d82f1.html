@@ -127,7 +127,10 @@
 </div>
 
 
-      <p><strong>Simple case without duplicate keys</strong></p>
+      
+<p><strong>Simple case without duplicate keys</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Stream&lt;String&gt; characters = Stream.of(&#34;A&#34;, &#34;B&#34;, &#34;C&#34;);
@@ -139,7 +142,16 @@ Map&lt;Integer, String&gt; map = characters
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To make things more declarative, we can use static method in <code>Function</code> interface - <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html#identity--"><code>Function.identity()</code></a>. We can replace this lambda <code>element -&gt; element</code> with <code>Function.identity()</code>.</p><p><strong>Case where there might be duplicate keys</strong></p><p>The <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html#toMap-java.util.function.Function-java.util.function.Function-java.util.function.BinaryOperator-">javadoc</a> for <code>Collectors.toMap</code> states:</p><blockquote id="12dc7b9b-897a-480a-bdc6-e01416300f54" class="">If the mapped keys contains duplicates (according to Object.equals(Object)), an IllegalStateException is thrown when the collection operation is performed. If the mapped keys may have duplicates, use toMap(Function, Function, BinaryOperator) instead.</blockquote>
+</div>
+<p>To make things more declarative, we can use static method in <code>Function</code> interface - <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html#identity--"><code>Function.identity()</code></a>. We can replace this lambda <code>element -&gt; element</code> with <code>Function.identity()</code>.
+</p>
+<p><strong>Case where there might be duplicate keys</strong>
+</p>
+<p>The <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html#toMap-java.util.function.Function-java.util.function.Function-java.util.function.BinaryOperator-">javadoc</a> for <code>Collectors.toMap</code> states:
+</p>
+<blockquote id="12dc7b9b-897a-480a-bdc6-e01416300f54" class="">If the mapped keys contains duplicates (according to Object.equals(Object)), an IllegalStateException is thrown when the collection operation is performed. If the mapped keys may have duplicates, use toMap(Function, Function, BinaryOperator) instead.
+</blockquote>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Stream&lt;String&gt; characters = Stream.of(&#34;A&#34;, &#34;B&#34;, &#34;B&#34;, &#34;C&#34;);
@@ -155,7 +167,22 @@ Map&lt;Integer, String&gt; map = characters
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>BinaryOperator</code> passed to <code>Collectors.toMap(...)</code> generates the value to be stored in the case of a collision. It can:</p><ul id="872d9071-c499-4e8b-9cec-650f70e8ff55" class="bulleted-list"><li>return the old value, so that the first value in the stream takes precedence,</li><li>return the new value, so that the last value in the stream takes precedence, or</li><li>combine the old and new values</li></ul><p><strong>Grouping by value</strong></p><p>You can use <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html#groupingBy-java.util.function.Function-java.util.stream.Collector-"><code>Collectors.groupingBy</code></a> when you need to perform the equivalent of a database cascaded “group by” operation. To illustrate, the following creates a map in which people’s names are mapped to surnames:</p>
+</div>
+<p>The <code>BinaryOperator</code> passed to <code>Collectors.toMap(...)</code> generates the value to be stored in the case of a collision. It can:
+</p>
+  <ul id="872d9071-c499-4e8b-9cec-650f70e8ff55" class="bulleted-list">
+    <li>return the old value, so that the first value in the stream takes precedence,
+    </li>
+    <li>return the new value, so that the last value in the stream takes precedence, or
+    </li>
+    <li>combine the old and new values
+    </li>
+  </ul>
+<p><strong>Grouping by value</strong>
+</p>
+<p>You can use <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html#groupingBy-java.util.function.Function-java.util.stream.Collector-"><code>Collectors.groupingBy</code></a> when you need to perform the equivalent of a database cascaded “group by” operation. To illustrate, the following creates a map in which people’s names are mapped to surnames:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">List&lt;Person&gt; people = Arrays.asList(
@@ -180,7 +207,9 @@ Map&lt;String, List&lt;String&gt;&gt; map = people.stream()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://ideone.com/2Ar9IA">Live on Ideone</a></p>
+</div>
+<p><a href="https://ideone.com/2Ar9IA">Live on Ideone</a>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

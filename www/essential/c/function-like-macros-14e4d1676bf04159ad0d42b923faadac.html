@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Function-like macros are similar to <code>inline</code> functions, these are useful in some cases, such as temporary debug log:</p>
+      
+<p>Function-like macros are similar to <code>inline</code> functions, these are useful in some cases, such as temporary debug log:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#ifdef DEBUG
@@ -154,6 +157,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -170,7 +174,14 @@ int main(int argc, char* argv[])
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here in both cases (with <code>DEBUG</code> or not) the call behaves the same way as a function with <code>void</code> return type. This ensures that the <code>if/else</code> conditionals are interpreted as expected.</p><p>In the <code>DEBUG</code> case this is implemented through a <code>do { ... } while(0)</code> construct. In the other case, <code>(void)0</code> is a statement with no side effect that is just ignored.</p><p>An alternative for the latter would be</p>
+</div>
+<p>Here in both cases (with <code>DEBUG</code> or not) the call behaves the same way as a function with <code>void</code> return type. This ensures that the <code>if/else</code> conditionals are interpreted as expected.
+</p>
+<p>In the <code>DEBUG</code> case this is implemented through a <code>do { ... } while(0)</code> construct. In the other case, <code>(void)0</code> is a statement with no side effect that is just ignored.
+</p>
+<p>An alternative for the latter would be
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define LOG(LINE) do { /* empty */ } while (0)</pre>
@@ -178,7 +189,12 @@ int main(int argc, char* argv[])
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>such that it is in all cases syntactically equivalent to the first.</p><p>If you use GCC, you can also implement a function-like macro that returns result using a non-standard GNU extension — <a href="https://gcc.gnu.org/onlinedocs/gcc-7.1.0/gcc/Statement-Exprs.html#Statement-Exprs">statement expressions</a>. For example:</p>
+</div>
+<p>such that it is in all cases syntactically equivalent to the first.
+</p>
+<p>If you use GCC, you can also implement a function-like macro that returns result using a non-standard GNU extension — <a href="https://gcc.gnu.org/onlinedocs/gcc-7.1.0/gcc/Statement-Exprs.html#Statement-Exprs">statement expressions</a>. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;

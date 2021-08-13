@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Lets examine the following two examples for reading a file&#x27;s contents:</p><p>The first one, which uses an async method for reading a file, and providing a callback function which is called once the file is fully read into the memory:</p>
+      
+<p>Lets examine the following two examples for reading a file&#x27;s contents:
+</p>
+<p>The first one, which uses an async method for reading a file, and providing a callback function which is called once the file is fully read into the memory:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">fs.readFile(`${__dirname}/utils.js`, (err, data) =&gt; {
@@ -141,7 +146,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And the second, which uses <code>streams</code> in order to read the file&#x27;s content, piece by piece:</p>
+</div>
+<p>And the second, which uses <code>streams</code> in order to read the file&#x27;s content, piece by piece:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var fileStream = fs.createReadStream(`${__dirname}/file`);
@@ -161,7 +169,37 @@ fileStream.on(&#39;error&#39;, err =&gt; {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It&#x27;s worth mentioning that both examples do the <strong>exact same thing</strong>. What&#x27;s the difference then?</p><ul id="98cd7f54-1bc9-4a49-82ff-90743ea7931c" class="bulleted-list"><li>The first one is shorter and looks more elegant</li><li>The second lets you do some processing on the file <strong>while</strong> it is being read (!)</li></ul><p>When the files you deal with are small then there is no real effect when using <code>streams</code>, but what happens when the file is big? (so big that it takes 10 seconds to read it into memory)</p><p>Without <code>streams</code> you&#x27;ll be waiting, doing absolutely nothing (unless your process does other stuff), until the 10 seconds pass and the file is <strong>fully read</strong>, and only then you can start processing the file.</p><p>With <code>streams</code>, you get the file&#x27;s contents piece by piece, <strong>right when they&#x27;re available</strong> - and that lets you process the file <strong>while</strong> it is being read.</p><hr id="636f2e03-765e-4e22-9f3b-53001bcab2f0"/><p>The above example does not illustrate how <code>streams</code> can be utilized for work that cannot be done when going the callback fashion, so lets look at another example:</p><p>I would like to download a <code>gzip</code> file, unzip it and save its content to the disk. Given the file&#x27;s <code>url</code> this is what&#x27;s need to be done:</p><ul id="70b2f8e5-3444-445d-994d-ad2a874dc999" class="bulleted-list"><li>Download the file</li><li>Unzip the file</li><li>Save it to disk</li></ul><p>Here&#x27;s a [small file][1], which is stored in my <code>S3</code> storage. The following code does the above in the callback fashion.</p>
+</div>
+<p>It&#x27;s worth mentioning that both examples do the <strong>exact same thing</strong>. What&#x27;s the difference then?
+</p>
+  <ul id="98cd7f54-1bc9-4a49-82ff-90743ea7931c" class="bulleted-list">
+    <li>The first one is shorter and looks more elegant
+    </li>
+    <li>The second lets you do some processing on the file <strong>while</strong> it is being read (!)
+    </li>
+  </ul>
+<p>When the files you deal with are small then there is no real effect when using <code>streams</code>, but what happens when the file is big? (so big that it takes 10 seconds to read it into memory)
+</p>
+<p>Without <code>streams</code> you&#x27;ll be waiting, doing absolutely nothing (unless your process does other stuff), until the 10 seconds pass and the file is <strong>fully read</strong>, and only then you can start processing the file.
+</p>
+<p>With <code>streams</code>, you get the file&#x27;s contents piece by piece, <strong>right when they&#x27;re available</strong> - and that lets you process the file <strong>while</strong> it is being read.
+</p>
+<hr id="636f2e03-765e-4e22-9f3b-53001bcab2f0"/>
+<p>The above example does not illustrate how <code>streams</code> can be utilized for work that cannot be done when going the callback fashion, so lets look at another example:
+</p>
+<p>I would like to download a <code>gzip</code> file, unzip it and save its content to the disk. Given the file&#x27;s <code>url</code> this is what&#x27;s need to be done:
+</p>
+  <ul id="70b2f8e5-3444-445d-994d-ad2a874dc999" class="bulleted-list">
+    <li>Download the file
+    </li>
+    <li>Unzip the file
+    </li>
+    <li>Save it to disk
+    </li>
+  </ul>
+<p>Here&#x27;s a [small file][1], which is stored in my <code>S3</code> storage. The following code does the above in the callback fashion.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var startTime = Date.now()
@@ -186,7 +224,10 @@ s3.getObject({Bucket: &#39;some-bucket&#39;, Key: &#39;tweets.gz&#39;}, (err, da
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is how it looks using <code>streams</code>:</p>
+</div>
+<p>This is how it looks using <code>streams</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">s3.getObject({Bucket: &#39;some-bucket&#39;, Key: &#39;tweets.gz&#39;}).createReadStream()
@@ -198,7 +239,15 @@ s3.getObject({Bucket: &#39;some-bucket&#39;, Key: &#39;tweets.gz&#39;}, (err, da
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Yep, it&#x27;s not faster when dealing with small files - the tested file weights <code>80KB</code>. Testing this on a bigger file, <code>71MB</code> gzipped (<code>382MB</code> unzipped), shows that the <code>streams</code> version is much faster</p><ul id="7badb624-ff4a-4656-a669-629d51d5d174" class="bulleted-list"><li>It took 20925 milliseconds to download <code>71MB</code>, unzip it and then write <code>382MB</code> to disk - <strong>using the callback fashion</strong>.</li><li>In comparison, it took 13434 milliseconds to do the same when using the <code>streams</code> version (35% faster, for a not-so-big file)</li></ul>
+</div>
+<p>Yep, it&#x27;s not faster when dealing with small files - the tested file weights <code>80KB</code>. Testing this on a bigger file, <code>71MB</code> gzipped (<code>382MB</code> unzipped), shows that the <code>streams</code> version is much faster
+</p>
+  <ul id="7badb624-ff4a-4656-a669-629d51d5d174" class="bulleted-list">
+    <li>It took 20925 milliseconds to download <code>71MB</code>, unzip it and then write <code>382MB</code> to disk - <strong>using the callback fashion</strong>.
+    </li>
+    <li>In comparison, it took 13434 milliseconds to do the same when using the <code>streams</code> version (35% faster, for a not-so-big file)
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,21 @@
 </div>
 
 
-      <ol id="25e3c222-2ffc-492d-80a3-ce9e1252695c" class="numbered-list" start="1"><li>Save aps.cer to a folder</li><li>Open “Keychain access” and export the key that is under that certificate to a .p12 file (call it key.p12). To do that right click on it and choose Export. Save it to the same folder as step 1. On export you will be prompted for a password. Make something up and memorize it.</li></ol><img class="img" src="/img/f2b1c7c855b053aa4f59527d7ece6afbca13307c.png"><ol id="c410691f-4d53-48ac-a4a0-12ce6cc4735e" class="numbered-list" start="1"><li>cd to that folder in Terminal and execute the following commands:</li><li>Convert .cer to a .pem certificate</li></ol>
+      
+  <ol id="25e3c222-2ffc-492d-80a3-ce9e1252695c" class="numbered-list" start="1">
+    <li>Save aps.cer to a folder
+    </li>
+    <li>Open “Keychain access” and export the key that is under that certificate to a .p12 file (call it key.p12). To do that right click on it and choose Export. Save it to the same folder as step 1. On export you will be prompted for a password. Make something up and memorize it.
+    </li>
+  </ol>
+<img class="img" src="/img/f2b1c7c855b053aa4f59527d7ece6afbca13307c.png">
+  <ol id="c410691f-4d53-48ac-a4a0-12ce6cc4735e" class="numbered-list" start="1">
+    <li>cd to that folder in Terminal and execute the following commands:
+    </li>
+    <li>Convert .cer to a .pem certificate
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">openssl x509 -in aps.cer -inform der -out aps.pem</pre>
@@ -135,7 +149,23 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="d2627a02-bd0e-43fc-94c1-b88b4dcb8baa" class="numbered-list" start="1"><li>Convert your key to .pem format. To open the key, enter the password you exported it with from the keychain, in step 2. Then, enter another password that will protect the exported file. You will be prompted to enter it twice for confirmation.</li></ol><p>openssl pkcs12 -nocerts -out key.pem -in key.p12</p><ol id="336eb5b1-c1d3-4f5f-a3ef-ee7deb5d6767" class="numbered-list" start="1"><li>Merge the files into one final file</li></ol><p>cat key.pem aps.pem &gt; final_cert.pem</p><ol id="b5269d29-4a96-4e9b-af9b-c98a329ad28e" class="numbered-list" start="1"><li>The final_cert.pem is the final result. Pass it on to server developers with the password from step 5, so that they will be able to use the protected certificate.</li></ol>
+</div>
+  <ol id="d2627a02-bd0e-43fc-94c1-b88b4dcb8baa" class="numbered-list" start="1">
+    <li>Convert your key to .pem format. To open the key, enter the password you exported it with from the keychain, in step 2. Then, enter another password that will protect the exported file. You will be prompted to enter it twice for confirmation.
+    </li>
+  </ol>
+<p>openssl pkcs12 -nocerts -out key.pem -in key.p12
+</p>
+  <ol id="336eb5b1-c1d3-4f5f-a3ef-ee7deb5d6767" class="numbered-list" start="1">
+    <li>Merge the files into one final file
+    </li>
+  </ol>
+<p>cat key.pem aps.pem &gt; final_cert.pem
+</p>
+  <ol id="b5269d29-4a96-4e9b-af9b-c98a329ad28e" class="numbered-list" start="1">
+    <li>The final_cert.pem is the final result. Pass it on to server developers with the password from step 5, so that they will be able to use the protected certificate.
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

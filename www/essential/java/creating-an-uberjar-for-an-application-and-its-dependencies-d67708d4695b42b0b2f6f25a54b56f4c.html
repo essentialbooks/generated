@@ -127,7 +127,21 @@
 </div>
 
 
-      <p>A common requirement for a Java application is that can be deployed by copying a single file. For simple applications that depend only on the standard Java SE class libraries, this requirement is satisfied by creating a JAR file containing all of the (compiled) application classes.</p><p>Things are not so straightforward if the application depends on third-party libraries. If you simply put dependency JAR files inside an application JAR, the standard Java class loader will not be able to find the library classes, and your application will not start. Instead, you need to create a single JAR file that contains the application classes and associated resources together with the dependency classes and resources. These need to be organized as a single namespace for the classloader to search.</p><p>The such a JAR file is often referred to as an UberJAR.</p><h1 id="0ca77a83-2d58-44b6-9fd6-1b82fcf37246" class="">Creating an UberJAR using the &quot;jar&quot; command<a class="header-anchor" href="#0ca77a83-2d58-44b6-9fd6-1b82fcf37246" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>The procedure for creating an UberJAR is straight-forward. (I will use Linux commands for simplicity. The commands should be identical for Mac OS, and similar for Windows.)</p><ol id="8a96d501-41ab-4f3f-b8c1-dde337710eba" class="numbered-list" start="1"><li>Create a temporary directory, and change directory to it.
+      
+<p>A common requirement for a Java application is that can be deployed by copying a single file. For simple applications that depend only on the standard Java SE class libraries, this requirement is satisfied by creating a JAR file containing all of the (compiled) application classes.
+</p>
+<p>Things are not so straightforward if the application depends on third-party libraries. If you simply put dependency JAR files inside an application JAR, the standard Java class loader will not be able to find the library classes, and your application will not start. Instead, you need to create a single JAR file that contains the application classes and associated resources together with the dependency classes and resources. These need to be organized as a single namespace for the classloader to search.
+</p>
+<p>The such a JAR file is often referred to as an UberJAR.
+</p>
+  <h1 id="0ca77a83-2d58-44b6-9fd6-1b82fcf37246" class="">Creating an UberJAR using the &quot;jar&quot; command
+  <a class="header-anchor" href="#0ca77a83-2d58-44b6-9fd6-1b82fcf37246" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>The procedure for creating an UberJAR is straight-forward. (I will use Linux commands for simplicity. The commands should be identical for Mac OS, and similar for Windows.)
+</p>
+  <ol id="8a96d501-41ab-4f3f-b8c1-dde337710eba" class="numbered-list" start="1">
+    <li>Create a temporary directory, and change directory to it.
+      
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ mkdir tempDir
@@ -136,7 +150,10 @@ $ cd tempDir</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div></li><li>For each dependent JAR file, <em>in the reverse order</em> that they need to appear on the application&#x27;s classpath, used the <code>jar</code> command to unpack the JAR into the temporary directory.
+</div>
+    </li>
+    <li>For each dependent JAR file, <em>in the reverse order</em> that they need to appear on the application&#x27;s classpath, used the <code>jar</code> command to unpack the JAR into the temporary directory.
+      
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ jar -xf &lt;path/to/file.jar&gt;</pre>
@@ -144,7 +161,12 @@ $ cd tempDir</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Doing this for multiple JAR files will <em>overlay</em> contents of the JARs.</p></li><li>Copy the application classes from the build tree into the temporary directory
+</div>
+      <p>Doing this for multiple JAR files will <em>overlay</em> contents of the JARs.
+      </p>
+    </li>
+    <li>Copy the application classes from the build tree into the temporary directory
+      
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ cp -r path/to/classes .</pre>
@@ -152,7 +174,10 @@ $ cd tempDir</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div></li><li>Create the UberJAR from the contents of the temporary directory:
+</div>
+    </li>
+    <li>Create the UberJAR from the contents of the temporary directory:
+      
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ jar -cf ../myApplication.jar</pre>
@@ -160,7 +185,42 @@ $ cd tempDir</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you are creating an executable JAR file, include an appropriate MANIFEST.MF as described here.</p></li></ol><h1 id="c23ca62b-17ba-4670-928f-00ced444438e" class="">Creating an UberJAR using Maven<a class="header-anchor" href="#c23ca62b-17ba-4670-928f-00ced444438e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>If your project is built using Maven, you can get it to create an UberJAR using either the &quot;maven-assembly&quot; or &quot;maven-shade&quot; plugins. See the <a href="http://stackoverflow.com/documentation/maven/2308/maven-assembly-plugin#t=201701150039251624937">Maven Assembly</a> topic (in the <a href="http://stackoverflow.com/documentation/maven/topics">Maven</a> documentation) for details.</p><h1 id="03e23ef7-d98b-4bbd-be64-fe015b28c7cc" class="">The advantages and drawbacks of UberJARs<a class="header-anchor" href="#03e23ef7-d98b-4bbd-be64-fe015b28c7cc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Some of advantages of UberJARs are self-evident:</p><ul id="d0cee57e-8cb7-4df6-9a7c-1153c83ecf74" class="bulleted-list"><li>An UberJAR is easy to distribute.</li><li>You cannot break the library dependencies for an UberJAR, since the libraries are self-contained.</li></ul><p>In addition, if you use an appropriate tooling to create the UberJAR, you will have the option of excluding library classes that are not used from the JAR file. However, that this is typically done by static analysis of the classes. If your application uses reflection, annotation processing and similar techniques, you need to be careful that classes are not excluded incorrectly.</p><p>UberJARs also have some disadvantages:</p><ul id="7e116ec2-6211-4916-acf0-136b291c344a" class="bulleted-list"><li>If you have lots of UberJARs with the same dependencies, then each one will contain a copy of the dependencies.</li><li>Some open source libraries have licenses which <em>may</em> preclude  their use in an UberJAR.<p>1</p></li></ul><hr id="443743b9-60fe-42f6-910f-2cbccc80a8b4"/><p>1 - Some open source library licenses allow you to use the library only of the end-user is able to replace one version of the library with another. UberJARs can make replacement of version dependencies difficult.</p>
+</div>
+      <p>If you are creating an executable JAR file, include an appropriate MANIFEST.MF as described here.
+      </p>
+    </li>
+  </ol>
+  <h1 id="c23ca62b-17ba-4670-928f-00ced444438e" class="">Creating an UberJAR using Maven
+  <a class="header-anchor" href="#c23ca62b-17ba-4670-928f-00ced444438e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>If your project is built using Maven, you can get it to create an UberJAR using either the &quot;maven-assembly&quot; or &quot;maven-shade&quot; plugins. See the <a href="http://stackoverflow.com/documentation/maven/2308/maven-assembly-plugin#t=201701150039251624937">Maven Assembly</a> topic (in the <a href="http://stackoverflow.com/documentation/maven/topics">Maven</a> documentation) for details.
+</p>
+  <h1 id="03e23ef7-d98b-4bbd-be64-fe015b28c7cc" class="">The advantages and drawbacks of UberJARs
+  <a class="header-anchor" href="#03e23ef7-d98b-4bbd-be64-fe015b28c7cc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Some of advantages of UberJARs are self-evident:
+</p>
+  <ul id="d0cee57e-8cb7-4df6-9a7c-1153c83ecf74" class="bulleted-list">
+    <li>An UberJAR is easy to distribute.
+    </li>
+    <li>You cannot break the library dependencies for an UberJAR, since the libraries are self-contained.
+    </li>
+  </ul>
+<p>In addition, if you use an appropriate tooling to create the UberJAR, you will have the option of excluding library classes that are not used from the JAR file. However, that this is typically done by static analysis of the classes. If your application uses reflection, annotation processing and similar techniques, you need to be careful that classes are not excluded incorrectly.
+</p>
+<p>UberJARs also have some disadvantages:
+</p>
+  <ul id="7e116ec2-6211-4916-acf0-136b291c344a" class="bulleted-list">
+    <li>If you have lots of UberJARs with the same dependencies, then each one will contain a copy of the dependencies.
+    </li>
+    <li>Some open source libraries have licenses which <em>may</em> preclude  their use in an UberJAR.
+    <p>1
+    </p>
+    </li>
+  </ul>
+<hr id="443743b9-60fe-42f6-910f-2cbccc80a8b4"/>
+<p>1 - Some open source library licenses allow you to use the library only of the end-user is able to replace one version of the library with another. UberJARs can make replacement of version dependencies difficult.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

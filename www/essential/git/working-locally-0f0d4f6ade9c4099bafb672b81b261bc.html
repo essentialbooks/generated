@@ -127,7 +127,33 @@
 </div>
 
 
-      <p>Just use your local git repository as a normal git repo, with the normal git commands:</p><ul id="eb0bfae5-3649-4dc3-be27-1d9b01b06b42" class="bulleted-list"><li><code>git add FILE</code> and <code>git checkout -- FILE</code> To stage/unstage a file</li><li><code>git commit</code> To save your changes. Those commits will be local and will not be “pushed” to the SVN repo, just like in a normal git repository</li><li><code>git stash</code> and <code>git stash pop</code> Allows using stashes</li><li><code>git reset HEAD --hard</code> Revert all your local changes</li><li><code>git log</code> Access all the history in the repository</li><li><code>git rebase -i</code> so you can rewrite your local history freely</li><li><code>git branch</code> and <code>git checkout</code> to create local branches</li></ul><p>As the git-svn documentation states “Subversion is a system that is far less sophisticated than Git” so you can’t use all the full power of git without messing up the history in the Subversion server. Fortunately the rules are very simple: <strong>Keep the history linear</strong></p><p>This means you can make almost any git operation: creating branches, removing/reordering/squashing commits, move the history around, delete commits, etc. Anything <em>but merges</em>. If you need to reintegrate the history of local branches use <code>git rebase</code> instead.</p><p>When you perform a merge, a merge commit is created. The particular thing about merge commits is that they have two parents, and that makes the history non-linear. Non-linear history will confuse SVN in the case you “push” a merge commit to the repository.</p><p>However do not worry: <strong>you won’t break anything if you “push” a git merge commit to SVN</strong>. If you do so, when the git merge commit is sent to the svn server it will contain all the changes of all commits for that merge, so you will lose the history of those commits, but not the changes in your code.</p>
+      
+<p>Just use your local git repository as a normal git repo, with the normal git commands:
+</p>
+  <ul id="eb0bfae5-3649-4dc3-be27-1d9b01b06b42" class="bulleted-list">
+    <li><code>git add FILE</code> and <code>git checkout -- FILE</code> To stage/unstage a file
+    </li>
+    <li><code>git commit</code> To save your changes. Those commits will be local and will not be “pushed” to the SVN repo, just like in a normal git repository
+    </li>
+    <li><code>git stash</code> and <code>git stash pop</code> Allows using stashes
+    </li>
+    <li><code>git reset HEAD --hard</code> Revert all your local changes
+    </li>
+    <li><code>git log</code> Access all the history in the repository
+    </li>
+    <li><code>git rebase -i</code> so you can rewrite your local history freely
+    </li>
+    <li><code>git branch</code> and <code>git checkout</code> to create local branches
+    </li>
+  </ul>
+<p>As the git-svn documentation states “Subversion is a system that is far less sophisticated than Git” so you can’t use all the full power of git without messing up the history in the Subversion server. Fortunately the rules are very simple: <strong>Keep the history linear</strong>
+</p>
+<p>This means you can make almost any git operation: creating branches, removing/reordering/squashing commits, move the history around, delete commits, etc. Anything <em>but merges</em>. If you need to reintegrate the history of local branches use <code>git rebase</code> instead.
+</p>
+<p>When you perform a merge, a merge commit is created. The particular thing about merge commits is that they have two parents, and that makes the history non-linear. Non-linear history will confuse SVN in the case you “push” a merge commit to the repository.
+</p>
+<p>However do not worry: <strong>you won’t break anything if you “push” a git merge commit to SVN</strong>. If you do so, when the git merge commit is sent to the svn server it will contain all the changes of all commits for that merge, so you will lose the history of those commits, but not the changes in your code.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

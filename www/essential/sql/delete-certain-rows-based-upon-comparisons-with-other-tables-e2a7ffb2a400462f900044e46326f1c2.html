@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>It is possible to <code>DELETE</code> data from a table if it matches (or mismatches) certain data in other tables.</p><p>Let’s assume we want to <code>DELETE</code>data from Source once its loaded into Target.</p>
+      
+<p>It is possible to <code>DELETE</code> data from a table if it matches (or mismatches) certain data in other tables.
+</p>
+<p>Let’s assume we want to <code>DELETE</code>data from Source once its loaded into Target.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">DELETE FROM Source
@@ -138,7 +143,14 @@ WHERE  EXISTS ( SELECT 1 -- specific value in SELECT doesn&#39;t matter
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Most common RDBMS implementations (e.g. MySQL, Oracle, PostgresSQL, Teradata) allow tables to be joined during <code>DELETE</code> allowing more complex comparison in a compact syntax.</p><p>Adding complexity to original scenario, let’s assume Aggregate is built from Target once a day and does not contain the same ID but contains the same date. Let us also assume that we want to delete data from Source <em>only</em> after the aggregate is populated for the day.</p><p>On MySQL, Oracle and Teradata this can be done using:</p>
+</div>
+<p>Most common RDBMS implementations (e.g. MySQL, Oracle, PostgresSQL, Teradata) allow tables to be joined during <code>DELETE</code> allowing more complex comparison in a compact syntax.
+</p>
+<p>Adding complexity to original scenario, let’s assume Aggregate is built from Target once a day and does not contain the same ID but contains the same date. Let us also assume that we want to delete data from Source <em>only</em> after the aggregate is populated for the day.
+</p>
+<p>On MySQL, Oracle and Teradata this can be done using:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">DELETE FROM Source
@@ -148,7 +160,10 @@ WHERE  Source.ID = TargetSchema.Target.ID
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In PostgreSQL use:</p>
+</div>
+<p>In PostgreSQL use:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">DELETE FROM Source
@@ -159,7 +174,12 @@ WHERE  Source.ID = TargetSchema.Target.ID
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This essentially results in INNER JOINs between Source, Target and Aggregate. The deletion is performed on Source when the same IDs exist in Target AND date present in Target for those IDs also exists in Aggregate.</p><p>Same query may also be written (on MySQL, Oracle, Teradata) as:</p>
+</div>
+<p>This essentially results in INNER JOINs between Source, Target and Aggregate. The deletion is performed on Source when the same IDs exist in Target AND date present in Target for those IDs also exists in Aggregate.
+</p>
+<p>Same query may also be written (on MySQL, Oracle, Teradata) as:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">DELETE Source
@@ -170,7 +190,12 @@ WHERE  Source.ID = TargetSchema.Target.ID
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Explicit joins may be mentioned in <code>Delete</code> statements on some RDBMS implementations (e.g. Oracle, MySQL) but not supported on all platforms (e.g. Teradata does not support them)</p><p>Comparisons can be designed to check mismatch scenarios instead of matching ones with all syntax styles (observe <code>NOT EXISTS</code> below)</p>
+</div>
+<p>Explicit joins may be mentioned in <code>Delete</code> statements on some RDBMS implementations (e.g. Oracle, MySQL) but not supported on all platforms (e.g. Teradata does not support them)
+</p>
+<p>Comparisons can be designed to check mismatch scenarios instead of matching ones with all syntax styles (observe <code>NOT EXISTS</code> below)
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">DELETE FROM Source

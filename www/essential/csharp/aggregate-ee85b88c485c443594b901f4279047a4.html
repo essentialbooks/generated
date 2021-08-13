@@ -127,7 +127,10 @@
 </div>
 
 
-      <p><code>Aggregate</code> Applies an accumulator function over a sequence.</p>
+      
+<p><code>Aggregate</code> Applies an accumulator function over a sequence.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">int</span><span class="p">[]</span> <span class="n">intList</span> <span class="p">=</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">9</span><span class="p">,</span> <span class="m">10</span> <span class="p">};</span>
@@ -138,7 +141,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="5026af4a-f139-4796-8b19-1a67be02a348" class="bulleted-list"><li>At the first step <code>prevSum = 1</code></li><li>At the second <code>prevSum = prevSum(at the first step) + 2</code></li><li>At the i-th step <code>prevSum = prevSum(at the (i-1) step) + i-th element of the array</code></li></ul>
+</div>
+  <ul id="5026af4a-f139-4796-8b19-1a67be02a348" class="bulleted-list">
+    <li>At the first step <code>prevSum = 1</code>
+    </li>
+    <li>At the second <code>prevSum = prevSum(at the first step) + 2</code>
+    </li>
+    <li>At the i-th step <code>prevSum = prevSum(at the (i-1) step) + i-th element of the array</code>
+    </li>
+  </ul>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">string</span><span class="p">[]</span> <span class="n">stringList</span> <span class="p">=</span> <span class="p">{</span> <span class="s">&#34;Hello&#34;</span><span class="p">,</span> <span class="s">&#34;World&#34;</span><span class="p">,</span> <span class="s">&#34;!&#34;</span> <span class="p">};</span>
@@ -149,7 +161,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A second overload of <code>Aggregate</code> also receives an <code>seed</code> parameter which is the initial accumulator value. This can be used to calculate multiple conditions on a collection without iterating it more than once.</p>
+</div>
+<p>A second overload of <code>Aggregate</code> also receives an <code>seed</code> parameter which is the initial accumulator value. This can be used to calculate multiple conditions on a collection without iterating it more than once.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">items</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">9</span><span class="p">,</span> <span class="m">10</span><span class="p">,</span> <span class="m">11</span><span class="p">,</span> <span class="m">12</span> <span class="p">};</span>
@@ -158,7 +173,20 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For the collection of <code>items</code> we want to calculate</p><ol id="19cb659e-0e38-4bbe-ab53-375a8414a25b" class="numbered-list" start="1"><li>The total <code>.Count</code></li><li>The amount of even numbers</li><li>Collect each forth item</li></ol><p>Using <code>Aggregate</code> it can be done like this:</p>
+</div>
+<p>For the collection of <code>items</code> we want to calculate
+</p>
+  <ol id="19cb659e-0e38-4bbe-ab53-375a8414a25b" class="numbered-list" start="1">
+    <li>The total <code>.Count</code>
+    </li>
+    <li>The amount of even numbers
+    </li>
+    <li>Collect each forth item
+    </li>
+  </ol>
+<p>Using <code>Aggregate</code> it can be done like this:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">items</span><span class="p">.</span><span class="n">Aggregate</span><span class="p">(</span><span class="k">new</span> <span class="p">{</span> <span class="n">Total</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">Even</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">FourthItems</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;()</span> <span class="p">},</span>
@@ -179,7 +207,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>Note that using an anonymous type as the seed one has to instantiate a new object each item because the properties are read only. Using a custom class one can simply assign the information and no </em><code><em>new</em></code><em> is needed (only when giving the initial </em><code><em>seed</em></code><em> parameter</em></p>
+</div>
+<p><em>Note that using an anonymous type as the seed one has to instantiate a new object each item because the properties are read only. Using a custom class one can simply assign the information and no </em><code><em>new</em></code><em> is needed (only when giving the initial </em><code><em>seed</em></code><em> parameter</em>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

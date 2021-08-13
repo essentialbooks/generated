@@ -127,7 +127,15 @@
 </div>
 
 
-      <p>The simple answer, when asking how to use threads in Python is: “Don’t. Use processes, instead.” The multiprocessing module lets you create processes with similar syntax to creating threads, but I prefer using their convenient Pool object.</p><p>Using <a href="http://www.dabeaz.com/GIL/gilvis/measure2.py">the code that David Beazley first used to show the dangers of threads against the GIL</a>, we’ll rewrite it using <a href="https://docs.python.org/3/library/multiprocessing.html#using-a-pool-of-workers">multiprocessing.Pool</a>:</p><h1 id="7c761b79-522b-4c55-a74a-511d52368ccd" class="">David Beazley’s code that showed GIL threading problems<a class="header-anchor" href="#7c761b79-522b-4c55-a74a-511d52368ccd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1>
+      
+<p>The simple answer, when asking how to use threads in Python is: “Don’t. Use processes, instead.” The multiprocessing module lets you create processes with similar syntax to creating threads, but I prefer using their convenient Pool object.
+</p>
+<p>Using <a href="http://www.dabeaz.com/GIL/gilvis/measure2.py">the code that David Beazley first used to show the dangers of threads against the GIL</a>, we’ll rewrite it using <a href="https://docs.python.org/3/library/multiprocessing.html#using-a-pool-of-workers">multiprocessing.Pool</a>:
+</p>
+  <h1 id="7c761b79-522b-4c55-a74a-511d52368ccd" class="">David Beazley’s code that showed GIL threading problems
+  <a class="header-anchor" href="#7c761b79-522b-4c55-a74a-511d52368ccd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">from threading import Thread
@@ -149,14 +157,17 @@ print end-start</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="6968c54a-7cd6-440a-ae6d-cb23acddc5dc" class="">Re-written using multiprocessing.Pool:<code>import multiprocessing
+</div>
+  <h1 id="6968c54a-7cd6-440a-ae6d-cb23acddc5dc" class="">Re-written using multiprocessing.Pool:<code>import multiprocessing
 import time
 def countdown(n): while n &gt; 0: n -= 1
 COUNT = 10000000
 start = time.time()
 with multiprocessing.Pool as pool: pool.map(countdown, [COUNT/2, COUNT/2]) pool.close() pool.join()
 end = time.time()
-print(end-start)</code>Instead of creating threads, this creates new processes. Since each process is its own interpreter, there are no GIL collisions. multiprocessing.Pool will open as many processes as there are cores on the machine, though in the example above, it would only need two. In a real-world scenario, you want to design your list to have at least as much length as there are processors on your machine. The Pool will run the function you tell it to run with each argument, up to the number of processes it creates. When the function finishes, any remaining functions in the list will be run on that process.I’ve found that, even using the <code>with</code> statement, if you don’t close and join the pool, the processes continue to exist. To clean up resources, I always close and join my pools.<a class="header-anchor" href="#6968c54a-7cd6-440a-ae6d-cb23acddc5dc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1>
+print(end-start)</code>Instead of creating threads, this creates new processes. Since each process is its own interpreter, there are no GIL collisions. multiprocessing.Pool will open as many processes as there are cores on the machine, though in the example above, it would only need two. In a real-world scenario, you want to design your list to have at least as much length as there are processors on your machine. The Pool will run the function you tell it to run with each argument, up to the number of processes it creates. When the function finishes, any remaining functions in the list will be run on that process.I’ve found that, even using the <code>with</code> statement, if you don’t close and join the pool, the processes continue to exist. To clean up resources, I always close and join my pools.
+  <a class="header-anchor" href="#6968c54a-7cd6-440a-ae6d-cb23acddc5dc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

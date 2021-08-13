@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Floating point numbers are weird.</p><p>The first mistake that nearly every single programmer makes is presuming that this code will work as intended:</p>
+      
+<p>Floating point numbers are weird.
+</p>
+<p>The first mistake that nearly every single programmer makes is presuming that this code will work as intended:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">float</span> <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -139,7 +144,22 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The novice programmer assumes that this will sum up every single number in the range <code>0, 0.01, 0.02, 0.03, ..., 1.97, 1.98, 1.99</code>, to yield the result <code>199</code>—the mathematically correct answer.</p><p>Two things happen that make this untrue:</p><ol id="85938624-5532-45df-b5af-d405a89d1314" class="numbered-list" start="1"><li>The program as written never concludes. <code>a</code> never becomes equal to <code>2</code>, and the loop never terminates.</li><li>If we rewrite the loop logic to check <code>a &lt; 2</code> instead, the loop terminates, but the total ends up being something different from <code>199</code>. On IEEE754-compliant machines, it will often sum up to about <code>201</code> instead.</li></ol><p>The reason that this happens is that <strong>Floating Point Numbers represent approximations of their assigned values</strong>.</p><p>The classical example is the following computation:</p>
+</div>
+<p>The novice programmer assumes that this will sum up every single number in the range <code>0, 0.01, 0.02, 0.03, ..., 1.97, 1.98, 1.99</code>, to yield the result <code>199</code>—the mathematically correct answer.
+</p>
+<p>Two things happen that make this untrue:
+</p>
+  <ol id="85938624-5532-45df-b5af-d405a89d1314" class="numbered-list" start="1">
+    <li>The program as written never concludes. <code>a</code> never becomes equal to <code>2</code>, and the loop never terminates.
+    </li>
+    <li>If we rewrite the loop logic to check <code>a &lt; 2</code> instead, the loop terminates, but the total ends up being something different from <code>199</code>. On IEEE754-compliant machines, it will often sum up to about <code>201</code> instead.
+    </li>
+  </ol>
+<p>The reason that this happens is that <strong>Floating Point Numbers represent approximations of their assigned values</strong>.
+</p>
+<p>The classical example is the following computation:
+</p>
+
 <div class="code-box lang-gcc">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;
@@ -165,6 +185,7 @@ int main(int argc, char **argv) {
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">This Computer is pretty normal, all things considered.
@@ -173,7 +194,10 @@ int main(int argc, char **argv) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Though what we the programmer see is three numbers written in base10, what the compiler (and the underlying hardware) see are binary numbers. Because <code>0.1</code>, <code>0.2</code>, and <code>0.3</code> require perfect division by <code>10</code>—which is quite easy in a base-10 system, but impossible in a base-2 system—these numbers have to be stored in imprecise formats, similar to how the number <code>1/3</code> has to be stored in the imprecise form <code>0.333333333333333...</code> in base-10.</p>
+</div>
+<p>Though what we the programmer see is three numbers written in base10, what the compiler (and the underlying hardware) see are binary numbers. Because <code>0.1</code>, <code>0.2</code>, and <code>0.3</code> require perfect division by <code>10</code>—which is quite easy in a base-10 system, but impossible in a base-2 system—these numbers have to be stored in imprecise formats, similar to how the number <code>1/3</code> has to be stored in the imprecise form <code>0.333333333333333...</code> in base-10.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="c1">// 64-bit floats have 53 digits of precision, including the whole-number-part.

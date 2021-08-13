@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>Problems may happen when multiple threads try to access a resource. For a simple example, suppose we have a thread that adds one to a variable. It does this by first reading the variable, adding one to it, then storing it back. Suppose we initialize this variable to 1, then create two instances of this thread. After both threads finish, intuition suggests that this variable should have a value of 3. However, the below table illustrates what might go wrong:</p><p>| Thread 1 | Thread 2 |</p><p>|———––|———————–|———————–| | Time Step 1 | Read 1 from variable | | | Time Step 2 | | Read 1 from variable | | Time Step 3 | Add 1 plus 1 to get 2 | | | Time Step 4 | | Add 1 plus 1 to get 2 | | Time Step 5 | Store 2 into variable | | | Time Step 6 | | Store 2 into variable |</p><p>As you can see, at the end of the operation, 2 is in the variable, instead of 3. The reason is that Thread 2 read the variable before Thread 1 was done updating it. The solution? Mutexes.</p><p>A mutex (portmanteau of <strong>mut</strong>ual <strong>ex</strong>clusion) is a resource management object designed to solve this type of problem. When a thread wants to access a resource, it “acquires” the resource’s mutex. Once it is done accessing the resource, the thread “releases” the mutex. While the mutex is acquired, all calls to acquire the mutex will not return until the mutex is released. To better understand this, think of a mutex as a waiting line at the supermarket: the threads go into line by trying to acquire the mutex and then waiting for the threads ahead of them to finish up, then using the resource, then stepping out of line by releasing the mutex. There would be complete pandemonium if everybody tried to access the resource at once.</p><p><code>std::mutex</code> is C++11’s implementation of a mutex.</p>
+      
+<p>Problems may happen when multiple threads try to access a resource. For a simple example, suppose we have a thread that adds one to a variable. It does this by first reading the variable, adding one to it, then storing it back. Suppose we initialize this variable to 1, then create two instances of this thread. After both threads finish, intuition suggests that this variable should have a value of 3. However, the below table illustrates what might go wrong:
+</p>
+<p>| Thread 1 | Thread 2 |
+</p>
+<p>|———––|———————–|———————–| | Time Step 1 | Read 1 from variable | | | Time Step 2 | | Read 1 from variable | | Time Step 3 | Add 1 plus 1 to get 2 | | | Time Step 4 | | Add 1 plus 1 to get 2 | | Time Step 5 | Store 2 into variable | | | Time Step 6 | | Store 2 into variable |
+</p>
+<p>As you can see, at the end of the operation, 2 is in the variable, instead of 3. The reason is that Thread 2 read the variable before Thread 1 was done updating it. The solution? Mutexes.
+</p>
+<p>A mutex (portmanteau of <strong>mut</strong>ual <strong>ex</strong>clusion) is a resource management object designed to solve this type of problem. When a thread wants to access a resource, it “acquires” the resource’s mutex. Once it is done accessing the resource, the thread “releases” the mutex. While the mutex is acquired, all calls to acquire the mutex will not return until the mutex is released. To better understand this, think of a mutex as a waiting line at the supermarket: the threads go into line by trying to acquire the mutex and then waiting for the threads ahead of them to finish up, then using the resource, then stepping out of line by releasing the mutex. There would be complete pandemonium if everybody tried to access the resource at once.
+</p>
+<p><code>std::mutex</code> is C++11’s implementation of a mutex.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;thread&gt;

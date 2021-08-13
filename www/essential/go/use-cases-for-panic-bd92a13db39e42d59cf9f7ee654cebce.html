@@ -127,7 +127,21 @@
 </div>
 
 
-      <p>Using of <code>panic</code> in Go should be extremely rare but it does have valid use cases.</p><h2 id="6d100425-62cb-4efb-b606-1998ec3a3e8b" class="">Force crash on bad API usage<a class="header-anchor" href="#6d100425-62cb-4efb-b606-1998ec3a3e8b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>This is similar to using <code>assert</code> in other languages.</p><p>Imagine you&#x27;re writing a <code>httpGet</code> function that downloads content of the URL.</p><p>What should happen when URL is empty string? It&#x27;s obviously a mistake on the part of the caller.</p><p>You can return an error but you can also for a crash with <code>panic</code>:</p>
+      
+<p>Using of <code>panic</code> in Go should be extremely rare but it does have valid use cases.
+</p>
+  <h2 id="6d100425-62cb-4efb-b606-1998ec3a3e8b" class="">Force crash on bad API usage
+  <a class="header-anchor" href="#6d100425-62cb-4efb-b606-1998ec3a3e8b" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>This is similar to using <code>assert</code> in other languages.
+</p>
+<p>Imagine you&#x27;re writing a <code>httpGet</code> function that downloads content of the URL.
+</p>
+<p>What should happen when URL is empty string? It&#x27;s obviously a mistake on the part of the caller.
+</p>
+<p>You can return an error but you can also for a crash with <code>panic</code>:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kd">func</span> <span class="nf">httpGet</span><span class="p">(</span><span class="nx">uri</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
@@ -140,7 +154,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Sometimes it&#x27;s better because an error can be ignored or the program might assume that it&#x27;s a valid error condition, like a website being down.</p><p>Forcing a crash increases chances that the developer will look at the problem and fix it.</p><p>If you do it often, this helper function will be useful:</p>
+</div>
+<p>Sometimes it&#x27;s better because an error can be ignored or the program might assume that it&#x27;s a valid error condition, like a website being down.
+</p>
+<p>Forcing a crash increases chances that the developer will look at the problem and fix it.
+</p>
+<p>If you do it often, this helper function will be useful:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kd">func</span> <span class="nf">panicIf</span><span class="p">(</span><span class="nx">cond</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
@@ -159,7 +180,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now this can be written as a single line:</p>
+</div>
+<p>Now this can be written as a single line:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kd">func</span> <span class="nf">httpGet</span><span class="p">(</span><span class="nx">uri</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
@@ -170,7 +194,41 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Function <code>panicIf</code> is flexible. You can call it as:</p><ul id="64b4ce47-6f83-45ca-90ca-ec8d31c9f78a" class="bulleted-list"><li><code>panicIf(n &lt; 0)</code> and it&#x27;ll panic with generic error message</li><li><code>panicIf(n &lt; 0, &quot;n must be &gt;= 0&quot;)</code>  to provide more descriptive message</li><li><code>panicIf(n &lt; 0, &quot;n is %d and must be &gt;= 0&quot;, n)</code> to provide even more descriptive message</li></ul><h2 id="b9c0cb22-de3e-48ca-b35d-0680266d2b73" class="">Simplifying flow control in isolated piece of code<a class="header-anchor" href="#b9c0cb22-de3e-48ca-b35d-0680266d2b73" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Sometimes it’s easier to propagate an error by panicking and recovering rather than returning errors.</p><p>This might be true e.g. in a parser.</p><p>When you use that technique, you should observe one rule: <code>panic</code> should not cross public API boundary.</p><p>In other words, if you implement a parser library, you should always <code>recover</code> all <code>panic</code>s your code creates. Panic used for easier flow control should never reach the caller of your package API.</p><h2 id="4a0af387-0058-4fe6-9369-8d72a790a1c1" class="">Protect a program from a crash in a goroutine<a class="header-anchor" href="#4a0af387-0058-4fe6-9369-8d72a790a1c1" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Unhandled <code>panic</code> in a goroutine crashes a program.</p><p>This is the right behavior most of the time (<code>panic</code> indicates a serious bug and you should fix bugs, not cover them up).</p><p>In rare occasions we don&#x27;t want a single goroutine to bring down the whole program so we can wrap the code with a function that does <code>recover </code>at the top.</p><p>This technique is used in Go’s http server package which handles each connection in a separate goroutine. In a web server we don&#x27;t want a rare bug in request handling code to crash the program.</p><p></p>
+</div>
+<p>Function <code>panicIf</code> is flexible. You can call it as:
+</p>
+  <ul id="64b4ce47-6f83-45ca-90ca-ec8d31c9f78a" class="bulleted-list">
+    <li><code>panicIf(n &lt; 0)</code> and it&#x27;ll panic with generic error message
+    </li>
+    <li><code>panicIf(n &lt; 0, &quot;n must be &gt;= 0&quot;)</code>  to provide more descriptive message
+    </li>
+    <li><code>panicIf(n &lt; 0, &quot;n is %d and must be &gt;= 0&quot;, n)</code> to provide even more descriptive message
+    </li>
+  </ul>
+  <h2 id="b9c0cb22-de3e-48ca-b35d-0680266d2b73" class="">Simplifying flow control in isolated piece of code
+  <a class="header-anchor" href="#b9c0cb22-de3e-48ca-b35d-0680266d2b73" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Sometimes it’s easier to propagate an error by panicking and recovering rather than returning errors.
+</p>
+<p>This might be true e.g. in a parser.
+</p>
+<p>When you use that technique, you should observe one rule: <code>panic</code> should not cross public API boundary.
+</p>
+<p>In other words, if you implement a parser library, you should always <code>recover</code> all <code>panic</code>s your code creates. Panic used for easier flow control should never reach the caller of your package API.
+</p>
+  <h2 id="4a0af387-0058-4fe6-9369-8d72a790a1c1" class="">Protect a program from a crash in a goroutine
+  <a class="header-anchor" href="#4a0af387-0058-4fe6-9369-8d72a790a1c1" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Unhandled <code>panic</code> in a goroutine crashes a program.
+</p>
+<p>This is the right behavior most of the time (<code>panic</code> indicates a serious bug and you should fix bugs, not cover them up).
+</p>
+<p>In rare occasions we don&#x27;t want a single goroutine to bring down the whole program so we can wrap the code with a function that does <code>recover </code>at the top.
+</p>
+<p>This technique is used in Go’s http server package which handles each connection in a separate goroutine. In a web server we don&#x27;t want a rare bug in request handling code to crash the program.
+</p>
+<p>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>CRTP is a powerful, static alternative to virtual functions and traditional inheritance that can be used to give types properties at compile time. It works by having a base class template which takes, as one of its template parameters, the derived class. This permits it to legally perform a <code>static_cast</code> of its <code>this</code> pointer to the derived class.</p><p>Of course, this also means that a CRTP class must <em>always</em> be used as the base class of some other class. And the derived class must pass itself to the base class.</p><p>Let’s say you have a set of containers that all support the functions <code>begin()</code> and <code>end()</code>. The standard library’s requirements for containers require more functionality. We can design a CRTP base class that provides that functionality, based solely on <code>begin()</code> and <code>end()</code>:</p>
+      
+<p>CRTP is a powerful, static alternative to virtual functions and traditional inheritance that can be used to give types properties at compile time. It works by having a base class template which takes, as one of its template parameters, the derived class. This permits it to legally perform a <code>static_cast</code> of its <code>this</code> pointer to the derived class.
+</p>
+<p>Of course, this also means that a CRTP class must <em>always</em> be used as the base class of some other class. And the derived class must pass itself to the base class.
+</p>
+<p>Let’s say you have a set of containers that all support the functions <code>begin()</code> and <code>end()</code>. The standard library’s requirements for containers require more functionality. We can design a CRTP base class that provides that functionality, based solely on <code>begin()</code> and <code>end()</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;iterator&gt;
@@ -159,7 +166,10 @@ class Container {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above class provides the functions <code>front()</code>, <code>back()</code>, <code>size()</code>, and <code>operator[]</code> for any subclass which provides <code>begin()</code> and <code>end()</code>. An example subclass is a simple dynamically allocated array:</p>
+</div>
+<p>The above class provides the functions <code>front()</code>, <code>back()</code>, <code>size()</code>, and <code>operator[]</code> for any subclass which provides <code>begin()</code> and <code>end()</code>. An example subclass is a simple dynamically allocated array:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;memory&gt;
@@ -187,7 +197,10 @@ class DynArray : public Container&lt;DynArray&lt;T&gt;&gt; {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Users of the <code>DynArray</code> class can use the interfaces provided by the CRTP base class easily as follows:</p>
+</div>
+<p>Users of the <code>DynArray</code> class can use the interfaces provided by the CRTP base class easily as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">DynArray&lt;int&gt; arr(10);
@@ -198,7 +211,10 @@ assert(arr.size() == 10);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Usefulness:</strong> This pattern particularly avoids virtual function calls at run-time which occur to traverse down the inheritance hierarchy and simply relies on static casts:</p>
+</div>
+<p><strong>Usefulness:</strong> This pattern particularly avoids virtual function calls at run-time which occur to traverse down the inheritance hierarchy and simply relies on static casts:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">DynArray&lt;int&gt; arr(10);
@@ -208,7 +224,12 @@ base.begin(); // no virtual calls</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The only static cast inside the function <code>begin()</code> in the base class <code>Container&lt;DynArray&lt;int&gt;&gt;</code> allows the compiler to drastically optimize the code and no virtual table look up happens at runtime.</p><p><strong>Limitations:</strong> Because the base class is templated and different for two different <code>DynArray</code>s it is not possible to store pointers to their base classes in an type-homogenous array as one could generally do with normal inheritance where the base class is not dependent on the derived type:</p>
+</div>
+<p>The only static cast inside the function <code>begin()</code> in the base class <code>Container&lt;DynArray&lt;int&gt;&gt;</code> allows the compiler to drastically optimize the code and no virtual table look up happens at runtime.
+</p>
+<p><strong>Limitations:</strong> Because the base class is templated and different for two different <code>DynArray</code>s it is not possible to store pointers to their base classes in an type-homogenous array as one could generally do with normal inheritance where the base class is not dependent on the derived type:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class A {};

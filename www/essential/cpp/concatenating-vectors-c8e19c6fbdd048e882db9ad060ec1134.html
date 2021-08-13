@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>One <code>std::vector</code> can be append to another by using the member function <a href="http://en.cppreference.com/w/cpp/container/vector/insert"><code>insert()</code></a>:</p>
+      
+<p>One <code>std::vector</code> can be append to another by using the member function <a href="http://en.cppreference.com/w/cpp/container/vector/insert"><code>insert()</code></a>:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>
@@ -139,7 +142,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, this solution fails if you try to append a vector to itself, because the standard specifies that iterators given to <code>insert()</code> must not be from the same range as the receiver object’s elements.</p><p>Instead of using the vector’s member functions, the functions <a href="http://en.cppreference.com/w/cpp/iterator/begin"><code>std::begin()</code></a> and <a href="http://en.cppreference.com/w/cpp/iterator/end"><code>std::end()</code></a> can be used:</p>
+</div>
+<p>However, this solution fails if you try to append a vector to itself, because the standard specifies that iterators given to <code>insert()</code> must not be from the same range as the receiver object’s elements.
+</p>
+<p>Instead of using the vector’s member functions, the functions <a href="http://en.cppreference.com/w/cpp/iterator/begin"><code>std::begin()</code></a> and <a href="http://en.cppreference.com/w/cpp/iterator/end"><code>std::end()</code></a> can be used:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">a</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">b</span><span class="p">));</span>
@@ -148,7 +156,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is a more general solution, for example, because <code>b</code> can also be an array. However, also this solution doesn’t allow you to append a vector to itself.</p><p>If the order of the elements in the receiving vector doesn’t matter, considering the number of elements in each vector can avoid unnecessary copy operations:</p>
+</div>
+<p>This is a more general solution, for example, because <code>b</code> can also be an array. However, also this solution doesn’t allow you to append a vector to itself.
+</p>
+<p>If the order of the elements in the receiving vector doesn’t matter, considering the number of elements in each vector can avoid unnecessary copy operations:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">if</span> <span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="p">{</span>

@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>From <a href="https://developer.android.com/reference/android/os/NetworkOnMainThreadException.html">the documentation</a>:</p><blockquote id="39dc8d5d-35a8-4b70-98e6-3944e88c6eab" class="">The exception that is thrown when an application attempts to perform a networking operation on its main thread.</blockquote><p>This is only thrown for applications targeting the Honeycomb SDK or higher. Applications targeting earlier SDK versions are allowed to do networking on their main event loop threads, but it’s heavily discouraged.</p><p>Here’s an example of a code fragment that may cause that exception:</p>
+      
+<p>From <a href="https://developer.android.com/reference/android/os/NetworkOnMainThreadException.html">the documentation</a>:
+</p>
+<blockquote id="39dc8d5d-35a8-4b70-98e6-3944e88c6eab" class="">The exception that is thrown when an application attempts to perform a networking operation on its main thread.
+</blockquote>
+<p>This is only thrown for applications targeting the Honeycomb SDK or higher. Applications targeting earlier SDK versions are allowed to do networking on their main event loop threads, but it’s heavily discouraged.
+</p>
+<p>Here’s an example of a code fragment that may cause that exception:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MainActivity extends AppCompatActivity {
@@ -166,7 +175,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Above code will throw <code>NetworkOnMainThreadException</code> for applications targeting Honeycomb SDK (Android v3.0) or higher as the application is trying to perform a network operation on the main thread.</p><p>To avoid this exception, your network operations must always run in a background task via an <code>AsyncTask</code>, <code>Thread</code>, <code>IntentService</code>, etc.</p>
+</div>
+<p>Above code will throw <code>NetworkOnMainThreadException</code> for applications targeting Honeycomb SDK (Android v3.0) or higher as the application is trying to perform a network operation on the main thread.
+</p>
+<p>To avoid this exception, your network operations must always run in a background task via an <code>AsyncTask</code>, <code>Thread</code>, <code>IntentService</code>, etc.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private class MyAsyncTask extends AsyncTask&lt;String, Integer, Void&gt; {

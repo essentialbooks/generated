@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Often you want to match an expression only in <em>specific</em> places (leaving them untouched in others, that is). Consider the following sentence:</p>
+      
+<p>Often you want to match an expression only in <em>specific</em> places (leaving them untouched in others, that is). Consider the following sentence:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">An apple a day keeps the doctor away (I eat an apple everyday).</pre>
@@ -135,7 +138,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here the “apple” occurs twice which can be solved with so called <em>backtracking control verbs</em> which are supported by the newer <a href="https://pypi.python.org/pypi/regex"><code><strong>regex</strong></code></a> module. The idea is:</p>
+</div>
+<p>Here the “apple” occurs twice which can be solved with so called <em>backtracking control verbs</em> which are supported by the newer <a href="https://pypi.python.org/pypi/regex"><code><strong>regex</strong></code></a> module. The idea is:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">forget_this | or this | and this as well | (but keep this)</pre>
@@ -143,7 +149,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With our apple example, this would be:</p>
+</div>
+<p>With our apple example, this would be:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="kn">import</span> <span class="nn">regex</span> <span class="kn">as</span> <span class="nn">re</span>
@@ -160,7 +169,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This matches “apple” only when it can be found outside of the parentheses.</p><p>Here’s how it works:</p><ul id="2f3e10f7-e55d-462c-8dfb-3f3b992317c0" class="bulleted-list"><li>While looking from <strong>left to right</strong>, the regex engine consumes everything to the left, the <code>(*SKIP)</code> acts as an “always-true-assertion”. Afterwards, it correctly fails on <code>(*FAIL)</code> and backtracks.</li><li>Now it gets to the point of <code>(*SKIP)</code> <strong>from right to left</strong> (aka while backtracking) where it is forbidden to go any further to the left. Instead, the engine is told to throw away anything to the left and jump to the point where the <code>(*SKIP)</code> was invoked.</li></ul>
+</div>
+<p>This matches “apple” only when it can be found outside of the parentheses.
+</p>
+<p>Here’s how it works:
+</p>
+  <ul id="2f3e10f7-e55d-462c-8dfb-3f3b992317c0" class="bulleted-list">
+    <li>While looking from <strong>left to right</strong>, the regex engine consumes everything to the left, the <code>(*SKIP)</code> acts as an “always-true-assertion”. Afterwards, it correctly fails on <code>(*FAIL)</code> and backtracks.
+    </li>
+    <li>Now it gets to the point of <code>(*SKIP)</code> <strong>from right to left</strong> (aka while backtracking) where it is forbidden to go any further to the left. Instead, the engine is told to throw away anything to the left and jump to the point where the <code>(*SKIP)</code> was invoked.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

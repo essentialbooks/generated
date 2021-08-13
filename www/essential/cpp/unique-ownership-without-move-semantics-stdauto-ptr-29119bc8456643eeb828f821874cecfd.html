@@ -127,7 +127,14 @@
 </div>
 
 
-      <p><strong>NOTE:</strong> <code>std::auto_ptr</code> has been deprecated in C++11 and will be removed in C++17. You should only use this if you are forced to use C++03 or earlier and are willing to be careful. It is recommended to move to unique_ptr in combination with <code>std::move</code> to replace <code>std::auto_ptr</code> behavior.</p><p>Before we had <code>std::unique_ptr</code>, before we had move semantics, we had <code>std::auto_ptr</code>. <code>std::auto_ptr</code> provides unique ownership but transfers ownership upon copy.</p><p>As with all smart pointers, <code>std::auto_ptr</code> automatically cleans up resources (see <a href="http://stackoverflow.com/documentation/c%2B%2B/1320/raii-resource-acquisition-is-initialization#t=201607231428426338521">RAII</a>):</p>
+      
+<p><strong>NOTE:</strong> <code>std::auto_ptr</code> has been deprecated in C++11 and will be removed in C++17. You should only use this if you are forced to use C++03 or earlier and are willing to be careful. It is recommended to move to unique_ptr in combination with <code>std::move</code> to replace <code>std::auto_ptr</code> behavior.
+</p>
+<p>Before we had <code>std::unique_ptr</code>, before we had move semantics, we had <code>std::auto_ptr</code>. <code>std::auto_ptr</code> provides unique ownership but transfers ownership upon copy.
+</p>
+<p>As with all smart pointers, <code>std::auto_ptr</code> automatically cleans up resources (see <a href="http://stackoverflow.com/documentation/c%2B%2B/1320/raii-resource-acquisition-is-initialization#t=201607231428426338521">RAII</a>):
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="p">{</span>
@@ -139,7 +146,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>but allows only one owner:</p>
+</div>
+<p>but allows only one owner:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">auto_ptr</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="n">px</span> <span class="o">=</span> <span class="p">...;</span>
@@ -150,7 +160,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This allows to use std::auto_ptr to keep ownership explicit and unique at the danger of losing ownership unintended:</p>
+</div>
+<p>This allows to use std::auto_ptr to keep ownership explicit and unique at the danger of losing ownership unintended:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">auto_ptr</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="p">)</span> <span class="p">{</span>
@@ -168,7 +181,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The transfer of ownership happened in the “copy” constructor. <code>auto_ptr</code>’s copy constructor and copy assignment operator take their operands by non-<code>const</code> reference so that they could be modified. An example implementation might be:</p>
+</div>
+<p>The transfer of ownership happened in the “copy” constructor. <code>auto_ptr</code>’s copy constructor and copy assignment operator take their operands by non-<code>const</code> reference so that they could be modified. An example implementation might be:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -204,7 +220,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This breaks copy semantics, which require that copying an object leaves you with two equivalent versions of it. For any copyable type, <code>T</code>, I should be able to write:</p>
+</div>
+<p>This breaks copy semantics, which require that copying an object leaves you with two equivalent versions of it. For any copyable type, <code>T</code>, I should be able to write:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">T</span> <span class="n">a</span> <span class="o">=</span> <span class="p">...;</span>
@@ -215,7 +234,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But for <code>auto_ptr</code>, this is not the case. As a result, it is not safe to put <code>auto_ptr</code>s in containers.</p>
+</div>
+<p>But for <code>auto_ptr</code>, this is not the case. As a result, it is not safe to put <code>auto_ptr</code>s in containers.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

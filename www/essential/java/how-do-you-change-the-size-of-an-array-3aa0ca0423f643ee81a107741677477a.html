@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The simple answer is that you cannot do this. Once an array has been created, its size cannot be changed. Instead, an array can only be “resized” by creating a new array with the appropriate size and copying the elements from the existing array to the new one.</p>
+      
+<p>The simple answer is that you cannot do this. Once an array has been created, its size cannot be changed. Instead, an array can only be “resized” by creating a new array with the appropriate size and copying the elements from the existing array to the new one.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String[] listOfCities = new String[3];   // array created with size 3.
@@ -138,7 +141,20 @@ listOfCities[2] = &#34;Berlin&#34;;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Suppose (for example) that a new element needs to be added to the <code>listOfCities</code> array defined as above. To do this, you will need to:</p><ol id="87280aaf-ee4c-4fab-af59-0e9ad38ee5ba" class="numbered-list" start="1"><li>create a new array with size 4,</li><li>copy the existing 3 elements of the old array to the new array at offsets 0, 1 and 2, and</li><li>add the new element to the new array at offset 3.</li></ol><p>There are various ways to do the above. Prior to Java 6, the most concise way was:</p>
+</div>
+<p>Suppose (for example) that a new element needs to be added to the <code>listOfCities</code> array defined as above. To do this, you will need to:
+</p>
+  <ol id="87280aaf-ee4c-4fab-af59-0e9ad38ee5ba" class="numbered-list" start="1">
+    <li>create a new array with size 4,
+    </li>
+    <li>copy the existing 3 elements of the old array to the new array at offsets 0, 1 and 2, and
+    </li>
+    <li>add the new element to the new array at offset 3.
+    </li>
+  </ol>
+<p>There are various ways to do the above. Prior to Java 6, the most concise way was:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String[] newArray = new String[listOfCities.length + 1];
@@ -148,7 +164,10 @@ newArray[listOfCities.length] = &#34;Sydney&#34;;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>From Java 6 onwards, the <code>Arrays.copyOf</code> and <code>Arrays.copyOfRange</code> methods can do this more simply:</p>
+</div>
+<p>From Java 6 onwards, the <code>Arrays.copyOf</code> and <code>Arrays.copyOfRange</code> methods can do this more simply:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">String[] newArray = Arrays.copyOf(listOfCities, listOfCities.length + 1);
@@ -157,7 +176,30 @@ newArray[listOfCities.length] = &#34;Sydney&#34;;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For other ways to copy an array, refer to the following example. Bear in mind that you need an array copy with a different length to the original when resizing.</p><ul id="332a4297-cfa5-4e69-b334-976be1e7c43d" class="bulleted-list"><li>http://stackoverflow.com/documentation/java/99/arrays/3435/copying-arrays#t=201610061130055885276</li></ul><h2 id="e731d20f-8da8-4a69-80e5-d172cec0311d" class="">A better alternatives to array resizing<a class="header-anchor" href="#e731d20f-8da8-4a69-80e5-d172cec0311d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>There two major drawbacks with resizing an array as described above:</p><ul id="1e2c522b-69b8-4fda-b226-f9f73477f95d" class="bulleted-list"><li>It is inefficient. Making an array bigger (or smaller) involves copying many or all of the existing array elements, and allocating a new array object. The larger the array, the more expensive it gets.</li><li>You need to be able to update any “live” variables that contain references to the old array.</li></ul><p>One alternative is to create the array with a large enough size to start with. This is only viable if you can determine that size accurately <em>before allocating the array</em>. If you cannot do that, then the problem of resizing the array arises again.</p><p>The other alternative is to use a data structure class provided by the Java SE class library or a third-party library. For example, the Java SE “collections” framework provides a number of implementations of the <code>List</code>, <code>Set</code> and <code>Map</code> APIs with different runtime properties. The <code>ArrayList</code> class is closest to performance characteristics of a plain array (e.g. O(N) lookup, O(1) get and set, O(N) random insertion and deletion) while providing more efficient resizing without the reference update problem.</p><p>(The resize efficiency for <code>ArrayList</code> comes from its strategy of doubling the size of the backing array on each resize. For a typical use-case, this means that you only resize occasionally. When you amortize over the lifetime of the list, the resize cost per insert is <code>O(1)</code>. It may be possible to use the same strategy when resizing a plain array.)</p>
+</div>
+<p>For other ways to copy an array, refer to the following example. Bear in mind that you need an array copy with a different length to the original when resizing.
+</p>
+  <ul id="332a4297-cfa5-4e69-b334-976be1e7c43d" class="bulleted-list">
+    <li>http://stackoverflow.com/documentation/java/99/arrays/3435/copying-arrays#t=201610061130055885276
+    </li>
+  </ul>
+  <h2 id="e731d20f-8da8-4a69-80e5-d172cec0311d" class="">A better alternatives to array resizing
+  <a class="header-anchor" href="#e731d20f-8da8-4a69-80e5-d172cec0311d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>There two major drawbacks with resizing an array as described above:
+</p>
+  <ul id="1e2c522b-69b8-4fda-b226-f9f73477f95d" class="bulleted-list">
+    <li>It is inefficient. Making an array bigger (or smaller) involves copying many or all of the existing array elements, and allocating a new array object. The larger the array, the more expensive it gets.
+    </li>
+    <li>You need to be able to update any “live” variables that contain references to the old array.
+    </li>
+  </ul>
+<p>One alternative is to create the array with a large enough size to start with. This is only viable if you can determine that size accurately <em>before allocating the array</em>. If you cannot do that, then the problem of resizing the array arises again.
+</p>
+<p>The other alternative is to use a data structure class provided by the Java SE class library or a third-party library. For example, the Java SE “collections” framework provides a number of implementations of the <code>List</code>, <code>Set</code> and <code>Map</code> APIs with different runtime properties. The <code>ArrayList</code> class is closest to performance characteristics of a plain array (e.g. O(N) lookup, O(1) get and set, O(N) random insertion and deletion) while providing more efficient resizing without the reference update problem.
+</p>
+<p>(The resize efficiency for <code>ArrayList</code> comes from its strategy of doubling the size of the backing array on each resize. For a typical use-case, this means that you only resize occasionally. When you amortize over the lifetime of the list, the resize cost per insert is <code>O(1)</code>. It may be possible to use the same strategy when resizing a plain array.)
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

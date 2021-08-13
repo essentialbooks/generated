@@ -127,7 +127,34 @@
 </div>
 
 
-      <p>When a Java virtual machine starts, it needs to know how big to make the Heap, and the default size for thread stacks. These can be specified using command-line options on the <code>java</code> command. For versions of Java prior to Java 8, you can also specify the size of the PermGen region of the Heap.</p><p>Note that PermGen was removed in Java 8, and if you attempt to set the PermGen size the option will be ignored (with a warning message).</p><p>If you don’t specify Heap and Stack sizes explicitly, the JVM will use defaults that are calculated in a version and platform specific way. This may result in your application using too little or too much memory. This is typically OK for thread stacks, but it can be problematic for a program that uses a lot of memory.</p><p><strong>Setting the Heap, PermGen and default Stack sizes:</strong></p><p>The following JVM options set the heap size:</p><ul id="405dba48-1305-4644-af52-3569870123e4" class="bulleted-list"><li><code>-Xms&lt;size&gt;</code> - sets the initial heap size</li><li><code>-Xmx&lt;size&gt;</code> - sets the maximum heap size</li><li><code>-XX:PermSize&lt;size&gt;</code> - sets the initial PermGen size</li><li><code>-XX:MaxPermSize&lt;size&gt;</code> - sets the maximum PermGen size</li><li><code>-Xss&lt;size&gt;</code> - sets the default thread stack size</li></ul><p>The <code>&lt;size&gt;</code> parameter can be a number of bytes, or can have a suffix of <code>k</code>, <code>m</code> or <code>g</code>. The latter specify the size in kilobytes, megabytes and gigabytes respectively.</p><p>Examples:</p>
+      
+<p>When a Java virtual machine starts, it needs to know how big to make the Heap, and the default size for thread stacks. These can be specified using command-line options on the <code>java</code> command. For versions of Java prior to Java 8, you can also specify the size of the PermGen region of the Heap.
+</p>
+<p>Note that PermGen was removed in Java 8, and if you attempt to set the PermGen size the option will be ignored (with a warning message).
+</p>
+<p>If you don’t specify Heap and Stack sizes explicitly, the JVM will use defaults that are calculated in a version and platform specific way. This may result in your application using too little or too much memory. This is typically OK for thread stacks, but it can be problematic for a program that uses a lot of memory.
+</p>
+<p><strong>Setting the Heap, PermGen and default Stack sizes:</strong>
+</p>
+<p>The following JVM options set the heap size:
+</p>
+  <ul id="405dba48-1305-4644-af52-3569870123e4" class="bulleted-list">
+    <li><code>-Xms&lt;size&gt;</code> - sets the initial heap size
+    </li>
+    <li><code>-Xmx&lt;size&gt;</code> - sets the maximum heap size
+    </li>
+    <li><code>-XX:PermSize&lt;size&gt;</code> - sets the initial PermGen size
+    </li>
+    <li><code>-XX:MaxPermSize&lt;size&gt;</code> - sets the maximum PermGen size
+    </li>
+    <li><code>-Xss&lt;size&gt;</code> - sets the default thread stack size
+    </li>
+  </ul>
+<p>The <code>&lt;size&gt;</code> parameter can be a number of bytes, or can have a suffix of <code>k</code>, <code>m</code> or <code>g</code>. The latter specify the size in kilobytes, megabytes and gigabytes respectively.
+</p>
+<p>Examples:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ java -Xms512m -Xmx1024m JavaApp
@@ -137,7 +164,26 @@ $ java -Xss512k JavaApp</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Finding the default sizes:</strong></p><p>The <code>-XX:+printFlagsFinal</code> option can be used to print the values of all flags before starting the JVM. This can be used to print the defaults for the heap and stack size settings as follows:</p><ul id="e26d610d-5f86-4b10-9491-57a0add29869" class="bulleted-list"><li>For Linux, Unix, Solaris and Mac OSX</li></ul><p>$ java -XX:+PrintFlagsFinal -version | grep -iE ‘HeapSize|PermSize|ThreadStackSize’</p><ul id="c8e295cb-d69a-4915-a624-631fad8f0e4c" class="bulleted-list"><li>For Windows:</li></ul><blockquote id="217f0787-4c72-40ed-bd88-d64b9a1c9144" class="">java -XX:+PrintFlagsFinal -version | findstr /i “HeapSize PermSize ThreadStackSize”</blockquote><p>The output of the above commands will resemble the following:</p>
+</div>
+<p><strong>Finding the default sizes:</strong>
+</p>
+<p>The <code>-XX:+printFlagsFinal</code> option can be used to print the values of all flags before starting the JVM. This can be used to print the defaults for the heap and stack size settings as follows:
+</p>
+  <ul id="e26d610d-5f86-4b10-9491-57a0add29869" class="bulleted-list">
+    <li>For Linux, Unix, Solaris and Mac OSX
+    </li>
+  </ul>
+<p>$ java -XX:+PrintFlagsFinal -version | grep -iE ‘HeapSize|PermSize|ThreadStackSize’
+</p>
+  <ul id="c8e295cb-d69a-4915-a624-631fad8f0e4c" class="bulleted-list">
+    <li>For Windows:
+    </li>
+  </ul>
+<blockquote id="217f0787-4c72-40ed-bd88-d64b9a1c9144" class="">java -XX:+PrintFlagsFinal -version | findstr /i “HeapSize PermSize ThreadStackSize”
+</blockquote>
+<p>The output of the above commands will resemble the following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">uintx InitialHeapSize                          := 20655360        {product}
@@ -149,7 +195,9 @@ uintx MaxPermSize                               = 85983232        {pd product}
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The sizes are given in bytes.</p>
+</div>
+<p>The sizes are given in bytes.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

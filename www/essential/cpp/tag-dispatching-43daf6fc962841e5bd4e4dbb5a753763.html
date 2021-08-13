@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>A simple way of selecting between functions at compile time is to dispatch a function to an overloaded pair of functions that take a tag as one (usually the last) argument. For example, to implement <code>std::advance()</code>, we can dispatch on the iterator category:</p>
+      
+<p>A simple way of selecting between functions at compile time is to dispatch a function to an overloaded pair of functions that take a tag as one (usually the last) argument. For example, to implement <code>std::advance()</code>, we can dispatch on the iterator category:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">namespace</span> <span class="n">details</span> <span class="p">{</span>
@@ -164,7 +167,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>std::XY_iterator_tag</code> arguments of the overloaded <code>details::advance</code> functions are unused function parameters. The actual implementation does not matter (actually it is completely empty). Their only purpose is to allow the compiler to select an overload based on which tag class <code>details::advance</code> is called with.</p><p>In this example, <code>advance</code> uses the <code>iterator_traits&lt;T&gt;::iterator_category</code> metafunction which returns one of the <code>iterator_tag</code> classes, depending on the actual type of <code>Iter</code>. A default-constructed object of the <code>iterator_category&lt;Iter&gt;::type</code> then lets the compiler select one of the different overloads of <code>details::advance</code>. (This function parameter is likely to be completely optimized away, as it is a default-constructed object of an empty <code>struct</code> and never used.)</p><p>Tag dispatching can give you code that’s much easier to read than the equivalents using SFINAE and <code>enable_if</code>.</p><p><em>Note: while C++17’s </em><code><em>if constexpr</em></code><em> may simplify the implementation of </em><code><em>advance</em></code><em> in particular, it is not suitable for open implementations unlike tag dispatching.</em></p>
+</div>
+<p>The <code>std::XY_iterator_tag</code> arguments of the overloaded <code>details::advance</code> functions are unused function parameters. The actual implementation does not matter (actually it is completely empty). Their only purpose is to allow the compiler to select an overload based on which tag class <code>details::advance</code> is called with.
+</p>
+<p>In this example, <code>advance</code> uses the <code>iterator_traits&lt;T&gt;::iterator_category</code> metafunction which returns one of the <code>iterator_tag</code> classes, depending on the actual type of <code>Iter</code>. A default-constructed object of the <code>iterator_category&lt;Iter&gt;::type</code> then lets the compiler select one of the different overloads of <code>details::advance</code>. (This function parameter is likely to be completely optimized away, as it is a default-constructed object of an empty <code>struct</code> and never used.)
+</p>
+<p>Tag dispatching can give you code that’s much easier to read than the equivalents using SFINAE and <code>enable_if</code>.
+</p>
+<p><em>Note: while C++17’s </em><code><em>if constexpr</em></code><em> may simplify the implementation of </em><code><em>advance</em></code><em> in particular, it is not suitable for open implementations unlike tag dispatching.</em>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

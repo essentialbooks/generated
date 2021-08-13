@@ -127,7 +127,15 @@
 </div>
 
 
-      <p>We will present some examples to show how to apply <em>happens-before</em> reasoning to check that writes are visible to subsequent reads.</p><h2 id="5b301774-ceeb-4f34-b877-383ee22f383a" class="">Single-threaded code<a class="header-anchor" href="#5b301774-ceeb-4f34-b877-383ee22f383a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>As you would expect, writes are always visible to subsequent reads in a single-threaded program.</p>
+      
+<p>We will present some examples to show how to apply <em>happens-before</em> reasoning to check that writes are visible to subsequent reads.
+</p>
+  <h2 id="5b301774-ceeb-4f34-b877-383ee22f383a" class="">Single-threaded code
+  <a class="header-anchor" href="#5b301774-ceeb-4f34-b877-383ee22f383a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>As you would expect, writes are always visible to subsequent reads in a single-threaded program.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class SingleThreadExample {
@@ -143,7 +151,39 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>By Happens-Before Rule #1:</p><ol id="93afc32c-ac4b-4026-8921-d86e2a59b11f" class="numbered-list" start="1"><li>The <code>write(a)</code> action <em>happens-before</em> the <code>write(b)</code> action.</li><li>The <code>write(b)</code> action <em>happens-before</em> the <code>read(a)</code> action.</li><li>The <code>read(a)</code> action <em>happens-before</em> the <code>read(a)</code> action.</li></ol><p>By Happens-Before Rule #4:</p><ol id="e7d44fa0-1777-4768-8e72-419d7b760653" class="numbered-list" start="1"><li><code>write(a)</code> <em>happens-before</em> <code>write(b)</code> AND <code>write(b)</code> <em>happens-before</em> <code>read(a)</code> IMPLIES <code>write(a)</code> <em>happens-before</em> <code>read(a)</code>.</li><li><code>write(b)</code> <em>happens-before</em> <code>read(a)</code> AND <code>read(a)</code> <em>happens-before</em> <code>read(b)</code> IMPLIES <code>write(b)</code> <em>happens-before</em> <code>read(b)</code>.</li></ol><p>Summing up:</p><ol id="8896104d-30b6-44fb-b318-d00caed624a5" class="numbered-list" start="1"><li>The <code>write(a)</code> <em>happens-before</em> <code>read(a)</code> relation means that the <code>a + b</code> statement is guaranteed to see the correct value of <code>a</code>.</li><li>The <code>write(b)</code> <em>happens-before</em> <code>read(b)</code> relation means that the <code>a + b</code> statement is guaranteed to see the correct value of <code>b</code>.</li></ol><h2 id="0b197f02-3a0e-4ae9-bf73-85348a579db9" class="">Behavior of ‘volatile’ in an example with 2 threads<a class="header-anchor" href="#0b197f02-3a0e-4ae9-bf73-85348a579db9" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>We will use the following example code to explore some implications of the Memory Model for `volatile.</p>
+</div>
+<p>By Happens-Before Rule #1:
+</p>
+  <ol id="93afc32c-ac4b-4026-8921-d86e2a59b11f" class="numbered-list" start="1">
+    <li>The <code>write(a)</code> action <em>happens-before</em> the <code>write(b)</code> action.
+    </li>
+    <li>The <code>write(b)</code> action <em>happens-before</em> the <code>read(a)</code> action.
+    </li>
+    <li>The <code>read(a)</code> action <em>happens-before</em> the <code>read(a)</code> action.
+    </li>
+  </ol>
+<p>By Happens-Before Rule #4:
+</p>
+  <ol id="e7d44fa0-1777-4768-8e72-419d7b760653" class="numbered-list" start="1">
+    <li><code>write(a)</code> <em>happens-before</em> <code>write(b)</code> AND <code>write(b)</code> <em>happens-before</em> <code>read(a)</code> IMPLIES <code>write(a)</code> <em>happens-before</em> <code>read(a)</code>.
+    </li>
+    <li><code>write(b)</code> <em>happens-before</em> <code>read(a)</code> AND <code>read(a)</code> <em>happens-before</em> <code>read(b)</code> IMPLIES <code>write(b)</code> <em>happens-before</em> <code>read(b)</code>.
+    </li>
+  </ol>
+<p>Summing up:
+</p>
+  <ol id="8896104d-30b6-44fb-b318-d00caed624a5" class="numbered-list" start="1">
+    <li>The <code>write(a)</code> <em>happens-before</em> <code>read(a)</code> relation means that the <code>a + b</code> statement is guaranteed to see the correct value of <code>a</code>.
+    </li>
+    <li>The <code>write(b)</code> <em>happens-before</em> <code>read(b)</code> relation means that the <code>a + b</code> statement is guaranteed to see the correct value of <code>b</code>.
+    </li>
+  </ol>
+  <h2 id="0b197f02-3a0e-4ae9-bf73-85348a579db9" class="">Behavior of ‘volatile’ in an example with 2 threads
+  <a class="header-anchor" href="#0b197f02-3a0e-4ae9-bf73-85348a579db9" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>We will use the following example code to explore some implications of the Memory Model for `volatile.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class VolatileExample {
@@ -163,7 +203,53 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>First, consider the following sequence of statements involving 2 threads:</p><ol id="f8a08f93-f312-4f12-bd63-8ffbbacbbd83" class="numbered-list" start="1"><li>A single instance of <code>VolatileExample</code> is created; call it <code>ve</code>,</li><li><code>ve.update(1, 2)</code> is called in one thread, and</li><li><code>ve.observe()</code> is called in another thread.</li></ol><p>By Happens-Before Rule #1:</p><ol id="896ad8ab-74e3-4b75-b758-eebacd6919e2" class="numbered-list" start="1"><li>The <code>write(a)</code> action <em>happens-before</em> the <code>volatile-write(a)</code> action.</li><li>The <code>volatile-read(a)</code> action <em>happens-before</em> the <code>read(b)</code> action.</li></ol><p>By Happens-Before Rule #2:</p><ol id="72088cec-dfcb-45ca-bd9c-fa1e314acc97" class="numbered-list" start="1"><li>The <code>volatile-write(a)</code> action in the first thread <em>happens-before</em> the <code>volatile-read(a)</code> action in the second thread.</li></ol><p>By Happens-Before Rule #4:</p><ol id="7d80a466-011c-4156-93d4-1e13e5d95c14" class="numbered-list" start="1"><li>The <code>write(b)</code> action in the first thread <em>happens-before</em> the <code>read(b)</code> action in the second thread.</li></ol><p>In other words, for this particular sequence, we are guaranteed that the 2nd thread will see the update to the non-volatile variable <code>b</code> made by the first thread. However, it is should also be clear that if the assignments in the <code>update</code> method were the other way around, or the <code>observe()</code> method read the variable <code>b</code> before <code>a</code>, then the <em>happens-before</em> chain would be broken. The chain would also be broken if <code>volatile-read(a)</code> in the second thread was not subsequent to the <code>volatile-write(a)</code> in the first thread.</p><p>When the chain is broken, there is no <em>guarantee</em> that <code>observe()</code> will see the correct value of <code>b</code>.</p><h2 id="6497b8d7-c9f4-4822-96a8-451a93ac382c" class="">Volatile with three threads<a class="header-anchor" href="#6497b8d7-c9f4-4822-96a8-451a93ac382c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Suppose we to add a third thread into the previous example:</p><ol id="1439a885-ce96-488b-9672-415784039228" class="numbered-list" start="1"><li>A single instance of <code>VolatileExample</code> is created; call it <code>ve</code>,</li><li>Two threads call <code>update</code>:</li></ol>
+</div>
+<p>First, consider the following sequence of statements involving 2 threads:
+</p>
+  <ol id="f8a08f93-f312-4f12-bd63-8ffbbacbbd83" class="numbered-list" start="1">
+    <li>A single instance of <code>VolatileExample</code> is created; call it <code>ve</code>,
+    </li>
+    <li><code>ve.update(1, 2)</code> is called in one thread, and
+    </li>
+    <li><code>ve.observe()</code> is called in another thread.
+    </li>
+  </ol>
+<p>By Happens-Before Rule #1:
+</p>
+  <ol id="896ad8ab-74e3-4b75-b758-eebacd6919e2" class="numbered-list" start="1">
+    <li>The <code>write(a)</code> action <em>happens-before</em> the <code>volatile-write(a)</code> action.
+    </li>
+    <li>The <code>volatile-read(a)</code> action <em>happens-before</em> the <code>read(b)</code> action.
+    </li>
+  </ol>
+<p>By Happens-Before Rule #2:
+</p>
+  <ol id="72088cec-dfcb-45ca-bd9c-fa1e314acc97" class="numbered-list" start="1">
+    <li>The <code>volatile-write(a)</code> action in the first thread <em>happens-before</em> the <code>volatile-read(a)</code> action in the second thread.
+    </li>
+  </ol>
+<p>By Happens-Before Rule #4:
+</p>
+  <ol id="7d80a466-011c-4156-93d4-1e13e5d95c14" class="numbered-list" start="1">
+    <li>The <code>write(b)</code> action in the first thread <em>happens-before</em> the <code>read(b)</code> action in the second thread.
+    </li>
+  </ol>
+<p>In other words, for this particular sequence, we are guaranteed that the 2nd thread will see the update to the non-volatile variable <code>b</code> made by the first thread. However, it is should also be clear that if the assignments in the <code>update</code> method were the other way around, or the <code>observe()</code> method read the variable <code>b</code> before <code>a</code>, then the <em>happens-before</em> chain would be broken. The chain would also be broken if <code>volatile-read(a)</code> in the second thread was not subsequent to the <code>volatile-write(a)</code> in the first thread.
+</p>
+<p>When the chain is broken, there is no <em>guarantee</em> that <code>observe()</code> will see the correct value of <code>b</code>.
+</p>
+  <h2 id="6497b8d7-c9f4-4822-96a8-451a93ac382c" class="">Volatile with three threads
+  <a class="header-anchor" href="#6497b8d7-c9f4-4822-96a8-451a93ac382c" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Suppose we to add a third thread into the previous example:
+</p>
+  <ol id="1439a885-ce96-488b-9672-415784039228" class="numbered-list" start="1">
+    <li>A single instance of <code>VolatileExample</code> is created; call it <code>ve</code>,
+    </li>
+    <li>Two threads call <code>update</code>:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">- `ve.update(1, 2)` is called in one thread,
@@ -172,7 +258,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="1e71accb-4c62-40df-982c-7d0881f41915" class="numbered-list" start="1"><li><code>ve.observe()</code> is subsequently called in a third thread.</li></ol><p>To analyse this completely, we need to consider all of the possible interleavings of the statements in thread one and thread two. Instead, we will consider just two of them.</p><p>Scenario #1 - suppose that <code>update(1, 2)</code> precedes <code>update(3,4)</code> we get this sequence:</p>
+</div>
+  <ol id="1e71accb-4c62-40df-982c-7d0881f41915" class="numbered-list" start="1">
+    <li><code>ve.observe()</code> is subsequently called in a third thread.
+    </li>
+  </ol>
+<p>To analyse this completely, we need to consider all of the possible interleavings of the statements in thread one and thread two. Instead, we will consider just two of them.
+</p>
+<p>Scenario #1 - suppose that <code>update(1, 2)</code> precedes <code>update(3,4)</code> we get this sequence:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">write(b, 1), write-volatile(a, 2)     // first thread
@@ -182,7 +277,12 @@ read-volatile(a), read(b)             // third thread</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this case, it is easy to see that there is an unbroken <em>happens-before</em> chain from <code>write(b, 3)</code> to <code>read(b)</code>. Furthermore there is no intervening write to <code>b</code>. So, for this scenario, the third thread is guaranteed to see <code>b</code> as having value <code>3</code>.</p><p>Scenario #2 - suppose that <code>update(1, 2)</code> and <code>update(3,4)</code> overlap and the ations are interleaved as follows:</p>
+</div>
+<p>In this case, it is easy to see that there is an unbroken <em>happens-before</em> chain from <code>write(b, 3)</code> to <code>read(b)</code>. Furthermore there is no intervening write to <code>b</code>. So, for this scenario, the third thread is guaranteed to see <code>b</code> as having value <code>3</code>.
+</p>
+<p>Scenario #2 - suppose that <code>update(1, 2)</code> and <code>update(3,4)</code> overlap and the ations are interleaved as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">write(b, 3)                           // second thread
@@ -194,7 +294,11 @@ read-volatile(a), read(b)             // third thread</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, while there is a <em>happens-before</em> chain from <code>write(b, 3)</code> to <code>read(b)</code>, there is an intervening <code>write(b, 1)</code> action performed by the other thread. This means we cannot be certain which value <code>read(b)</code> will see.</p><p>(Aside: This demonstrates that we cannot rely on <code>volatile</code> for ensuring visibility of non-volatile variables, except in very limited situations.)</p>
+</div>
+<p>Now, while there is a <em>happens-before</em> chain from <code>write(b, 3)</code> to <code>read(b)</code>, there is an intervening <code>write(b, 1)</code> action performed by the other thread. This means we cannot be certain which value <code>read(b)</code> will see.
+</p>
+<p>(Aside: This demonstrates that we cannot rely on <code>volatile</code> for ensuring visibility of non-volatile variables, except in very limited situations.)
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

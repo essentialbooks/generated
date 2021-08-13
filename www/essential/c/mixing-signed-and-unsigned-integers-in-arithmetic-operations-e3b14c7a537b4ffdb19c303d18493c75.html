@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>It is usually not a good idea to mix <code>signed</code> and <code>unsigned</code> integers in arithmetic operations. For example, what will be output of following example?</p>
+      
+<p>It is usually not a good idea to mix <code>signed</code> and <code>unsigned</code> integers in arithmetic operations. For example, what will be output of following example?
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -146,7 +149,19 @@ int main(void)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since 1000 is more than -1 you would expect the output to be <code>a is more than b</code>, however that will not be the case.</p><p>Arithmetic operations between different integral types are performed within a common type defined by the so called usual arithmetic conversions (see the language specification, 6.3.1.8).</p><p>In this case the “common type” is <code>unsigned int</code>, Because, as stated in <a href="http://c0x.coding-guidelines.com/6.3.1.8.html">Usual arithmetic conversions</a>,</p><blockquote id="79f88f0e-78b0-4c73-a97b-123c926dd286" class="">714  Otherwise, if the operand that has unsigned integer type has rank greater or equal to the rank of the type of the other operand, then the operand with signed integer type is converted to the type of the operand with unsigned integer type.</blockquote><p>This means that <code>int</code> operand <code>b</code> will get converted to <code>unsigned int</code> before the comparison.</p><p>When -1 is converted to an <code>unsigned int</code> the result is the maximal possible <code>unsigned int</code> value, which is greater than 1000, meaning that <code>a &gt; b</code> is false.</p>
+</div>
+<p>Since 1000 is more than -1 you would expect the output to be <code>a is more than b</code>, however that will not be the case.
+</p>
+<p>Arithmetic operations between different integral types are performed within a common type defined by the so called usual arithmetic conversions (see the language specification, 6.3.1.8).
+</p>
+<p>In this case the “common type” is <code>unsigned int</code>, Because, as stated in <a href="http://c0x.coding-guidelines.com/6.3.1.8.html">Usual arithmetic conversions</a>,
+</p>
+<blockquote id="79f88f0e-78b0-4c73-a97b-123c926dd286" class="">714  Otherwise, if the operand that has unsigned integer type has rank greater or equal to the rank of the type of the other operand, then the operand with signed integer type is converted to the type of the operand with unsigned integer type.
+</blockquote>
+<p>This means that <code>int</code> operand <code>b</code> will get converted to <code>unsigned int</code> before the comparison.
+</p>
+<p>When -1 is converted to an <code>unsigned int</code> the result is the maximal possible <code>unsigned int</code> value, which is greater than 1000, meaning that <code>a &gt; b</code> is false.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

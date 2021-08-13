@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>A Left Outer Join (also known as a Left Join or Outer Join) is a Join that ensures all rows from the left table are represented; if no matching row from the right table exists, its corresponding fields are <code>NULL</code>.</p><p>The following example will select all departments and the first name of employees that work in that department. Departments with no employees are still returned in the results, but will have NULL for the employee name:</p>
+      
+<p>A Left Outer Join (also known as a Left Join or Outer Join) is a Join that ensures all rows from the left table are represented; if no matching row from the right table exists, its corresponding fields are <code>NULL</code>.
+</p>
+<p>The following example will select all departments and the first name of employees that work in that department. Departments with no employees are still returned in the results, but will have NULL for the employee name:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT          Departments.Name, Employees.FName
@@ -138,7 +143,35 @@ ON              Departments.Id = Employees.DepartmentId</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This would return the following from the <a href="http://stackoverflow.com/documentation/sql/280/example-database#t=201604180847497343904">example database</a>:</p><p>| Departments.Name | Employees.FName | |:—————–|:––––––––| | HR | James | | HR | John | | HR | Johnathon | | Sales | Michael | | Tech | NULL |</p><hr id="6bfd0e4c-120a-46a7-81fc-034a3a30d6c1"/><h1 id="941ed310-e1e4-4d10-bbd1-22daf560ca7f" class="">So how does this work?<a class="header-anchor" href="#941ed310-e1e4-4d10-bbd1-22daf560ca7f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>There are two tables in the FROM clause:</p><p>| Id | FName | LName | PhoneNumber | ManagerId | DepartmentId | Salary | HireDate | |:—|:–––––|:———|:————|:–––––|:———––|:—––|:———–| | 1 | James | Smith | 1234567890 | NULL | 1 | 1000 | 01-01-2002 | | 2 | John | Johnson | 2468101214 | 1 | 1 | 400 | 23-03-2005 | | 3 | Michael | Williams | 1357911131 | 1 | 2 | 600 | 12-05-2009 | | 4 | Johnathon | Smith | 1212121212 | 2 | 1 | 500 | 24-07-2016 |</p><p>and</p><p>| Id | Name | |:—|:——| | 1 | HR | | 2 | Sales | | 3 | Tech |</p><p>First a <em>Cartesian</em> product is created from the two tables giving an intermediate table.</p><p>The records that meet the join criteria (<em>Departments.Id = Employees.DepartmentId</em>) are highlighted in bold; these are passed to the next stage of the query.</p><p>As this is a LEFT OUTER JOIN all records are returned from the LEFT side of the join (Departments), while any records on the RIGHT side are given a NULL marker if they do not match the join criteria. In the table below this will return <strong>Tech</strong> with <code>NULL</code></p><p>| Id | Name | Id | FName | LName | PhoneNumber | ManagerId | DepartmentId | Salary | HireDate | |:——|:–––––|:——|:–––––––|:———––|:—————|:–––––|:———––|:———|:—————| | <strong>1</strong> | <strong>HR</strong> | <strong>1</strong> | <strong>James</strong> | <strong>Smith</strong> | <strong>1234567890</strong> | <strong>NULL</strong> | <strong>1</strong> | <strong>1000</strong> | <strong>01-01-2002</strong> | | <strong>1</strong> | <strong>HR</strong> | <strong>2</strong> | <strong>John</strong> | <strong>Johnson</strong> | <strong>2468101214</strong> | <strong>1</strong> | <strong>1</strong> | <strong>400</strong> | <strong>23-03-2005</strong> | | 1 | HR | 3 | Michael | Williams | 1357911131 | 1 | 2 | 600 | 12-05-2009 | | <strong>1</strong> | <strong>HR</strong> | <strong>4</strong> | <strong>Johnathon</strong> | <strong>Smith</strong> | <strong>1212121212</strong> | <strong>2</strong> | <strong>1</strong> | <strong>500</strong> | <strong>24-07-2016</strong> | | 2 | Sales | 1 | James | Smith | 1234567890 | NULL | 1 | 1000 | 01-01-2002 | | 2 | Sales | 2 | John | Johnson | 2468101214 | 1 | 1 | 400 | 23-03-2005 | | <strong>2</strong> | <strong>Sales</strong> | <strong>3</strong> | <strong>Michael</strong> | <strong>Williams</strong> | <strong>1357911131</strong> | <strong>1</strong> | <strong>2</strong> | <strong>600</strong> | <strong>12-05-2009</strong> | | 2 | Sales | 4 | Johnathon | Smith | 1212121212 | 2 | 1 | 500 | 24-07-2016 | | 3 | Tech | 1 | James | Smith | 1234567890 | NULL | 1 | 1000 | 01-01-2002 | | 3 | Tech | 2 | John | Johnson | 2468101214 | 1 | 1 | 400 | 23-03-2005 | | 3 | Tech | 3 | Michael | Williams | 1357911131 | 1 | 2 | 600 | 12-05-2009 | | 3 | Tech | 4 | Johnathon | Smith | 1212121212 | 2 | 1 | 500 | 24-07-2016 |</p><p>Finally each expression used within the <strong>SELECT</strong> clause is evaluated to return our final table:</p><p>| Departments.Name | Employees.FName | |:—————–|:––––––––| | HR | James | | HR | John | | Sales | Richard | | Tech | NULL |</p>
+</div>
+<p>This would return the following from the <a href="http://stackoverflow.com/documentation/sql/280/example-database#t=201604180847497343904">example database</a>:
+</p>
+<p>| Departments.Name | Employees.FName | |:—————–|:––––––––| | HR | James | | HR | John | | HR | Johnathon | | Sales | Michael | | Tech | NULL |
+</p>
+<hr id="6bfd0e4c-120a-46a7-81fc-034a3a30d6c1"/>
+  <h1 id="941ed310-e1e4-4d10-bbd1-22daf560ca7f" class="">So how does this work?
+  <a class="header-anchor" href="#941ed310-e1e4-4d10-bbd1-22daf560ca7f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>There are two tables in the FROM clause:
+</p>
+<p>| Id | FName | LName | PhoneNumber | ManagerId | DepartmentId | Salary | HireDate | |:—|:–––––|:———|:————|:–––––|:———––|:—––|:———–| | 1 | James | Smith | 1234567890 | NULL | 1 | 1000 | 01-01-2002 | | 2 | John | Johnson | 2468101214 | 1 | 1 | 400 | 23-03-2005 | | 3 | Michael | Williams | 1357911131 | 1 | 2 | 600 | 12-05-2009 | | 4 | Johnathon | Smith | 1212121212 | 2 | 1 | 500 | 24-07-2016 |
+</p>
+<p>and
+</p>
+<p>| Id | Name | |:—|:——| | 1 | HR | | 2 | Sales | | 3 | Tech |
+</p>
+<p>First a <em>Cartesian</em> product is created from the two tables giving an intermediate table.
+</p>
+<p>The records that meet the join criteria (<em>Departments.Id = Employees.DepartmentId</em>) are highlighted in bold; these are passed to the next stage of the query.
+</p>
+<p>As this is a LEFT OUTER JOIN all records are returned from the LEFT side of the join (Departments), while any records on the RIGHT side are given a NULL marker if they do not match the join criteria. In the table below this will return <strong>Tech</strong> with <code>NULL</code>
+</p>
+<p>| Id | Name | Id | FName | LName | PhoneNumber | ManagerId | DepartmentId | Salary | HireDate | |:——|:–––––|:——|:–––––––|:———––|:—————|:–––––|:———––|:———|:—————| | <strong>1</strong> | <strong>HR</strong> | <strong>1</strong> | <strong>James</strong> | <strong>Smith</strong> | <strong>1234567890</strong> | <strong>NULL</strong> | <strong>1</strong> | <strong>1000</strong> | <strong>01-01-2002</strong> | | <strong>1</strong> | <strong>HR</strong> | <strong>2</strong> | <strong>John</strong> | <strong>Johnson</strong> | <strong>2468101214</strong> | <strong>1</strong> | <strong>1</strong> | <strong>400</strong> | <strong>23-03-2005</strong> | | 1 | HR | 3 | Michael | Williams | 1357911131 | 1 | 2 | 600 | 12-05-2009 | | <strong>1</strong> | <strong>HR</strong> | <strong>4</strong> | <strong>Johnathon</strong> | <strong>Smith</strong> | <strong>1212121212</strong> | <strong>2</strong> | <strong>1</strong> | <strong>500</strong> | <strong>24-07-2016</strong> | | 2 | Sales | 1 | James | Smith | 1234567890 | NULL | 1 | 1000 | 01-01-2002 | | 2 | Sales | 2 | John | Johnson | 2468101214 | 1 | 1 | 400 | 23-03-2005 | | <strong>2</strong> | <strong>Sales</strong> | <strong>3</strong> | <strong>Michael</strong> | <strong>Williams</strong> | <strong>1357911131</strong> | <strong>1</strong> | <strong>2</strong> | <strong>600</strong> | <strong>12-05-2009</strong> | | 2 | Sales | 4 | Johnathon | Smith | 1212121212 | 2 | 1 | 500 | 24-07-2016 | | 3 | Tech | 1 | James | Smith | 1234567890 | NULL | 1 | 1000 | 01-01-2002 | | 3 | Tech | 2 | John | Johnson | 2468101214 | 1 | 1 | 400 | 23-03-2005 | | 3 | Tech | 3 | Michael | Williams | 1357911131 | 1 | 2 | 600 | 12-05-2009 | | 3 | Tech | 4 | Johnathon | Smith | 1212121212 | 2 | 1 | 500 | 24-07-2016 |
+</p>
+<p>Finally each expression used within the <strong>SELECT</strong> clause is evaluated to return our final table:
+</p>
+<p>| Departments.Name | Employees.FName | |:—————–|:––––––––| | HR | James | | HR | John | | Sales | Richard | | Tech | NULL |
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

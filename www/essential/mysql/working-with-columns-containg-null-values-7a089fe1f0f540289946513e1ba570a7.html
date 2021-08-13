@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>In MySQL and other SQL dialects, <code>NULL</code> values have special properties.</p><p>Consider the following table containing job applicants, the companies they worked for, and the date they left the company. <code>NULL</code> indicates that an applicant still works at the company:</p>
+      
+<p>In MySQL and other SQL dialects, <code>NULL</code> values have special properties.
+</p>
+<p>Consider the following table containing job applicants, the companies they worked for, and the date they left the company. <code>NULL</code> indicates that an applicant still works at the company:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">CREATE TABLE example
@@ -146,7 +151,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Your task is to compose a query that returns all rows after <code>2016-01-01</code>, including any employees that are still working at a company (those with <code>NULL</code> end dates). This select statement:</p>
+</div>
+<p>Your task is to compose a query that returns all rows after <code>2016-01-01</code>, including any employees that are still working at a company (those with <code>NULL</code> end dates). This select statement:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT * FROM example WHERE end_date &gt; &#39;2016-01-01&#39;;</pre>
@@ -154,7 +162,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>fails to include any rows with <code>NULL</code> values:</p>
+</div>
+<p>fails to include any rows with <code>NULL</code> values:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">+--------------+-----------------+------------+
@@ -166,7 +177,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Per the <a href="http://dev.mysql.com/doc/refman/5.7/en/working-with-null.html">MySQL documentation</a>, comparisons using the arithmetic operators &lt;, &gt;, =, and &lt;&gt; themselves return <code>NULL</code> instead of a boolean <code>TRUE</code> or <code>FALSE</code>. Thus a row with a <code>NULL</code> end_date is neither greater than 2016-01-01 nor less than 2016-01-01.</p><p>This can be solved by using the keywords IS NULL:</p>
+</div>
+<p>Per the <a href="http://dev.mysql.com/doc/refman/5.7/en/working-with-null.html">MySQL documentation</a>, comparisons using the arithmetic operators &lt;, &gt;, =, and &lt;&gt; themselves return <code>NULL</code> instead of a boolean <code>TRUE</code> or <code>FALSE</code>. Thus a row with a <code>NULL</code> end_date is neither greater than 2016-01-01 nor less than 2016-01-01.
+</p>
+<p>This can be solved by using the keywords IS NULL:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT * FROM example WHERE end_date &gt; &#39;2016-01-01&#39; OR end_date IS NULL;
@@ -181,7 +197,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Working with NULLs becomes more complex when the task involves aggregation functions like <code>MAX()</code> and a <code>GROUP BY</code> clause. If your task were to select the most recent employed date for each applicant_id, the following query would seem a logical first attempt:</p>
+</div>
+<p>Working with NULLs becomes more complex when the task involves aggregation functions like <code>MAX()</code> and a <code>GROUP BY</code> clause. If your task were to select the most recent employed date for each applicant_id, the following query would seem a logical first attempt:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT applicant_id, MAX(end_date) FROM example GROUP BY applicant_id;
@@ -197,7 +216,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, knowing that <code>NULL</code> indicates an applicant is still employed at a company, the first row of the result is inaccurate. Using <code>CASE WHEN</code> provides a workaround for the <code>NULL</code> issue:</p>
+</div>
+<p>However, knowing that <code>NULL</code> indicates an applicant is still employed at a company, the first row of the result is inaccurate. Using <code>CASE WHEN</code> provides a workaround for the <code>NULL</code> issue:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT
@@ -218,7 +240,10 @@ GROUP BY applicant_id;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This result can be joined back to the original <code>example</code> table to determine the company at which an applicant last worked:</p>
+</div>
+<p>This result can be joined back to the original <code>example</code> table to determine the company at which an applicant last worked:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT 
@@ -252,7 +277,9 @@ ON data.applicant_id = j.applicant_id AND data.max_date = j.max_date;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>These are just a few examples of working with <code>NULL</code> values in MySQL.</p>
+</div>
+<p>These are just a few examples of working with <code>NULL</code> values in MySQL.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

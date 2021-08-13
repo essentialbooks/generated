@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>If you return an <a href="http://stackoverflow.com/documentation/c%2B%2B/763/value-categories/2605/lvalue#t=201607301614328409642">lvalue expression</a> from a function, and this lvalue:</p><ul id="c08f06f3-fb71-4da9-90d1-6f20f5b2fb03" class="bulleted-list"><li>represents an automatic variable local to that function, which will be destroyed after the <code>return</code></li><li>the automatic variable is not a function parameter</li><li>and the type of the variable is the same type as the function’s return type</li></ul><p>If all of these are the case, then the copy/move from the lvalue can be elided:</p>
+      
+<p>If you return an <a href="http://stackoverflow.com/documentation/c%2B%2B/763/value-categories/2605/lvalue#t=201607301614328409642">lvalue expression</a> from a function, and this lvalue:
+</p>
+  <ul id="c08f06f3-fb71-4da9-90d1-6f20f5b2fb03" class="bulleted-list">
+    <li>represents an automatic variable local to that function, which will be destroyed after the <code>return</code>
+    </li>
+    <li>the automatic variable is not a function parameter
+    </li>
+    <li>and the type of the variable is the same type as the function’s return type
+    </li>
+  </ul>
+<p>If all of these are the case, then the copy/move from the lvalue can be elided:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::string func()
@@ -140,7 +153,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>More complex cases are eligible for elision, but the more complex the case, the less likely the compiler will be to actually elide it:</p>
+</div>
+<p>More complex cases are eligible for elision, but the more complex the case, the less likely the compiler will be to actually elide it:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::string func()
@@ -156,7 +172,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The compiler could still elide <code>ret</code>, but the chances of them doing so go down.</p><p>As noted earlier, elision is not permitted for value <em>parameters</em>.</p>
+</div>
+<p>The compiler could still elide <code>ret</code>, but the chances of them doing so go down.
+</p>
+<p>As noted earlier, elision is not permitted for value <em>parameters</em>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::string func(std::string str)

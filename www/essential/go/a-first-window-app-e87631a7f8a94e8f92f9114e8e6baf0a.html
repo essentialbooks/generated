@@ -127,7 +127,31 @@
 </div>
 
 
-      <p>Let&#x27;s build a simple app that shows a list of files in a list view and has a search box for filtering results:</p><p>Full source is <a href="https://github.com/essentialbooks/code/tree/master/go/windows">here</a> with the most relevant code in <a href="https://github.com/essentialbooks/code/blob/master/go/windows/file_manager.go">file_manager.go</a>.</p><p>The app is the simplest file manager. It shows the files in the directory, allows navigating file system and limiting files shown to only those matching text entered in the edit control.</p><div id="14363c23-2126-45d6-9707-c447517a19ff" class="column-list"><div id="c484fe50-f7f4-4772-b6a8-65595d917ec9" style="width:50%" class="column"><p>Showing all files in directory:</p><img class="img" src="/img/9696891720044e3029ce626c6db544111663513e.png"></div><div id="4706353a-a7ae-4c59-8909-ece4493b6a1b" style="width:50%" class="column"><p>Showing only files matching <code>go</code>:</p><img class="img" src="/img/cc0b205e8ca772e5c12ad2ce2e2df7ff67032de6.png"></div></div><h1 id="5566d847-0fef-42af-856d-b87d8a0c9648" class="">Defining window layout<a class="header-anchor" href="#5566d847-0fef-42af-856d-b87d8a0c9648" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Let&#x27;s define <code>FileManager</code> struct responsible for managing of the window:</p>
+      
+<p>Let&#x27;s build a simple app that shows a list of files in a list view and has a search box for filtering results:
+</p>
+<p>Full source is <a href="https://github.com/essentialbooks/code/tree/master/go/windows">here</a> with the most relevant code in <a href="https://github.com/essentialbooks/code/blob/master/go/windows/file_manager.go">file_manager.go</a>.
+</p>
+<p>The app is the simplest file manager. It shows the files in the directory, allows navigating file system and limiting files shown to only those matching text entered in the edit control.
+</p>
+<div id="14363c23-2126-45d6-9707-c447517a19ff" class="column-list">
+<div id="c484fe50-f7f4-4772-b6a8-65595d917ec9" style="width:50%" class="column">
+<p>Showing all files in directory:
+</p>
+<img class="img" src="/img/9696891720044e3029ce626c6db544111663513e.png">
+</div>
+<div id="4706353a-a7ae-4c59-8909-ece4493b6a1b" style="width:50%" class="column">
+<p>Showing only files matching <code>go</code>:
+</p>
+<img class="img" src="/img/cc0b205e8ca772e5c12ad2ce2e2df7ff67032de6.png">
+</div>
+</div>
+  <h1 id="5566d847-0fef-42af-856d-b87d8a0c9648" class="">Defining window layout
+  <a class="header-anchor" href="#5566d847-0fef-42af-856d-b87d8a0c9648" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Let&#x27;s define <code>FileManager</code> struct responsible for managing of the window:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="c1">// FileManager manages file manager window
@@ -142,7 +166,28 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The window consists of 3 widgets, arranged in a vertical list:</p><ul id="fd8b8bf8-4997-4036-961c-e28f4c8d8eae" class="bulleted-list"><li><code>LineEdit</code> for entering a filter that will limit what files are displayed in the files list</li><li><code>Label</code> for showing current directory</li><li><code>ListBox</code> for showing list of files and directories in a current directory</li></ul><p>Walk has 2 layers:</p><ul id="a86ae253-e662-4d3e-b099-68548a11723a" class="bulleted-list"><li>widgets that are wrappers around win32 Windows controls e.g. <code>walk.LineEdit</code> is a wrapper around Windows <a href="https://docs.microsoft.com/en-us/windows/desktop/controls/edit-controls">edit control</a>.</li><li>an optional declarative system for easily defining the layout of a Window</li></ul><p>Here&#x27;s a declarative layout of the above window:</p>
+</div>
+<p>The window consists of 3 widgets, arranged in a vertical list:
+</p>
+  <ul id="fd8b8bf8-4997-4036-961c-e28f4c8d8eae" class="bulleted-list">
+    <li><code>LineEdit</code> for entering a filter that will limit what files are displayed in the files list
+    </li>
+    <li><code>Label</code> for showing current directory
+    </li>
+    <li><code>ListBox</code> for showing list of files and directories in a current directory
+    </li>
+  </ul>
+<p>Walk has 2 layers:
+</p>
+  <ul id="a86ae253-e662-4d3e-b099-68548a11723a" class="bulleted-list">
+    <li>widgets that are wrappers around win32 Windows controls e.g. <code>walk.LineEdit</code> is a wrapper around Windows <a href="https://docs.microsoft.com/en-us/windows/desktop/controls/edit-controls">edit control</a>.
+    </li>
+    <li>an optional declarative system for easily defining the layout of a Window
+    </li>
+  </ul>
+<p>Here&#x27;s a declarative layout of the above window:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kd">var</span> <span class="nx">fm</span> <span class="nx">FileManager</span>
@@ -180,7 +225,19 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Each widget has a corresponding declarative definition e.g. <code>declarative.LineEdit</code> corresponds to <code>walk.LineEdit</code>.</p><p>A <code>declarative.MainWindow</code> corresponds to top-level window.</p><p>Some widgets, like <code>MainWindow</code> can have children (which are also widgets). For those widgets <code>Layout</code> specifies how children are arranged inside the parent. We use a <code>VBox</code> layout which arranges widgets in a vertical list.</p><h1 id="512b882c-184e-487a-a3ae-51898a5a8518" class="">Creating a window<a class="header-anchor" href="#512b882c-184e-487a-a3ae-51898a5a8518" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>To create window and its widgets we call:</p>
+</div>
+<p>Each widget has a corresponding declarative definition e.g. <code>declarative.LineEdit</code> corresponds to <code>walk.LineEdit</code>.
+</p>
+<p>A <code>declarative.MainWindow</code> corresponds to top-level window.
+</p>
+<p>Some widgets, like <code>MainWindow</code> can have children (which are also widgets). For those widgets <code>Layout</code> specifies how children are arranged inside the parent. We use a <code>VBox</code> layout which arranges widgets in a vertical list.
+</p>
+  <h1 id="512b882c-184e-487a-a3ae-51898a5a8518" class="">Creating a window
+  <a class="header-anchor" href="#512b882c-184e-487a-a3ae-51898a5a8518" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>To create window and its widgets we call:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="nx">err</span> <span class="o">:=</span> <span class="nx">def</span><span class="p">.</span><span class="nf">Create</span><span class="p">()</span>
@@ -191,7 +248,27 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This creates actual widgets based on declarative definition. During creation we can set initial properties on the widget and provide handlers for events generated by widgets.</p><p><code>AssignTo</code> will set a given variable to a created widget, which allows us to manipulate the real widget in the future.</p><p><code>Visible</code> allows to set the initial visibility state of the widget.</p><p><code>Text</code> specifies initial text of <code>Label</code> widget.</p><p><code>CueBanner</code> is a text displayed in <code>LineEdit</code> when its text is empty and the control doesn&#x27;t have focus.</p><p><code>OnTextChanged</code> is an event handler that will be called when text in <code>LineEdit</code> changes.</p><p><code>OnItemActivated</code> is an event handler that will be called when user double-clicks on a list item.</p><h1 id="6bed5e72-f511-43e0-9a39-adc0a58510c2" class="">Running event loop<a class="header-anchor" href="#6bed5e72-f511-43e0-9a39-adc0a58510c2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Windows GUI is event based. After we create a window, we need to run event loop which ensures processing of window messages:</p>
+</div>
+<p>This creates actual widgets based on declarative definition. During creation we can set initial properties on the widget and provide handlers for events generated by widgets.
+</p>
+<p><code>AssignTo</code> will set a given variable to a created widget, which allows us to manipulate the real widget in the future.
+</p>
+<p><code>Visible</code> allows to set the initial visibility state of the widget.
+</p>
+<p><code>Text</code> specifies initial text of <code>Label</code> widget.
+</p>
+<p><code>CueBanner</code> is a text displayed in <code>LineEdit</code> when its text is empty and the control doesn&#x27;t have focus.
+</p>
+<p><code>OnTextChanged</code> is an event handler that will be called when text in <code>LineEdit</code> changes.
+</p>
+<p><code>OnItemActivated</code> is an event handler that will be called when user double-clicks on a list item.
+</p>
+  <h1 id="6bed5e72-f511-43e0-9a39-adc0a58510c2" class="">Running event loop
+  <a class="header-anchor" href="#6bed5e72-f511-43e0-9a39-adc0a58510c2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Windows GUI is event based. After we create a window, we need to run event loop which ensures processing of window messages:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="nx">_</span> <span class="p">=</span> <span class="nx">fm</span><span class="p">.</span><span class="nx">window</span><span class="p">.</span><span class="nf">Run</span><span class="p">()</span></pre>
@@ -199,7 +276,28 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Event loop finishes when the user closes the window.</p><p>Further execution of program logic happens as a result of responding to events generated by the user interacting with the widgets.</p><h1 id="d3b4b1db-9eb8-401c-b176-f2218bc6b3f7" class="">Thread-safe access to widget via synchronization<a class="header-anchor" href="#d3b4b1db-9eb8-401c-b176-f2218bc6b3f7" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>On Windows only the thread that created a given window / control can safely operate on this window / control. In most cases it&#x27;s the main thread of the application, called UI thread.</p><p>Walk inherits this limitation. Calling any method on a widget needs to be done on UI thread. If the code runs in a goroutine and manipulates widgets, it must be executed on the right thread. Use <code>widget.Synchronize(fn)</code> to schedule arbitrary function to  be executed on UI thread.</p><p>Crashes are often a result of not observing that rule.</p><h1 id="3aef20e2-e640-4d47-bd8b-8f60f9e730e0" class="">Handling events<a class="header-anchor" href="#3aef20e2-e640-4d47-bd8b-8f60f9e730e0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Some widgets broadcast events based on user interaction. We can provide functions to be called when an event happens.</p><p><code>LineEdit</code> widget broadcasts <code>OnTextChanged</code> event when a text in edit widget changes. In our application we retrieve the text and use it to filter list of files to only show those that match the text:</p>
+</div>
+<p>Event loop finishes when the user closes the window.
+</p>
+<p>Further execution of program logic happens as a result of responding to events generated by the user interacting with the widgets.
+</p>
+  <h1 id="d3b4b1db-9eb8-401c-b176-f2218bc6b3f7" class="">Thread-safe access to widget via synchronization
+  <a class="header-anchor" href="#d3b4b1db-9eb8-401c-b176-f2218bc6b3f7" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>On Windows only the thread that created a given window / control can safely operate on this window / control. In most cases it&#x27;s the main thread of the application, called UI thread.
+</p>
+<p>Walk inherits this limitation. Calling any method on a widget needs to be done on UI thread. If the code runs in a goroutine and manipulates widgets, it must be executed on the right thread. Use <code>widget.Synchronize(fn)</code> to schedule arbitrary function to  be executed on UI thread.
+</p>
+<p>Crashes are often a result of not observing that rule.
+</p>
+  <h1 id="3aef20e2-e640-4d47-bd8b-8f60f9e730e0" class="">Handling events
+  <a class="header-anchor" href="#3aef20e2-e640-4d47-bd8b-8f60f9e730e0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Some widgets broadcast events based on user interaction. We can provide functions to be called when an event happens.
+</p>
+<p><code>LineEdit</code> widget broadcasts <code>OnTextChanged</code> event when a text in edit widget changes. In our application we retrieve the text and use it to filter list of files to only show those that match the text:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kd">func</span> <span class="p">(</span><span class="nx">fm</span> <span class="o">*</span><span class="nx">FileManager</span><span class="p">)</span> <span class="nf">onFilterChanged</span><span class="p">()</span> <span class="p">{</span>
@@ -210,7 +308,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>ListBox</code> widget broadcasts <code>OnItemActivated</code> event when a list item is activated e.g. with mouse double-click. We can retrieve the item selected with:</p>
+</div>
+<p><code>ListBox</code> widget broadcasts <code>OnItemActivated</code> event when a list item is activated e.g. with mouse double-click. We can retrieve the item selected with:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="nx">idx</span> <span class="o">:=</span> <span class="nx">fm</span><span class="p">.</span><span class="nx">filesListBox</span><span class="p">.</span><span class="nf">CurrentIndex</span><span class="p">()</span></pre>
@@ -218,7 +319,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In our case we use it to navigate the directory hierarchy when user double-clicks a directory name.</p><h1 id="b85ea631-1592-43d5-a118-d8c35d9e2626" class="">Setting the content of a label<a class="header-anchor" href="#b85ea631-1592-43d5-a118-d8c35d9e2626" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>A <code>Label</code> is a simple widget that displays a line of text, which we can set with:</p>
+</div>
+<p>In our case we use it to navigate the directory hierarchy when user double-clicks a directory name.
+</p>
+  <h1 id="b85ea631-1592-43d5-a118-d8c35d9e2626" class="">Setting the content of a label
+  <a class="header-anchor" href="#b85ea631-1592-43d5-a118-d8c35d9e2626" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>A <code>Label</code> is a simple widget that displays a line of text, which we can set with:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="nx">fm</span><span class="p">.</span><span class="nx">dirLabel</span><span class="p">.</span><span class="nf">SetText</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span></pre>
@@ -226,7 +335,17 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="a312ad58-6125-463d-8bc4-36236b4b549a" class="">Setting the content of ListBox<a class="header-anchor" href="#a312ad58-6125-463d-8bc4-36236b4b549a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Some widgets, like <code>ListBox</code> or <code>TreeView</code> show more complicated content like a list or tree of items.</p><p>For <code>ListBox</code> the content is abstracted as <code>ListModel</code>. It&#x27;s an interface that you implement to provide information about the list data.</p><p>Walk handles simple cases for us. For example we can use a slice of strings <code>[]string{}</code> as a model:</p>
+</div>
+  <h1 id="a312ad58-6125-463d-8bc4-36236b4b549a" class="">Setting the content of ListBox
+  <a class="header-anchor" href="#a312ad58-6125-463d-8bc4-36236b4b549a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Some widgets, like <code>ListBox</code> or <code>TreeView</code> show more complicated content like a list or tree of items.
+</p>
+<p>For <code>ListBox</code> the content is abstracted as <code>ListModel</code>. It&#x27;s an interface that you implement to provide information about the list data.
+</p>
+<p>Walk handles simple cases for us. For example we can use a slice of strings <code>[]string{}</code> as a model:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="nx">model</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;item1&#34;</span><span class="p">,</span> <span class="s">&#34;item2&#34;</span><span class="p">}</span>
@@ -235,7 +354,59 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="55278934-3af7-4064-9ff1-025d622c456a" class="">Application logic<a class="header-anchor" href="#55278934-3af7-4064-9ff1-025d622c456a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>You can study the <a href="https://github.com/essentialbooks/code/blob/master/go/windows/file_manager.go">rest of the code</a> to see how to tie different pieces together.</p><p>The high-level description is:</p><ul id="d74c0025-448e-4aff-b2bb-75f18f0f9ae6" class="bulleted-list"><li>we remember the name of the current directory in <code>FileManager.dir</code> and display it in <code>FileManager.dirLabel</code> widget of type <code>walk.Label</code></li><li>when user double-clicks name of directory in the <code>ListBox</code>, we get a list of files / directories in that directory on a goroutine (so that we don&#x27;t block the UI). When that is finished we <code>Synchronize()</code> the code to update <code>ListBox</code> with list of of files</li><li>when user changes a filter in <code>FileManager.fileFilterEdit</code> edit box, we limit displayed files to those that match the filter</li><li>when user presses <code>Esc</code> when in <code>fileFilterEdit</code>, we clear the file filter. It&#x27;s one of those little touches that make software more enjoyable for users.</li></ul><h1 id="ddb74856-cec0-4cba-8742-14c50b95dd1d" class="">Compiling as a windows application<a class="header-anchor" href="#ddb74856-cec0-4cba-8742-14c50b95dd1d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Compiling the program as a valid Windows application is a bit more involved than a regular Go program.</p><p>For modern Windows applications you need a manifest. You can re-use <a href="https://github.com/essentialbooks/code/blob/master/go/windows/app.manifest">this manifest</a> for most apps.</p><p>In short it declares that the application is compatible with all Windows versions and that it opts in to modern look of controls by asking for version 6 of common controls library.</p><p>A manifest must be embedded into an <code>.exe</code> as a resource.</p><p>To achieve that:</p><ul id="02d25675-191d-4490-b7dc-6f818442cdb1" class="bulleted-list"><li>install <a href="https://github.com/akavel/rsrc">rsrc</a> tool by e.g. doing <code>go get -u </code><code><a href="https://github.com/akavel/rsrc">https://github.com/akavel/rsrc</a></code>, which should download the source code, build <code>rsrc.exe</code> and copy it <code>%GOPATH%\bin</code>, which should be in your <code>%PATH%</code>. If <code>go get</code> fails, you can download the code locally with <code>git clone </code><code><a href="https://github.com/akavel/rsrc.git">https://github.com/akavel/rsrc.git</a></code>, build with <code>go build</code> and copy <code>rsrc.exe</code> somewhere in the <code>%PATH%</code>.</li><li>run <code>rsrc -manifest app.manifest -o rsrc.syso</code> to create <code>rsrc.syso</code> file that the go linker will embed as a resource</li><li>run <code>go build -ldflags=&quot;-H windowsgui&quot; -o app.exe .</code></li></ul><p>The argument <code>ldflags=&quot;-H windowsgui&quot;</code> to <code>go build</code> passes <code>-H windowsgui</code> flag to the linker. </p><p>This flag marks executable as a Windows GUI application (as opposed to the default console application).</p><p>If you don&#x27;t embed the manifest in the application, it might fail to start in one of two ways:</p><ul id="73f194b5-02ed-425f-8511-a2992e0c4a36" class="bulleted-list"><li>If you compiled as a modern Windows app (i.e., with <code>-H windowsgui</code>), the app will fail silently.</li><li>If you compiled as a non-Windows app (i.e., without <code>-H windowsgui</code>), you might get an error <code>TTM_ADDTOOL failed</code> printed to the console.</li></ul><p></p>
+</div>
+  <h1 id="55278934-3af7-4064-9ff1-025d622c456a" class="">Application logic
+  <a class="header-anchor" href="#55278934-3af7-4064-9ff1-025d622c456a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>You can study the <a href="https://github.com/essentialbooks/code/blob/master/go/windows/file_manager.go">rest of the code</a> to see how to tie different pieces together.
+</p>
+<p>The high-level description is:
+</p>
+  <ul id="d74c0025-448e-4aff-b2bb-75f18f0f9ae6" class="bulleted-list">
+    <li>we remember the name of the current directory in <code>FileManager.dir</code> and display it in <code>FileManager.dirLabel</code> widget of type <code>walk.Label</code>
+    </li>
+    <li>when user double-clicks name of directory in the <code>ListBox</code>, we get a list of files / directories in that directory on a goroutine (so that we don&#x27;t block the UI). When that is finished we <code>Synchronize()</code> the code to update <code>ListBox</code> with list of of files
+    </li>
+    <li>when user changes a filter in <code>FileManager.fileFilterEdit</code> edit box, we limit displayed files to those that match the filter
+    </li>
+    <li>when user presses <code>Esc</code> when in <code>fileFilterEdit</code>, we clear the file filter. It&#x27;s one of those little touches that make software more enjoyable for users.
+    </li>
+  </ul>
+  <h1 id="ddb74856-cec0-4cba-8742-14c50b95dd1d" class="">Compiling as a windows application
+  <a class="header-anchor" href="#ddb74856-cec0-4cba-8742-14c50b95dd1d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Compiling the program as a valid Windows application is a bit more involved than a regular Go program.
+</p>
+<p>For modern Windows applications you need a manifest. You can re-use <a href="https://github.com/essentialbooks/code/blob/master/go/windows/app.manifest">this manifest</a> for most apps.
+</p>
+<p>In short it declares that the application is compatible with all Windows versions and that it opts in to modern look of controls by asking for version 6 of common controls library.
+</p>
+<p>A manifest must be embedded into an <code>.exe</code> as a resource.
+</p>
+<p>To achieve that:
+</p>
+  <ul id="02d25675-191d-4490-b7dc-6f818442cdb1" class="bulleted-list">
+    <li>install <a href="https://github.com/akavel/rsrc">rsrc</a> tool by e.g. doing <code>go get -u </code><code><a href="https://github.com/akavel/rsrc">https://github.com/akavel/rsrc</a></code>, which should download the source code, build <code>rsrc.exe</code> and copy it <code>%GOPATH%\bin</code>, which should be in your <code>%PATH%</code>. If <code>go get</code> fails, you can download the code locally with <code>git clone </code><code><a href="https://github.com/akavel/rsrc.git">https://github.com/akavel/rsrc.git</a></code>, build with <code>go build</code> and copy <code>rsrc.exe</code> somewhere in the <code>%PATH%</code>.
+    </li>
+    <li>run <code>rsrc -manifest app.manifest -o rsrc.syso</code> to create <code>rsrc.syso</code> file that the go linker will embed as a resource
+    </li>
+    <li>run <code>go build -ldflags=&quot;-H windowsgui&quot; -o app.exe .</code>
+    </li>
+  </ul>
+<p>The argument <code>ldflags=&quot;-H windowsgui&quot;</code> to <code>go build</code> passes <code>-H windowsgui</code> flag to the linker. 
+</p>
+<p>This flag marks executable as a Windows GUI application (as opposed to the default console application).
+</p>
+<p>If you don&#x27;t embed the manifest in the application, it might fail to start in one of two ways:
+</p>
+  <ul id="73f194b5-02ed-425f-8511-a2992e0c4a36" class="bulleted-list">
+    <li>If you compiled as a modern Windows app (i.e., with <code>-H windowsgui</code>), the app will fail silently.
+    </li>
+    <li>If you compiled as a non-Windows app (i.e., without <code>-H windowsgui</code>), you might get an error <code>TTM_ADDTOOL failed</code> printed to the console.
+    </li>
+  </ul>
+<p>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

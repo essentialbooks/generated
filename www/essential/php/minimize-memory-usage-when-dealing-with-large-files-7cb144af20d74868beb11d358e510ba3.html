@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>If we need to parse a large file, e.g. a CSV more than 10 Mbytes containing millions of rows, some use <code>file</code> or <code>file_get_contents</code> functions and end up with hitting <code>memory_limit</code> setting with</p><blockquote id="69a02b50-6f88-4acb-a3c6-60946cdac540" class="">Allowed memory size of XXXXX bytes exhausted</blockquote><p>error. Consider the following source (top-1m.csv has exactly 1 million rows and is about 22 Mbytes of size)</p>
+      
+<p>If we need to parse a large file, e.g. a CSV more than 10 Mbytes containing millions of rows, some use <code>file</code> or <code>file_get_contents</code> functions and end up with hitting <code>memory_limit</code> setting with
+</p>
+<blockquote id="69a02b50-6f88-4acb-a3c6-60946cdac540" class="">Allowed memory size of XXXXX bytes exhausted
+</blockquote>
+<p>error. Consider the following source (top-1m.csv has exactly 1 million rows and is about 22 Mbytes of size)
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var_dump(memory_get_usage(true));
@@ -137,7 +144,10 @@ var_dump(memory_get_usage(true));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This outputs:</p>
+</div>
+<p>This outputs:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int(262144)
@@ -146,7 +156,12 @@ int(210501632)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>because the interpreter needed to hold all the rows in <code>$arr</code> array, so it consumed ~200 Mbytes of RAM. Note that we haven’t even done anything with the contents of the array.</p><p>Now consider the following code:</p>
+</div>
+<p>because the interpreter needed to hold all the rows in <code>$arr</code> array, so it consumed ~200 Mbytes of RAM. Note that we haven’t even done anything with the contents of the array.
+</p>
+<p>Now consider the following code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var_dump(memory_get_usage(true));
@@ -163,7 +178,10 @@ var_dump(memory_get_usage(true));</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>which outputs</p>
+</div>
+<p>which outputs
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int(262144)
@@ -172,7 +190,9 @@ int(262144)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>so we don’t use a single extra byte of memory, but parse the whole CSV and save it to another file reversing the value of the 2nd column. That’s because <code>fgetcsv</code> reads only one row and <code>$row</code> is overwritten in every loop.</p>
+</div>
+<p>so we don’t use a single extra byte of memory, but parse the whole CSV and save it to another file reversing the value of the 2nd column. That’s because <code>fgetcsv</code> reads only one row and <code>$row</code> is overwritten in every loop.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

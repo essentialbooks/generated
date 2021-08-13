@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>Cryptography is something very hard and after spending a lot of time reading different examples and seeing how easy it is to introduce some form of vulnerability I found an answer originally written by @jbtule that I think is very good. Enjoy reading:</p><p>“The general best practice for symmetric encryption is to use Authenticated Encryption with Associated Data (AEAD), however this isn’t a part of the standard .net crypto libraries. So the first example uses <a href="http://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES256</a> and then <a href="http://en.wikipedia.org/wiki/HMAC">HMAC256</a>, a two step <a href="http://crypto.stackexchange.com/a/205/1934">Encrypt then MAC</a>, which requires more overhead and more keys.</p><p>The second example uses the simpler practice of AES256-<a href="http://en.wikipedia.org/wiki/Galois/Counter_Mode">GCM</a> using the open source Bouncy Castle (via nuget).</p><p>Both examples have a main function that takes secret message string, key(s) and an optional non-secret payload and return and authenticated encrypted string optionally prepended with the non-secret data. Ideally you would use these with 256bit key(s) randomly generated see <code>NewKey()</code>.</p><p>Both examples also have a helper methods that use a string password to generate the keys. These helper methods are provided as a convenience to match up with other examples, however they are <em>far less secure</em> because the strength of the password is going to be <em>far weaker than a 256 bit key</em>.</p><p><strong>Update:</strong> Added <code>byte[]</code> overloads, and only the <a href="https://gist.github.com/4336842">Gist</a> has the full formatting with 4 spaces indent and api docs due to StackOverflow answer limits.”</p><p><strong>.NET Built-in Encrypt(AES)-Then-MAC(HMAC) </strong><a href="https://gist.github.com/jbtule/4336842#file-aesthenhmac-cs"><strong>[Gist]</strong></a></p>
+      
+<p>Cryptography is something very hard and after spending a lot of time reading different examples and seeing how easy it is to introduce some form of vulnerability I found an answer originally written by @jbtule that I think is very good. Enjoy reading:
+</p>
+<p>“The general best practice for symmetric encryption is to use Authenticated Encryption with Associated Data (AEAD), however this isn’t a part of the standard .net crypto libraries. So the first example uses <a href="http://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES256</a> and then <a href="http://en.wikipedia.org/wiki/HMAC">HMAC256</a>, a two step <a href="http://crypto.stackexchange.com/a/205/1934">Encrypt then MAC</a>, which requires more overhead and more keys.
+</p>
+<p>The second example uses the simpler practice of AES256-<a href="http://en.wikipedia.org/wiki/Galois/Counter_Mode">GCM</a> using the open source Bouncy Castle (via nuget).
+</p>
+<p>Both examples have a main function that takes secret message string, key(s) and an optional non-secret payload and return and authenticated encrypted string optionally prepended with the non-secret data. Ideally you would use these with 256bit key(s) randomly generated see <code>NewKey()</code>.
+</p>
+<p>Both examples also have a helper methods that use a string password to generate the keys. These helper methods are provided as a convenience to match up with other examples, however they are <em>far less secure</em> because the strength of the password is going to be <em>far weaker than a 256 bit key</em>.
+</p>
+<p><strong>Update:</strong> Added <code>byte[]</code> overloads, and only the <a href="https://gist.github.com/4336842">Gist</a> has the full formatting with 4 spaces indent and api docs due to StackOverflow answer limits.”
+</p>
+<p><strong>.NET Built-in Encrypt(AES)-Then-MAC(HMAC) </strong><a href="https://gist.github.com/jbtule/4336842#file-aesthenhmac-cs"><strong>[Gist]</strong></a>
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="cm">/*
@@ -491,7 +506,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Bouncy Castle AES-GCM </strong><a href="https://gist.github.com/jbtule/4336842#file-aesgcm-cs"><strong>[Gist]</strong></a></p>
+</div>
+<p><strong>Bouncy Castle AES-GCM </strong><a href="https://gist.github.com/jbtule/4336842#file-aesgcm-cs"><strong>[Gist]</strong></a>
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="cm">/*

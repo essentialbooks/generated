@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>iOS apps needs to be written in a way to provide security to data which is being transported over network.</p><p>SSL is the common way to do it.</p><p>Whenever app tries to call web services to pull or push data to servers, it should <strong>use SSL over HTTP, i.e. HTTPS</strong>.</p><p>To do this, <strong>app must call </strong><code><strong>https://server.com/part</strong></code> such web services and not <code>http://server.com/part</code>.</p><p>In this case, app needs to trust the server <code>server.com</code> using SSL certificate.</p><p>Here is the example of validating server trust-</p><p>Implement <code>URLSessionDelegate</code> as:</p>
+      
+<p>iOS apps needs to be written in a way to provide security to data which is being transported over network.
+</p>
+<p>SSL is the common way to do it.
+</p>
+<p>Whenever app tries to call web services to pull or push data to servers, it should <strong>use SSL over HTTP, i.e. HTTPS</strong>.
+</p>
+<p>To do this, <strong>app must call </strong><code><strong>https://server.com/part</strong></code> such web services and not <code>http://server.com/part</code>.
+</p>
+<p>In this case, app needs to trust the server <code>server.com</code> using SSL certificate.
+</p>
+<p>Here is the example of validating server trust-
+</p>
+<p>Implement <code>URLSessionDelegate</code> as:
+</p>
+
 <div class="code-box lang-Swift">
 	<div>
 	<pre class="chroma"><span class="kd">func</span> <span class="nf">urlSession</span><span class="p">(</span><span class="kc">_</span> <span class="n">session</span><span class="p">:</span> <span class="n">URLSession</span><span class="p">,</span> <span class="n">didReceive</span> <span class="n">challenge</span><span class="p">:</span> <span class="n">URLAuthenticationChallenge</span><span class="p">,</span> <span class="n">completionHandler</span><span class="p">:</span> <span class="p">@</span><span class="n">escaping</span> <span class="p">(</span><span class="n">URLSession</span><span class="p">.</span><span class="n">AuthChallengeDisposition</span><span class="p">,</span> <span class="n">URLCredential</span><span class="p">?)</span> <span class="p">-&gt;</span> <span class="nb">Void</span><span class="p">)</span> <span class="p">{</span>
@@ -157,7 +172,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here is trust manager: (couldn’t found Swift code)</p>
+</div>
+<p>Here is trust manager: (couldn’t found Swift code)
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@implementation SSLTrustManager
@@ -189,7 +207,11 @@ return trustResult == kSecTrustResultUnspecified;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Server_Public_SSL_Cert.der</strong> is servers’ public SSL key.</p><p>Using this approach our app can make sure that it is communicating to the intended server and no one is intercepting the app-server communication.</p>
+</div>
+<p><strong>Server_Public_SSL_Cert.der</strong> is servers’ public SSL key.
+</p>
+<p>Using this approach our app can make sure that it is communicating to the intended server and no one is intercepting the app-server communication.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>If you’re writing a class that manages resources, you need to implement all the special member functions (see <a href="http://stackoverflow.com/documentation/c%2B%2B/1206/the-rule-of-three-five-and-zero#t=201607231819366817285">Rule of Three/Five/Zero</a>). The most direct approach to writing the copy constructor and assignment operator would be:</p>
+      
+<p>If you’re writing a class that manages resources, you need to implement all the special member functions (see <a href="http://stackoverflow.com/documentation/c%2B%2B/1206/the-rule-of-three-five-and-zero#t=201607231819366817285">Rule of Three/Five/Zero</a>). The most direct approach to writing the copy constructor and assignment operator would be:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">person(const person &amp;other)
@@ -151,7 +154,12 @@ person&amp; operator=(person const&amp; rhs) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But this approach has some problems. It fails the strong exception guarantee - if <code>new[]</code> throws, we’ve already cleared the resources owned by <code>this</code> and cannot recover. We’re duplicating a lot of the logic of copy construction in copy assignment. And we have to remember the self-assignment check, which usually just adds overhead to the copy operation, but is still critical.</p><p>To satisfy the strong exception guarantee and avoid code duplication (double so with the subsequent move assignment operator), we can use the copy-and-swap idiom:</p>
+</div>
+<p>But this approach has some problems. It fails the strong exception guarantee - if <code>new[]</code> throws, we’ve already cleared the resources owned by <code>this</code> and cannot recover. We’re duplicating a lot of the logic of copy construction in copy assignment. And we have to remember the self-assignment check, which usually just adds overhead to the copy operation, but is still critical.
+</p>
+<p>To satisfy the strong exception guarantee and avoid code duplication (double so with the subsequent move assignment operator), we can use the copy-and-swap idiom:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class person {
@@ -176,7 +184,10 @@ public:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Why does this work? Consider what happens when we have</p>
+</div>
+<p>Why does this work? Consider what happens when we have
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">person p1 = ...;
@@ -186,7 +197,12 @@ p1 = p2;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>First, we copy-construct <code>rhs</code> from <code>p2</code> (which we didn’t have to duplicate here). If that operation throws, we don’t do anything in <code>operator=</code> and <code>p1</code> remains untouched. Next, we swap the members between <code>*this</code> and <code>rhs</code>, and then <code>rhs</code> goes out of scope. When <code>operator=</code>, that implicitly cleans the original resources of <code>this</code> (via the destructor, which we didn’t have to duplicate). Self-assignment works too - it’s less efficient with copy-and-swap (involves an extra allocation and deallocation), but if that’s the unlikely scenario, we don’t slow down the typical use case to account for it.</p><p>The above formulation works as-is already for move assignment.</p>
+</div>
+<p>First, we copy-construct <code>rhs</code> from <code>p2</code> (which we didn’t have to duplicate here). If that operation throws, we don’t do anything in <code>operator=</code> and <code>p1</code> remains untouched. Next, we swap the members between <code>*this</code> and <code>rhs</code>, and then <code>rhs</code> goes out of scope. When <code>operator=</code>, that implicitly cleans the original resources of <code>this</code> (via the destructor, which we didn’t have to duplicate). Self-assignment works too - it’s less efficient with copy-and-swap (involves an extra allocation and deallocation), but if that’s the unlikely scenario, we don’t slow down the typical use case to account for it.
+</p>
+<p>The above formulation works as-is already for move assignment.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">p1 = std::move(p2);</pre>
@@ -194,7 +210,9 @@ p1 = p2;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Here, we move-construct <code>rhs</code> from <code>p2</code>, and all the rest is just as valid. If a class is movable but not copyable, there is no need to delete the copy-assignment, since this assignment operator will simply be ill-formed due to the deleted copy constructor.</p>
+</div>
+<p>Here, we move-construct <code>rhs</code> from <code>p2</code>, and all the rest is just as valid. If a class is movable but not copyable, there is no need to delete the copy-assignment, since this assignment operator will simply be ill-formed due to the deleted copy constructor.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,29 @@
 </div>
 
 
-      <p>In Android <a href="https://developer.android.com/reference/android/app/Activity.html">Activities</a> and <a href="https://developer.android.com/reference/android/app/Service.html">Services</a>, most callbacks are run on the <a href="https://developer.android.com/guide/components/processes-and-threads.html#Threads">main thread</a>. This makes it simple to update the UI, but running processor- or I/O-heavy tasks on the main thread can cause your UI to pause and become unresponsive (<a href="https://developer.android.com/training/articles/perf-anr.html">official documentation</a> on what then happens).</p><p>You can remedy this by putting these heavier tasks on a background thread.</p><p>One way to do this is using an <a href="https://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a>, which provides a framework to facilitate easy usage of a background Thread, and also perform UI Thread tasks before, during, and after the background Thread has completed its work.</p><p><strong>Methods that can be overridden when extending </strong><code><strong>AsyncTask</strong></code><strong>:</strong></p><ul id="3bea4f88-a8f7-475b-847f-d465e1a196d6" class="bulleted-list"><li><code>onPreExecute()</code> : invoked on the <strong>UI thread</strong> before the task is executed</li><li><code>doInBackground()</code>: invoked on <strong>the background thread</strong> immediately after <code>onPreExecute()</code> finishes executing.</li><li><code>onProgressUpdate()</code>: invoked on the <strong>UI thread</strong> after a call to <code>publishProgress(Progress...)</code>.</li><li><code>onPostExecute()</code>: invoked on the <strong>UI thread</strong> after the background computation finishes</li></ul><h1 id="9baa96c2-3bf2-478f-a12d-3c6400c2058a" class="">Example<a class="header-anchor" href="#9baa96c2-3bf2-478f-a12d-3c6400c2058a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1>
+      
+<p>In Android <a href="https://developer.android.com/reference/android/app/Activity.html">Activities</a> and <a href="https://developer.android.com/reference/android/app/Service.html">Services</a>, most callbacks are run on the <a href="https://developer.android.com/guide/components/processes-and-threads.html#Threads">main thread</a>. This makes it simple to update the UI, but running processor- or I/O-heavy tasks on the main thread can cause your UI to pause and become unresponsive (<a href="https://developer.android.com/training/articles/perf-anr.html">official documentation</a> on what then happens).
+</p>
+<p>You can remedy this by putting these heavier tasks on a background thread.
+</p>
+<p>One way to do this is using an <a href="https://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a>, which provides a framework to facilitate easy usage of a background Thread, and also perform UI Thread tasks before, during, and after the background Thread has completed its work.
+</p>
+<p><strong>Methods that can be overridden when extending </strong><code><strong>AsyncTask</strong></code><strong>:</strong>
+</p>
+  <ul id="3bea4f88-a8f7-475b-847f-d465e1a196d6" class="bulleted-list">
+    <li><code>onPreExecute()</code> : invoked on the <strong>UI thread</strong> before the task is executed
+    </li>
+    <li><code>doInBackground()</code>: invoked on <strong>the background thread</strong> immediately after <code>onPreExecute()</code> finishes executing.
+    </li>
+    <li><code>onProgressUpdate()</code>: invoked on the <strong>UI thread</strong> after a call to <code>publishProgress(Progress...)</code>.
+    </li>
+    <li><code>onPostExecute()</code>: invoked on the <strong>UI thread</strong> after the background computation finishes
+    </li>
+  </ul>
+  <h1 id="9baa96c2-3bf2-478f-a12d-3c6400c2058a" class="">Example
+  <a class="header-anchor" href="#9baa96c2-3bf2-478f-a12d-3c6400c2058a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MyCustomAsyncTask extends AsyncTask&lt;File, Void, String&gt; {
@@ -183,7 +205,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="4d561c43-08f6-4355-b843-9de77f5a2515" class="">Usage:<a class="header-anchor" href="#4d561c43-08f6-4355-b843-9de77f5a2515" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1>
+</div>
+  <h1 id="4d561c43-08f6-4355-b843-9de77f5a2515" class="">Usage:
+  <a class="header-anchor" href="#4d561c43-08f6-4355-b843-9de77f5a2515" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">MyCustomAsyncTask asyncTask = new MyCustomAsyncTask&lt;File, Void, String&gt;();
@@ -193,7 +219,10 @@ asyncTask.execute(userSuppliedFilename);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>or simply:</p>
+</div>
+<p>or simply:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">new MyCustomAsyncTask().execute(userSuppliedFilename);</pre>
@@ -201,7 +230,17 @@ asyncTask.execute(userSuppliedFilename);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="75105606-7fa8-4254-802a-81387d9195af" class="">Note<a class="header-anchor" href="#75105606-7fa8-4254-802a-81387d9195af" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>When defining an <code>AsyncTask</code> we can pass three types between <code>&lt; &gt;</code> brackets.</p><p>Defined as <code>&lt;Params, Progress, Result&gt;</code> (see <strong>Parameters section</strong>)</p><p>In the previous example we’ve used types <code>&lt;File, Void, String&gt;</code>:</p>
+</div>
+  <h1 id="75105606-7fa8-4254-802a-81387d9195af" class="">Note
+  <a class="header-anchor" href="#75105606-7fa8-4254-802a-81387d9195af" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>When defining an <code>AsyncTask</code> we can pass three types between <code>&lt; &gt;</code> brackets.
+</p>
+<p>Defined as <code>&lt;Params, Progress, Result&gt;</code> (see <strong>Parameters section</strong>)
+</p>
+<p>In the previous example we’ve used types <code>&lt;File, Void, String&gt;</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">AsyncTask&lt;File, Void, String&gt;
@@ -212,7 +251,19 @@ asyncTask.execute(userSuppliedFilename);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://developer.android.com/reference/java/lang/Void.html"><code>Void</code></a> is used when you want to mark a type as unused.</p><p>Note that you can’t pass primitive types (i.e. <code>int</code>, <code>float</code> and 6 others) as parameters. In such cases, you should pass their <a href="https://en.wikipedia.org/wiki/Primitive_wrapper_class">wrapper classes</a>, e.g. <code>Integer</code> instead of <code>int</code>, or <code>Float</code> instead of <code>float</code>.</p><p><strong>The AsyncTask and Activity life cycle</strong></p><p>AsyncTasks don’t follow Activity instances’ life cycle. If you start an AsyncTask inside an Activity and you rotate the device, the Activity will be destroyed and a new instance will be created. But the AsyncTask will not die. It will go on living until it completes.</p><p><strong>Solution: AsyncTaskLoader</strong></p><p>One subclass of <a href="https://developer.android.com/reference/android/content/Loader.html">Loaders</a> is the AsyncTaskLoader. This class performs the same function as the AsyncTask, but much better. It can handle Activity configuration changes more easily, and it behaves within the life cycles of Fragments and Activities. The nice thing is that the AsyncTaskLoader can be used in any situation that the AsyncTask is being used. Anytime data needs to be loaded into memory for the Activity/Fragment to handle, The AsyncTaskLoader can do the job better.</p>
+</div>
+<p><a href="https://developer.android.com/reference/java/lang/Void.html"><code>Void</code></a> is used when you want to mark a type as unused.
+</p>
+<p>Note that you can’t pass primitive types (i.e. <code>int</code>, <code>float</code> and 6 others) as parameters. In such cases, you should pass their <a href="https://en.wikipedia.org/wiki/Primitive_wrapper_class">wrapper classes</a>, e.g. <code>Integer</code> instead of <code>int</code>, or <code>Float</code> instead of <code>float</code>.
+</p>
+<p><strong>The AsyncTask and Activity life cycle</strong>
+</p>
+<p>AsyncTasks don’t follow Activity instances’ life cycle. If you start an AsyncTask inside an Activity and you rotate the device, the Activity will be destroyed and a new instance will be created. But the AsyncTask will not die. It will go on living until it completes.
+</p>
+<p><strong>Solution: AsyncTaskLoader</strong>
+</p>
+<p>One subclass of <a href="https://developer.android.com/reference/android/content/Loader.html">Loaders</a> is the AsyncTaskLoader. This class performs the same function as the AsyncTask, but much better. It can handle Activity configuration changes more easily, and it behaves within the life cycles of Fragments and Activities. The nice thing is that the AsyncTaskLoader can be used in any situation that the AsyncTask is being used. Anytime data needs to be loaded into memory for the Activity/Fragment to handle, The AsyncTaskLoader can do the job better.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

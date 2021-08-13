@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>C extensions are comprised of two general pieces:</p><ol id="859079cf-137f-432b-97be-5e5a5d7d2743" class="numbered-list" start="1"><li>The C Code itself.</li><li>The extension configuration file.</li></ol><p>To get started with your first extension put the following in a file named <code>extconf.rb</code>:</p>
+      
+<p>C extensions are comprised of two general pieces:
+</p>
+  <ol id="859079cf-137f-432b-97be-5e5a5d7d2743" class="numbered-list" start="1">
+    <li>The C Code itself.
+    </li>
+    <li>The extension configuration file.
+    </li>
+  </ol>
+<p>To get started with your first extension put the following in a file named <code>extconf.rb</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">require &#39;mkmf&#39;
@@ -137,7 +148,16 @@ create_makefile(&#39;hello_c&#39;)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A couple of things to point out:</p><p>First, the name <code>hello_c</code> is what the output of your compiled extension is going to be named. It will be what you use in conjunction with <code>require</code>.</p><p>Second, the <code>extconf.rb</code> file can actually be named anything, it’s just traditionally what is used to build gems that have native code, the file that is actually going to compile the extension is the Makefile generated when running <code>ruby extconf.rb</code>. The default Makefile that is generated compiles all <code>.c</code> files in the current directory.</p><p>Put the following in a file named <code>hello.c</code> and run <code>ruby extconf.rb &amp;&amp; make</code></p>
+</div>
+<p>A couple of things to point out:
+</p>
+<p>First, the name <code>hello_c</code> is what the output of your compiled extension is going to be named. It will be what you use in conjunction with <code>require</code>.
+</p>
+<p>Second, the <code>extconf.rb</code> file can actually be named anything, it’s just traditionally what is used to build gems that have native code, the file that is actually going to compile the extension is the Makefile generated when running <code>ruby extconf.rb</code>. The default Makefile that is generated compiles all <code>.c</code> files in the current directory.
+</p>
+<p>Put the following in a file named <code>hello.c</code> and run <code>ruby extconf.rb &amp;&amp; make</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -157,7 +177,20 @@ void Init_hello_c() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A breakdown of the code:</p><p>The name <code>Init_hello_c</code> must match the name defined in your <code>extconf.rb</code> file, otherwise when dynamically loading the extension, Ruby won’t be able to find the symbol to bootstrap your extension.</p><p>The call to <code>rb_define_module</code> is creating a Ruby module named <code>HelloC</code> which we’re going to namespace our C functions under.</p><p>Finally, the call to <code>rb_define_singleton_method</code> makes a module level method tied directly to the <code>HelloC</code> module which we can invoke from ruby with <code>HelloC.world</code>.</p><p>After having compiled the extension with the call to <code>make</code> we can run the code in our C extension.</p><p>Fire up a console!</p>
+</div>
+<p>A breakdown of the code:
+</p>
+<p>The name <code>Init_hello_c</code> must match the name defined in your <code>extconf.rb</code> file, otherwise when dynamically loading the extension, Ruby won’t be able to find the symbol to bootstrap your extension.
+</p>
+<p>The call to <code>rb_define_module</code> is creating a Ruby module named <code>HelloC</code> which we’re going to namespace our C functions under.
+</p>
+<p>Finally, the call to <code>rb_define_singleton_method</code> makes a module level method tied directly to the <code>HelloC</code> module which we can invoke from ruby with <code>HelloC.world</code>.
+</p>
+<p>After having compiled the extension with the call to <code>make</code> we can run the code in our C extension.
+</p>
+<p>Fire up a console!
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">irb(main):001:0&gt; require &#39;./hello_c&#39;

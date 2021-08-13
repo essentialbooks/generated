@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;
@@ -151,7 +152,39 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Depending on platform (windows, OSX, etc) and compiler (GCC, MSVC, etc), this program <strong>may fail to compile, display different values, or display the same values</strong>.</p><p>Example output under the Microsoft MSVC compiler:</p><blockquote id="8b79f261-c4fa-4634-be0f-c21a84fb08d1" class="">String Length: 31</blockquote><p>String Length: 31</p><p>CString Length: 24</p><p>CString Length: 24</p><p>This shows that under MSVC each of the extended-characters used is considered a single “character”, and this platform fully supports internationalised languages.</p><p><em>It should be noted however that this behaviour is unusual, these international characters are stored internally as Unicode and thus are actually several bytes long. </em><em><strong>This may cause unexpected errors</strong></em></p><p>Under the GNC/GCC compiler the program output is:</p><blockquote id="77d97409-a7fd-440c-9c52-89b3dc929dd6" class="">String Length: 31</blockquote><p>String Length: 36</p><p>CString Length: 24</p><p>CString Length: 26</p><p>This example demonstrates that while the GCC compiler used on this (Linux) platform does support these extended-characters, it also uses (<em>correctly)</em> several bytes to store an individual character.</p><p>In this case the use of Unicode characters is possible, but the programmer must take great care in remembering that the length of a “string” in this scenario is the <em><strong>length in bytes</strong></em>, not the <em><strong>length in readable characters</strong></em>.</p><p>These differences are due to how international languages are handled on a per-platform basis - and more importantly, that the C and C++ strings used in this example can be considered <em><strong>an array of bytes</strong></em>, such that (for this usage) <em><strong>the C++ language considers a character (char) to be a single byte</strong></em>.</p>
+</div>
+<p>Depending on platform (windows, OSX, etc) and compiler (GCC, MSVC, etc), this program <strong>may fail to compile, display different values, or display the same values</strong>.
+</p>
+<p>Example output under the Microsoft MSVC compiler:
+</p>
+<blockquote id="8b79f261-c4fa-4634-be0f-c21a84fb08d1" class="">String Length: 31
+</blockquote>
+<p>String Length: 31
+</p>
+<p>CString Length: 24
+</p>
+<p>CString Length: 24
+</p>
+<p>This shows that under MSVC each of the extended-characters used is considered a single “character”, and this platform fully supports internationalised languages.
+</p>
+<p><em>It should be noted however that this behaviour is unusual, these international characters are stored internally as Unicode and thus are actually several bytes long. </em><em><strong>This may cause unexpected errors</strong></em>
+</p>
+<p>Under the GNC/GCC compiler the program output is:
+</p>
+<blockquote id="77d97409-a7fd-440c-9c52-89b3dc929dd6" class="">String Length: 31
+</blockquote>
+<p>String Length: 36
+</p>
+<p>CString Length: 24
+</p>
+<p>CString Length: 26
+</p>
+<p>This example demonstrates that while the GCC compiler used on this (Linux) platform does support these extended-characters, it also uses (<em>correctly)</em> several bytes to store an individual character.
+</p>
+<p>In this case the use of Unicode characters is possible, but the programmer must take great care in remembering that the length of a “string” in this scenario is the <em><strong>length in bytes</strong></em>, not the <em><strong>length in readable characters</strong></em>.
+</p>
+<p>These differences are due to how international languages are handled on a per-platform basis - and more importantly, that the C and C++ strings used in this example can be considered <em><strong>an array of bytes</strong></em>, such that (for this usage) <em><strong>the C++ language considers a character (char) to be a single byte</strong></em>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

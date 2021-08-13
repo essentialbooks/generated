@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Most times when people have to reverse a string, they do it more or less like this:</p>
+      
+<p>Most times when people have to reverse a string, they do it more or less like this:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">char</span><span class="p">[]</span> <span class="n">a</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">ToCharArray</span><span class="p">();</span>
@@ -138,7 +141,28 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, what these people don’t realize is that this is actually wrong. And I don’t mean because of the missing NULL check.</p><p>It is actually wrong because a Glyph/GraphemeCluster can consist out of several codepoints (aka. characters).</p><p>To see why this is so, we first have to be aware of the fact what the term “character” actually means.</p><p><a href="https://stackoverflow.com/questions/27331819/whats-the-difference-between-a-character-a-code-point-a-glyph-and-a-grapheme">Reference:</a></p><blockquote id="516f840b-57b9-44c0-bdfc-b899bb8bfb95" class="">Character is an overloaded term than can mean many things.</blockquote><p>A code point is the atomic unit of information. Text is a sequence of &gt; code points. Each code point is a number which is given meaning by the &gt; Unicode standard.</p><p>A grapheme is a sequence of one or more code points that are displayed &gt; as a single, graphical unit that a reader recognizes as a single &gt; element of the writing system. For example, both a and ä are &gt; graphemes, but they may consist of multiple code points (e.g. ä may be &gt; two code points, one for the base character a followed by one for the &gt; diaresis; but there’s also an alternative, legacy, single code point &gt; representing this grapheme). Some code points are never part of any &gt; grapheme (e.g. the zero-width non-joiner, or directional overrides).</p><p>A glyph is an image, usually stored in a font (which is a collection &gt; of glyphs), used to represent graphemes or parts thereof. Fonts may &gt; compose multiple glyphs into a single representation, for example, if &gt; the above ä is a single code point, a font may chose to render that as &gt; two separate, spatially overlaid glyphs. For OTF, the font’s GSUB and &gt; GPOS tables contain substitution and positioning information to make &gt; this work. A font may contain multiple alternative glyphs for the same &gt; grapheme, too.</p><p>So in C#, a character is actually a CodePoint.</p><p>Which means, if you just reverse a valid string like <code>Les Misérables</code>, which can look like this</p>
+</div>
+<p>However, what these people don’t realize is that this is actually wrong. And I don’t mean because of the missing NULL check.
+</p>
+<p>It is actually wrong because a Glyph/GraphemeCluster can consist out of several codepoints (aka. characters).
+</p>
+<p>To see why this is so, we first have to be aware of the fact what the term “character” actually means.
+</p>
+<p><a href="https://stackoverflow.com/questions/27331819/whats-the-difference-between-a-character-a-code-point-a-glyph-and-a-grapheme">Reference:</a>
+</p>
+<blockquote id="516f840b-57b9-44c0-bdfc-b899bb8bfb95" class="">Character is an overloaded term than can mean many things.
+</blockquote>
+<p>A code point is the atomic unit of information. Text is a sequence of &gt; code points. Each code point is a number which is given meaning by the &gt; Unicode standard.
+</p>
+<p>A grapheme is a sequence of one or more code points that are displayed &gt; as a single, graphical unit that a reader recognizes as a single &gt; element of the writing system. For example, both a and ä are &gt; graphemes, but they may consist of multiple code points (e.g. ä may be &gt; two code points, one for the base character a followed by one for the &gt; diaresis; but there’s also an alternative, legacy, single code point &gt; representing this grapheme). Some code points are never part of any &gt; grapheme (e.g. the zero-width non-joiner, or directional overrides).
+</p>
+<p>A glyph is an image, usually stored in a font (which is a collection &gt; of glyphs), used to represent graphemes or parts thereof. Fonts may &gt; compose multiple glyphs into a single representation, for example, if &gt; the above ä is a single code point, a font may chose to render that as &gt; two separate, spatially overlaid glyphs. For OTF, the font’s GSUB and &gt; GPOS tables contain substitution and positioning information to make &gt; this work. A font may contain multiple alternative glyphs for the same &gt; grapheme, too.
+</p>
+<p>So in C#, a character is actually a CodePoint.
+</p>
+<p>Which means, if you just reverse a valid string like <code>Les Misérables</code>, which can look like this
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">string</span> <span class="n">s</span> <span class="p">=</span> <span class="s">&#34;Les Mise\u0301rables&#34;</span><span class="p">;</span>
@@ -147,7 +171,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>as a sequence of characters, you will get:</p><blockquote id="4ffc40d6-4c9f-4eda-a8b9-cc1d9512b67f" class="">selbaŕesiM seL</blockquote><p>As you can see, the accent is on the R character, instead of the e character. Although string.reverse.reverse will yield the original string if you both times reverse the char array, this kind of reversal is definitely NOT the reverse of the original string.</p><p>You’ll need to reverse each GraphemeCluster only. So, if done correctly, you reverse a string like this:</p>
+</div>
+<p>as a sequence of characters, you will get:
+</p>
+<blockquote id="4ffc40d6-4c9f-4eda-a8b9-cc1d9512b67f" class="">selbaŕesiM seL
+</blockquote>
+<p>As you can see, the accent is on the R character, instead of the e character. Although string.reverse.reverse will yield the original string if you both times reverse the char array, this kind of reversal is definitely NOT the reverse of the original string.
+</p>
+<p>You’ll need to reverse each GraphemeCluster only. So, if done correctly, you reverse a string like this:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">private</span> <span class="k">static</span> <span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">.</span><span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">GraphemeClusters</span><span class="p">(</span><span class="kt">string</span> <span class="n">s</span><span class="p">)</span>
@@ -193,7 +226,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And - oh joy - you’ll realize if you do it correctly like this, it will also work for Asian/South-Asian/East-Asian languages (and French/Swedish/Norwegian, etc.)…</p>
+</div>
+<p>And - oh joy - you’ll realize if you do it correctly like this, it will also work for Asian/South-Asian/East-Asian languages (and French/Swedish/Norwegian, etc.)…
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

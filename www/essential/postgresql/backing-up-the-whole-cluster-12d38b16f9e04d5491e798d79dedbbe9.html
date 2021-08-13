@@ -128,6 +128,7 @@
 
 
       
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ pg_dumpall -f backup.sql</pre>
@@ -135,7 +136,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This works behind the scenes by making multiple connections to the server once for each database and executing <code>pg_dump</code> on it.</p><p>Sometimes, you might be tempted to set this up as a cron job, so you want to see the date the backup was taken as part of the filename:</p>
+</div>
+<p>This works behind the scenes by making multiple connections to the server once for each database and executing <code>pg_dump</code> on it.
+</p>
+<p>Sometimes, you might be tempted to set this up as a cron job, so you want to see the date the backup was taken as part of the filename:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ postgres-backup-$(date +%Y-%m-%d).sql</pre>
@@ -143,7 +149,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, please note that this could produce large files on a daily basis. Postgresql has a much better mechanism for regular backups - <a href="https://www.postgresql.org/docs/9.2/static/continuous-archiving.html">WAL archives</a></p><p>The output from pg_dumpall is sufficient to restore to an identically-configured Postgres instance, but the configuration files in <code>$PGDATA</code> (<code>pg_hba.conf</code> and <code>postgresql.conf</code>) are not part of the backup, so you’ll have to back them up separately.</p>
+</div>
+<p>However, please note that this could produce large files on a daily basis. Postgresql has a much better mechanism for regular backups - <a href="https://www.postgresql.org/docs/9.2/static/continuous-archiving.html">WAL archives</a>
+</p>
+<p>The output from pg_dumpall is sufficient to restore to an identically-configured Postgres instance, but the configuration files in <code>$PGDATA</code> (<code>pg_hba.conf</code> and <code>postgresql.conf</code>) are not part of the backup, so you’ll have to back them up separately.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">postgres=# SELECT pg_start_backup(&#39;my-backup&#39;);
@@ -152,7 +163,9 @@ postgres=# SELECT pg_stop_backup();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To take a filesystem backup, you must use these functions to help ensure that Postgres is in a consistent state while the backup is prepared.</p>
+</div>
+<p>To take a filesystem backup, you must use these functions to help ensure that Postgres is in a consistent state while the backup is prepared.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,30 @@
 </div>
 
 
-      <p>A common use case for wanting to calculate the frame a label will take up is for sizing table view cells appropriately. The recommended way of doing this is using the <code>NSString</code> method <code>boundingRectWithSize:options:attributes:context:</code>.</p><p><code>options</code> takes String drawing options:</p><ul id="472e7f4b-f5ef-4f9a-9535-0bec8c877675" class="bulleted-list"><li><code>NSStringDrawingUsesLineFragmentOrigin</code> should be used for labels with multiple lines</li><li><code>NSStringDrawingTruncatesLastVisibleLine</code> should be added using the <code>|</code> operator if there are a maximum number of lines</li></ul><p><code>attributes</code> is an <code>NSDictionary</code> of attributes that effect attributed strings (full list: <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSAttributedString_Class/index.html#//apple_ref/doc/constant_group/Character_Attributes">Apple Docs</a>) but the factors that effect height include:</p><ul id="f5c12d8e-764e-4bc9-989d-98595afe77fa" class="bulleted-list"><li><strong>NSFontAttributeName</strong>: Very important, the size and font family is a critical part of the label’s displayed size.</li><li><strong>NSParagraphStyleAttributeName</strong>: For customizing how the text is displayed. This includes line spacing, text alignment, truncation style, and a few other options. If you did not explicitly change any of these values you should not have to worry about this much, but may be important if you toggled some values on IB.</li></ul><p><code>context</code> should be <code>nil</code> since the primary <code>NSStringDrawingContext</code> use case is for allowing font to resize to fit a specified rect, which shouldn’t be the case if we’re calculating a dynamic height.</p><p><strong>Objective C</strong></p>
+      
+<p>A common use case for wanting to calculate the frame a label will take up is for sizing table view cells appropriately. The recommended way of doing this is using the <code>NSString</code> method <code>boundingRectWithSize:options:attributes:context:</code>.
+</p>
+<p><code>options</code> takes String drawing options:
+</p>
+  <ul id="472e7f4b-f5ef-4f9a-9535-0bec8c877675" class="bulleted-list">
+    <li><code>NSStringDrawingUsesLineFragmentOrigin</code> should be used for labels with multiple lines
+    </li>
+    <li><code>NSStringDrawingTruncatesLastVisibleLine</code> should be added using the <code>|</code> operator if there are a maximum number of lines
+    </li>
+  </ul>
+<p><code>attributes</code> is an <code>NSDictionary</code> of attributes that effect attributed strings (full list: <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSAttributedString_Class/index.html#//apple_ref/doc/constant_group/Character_Attributes">Apple Docs</a>) but the factors that effect height include:
+</p>
+  <ul id="f5c12d8e-764e-4bc9-989d-98595afe77fa" class="bulleted-list">
+    <li><strong>NSFontAttributeName</strong>: Very important, the size and font family is a critical part of the label’s displayed size.
+    </li>
+    <li><strong>NSParagraphStyleAttributeName</strong>: For customizing how the text is displayed. This includes line spacing, text alignment, truncation style, and a few other options. If you did not explicitly change any of these values you should not have to worry about this much, but may be important if you toggled some values on IB.
+    </li>
+  </ul>
+<p><code>context</code> should be <code>nil</code> since the primary <code>NSStringDrawingContext</code> use case is for allowing font to resize to fit a specified rect, which shouldn’t be the case if we’re calculating a dynamic height.
+</p>
+<p><strong>Objective C</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -162,7 +185,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Swfit 3</strong></p>
+</div>
+<p><strong>Swfit 3</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -&gt; CGFloat {
@@ -186,7 +212,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Conversely, if you do have a set maximum number of lines you will first need calculate the height of a single line to make sure we don’t get a value taller than the allowed size:</p>
+</div>
+<p>Conversely, if you do have a set maximum number of lines you will first need calculate the height of a single line to make sure we don’t get a value taller than the allowed size:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// We calculate the height of a line by omitting the NSStringDrawingUsesLineFragmentOrigin option, which will assume an infinitely wide label

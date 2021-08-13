@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>There is a mantra that some Java experts are wont to recite:</p><blockquote id="523c4d3b-8f58-44f6-ba03-7208a89d777b" class="">“Exceptions should only be used for exceptional cases.”</blockquote><p>(For example: http://programmers.stackexchange.com/questions/184654 )</p><p>The essence of this is that is it is a bad idea (in Java) to use exceptions and exception handling to implement normal flow control. For example, compare these two ways of dealing with a parameter that could be null.</p>
+      
+<p>There is a mantra that some Java experts are wont to recite:
+</p>
+<blockquote id="523c4d3b-8f58-44f6-ba03-7208a89d777b" class="">“Exceptions should only be used for exceptional cases.”
+</blockquote>
+<p>(For example: http://programmers.stackexchange.com/questions/184654 )
+</p>
+<p>The essence of this is that is it is a bad idea (in Java) to use exceptions and exception handling to implement normal flow control. For example, compare these two ways of dealing with a parameter that could be null.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public String truncateWordOrNull(String word, int maxLength) {
@@ -149,7 +158,15 @@ public String truncateWordOrNull(String word, int maxLength) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this example, we are (by design) treating the case where <code>word</code> is <code>null</code> as if it is an empty word. The two versions deal with <code>null</code> either using conventional <em>if … else</em> and or <em>try … catch</em>. How should we decide which version is better?</p><p>The first criterion is readability. While readability is hard to quantify objectively, most programmers would agree that the essential meaning of the first version is easier to discern. Indeed, in order to truly understand the second form, you need to understand that a <code>NullPointerException</code> cannot be thrown by the <code>Math.min</code> or <code>String.substring</code> methods.</p><p>The second criterion is efficiency. In releases of Java prior to Java 8, the second version is significantly (orders of magnitude) slower than the first version. In particular, the construction of an exception object entails capturing and recording the stackframes, just in case the stacktrace is required.</p><p>On the other hand, there are many situations where using exceptions is more readable, more efficient and (sometimes) more correct than using conditional code to deal with “exceptional” events. Indeed, there are rare situations where it is necessary to use them for “non-exceptional” events; i.e. events that occur relatively frequently. For the latter, it is worth looking at ways to reduce the overheads of creating exception objects.</p>
+</div>
+<p>In this example, we are (by design) treating the case where <code>word</code> is <code>null</code> as if it is an empty word. The two versions deal with <code>null</code> either using conventional <em>if … else</em> and or <em>try … catch</em>. How should we decide which version is better?
+</p>
+<p>The first criterion is readability. While readability is hard to quantify objectively, most programmers would agree that the essential meaning of the first version is easier to discern. Indeed, in order to truly understand the second form, you need to understand that a <code>NullPointerException</code> cannot be thrown by the <code>Math.min</code> or <code>String.substring</code> methods.
+</p>
+<p>The second criterion is efficiency. In releases of Java prior to Java 8, the second version is significantly (orders of magnitude) slower than the first version. In particular, the construction of an exception object entails capturing and recording the stackframes, just in case the stacktrace is required.
+</p>
+<p>On the other hand, there are many situations where using exceptions is more readable, more efficient and (sometimes) more correct than using conditional code to deal with “exceptional” events. Indeed, there are rare situations where it is necessary to use them for “non-exceptional” events; i.e. events that occur relatively frequently. For the latter, it is worth looking at ways to reduce the overheads of creating exception objects.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

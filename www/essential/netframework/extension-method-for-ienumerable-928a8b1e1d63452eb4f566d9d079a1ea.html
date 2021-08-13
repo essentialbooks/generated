@@ -127,7 +127,14 @@
 </div>
 
 
-      <p><code>ForEach()</code> is defined on the <code>List&lt;T&gt;</code> class, but not on <code>IQueryable&lt;T&gt;</code> or <code>IEnumerable&lt;T&gt;</code>. You have two choices in those cases:</p><p><strong>ToList first</strong></p><p>The enumeration (or query) will be evaluated, copying the results into a new list or calling the database. The method is then called on each item.</p>
+      
+<p><code>ForEach()</code> is defined on the <code>List&lt;T&gt;</code> class, but not on <code>IQueryable&lt;T&gt;</code> or <code>IEnumerable&lt;T&gt;</code>. You have two choices in those cases:
+</p>
+<p><strong>ToList first</strong>
+</p>
+<p>The enumeration (or query) will be evaluated, copying the results into a new list or calling the database. The method is then called on each item.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">IEnumerable&lt;Customer&gt; customers = new List&lt;Customer&gt;();
@@ -137,7 +144,14 @@ customers.ToList().ForEach(c =&gt; c.SendEmail());</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This method has obvious memory usage overhead, as an intermediate list is created.</p><p><strong>Extension method</strong></p><p>Write an extension method:</p>
+</div>
+<p>This method has obvious memory usage overhead, as an intermediate list is created.
+</p>
+<p><strong>Extension method</strong>
+</p>
+<p>Write an extension method:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public static void ForEach&lt;T&gt;(this IEnumerable&lt;T&gt; enumeration, Action&lt;T&gt; action)
@@ -151,7 +165,10 @@ customers.ToList().ForEach(c =&gt; c.SendEmail());</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Use:</p>
+</div>
+<p>Use:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">IEnumerable&lt;Customer&gt; customers = new List&lt;Customer&gt;();
@@ -161,7 +178,9 @@ customers.ForEach(c =&gt; c.SendEmail());</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Caution: The Framework’s LINQ methods have been designed with the intention of being <em>pure</em>, which means they do not produce side effects. The <code>ForEach</code> method’s only purpose is to produce side effects, and deviates from the other methods in this aspect. You may consider just using a plain <code>foreach</code> loop instead.</p>
+</div>
+<p>Caution: The Framework’s LINQ methods have been designed with the intention of being <em>pure</em>, which means they do not produce side effects. The <code>ForEach</code> method’s only purpose is to produce side effects, and deviates from the other methods in this aspect. You may consider just using a plain <code>foreach</code> loop instead.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

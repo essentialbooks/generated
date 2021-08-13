@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Streams provide the most direct access to the binary content, so any <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html"><code>InputStream</code></a> / <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html"><code>OutputStream</code></a> implementations always operate on <code>int</code>s and <code>byte</code>s.</p>
+      
+<p>Streams provide the most direct access to the binary content, so any <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html"><code>InputStream</code></a> / <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html"><code>OutputStream</code></a> implementations always operate on <code>int</code>s and <code>byte</code>s.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Read a single byte from the stream
@@ -148,7 +151,14 @@ if (nBytesRead &gt;= 0) { // A negative value represents end of stream
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>There are some exceptions, probably most notably the <a href="https://docs.oracle.com/javase/7/docs/api/java/io/PrintStream.html"><code>PrintStream</code></a> which adds the “ability to print representations of various data values conveniently”. This allows to use <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/System.html#out"><code>System.out</code></a> both as a binary <code>InputStream</code> and as a textual output using methods such as <code>System.out.println()</code>.</p><p>Also, some stream implementations work as an interface to higher-level contents such as Java objects (see Serialization) or native types, e.g. <a href="https://docs.oracle.com/javase/7/docs/api/java/io/DataOutputStream.html"><code>DataOutputStream</code></a> / <a href="https://docs.oracle.com/javase/7/docs/api/java/io/DataInputStream.html"><code>DataInputStream</code></a>.</p><p>With the <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html"><code>Writer</code></a> and <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Reader.html"><code>Reader</code></a> classes, Java also provides an API for explicit character streams. Although most applications will base these implementations on streams, the character stream API does not expose any methods for binary content.</p>
+</div>
+<p>There are some exceptions, probably most notably the <a href="https://docs.oracle.com/javase/7/docs/api/java/io/PrintStream.html"><code>PrintStream</code></a> which adds the “ability to print representations of various data values conveniently”. This allows to use <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/System.html#out"><code>System.out</code></a> both as a binary <code>InputStream</code> and as a textual output using methods such as <code>System.out.println()</code>.
+</p>
+<p>Also, some stream implementations work as an interface to higher-level contents such as Java objects (see Serialization) or native types, e.g. <a href="https://docs.oracle.com/javase/7/docs/api/java/io/DataOutputStream.html"><code>DataOutputStream</code></a> / <a href="https://docs.oracle.com/javase/7/docs/api/java/io/DataInputStream.html"><code>DataInputStream</code></a>.
+</p>
+<p>With the <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html"><code>Writer</code></a> and <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Reader.html"><code>Reader</code></a> classes, Java also provides an API for explicit character streams. Although most applications will base these implementations on streams, the character stream API does not expose any methods for binary content.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// This example uses the platform&#39;s default charset, see below
@@ -163,7 +173,10 @@ char singleCharacter = reader.read();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Whenever it is necessary to encode characters into binary data (e.g. when using the <code>InputStreamWriter</code> / <code>OutputStreamWriter</code> classes), you should specify a charset if you do not want to depend on the platform’s default charset. When in doubt, use a Unicode-compatible encoding, e.g. UTF-8 which is supported on all Java platforms. Therefore, you should probably stay away from classes like <code>FileWriter</code> and <code>FileReader</code> as those always use the default platform charset. A better way to access files using character streams is this:</p>
+</div>
+<p>Whenever it is necessary to encode characters into binary data (e.g. when using the <code>InputStreamWriter</code> / <code>OutputStreamWriter</code> classes), you should specify a charset if you do not want to depend on the platform’s default charset. When in doubt, use a Unicode-compatible encoding, e.g. UTF-8 which is supported on all Java platforms. Therefore, you should probably stay away from classes like <code>FileWriter</code> and <code>FileReader</code> as those always use the default platform charset. A better way to access files using character streams is this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Charset myCharset = StandardCharsets.UTF_8;
@@ -180,7 +193,10 @@ reader.close();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>One of the most commonly used <code>Reader</code>s is <code>BufferedReader</code> which provides a method to read whole lines of text from another reader and is presumably the simplest way to read a character stream line by line:</p>
+</div>
+<p>One of the most commonly used <code>Reader</code>s is <code>BufferedReader</code> which provides a method to read whole lines of text from another reader and is presumably the simplest way to read a character stream line by line:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Read from baseReader, one line at a time

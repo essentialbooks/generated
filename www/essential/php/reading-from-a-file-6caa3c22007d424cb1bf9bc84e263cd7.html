@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>When reading from a file, we want to be able to know when we’ve reached the end of that file. Knowing that <code>fgets()</code> returns false at the end of the file, we might use this as the condition for a loop. However, if the data returned from the last read happens to be something that evaluates as boolean <code>false</code>, it can cause our file read loop to terminate prematurely.</p>
+      
+<p>When reading from a file, we want to be able to know when we’ve reached the end of that file. Knowing that <code>fgets()</code> returns false at the end of the file, we might use this as the condition for a loop. However, if the data returned from the last read happens to be something that evaluates as boolean <code>false</code>, it can cause our file read loop to terminate prematurely.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$handle = fopen (&#34;/path/to/my/file&#34;, &#34;r&#34;);
@@ -145,7 +148,12 @@ fclose ($handle);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If the file being read contains a blank line, the <code>while</code> loop will be terminated at that point, because the empty string evaluates as boolean <code>false</code>.</p><p>Instead, we can check for the boolean <code>false</code> value explicitly, using <a href="http://stackoverflow.com/documentation/php/1687/operators/6231/comparison-operators">strict equality operators</a>:</p>
+</div>
+<p>If the file being read contains a blank line, the <code>while</code> loop will be terminated at that point, because the empty string evaluates as boolean <code>false</code>.
+</p>
+<p>Instead, we can check for the boolean <code>false</code> value explicitly, using <a href="http://stackoverflow.com/documentation/php/1687/operators/6231/comparison-operators">strict equality operators</a>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">while (($data = fgets($handle)) !== false) {
@@ -155,7 +163,11 @@ fclose ($handle);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="a7dd961b-4209-4bb3-8234-57894d1dd0c1"/><p>Note this is a contrived example; in real life we would use the following loop:</p>
+</div>
+<hr id="a7dd961b-4209-4bb3-8234-57894d1dd0c1"/>
+<p>Note this is a contrived example; in real life we would use the following loop:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">while (!feof($handle)) {
@@ -166,7 +178,10 @@ fclose ($handle);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Or replace the whole thing with:</p>
+</div>
+<p>Or replace the whole thing with:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$filedata = file(&#34;/path/to/my/file&#34;);

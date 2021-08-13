@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>A <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr"><code>std::unique_ptr</code></a> is a class template that manages the lifetime of a dynamically stored object. Unlike for <a href="http://en.cppreference.com/w/cpp/memory/shared_ptr"><code>std::shared_ptr</code></a>, the dynamic object is owned by only <em>one instance</em> of a <code>std::unique_ptr</code> at any time,</p>
+      
+<p>A <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr"><code>std::unique_ptr</code></a> is a class template that manages the lifetime of a dynamically stored object. Unlike for <a href="http://en.cppreference.com/w/cpp/memory/shared_ptr"><code>std::shared_ptr</code></a>, the dynamic object is owned by only <em>one instance</em> of a <code>std::unique_ptr</code> at any time,
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="c1">// Creates a dynamic int with value of 20 owned by a unique pointer 
@@ -137,7 +140,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>(Note: <code>std::unique_ptr</code> is available since C++11 and <code>std::make_unique</code> since C++14.)</p><p>Only the variable <code>ptr</code> holds a pointer to a dynamically allocated <code>int</code>. When a unique pointer that owns an object goes out of scope, the owned object is deleted, i.e. its destructor is called if the object is of class type, and the memory for that object is released.</p><p>To use <code>std::unique_ptr</code> and <code>std::make_unique</code> with array-types, use their array specializations:</p>
+</div>
+<p>(Note: <code>std::unique_ptr</code> is available since C++11 and <code>std::make_unique</code> since C++14.)
+</p>
+<p>Only the variable <code>ptr</code> holds a pointer to a dynamically allocated <code>int</code>. When a unique pointer that owns an object goes out of scope, the owned object is deleted, i.e. its destructor is called if the object is of class type, and the memory for that object is released.
+</p>
+<p>To use <code>std::unique_ptr</code> and <code>std::make_unique</code> with array-types, use their array specializations:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="c1">// Creates a unique_ptr to an int with value 59
@@ -150,7 +160,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can access the <code>std::unique_ptr</code> just like a raw pointer, because it overloads those operators.</p><p></p><p>You can transfer ownership of the contents of a smart pointer to another pointer by using <code>std::move</code>, which will cause the original smart pointer to point to <code>nullptr</code>.</p>
+</div>
+<p>You can access the <code>std::unique_ptr</code> just like a raw pointer, because it overloads those operators.
+</p>
+<p>
+</p>
+<p>You can transfer ownership of the contents of a smart pointer to another pointer by using <code>std::move</code>, which will cause the original smart pointer to point to <code>nullptr</code>.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="c1">// 1. std::unique_ptr
@@ -170,7 +187,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p></p><p>Passing <code>unique_ptr</code> to functions as parameter:</p>
+</div>
+<p>
+</p>
+<p>Passing <code>unique_ptr</code> to functions as parameter:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">ptr</span><span class="p">)</span>
@@ -185,7 +207,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p></p><p>Returning <code>unique_ptr</code> from functions. This is the preferred C++11 way of writing factory functions, as it clearly conveys the ownership semantics of the return: the caller owns the resulting <code>unique_ptr</code> and is responsible for it.</p>
+</div>
+<p>
+</p>
+<p>Returning <code>unique_ptr</code> from functions. This is the preferred C++11 way of writing factory functions, as it clearly conveys the ownership semantics of the return: the caller owns the resulting <code>unique_ptr</code> and is responsible for it.
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">foo</span><span class="p">()</span>
@@ -200,7 +227,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Compare this to:</p>
+</div>
+<p>Compare this to:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="kt">int</span><span class="o">*</span> <span class="nf">foo_cpp03</span><span class="p">();</span>
@@ -212,7 +242,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The class template <code>make_unique</code> is provided since C++14. It’s easy to add it manually to C++11 code:</p>
+</div>
+<p>The class template <code>make_unique</code> is provided since C++14. It’s easy to add it manually to C++11 code:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
@@ -230,7 +263,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Unlike the <em>dumb</em> smart pointer (<code>std::auto_ptr</code>), <code>unique_ptr</code> can also be instantiated with vector allocation (<em>not</em> <code>std::vector</code>). Earlier examples were for <em>scalar</em> allocations. For example to have a dynamically allocated integer array for 10 elements, you would specify <code>int[]</code> as the template type (and not just <code>int</code>):</p>
+</div>
+<p>Unlike the <em>dumb</em> smart pointer (<code>std::auto_ptr</code>), <code>unique_ptr</code> can also be instantiated with vector allocation (<em>not</em> <code>std::vector</code>). Earlier examples were for <em>scalar</em> allocations. For example to have a dynamically allocated integer array for 10 elements, you would specify <code>int[]</code> as the template type (and not just <code>int</code>):
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[]</span><span class="o">&gt;</span> <span class="n">arr_ptr</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
@@ -239,7 +275,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Which can be simplified with:</p>
+</div>
+<p>Which can be simplified with:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">auto</span> <span class="n">arr_ptr</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
@@ -248,7 +287,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, you use <code>arr_ptr</code> as if it is an array:</p>
+</div>
+<p>Now, you use <code>arr_ptr</code> as if it is an array:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">arr_ptr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span>  <span class="mi">10</span><span class="p">;</span> <span class="c1">// Modify third element
@@ -257,7 +299,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You need not to worry about de-allocation. This template specialized version calls constructors and destructors appropriately. Using vectored version of <code>unique_ptr</code> or a <code>vector</code> itself - is a personal choice.</p><p>In versions prior to C++11, <code>std::auto_ptr</code> was available. Unlike <code>unique_ptr</code> it is allowed to copy <code>auto_ptr</code>s, upon which the source <code>ptr</code> will lose the ownership of the contained pointer and the target receives it.</p>
+</div>
+<p>You need not to worry about de-allocation. This template specialized version calls constructors and destructors appropriately. Using vectored version of <code>unique_ptr</code> or a <code>vector</code> itself - is a personal choice.
+</p>
+<p>In versions prior to C++11, <code>std::auto_ptr</code> was available. Unlike <code>unique_ptr</code> it is allowed to copy <code>auto_ptr</code>s, upon which the source <code>ptr</code> will lose the ownership of the contained pointer and the target receives it.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

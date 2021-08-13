@@ -127,7 +127,24 @@
 </div>
 
 
-      <p>By default channels are unbuffered.</p><p>Sending and receiving goroutines block unless sending goroutine has a value to send and receiving goroutine is ready to receive.</p><p>Insisting on synchronization for every receive/send operation might introduce unnecessary slowdowns.</p><p>Imagine a scenario where one worker produces values and another worker consumes it.</p><p>If it takes a second to produce a value and a second to consume it, it takes 2 * N seconds to produce and consume all values.</p><p>If producer can queue up multiple values in the channel, producer doesn’t have to wait for consumer to be ready for each value.</p><p>This is a job for buffered channels.</p><p>By allowing producer to proceed independently of the consumer we can speed up some scenarios.</p>
+      
+<p>By default channels are unbuffered.
+</p>
+<p>Sending and receiving goroutines block unless sending goroutine has a value to send and receiving goroutine is ready to receive.
+</p>
+<p>Insisting on synchronization for every receive/send operation might introduce unnecessary slowdowns.
+</p>
+<p>Imagine a scenario where one worker produces values and another worker consumes it.
+</p>
+<p>If it takes a second to produce a value and a second to consume it, it takes 2 * N seconds to produce and consume all values.
+</p>
+<p>If producer can queue up multiple values in the channel, producer doesn’t have to wait for consumer to be ready for each value.
+</p>
+<p>This is a job for buffered channels.
+</p>
+<p>By allowing producer to proceed independently of the consumer we can speed up some scenarios.
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="kd">func</span> <span class="nf">producer</span><span class="p">(</span><span class="nx">ch</span> <span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
@@ -182,6 +199,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">Unbuffered version took 50.974968ms

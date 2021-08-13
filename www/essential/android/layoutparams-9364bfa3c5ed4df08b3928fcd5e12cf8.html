@@ -127,7 +127,31 @@
 </div>
 
 
-      <p>Every single <a href="https://developer.android.com/reference/android/view/ViewGroup.html"><code>ViewGroup</code></a> (e.g. <a href="https://developer.android.com/reference/android/widget/LinearLayout.html"><code>LinearLayout</code></a>, <a href="https://developer.android.com/reference/android/widget/RelativeLayout.html"><code>RelativeLayout</code></a>, <a href="https://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.html"><code>CoordinatorLayout</code></a>, etc.) needs to store information about its children’s properties. About the way its children are being laid out in the <code>ViewGroup</code>. This information is stored in objects of a wrapper class <code>ViewGroup.LayoutParams</code>.</p><p>To include parameters specific to a particular layout type, <code>ViewGroups</code> use subclasses of <code>ViewGroup.LayoutParams</code> class.</p><p>E.g. for</p><ul id="2ba8fbe9-d9e5-44c0-8693-8a6438dff949" class="bulleted-list"><li><code>LinearLayout</code> it’s <a href="https://developer.android.com/reference/android/widget/LinearLayout.LayoutParams.html"><code>LinearLayout.LayoutParams</code></a></li><li><code>RelativeLayout</code> it’s <a href="https://developer.android.com/reference/android/widget/RelativeLayout.LayoutParams.html"><code>RelativeLayout.LayoutParams</code></a></li><li><code>CoordinatorLayout</code> it’s <a href="https://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.LayoutParams.html"><code>CoordinatorLayout.LayoutParams</code></a></li><li>…</li></ul><p>Most of <code>ViewGroups</code> reutilize the ability to set <code>margins</code> for their children, so they do not subclass <code>ViewGroup.LayoutParams</code> directly, but they subclass <a href="https://developer.android.com/reference/android/view/ViewGroup.MarginLayoutParams.html"><code>ViewGroup.MarginLayoutParams</code></a> instead (which itself is a subclass of <code>ViewGroup.LayoutParams</code>).</p><hr id="a54cb7e7-7939-40ed-81ab-85db28570038"/><p><code><strong>LayoutParams</strong></code><strong> in xml</strong></p><p><code>LayoutParams</code> objects are created based on the inflated layout <code>xml</code> file.</p>
+      
+<p>Every single <a href="https://developer.android.com/reference/android/view/ViewGroup.html"><code>ViewGroup</code></a> (e.g. <a href="https://developer.android.com/reference/android/widget/LinearLayout.html"><code>LinearLayout</code></a>, <a href="https://developer.android.com/reference/android/widget/RelativeLayout.html"><code>RelativeLayout</code></a>, <a href="https://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.html"><code>CoordinatorLayout</code></a>, etc.) needs to store information about its children’s properties. About the way its children are being laid out in the <code>ViewGroup</code>. This information is stored in objects of a wrapper class <code>ViewGroup.LayoutParams</code>.
+</p>
+<p>To include parameters specific to a particular layout type, <code>ViewGroups</code> use subclasses of <code>ViewGroup.LayoutParams</code> class.
+</p>
+<p>E.g. for
+</p>
+  <ul id="2ba8fbe9-d9e5-44c0-8693-8a6438dff949" class="bulleted-list">
+    <li><code>LinearLayout</code> it’s <a href="https://developer.android.com/reference/android/widget/LinearLayout.LayoutParams.html"><code>LinearLayout.LayoutParams</code></a>
+    </li>
+    <li><code>RelativeLayout</code> it’s <a href="https://developer.android.com/reference/android/widget/RelativeLayout.LayoutParams.html"><code>RelativeLayout.LayoutParams</code></a>
+    </li>
+    <li><code>CoordinatorLayout</code> it’s <a href="https://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.LayoutParams.html"><code>CoordinatorLayout.LayoutParams</code></a>
+    </li>
+    <li>…
+    </li>
+  </ul>
+<p>Most of <code>ViewGroups</code> reutilize the ability to set <code>margins</code> for their children, so they do not subclass <code>ViewGroup.LayoutParams</code> directly, but they subclass <a href="https://developer.android.com/reference/android/view/ViewGroup.MarginLayoutParams.html"><code>ViewGroup.MarginLayoutParams</code></a> instead (which itself is a subclass of <code>ViewGroup.LayoutParams</code>).
+</p>
+<hr id="a54cb7e7-7939-40ed-81ab-85db28570038"/>
+<p><code><strong>LayoutParams</strong></code><strong> in xml</strong>
+</p>
+<p><code>LayoutParams</code> objects are created based on the inflated layout <code>xml</code> file.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
@@ -156,7 +180,33 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>All parameters that begin with <code>layout_</code> specify how the <strong>enclosing</strong> layout should work. When the layout is inflated, those parameters are wrapped in a proper <code>LayoutParams</code> object, that later will be used by the <code>Layout</code> to properly position a particular <code>View</code> within the <code>ViewGroup</code>. Other attributes of a <code>View</code> are directly <code>View</code>-related and are processed by the <code>View</code> itself.</p><p>For <code>TextView</code>:</p><ul id="2a39e2af-0ba7-41ae-8c69-cf1815349731" class="bulleted-list"><li><code>layout_width</code>, <code>layout_height</code> and <code>layout_gravity</code> will be stored in a <code>LinearLayout.LayoutParams</code> object and used by the <code>LinearLayout</code></li><li><code>gravity</code>, <code>text</code> and <code>textColor</code> will be used by the <code>TextView</code> itself</li></ul><p>For <code>ImageView</code>:</p><ul id="3a479437-6adf-4d58-a53c-e581361e1731" class="bulleted-list"><li><code>layout_width</code>, <code>layout_height</code> and <code>layout_weight</code> will be stored in a <code>LinearLayout.LayoutParams</code> object and used by the <code>LinearLayout</code></li><li><code>background</code>, <code>scaleType</code> and <code>src</code> will be used by the <code>ImageView</code> itself</li></ul><hr id="f36e0e94-b001-4593-be5f-ef3e2ab947db"/><p><strong>Getting </strong><code><strong>LayoutParams</strong></code><strong> object</strong></p><p><a href="https://developer.android.com/reference/android/view/View.html#getLayoutParams()"><code>getLayoutParams</code></a> is a <code>View&#x27;s</code> method that allows to retrieve a current <code>LayoutParams</code> object.</p><p>Because the <code>LayoutParams</code> object is directly related to the <strong>enclosing</strong> <code>ViewGroup</code>, this method will return a non-null value only when <code>View</code> is attached to the <code>ViewGroup</code>. You need to bare in mind that this object might not be present at all times. Especially you should not depend on having it inside <code>View&#x27;s</code> constructor.</p>
+</div>
+<p>All parameters that begin with <code>layout_</code> specify how the <strong>enclosing</strong> layout should work. When the layout is inflated, those parameters are wrapped in a proper <code>LayoutParams</code> object, that later will be used by the <code>Layout</code> to properly position a particular <code>View</code> within the <code>ViewGroup</code>. Other attributes of a <code>View</code> are directly <code>View</code>-related and are processed by the <code>View</code> itself.
+</p>
+<p>For <code>TextView</code>:
+</p>
+  <ul id="2a39e2af-0ba7-41ae-8c69-cf1815349731" class="bulleted-list">
+    <li><code>layout_width</code>, <code>layout_height</code> and <code>layout_gravity</code> will be stored in a <code>LinearLayout.LayoutParams</code> object and used by the <code>LinearLayout</code>
+    </li>
+    <li><code>gravity</code>, <code>text</code> and <code>textColor</code> will be used by the <code>TextView</code> itself
+    </li>
+  </ul>
+<p>For <code>ImageView</code>:
+</p>
+  <ul id="3a479437-6adf-4d58-a53c-e581361e1731" class="bulleted-list">
+    <li><code>layout_width</code>, <code>layout_height</code> and <code>layout_weight</code> will be stored in a <code>LinearLayout.LayoutParams</code> object and used by the <code>LinearLayout</code>
+    </li>
+    <li><code>background</code>, <code>scaleType</code> and <code>src</code> will be used by the <code>ImageView</code> itself
+    </li>
+  </ul>
+<hr id="f36e0e94-b001-4593-be5f-ef3e2ab947db"/>
+<p><strong>Getting </strong><code><strong>LayoutParams</strong></code><strong> object</strong>
+</p>
+<p><a href="https://developer.android.com/reference/android/view/View.html#getLayoutParams()"><code>getLayoutParams</code></a> is a <code>View&#x27;s</code> method that allows to retrieve a current <code>LayoutParams</code> object.
+</p>
+<p>Because the <code>LayoutParams</code> object is directly related to the <strong>enclosing</strong> <code>ViewGroup</code>, this method will return a non-null value only when <code>View</code> is attached to the <code>ViewGroup</code>. You need to bare in mind that this object might not be present at all times. Especially you should not depend on having it inside <code>View&#x27;s</code> constructor.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class ExampleView extends View {
@@ -189,7 +239,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you want to depend on having <code>LayoutParams</code> object, you should use <code>onAttachedToWindow</code> method instead.</p>
+</div>
+<p>If you want to depend on having <code>LayoutParams</code> object, you should use <code>onAttachedToWindow</code> method instead.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class ExampleView extends View {
@@ -220,7 +273,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="a802df1f-05ab-4d5e-a351-78a28f59ac44"/><p><strong>Casting </strong><code><strong>LayoutParams</strong></code><strong> object</strong></p><p>You might need to use features that are specific to a particular <code>ViewGroup</code> (e.g. you might want to programmatically change rules of a <code>RelativeLayout</code>). For that purpose you will need to know how to properly cast the <code>ViewGroup.LayoutParams</code> object.</p><p>This might be a bit confusing when getting a <code>LayoutParams</code> object for a child <code>View</code> that actually is another <code>ViewGroup</code>.</p>
+</div>
+<hr id="a802df1f-05ab-4d5e-a351-78a28f59ac44"/>
+<p><strong>Casting </strong><code><strong>LayoutParams</strong></code><strong> object</strong>
+</p>
+<p>You might need to use features that are specific to a particular <code>ViewGroup</code> (e.g. you might want to programmatically change rules of a <code>RelativeLayout</code>). For that purpose you will need to know how to properly cast the <code>ViewGroup.LayoutParams</code> object.
+</p>
+<p>This might be a bit confusing when getting a <code>LayoutParams</code> object for a child <code>View</code> that actually is another <code>ViewGroup</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
@@ -240,7 +301,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>IMPORTANT:</strong> The type of <code>LayoutParams</code> object is directly related to the type of the <strong>ENCLOSING</strong> <code>ViewGroup</code>.</p><p><em><strong>Incorrect</strong></em><em> casting</em>:</p>
+</div>
+<p><strong>IMPORTANT:</strong> The type of <code>LayoutParams</code> object is directly related to the type of the <strong>ENCLOSING</strong> <code>ViewGroup</code>.
+</p>
+<p><em><strong>Incorrect</strong></em><em> casting</em>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">FrameLayout innerLayout = (FrameLayout)findViewById(R.id.inner_layout);
@@ -250,7 +316,10 @@ FrameLayout.LayoutParams par = (FrameLayout.LayoutParams) innerLayout.getLayoutP
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em><strong>Correct</strong></em><em> casting</em>:</p>
+</div>
+<p><em><strong>Correct</strong></em><em> casting</em>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">FrameLayout innerLayout = (FrameLayout)findViewById(R.id.inner_layout);

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Start with importing the library.</p>
+      
+<p>Start with importing the library.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">from amqpstorm import Connection</pre>
@@ -135,7 +138,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When consuming messages, we first need to define a function to handle the incoming messages. This can be any callable function, and has to take a message object, or a message tuple (depending on the <code>to_tuple</code> parameter defined in <code>start_consuming</code>).</p><p>Besides processing the data from the incoming message, we will also have to Acknowledge or Reject the message. This is important, as we need to let RabbitMQ know that we properly received and processed the message.</p>
+</div>
+<p>When consuming messages, we first need to define a function to handle the incoming messages. This can be any callable function, and has to take a message object, or a message tuple (depending on the <code>to_tuple</code> parameter defined in <code>start_consuming</code>).
+</p>
+<p>Besides processing the data from the incoming message, we will also have to Acknowledge or Reject the message. This is important, as we need to let RabbitMQ know that we properly received and processed the message.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def on_message(message):
@@ -158,7 +166,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Next we need to set up the connection to the RabbitMQ server.</p>
+</div>
+<p>Next we need to set up the connection to the RabbitMQ server.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">connection = Connection(&#39;127.0.0.1&#39;, &#39;guest&#39;, &#39;guest&#39;)</pre>
@@ -166,7 +177,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>After that we need to set up a channel. Each connection can have multiple channels, and in general when performing multi-threaded tasks, it’s recommended (but not required) to have one per thread.</p>
+</div>
+<p>After that we need to set up a channel. Each connection can have multiple channels, and in general when performing multi-threaded tasks, it’s recommended (but not required) to have one per thread.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">channel = connection.channel()</pre>
@@ -174,7 +188,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Once we have our channel set up, we need to let RabbitMQ know that we want to start consuming messages. In this case we will use our previously defined <code>on_message</code> function to handle all our consumed messages.</p><p>The queue we will be listening to on the RabbitMQ server is going to be <code>simple_queue</code>, and we are also telling RabbitMQ that we will be acknowledging all incoming messages once we are done with them.</p>
+</div>
+<p>Once we have our channel set up, we need to let RabbitMQ know that we want to start consuming messages. In this case we will use our previously defined <code>on_message</code> function to handle all our consumed messages.
+</p>
+<p>The queue we will be listening to on the RabbitMQ server is going to be <code>simple_queue</code>, and we are also telling RabbitMQ that we will be acknowledging all incoming messages once we are done with them.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">channel.basic.consume(callback=on_message, queue=&#39;simple_queue&#39;, no_ack=False)</pre>
@@ -182,7 +201,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Finally we need to start the IO loop to start processing messages delivered by the RabbitMQ server.</p>
+</div>
+<p>Finally we need to start the IO loop to start processing messages delivered by the RabbitMQ server.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">channel.start_consuming(to_tuple=False)</pre>

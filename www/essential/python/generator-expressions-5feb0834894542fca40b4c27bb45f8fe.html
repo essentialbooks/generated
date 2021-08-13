@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Generator expressions are very similar to list comprehensions. The main difference is that it does not create a full set of results at once; it creates a <a href="http://stackoverflow.com/documentation/python/292/generators#t=201604261541588197979">generator object</a> which can then be iterated over.</p><p>For instance, see the difference in the following code:</p>
+      
+<p>Generator expressions are very similar to list comprehensions. The main difference is that it does not create a full set of results at once; it creates a <a href="http://stackoverflow.com/documentation/python/292/generators#t=201604261541588197979">generator object</a> which can then be iterated over.
+</p>
+<p>For instance, see the difference in the following code:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="c1"># list comprehension</span>
@@ -138,6 +143,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="c1"># generator comprehension</span>
@@ -147,7 +153,20 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>These are two very different objects:</p><ul id="9c218542-c1bc-48d6-9d23-32e878a029cc" class="bulleted-list"><li>the list comprehension returns a <code>list</code> object whereas the generator comprehension returns a <code>generator</code>.</li><li><code>generator</code> objects cannot be indexed and makes use of the <code>next</code> function to get items in order.</li></ul><p><strong>Note</strong>: We use <code>xrange</code> since it too creates a generator object. If we would use range, a list would be created. Also, <code>xrange</code> exists only in later version of python 2. In python 3, <code>range</code> just returns a generator. For more information, see the <a href="http://stackoverflow.com/documentation/python/809/compatibility-between-python-3-and-python-2/2840/differences-between-range-and-xrange-functions#t=201609152155552299304"><em>Differences between range and xrange functions</em></a><a href="http://stackoverflow.com/documentation/python/809/compatibility-between-python-3-and-python-2/2840/differences-between-range-and-xrange-functions#t=201609152155552299304"> example</a>.</p><p>—</p>
+</div>
+<p>These are two very different objects:
+</p>
+  <ul id="9c218542-c1bc-48d6-9d23-32e878a029cc" class="bulleted-list">
+    <li>the list comprehension returns a <code>list</code> object whereas the generator comprehension returns a <code>generator</code>.
+    </li>
+    <li><code>generator</code> objects cannot be indexed and makes use of the <code>next</code> function to get items in order.
+    </li>
+  </ul>
+<p><strong>Note</strong>: We use <code>xrange</code> since it too creates a generator object. If we would use range, a list would be created. Also, <code>xrange</code> exists only in later version of python 2. In python 3, <code>range</code> just returns a generator. For more information, see the <a href="http://stackoverflow.com/documentation/python/809/compatibility-between-python-3-and-python-2/2840/differences-between-range-and-xrange-functions#t=201609152155552299304"><em>Differences between range and xrange functions</em></a><a href="http://stackoverflow.com/documentation/python/809/compatibility-between-python-3-and-python-2/2840/differences-between-range-and-xrange-functions#t=201609152155552299304"> example</a>.
+</p>
+<p>—
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">g</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
@@ -157,6 +176,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Traceback (most recent call last):
@@ -167,6 +187,7 @@ TypeError: &#39;generator&#39; object has no attribute &#39;__getitem__&#39;</pr
 		
 	</div>
 </div>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="n">g</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>  <span class="c1"># 0</span>
@@ -181,6 +202,7 @@ TypeError: &#39;generator&#39; object has no attribute &#39;__getitem__&#39;</pr
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Traceback (most recent call last):
@@ -190,7 +212,14 @@ StopIteration</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="018b0716-6aef-401c-8df6-3a2042621d55" class="">NOTE: The function g.next() should be substituted by next(g) and xrange with range since Iterator.next() and xrange() do not exist in Python 3.</blockquote><p></p><p>Although both of these can be iterated in a similar way:</p>
+</div>
+<blockquote id="018b0716-6aef-401c-8df6-3a2042621d55" class="">NOTE: The function g.next() should be substituted by next(g) and xrange with range since Iterator.next() and xrange() do not exist in Python 3.
+</blockquote>
+<p>
+</p>
+<p>Although both of these can be iterated in a similar way:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]:</span>
@@ -209,6 +238,7 @@ StopIteration</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">10</span><span class="p">)):</span>
@@ -228,7 +258,15 @@ StopIteration</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p></p><h2 id="a782022a-ed37-4fb4-ba9b-86c720122412" class="">Use cases<a class="header-anchor" href="#a782022a-ed37-4fb4-ba9b-86c720122412" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Generator expressions are lazily evaluated, which means that they generate and return each value only when the generator is iterated. This is often useful when iterating through large datasets, avoiding the need to create a duplicate of the dataset in memory:</p>
+</div>
+<p>
+</p>
+  <h2 id="a782022a-ed37-4fb4-ba9b-86c720122412" class="">Use cases
+  <a class="header-anchor" href="#a782022a-ed37-4fb4-ba9b-86c720122412" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Generator expressions are lazily evaluated, which means that they generate and return each value only when the generator is iterated. This is often useful when iterating through large datasets, avoiding the need to create a duplicate of the dataset in memory:
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">for</span> <span class="n">square</span> <span class="ow">in</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)):</span>
@@ -237,7 +275,10 @@ StopIteration</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Another common use case is to avoid iterating over an entire iterable if doing so is not necessary. In this example, an item is retrieved from a remote API with each iteration of <code>get_objects()</code>. Thousands of objects may exist, must be retrieved one-by-one, and we only need to know if an object matching a pattern exists. By using a generator expression, when we encounter an object matching the pattern.</p>
+</div>
+<p>Another common use case is to avoid iterating over an entire iterable if doing so is not necessary. In this example, an item is retrieved from a remote API with each iteration of <code>get_objects()</code>. Thousands of objects may exist, must be retrieved one-by-one, and we only need to know if an object matching a pattern exists. By using a generator expression, when we encounter an object matching the pattern.
+</p>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">def</span> <span class="nf">get_objects</span><span class="p">():</span>
@@ -258,6 +299,7 @@ StopIteration</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Python">
 	<div>
 	<pre class="chroma"><span class="k">return</span> <span class="bp">True</span>

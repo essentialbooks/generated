@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The following is a bad idea because it would dispose the <code>db</code> variable before returning it.</p>
+      
+<p>The following is a bad idea because it would dispose the <code>db</code> variable before returning it.
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="n">IDBContext</span> <span class="n">GetDBContext</span><span class="p">()</span>
@@ -142,7 +145,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This can also create more subtle mistakes:</p>
+</div>
+<p>This can also create more subtle mistakes:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Person</span><span class="p">&gt;</span> <span class="n">GetPeople</span><span class="p">(</span><span class="kt">int</span> <span class="n">age</span><span class="p">)</span>
@@ -157,7 +163,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This looks ok, but the catch is that the LINQ expression evaluation is lazy, and will possibly only be executed later when the underlying <code>DBContext</code> has already been disposed.</p><p>So in short the expression isn’t evaluated before leaving the <code>using</code>. One possible solution to this problem, which still makes use of <code>using</code>, is to cause the expression to evaluate immediately by calling a method that will enumerate the result. For example <code>ToList()</code>, <code>ToArray()</code>, etc. If you are using the newest version of Entity Framework you could use the <code>async</code> counterparts like <code>ToListAsync()</code> or <code>ToArrayAsync()</code>.</p><p>Below you find the example in action:</p>
+</div>
+<p>This looks ok, but the catch is that the LINQ expression evaluation is lazy, and will possibly only be executed later when the underlying <code>DBContext</code> has already been disposed.
+</p>
+<p>So in short the expression isn’t evaluated before leaving the <code>using</code>. One possible solution to this problem, which still makes use of <code>using</code>, is to cause the expression to evaluate immediately by calling a method that will enumerate the result. For example <code>ToList()</code>, <code>ToArray()</code>, etc. If you are using the newest version of Entity Framework you could use the <code>async</code> counterparts like <code>ToListAsync()</code> or <code>ToArrayAsync()</code>.
+</p>
+<p>Below you find the example in action:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Person</span><span class="p">&gt;</span> <span class="n">GetPeople</span><span class="p">(</span><span class="kt">int</span> <span class="n">age</span><span class="p">)</span>
@@ -172,7 +185,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It is important to note, though, that by calling <code>ToList()</code> or <code>ToArray()</code>, the expression will be eagerly evaluated, meaning that all the persons with the specified age will be loaded to memory even if you do not iterate on them.</p>
+</div>
+<p>It is important to note, though, that by calling <code>ToList()</code> or <code>ToArray()</code>, the expression will be eagerly evaluated, meaning that all the persons with the specified age will be loaded to memory even if you do not iterate on them.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

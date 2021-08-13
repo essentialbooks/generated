@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>For cases when we don’t want to write special classes to handle some resource, we may write a generic class:</p>
+      
+<p>For cases when we don’t want to write special classes to handle some resource, we may write a generic class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;typename Function&gt;
@@ -151,7 +154,10 @@ auto onExit(Function &amp;&amp;f) { return Finally&lt;std::decay_t&lt;Function&g
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And its example usage</p>
+</div>
+<p>And its example usage
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void foo(std::vector&lt;int&gt;&amp; v, int i)
@@ -167,7 +173,17 @@ auto onExit(Function &amp;&amp;f) { return Finally&lt;std::decay_t&lt;Function&g
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note (1): Some discussion about destructor definition has to be considered to handle exception:</p><ul id="0839bac5-ce7b-4a4d-b74c-d282130a0f77" class="bulleted-list"><li><code>~Finally() noexcept { f(); }</code>: <code>std::terminate</code> is called in case of exception</li><li><code>~Finally() noexcept(noexcept(f())) { f(); }</code>: terminate() is called only in case of exception during stack unwinding.</li><li><code>~Finally() noexcept { try { f(); } catch (...) { /* ignore exception (might log it) */} }</code> No <code>std::terminate</code> called, but we cannot handle error (even for non stack unwinding).</li></ul>
+</div>
+<p>Note (1): Some discussion about destructor definition has to be considered to handle exception:
+</p>
+  <ul id="0839bac5-ce7b-4a4d-b74c-d282130a0f77" class="bulleted-list">
+    <li><code>~Finally() noexcept { f(); }</code>: <code>std::terminate</code> is called in case of exception
+    </li>
+    <li><code>~Finally() noexcept(noexcept(f())) { f(); }</code>: terminate() is called only in case of exception during stack unwinding.
+    </li>
+    <li><code>~Finally() noexcept { try { f(); } catch (...) { /* ignore exception (might log it) */} }</code> No <code>std::terminate</code> called, but we cannot handle error (even for non stack unwinding).
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

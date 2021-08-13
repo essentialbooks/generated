@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>cURL can keep cookies received in responses for use with subsequent requests. For simple session cookie handling in memory, this is achieved with a single line of code:</p>
+      
+<p>cURL can keep cookies received in responses for use with subsequent requests. For simple session cookie handling in memory, this is achieved with a single line of code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">curl_setopt($ch, CURLOPT_COOKIEFILE, &#34;&#34;);</pre>
@@ -135,7 +138,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In cases where you are required to keep cookies after the cURL handle is destroyed, you can specify the file to store them in:</p>
+</div>
+<p>In cases where you are required to keep cookies after the cURL handle is destroyed, you can specify the file to store them in:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">curl_setopt($ch, CURLOPT_COOKIEJAR, &#34;/tmp/cookies.txt&#34;);</pre>
@@ -143,7 +149,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then, when you want to use them again, pass them as the cookie file:</p>
+</div>
+<p>Then, when you want to use them again, pass them as the cookie file:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">curl_setopt($ch, CURLOPT_COOKIEFILE, &#34;/tmp/cookies.txt&#34;);</pre>
@@ -151,7 +160,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Remember, though, that these two steps are not necessary unless you need to carry cookies between different cURL handles. For most use cases, setting <code>CURLOPT_COOKIEFILE</code> to the empty string is all you need.</p><hr id="6dd6f41d-be30-4c82-b8b5-16c4642808c0"/><p>Cookie handling can be used, for example, to retrieve resources from a web site that requires a login. This is typically a two-step procedure. First, POST to the login page.</p>
+</div>
+<p>Remember, though, that these two steps are not necessary unless you need to carry cookies between different cURL handles. For most use cases, setting <code>CURLOPT_COOKIEFILE</code> to the empty string is all you need.
+</p>
+<hr id="6dd6f41d-be30-4c82-b8b5-16c4642808c0"/>
+<p>Cookie handling can be used, for example, to retrieve resources from a web site that requires a login. This is typically a two-step procedure. First, POST to the login page.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;?php
@@ -184,7 +199,10 @@ $result = curl_exec($ch);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The second step (after standard error checking is done) is usually a simple GET request. The important thing is to <strong>reuse the existing cURL handle</strong> for the second request. This ensures the cookies from the first response will be automatically included in the second request.</p>
+</div>
+<p>The second step (after standard error checking is done) is usually a simple GET request. The important thing is to <strong>reuse the existing cURL handle</strong> for the second request. This ensures the cookies from the first response will be automatically included in the second request.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"># we are not calling curl_init()
@@ -206,7 +224,9 @@ curl_close($ch);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is only intended as an example of cookie handling. In real life, things are usually more complicated. Often you must perform an initial GET of the login page to pull a login token that needs to be included in your POST. Other sites might block the cURL client based on its User-Agent string, requiring you to change it.</p>
+</div>
+<p>This is only intended as an example of cookie handling. In real life, things are usually more complicated. Often you must perform an initial GET of the login page to pull a login token that needs to be included in your POST. Other sites might block the cURL client based on its User-Agent string, requiring you to change it.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

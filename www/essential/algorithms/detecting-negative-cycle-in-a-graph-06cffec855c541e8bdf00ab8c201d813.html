@@ -127,7 +127,26 @@
 </div>
 
 
-      <p><em>To understand this example, it is recommended to have a brief idea about Bellman-Ford algorithm which can be found </em><a href="http://stackoverflow.com/documentation/algorithm/4791/bellman-ford-algorithm/24021/single-source-shortest-path-algorithm-given-there-is-a-negative-cycle-in-a-grap"><em>here</em></a></p><p>Using Bellman-Ford algorithm, we can detect if there is a negative cycle in our graph. We know that, to find out the shortest path, we need to <em>relax</em> all the edges of the graph <strong>(V-1)</strong> times, where <strong>V</strong> is the number of vertices in a graph. We have already seen that in this <a href="http://stackoverflow.com/documentation/algorithm/4791/bellman-ford-algorithm/24029/why-do-we-need-to-relax-all-the-edges-at-most-v-1-times">example</a>, after <strong>(V-1)</strong> iterations, we can’t update <strong>d[]</strong>, no matter how many iterations we do. Or can we?</p><p>If there is a negative cycle in a graph, even after <strong>(V-1)</strong> iterations, we can update <strong>d[]</strong>. This happens because for every iteration, traversing through the negative cycle always decreases the cost of the shortest path. This is why Bellman-Ford algorithm limits the number of iterations to <strong>(V-1)</strong>. If we used <a href="http://stackoverflow.com/documentation/algorithm/7151/dijkstra-s-algorithm/23947/dijkstras-shortest-path-algorithm#t=20161002124031483303">Dijkstra’s Algorithm</a> here, we’d be stuck in an endless loop. However, let’s concentrate on finding negative cycle.</p><p>Let’s assume, we have a graph:</p><img class="img" src="/img/18b51f2e3322ac4f7bd527c6ff0668a410d4489f.png"><p>Let’s pick <strong>vertex 1</strong> as the <strong>source</strong>. After applying Bellman-Ford’s single source shortest path algorithm to the graph, we’ll find out the distances from the <strong>source</strong> to all the other vertices.</p><img class="img" src="/img/658bc7910512b30fea36eff0ae93b6ec322ce471.png"><p>This is how the graph looks like after <strong>(V-1)</strong> = <strong>3</strong> iterations. It should be the result since there are <strong>4</strong> edges, we need at most <strong>3</strong> iterations to find out the shortest path. So either this is the answer, or there is a negative weight cycle in the graph. To find that, after <strong>(V-1)</strong> iterations, we do one more final iteration and if the distance continues to decrease, it means that there is definitely a negative weight cycle in the graph.</p><p>For this example: if we check <strong>2-3</strong>, <strong>d[2]</strong> + <strong>cost[2][3]</strong> will give us <strong>1</strong> which is less than <strong>d[3]</strong>. So we can conclude that there is a negative cycle in our graph.</p><p>So how do we find out the negative cycle? We do a bit modification to Bellman-Ford procedure:</p>
+      
+<p><em>To understand this example, it is recommended to have a brief idea about Bellman-Ford algorithm which can be found </em><a href="http://stackoverflow.com/documentation/algorithm/4791/bellman-ford-algorithm/24021/single-source-shortest-path-algorithm-given-there-is-a-negative-cycle-in-a-grap"><em>here</em></a>
+</p>
+<p>Using Bellman-Ford algorithm, we can detect if there is a negative cycle in our graph. We know that, to find out the shortest path, we need to <em>relax</em> all the edges of the graph <strong>(V-1)</strong> times, where <strong>V</strong> is the number of vertices in a graph. We have already seen that in this <a href="http://stackoverflow.com/documentation/algorithm/4791/bellman-ford-algorithm/24029/why-do-we-need-to-relax-all-the-edges-at-most-v-1-times">example</a>, after <strong>(V-1)</strong> iterations, we can’t update <strong>d[]</strong>, no matter how many iterations we do. Or can we?
+</p>
+<p>If there is a negative cycle in a graph, even after <strong>(V-1)</strong> iterations, we can update <strong>d[]</strong>. This happens because for every iteration, traversing through the negative cycle always decreases the cost of the shortest path. This is why Bellman-Ford algorithm limits the number of iterations to <strong>(V-1)</strong>. If we used <a href="http://stackoverflow.com/documentation/algorithm/7151/dijkstra-s-algorithm/23947/dijkstras-shortest-path-algorithm#t=20161002124031483303">Dijkstra’s Algorithm</a> here, we’d be stuck in an endless loop. However, let’s concentrate on finding negative cycle.
+</p>
+<p>Let’s assume, we have a graph:
+</p>
+<img class="img" src="/img/18b51f2e3322ac4f7bd527c6ff0668a410d4489f.png">
+<p>Let’s pick <strong>vertex 1</strong> as the <strong>source</strong>. After applying Bellman-Ford’s single source shortest path algorithm to the graph, we’ll find out the distances from the <strong>source</strong> to all the other vertices.
+</p>
+<img class="img" src="/img/658bc7910512b30fea36eff0ae93b6ec322ce471.png">
+<p>This is how the graph looks like after <strong>(V-1)</strong> = <strong>3</strong> iterations. It should be the result since there are <strong>4</strong> edges, we need at most <strong>3</strong> iterations to find out the shortest path. So either this is the answer, or there is a negative weight cycle in the graph. To find that, after <strong>(V-1)</strong> iterations, we do one more final iteration and if the distance continues to decrease, it means that there is definitely a negative weight cycle in the graph.
+</p>
+<p>For this example: if we check <strong>2-3</strong>, <strong>d[2]</strong> + <strong>cost[2][3]</strong> will give us <strong>1</strong> which is less than <strong>d[3]</strong>. So we can conclude that there is a negative cycle in our graph.
+</p>
+<p>So how do we find out the negative cycle? We do a bit modification to Bellman-Ford procedure:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Procedure NegativeCycleDetector(Graph, source):
@@ -157,7 +176,9 @@ Return &#34;No Negative Cycle&#34;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is how we find out if there is a negative cycle in a graph. We can also modify Bellman-Ford Algorithm to keep track of negative cycles.</p>
+</div>
+<p>This is how we find out if there is a negative cycle in a graph. We can also modify Bellman-Ford Algorithm to keep track of negative cycles.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

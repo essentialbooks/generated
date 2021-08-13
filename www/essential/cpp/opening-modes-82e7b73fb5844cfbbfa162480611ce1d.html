@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>When creating a file stream, you can specify an opening mode. An opening mode is basically a setting to control how the stream opens the file.</p><p>(All modes can be found in the <code>std::ios</code> namespace.)</p><p>An opening mode can be provided as second parameter to the constructor of a file stream or to its <code>open()</code> member function:</p>
+      
+<p>When creating a file stream, you can specify an opening mode. An opening mode is basically a setting to control how the stream opens the file.
+</p>
+<p>(All modes can be found in the <code>std::ios</code> namespace.)
+</p>
+<p>An opening mode can be provided as second parameter to the constructor of a file stream or to its <code>open()</code> member function:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">std</span><span class="o">::</span><span class="n">ofstream</span> <span class="n">os</span><span class="p">(</span><span class="s">&#34;foo.txt&#34;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ios</span><span class="o">::</span><span class="n">out</span> <span class="o">|</span> <span class="n">std</span><span class="o">::</span><span class="n">ios</span><span class="o">::</span><span class="n">trunc</span><span class="p">);</span>
@@ -139,13 +146,88 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It is to be noted that you have to set <code>ios::in</code> or <code>ios::out</code> if you want to set other flags as they are not implicitly set by the iostream members although they have a correct default value.</p><p>If you don’t specify an opening mode, then the following default modes are used:</p><ul id="296105c2-2424-4081-a6c4-ad9973c1ba95" class="bulleted-list"><li><code>ifstream</code> - <code>in</code></li><li><code>ofstream</code> - <code>out</code></li><li><code>fstream</code> - <code>in</code> and <code>out</code></li></ul><p></p><p><strong>File opening modes:</strong></p><div id="92c35ba6-0a27-4db0-a480-650be0effdbe" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th width="106">Mode</th><th width="130">Meaning</th><th width="128">For</th><th width="453">Description</th></tr></thead><tbody><tr id="6c64ad34-2091-4126-a48b-0a5b01a9b95b"><td class="cell-title col-type-title">app</td><td class="cell-4(&gt;w col-type-text">append</td><td class="cell-?792 col-type-text">Output</td><td class="cell-*n^j col-type-text">Appends data at the end of the file.</td></tr>
-<tr id="a59c6836-919a-48da-a614-19885728b468"><td class="cell-title col-type-title">binary</td><td class="cell-4(&gt;w col-type-text">binary</td><td class="cell-?792 col-type-text">Input/Output</td><td class="cell-*n^j col-type-text">Input and output is done in binary.</td></tr>
-<tr id="e2f668c2-1101-47b8-b570-7c3f1b3e6280"><td class="cell-title col-type-title">in</td><td class="cell-4(&gt;w col-type-text">input</td><td class="cell-?792 col-type-text">Input</td><td class="cell-*n^j col-type-text">Opens the file for reading.</td></tr>
-<tr id="e4af174f-3ebc-40d5-b22f-a95142beabc4"><td class="cell-title col-type-title">out</td><td class="cell-4(&gt;w col-type-text">output</td><td class="cell-?792 col-type-text">Output</td><td class="cell-*n^j col-type-text">Opens the file for writing.</td></tr>
-<tr id="af53d038-fd20-4650-aa64-2492a6ac0b1b"><td class="cell-title col-type-title">trunc</td><td class="cell-4(&gt;w col-type-text">truncate</td><td class="cell-?792 col-type-text">Input/Output</td><td class="cell-*n^j col-type-text">Removes contents of the file when opening.</td></tr>
-<tr id="94ec0c5a-46b6-4bda-9925-e717e18c8f87"><td class="cell-title col-type-title">ate</td><td class="cell-4(&gt;w col-type-text">at end</td><td class="cell-?792 col-type-text">Input</td><td class="cell-*n^j col-type-text">Goes to the end of the file when opening.</td></tr>
-</tbody></table></div><p><strong>Note:</strong> Setting the <code>binary</code> mode lets the data be read/written exactly as-is; not setting it enables the translation of the newline <code>&#x27;\n&#x27;</code> character to/from a platform specific end of line sequence.</p><p>For example on Windows the end of line sequence is CRLF (<code>&quot;\r\n&quot;</code>).</p><p>Write: <code>&quot;\n&quot;</code> =&gt; <code>&quot;\r\n&quot;</code></p><p>Read: <code>&quot;\r\n&quot;</code> =&gt; <code>&quot;\n&quot;</code></p>
+</div>
+<p>It is to be noted that you have to set <code>ios::in</code> or <code>ios::out</code> if you want to set other flags as they are not implicitly set by the iostream members although they have a correct default value.
+</p>
+<p>If you don’t specify an opening mode, then the following default modes are used:
+</p>
+  <ul id="296105c2-2424-4081-a6c4-ad9973c1ba95" class="bulleted-list">
+    <li><code>ifstream</code> - <code>in</code>
+    </li>
+    <li><code>ofstream</code> - <code>out</code>
+    </li>
+    <li><code>fstream</code> - <code>in</code> and <code>out</code>
+    </li>
+  </ul>
+<p>
+</p>
+<p><strong>File opening modes:</strong>
+</p>
+<div id="92c35ba6-0a27-4db0-a480-650be0effdbe" class="collection-content">
+<h4 class="collection-title"></h4>
+<table class="collection-content">
+<thead>
+<tr>
+<th width="106">Mode</th>
+<th width="130">Meaning</th>
+<th width="128">For</th>
+<th width="453">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr id="6c64ad34-2091-4126-a48b-0a5b01a9b95b">
+<td class="cell-title col-type-title">app</td>
+<td class="cell-4(&gt;w col-type-text">append</td>
+<td class="cell-?792 col-type-text">Output</td>
+<td class="cell-*n^j col-type-text">Appends data at the end of the file.</td>
+</tr>
+
+<tr id="a59c6836-919a-48da-a614-19885728b468">
+<td class="cell-title col-type-title">binary</td>
+<td class="cell-4(&gt;w col-type-text">binary</td>
+<td class="cell-?792 col-type-text">Input/Output</td>
+<td class="cell-*n^j col-type-text">Input and output is done in binary.</td>
+</tr>
+
+<tr id="e2f668c2-1101-47b8-b570-7c3f1b3e6280">
+<td class="cell-title col-type-title">in</td>
+<td class="cell-4(&gt;w col-type-text">input</td>
+<td class="cell-?792 col-type-text">Input</td>
+<td class="cell-*n^j col-type-text">Opens the file for reading.</td>
+</tr>
+
+<tr id="e4af174f-3ebc-40d5-b22f-a95142beabc4">
+<td class="cell-title col-type-title">out</td>
+<td class="cell-4(&gt;w col-type-text">output</td>
+<td class="cell-?792 col-type-text">Output</td>
+<td class="cell-*n^j col-type-text">Opens the file for writing.</td>
+</tr>
+
+<tr id="af53d038-fd20-4650-aa64-2492a6ac0b1b">
+<td class="cell-title col-type-title">trunc</td>
+<td class="cell-4(&gt;w col-type-text">truncate</td>
+<td class="cell-?792 col-type-text">Input/Output</td>
+<td class="cell-*n^j col-type-text">Removes contents of the file when opening.</td>
+</tr>
+
+<tr id="94ec0c5a-46b6-4bda-9925-e717e18c8f87">
+<td class="cell-title col-type-title">ate</td>
+<td class="cell-4(&gt;w col-type-text">at end</td>
+<td class="cell-?792 col-type-text">Input</td>
+<td class="cell-*n^j col-type-text">Goes to the end of the file when opening.</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+<p><strong>Note:</strong> Setting the <code>binary</code> mode lets the data be read/written exactly as-is; not setting it enables the translation of the newline <code>&#x27;\n&#x27;</code> character to/from a platform specific end of line sequence.
+</p>
+<p>For example on Windows the end of line sequence is CRLF (<code>&quot;\r\n&quot;</code>).
+</p>
+<p>Write: <code>&quot;\n&quot;</code> =&gt; <code>&quot;\r\n&quot;</code>
+</p>
+<p>Read: <code>&quot;\r\n&quot;</code> =&gt; <code>&quot;\n&quot;</code>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

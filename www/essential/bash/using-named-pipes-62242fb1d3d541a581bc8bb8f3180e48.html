@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Sometimes you may want to output something by one program and input it into another program, but can’t use a standard pipe.</p>
+      
+<p>Sometimes you may want to output something by one program and input it into another program, but can’t use a standard pipe.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ls -l | grep &#34;.log&#34;</pre>
@@ -135,7 +138,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You could simply write to a temporary file:</p>
+</div>
+<p>You could simply write to a temporary file:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">touch tempFile.txt
@@ -145,7 +151,10 @@ grep &#34;.log&#34; &lt; tempFile.txt</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This works fine for most applications, however, nobody will know what <code>tempFile</code> does and someone might remove it if it contains the output of <code>ls -l</code> in that directory. This is where a named pipe comes into play:</p>
+</div>
+<p>This works fine for most applications, however, nobody will know what <code>tempFile</code> does and someone might remove it if it contains the output of <code>ls -l</code> in that directory. This is where a named pipe comes into play:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mkfifo myPipe
@@ -155,7 +164,10 @@ grep &#34;.log&#34; &lt; myPipe</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>myPipe</code> is technically a file (everything is in Linux), so let’s do <code>ls -l</code> in an empty directory that we just created a pipe in:</p>
+</div>
+<p><code>myPipe</code> is technically a file (everything is in Linux), so let’s do <code>ls -l</code> in an empty directory that we just created a pipe in:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mkdir pipeFolder
@@ -166,7 +178,10 @@ ls -l</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The output is:</p>
+</div>
+<p>The output is:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">prw-r--r-- 1 root root 0 Jul 25 11:20 myPipe</pre>
@@ -174,7 +189,14 @@ ls -l</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Notice the first character in the permissions, it’s listed as a pipe, not a file.</p><p>Now let’s do something cool.</p><p>Open one terminal, and make note of the directory (or create one so that cleanup is easy), and make a pipe.</p>
+</div>
+<p>Notice the first character in the permissions, it’s listed as a pipe, not a file.
+</p>
+<p>Now let’s do something cool.
+</p>
+<p>Open one terminal, and make note of the directory (or create one so that cleanup is easy), and make a pipe.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">mkfifo myPipe</pre>
@@ -182,7 +204,10 @@ ls -l</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now let’s put something in the pipe.</p>
+</div>
+<p>Now let’s put something in the pipe.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">echo &#34;Hello from the other side&#34; &gt; myPipe</pre>
@@ -190,7 +215,12 @@ ls -l</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You’ll notice this hangs, the other side of the pipe is still closed. Let’s open up the other side of the pipe and let that stuff through.</p><p>Open another terminal and go to the directory that the pipe is in (or if you know it, prepend it to the pipe):</p>
+</div>
+<p>You’ll notice this hangs, the other side of the pipe is still closed. Let’s open up the other side of the pipe and let that stuff through.
+</p>
+<p>Open another terminal and go to the directory that the pipe is in (or if you know it, prepend it to the pipe):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">cat &lt; myPipe</pre>
@@ -198,7 +228,16 @@ ls -l</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You’ll notice that after <code>hello from the other side</code> is output, the program in the first terminal finishes, as does that in the second terminal.</p><p>Now run the commands in reverse. Start with <code>cat &lt; myPipe</code> and then echo something into it. It still works, because a program will wait until something is put into the pipe before terminating, because it knows it has to get something.</p><p>Named pipes can be useful for moving information between terminals or between programs.</p><p>Pipes are small. Once full, the writer blocks until some reader reads the contents, so you need to either run the reader and writer in different terminals or run one or the other in the background:</p>
+</div>
+<p>You’ll notice that after <code>hello from the other side</code> is output, the program in the first terminal finishes, as does that in the second terminal.
+</p>
+<p>Now run the commands in reverse. Start with <code>cat &lt; myPipe</code> and then echo something into it. It still works, because a program will wait until something is put into the pipe before terminating, because it knows it has to get something.
+</p>
+<p>Named pipes can be useful for moving information between terminals or between programs.
+</p>
+<p>Pipes are small. Once full, the writer blocks until some reader reads the contents, so you need to either run the reader and writer in different terminals or run one or the other in the background:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ls -l /tmp &gt; myPipe &amp;
@@ -207,7 +246,14 @@ cat &lt; myPipe</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>More examples using named pipes:</strong></p><ul id="71fadd1c-890f-4047-b724-83386e9fe400" class="bulleted-list"><li>Example 1 - all commands on the same terminal / same shell</li></ul>
+</div>
+<p><strong>More examples using named pipes:</strong>
+</p>
+  <ul id="71fadd1c-890f-4047-b724-83386e9fe400" class="bulleted-list">
+    <li>Example 1 - all commands on the same terminal / same shell
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ { ls -l &amp;&amp; cat file3; } &gt;mypipe &amp;
@@ -217,7 +263,12 @@ $ cat &lt;mypipe
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="c6b9bbd1-bd24-4017-9767-35c942489892" class="bulleted-list"><li>Example 2 - all commands on the same terminal / same shell</li></ul>
+</div>
+  <ul id="c6b9bbd1-bd24-4017-9767-35c942489892" class="bulleted-list">
+    <li>Example 2 - all commands on the same terminal / same shell
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ ls -l &gt;mypipe &amp;
@@ -228,7 +279,14 @@ $ cat &lt;mypipe
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Mind that first contents of <code>file3</code> are displayed and then the <code>ls -l</code> data is displayed (LIFO configuration).</p><ul id="1c870b4a-d46d-4bae-89c4-04c3b1a965d2" class="bulleted-list"><li>Example 3 - all commands on the same terminal / same shell</li></ul>
+</div>
+<p>Mind that first contents of <code>file3</code> are displayed and then the <code>ls -l</code> data is displayed (LIFO configuration).
+</p>
+  <ul id="1c870b4a-d46d-4bae-89c4-04c3b1a965d2" class="bulleted-list">
+    <li>Example 3 - all commands on the same terminal / same shell
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ { pipedata=$(&lt;mypipe) &amp;&amp; echo &#34;$pipedata&#34;; } &amp;
@@ -240,7 +298,12 @@ Mind that the variable `$pipedata` is not available for usage in the main termin
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="a6f01644-7d07-4239-9987-ded1dc8e4353" class="bulleted-list"><li>Example 4 - all commands on the same terminal / same shell</li></ul>
+</div>
+  <ul id="a6f01644-7d07-4239-9987-ded1dc8e4353" class="bulleted-list">
+    <li>Example 4 - all commands on the same terminal / same shell
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$ export pipedata
@@ -252,7 +315,9 @@ $ echo &#34;$pipedata&#34;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This prints correctly the value of <code>$pipedata</code> variable in the main shell due to the export declaration of the variable. The main terminal/main shell is not hanging due to the invocation of a background shell (<code>&amp;</code>).</p>
+</div>
+<p>This prints correctly the value of <code>$pipedata</code> variable in the main shell due to the export declaration of the variable. The main terminal/main shell is not hanging due to the invocation of a background shell (<code>&amp;</code>).
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

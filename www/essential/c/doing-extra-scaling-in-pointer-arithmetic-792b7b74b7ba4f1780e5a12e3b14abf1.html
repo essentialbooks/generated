@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>In pointer arithmetic, the integer to be added or subtracted to pointer is interpreted not as change of <em>address</em> but as number of <em>elements</em> to move.</p>
+      
+<p>In pointer arithmetic, the integer to be added or subtracted to pointer is interpreted not as change of <em>address</em> but as number of <em>elements</em> to move.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -143,7 +146,12 @@ int main(void) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This code does extra scaling in calculating pointer assigned to <code>ptr2</code>. If <code>sizeof(int)</code> is 4, which is typical in modern 32-bit environments, the expression stands for “8 elements after <code>array[0]</code>”, which is out-of-range, and it invokes <em>undefined behavior</em>.</p><p>To have <code>ptr2</code> point at what is 2 elements after <code>array[0]</code>, you should simply add 2.</p>
+</div>
+<p>This code does extra scaling in calculating pointer assigned to <code>ptr2</code>. If <code>sizeof(int)</code> is 4, which is typical in modern 32-bit environments, the expression stands for “8 elements after <code>array[0]</code>”, which is out-of-range, and it invokes <em>undefined behavior</em>.
+</p>
+<p>To have <code>ptr2</code> point at what is 2 elements after <code>array[0]</code>, you should simply add 2.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -159,7 +167,10 @@ int main(void) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Explicit pointer arithmetic using additive operators may be confusing, so using array subscripting may be better.</p>
+</div>
+<p>Explicit pointer arithmetic using additive operators may be confusing, so using array subscripting may be better.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;
@@ -175,7 +186,12 @@ int main(void) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>E1[E2]</code> is identical to <code>(*((E1)+(E2)))</code> (<a href="http://chimera.roma1.infn.it/SP/COMMON/iso-iec-9899-1990.pdf">N1570</a> 6.5.2.1, paragraph 2), and <code>&amp;(E1[E2])</code> is equivalent to <code>((E1)+(E2))</code> (N1570 6.5.3.2, footnote 102).</p><p>Alternatively, if pointer arithmetic is preferred, casting the pointer to address a different data type can allow byte addressing. Be careful though: <a href="https://en.wikipedia.org/wiki/Endianness">endianness</a> can become an issue, and casting to types other than ‘pointer to character’ leads to <a href="https://en.wikipedia.org/wiki/Aliasing_(computing)#Conflicts_with_optimization">strict aliasing problems</a>.</p>
+</div>
+<p><code>E1[E2]</code> is identical to <code>(*((E1)+(E2)))</code> (<a href="http://chimera.roma1.infn.it/SP/COMMON/iso-iec-9899-1990.pdf">N1570</a> 6.5.2.1, paragraph 2), and <code>&amp;(E1[E2])</code> is equivalent to <code>((E1)+(E2))</code> (N1570 6.5.3.2, footnote 102).
+</p>
+<p>Alternatively, if pointer arithmetic is preferred, casting the pointer to address a different data type can allow byte addressing. Be careful though: <a href="https://en.wikipedia.org/wiki/Endianness">endianness</a> can become an issue, and casting to types other than ‘pointer to character’ leads to <a href="https://en.wikipedia.org/wiki/Aliasing_(computing)#Conflicts_with_optimization">strict aliasing problems</a>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt;

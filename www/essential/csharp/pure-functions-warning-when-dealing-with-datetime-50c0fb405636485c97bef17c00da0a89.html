@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>Wikipedia currently defines a pure function as follows:</p><ol id="33a4d84e-c841-42d1-a0b7-01411caf7a7d" class="numbered-list" start="1"><li>The function always evaluates the same result value given the same argument value(s). The function result value cannot depend on any hidden information or state that may change while program execution proceeds or between different executions of the program, nor can it depend on any external input from I/O devices .</li><li>Evaluation of the result does not cause any semantically observable side effect or output, such as mutation of mutable objects or output to I/O devices</li></ol><p>As a developer you need to be aware of pure methods and you will stumble upon these a lot in many areas. One I have seen that bites many junior developers is working with DateTime class methods. A lot of these are pure and if you are unaware of these you can be in for a suprise. An example:</p>
+      
+<p>Wikipedia currently defines a pure function as follows:
+</p>
+  <ol id="33a4d84e-c841-42d1-a0b7-01411caf7a7d" class="numbered-list" start="1">
+    <li>The function always evaluates the same result value given the same argument value(s). The function result value cannot depend on any hidden information or state that may change while program execution proceeds or between different executions of the program, nor can it depend on any external input from I/O devices .
+    </li>
+    <li>Evaluation of the result does not cause any semantically observable side effect or output, such as mutation of mutable objects or output to I/O devices
+    </li>
+  </ol>
+<p>As a developer you need to be aware of pure methods and you will stumble upon these a lot in many areas. One I have seen that bites many junior developers is working with DateTime class methods. A lot of these are pure and if you are unaware of these you can be in for a suprise. An example:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">DateTime</span> <span class="n">sample</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DateTime</span><span class="p">(</span><span class="m">2016</span><span class="p">,</span> <span class="m">12</span><span class="p">,</span> <span class="m">25</span><span class="p">);</span>
@@ -138,7 +149,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Given the example above one may expect the result printed to console to be ‘26/12/2016’ but in reality you end up with the same date. This is because AddDays is a pure method and does not affect the original date. To get the expected output you would have to modify the AddDays call to the following:</p>
+</div>
+<p>Given the example above one may expect the result printed to console to be ‘26/12/2016’ but in reality you end up with the same date. This is because AddDays is a pure method and does not affect the original date. To get the expected output you would have to modify the AddDays call to the following:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">sample</span> <span class="p">=</span> <span class="n">sample</span><span class="p">.</span><span class="n">AddDays</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>

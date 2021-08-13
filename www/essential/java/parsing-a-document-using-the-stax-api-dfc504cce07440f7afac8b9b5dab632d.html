@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Considering the following document :</p>
+      
+<p>Considering the following document :
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;?xml version=&#39;1.0&#39; encoding=&#39;UTF-8&#39; ?&gt;
@@ -140,7 +143,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>One can use the following code to parse it and build a map of book titles by book id.</p>
+</div>
+<p>One can use the following code to parse it and build a map of book titles by book id.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import javax.xml.stream.XMLInputFactory;
@@ -191,7 +197,10 @@ public static void main(String[] args) throws Exception {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This outputs :</p>
+</div>
+<p>This outputs :
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Found start of element: library
@@ -203,7 +212,19 @@ Found start of element: notABook
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this sample, one must be carreful of a few things :</p><ol id="aba8ae64-158c-45ae-9350-f0d82f347ead" class="numbered-list" start="1"><li>THe use of <code>xmlStreamReader.getAttributeValue</code> works because we have checked first that the parser is in the <code>START_ELEMENT</code> state. In evey other states (except <code>ATTRIBUTES</code>), the parser is mandated to throw <code>IllegalStateException</code>, because attributes can only appear at the beginning of elements.</li><li>same goes for <code>xmlStreamReader.getTextContent()</code>, it works because we are at a <code>START_ELEMENT</code> and we know in this document that the <code>&lt;book&gt;</code> element has no non-text child nodes.</li></ol><p>For more complex documents parsing (deeper, nested elements, …), it is a good practice to “delegate” the parser to sub-methods or other objets, e.g. have a <code>BookParser</code> class or method, and have it deal with every element from the START_ELEMENT to the END_ELEMENT of the book XML tag.</p><p>One can also use a <code>Stack</code> object to keep around important datas up and down the tree.</p>
+</div>
+<p>In this sample, one must be carreful of a few things :
+</p>
+  <ol id="aba8ae64-158c-45ae-9350-f0d82f347ead" class="numbered-list" start="1">
+    <li>THe use of <code>xmlStreamReader.getAttributeValue</code> works because we have checked first that the parser is in the <code>START_ELEMENT</code> state. In evey other states (except <code>ATTRIBUTES</code>), the parser is mandated to throw <code>IllegalStateException</code>, because attributes can only appear at the beginning of elements.
+    </li>
+    <li>same goes for <code>xmlStreamReader.getTextContent()</code>, it works because we are at a <code>START_ELEMENT</code> and we know in this document that the <code>&lt;book&gt;</code> element has no non-text child nodes.
+    </li>
+  </ol>
+<p>For more complex documents parsing (deeper, nested elements, …), it is a good practice to “delegate” the parser to sub-methods or other objets, e.g. have a <code>BookParser</code> class or method, and have it deal with every element from the START_ELEMENT to the END_ELEMENT of the book XML tag.
+</p>
+<p>One can also use a <code>Stack</code> object to keep around important datas up and down the tree.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

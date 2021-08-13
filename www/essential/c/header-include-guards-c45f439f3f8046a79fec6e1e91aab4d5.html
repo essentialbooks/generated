@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Pretty much every header file should follow the <a href="https://en.wikipedia.org/wiki/Include_guard">include guard</a> idiom:</p><p><strong>my-header-file.h</strong></p>
+      
+<p>Pretty much every header file should follow the <a href="https://en.wikipedia.org/wiki/Include_guard">include guard</a> idiom:
+</p>
+<p><strong>my-header-file.h</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#ifndef MY_HEADER_FILE_H
@@ -140,7 +145,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This ensures that when you <code>#include &quot;my-header-file.h&quot;</code> in multiple places, you don’t get duplicate declarations of functions, variables, etc. Imagine the following hierarchy of files:</p><p><strong>header-1.h</strong></p>
+</div>
+<p>This ensures that when you <code>#include &quot;my-header-file.h&quot;</code> in multiple places, you don’t get duplicate declarations of functions, variables, etc. Imagine the following hierarchy of files:
+</p>
+<p><strong>header-1.h</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">typedef struct {
@@ -152,7 +162,10 @@ int myFunction(MyStruct *value);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>header-2.h</strong></p>
+</div>
+<p><strong>header-2.h</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &#34;header-1.h&#34;
@@ -162,7 +175,10 @@ int myFunction2(MyStruct *value);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>main.c</strong></p>
+</div>
+<p><strong>main.c</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &#34;header-1.h&#34;
@@ -175,7 +191,12 @@ int main() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This code has a serious problem: the detailed contents of <code>MyStruct</code> is defined twice, which is not allowed. This would result in a compilation error that can be difficult to track down, since one header file includes another. If you instead did it with header guards:</p><p><strong>header-1.h</strong></p>
+</div>
+<p>This code has a serious problem: the detailed contents of <code>MyStruct</code> is defined twice, which is not allowed. This would result in a compilation error that can be difficult to track down, since one header file includes another. If you instead did it with header guards:
+</p>
+<p><strong>header-1.h</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#ifndef HEADER_1_H
@@ -192,7 +213,10 @@ int myFunction(MyStruct *value);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>header-2.h</strong></p>
+</div>
+<p><strong>header-2.h</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#ifndef HEADER_2_H
@@ -207,7 +231,10 @@ int myFunction2(MyStruct *value);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>main.c</strong></p>
+</div>
+<p><strong>main.c</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &#34;header-1.h&#34;
@@ -220,7 +247,10 @@ int main() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This would then expand to:</p>
+</div>
+<p>This would then expand to:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#ifndef HEADER_1_H
@@ -259,7 +289,10 @@ int main() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When the compiler reaches the second inclusion of <strong>header-1.h</strong>, <code>HEADER_1_H</code> was already defined by the previous inclusion. Ergo, it boils down to the following:</p>
+</div>
+<p>When the compiler reaches the second inclusion of <strong>header-1.h</strong>, <code>HEADER_1_H</code> was already defined by the previous inclusion. Ergo, it boils down to the following:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define HEADER_1_H
@@ -281,7 +314,15 @@ int main() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And thus there is no compilation error.</p><p>Note: There are multiple different conventions for naming the header guards. Some people like to name it <code>HEADER_2_H_</code>, some include the project name like <code>MY_PROJECT_HEADER_2_H</code>. The important thing is to ensure that the convention you follow makes it so that each file in your project has a unique header guard.</p><hr id="5e338468-8c31-421a-8838-06d701d80bf1"/><p>If the structure details were not included in the header, the type declared would be incomplete or an <a href="https://en.wikipedia.org/wiki/Opaque_data_type">opaque type</a>. Such types can be useful, hiding implementation details from users of the functions. For many purposes, the <code>FILE</code> type in the standard C library can be regarded as an opaque type (though it usually isn’t opaque so that macro implementations of the standard I/O functions can make use of the internals of the structure). In that case, the <code>header-1.h</code> could contain:</p>
+</div>
+<p>And thus there is no compilation error.
+</p>
+<p>Note: There are multiple different conventions for naming the header guards. Some people like to name it <code>HEADER_2_H_</code>, some include the project name like <code>MY_PROJECT_HEADER_2_H</code>. The important thing is to ensure that the convention you follow makes it so that each file in your project has a unique header guard.
+</p>
+<hr id="5e338468-8c31-421a-8838-06d701d80bf1"/>
+<p>If the structure details were not included in the header, the type declared would be incomplete or an <a href="https://en.wikipedia.org/wiki/Opaque_data_type">opaque type</a>. Such types can be useful, hiding implementation details from users of the functions. For many purposes, the <code>FILE</code> type in the standard C library can be regarded as an opaque type (though it usually isn’t opaque so that macro implementations of the standard I/O functions can make use of the internals of the structure). In that case, the <code>header-1.h</code> could contain:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#ifndef HEADER_1_H
@@ -296,7 +337,12 @@ int myFunction(MyStruct *value);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that the structure must have a tag name (here <code>MyStruct</code> — that’s in the tags namespace, separate from the ordinary identifiers namespace of the typedef name <code>MyStruct</code>), and that the <code>{ … }</code> is omitted. This says “there is a structure type <code>struct MyStruct</code> and there is an alias for it <code>MyStruct</code>”.</p><p>In the implementation file, the details of the structure can be defined to make the type complete:</p>
+</div>
+<p>Note that the structure must have a tag name (here <code>MyStruct</code> — that’s in the tags namespace, separate from the ordinary identifiers namespace of the typedef name <code>MyStruct</code>), and that the <code>{ … }</code> is omitted. This says “there is a structure type <code>struct MyStruct</code> and there is an alias for it <code>MyStruct</code>”.
+</p>
+<p>In the implementation file, the details of the structure can be defined to make the type complete:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct MyStruct {
@@ -306,7 +352,15 @@ int myFunction(MyStruct *value);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you are using C11, you could repeat the <code>typedef struct MyStruct MyStruct;</code> declaration without causing a compilation error, but earlier versions of C would complain. Consequently, it is still best to use the include guard idiom, even though in this example, it would be optional if the code was only ever compiled with compilers that supported C11.</p><hr id="e9eb4e4a-ffe9-4117-b5ea-b640835b994a"/><p>Many compilers support the <code>#pragma once</code> directive, which has the same results:</p><p><strong>my-header-file.h</strong></p>
+</div>
+<p>If you are using C11, you could repeat the <code>typedef struct MyStruct MyStruct;</code> declaration without causing a compilation error, but earlier versions of C would complain. Consequently, it is still best to use the include guard idiom, even though in this example, it would be optional if the code was only ever compiled with compilers that supported C11.
+</p>
+<hr id="e9eb4e4a-ffe9-4117-b5ea-b640835b994a"/>
+<p>Many compilers support the <code>#pragma once</code> directive, which has the same results:
+</p>
+<p><strong>my-header-file.h</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#pragma once
@@ -316,7 +370,12 @@ int myFunction(MyStruct *value);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, <code>#pragma once</code> is not part of the C standard, so the code is less portable if you use it.</p><hr id="03fca141-be7c-416f-8094-20df010e033f"/><p>A few headers do not use the include guard idiom. One specific example is the standard <code>&lt;assert.h&gt;</code> header. It may be included multiple times in a single translation unit, and the effect of doing so depends on whether the macro <code>NDEBUG</code> is defined each time the header is included. You may occasionally have an analogous requirement; such cases will be few and far between. Ordinarily, your headers should be protected by the include guard idiom.</p>
+</div>
+<p>However, <code>#pragma once</code> is not part of the C standard, so the code is less portable if you use it.
+</p>
+<hr id="03fca141-be7c-416f-8094-20df010e033f"/>
+<p>A few headers do not use the include guard idiom. One specific example is the standard <code>&lt;assert.h&gt;</code> header. It may be included multiple times in a single translation unit, and the effect of doing so depends on whether the macro <code>NDEBUG</code> is defined each time the header is included. You may occasionally have an analogous requirement; such cases will be few and far between. Ordinarily, your headers should be protected by the include guard idiom.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

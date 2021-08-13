@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>This method accepts a string as input, attempts to parse it into a <code>DateTime</code>, and returns a Boolean result indicating success or failure. If the call succeeds, the variable passed as the <code>out</code> parameter is populated with the parsed result.</p><p>If the parse fails, the variable passed as the <code>out</code> parameter is set to the default value, <code>DateTime.MinValue</code>.</p><p><strong>TryParse(string, out DateTime)</strong></p>
+      
+<p>This method accepts a string as input, attempts to parse it into a <code>DateTime</code>, and returns a Boolean result indicating success or failure. If the call succeeds, the variable passed as the <code>out</code> parameter is populated with the parsed result.
+</p>
+<p>If the parse fails, the variable passed as the <code>out</code> parameter is set to the default value, <code>DateTime.MinValue</code>.
+</p>
+<p><strong>TryParse(string, out DateTime)</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">DateTime parsedValue;
@@ -140,7 +147,10 @@ if (DateTime.TryParse(&#34;monkey&#34;, out parsedValue))
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This method attempts to parse the input string based on the system regional settings and known formats such as ISO 8601 and other common formats.</p>
+</div>
+<p>This method attempts to parse the input string based on the system regional settings and known formats such as ISO 8601 and other common formats.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">DateTime.TryParse(&#34;11/24/2015 14:28:42&#34;, out parsedValue); // true
@@ -151,7 +161,10 @@ DateTime.TryParse(&#34;Sat, 24 Nov 2015 14:28:42&#34;, out parsedValue); // true
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since this method does not accept culture info, it uses the system locale. This can lead to unexpected results.</p>
+</div>
+<p>Since this method does not accept culture info, it uses the system locale. This can lead to unexpected results.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// System set to en-US culture
@@ -161,7 +174,10 @@ Console.WriteLine(result);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="ea828684-5a2c-439a-a5cf-286e6ee52d0a" class="">False</blockquote>
+</div>
+<blockquote id="ea828684-5a2c-439a-a5cf-286e6ee52d0a" class="">False
+</blockquote>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// System set to en-GB culture
@@ -171,7 +187,10 @@ Console.WriteLine(result);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="c1bd8861-aecb-4b16-b138-83ba15d2d408" class="">False</blockquote>
+</div>
+<blockquote id="c1bd8861-aecb-4b16-b138-83ba15d2d408" class="">False
+</blockquote>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// System set to en-GB culture
@@ -181,7 +200,14 @@ Console.WriteLine(result);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="707900e7-ffc6-4980-af6b-af5b80b85dce" class="">True</blockquote><p>Note that if you are in the US, you might be surprised that the parsed result is November 10, not October 11.</p><p><strong>TryParse(string, IFormatProvider, DateTimeStyles, out DateTime)</strong></p>
+</div>
+<blockquote id="707900e7-ffc6-4980-af6b-af5b80b85dce" class="">True
+</blockquote>
+<p>Note that if you are in the US, you might be surprised that the parsed result is November 10, not October 11.
+</p>
+<p><strong>TryParse(string, IFormatProvider, DateTimeStyles, out DateTime)</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if (DateTime.TryParse(&#34; monkey &#34;, new CultureInfo(&#34;en-GB&#34;),
@@ -193,7 +219,19 @@ Console.WriteLine(result);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Unlike its sibling method, this overload allows a specific culture and style(s) to be specified. Passing <code>null</code> for the <code>IFormatProvider</code> parameter uses the system culture.</p><p><em>Exceptions</em></p><p>Note that it is possible for this method to throw an exception under certain conditions. These relate to the parameters introduced for this overload: <code>IFormatProvider</code> and <code>DateTimeStyles</code>.</p><ul id="bba24dfa-b4e6-4ed1-9506-9cde9d8aeb11" class="bulleted-list"><li><code>NotSupportedException</code>: <code>IFormatProvider</code> specifies a neutral culture</li><li><code>ArgumentException</code>: <code>DateTimeStyles</code> is not a valid option, or contains incompatible flags such as <code>AssumeLocal</code> and <code>AssumeUniversal</code>.</li></ul>
+</div>
+<p>Unlike its sibling method, this overload allows a specific culture and style(s) to be specified. Passing <code>null</code> for the <code>IFormatProvider</code> parameter uses the system culture.
+</p>
+<p><em>Exceptions</em>
+</p>
+<p>Note that it is possible for this method to throw an exception under certain conditions. These relate to the parameters introduced for this overload: <code>IFormatProvider</code> and <code>DateTimeStyles</code>.
+</p>
+  <ul id="bba24dfa-b4e6-4ed1-9506-9cde9d8aeb11" class="bulleted-list">
+    <li><code>NotSupportedException</code>: <code>IFormatProvider</code> specifies a neutral culture
+    </li>
+    <li><code>ArgumentException</code>: <code>DateTimeStyles</code> is not a valid option, or contains incompatible flags such as <code>AssumeLocal</code> and <code>AssumeUniversal</code>.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,15 @@
 </div>
 
 
-      <p>Package <a href="https://godoc.org/encoding/xml"><code>encoding/xml</code></a> in standard library provides functionality for serializing data as XML and parsing XML.</p><h2 id="0c5c89e4-c237-4863-8dac-5b1d42846b40" class="">Parse XML into a struct<a class="header-anchor" href="#0c5c89e4-c237-4863-8dac-5b1d42846b40" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Parsing XML is similar to parsing JSON. You define structures that map to the structure of XML and unmarshal from <code>[]byte</code> slice or <code>io.Reader</code> into a struct.</p>
+      
+<p>Package <a href="https://godoc.org/encoding/xml"><code>encoding/xml</code></a> in standard library provides functionality for serializing data as XML and parsing XML.
+</p>
+  <h2 id="0c5c89e4-c237-4863-8dac-5b1d42846b40" class="">Parse XML into a struct
+  <a class="header-anchor" href="#0c5c89e4-c237-4863-8dac-5b1d42846b40" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Parsing XML is similar to parsing JSON. You define structures that map to the structure of XML and unmarshal from <code>[]byte</code> slice or <code>io.Reader</code> into a struct.
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="kd">var</span> <span class="nx">xmlStr</span> <span class="p">=</span> <span class="s">`
@@ -176,6 +184,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">main.People{Person:[]main.Person{main.Person{Age:34, FirstName:&#34;John&#34;, Address:main.Address{City:(*string)(0xc00005a400), State:&#34;CA&#34;}}, main.Person{Age:23, FirstName:&#34;Julia&#34;, Address:main.Address{City:(*string)(nil), State:&#34;&#34;}}}}
@@ -185,7 +194,31 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Unlike with serializing, when unmarshalling into a struct, we must pass a pointer to struct. Otherwise <code>xml.Unmarshal</code> will receive and modify a copy of the struct, not the struct itself. The copy will be then discarded after returning from <code>xml.Unmarshal</code>.</p><p>In XML a value can be represented as element (<code>&lt;state&gt;CA&lt;/state&gt;</code>) or attribute (<code>&lt;person age=&quot;34&quot;&gt;</code>).</p><p>In xml struct tags element is the default. To switch to attribute, add <code>,attr</code> to struct xml tag as done for <code>Age</code>.</p><p>All struct fields are optional. When not present in XML text their values will be untouched. When decoding into newly initialized struct their value will be zero value for a given type.</p><p>Field <code>City</code> shows that XML decoder can automatically decode into a pointer to a value.</p><p>This is useful when you need to know if a value was present in XML or not. If we used <code>string</code> for <code>City</code> field, we wouldn’t know if empty string means:</p><ul id="30c435ca-a95d-4bd8-949b-b8cd5792a6cc" class="bulleted-list"><li><code>city</code> element was not present in XML</li><li>element was present but had empty value (<code>&lt;city&gt;&lt;/city&gt;</code>)</li></ul><p>By using a pointer to a string we know that <code>nil</code> means there was no value.</p><h2 id="67c5b416-516c-4133-a403-f68c4fa79ac9" class="">Serialize a struct as XML<a class="header-anchor" href="#67c5b416-516c-4133-a403-f68c4fa79ac9" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+</div>
+<p>Unlike with serializing, when unmarshalling into a struct, we must pass a pointer to struct. Otherwise <code>xml.Unmarshal</code> will receive and modify a copy of the struct, not the struct itself. The copy will be then discarded after returning from <code>xml.Unmarshal</code>.
+</p>
+<p>In XML a value can be represented as element (<code>&lt;state&gt;CA&lt;/state&gt;</code>) or attribute (<code>&lt;person age=&quot;34&quot;&gt;</code>).
+</p>
+<p>In xml struct tags element is the default. To switch to attribute, add <code>,attr</code> to struct xml tag as done for <code>Age</code>.
+</p>
+<p>All struct fields are optional. When not present in XML text their values will be untouched. When decoding into newly initialized struct their value will be zero value for a given type.
+</p>
+<p>Field <code>City</code> shows that XML decoder can automatically decode into a pointer to a value.
+</p>
+<p>This is useful when you need to know if a value was present in XML or not. If we used <code>string</code> for <code>City</code> field, we wouldn’t know if empty string means:
+</p>
+  <ul id="30c435ca-a95d-4bd8-949b-b8cd5792a6cc" class="bulleted-list">
+    <li><code>city</code> element was not present in XML
+    </li>
+    <li>element was present but had empty value (<code>&lt;city&gt;&lt;/city&gt;</code>)
+    </li>
+  </ul>
+<p>By using a pointer to a string we know that <code>nil</code> means there was no value.
+</p>
+  <h2 id="67c5b416-516c-4133-a403-f68c4fa79ac9" class="">Serialize a struct as XML
+  <a class="header-anchor" href="#67c5b416-516c-4133-a403-f68c4fa79ac9" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="kd">type</span> <span class="nx">People</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -235,6 +268,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">Compact XML: &lt;people&gt;&lt;person age=&#34;34&#34;&gt;&lt;first-name&gt;John&lt;/first-name&gt;&lt;address&gt;&lt;city&gt;San Francisco&lt;/city&gt;&lt;state&gt;CA&lt;/state&gt;&lt;/address&gt;&lt;/person&gt;&lt;/people&gt;
@@ -254,7 +288,34 @@ Pretty printed XML:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Both <code>xml.Marshal</code> and <code>xml.MarshalIndent</code> take <a href="/essential/go/empty-interface-c3315892508248fdb19b663bf8bff028"><code>interface{}</code></a> as first argument. We can pass any Go value and it’ll be wrapped into <code>interface{}</code> with their type.</p><p>Marshaller will use <a href="/essential/go/reflection-c7fea6b176b74c54ab35f2d8fdd56f13">reflection</a> to inspect passed value and encode it as XML strings.</p><p>When serializing structs, only exported fields (whose names start with capital letter) are serialized / deserialized.</p><p>In our example, <code>noteSerialized</code> is not serialized.</p><p>Structs are serialized as XML elements.</p><p>Simple types can be serialized as XML elements or attributes (<code>Age</code> field in <code>Person</code> struct)</p><p>By default name of element / attribute is the same as name of the field.</p><p>We can provide custom mappings with struct tags.</p><p><code>xml:&quot;city&quot;</code> tells XML encoder to use name <code>city</code> for field <code>City</code>.</p><p>When serializing structs, passing the value or a pointer to <code>xml.Marshal</code> generates the same result.</p><p>Passing a pointer is more efficient because passing by value creates unnecessary copy.</p><p><code>xml.MarshallIndent</code> allows for pretty-printing of nested structures. The result takes up more space but is easier to read.</p><p><code>XMLName</code> allows to control the name of top-level element. In our example, without providing XML element, the data would be serialized based on the struct name:</p>
+</div>
+<p>Both <code>xml.Marshal</code> and <code>xml.MarshalIndent</code> take <a href="/essential/go/empty-interface-c3315892508248fdb19b663bf8bff028"><code>interface{}</code></a> as first argument. We can pass any Go value and it’ll be wrapped into <code>interface{}</code> with their type.
+</p>
+<p>Marshaller will use <a href="/essential/go/reflection-c7fea6b176b74c54ab35f2d8fdd56f13">reflection</a> to inspect passed value and encode it as XML strings.
+</p>
+<p>When serializing structs, only exported fields (whose names start with capital letter) are serialized / deserialized.
+</p>
+<p>In our example, <code>noteSerialized</code> is not serialized.
+</p>
+<p>Structs are serialized as XML elements.
+</p>
+<p>Simple types can be serialized as XML elements or attributes (<code>Age</code> field in <code>Person</code> struct)
+</p>
+<p>By default name of element / attribute is the same as name of the field.
+</p>
+<p>We can provide custom mappings with struct tags.
+</p>
+<p><code>xml:&quot;city&quot;</code> tells XML encoder to use name <code>city</code> for field <code>City</code>.
+</p>
+<p>When serializing structs, passing the value or a pointer to <code>xml.Marshal</code> generates the same result.
+</p>
+<p>Passing a pointer is more efficient because passing by value creates unnecessary copy.
+</p>
+<p><code>xml.MarshallIndent</code> allows for pretty-printing of nested structures. The result takes up more space but is easier to read.
+</p>
+<p><code>XMLName</code> allows to control the name of top-level element. In our example, without providing XML element, the data would be serialized based on the struct name:
+</p>
+
 <div class="code-box lang-XML">
 	<div>
 	<pre class="chroma"><span class="nt">&lt;People&gt;</span>

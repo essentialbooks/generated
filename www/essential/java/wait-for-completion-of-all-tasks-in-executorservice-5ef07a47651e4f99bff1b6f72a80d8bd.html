@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>Let’s have a look at various options to wait for completion of tasks submitted to <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executor.html">Executor</a></p><ol id="d1a5068b-615e-4b05-ba82-67c0eb1e4f3c" class="numbered-list" start="1"><li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html">ExecutorService</a> <code>invokeAll()</code></li></ol><blockquote id="1ede392b-2bef-48f5-8d92-b5b77115b6c6" class="">Executes the given tasks, returning a list of Futures holding their status and results when everything is completed.</blockquote><p>Example:</p>
+      
+<p>Let’s have a look at various options to wait for completion of tasks submitted to <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executor.html">Executor</a>
+</p>
+  <ol id="d1a5068b-615e-4b05-ba82-67c0eb1e4f3c" class="numbered-list" start="1">
+    <li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html">ExecutorService</a> <code>invokeAll()</code>
+    </li>
+  </ol>
+<blockquote id="1ede392b-2bef-48f5-8d92-b5b77115b6c6" class="">Executes the given tasks, returning a list of Futures holding their status and results when everything is completed.
+</blockquote>
+<p>Example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import java.util.concurrent.*;
@@ -170,7 +181,12 @@ public class InvokeAllDemo{
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="3f7279c6-8a57-4d7c-9615-09c7bd2f9a09" class="numbered-list" start="1"><li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CountDownLatch.html">CountDownLatch</a></li></ol>
+</div>
+  <ol id="3f7279c6-8a57-4d7c-9615-09c7bd2f9a09" class="numbered-list" start="1">
+    <li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CountDownLatch.html">CountDownLatch</a>
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;  A synchronization aid that allows one or more threads to wait until a set of operations being performed in other threads completes.
@@ -180,7 +196,16 @@ public class InvokeAllDemo{
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="77085530-154e-4172-9a2d-bcc9d32246c6" class="numbered-list" start="1"><li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html">ForkJoinPool</a> or <code>newWorkStealingPool()</code> in <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executors.html">Executors</a></li><li>Iterate through all <code>Future</code> objects created after submitting to <code>ExecutorService</code></li><li>Recommended way of shutdown from oracle documentation page of <a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html">ExecutorService</a>:</li></ol>
+</div>
+  <ol id="77085530-154e-4172-9a2d-bcc9d32246c6" class="numbered-list" start="1">
+    <li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html">ForkJoinPool</a> or <code>newWorkStealingPool()</code> in <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executors.html">Executors</a>
+    </li>
+    <li>Iterate through all <code>Future</code> objects created after submitting to <code>ExecutorService</code>
+    </li>
+    <li>Recommended way of shutdown from oracle documentation page of <a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html">ExecutorService</a>:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void shutdownAndAwaitTermination(ExecutorService pool) {
@@ -205,7 +230,14 @@ public class InvokeAllDemo{
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>shutdownNow():</code>Attempts to stop all actively executing tasks, halts the processing of waiting tasks, and returns a list of the tasks that were awaiting execution.</p><p>In above example, if your tasks are taking more time to complete, you can change if condition to while condition</p><p>Replace</p>
+</div>
+<p><code>shutdownNow():</code>Attempts to stop all actively executing tasks, halts the processing of waiting tasks, and returns a list of the tasks that were awaiting execution.
+</p>
+<p>In above example, if your tasks are taking more time to complete, you can change if condition to while condition
+</p>
+<p>Replace
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if (!pool.awaitTermination(60, TimeUnit.SECONDS))</pre>
@@ -213,7 +245,10 @@ public class InvokeAllDemo{
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>with</p>
+</div>
+<p>with
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">while(!pool.awaitTermination(60, TimeUnit.SECONDS)) {

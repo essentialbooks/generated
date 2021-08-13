@@ -127,7 +127,32 @@
 </div>
 
 
-      <p>Code can and should throw exceptions in exceptional circumstances. Examples of this include:</p><ul id="2d77d4e5-6c2f-4224-a7d5-3a5c62a63658" class="bulleted-list"><li>Attempting to <a href="https://msdn.microsoft.com/en-us/library/system.io.endofstreamexception(v=vs.110).aspx">read past the end of a stream</a></li><li><a href="https://msdn.microsoft.com/en-us/library/system.unauthorizedaccessexception(v=vs.110).aspx">Not having necessary permissions</a> to access a file</li><li>Attempting to perform an invalid operation, such as <a href="https://msdn.microsoft.com/en-us/library/system.dividebyzeroexception(v=vs.110).aspx">dividing by zero</a></li><li><a href="https://msdn.microsoft.com/en-us/library/system.net.webexception.aspx">A timeout occurring</a> when downloading a file from the internet</li></ul><p>The caller can handle these exceptions by “catching” them, and should only do so when:</p><ul id="9e2d6f4a-df9a-4ad6-b6d5-6b4a11d2cbd0" class="bulleted-list"><li>It can actually resolve the exceptional circumstance or recover appropriately, or;</li><li>It can provide additional context to the exception that would be useful if the exception needs to be re-thrown (re-thrown exceptions are caught by exception handlers further up the call stack)</li></ul><p>It should be noted that choosing <em>not</em> to catch an exception is perfectly valid if the intention is for it to be handled at a higher level.</p><p>Catching an exception is done by wrapping the potentially-throwing code in a <code>try { ... }</code> block as follows, and catching the exceptions it’s able to handle in a <code>catch (ExceptionType) { ... }</code> block:</p>
+      
+<p>Code can and should throw exceptions in exceptional circumstances. Examples of this include:
+</p>
+  <ul id="2d77d4e5-6c2f-4224-a7d5-3a5c62a63658" class="bulleted-list">
+    <li>Attempting to <a href="https://msdn.microsoft.com/en-us/library/system.io.endofstreamexception(v=vs.110).aspx">read past the end of a stream</a>
+    </li>
+    <li><a href="https://msdn.microsoft.com/en-us/library/system.unauthorizedaccessexception(v=vs.110).aspx">Not having necessary permissions</a> to access a file
+    </li>
+    <li>Attempting to perform an invalid operation, such as <a href="https://msdn.microsoft.com/en-us/library/system.dividebyzeroexception(v=vs.110).aspx">dividing by zero</a>
+    </li>
+    <li><a href="https://msdn.microsoft.com/en-us/library/system.net.webexception.aspx">A timeout occurring</a> when downloading a file from the internet
+    </li>
+  </ul>
+<p>The caller can handle these exceptions by “catching” them, and should only do so when:
+</p>
+  <ul id="9e2d6f4a-df9a-4ad6-b6d5-6b4a11d2cbd0" class="bulleted-list">
+    <li>It can actually resolve the exceptional circumstance or recover appropriately, or;
+    </li>
+    <li>It can provide additional context to the exception that would be useful if the exception needs to be re-thrown (re-thrown exceptions are caught by exception handlers further up the call stack)
+    </li>
+  </ul>
+<p>It should be noted that choosing <em>not</em> to catch an exception is perfectly valid if the intention is for it to be handled at a higher level.
+</p>
+<p>Catching an exception is done by wrapping the potentially-throwing code in a <code>try { ... }</code> block as follows, and catching the exceptions it’s able to handle in a <code>catch (ExceptionType) { ... }</code> block:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Console.Write(&#34;Please enter a filename: &#34;);

@@ -127,7 +127,13 @@
 </div>
 
 
-      <p>Package <a href="https://golang.org/pkg/encoding/json/"><code>encoding/json</code></a> in standard library provides functionality for serializing data as JSON and parsing JSON into data.</p><h2 id="d55cebc4-29c4-469c-a27f-3bb4ece1aba1" class="">Serialize a struct as JSON<a class="header-anchor" href="#d55cebc4-29c4-469c-a27f-3bb4ece1aba1" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+      
+<p>Package <a href="https://golang.org/pkg/encoding/json/"><code>encoding/json</code></a> in standard library provides functionality for serializing data as JSON and parsing JSON into data.
+</p>
+  <h2 id="d55cebc4-29c4-469c-a27f-3bb4ece1aba1" class="">Serialize a struct as JSON
+  <a class="header-anchor" href="#d55cebc4-29c4-469c-a27f-3bb4ece1aba1" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -162,6 +168,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">Person in compact JSON: {&#34;Name&#34;:&#34;John&#34;,&#34;age&#34;:37,&#34;city&#34;:&#34;SF&#34;}
@@ -176,7 +183,35 @@ Person in pretty-printed JSON:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Both <code>json.Marshal</code> and <code>json.MarshalIndent</code> take <a href="/essential/go/empty-interface-c3315892508248fdb19b663bf8bff028"><code>interface{}</code></a> as first argument. We can pass any Go value, it’ll be wrapped into <code>interface{}</code> with their type.</p><p>Marshaller will use reflection to inspect passed value and encode it as JSON strings.</p><p>When serializing structs, only exported fields (whose names start with capital letter) are serialized / deserialized.</p><p>In our example, <code>fullName</code> is not serialized.</p><p>Structs are serialized as JSON dictionaries. By default dictionary keys are the same as struct field names.</p><p>Struct field <code>Name</code> is serialized under dictionary key <code>Name</code>.</p><p>We can provide custom mappings with struct tags.</p><p>We can attach arbitrary struct tags string to struct fields.</p><p><code>json:&quot;age&quot;</code> instructs JSON encoder / decoder to use name <code>age</code> for dictionary key representing field <code>Age</code>.</p><p>When serializing structs, passing the value and a pointer to it generates the same result.</p><p>Passing a pointer is more efficient because passing by value creates unnecessary copy.</p><p><code>json.MarshallIndent</code> allows for pretty-printing of nested structures. The result takes up more space but is easier to read.</p><h2 id="98780d83-71d2-4258-9534-32fc0c535603" class="">Parse JSON into a struct<a class="header-anchor" href="#98780d83-71d2-4258-9534-32fc0c535603" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+</div>
+<p>Both <code>json.Marshal</code> and <code>json.MarshalIndent</code> take <a href="/essential/go/empty-interface-c3315892508248fdb19b663bf8bff028"><code>interface{}</code></a> as first argument. We can pass any Go value, it’ll be wrapped into <code>interface{}</code> with their type.
+</p>
+<p>Marshaller will use reflection to inspect passed value and encode it as JSON strings.
+</p>
+<p>When serializing structs, only exported fields (whose names start with capital letter) are serialized / deserialized.
+</p>
+<p>In our example, <code>fullName</code> is not serialized.
+</p>
+<p>Structs are serialized as JSON dictionaries. By default dictionary keys are the same as struct field names.
+</p>
+<p>Struct field <code>Name</code> is serialized under dictionary key <code>Name</code>.
+</p>
+<p>We can provide custom mappings with struct tags.
+</p>
+<p>We can attach arbitrary struct tags string to struct fields.
+</p>
+<p><code>json:&quot;age&quot;</code> instructs JSON encoder / decoder to use name <code>age</code> for dictionary key representing field <code>Age</code>.
+</p>
+<p>When serializing structs, passing the value and a pointer to it generates the same result.
+</p>
+<p>Passing a pointer is more efficient because passing by value creates unnecessary copy.
+</p>
+<p><code>json.MarshallIndent</code> allows for pretty-printing of nested structures. The result takes up more space but is easier to read.
+</p>
+  <h2 id="98780d83-71d2-4258-9534-32fc0c535603" class="">Parse JSON into a struct
+  <a class="header-anchor" href="#98780d83-71d2-4258-9534-32fc0c535603" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -208,6 +243,7 @@ Person in pretty-printed JSON:
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">Person struct parsed from JSON: main.Person{Name:(*string)(0xc00005a300), Age:24, City:&#34;ny&#34;, Occupation:&#34;&#34;}
@@ -217,13 +253,71 @@ Name: &#34;Jane&#34;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Parsing is the opposite of serializing.</p><p>Unlike with serializing, when parsing into structs, we must pass a pointer to struct. Otherwise <code>json.Unmarshal</code> will receive and modify a copy of the struct, not the struct itself. The copy will be then discarded after returning from <code>json.Unmarshal</code>.</p><p>Notice that JSON element <code>city</code> was decoded into <code>City</code> struct field even though the names don’t match and we didn’t provide explicit mapping with <code>json</code> struct tag.</p><p>That happened because JSON decoder has a little bit of smarts when matching dictionary key names to struct field names. It’s best to not rely on such smarts and define mappings explicitly.</p><p>All struct fields are optional and when not present in JSON text their values will be untouched. When decoding into newly initialized struct their value will be zero value for a given type.</p><p>Field <code>Name</code> shows that JSON decoder can also automatically decode into a pointer to a value.</p><p>This is useful when you need to know if a value was present in JSON or not. If we used <code>string</code> for <code>Name</code>, we wouldn’t know if value of empty string means that JSON had <code>name</code> key with empty string as a value or is it because the value wasn’t there at all.</p><p>By using a pointer to a string we know that <code>nil</code> means there was no value.</p><h2 id="a9f59ef2-8e5e-4a6c-8461-181871b0c3de" class="">Go to JSON type mapping<a class="header-anchor" href="#a9f59ef2-8e5e-4a6c-8461-181871b0c3de" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><div id="da849050-c981-468f-98b1-13c9a172831f" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th width="276">JSON Type</th><th width="370">Go Concrete Type</th></tr></thead><tbody><tr id="47396a42-3db5-4938-ba86-24761e972c5c"><td class="cell-title col-type-title">boolean</td><td class="cell-X}lo col-type-text">bool</td></tr>
-<tr id="a2a8e1b3-ff73-452f-9495-58f8f3a5592b"><td class="cell-title col-type-title">number</td><td class="cell-X}lo col-type-text">float64 or int</td></tr>
-<tr id="06c944ef-837a-4ade-ab38-b66e8319d2d4"><td class="cell-title col-type-title">string</td><td class="cell-X}lo col-type-text">string</td></tr>
-<tr id="d2f548d8-e821-4ca2-bb85-065ad1abe133"><td class="cell-title col-type-title">array</td><td class="cell-X}lo col-type-text">slice</td></tr>
-<tr id="c3a1fc18-217c-4a92-9f03-0b019987f4b5"><td class="cell-title col-type-title">dictionary</td><td class="cell-X}lo col-type-text">map[struct]interface{} or struct</td></tr>
-<tr id="84092782-5e3a-4c0a-ada7-3067339fe75c"><td class="cell-title col-type-title">null</td><td class="cell-X}lo col-type-text">nil</td></tr>
-</tbody></table></div><p>See more in <a href="/essential/go/go-to-json-type-mappings-408ca6bab89f4e468d58b26a951c12d7">type mappings</a>.</p>
+</div>
+<p>Parsing is the opposite of serializing.
+</p>
+<p>Unlike with serializing, when parsing into structs, we must pass a pointer to struct. Otherwise <code>json.Unmarshal</code> will receive and modify a copy of the struct, not the struct itself. The copy will be then discarded after returning from <code>json.Unmarshal</code>.
+</p>
+<p>Notice that JSON element <code>city</code> was decoded into <code>City</code> struct field even though the names don’t match and we didn’t provide explicit mapping with <code>json</code> struct tag.
+</p>
+<p>That happened because JSON decoder has a little bit of smarts when matching dictionary key names to struct field names. It’s best to not rely on such smarts and define mappings explicitly.
+</p>
+<p>All struct fields are optional and when not present in JSON text their values will be untouched. When decoding into newly initialized struct their value will be zero value for a given type.
+</p>
+<p>Field <code>Name</code> shows that JSON decoder can also automatically decode into a pointer to a value.
+</p>
+<p>This is useful when you need to know if a value was present in JSON or not. If we used <code>string</code> for <code>Name</code>, we wouldn’t know if value of empty string means that JSON had <code>name</code> key with empty string as a value or is it because the value wasn’t there at all.
+</p>
+<p>By using a pointer to a string we know that <code>nil</code> means there was no value.
+</p>
+  <h2 id="a9f59ef2-8e5e-4a6c-8461-181871b0c3de" class="">Go to JSON type mapping
+  <a class="header-anchor" href="#a9f59ef2-8e5e-4a6c-8461-181871b0c3de" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<div id="da849050-c981-468f-98b1-13c9a172831f" class="collection-content">
+<h4 class="collection-title"></h4>
+<table class="collection-content">
+<thead>
+<tr>
+<th width="276">JSON Type</th>
+<th width="370">Go Concrete Type</th>
+</tr>
+</thead>
+<tbody>
+<tr id="47396a42-3db5-4938-ba86-24761e972c5c">
+<td class="cell-title col-type-title">boolean</td>
+<td class="cell-X}lo col-type-text">bool</td>
+</tr>
+
+<tr id="a2a8e1b3-ff73-452f-9495-58f8f3a5592b">
+<td class="cell-title col-type-title">number</td>
+<td class="cell-X}lo col-type-text">float64 or int</td>
+</tr>
+
+<tr id="06c944ef-837a-4ade-ab38-b66e8319d2d4">
+<td class="cell-title col-type-title">string</td>
+<td class="cell-X}lo col-type-text">string</td>
+</tr>
+
+<tr id="d2f548d8-e821-4ca2-bb85-065ad1abe133">
+<td class="cell-title col-type-title">array</td>
+<td class="cell-X}lo col-type-text">slice</td>
+</tr>
+
+<tr id="c3a1fc18-217c-4a92-9f03-0b019987f4b5">
+<td class="cell-title col-type-title">dictionary</td>
+<td class="cell-X}lo col-type-text">map[struct]interface{} or struct</td>
+</tr>
+
+<tr id="84092782-5e3a-4c0a-ada7-3067339fe75c">
+<td class="cell-title col-type-title">null</td>
+<td class="cell-X}lo col-type-text">nil</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+<p>See more in <a href="/essential/go/go-to-json-type-mappings-408ca6bab89f4e468d58b26a951c12d7">type mappings</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

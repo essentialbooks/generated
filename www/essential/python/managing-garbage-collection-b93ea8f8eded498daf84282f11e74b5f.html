@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>There are two approaches for influencing when a memory cleanup is performed. They are influencing how often the automatic process is performed and the other is manually triggering a cleanup.</p><p>The garbage collector can be manipulated by tuning the collection thresholds which affect the frequency at which the collector runs. Python uses a generation based memory management system. New objects are saved in the newest generation - <strong>generation0</strong> and with each survived collection, objects are promoted to older generations. After reaching the last generation - <strong>generation2</strong>, they are no longer promoted.</p><p>The thresholds can be changed using the following snippet:</p>
+      
+<p>There are two approaches for influencing when a memory cleanup is performed. They are influencing how often the automatic process is performed and the other is manually triggering a cleanup.
+</p>
+<p>The garbage collector can be manipulated by tuning the collection thresholds which affect the frequency at which the collector runs. Python uses a generation based memory management system. New objects are saved in the newest generation - <strong>generation0</strong> and with each survived collection, objects are promoted to older generations. After reaching the last generation - <strong>generation2</strong>, they are no longer promoted.
+</p>
+<p>The thresholds can be changed using the following snippet:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import gc
@@ -136,7 +143,16 @@ gc.set_threshold(1000, 100, 10) # Values are just for demonstration purpose</pre
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The first argument represents the threshold for collecting <strong>generation0</strong>. Every time the number of <strong>allocations</strong> exceeds the number of <strong>deallocations</strong> by 1000 the garbage collector will be called.</p><p>The older generations are not cleaned at each run to optimize the process. The second and third arguments are <strong>optional</strong> and control how frequently the older generations are cleaned. If <strong>generation0</strong> was processed 100 times without cleaning <strong>generation1</strong>, then <strong>generation1</strong> will be processed. Similarly, objects in <strong>generation2</strong> will be processed only when the ones in <strong>generation1</strong> were cleaned 10 times without touching <strong>generation2</strong>.</p><p>One instance in which manually setting the thresholds is beneficial is when the program allocates a lot of small objects without deallocating them which leads to the garbage collector running too often (each <strong>generation0_threshold</strong> object allocations). Even though, the collector is pretty fast, when it runs on huge numbers of objects it poses a performance issue. Anyway, there’s no one size fits all strategy for choosing the thresholds and it’s use case dependable.</p><p>Manually triggering a collection can be done as in the following snippet:</p>
+</div>
+<p>The first argument represents the threshold for collecting <strong>generation0</strong>. Every time the number of <strong>allocations</strong> exceeds the number of <strong>deallocations</strong> by 1000 the garbage collector will be called.
+</p>
+<p>The older generations are not cleaned at each run to optimize the process. The second and third arguments are <strong>optional</strong> and control how frequently the older generations are cleaned. If <strong>generation0</strong> was processed 100 times without cleaning <strong>generation1</strong>, then <strong>generation1</strong> will be processed. Similarly, objects in <strong>generation2</strong> will be processed only when the ones in <strong>generation1</strong> were cleaned 10 times without touching <strong>generation2</strong>.
+</p>
+<p>One instance in which manually setting the thresholds is beneficial is when the program allocates a lot of small objects without deallocating them which leads to the garbage collector running too often (each <strong>generation0_threshold</strong> object allocations). Even though, the collector is pretty fast, when it runs on huge numbers of objects it poses a performance issue. Anyway, there’s no one size fits all strategy for choosing the thresholds and it’s use case dependable.
+</p>
+<p>Manually triggering a collection can be done as in the following snippet:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import gc
@@ -145,7 +161,13 @@ gc.collect()</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The garbage collection is automatically triggered based on the number of allocations and deallocations, not on the consumed or available memory. Consequently, when working with big objects, the memory might get depleted before the automated cleanup is triggered. This makes a good use case for manually calling the garbage collector.</p><p>Even though it’s possible, it’s not an encouraged practice. Avoiding memory leaks is the best option. Anyway, in big projects detecting the memory leak can be a though task and manually triggering a garbage collection can be used as a quick solution until further debugging.</p><p>For long-running programs, the garbage collection can be triggered on a time basis or on an event basis. An example for the first one is a web server that triggers a collection after a fixed number of requests. For the later, a web server that triggers a garbage collection when a certain type of request is received.</p>
+</div>
+<p>The garbage collection is automatically triggered based on the number of allocations and deallocations, not on the consumed or available memory. Consequently, when working with big objects, the memory might get depleted before the automated cleanup is triggered. This makes a good use case for manually calling the garbage collector.
+</p>
+<p>Even though it’s possible, it’s not an encouraged practice. Avoiding memory leaks is the best option. Anyway, in big projects detecting the memory leak can be a though task and manually triggering a garbage collection can be used as a quick solution until further debugging.
+</p>
+<p>For long-running programs, the garbage collection can be triggered on a time basis or on an event basis. An example for the first one is a web server that triggers a collection after a fixed number of requests. For the later, a web server that triggers a garbage collection when a certain type of request is received.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

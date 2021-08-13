@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Using the Swift class <code>Mirror</code> works if you want to extract <em>name</em>, <em>value</em> and <em>type</em> (Swift 3: <code>type(of: value)</code>, Swift 2: <code>value.dynamicType</code>) of properties for an <strong>instance</strong> of a certain class.</p><p>If you class inherits from <code>NSObject</code>, you can use the method <code>class_copyPropertyList</code> together with <code>property_getAttributes</code> to find out the <em>name</em> and <em>types</em> of properties for a class - <strong>without having an instance of it</strong>. I created a project on <a href="https://github.com/Sajjon/SwiftReflection">Github</a> for this, but here is the code:</p>
+      
+<p>Using the Swift class <code>Mirror</code> works if you want to extract <em>name</em>, <em>value</em> and <em>type</em> (Swift 3: <code>type(of: value)</code>, Swift 2: <code>value.dynamicType</code>) of properties for an <strong>instance</strong> of a certain class.
+</p>
+<p>If you class inherits from <code>NSObject</code>, you can use the method <code>class_copyPropertyList</code> together with <code>property_getAttributes</code> to find out the <em>name</em> and <em>types</em> of properties for a class - <strong>without having an instance of it</strong>. I created a project on <a href="https://github.com/Sajjon/SwiftReflection">Github</a> for this, but here is the code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">func getTypesOfProperties(in clazz: NSObject.Type) -&gt; Dictionary&lt;String, Any&gt;? {
@@ -161,7 +166,10 @@ func getTypeOf(property: objc_property_t) -&gt; Any {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Where <code>primitiveDataTypes</code> is a Dictionary mapping a letter in the attribute string to a value type:</p>
+</div>
+<p>Where <code>primitiveDataTypes</code> is a Dictionary mapping a letter in the attribute string to a value type:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let primitiveDataTypes: Dictionary&lt;String, Any&gt; = [
@@ -186,7 +194,12 @@ func getTypeOf(property: objc_property_t) -&gt; Any {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It can extract the <code>NSObject.Type</code> of all properties which class type inherits from <code>NSObject</code> such as <code>NSDate</code> (Swift3: <code>Date</code>), <code>NSString</code>(Swift3: <code>String</code>?) and <code>NSNumber</code>, however it is store in the type <code>Any</code> (as you can see as the type of the value of the Dictionary returned by the method). This is due to the limitations of <code>value types</code> such as Int, Int32, Bool. Since those types do not inherit from NSObject, calling <code>.self</code> on e.g. an Int - <code>Int.self</code> does not return NSObject.Type, but rather the type <code>Any</code>. Thus the method returns <code>Dictionary&lt;String, Any&gt;?</code> and not <code>Dictionary&lt;String, NSObject.Type&gt;?</code>.</p><p>You can use this method like this:</p>
+</div>
+<p>It can extract the <code>NSObject.Type</code> of all properties which class type inherits from <code>NSObject</code> such as <code>NSDate</code> (Swift3: <code>Date</code>), <code>NSString</code>(Swift3: <code>String</code>?) and <code>NSNumber</code>, however it is store in the type <code>Any</code> (as you can see as the type of the value of the Dictionary returned by the method). This is due to the limitations of <code>value types</code> such as Int, Int32, Bool. Since those types do not inherit from NSObject, calling <code>.self</code> on e.g. an Int - <code>Int.self</code> does not return NSObject.Type, but rather the type <code>Any</code>. Thus the method returns <code>Dictionary&lt;String, Any&gt;?</code> and not <code>Dictionary&lt;String, NSObject.Type&gt;?</code>.
+</p>
+<p>You can use this method like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Book: NSObject {
@@ -219,7 +232,10 @@ for (name, type) in types {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can also try to cast the <code>Any</code> to <code>NSObject.Type</code>, which will succeed for all properties inheriting from <code>NSObject</code>, then you can check the type using standard <code>==</code> operator:</p>
+</div>
+<p>You can also try to cast the <code>Any</code> to <code>NSObject.Type</code>, which will succeed for all properties inheriting from <code>NSObject</code>, then you can check the type using standard <code>==</code> operator:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">func checkPropertiesOfBook() {
@@ -238,7 +254,10 @@ for (name, type) in types {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you declare this custom <code>==</code> operator:</p>
+</div>
+<p>If you declare this custom <code>==</code> operator:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">func ==(rhs: Any, lhs: Any) -&gt; Bool {
@@ -251,7 +270,10 @@ for (name, type) in types {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can then even check the type of <code>value types</code> like this:</p>
+</div>
+<p>You can then even check the type of <code>value types</code> like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">func checkPropertiesOfBook() {
@@ -268,7 +290,9 @@ for (name, type) in types {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>LIMITATIONS</strong> This solution does not work when <code>value types</code> are optionals. If you have declared a property in you NSObject subclass like this: <code>var myOptionalInt: Int?</code>, the code above won’t find that property because the method <code>class_copyPropertyList</code> does not contain optional value types.</p>
+</div>
+<p><strong>LIMITATIONS</strong> This solution does not work when <code>value types</code> are optionals. If you have declared a property in you NSObject subclass like this: <code>var myOptionalInt: Int?</code>, the code above won’t find that property because the method <code>class_copyPropertyList</code> does not contain optional value types.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

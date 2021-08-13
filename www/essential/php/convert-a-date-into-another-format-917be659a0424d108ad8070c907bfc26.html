@@ -127,7 +127,12 @@
 </div>
 
 
-      <p><strong>The Basics</strong></p><p>The simplist way to convert one date format into another is to use <a href="http://docs.php.net/manual/en/function.strtotime.php"><code>strtotime()</code></a> with <a href="http://docs.php.net/manual/en/function.date.php"><code>date()</code></a>. <code>strtotime()</code> will convert the date into a <a href="http://en.wikipedia.org/wiki/Unix_time">Unix Timestamp</a>. That Unix Timestamp can then be passed to <code>date()</code> to convert it to the new format.</p>
+      
+<p><strong>The Basics</strong>
+</p>
+<p>The simplist way to convert one date format into another is to use <a href="http://docs.php.net/manual/en/function.strtotime.php"><code>strtotime()</code></a> with <a href="http://docs.php.net/manual/en/function.date.php"><code>date()</code></a>. <code>strtotime()</code> will convert the date into a <a href="http://en.wikipedia.org/wiki/Unix_time">Unix Timestamp</a>. That Unix Timestamp can then be passed to <code>date()</code> to convert it to the new format.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$timestamp = strtotime(&#39;2008-07-01T22:35:17.02&#39;);
@@ -136,7 +141,10 @@ $new_date_format = date(&#39;Y-m-d H:i:s&#39;, $timestamp);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Or as a one-liner:</p>
+</div>
+<p>Or as a one-liner:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$new_date_format = date(&#39;Y-m-d H:i:s&#39;, strtotime(&#39;2008-07-01T22:35:17.02&#39;));</pre>
@@ -144,7 +152,14 @@ $new_date_format = date(&#39;Y-m-d H:i:s&#39;, $timestamp);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Keep in mind that <code>strtotime()</code> requires the date to be in a <a href="https://php.net/manual/en/datetime.formats.php">valid format</a>. Failure to provide a valid format will result in <code>strtotime()</code> returning false which will cause your date to be 1969-12-31.</p><p><strong>Using </strong><code><strong>DateTime()</strong></code></p><p>As of PHP 5.2, PHP offered the <a href="http://docs.php.net/manual/en/class.datetime.php"><code>DateTime()</code></a> class which offers us more powerful tools for working with dates (and time). We can rewrite the above code using <code>DateTime()</code> as so:</p>
+</div>
+<p>Keep in mind that <code>strtotime()</code> requires the date to be in a <a href="https://php.net/manual/en/datetime.formats.php">valid format</a>. Failure to provide a valid format will result in <code>strtotime()</code> returning false which will cause your date to be 1969-12-31.
+</p>
+<p><strong>Using </strong><code><strong>DateTime()</strong></code>
+</p>
+<p>As of PHP 5.2, PHP offered the <a href="http://docs.php.net/manual/en/class.datetime.php"><code>DateTime()</code></a> class which offers us more powerful tools for working with dates (and time). We can rewrite the above code using <code>DateTime()</code> as so:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$date = new DateTime(&#39;2008-07-01T22:35:17.02&#39;);
@@ -153,7 +168,12 @@ $new_date_format = $date-&gt;format(&#39;Y-m-d H:i:s&#39;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Working with Unix timestamps</strong></p><p><code>date()</code> takes a Unix timestamp as its second parameter and returns a formatted date for you:</p>
+</div>
+<p><strong>Working with Unix timestamps</strong>
+</p>
+<p><code>date()</code> takes a Unix timestamp as its second parameter and returns a formatted date for you:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$new_date_format = date(&#39;Y-m-d H:i:s&#39;, &#39;1234567890&#39;);</pre>
@@ -161,7 +181,10 @@ $new_date_format = $date-&gt;format(&#39;Y-m-d H:i:s&#39;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>DateTime() works with Unix timestamps by adding an <code>@</code> before the timestamp:</p>
+</div>
+<p>DateTime() works with Unix timestamps by adding an <code>@</code> before the timestamp:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$date = new DateTime(&#39;@1234567890&#39;);
@@ -170,7 +193,16 @@ $new_date_format = $date-&gt;format(&#39;Y-m-d H:i:s&#39;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If the timestamp you have is in milliseconds (it may end in <code>000</code> and/or the timestamp is thirteen characters long) you will need to convert it to seconds before you can can convert it to another format. There’s two ways to do this:</p><ul id="d4347c81-efc7-4fc9-8dcf-b4c60fdab046" class="bulleted-list"><li>Trim the last three digits off using <a href="http://php.net/manual/en/function.substr.php"><code>substr()</code></a></li></ul><p>Trimming the last three digits can be acheived several ways, but using <code>substr()</code> is the easiest:</p>
+</div>
+<p>If the timestamp you have is in milliseconds (it may end in <code>000</code> and/or the timestamp is thirteen characters long) you will need to convert it to seconds before you can can convert it to another format. There’s two ways to do this:
+</p>
+  <ul id="d4347c81-efc7-4fc9-8dcf-b4c60fdab046" class="bulleted-list">
+    <li>Trim the last three digits off using <a href="http://php.net/manual/en/function.substr.php"><code>substr()</code></a>
+    </li>
+  </ul>
+<p>Trimming the last three digits can be acheived several ways, but using <code>substr()</code> is the easiest:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$timestamp = substr(&#39;1234567899000&#39;, -3);</pre>
@@ -178,7 +210,14 @@ $new_date_format = $date-&gt;format(&#39;Y-m-d H:i:s&#39;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="044cb825-89ff-4b72-9048-36d485e184cc" class="bulleted-list"><li>Divide the substr by 1000</li></ul><p>You can also convert the timestamp into seconds by dividing by 1000. Because the timestamp is too large for 32 bit systems to do math on you will need to use the <a href="http://php.net/manual/en/book.bc.php">BCMath</a> library to do the math as strings:</p>
+</div>
+  <ul id="044cb825-89ff-4b72-9048-36d485e184cc" class="bulleted-list">
+    <li>Divide the substr by 1000
+    </li>
+  </ul>
+<p>You can also convert the timestamp into seconds by dividing by 1000. Because the timestamp is too large for 32 bit systems to do math on you will need to use the <a href="http://php.net/manual/en/book.bc.php">BCMath</a> library to do the math as strings:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$timestamp = bcdiv(&#39;1234567899000&#39;, &#39;1000&#39;);</pre>
@@ -186,7 +225,10 @@ $new_date_format = $date-&gt;format(&#39;Y-m-d H:i:s&#39;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To get a Unix Timestamp you can use <code>strtotime()</code> which returns a Unix Timestamp:</p>
+</div>
+<p>To get a Unix Timestamp you can use <code>strtotime()</code> which returns a Unix Timestamp:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$timestamp = strtotime(&#39;1973-04-18&#39;);</pre>
@@ -194,7 +236,10 @@ $new_date_format = $date-&gt;format(&#39;Y-m-d H:i:s&#39;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With DateTime() you can use <a href="http://php.net/manual/en/datetime.gettimestamp.php"><code>DateTime::getTimestamp()</code></a></p>
+</div>
+<p>With DateTime() you can use <a href="http://php.net/manual/en/datetime.gettimestamp.php"><code>DateTime::getTimestamp()</code></a>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$date = new DateTime(&#39;2008-07-01T22:35:17.02&#39;);
@@ -203,7 +248,10 @@ $timestamp = $date-&gt;getTimestamp();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you’re running PHP 5.2 you can use the <code>U</code> formatting option instead:</p>
+</div>
+<p>If you’re running PHP 5.2 you can use the <code>U</code> formatting option instead:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$date = new DateTime(&#39;2008-07-01T22:35:17.02&#39;);
@@ -212,7 +260,12 @@ $timestamp = $date-&gt;format(&#39;U&#39;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Working with non-standard and ambiguous date formats</strong></p><p>Unfortunately not all dates that a developer has to work with are in a standard format. Fortunately PHP 5.3 provided us with a solution for that. <a href="http://docs.php.net/manual/en/datetime.createfromformat.php"><code>DateTime::createFromFormat()</code></a> allows us to tell PHP what format a date string is in so it can be successfully parsed into a DateTime object for further manipulation.</p>
+</div>
+<p><strong>Working with non-standard and ambiguous date formats</strong>
+</p>
+<p>Unfortunately not all dates that a developer has to work with are in a standard format. Fortunately PHP 5.3 provided us with a solution for that. <a href="http://docs.php.net/manual/en/datetime.createfromformat.php"><code>DateTime::createFromFormat()</code></a> allows us to tell PHP what format a date string is in so it can be successfully parsed into a DateTime object for further manipulation.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$date = DateTime::createFromFormat(&#39;F-d-Y h:i A&#39;, &#39;April-18-1973 9:48 AM&#39;);
@@ -221,7 +274,10 @@ $new_date_format = $date-&gt;format(&#39;Y-m-d H:i:s&#39;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In PHP 5.4 we gained the ability to do class member access on instantiation has been added which allows us to turn our <code>DateTime()</code> code into a one-liner:</p>
+</div>
+<p>In PHP 5.4 we gained the ability to do class member access on instantiation has been added which allows us to turn our <code>DateTime()</code> code into a one-liner:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">$new_date_format = (new DateTime(&#39;2008-07-01T22:35:17.02&#39;))-&gt;format(&#39;Y-m-d H:i:s&#39;);</pre>
@@ -229,7 +285,9 @@ $new_date_format = $date-&gt;format(&#39;Y-m-d H:i:s&#39;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Unfortunately this does not work with <code>DateTime::createFromFormat()</code> yet.</p>
+</div>
+<p>Unfortunately this does not work with <code>DateTime::createFromFormat()</code> yet.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

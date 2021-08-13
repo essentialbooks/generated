@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>C++11 introduces two new special member functions: the move constructor and the move assignment operator. For all the same reasons that you want to follow the <a href="http://stackoverflow.com/documentation/c%2B%2B/1206/the-rule-of-three-five-and-zero/9867/rule-of-three#t=201607251426414241612">Rule of Three</a> in C++03, you usually want to follow the Rule of Five in C++11: If a class requires ONE of five special member functions, and if move semantics are desired, then it most likely requires ALL FIVE of them.</p><p>Note, however, that failing to follow the Rule of Five is usually not considered an error, but a missed optimisation opportunity, as long as the Rule of Three is still followed. If no move constructor or move assignment operator is available when the compiler would normally use one, it will instead use copy semantics if possible, resulting in a less efficient operation due to unnecessary copy operations. If move semantics aren’t desired for a class, then it has no need to declare a move constructor or assignment operator.</p><p>Same example as for the Rule of Three:</p>
+      
+<p>C++11 introduces two new special member functions: the move constructor and the move assignment operator. For all the same reasons that you want to follow the <a href="http://stackoverflow.com/documentation/c%2B%2B/1206/the-rule-of-three-five-and-zero/9867/rule-of-three#t=201607251426414241612">Rule of Three</a> in C++03, you usually want to follow the Rule of Five in C++11: If a class requires ONE of five special member functions, and if move semantics are desired, then it most likely requires ALL FIVE of them.
+</p>
+<p>Note, however, that failing to follow the Rule of Five is usually not considered an error, but a missed optimisation opportunity, as long as the Rule of Three is still followed. If no move constructor or move assignment operator is available when the compiler would normally use one, it will instead use copy semantics if possible, resulting in a less efficient operation due to unnecessary copy operations. If move semantics aren’t desired for a class, then it has no need to declare a move constructor or assignment operator.
+</p>
+<p>Same example as for the Rule of Three:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Person
@@ -183,7 +190,10 @@ public:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Alternatively, both the copy and move assignment operator can be replaced with a single assignment operator, which takes an instance by value instead of reference or rvalue reference to facilitate using the copy-and-swap idiom.</p>
+</div>
+<p>Alternatively, both the copy and move assignment operator can be replaced with a single assignment operator, which takes an instance by value instead of reference or rvalue reference to facilitate using the copy-and-swap idiom.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Person&amp; operator=(Person copy)
@@ -195,7 +205,9 @@ public:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Extending from the Rule of Three to the Rule of Five is important for performance reasons, but is not strictly necessary in most cases. Adding the copy constructor and assignment operator ensures that moving the type will not leak memory (move-constructing will simply fall back to copying in that case), but will be performing copies that the caller probably did not anticipate.</p>
+</div>
+<p>Extending from the Rule of Three to the Rule of Five is important for performance reasons, but is not strictly necessary in most cases. Adding the copy constructor and assignment operator ensures that moving the type will not leak memory (move-constructing will simply fall back to copying in that case), but will be performing copies that the caller probably did not anticipate.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

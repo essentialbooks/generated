@@ -127,7 +127,14 @@
 </div>
 
 
-      <p><code>std::function</code> can cause significant overhead. Because <code>std::function</code> has [value semantics][1], it must copy or move the given callable into itself. But since it can take callables of an arbitrary type, it will frequently have to allocate memory dynamically to do this.</p><p>Some <code>function</code> implementations have so-called “small object optimization”, where small types (like function pointers, member pointers, or functors with very little state) will be stored directly in the <code>function</code> object. But even this only works if the type is <code>noexcept</code> move constructible. Furthermore, the C++ standard does not require that all implementations provide one.</p><p>Consider the following:</p>
+      
+<p><code>std::function</code> can cause significant overhead. Because <code>std::function</code> has [value semantics][1], it must copy or move the given callable into itself. But since it can take callables of an arbitrary type, it will frequently have to allocate memory dynamically to do this.
+</p>
+<p>Some <code>function</code> implementations have so-called “small object optimization”, where small types (like function pointers, member pointers, or functors with very little state) will be stored directly in the <code>function</code> object. But even this only works if the type is <code>noexcept</code> move constructible. Furthermore, the C++ standard does not require that all implementations provide one.
+</p>
+<p>Consider the following:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="c1">//Header file
@@ -145,7 +152,19 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A template parameter would be the preferred solution for <code>SortMyContainer</code>, but let us assume that this is not possible or desirable for whatever reason. <code>SortMyContainer</code> does not need to store <code>pred</code> beyond its own call. And yet, <code>pred</code> may well allocate memory if the functor given to it is of some non-trivial size.</p><p><code>function</code> allocates memory because it needs something to copy/move into; <code>function</code> takes ownership of the callable it is given. But <code>SortMyContainer</code> does not need to <em>own</em> the callable; it’s just referencing it. So using <code>function</code> here is overkill; it may be efficient, but it may not.</p><p>There is no standard library function type that merely references a callable. So an alternate solution will have to be found, or you can choose to live with the overhead.</p><p>Also, <code>function</code> has no effective means to control where the memory allocations for the object come from. Yes, it has constructors that take an <code>allocator</code>, but [many implementations do not implement them correctly… or even <em>at all</em>][2].</p><p>The <code>function</code> constructors that take an <code>allocator</code> no longer are part of the type. Therefore, there is no way to manage the allocation.</p><p>Calling a <code>function</code> is also slower than calling the contents directly. Since any <code>function</code> instance could hold any callable, the call through a <code>function</code> must be indirect. The overhead of calling <code>function</code> is on the order of a virtual function call.</p>
+</div>
+<p>A template parameter would be the preferred solution for <code>SortMyContainer</code>, but let us assume that this is not possible or desirable for whatever reason. <code>SortMyContainer</code> does not need to store <code>pred</code> beyond its own call. And yet, <code>pred</code> may well allocate memory if the functor given to it is of some non-trivial size.
+</p>
+<p><code>function</code> allocates memory because it needs something to copy/move into; <code>function</code> takes ownership of the callable it is given. But <code>SortMyContainer</code> does not need to <em>own</em> the callable; it’s just referencing it. So using <code>function</code> here is overkill; it may be efficient, but it may not.
+</p>
+<p>There is no standard library function type that merely references a callable. So an alternate solution will have to be found, or you can choose to live with the overhead.
+</p>
+<p>Also, <code>function</code> has no effective means to control where the memory allocations for the object come from. Yes, it has constructors that take an <code>allocator</code>, but [many implementations do not implement them correctly… or even <em>at all</em>][2].
+</p>
+<p>The <code>function</code> constructors that take an <code>allocator</code> no longer are part of the type. Therefore, there is no way to manage the allocation.
+</p>
+<p>Calling a <code>function</code> is also slower than calling the contents directly. Since any <code>function</code> instance could hold any callable, the call through a <code>function</code> must be indirect. The overhead of calling <code>function</code> is on the order of a virtual function call.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

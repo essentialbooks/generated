@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>To print the value of a pointer to an object (as opposed to a function pointer) use the <code>p</code> conversion specifier. It is defined to print <code>void</code>-pointers only, so to print out the value of a non <code>void</code>-pointer it needs to be explicitly converted (“casted*”) to <code>void*</code>.</p>
+      
+<p>To print the value of a pointer to an object (as opposed to a function pointer) use the <code>p</code> conversion specifier. It is defined to print <code>void</code>-pointers only, so to print out the value of a non <code>void</code>-pointer it needs to be explicitly converted (“casted*”) to <code>void*</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdlib.h&gt; /* for EXIT_SUCCESS */
@@ -146,7 +149,13 @@ int main(void)
 	<div class="code-box-nav">
 		
 	</div>
-</div><h3 id="f3a1256e-7f06-4621-b05d-689caf741420" class="">Using <code>&lt;inttypes.h&gt;</code> and <code>uintptr_t</code><a class="header-anchor" href="#f3a1256e-7f06-4621-b05d-689caf741420" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>Another way to print pointers in C99 or later uses the <code>uintptr_t</code> type and the macros from <code>&lt;inttypes.h&gt;</code>:</p>
+</div>
+  <h3 id="f3a1256e-7f06-4621-b05d-689caf741420" class="">Using <code>&lt;inttypes.h&gt;</code> and <code>uintptr_t</code>
+  <a class="header-anchor" href="#f3a1256e-7f06-4621-b05d-689caf741420" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p>Another way to print pointers in C99 or later uses the <code>uintptr_t</code> type and the macros from <code>&lt;inttypes.h&gt;</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;inttypes.h&gt; /* for uintptr_t and PRIXPTR */
@@ -165,7 +174,19 @@ int main(void)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In theory, there might not be an integer type that can hold any pointer converted to an integer (so the type <code>uintptr_t</code> might not exist). In practice, it does exist. Pointers to functions need not be convertible to the <code>uintptr_t</code> type — though again they most often are convertible.</p><p>If the <code>uintptr_t</code> type exists, so does the <code>intptr_t</code> type. It is not clear why you’d ever want to treat addresses as signed integers, though.</p><h2 id="5958cc41-11ed-4d9e-90db-3f763cc4f984" class="">Pre-Standard History:<a class="header-anchor" href="#5958cc41-11ed-4d9e-90db-3f763cc4f984" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Prior to C89 during K&amp;R-C times there was no type <code>void*</code> (nor header <code>&lt;stdlib.h&gt;</code>, nor prototypes, and hence no <code>int main(void)</code> notation), so the pointer was cast to <code>long unsigned int</code> and printed using the <code>lx</code> length modifier/conversion specifier.</p><p><strong>The example below is just for informational purpose. Nowadays this is invalid code, which very well might provoke the infamous </strong><a href="http://stackoverflow.com/documentation/c/364/undefined-behavior"><strong>Undefined Behaviour</strong></a><strong>.</strong></p>
+</div>
+<p>In theory, there might not be an integer type that can hold any pointer converted to an integer (so the type <code>uintptr_t</code> might not exist). In practice, it does exist. Pointers to functions need not be convertible to the <code>uintptr_t</code> type — though again they most often are convertible.
+</p>
+<p>If the <code>uintptr_t</code> type exists, so does the <code>intptr_t</code> type. It is not clear why you’d ever want to treat addresses as signed integers, though.
+</p>
+  <h2 id="5958cc41-11ed-4d9e-90db-3f763cc4f984" class="">Pre-Standard History:
+  <a class="header-anchor" href="#5958cc41-11ed-4d9e-90db-3f763cc4f984" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Prior to C89 during K&amp;R-C times there was no type <code>void*</code> (nor header <code>&lt;stdlib.h&gt;</code>, nor prototypes, and hence no <code>int main(void)</code> notation), so the pointer was cast to <code>long unsigned int</code> and printed using the <code>lx</code> length modifier/conversion specifier.
+</p>
+<p><strong>The example below is just for informational purpose. Nowadays this is invalid code, which very well might provoke the infamous </strong><a href="http://stackoverflow.com/documentation/c/364/undefined-behavior"><strong>Undefined Behaviour</strong></a><strong>.</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;stdio.h&gt; /* optional in pre-standard C - for printf() */

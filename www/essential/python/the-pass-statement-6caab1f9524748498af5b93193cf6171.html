@@ -127,7 +127,28 @@
 </div>
 
 
-      <h2 id="46310216-add6-4ae5-af1d-5ca99dbcef88" class="">Syntax<a class="header-anchor" href="#46310216-add6-4ae5-af1d-5ca99dbcef88" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><ul id="6891d71d-e7b7-449c-aa19-c44f7dabf2b0" class="bulleted-list"><li>pass</li></ul><h2 id="ffd1e0b6-b9a4-4f52-a550-94b3f10aee2e" class="">Remarks<a class="header-anchor" href="#ffd1e0b6-b9a4-4f52-a550-94b3f10aee2e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Why would you ever want to tell the interpreter to explicitly do nothing? Python has the syntactical requirement that code blocks (after <code>if</code>, <code>except</code>, <code>def</code>, <code>class</code> etc.) cannot be empty.</p><p>But sometimes an empty code block is useful in itself. An empty <code>class</code> block can definine a new, different class, such as exception that can be caught. An empty <code>except</code> block can be the simplest way to express “ask for forgiveness later” if there was nothing to ask for forgiveness for. If an iterator does all the heavy lifting, an empty <code>for</code> loop to just run the iterator can be useful.</p><p>Therefore, if nothing is supposed to happen in a code block, a <code>pass</code> is needed for such a block to not produce an <code>IndentationError</code>. Alternatively, any statement (including just a term to be evaluated, like the <code>Ellipsis</code> literal <code>...</code> or a string, most often a docstring) can be used, but the <code>pass</code> makes clear that indeed nothing is supposed to happen, and does not need to be actually evaluated and (at least temporarily) stored in memory. Here is a small annotated collection of the most frequent uses of <code>pass</code> that crossed my way – together with some comments on good and bad pratice.</p><ul id="afa453f0-88dd-4e78-b1a8-6e76241a8287" class="bulleted-list"><li>Ignoring (all or) a certain type of <code>Exception</code> (example from <code>xml</code>):</li></ul>
+      
+  <h2 id="46310216-add6-4ae5-af1d-5ca99dbcef88" class="">Syntax
+  <a class="header-anchor" href="#46310216-add6-4ae5-af1d-5ca99dbcef88" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+  <ul id="6891d71d-e7b7-449c-aa19-c44f7dabf2b0" class="bulleted-list">
+    <li>pass
+    </li>
+  </ul>
+  <h2 id="ffd1e0b6-b9a4-4f52-a550-94b3f10aee2e" class="">Remarks
+  <a class="header-anchor" href="#ffd1e0b6-b9a4-4f52-a550-94b3f10aee2e" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Why would you ever want to tell the interpreter to explicitly do nothing? Python has the syntactical requirement that code blocks (after <code>if</code>, <code>except</code>, <code>def</code>, <code>class</code> etc.) cannot be empty.
+</p>
+<p>But sometimes an empty code block is useful in itself. An empty <code>class</code> block can definine a new, different class, such as exception that can be caught. An empty <code>except</code> block can be the simplest way to express “ask for forgiveness later” if there was nothing to ask for forgiveness for. If an iterator does all the heavy lifting, an empty <code>for</code> loop to just run the iterator can be useful.
+</p>
+<p>Therefore, if nothing is supposed to happen in a code block, a <code>pass</code> is needed for such a block to not produce an <code>IndentationError</code>. Alternatively, any statement (including just a term to be evaluated, like the <code>Ellipsis</code> literal <code>...</code> or a string, most often a docstring) can be used, but the <code>pass</code> makes clear that indeed nothing is supposed to happen, and does not need to be actually evaluated and (at least temporarily) stored in memory. Here is a small annotated collection of the most frequent uses of <code>pass</code> that crossed my way – together with some comments on good and bad pratice.
+</p>
+  <ul id="afa453f0-88dd-4e78-b1a8-6e76241a8287" class="bulleted-list">
+    <li>Ignoring (all or) a certain type of <code>Exception</code> (example from <code>xml</code>):
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">try:
@@ -138,7 +159,10 @@ except AttributeError:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Note:</strong> Ignoring all types of raises, as in the following example from <code>pandas</code>, is generally considered bad practice, because it also catches exceptions that should probably be passed on to the caller, e.g. <code>KeyboardInterrupt</code> or <code>SystemExit</code> (or even <code>HardwareIsOnFireError</code> – How do you know you aren’t running on a custom box with specific errors defined, which some calling application would want to know about?).</p>
+</div>
+<p><strong>Note:</strong> Ignoring all types of raises, as in the following example from <code>pandas</code>, is generally considered bad practice, because it also catches exceptions that should probably be passed on to the caller, e.g. <code>KeyboardInterrupt</code> or <code>SystemExit</code> (or even <code>HardwareIsOnFireError</code> – How do you know you aren’t running on a custom box with specific errors defined, which some calling application would want to know about?).
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">try:
@@ -151,7 +175,12 @@ Instead using at least `except Error:` or in this case preferably `except OSErro
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="bd9e983a-b92a-4556-9b0c-112dd1aec741" class="bulleted-list"><li>Deriving an exception class that does not add new behaviour (e.g. in <code>scipy</code>):</li></ul>
+</div>
+  <ul id="bd9e983a-b92a-4556-9b0c-112dd1aec741" class="bulleted-list">
+    <li>Deriving an exception class that does not add new behaviour (e.g. in <code>scipy</code>):
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class CompileError(Exception):
@@ -160,7 +189,10 @@ Instead using at least `except Error:` or in this case preferably `except OSErro
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Similarly, classes intended as abstract base class often have an explicit empty <code>__init__</code> or other methods that subclasses are supposed to derive. (e.g. <code>pebl</code>)</p>
+</div>
+<p>Similarly, classes intended as abstract base class often have an explicit empty <code>__init__</code> or other methods that subclasses are supposed to derive. (e.g. <code>pebl</code>)
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class _BaseSubmittingController(_BaseController):
@@ -170,7 +202,12 @@ Instead using at least `except Error:` or in this case preferably `except OSErro
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="506cb5a0-477e-4613-b0e0-9138e176e9d5" class="bulleted-list"><li>Testing that code runs properly for a few test values, without caring about the results (from <code>mpmath</code>):</li></ul>
+</div>
+  <ul id="506cb5a0-477e-4613-b0e0-9138e176e9d5" class="bulleted-list">
+    <li>Testing that code runs properly for a few test values, without caring about the results (from <code>mpmath</code>):
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for x, error in MDNewton(mp, f, (1,-2), verbose=0,
@@ -180,7 +217,12 @@ Instead using at least `except Error:` or in this case preferably `except OSErro
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="0c1ee6f0-b7bc-41eb-b5cc-5f3840502dba" class="bulleted-list"><li>In class or function definitions, often a docstring is already in place as the <em>obligatory statement</em> to be executed as the only thing in the block. In such cases, the block may contain <code>pass</code> <em>in addition</em> to the docstring in order to say “This is indeed intended to do nothing.”, for example in <code>pebl</code>:</li></ul>
+</div>
+  <ul id="0c1ee6f0-b7bc-41eb-b5cc-5f3840502dba" class="bulleted-list">
+    <li>In class or function definitions, often a docstring is already in place as the <em>obligatory statement</em> to be executed as the only thing in the block. In such cases, the block may contain <code>pass</code> <em>in addition</em> to the docstring in order to say “This is indeed intended to do nothing.”, for example in <code>pebl</code>:
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class ParsingError(Exception): 
@@ -190,7 +232,12 @@ Instead using at least `except Error:` or in this case preferably `except OSErro
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="192f8faf-a1d5-4401-9f25-dbf123ec4a42" class="bulleted-list"><li>In some cases, <code>pass</code> is used as a placeholder to say “This method/class/if-block/… has not been implemented yet, but this will be the place to do it”, although I personally prefer the <code>Ellipsis</code> literal <code>...</code> (NOTE: python-3 only) in order to strictly differentiate between this and the intentional “no-op” in the previous example. For example, if I write a model in broad strokes, I might write</li></ul>
+</div>
+  <ul id="192f8faf-a1d5-4401-9f25-dbf123ec4a42" class="bulleted-list">
+    <li>In some cases, <code>pass</code> is used as a placeholder to say “This method/class/if-block/… has not been implemented yet, but this will be the place to do it”, although I personally prefer the <code>Ellipsis</code> literal <code>...</code> (NOTE: python-3 only) in order to strictly differentiate between this and the intentional “no-op” in the previous example. For example, if I write a model in broad strokes, I might write
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def update_agent(agent):
@@ -207,6 +254,7 @@ before</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def time_step(agents):
@@ -216,7 +264,9 @@ before</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>as a reminder to fill in the <code>update_agent</code> function at a later point, but run some tests already to see if the rest of the code behaves as intended. (A third option for this case is <code>raise NotImplementedError</code>. This is useful in particular for two cases: Either <em>“This abstract method should be implemented by every subclass, there is no generic way to define it in this base class”</em>, or <em>“This function, with this name, is not yet implemented in this release, but this is what its signature will look like”</em>)</p>
+</div>
+<p>as a reminder to fill in the <code>update_agent</code> function at a later point, but run some tests already to see if the rest of the code behaves as intended. (A third option for this case is <code>raise NotImplementedError</code>. This is useful in particular for two cases: Either <em>“This abstract method should be implemented by every subclass, there is no generic way to define it in this base class”</em>, or <em>“This function, with this name, is not yet implemented in this release, but this is what its signature will look like”</em>)
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

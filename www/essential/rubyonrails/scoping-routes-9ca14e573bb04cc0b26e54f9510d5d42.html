@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Rails provides several ways to organize your routes.</p><p><strong>Scope by URL</strong>:</p>
+      
+<p>Rails provides several ways to organize your routes.
+</p>
+<p><strong>Scope by URL</strong>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">scope &#39;admin&#39; do
@@ -138,7 +143,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This generates the following routes</p>
+</div>
+<p>This generates the following routes
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">get       &#39;/admin/dashboard&#39;,          to: &#39;administration#dashboard&#39;
@@ -152,7 +160,12 @@ delete    &#39;/admin/employees/:id&#39;,      to: &#39;employees#destroy&#39;</
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It may make more sense, on the server side, to keep some views in a different subfolder, to separate admin views from user views.</p><p><strong>Scope by module</strong></p>
+</div>
+<p>It may make more sense, on the server side, to keep some views in a different subfolder, to separate admin views from user views.
+</p>
+<p><strong>Scope by module</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">scope module: :admin do
@@ -162,7 +175,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>module</code> looks for the controller files under the subfolder of the given name</p>
+</div>
+<p><code>module</code> looks for the controller files under the subfolder of the given name
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">get       &#39;/dashboard&#39;,          to: &#39;admin/administration#dashboard&#39;</pre>
@@ -170,7 +186,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can rename the path helpers prefix by adding an <code>as</code> parameter</p>
+</div>
+<p>You can rename the path helpers prefix by adding an <code>as</code> parameter
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">scope &#39;admin&#39;, as: :administration do
@@ -182,7 +201,10 @@ end
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Rails provides a convenient way to do all the above, using the <code>namespace</code> method. The following declarations are equivalent</p>
+</div>
+<p>Rails provides a convenient way to do all the above, using the <code>namespace</code> method. The following declarations are equivalent
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">namespace :admin do
@@ -193,7 +215,10 @@ scope &#39;admin&#39;, module: :admin, as: :admin</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Scope by controller</strong></p>
+</div>
+<p><strong>Scope by controller</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">scope controller: :management do
@@ -204,7 +229,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This generate these routes</p>
+</div>
+<p>This generate these routes
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">get       &#39;/dashboard&#39;,          to: &#39;management#dashboard&#39;
@@ -213,7 +241,16 @@ get       &#39;/performance&#39;,        to: &#39;management#performance&#39;</p
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Shallow Nesting</strong></p><p>Resource routes accept a <code>:shallow</code> option that helps to shorten URLs where possible. Resources shouldn’t be nested more than one level deep. One way to avoid this is by creating shallow routes. The goal is to leave off parent collection URL segments where they are not needed. The end result is that the only nested routes generated are for the <code>:index</code> , <code>:create</code> , and <code>:new</code> actions. The rest are kept in their own shallow URL context. There are two options for scope to custom shallow routes:</p><ul id="e7a5008a-f353-44b5-b729-c61647f54c63" class="bulleted-list"><li><strong>:shallow_path</strong>: Prefixes member paths with a specified parameter</li></ul>
+</div>
+<p><strong>Shallow Nesting</strong>
+</p>
+<p>Resource routes accept a <code>:shallow</code> option that helps to shorten URLs where possible. Resources shouldn’t be nested more than one level deep. One way to avoid this is by creating shallow routes. The goal is to leave off parent collection URL segments where they are not needed. The end result is that the only nested routes generated are for the <code>:index</code> , <code>:create</code> , and <code>:new</code> actions. The rest are kept in their own shallow URL context. There are two options for scope to custom shallow routes:
+</p>
+  <ul id="e7a5008a-f353-44b5-b729-c61647f54c63" class="bulleted-list">
+    <li><strong>:shallow_path</strong>: Prefixes member paths with a specified parameter
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">scope shallow_path: &#34;sekret&#34; do
@@ -225,7 +262,12 @@ get       &#39;/performance&#39;,        to: &#39;management#performance&#39;</p
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="f03a3558-e85e-45f1-aa60-1a265c1d7d94" class="bulleted-list"><li><strong>:shallow_prefix</strong>: Add specified parameters to named helpers</li></ul>
+</div>
+  <ul id="f03a3558-e85e-45f1-aa60-1a265c1d7d94" class="bulleted-list">
+    <li><strong>:shallow_prefix</strong>: Add specified parameters to named helpers
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">scope shallow_prefix: &#34;sekret&#34; do
@@ -237,7 +279,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We can also illustrate <code>shallow</code> routes more by:</p>
+</div>
+<p>We can also illustrate <code>shallow</code> routes more by:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">resources :auctions, shallow: true do
@@ -249,7 +294,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>alternatively coded as follows (if you’re block-happy):</p>
+</div>
+<p>alternatively coded as follows (if you’re block-happy):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">resources :auctions do
@@ -263,7 +311,12 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The resulting routes are:</p><p>Prefix | Verb | URI Pattern |</p><p>:—— | :—— | :—– |
+</div>
+<p>The resulting routes are:
+</p>
+<p>Prefix | Verb | URI Pattern |
+</p>
+<p>:—— | :—— | :—– |
 bid_comments | GET | /bids/:bid_id/comments(.:format) | POST | /bids/:bid_id/comments(.:format)
 new_bid_comment| GET | /bids/:bid_id/comments/new(.:format)
 edit_comment | GET | /comments/:id/edit(.:format)
@@ -275,7 +328,10 @@ bid | GET | /bids/:id(.:format) | PATCH | /bids/:id(.:format) | PUT | /bids/:i
 auctions | GET | /auctions(.:format) | POST | /auctions(.:format)
 new_auction | GET | /auctions/new(.:format)
 edit_auction | GET | /auctions/:id/edit(.:format)
-auction | GET | /auctions/:id(.:format) | PATCH | /auctions/:id(.:format) | PUT | /auctions/:id(.:format) | DELETE| /auctions/:id(.:format)</p><p>If you analyze the routes generated carefully, you’ll notice that the nested parts of the URL are only included when they are needed to determine what data to display.</p>
+auction | GET | /auctions/:id(.:format) | PATCH | /auctions/:id(.:format) | PUT | /auctions/:id(.:format) | DELETE| /auctions/:id(.:format)
+</p>
+<p>If you analyze the routes generated carefully, you’ll notice that the nested parts of the URL are only included when they are needed to determine what data to display.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

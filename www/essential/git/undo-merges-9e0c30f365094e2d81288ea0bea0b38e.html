@@ -127,7 +127,14 @@
 </div>
 
 
-      <p><strong>Undoing a merge not yet pushed to a remote</strong></p><p>If you haven’t yet pushed your merge to the remote repository then you can follow the same procedure as in <a href="http://stackoverflow.com/documentation/git/285/undoing/1023/undoing-commits#t=201604121857583862381">undo the commit</a> although there are some subtle differences.</p><p>A reset is the simplest option as it will undo both the merge commit and any commits added from the branch. However, you will need to know what SHA to reset back to, this can be tricky as your <code>git log</code> will now show commits from both branches. If you reset to the wrong commit (e.g. one on the other branch) <strong>it can destroy committed work.</strong></p>
+      
+<p><strong>Undoing a merge not yet pushed to a remote</strong>
+</p>
+<p>If you haven’t yet pushed your merge to the remote repository then you can follow the same procedure as in <a href="http://stackoverflow.com/documentation/git/285/undoing/1023/undoing-commits#t=201604121857583862381">undo the commit</a> although there are some subtle differences.
+</p>
+<p>A reset is the simplest option as it will undo both the merge commit and any commits added from the branch. However, you will need to know what SHA to reset back to, this can be tricky as your <code>git log</code> will now show commits from both branches. If you reset to the wrong commit (e.g. one on the other branch) <strong>it can destroy committed work.</strong>
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">git reset --hard &lt;last commit from the branch you are on&gt;</pre>
@@ -135,7 +142,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Or, assuming the merge was your most recent commit.</p>
+</div>
+<p>Or, assuming the merge was your most recent commit.
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">git reset HEAD~</pre>
@@ -143,7 +153,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A revert is safer, in that it won’t destroy committed work, but involves more work as you have to revert the revert before you can merge the branch back in again (see the next section).</p><p><strong>Undoing a merge pushed to a remote</strong></p><p>Assume you merge in a new feature (add-gremlins)</p>
+</div>
+<p>A revert is safer, in that it won’t destroy committed work, but involves more work as you have to revert the revert before you can merge the branch back in again (see the next section).
+</p>
+<p><strong>Undoing a merge pushed to a remote</strong>
+</p>
+<p>Assume you merge in a new feature (add-gremlins)
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">git merge feature/add-gremlins
@@ -158,7 +175,10 @@ git push
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Afterwards you discover that the feature you just merged in broke the system for other developers, it must be undone right away, and fixing the feature itself will take too long so you simply want to undo the merge.</p>
+</div>
+<p>Afterwards you discover that the feature you just merged in broke the system for other developers, it must be undone right away, and fixing the feature itself will take too long so you simply want to undo the merge.
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">git revert -m <span class="m">1</span> 17a51fd
@@ -170,7 +190,10 @@ git push
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>At this point the gremlins are out of the system and your fellow developers have stopped yelling at you. However, we are not finished just yet. Once you fix the problem with the add-gremlins feature you will need to undo this revert before you can merge back in.</p>
+</div>
+<p>At this point the gremlins are out of the system and your fellow developers have stopped yelling at you. However, we are not finished just yet. Once you fix the problem with the add-gremlins feature you will need to undo this revert before you can merge back in.
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">git checkout feature/add-gremlins
@@ -190,7 +213,10 @@ git push</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>At this point your feature is now successfully added. However, given that bugs of this type are often introduced by merge conflicts a slightly different workflow is sometimes more helpful as it lets you fix the merge conflict on your branch.</p>
+</div>
+<p>At this point your feature is now successfully added. However, given that bugs of this type are often introduced by merge conflicts a slightly different workflow is sometimes more helpful as it lets you fix the merge conflict on your branch.
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">git checkout feature/add-gremlins

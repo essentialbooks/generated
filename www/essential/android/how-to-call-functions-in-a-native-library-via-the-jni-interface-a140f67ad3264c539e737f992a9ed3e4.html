@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>The <a href="https://en.wikipedia.org/wiki/Java_Native_Interface">Java Native Interface</a> (JNI) allows you to call native functions from Java code, and vice versa. This example shows how to load and call a native function via JNI, it does not go into accessing Java methods and fields from native code using <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/functions.html">JNI functions</a>.</p><p>Suppose you have a native library named <code>libjniexample.so</code> in the <code>project/libs/&lt;architecture&gt;</code> folder, and you want to call a function from the <code>JNITest</code>Java class inside the <code>com.example.jniexample</code> package.</p><p>In the JNITest class, declare the function like this:</p>
+      
+<p>The <a href="https://en.wikipedia.org/wiki/Java_Native_Interface">Java Native Interface</a> (JNI) allows you to call native functions from Java code, and vice versa. This example shows how to load and call a native function via JNI, it does not go into accessing Java methods and fields from native code using <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/functions.html">JNI functions</a>.
+</p>
+<p>Suppose you have a native library named <code>libjniexample.so</code> in the <code>project/libs/&lt;architecture&gt;</code> folder, and you want to call a function from the <code>JNITest</code>Java class inside the <code>com.example.jniexample</code> package.
+</p>
+<p>In the JNITest class, declare the function like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public native int testJNIfunction(int a, int b);</pre>
@@ -135,7 +142,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In your native code, define the function like this:</p>
+</div>
+<p>In your native code, define the function like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;jni.h&gt;
@@ -148,7 +158,12 @@ JNIEXPORT jint JNICALL Java_com_example_jniexample_JNITest_testJNIfunction(JNIEn
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>pEnv</code> argument is a pointer to the JNI environment that you can pass to <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/functions.html">JNI functions</a> to access methods and fields of Java objects and classes. The <code>thiz</code> pointer is a <code>jobject</code> reference to the Java object that the native method was called on (or the class if it is a static method).</p><p>In your Java code, in <code>JNITest</code>, load the library like this:</p>
+</div>
+<p>The <code>pEnv</code> argument is a pointer to the JNI environment that you can pass to <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/functions.html">JNI functions</a> to access methods and fields of Java objects and classes. The <code>thiz</code> pointer is a <code>jobject</code> reference to the Java object that the native method was called on (or the class if it is a static method).
+</p>
+<p>In your Java code, in <code>JNITest</code>, load the library like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">static{
@@ -158,7 +173,12 @@ JNIEXPORT jint JNICALL Java_com_example_jniexample_JNITest_testJNIfunction(JNIEn
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note the <code>lib</code> at the start, and the <code>.so</code> at the end of the filename are omitted.</p><p>Call the native function from Java like this:</p>
+</div>
+<p>Note the <code>lib</code> at the start, and the <code>.so</code> at the end of the filename are omitted.
+</p>
+<p>Call the native function from Java like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">JNITest test = new JNITest();

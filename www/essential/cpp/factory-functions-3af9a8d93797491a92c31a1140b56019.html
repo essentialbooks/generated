@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Suppose we want to write a factory function that accepts an arbitrary list of arguments and passes those arguments unmodified to another function. An example of such a function is <code>make_unique</code>, which is used to safely construct a new instance of <code>T</code> and return a <code>unique_ptr&lt;T&gt;</code> that owns the instance.</p><p>The language rules regarding variadic templates and rvalue references allows us to write such a function.</p>
+      
+<p>Suppose we want to write a factory function that accepts an arbitrary list of arguments and passes those arguments unmodified to another function. An example of such a function is <code>make_unique</code>, which is used to safely construct a new instance of <code>T</code> and return a <code>unique_ptr&lt;T&gt;</code> that owns the instance.
+</p>
+<p>The language rules regarding variadic templates and rvalue references allows us to write such a function.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">template&lt;class T, class... A&gt;
@@ -139,7 +144,10 @@ unique_ptr&lt;T&gt; make_unique(A&amp;&amp;... args)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The use of ellipses <code>...</code> indicate a parameter pack, which represents an arbitrary number of types. The compiler will expand this parameter pack to the correct number of arguments at the call site. These arguments are then passed to <code>T</code>’s constructor using <code>std::forward</code>. This function is required to preserve the ref-qualifiers of the arguments.</p>
+</div>
+<p>The use of ellipses <code>...</code> indicate a parameter pack, which represents an arbitrary number of types. The compiler will expand this parameter pack to the correct number of arguments at the call site. These arguments are then passed to <code>T</code>’s constructor using <code>std::forward</code>. This function is required to preserve the ref-qualifiers of the arguments.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct foo

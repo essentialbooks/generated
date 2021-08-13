@@ -127,7 +127,39 @@
 </div>
 
 
-      <p>In many situations, a composite index performs better than an index with a single column. To build an optimal composite index, populate it with columns in this order.</p><ul id="31e27e0e-c56e-4dbc-994f-687f1c94ec87" class="bulleted-list"><li><code>=</code> column(s) from the <code>WHERE</code> clause first. (eg, <code>INDEX(a,b,...)</code> for <code>WHERE a=12 AND b=&#x27;xyz&#x27; ...</code>)</li><li><code>IN</code> column(s); the optimizer may be able to leapfrog through the index.</li><li>One “range” (eg <code>x BETWEEN 3 AND 9</code>, <code>name LIKE &#x27;J%&#x27;</code>) It won’t use anything past the first range column.</li><li>All the columns in <code>GROUP BY</code>, in order</li><li>All the columns in <code>ORDER BY</code>, in order. Works only if all are <code>ASC</code> or all are <code>DESC</code> or you are using 8.0.</li></ul><p>Notes and exceptions:</p><ul id="7ac28181-916b-44b0-b40d-1aff41bd8f34" class="bulleted-list"><li>Don’t duplicate any columns.</li><li>Skip over any cases that don’t apply.</li><li>If you don’t use all the columns of <code>WHERE</code>, there is no need to go on to <code>GROUP BY</code>, etc.</li><li>There are cases where it is useful to index only the <code>ORDER BY</code> column(s), ignoring <code>WHERE</code>.</li><li>Don’t “hide” a column in a function (eg <code>DATE(x) = ...</code> cannot use <code>x</code> in the index.)</li><li>‘Prefix’ indexing (eg, <code>text_col(99)</code>) is unlikely to be helpful; may hurt.</li></ul><p><a href="https://mariadb.com/kb/en/mariadb/compound-composite-indexes/"><em>More details and tips</em></a> .</p>
+      
+<p>In many situations, a composite index performs better than an index with a single column. To build an optimal composite index, populate it with columns in this order.
+</p>
+  <ul id="31e27e0e-c56e-4dbc-994f-687f1c94ec87" class="bulleted-list">
+    <li><code>=</code> column(s) from the <code>WHERE</code> clause first. (eg, <code>INDEX(a,b,...)</code> for <code>WHERE a=12 AND b=&#x27;xyz&#x27; ...</code>)
+    </li>
+    <li><code>IN</code> column(s); the optimizer may be able to leapfrog through the index.
+    </li>
+    <li>One “range” (eg <code>x BETWEEN 3 AND 9</code>, <code>name LIKE &#x27;J%&#x27;</code>) It won’t use anything past the first range column.
+    </li>
+    <li>All the columns in <code>GROUP BY</code>, in order
+    </li>
+    <li>All the columns in <code>ORDER BY</code>, in order. Works only if all are <code>ASC</code> or all are <code>DESC</code> or you are using 8.0.
+    </li>
+  </ul>
+<p>Notes and exceptions:
+</p>
+  <ul id="7ac28181-916b-44b0-b40d-1aff41bd8f34" class="bulleted-list">
+    <li>Don’t duplicate any columns.
+    </li>
+    <li>Skip over any cases that don’t apply.
+    </li>
+    <li>If you don’t use all the columns of <code>WHERE</code>, there is no need to go on to <code>GROUP BY</code>, etc.
+    </li>
+    <li>There are cases where it is useful to index only the <code>ORDER BY</code> column(s), ignoring <code>WHERE</code>.
+    </li>
+    <li>Don’t “hide” a column in a function (eg <code>DATE(x) = ...</code> cannot use <code>x</code> in the index.)
+    </li>
+    <li>‘Prefix’ indexing (eg, <code>text_col(99)</code>) is unlikely to be helpful; may hurt.
+    </li>
+  </ul>
+<p><a href="https://mariadb.com/kb/en/mariadb/compound-composite-indexes/"><em>More details and tips</em></a> .
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

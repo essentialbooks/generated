@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>To illustrate how to use regr_slope(Y,X), I applied it to a real world problem. In Java, if you don’t clean up memory properly, the garbage can get stuck and fill up the memory. You dump statistics every hour about memory utilization of different classes and load it into a postgres database for analysis.</p><p>All memory leak candidates will have a trend of consuming more memory as more time passes. If you plot this trend, you would imagine a line going up and to the left:</p>
+      
+<p>To illustrate how to use regr_slope(Y,X), I applied it to a real world problem. In Java, if you don’t clean up memory properly, the garbage can get stuck and fill up the memory. You dump statistics every hour about memory utilization of different classes and load it into a postgres database for analysis.
+</p>
+<p>All memory leak candidates will have a trend of consuming more memory as more time passes. If you plot this trend, you would imagine a line going up and to the left:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">^
@@ -151,7 +156,10 @@ s   |           --
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Suppose you have a table containing heap dump histogram data (a mapping of classes to how much memory they consume):</p>
+</div>
+<p>Suppose you have a table containing heap dump histogram data (a mapping of classes to how much memory they consume):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">CREATE TABLE heap_histogram (
@@ -167,7 +175,10 @@ s   |           --
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To compute the slope for each class, we group by over the class. The HAVING clause &gt; 0 ensures that we get only candidates with a positive slop (a line going up and to the left). We sort by the slope descending so that we get the classes with the largest rate of memory increase at the top.</p>
+</div>
+<p>To compute the slope for each class, we group by over the class. The HAVING clause &gt; 0 ensures that we get only candidates with a positive slop (a line going up and to the left). We sort by the slope descending so that we get the classes with the largest rate of memory increase at the top.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">-- epoch returns seconds
@@ -180,7 +191,10 @@ SELECT class, REGR_SLOPE(bytes,extract(epoch from histwhen)) as slope
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Output:</p>
+</div>
+<p>Output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class             |        slope         
@@ -194,7 +208,9 @@ java.lang.ThreadLocal     |     20.9013528767851</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>From the output we see that java.util.ArrayList’s memory consumption is increasing the fastest at 71.799 bytes per second and is potentially part of the memory leak.</p>
+</div>
+<p>From the output we see that java.util.ArrayList’s memory consumption is increasing the fastest at 71.799 bytes per second and is potentially part of the memory leak.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

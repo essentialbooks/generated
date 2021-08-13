@@ -127,7 +127,46 @@
 </div>
 
 
-      <p>The <a href="https://en.wikipedia.org/wiki/Longest_increasing_subsequence">Longest Increasing Subsequence</a> problem is to find subsequence from the give input sequence in which subsequence’s elements are sorted in lowest to highest order. All subsequence are not contiguous or unique.</p><p><strong>Application of Longest Increasing Subsequence:</strong></p><p>Algorithms like Longest Increasing Subsequence, Longest Common Subsequence are used in version control systems like Git and etc.</p><p><strong>Simple form of Algorithm:</strong></p><ol id="ce974827-cae3-4509-beb5-b19dd02b2915" class="numbered-list" start="1"><li>Find unique lines which are common to both documents.</li><li>Take all such lines from the first document and order them according to their appearance in the second document.</li><li>Compute the LIS of the resulting sequence (by doing a <a href="https://en.wikipedia.org/wiki/Patience_sorting">Patience Sort</a>), getting the longest matching sequence of lines, a correspondence between the lines of two documents.</li><li>Recurse the algorithm on each range of lines between already matched ones.</li></ol><p>Now let us consider a simpler example of the LCS problem. Here, input is only one sequence of distinct integers <code>a1,a2,...,an.</code>, and we want to find the longest increasing subsequence in it. For example, if input is <strong>7,3,8,4,2,6</strong> then the longest increasing subsequence is <strong>3,4,6</strong>.</p><p>The easiest approach is to sort input elements in increasing order, and apply the LCS algorithm to the original and sorted sequences. However, if you look at the resulting array you would notice that many values are the same, and the array looks very repetitive. This suggest that the LIS (longest increasing subsequence) problem can be done with dynamic programming algorithm using only one-dimensional array.</p><p><strong>Pseudo Code:</strong></p><ol id="a144ab27-10e5-4be1-aa45-cf29a2b36aa8" class="numbered-list" start="1"><li>Describe an array of values we want to compute. For <code>1 &lt;= i &lt;= n</code>, let <strong>A(i)</strong> be the length of a longest increasing sequence of input. Note that the length we are ultimately interested in is <code>max{A(i)|1 ≤ i ≤ n}</code>.</li><li>Give a recurrence. For <code>1 &lt;= i &lt;= n</code>, <code>A(i) = 1 + max{A(j)|1 ≤ j &lt; i</code> and <code>input(j) &lt; input(i)}.</code></li><li>Compute the values of A.</li><li>Find the optimal solution.</li></ol><p>The following program uses A to compute an optimal solution. The first part computes a value m such that <strong>A(m)</strong> is the length of an optimal increasing subsequence of input. The second part computes an optimal increasing subsequence, but for convenience we print it out in reverse order. This program runs in time O(n), so the entire algorithm runs in time O(n^2).</p><p><strong>Part 1:</strong></p>
+      
+<p>The <a href="https://en.wikipedia.org/wiki/Longest_increasing_subsequence">Longest Increasing Subsequence</a> problem is to find subsequence from the give input sequence in which subsequence’s elements are sorted in lowest to highest order. All subsequence are not contiguous or unique.
+</p>
+<p><strong>Application of Longest Increasing Subsequence:</strong>
+</p>
+<p>Algorithms like Longest Increasing Subsequence, Longest Common Subsequence are used in version control systems like Git and etc.
+</p>
+<p><strong>Simple form of Algorithm:</strong>
+</p>
+  <ol id="ce974827-cae3-4509-beb5-b19dd02b2915" class="numbered-list" start="1">
+    <li>Find unique lines which are common to both documents.
+    </li>
+    <li>Take all such lines from the first document and order them according to their appearance in the second document.
+    </li>
+    <li>Compute the LIS of the resulting sequence (by doing a <a href="https://en.wikipedia.org/wiki/Patience_sorting">Patience Sort</a>), getting the longest matching sequence of lines, a correspondence between the lines of two documents.
+    </li>
+    <li>Recurse the algorithm on each range of lines between already matched ones.
+    </li>
+  </ol>
+<p>Now let us consider a simpler example of the LCS problem. Here, input is only one sequence of distinct integers <code>a1,a2,...,an.</code>, and we want to find the longest increasing subsequence in it. For example, if input is <strong>7,3,8,4,2,6</strong> then the longest increasing subsequence is <strong>3,4,6</strong>.
+</p>
+<p>The easiest approach is to sort input elements in increasing order, and apply the LCS algorithm to the original and sorted sequences. However, if you look at the resulting array you would notice that many values are the same, and the array looks very repetitive. This suggest that the LIS (longest increasing subsequence) problem can be done with dynamic programming algorithm using only one-dimensional array.
+</p>
+<p><strong>Pseudo Code:</strong>
+</p>
+  <ol id="a144ab27-10e5-4be1-aa45-cf29a2b36aa8" class="numbered-list" start="1">
+    <li>Describe an array of values we want to compute. For <code>1 &lt;= i &lt;= n</code>, let <strong>A(i)</strong> be the length of a longest increasing sequence of input. Note that the length we are ultimately interested in is <code>max{A(i)|1 ≤ i ≤ n}</code>.
+    </li>
+    <li>Give a recurrence. For <code>1 &lt;= i &lt;= n</code>, <code>A(i) = 1 + max{A(j)|1 ≤ j &lt; i</code> and <code>input(j) &lt; input(i)}.</code>
+    </li>
+    <li>Compute the values of A.
+    </li>
+    <li>Find the optimal solution.
+    </li>
+  </ol>
+<p>The following program uses A to compute an optimal solution. The first part computes a value m such that <strong>A(m)</strong> is the length of an optimal increasing subsequence of input. The second part computes an optimal increasing subsequence, but for convenience we print it out in reverse order. This program runs in time O(n), so the entire algorithm runs in time O(n^2).
+</p>
+<p><strong>Part 1:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">m ← 1 
@@ -140,7 +179,10 @@ end for</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Part 2:</strong></p>
+</div>
+<p><strong>Part 2:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">put a
@@ -156,7 +198,12 @@ while A(m) &gt; 1 do
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Recursive Solution:</strong></p><p><strong>Approach 1:</strong></p>
+</div>
+<p><strong>Recursive Solution:</strong>
+</p>
+<p><strong>Approach 1:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">LIS(A[1..n]):
@@ -170,7 +217,12 @@ while A(m) &gt; 1 do
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Time complexity in Approach 1 :</strong> <code>O(n*2^n)</code></p><p><strong>Approach 2:</strong></p>
+</div>
+<p><strong>Time complexity in Approach 1 :</strong> <code>O(n*2^n)</code>
+</p>
+<p><strong>Approach 2:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">LIS(A[1..n], x):
@@ -186,7 +238,12 @@ MAIN(A[1..n]):
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Time Complexity in Approach 2:</strong> <code>O(n^2)</code></p><p><strong>Approach 3:</strong></p>
+</div>
+<p><strong>Time Complexity in Approach 2:</strong> <code>O(n^2)</code>
+</p>
+<p><strong>Approach 3:</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">LIS(A[1..n]):
@@ -203,7 +260,14 @@ MAIN(A[1..n]):
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Time Complexity in Approach 3:</strong> <code>O(n^2)</code></p><p><strong>Iterative Algorithm:</strong></p><p>Computes the values iteratively in bottom up fashion.</p>
+</div>
+<p><strong>Time Complexity in Approach 3:</strong> <code>O(n^2)</code>
+</p>
+<p><strong>Iterative Algorithm:</strong>
+</p>
+<p>Computes the values iteratively in bottom up fashion.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">LIS(A[1..n]):
@@ -223,7 +287,13 @@ MAIN(A[1..n]):
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Time complexity in Iterative approach:</strong> <code>O(n^2)</code></p><p><strong>Auxiliary Space:</strong> <code>O(n)</code></p><p>Lets take <strong>{0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15}</strong> as input. So, Longest Increasing Subsequence for the given input is <strong>{0, 2, 6, 9, 11, 15}</strong>.</p>
+</div>
+<p><strong>Time complexity in Iterative approach:</strong> <code>O(n^2)</code>
+</p>
+<p><strong>Auxiliary Space:</strong> <code>O(n)</code>
+</p>
+<p>Lets take <strong>{0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15}</strong> as input. So, Longest Increasing Subsequence for the given input is <strong>{0, 2, 6, 9, 11, 15}</strong>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

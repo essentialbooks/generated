@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Like many Java objects, <strong>all</strong> <code>String</code> instances are created on the heap, even literals. When the JVM finds a <code>String</code> literal that has no equivalent reference in the heap, the JVM creates a corresponding <code>String</code> instance on the heap <strong>and</strong> it also stores a reference to the newly created <code>String</code> instance in the String pool. Any other references to the same <code>String</code> literal are replaced with the previously created <code>String</code> instance in the heap.</p><p>Let’s look at the following example:</p>
+      
+<p>Like many Java objects, <strong>all</strong> <code>String</code> instances are created on the heap, even literals. When the JVM finds a <code>String</code> literal that has no equivalent reference in the heap, the JVM creates a corresponding <code>String</code> instance on the heap <strong>and</strong> it also stores a reference to the newly created <code>String</code> instance in the String pool. Any other references to the same <code>String</code> literal are replaced with the previously created <code>String</code> instance in the heap.
+</p>
+<p>Let’s look at the following example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Strings
@@ -151,7 +156,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The output of the above is:</p>
+</div>
+<p>The output of the above is:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">true
@@ -162,7 +170,22 @@ true</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When we use double quotes to create a String, it first looks for String with same value in the String pool, if found it just returns the reference else it creates a new String in the pool and then returns the reference.</p><img class="img" src="/img/6911e52c044307798f17d928f6a3a0e0d5ee1ec5.png"><p>However using new operator, we force String class to create a new String object in heap space. We can use intern() method to put it into the pool or refer to other String object from string pool having same value.</p><p>The String pool itself is also created on the heap.</p><p>Before Java 7, <code>String</code> <strong>literals</strong> were stored in the runtime constant pool in the method area of <code>PermGen</code>, that had a fixed size.</p><p>The String pool also resided in <code>PermGen</code>.</p><p><a href="http://www.oracle.com/technetwork/java/javase/jdk7-relnotes-418459.html">RFC: 6962931</a></p><blockquote id="240b8e4c-8538-4dfd-8104-33d50c6ba478" class="">In JDK 7, interned strings are no longer allocated in the permanent generation of the Java heap, but are instead allocated in the main part of the Java heap (known as the young and old generations), along with the other objects created by the application. This change will result in more data residing in the main Java heap, and less data in the permanent generation, and thus may require heap sizes to be adjusted. Most applications will see only relatively small differences in heap usage due to this change, but larger applications that load many classes or make heavy use of the String.intern() method will see more significant differences.</blockquote>
+</div>
+<p>When we use double quotes to create a String, it first looks for String with same value in the String pool, if found it just returns the reference else it creates a new String in the pool and then returns the reference.
+</p>
+<img class="img" src="/img/6911e52c044307798f17d928f6a3a0e0d5ee1ec5.png">
+<p>However using new operator, we force String class to create a new String object in heap space. We can use intern() method to put it into the pool or refer to other String object from string pool having same value.
+</p>
+<p>The String pool itself is also created on the heap.
+</p>
+<p>Before Java 7, <code>String</code> <strong>literals</strong> were stored in the runtime constant pool in the method area of <code>PermGen</code>, that had a fixed size.
+</p>
+<p>The String pool also resided in <code>PermGen</code>.
+</p>
+<p><a href="http://www.oracle.com/technetwork/java/javase/jdk7-relnotes-418459.html">RFC: 6962931</a>
+</p>
+<blockquote id="240b8e4c-8538-4dfd-8104-33d50c6ba478" class="">In JDK 7, interned strings are no longer allocated in the permanent generation of the Java heap, but are instead allocated in the main part of the Java heap (known as the young and old generations), along with the other objects created by the application. This change will result in more data residing in the main Java heap, and less data in the permanent generation, and thus may require heap sizes to be adjusted. Most applications will see only relatively small differences in heap usage due to this change, but larger applications that load many classes or make heavy use of the String.intern() method will see more significant differences.
+</blockquote>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

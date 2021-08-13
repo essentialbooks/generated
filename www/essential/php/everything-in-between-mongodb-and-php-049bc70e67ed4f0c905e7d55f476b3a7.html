@@ -127,7 +127,37 @@
 </div>
 
 
-      <p><strong>Requirements</strong></p><ul id="9af62a54-d1c1-4753-af85-5a4932b21f69" class="bulleted-list"><li>MongoDB server running on port usually 27017. (type <code>mongod</code> on command prompt to run mongodb server)</li><li>Php installed as either cgi or fpm with MongoDB extension installed(MongoDB extension is not bundled with default php)</li><li>Composer library(mongodb/mongodb).(In the project root run <code>php composer.phar require &quot;mongodb/mongodb=^1.0.0&quot;</code> to install the MongoDB library)</li></ul><p>If everything is ok you are ready to move on.</p><blockquote id="64021379-2861-49d0-b2ed-382ca500e10c" class="">Check For Php installation</blockquote><p>if not sure check Php installation by running <code>php -v</code> on command prompt will return something like this</p><p><code>PHP 7.0.6 (cli) (built: Apr 28 2016 14:12:14) ( ZTS ) Copyright (c) 1997-2016 The PHP Group Zend Engine v3.0.0, Copyright (c) 1998-2016 Zend Technologies</code></p><blockquote id="30517a0f-58c3-4bd2-8291-a9fade783d04" class="">Check For MongoDB installation</blockquote><p>Check MongoDB installation by running <code>mongo --version</code> will return <code>MongoDB shell version: 3.2.6</code></p><blockquote id="2a074631-30a5-48fd-b83e-c795580aacc9" class="">Check For Composer installation</blockquote><p>Check for Composer installation by running <code>php composer.phar --version</code> will return <code>Composer version 1.2-dev (3d09c17b489cd29a0c0b3b11e731987e7097797d) 2016-08-30 16:12:39</code> `</p><hr id="7721d675-f4b9-479f-a53c-1ed9d80c6773"/><p><strong>Connecting to MongoDB from php</strong></p>
+      
+<p><strong>Requirements</strong>
+</p>
+  <ul id="9af62a54-d1c1-4753-af85-5a4932b21f69" class="bulleted-list">
+    <li>MongoDB server running on port usually 27017. (type <code>mongod</code> on command prompt to run mongodb server)
+    </li>
+    <li>Php installed as either cgi or fpm with MongoDB extension installed(MongoDB extension is not bundled with default php)
+    </li>
+    <li>Composer library(mongodb/mongodb).(In the project root run <code>php composer.phar require &quot;mongodb/mongodb=^1.0.0&quot;</code> to install the MongoDB library)
+    </li>
+  </ul>
+<p>If everything is ok you are ready to move on.
+</p>
+<blockquote id="64021379-2861-49d0-b2ed-382ca500e10c" class="">Check For Php installation
+</blockquote>
+<p>if not sure check Php installation by running <code>php -v</code> on command prompt will return something like this
+</p>
+<p><code>PHP 7.0.6 (cli) (built: Apr 28 2016 14:12:14) ( ZTS ) Copyright (c) 1997-2016 The PHP Group Zend Engine v3.0.0, Copyright (c) 1998-2016 Zend Technologies</code>
+</p>
+<blockquote id="30517a0f-58c3-4bd2-8291-a9fade783d04" class="">Check For MongoDB installation
+</blockquote>
+<p>Check MongoDB installation by running <code>mongo --version</code> will return <code>MongoDB shell version: 3.2.6</code>
+</p>
+<blockquote id="2a074631-30a5-48fd-b83e-c795580aacc9" class="">Check For Composer installation
+</blockquote>
+<p>Check for Composer installation by running <code>php composer.phar --version</code> will return <code>Composer version 1.2-dev (3d09c17b489cd29a0c0b3b11e731987e7097797d) 2016-08-30 16:12:39</code> `
+</p>
+<hr id="7721d675-f4b9-479f-a53c-1ed9d80c6773"/>
+<p><strong>Connecting to MongoDB from php</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;?php
@@ -139,6 +169,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// when using custom username password
@@ -153,6 +184,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// when using default settings
@@ -166,7 +198,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>The above code will connect using MongoDB composer library(</em><code><em>mongodb/mongodb</em></code><em>) included as </em><code><em>vendor/autoload.php</em></code><em> to connect to the MongoDB server running on </em><code><em>port</em></code><em>: </em><code><em>27017</em></code>. If everything is ok it will connect and list an array, if exception occurs connecting to MongoDB server the message will be printed.</p><hr id="0c58ac6f-d6ef-4bc3-bbaf-7fdb1bace618"/><p><strong>CREATE(Inserting) into MongoDB</strong></p>
+</div>
+<p><em>The above code will connect using MongoDB composer library(</em><code><em>mongodb/mongodb</em></code><em>) included as </em><code><em>vendor/autoload.php</em></code><em> to connect to the MongoDB server running on </em><code><em>port</em></code><em>: </em><code><em>27017</em></code>. If everything is ok it will connect and list an array, if exception occurs connecting to MongoDB server the message will be printed.
+</p>
+<hr id="0c58ac6f-d6ef-4bc3-bbaf-7fdb1bace618"/>
+<p><strong>CREATE(Inserting) into MongoDB</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;?php
@@ -187,7 +225,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>In the example we are using the $mongo instance previously used in the `Connecting to MongoDB from php` part. MongoDB uses JSON type data format, so in php we will use array to insert data into MongoDB, this conversion from array to Json and vice versa will be done by mongo library. Every document in MongoDB has a unique id named as \_id,during insertion we can get this by using `$result-&gt;getInsertedId()`;</em></p><hr id="ec17eb26-62e7-4e3a-8386-765bd9031f6c"/><p><strong>READ(Find) in MongoDB</strong></p>
+</div>
+<p><em>In the example we are using the $mongo instance previously used in the `Connecting to MongoDB from php` part. MongoDB uses JSON type data format, so in php we will use array to insert data into MongoDB, this conversion from array to Json and vice versa will be done by mongo library. Every document in MongoDB has a unique id named as \_id,during insertion we can get this by using `$result-&gt;getInsertedId()`;</em>
+</p>
+<hr id="ec17eb26-62e7-4e3a-8386-765bd9031f6c"/>
+<p><strong>READ(Find) in MongoDB</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;?php
@@ -205,7 +249,11 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="d9467795-2c42-4b78-94f1-1bf2e22c80b5"/><p><strong>Drop in MongoDB</strong></p>
+</div>
+<hr id="d9467795-2c42-4b78-94f1-1bf2e22c80b5"/>
+<p><strong>Drop in MongoDB</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;?php
@@ -220,7 +268,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>There are many methods that can be performed on </em><code><em>$collection</em></code><em> see </em><a href="http://mongodb.github.io/mongo-php-library/api/index.html"><em>Official documentation</em></a><em> from MongoDB</em></p>
+</div>
+<p><em>There are many methods that can be performed on </em><code><em>$collection</em></code><em> see </em><a href="http://mongodb.github.io/mongo-php-library/api/index.html"><em>Official documentation</em></a><em> from MongoDB</em>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

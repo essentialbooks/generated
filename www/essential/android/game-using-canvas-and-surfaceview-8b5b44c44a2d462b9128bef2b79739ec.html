@@ -127,7 +127,13 @@
 </div>
 
 
-      <p>This covers how you can create a basic 2D game using SurfaceView.</p><hr id="30803589-5583-404f-9304-c20339b9c062"/><p>First, we need an activity:</p>
+      
+<p>This covers how you can create a basic 2D game using SurfaceView.
+</p>
+<hr id="30803589-5583-404f-9304-c20339b9c062"/>
+<p>First, we need an activity:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class GameLauncher extends AppCompatActivity {
@@ -146,7 +152,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The activity also has to be declared in the Android Manifest.</p><hr id="e781888e-ffb4-435d-a5bf-ccf2b21f102e"/><p>Now for the game itself. First, we start by implementing a game thread:</p>
+</div>
+<p>The activity also has to be declared in the Android Manifest.
+</p>
+<hr id="e781888e-ffb4-435d-a5bf-ccf2b21f102e"/>
+<p>Now for the game itself. First, we start by implementing a game thread:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Game extends SurfaceView implements SurfaceHolder.Callback, Runnable{
@@ -349,7 +361,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>That is the basic part. Now you have the ability to draw onto the screen.</p><p>Now, let’s start by adding to integers:</p>
+</div>
+<p>That is the basic part. Now you have the ability to draw onto the screen.
+</p>
+<p>Now, let’s start by adding to integers:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public final int x = 100;//The reason for this being static will be shown when the game is runnable
@@ -359,7 +376,12 @@ public int velY;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For this next part, you are going to need an image. It should be about 100x100 but it can be bigger or smaller. For learning, a Rect can also be used(but that requires change in code a little bit down)</p><p>Now, we declare a Bitmap:</p>
+</div>
+<p>For this next part, you are going to need an image. It should be about 100x100 but it can be bigger or smaller. For learning, a Rect can also be used(but that requires change in code a little bit down)
+</p>
+<p>Now, we declare a Bitmap:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private Bitmap PLAYER_BMP = BitmapFactory.decodeResource(getResources(), R.drawable.my_player_drawable);</pre>
@@ -367,7 +389,10 @@ public int velY;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In render, we need to draw this bitmap.</p>
+</div>
+<p>In render, we need to draw this bitmap.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">...
@@ -377,7 +402,12 @@ c.drawBitmap(PLAYER_BMP, x, y, null);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>BEFORE LAUNCHING</strong> there are still some things to be done</p><p>We need a boolean first:</p>
+</div>
+<p><strong>BEFORE LAUNCHING</strong> there are still some things to be done
+</p>
+<p>We need a boolean first:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">boolean up = false;</pre>
@@ -385,7 +415,10 @@ c.drawBitmap(PLAYER_BMP, x, y, null);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>in onTouchEvent, we add:</p>
+</div>
+<p>in onTouchEvent, we add:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if(ev.getAction() == MotionEvent.ACTION_DOWN){
@@ -397,7 +430,10 @@ c.drawBitmap(PLAYER_BMP, x, y, null);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And in tick we need this to move the player:</p>
+</div>
+<p>And in tick we need this to move the player:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if(up){
@@ -413,7 +449,10 @@ y += velY *2;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>and now we need this in init:</p>
+</div>
+<p>and now we need this in init:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">WindowManager wm = (WindowManager) c.getSystemService(Context.WINDOW_SERVICE);
@@ -427,7 +466,10 @@ y = HEIGHT/ 2 - PLAYER_BMP.getHeight();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And we need these to variables:</p>
+</div>
+<p>And we need these to variables:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public static int WIDTH, HEIGHT;</pre>
@@ -435,7 +477,17 @@ y = HEIGHT/ 2 - PLAYER_BMP.getHeight();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>At this point, the game is runnable. Meaning you can launch it and test it.</p><hr id="dbb37248-3fdb-4220-8462-a6ad07b0c4b8"/><p>Now you should have a player image or rect going up and down the screen. The player can be created as a custom class if needed. Then all the player-related things can be moved into that class, and use an instance of that class to move, render and do other logic.</p><p>Now, as you probably saw under testing it flies off the screen. So we need to limit it.</p><p>First, we need to declare the Rect:</p>
+</div>
+<p>At this point, the game is runnable. Meaning you can launch it and test it.
+</p>
+<hr id="dbb37248-3fdb-4220-8462-a6ad07b0c4b8"/>
+<p>Now you should have a player image or rect going up and down the screen. The player can be created as a custom class if needed. Then all the player-related things can be moved into that class, and use an instance of that class to move, render and do other logic.
+</p>
+<p>Now, as you probably saw under testing it flies off the screen. So we need to limit it.
+</p>
+<p>First, we need to declare the Rect:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private Rect screen;</pre>
@@ -443,7 +495,10 @@ y = HEIGHT/ 2 - PLAYER_BMP.getHeight();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In init, after initializing width and height, we create a new rect that is the screen.</p>
+</div>
+<p>In init, after initializing width and height, we create a new rect that is the screen.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">screen = new Rect(0,0,WIDTH,HEIGHT);</pre>
@@ -451,7 +506,10 @@ y = HEIGHT/ 2 - PLAYER_BMP.getHeight();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we need another rect in the form of a method:</p>
+</div>
+<p>Now we need another rect in the form of a method:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private Rect getPlayerBound(){
@@ -461,7 +519,10 @@ y = HEIGHT/ 2 - PLAYER_BMP.getHeight();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>and in tick:</p>
+</div>
+<p>and in tick:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if(!getPlayerBound().intersects(screen){
@@ -471,7 +532,14 @@ y = HEIGHT/ 2 - PLAYER_BMP.getHeight();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The implementation of gameOVer can also be used to show the start of a game.</p><hr id="c87abdf5-c74f-4c89-9ce9-42413f544555"/><p>Other aspects of a game worth noting:</p><p>Saving(currently missing in documentation)</p>
+</div>
+<p>The implementation of gameOVer can also be used to show the start of a game.
+</p>
+<hr id="c87abdf5-c74f-4c89-9ce9-42413f544555"/>
+<p>Other aspects of a game worth noting:
+</p>
+<p>Saving(currently missing in documentation)
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

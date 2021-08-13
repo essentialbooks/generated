@@ -127,7 +127,21 @@
 </div>
 
 
-      <p>Refer to this <a href="http://stackoverflow.com/questions/313400/nsinvocation-for-dummies">original Post</a> by <a href="http://stackoverflow.com/users/33686/e-james">e.James</a></p><p>According to <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSInvocation_Class/Reference/Reference.html">Apple’s NSInvocation class reference</a>:</p><blockquote id="7d1a7afa-0801-44c2-882b-97ce32b7c959" class="">An NSInvocation is an Objective-C message rendered static, that is, it is an action turned into an object.</blockquote><p>And, in a <em>little</em> more detail:</p><p>The concept of messages is central to the objective-c philosophy. Any time you call a method, or access a variable of some object, you are sending it a message. <code>NSInvocation</code> comes in handy when you want to send a message to an object at a different point in time, or send the same message several times. <code>NSInvocation</code> allows you to <em>describe</em> the message you are going to send, and then <em>invoke</em> it (actually send it to the target object) later on.</p><hr id="9f3f6ab7-1e9c-4f24-9bf2-ee97b48a887c"/><p>For example, let’s say you want to add a string to an array. You would normally send the <code>addObject:</code> message as follows:</p>
+      
+<p>Refer to this <a href="http://stackoverflow.com/questions/313400/nsinvocation-for-dummies">original Post</a> by <a href="http://stackoverflow.com/users/33686/e-james">e.James</a>
+</p>
+<p>According to <a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSInvocation_Class/Reference/Reference.html">Apple’s NSInvocation class reference</a>:
+</p>
+<blockquote id="7d1a7afa-0801-44c2-882b-97ce32b7c959" class="">An NSInvocation is an Objective-C message rendered static, that is, it is an action turned into an object.
+</blockquote>
+<p>And, in a <em>little</em> more detail:
+</p>
+<p>The concept of messages is central to the objective-c philosophy. Any time you call a method, or access a variable of some object, you are sending it a message. <code>NSInvocation</code> comes in handy when you want to send a message to an object at a different point in time, or send the same message several times. <code>NSInvocation</code> allows you to <em>describe</em> the message you are going to send, and then <em>invoke</em> it (actually send it to the target object) later on.
+</p>
+<hr id="9f3f6ab7-1e9c-4f24-9bf2-ee97b48a887c"/>
+<p>For example, let’s say you want to add a string to an array. You would normally send the <code>addObject:</code> message as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[myArray addObject:myString];</pre>
@@ -135,7 +149,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="c4f4f6e6-7e9a-4a64-8d15-79550b2c3d3e"/><p>Now, let’s say you want to use <code>NSInvocation</code> to send this message at some other point in time:</p><p>First, you would prepare an <code>NSInvocation</code> object for use with <code>NSMutableArray</code>’s <code>addObject:</code> selector:</p>
+</div>
+<hr id="c4f4f6e6-7e9a-4a64-8d15-79550b2c3d3e"/>
+<p>Now, let’s say you want to use <code>NSInvocation</code> to send this message at some other point in time:
+</p>
+<p>First, you would prepare an <code>NSInvocation</code> object for use with <code>NSMutableArray</code>’s <code>addObject:</code> selector:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">NSMethodSignature * mySignature = [NSMutableArray
@@ -146,7 +166,10 @@ NSInvocation * myInvocation = [NSInvocation
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Next, you would specify which object to send the message to:</p>
+</div>
+<p>Next, you would specify which object to send the message to:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[myInvocation setTarget:myArray];</pre>
@@ -154,7 +177,10 @@ NSInvocation * myInvocation = [NSInvocation
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Specify the message you wish to send to that object:</p>
+</div>
+<p>Specify the message you wish to send to that object:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[myInvocation setSelector:@selector(addObject:)];</pre>
@@ -162,7 +188,10 @@ NSInvocation * myInvocation = [NSInvocation
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And fill in any arguments for that method:</p>
+</div>
+<p>And fill in any arguments for that method:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[myInvocation setArgument:&amp;myString atIndex:2];</pre>
@@ -170,7 +199,12 @@ NSInvocation * myInvocation = [NSInvocation
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that object arguments must be passed by pointer. Thank you to <a href="http://stackoverflow.com/users/53790/ryan-mccuaig">Ryan McCuaig</a> for pointing that out, and please see <a href="http://developer.apple.com/mac/library/documentation/cocoa/reference/foundation/Classes/NSInvocation_Class/Reference/Reference.html#//apple_ref/occ/instm/NSInvocation/setArgument:atIndex:">Apple’s documentation</a> for more details.</p><p>At this point, <code>myInvocation</code> is a complete object, describing a message that can be sent. To actually send the message, you would call:</p>
+</div>
+<p>Note that object arguments must be passed by pointer. Thank you to <a href="http://stackoverflow.com/users/53790/ryan-mccuaig">Ryan McCuaig</a> for pointing that out, and please see <a href="http://developer.apple.com/mac/library/documentation/cocoa/reference/foundation/Classes/NSInvocation_Class/Reference/Reference.html#//apple_ref/occ/instm/NSInvocation/setArgument:atIndex:">Apple’s documentation</a> for more details.
+</p>
+<p>At this point, <code>myInvocation</code> is a complete object, describing a message that can be sent. To actually send the message, you would call:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[myInvocation invoke];</pre>
@@ -178,7 +212,18 @@ NSInvocation * myInvocation = [NSInvocation
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This final step will cause the message to be sent, essentially executing <code>[myArray addObject:myString];</code>.</p><p>Think of it like sending an email. You open up a new email (<code>NSInvocation</code> object), fill in the address of the person (object) who you want to send it to, type in a message for the recipient (specify a <code>selector</code> and arguments), and then click “send” (call <code>invoke</code>).</p><p>See <a href="http://developer.apple.com/DOCUMENTATION/Cocoa/Conceptual/DistrObjects/Tasks/invocations.html">Using NSInvocation</a> for more information.</p><hr id="d81a8e6e-d789-41f9-bb14-387aa5d89ba8"/><p><code>NSUndoManager</code> uses <code>NSInvocation</code> objects so that it can <em>reverse</em> commands. Essentially, what you are doing is creating an <code>NSInvocation</code> object to say: “Hey, if you want to undo what I just did, send this message to that object, with these arguments”. You give the <code>NSInvocation</code> object to the <code>NSUndoManager</code>, and it adds that object to an array of undoable actions. If the user calls “Undo”, <code>NSUndoManager</code> simply looks up the most recent action in the array, and invokes the stored <code>NSInvocation</code> object to perform the necessary action.</p><p>See <a href="http://developer.apple.com/documentation/Cocoa/Conceptual/UndoArchitecture/Tasks/RegisteringUndo.html">Registering Undo Operations</a> for more details.</p>
+</div>
+<p>This final step will cause the message to be sent, essentially executing <code>[myArray addObject:myString];</code>.
+</p>
+<p>Think of it like sending an email. You open up a new email (<code>NSInvocation</code> object), fill in the address of the person (object) who you want to send it to, type in a message for the recipient (specify a <code>selector</code> and arguments), and then click “send” (call <code>invoke</code>).
+</p>
+<p>See <a href="http://developer.apple.com/DOCUMENTATION/Cocoa/Conceptual/DistrObjects/Tasks/invocations.html">Using NSInvocation</a> for more information.
+</p>
+<hr id="d81a8e6e-d789-41f9-bb14-387aa5d89ba8"/>
+<p><code>NSUndoManager</code> uses <code>NSInvocation</code> objects so that it can <em>reverse</em> commands. Essentially, what you are doing is creating an <code>NSInvocation</code> object to say: “Hey, if you want to undo what I just did, send this message to that object, with these arguments”. You give the <code>NSInvocation</code> object to the <code>NSUndoManager</code>, and it adds that object to an array of undoable actions. If the user calls “Undo”, <code>NSUndoManager</code> simply looks up the most recent action in the array, and invokes the stored <code>NSInvocation</code> object to perform the necessary action.
+</p>
+<p>See <a href="http://developer.apple.com/documentation/Cocoa/Conceptual/UndoArchitecture/Tasks/RegisteringUndo.html">Registering Undo Operations</a> for more details.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

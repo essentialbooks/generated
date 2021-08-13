@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>This error occurs when tables are not adequately structured to handle the speedy lookup verification of Foreign Key (<code>FK</code>) requirements that the developer is mandating.</p>
+      
+<p>This error occurs when tables are not adequately structured to handle the speedy lookup verification of Foreign Key (<code>FK</code>) requirements that the developer is mandating.
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">gtType</span><span class="o">`</span> <span class="p">(</span>
@@ -149,7 +152,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note1: a KEY like this will be created automatically if needed due to the FK definition in the line that follows it. The developer can skip it, and the KEY (a.k.a. index) will be added if necessary. An example of it being skipped by the developer is shown below in <code>someOther</code>.</p><p>So far so good, until the below call.</p>
+</div>
+<p>Note1: a KEY like this will be created automatically if needed due to the FK definition in the line that follows it. The developer can skip it, and the KEY (a.k.a. index) will be added if necessary. An example of it being skipped by the developer is shown below in <code>someOther</code>.
+</p>
+<p>So far so good, until the below call.
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">someOther</span><span class="o">`</span> <span class="p">(</span>
@@ -162,7 +170,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><blockquote id="6f04ea8c-81e0-4e37-ade9-2d9564455b9d" class="">Error Code: 1215. Cannot add foreign key constraint</blockquote><p>In this case it fails due to the lack of an index in the <em>referenced</em> table <code>getTogethers</code> to handle the speedy lookup of an <code>eventDT</code>. To be solved in next statement.</p>
+</div>
+<blockquote id="6f04ea8c-81e0-4e37-ade9-2d9564455b9d" class="">Error Code: 1215. Cannot add foreign key constraint
+</blockquote>
+<p>In this case it fails due to the lack of an index in the <em>referenced</em> table <code>getTogethers</code> to handle the speedy lookup of an <code>eventDT</code>. To be solved in next statement.
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">CREATE</span> <span class="k">INDEX</span> <span class="o">`</span><span class="n">gt_eventdt</span><span class="o">`</span> <span class="k">ON</span> <span class="n">getTogethers</span> <span class="p">(</span><span class="o">`</span><span class="n">eventDT</span><span class="o">`</span><span class="p">);</span></pre>
@@ -170,7 +183,22 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Table <code>getTogethers</code> has been modified, and now the creation of <code>someOther</code> will succeed.</p><p>From the MySQL Manual Page <a href="https://dev.mysql.com/doc/refman/5.6/en/create-table-foreign-keys.html">Using FOREIGN KEY Constraints</a>:</p><blockquote id="73cccde3-2535-45d1-bd82-812f552a8173" class="">MySQL requires indexes on foreign keys and referenced keys so that foreign key checks can be fast and not require a table scan. In the referencing table, there must be an index where the foreign key columns are listed as the first columns in the same order. Such an index is created on the referencing table automatically if it does not exist.</blockquote><p>Corresponding columns in the foreign key and the referenced key must &gt; have similar data types. The size and sign of integer types must be &gt; the same. The length of string types need not be the same. For &gt; nonbinary (character) string columns, the character set and collation &gt; must be the same.</p><p>InnoDB permits a foreign key to reference any index column or group of &gt; columns. However, in the referenced table, there must be an index &gt; where the referenced columns are listed as the first columns in the &gt; same order.</p><p>Note that last point above about first (left-most) columns and the lack of a Primary Key requirement (though highly advised).</p><p>Upon successful creation of a <em>referencing</em> (child) table, any keys that were automatically created for you are visible with a command such as the following:</p>
+</div>
+<p>Table <code>getTogethers</code> has been modified, and now the creation of <code>someOther</code> will succeed.
+</p>
+<p>From the MySQL Manual Page <a href="https://dev.mysql.com/doc/refman/5.6/en/create-table-foreign-keys.html">Using FOREIGN KEY Constraints</a>:
+</p>
+<blockquote id="73cccde3-2535-45d1-bd82-812f552a8173" class="">MySQL requires indexes on foreign keys and referenced keys so that foreign key checks can be fast and not require a table scan. In the referencing table, there must be an index where the foreign key columns are listed as the first columns in the same order. Such an index is created on the referencing table automatically if it does not exist.
+</blockquote>
+<p>Corresponding columns in the foreign key and the referenced key must &gt; have similar data types. The size and sign of integer types must be &gt; the same. The length of string types need not be the same. For &gt; nonbinary (character) string columns, the character set and collation &gt; must be the same.
+</p>
+<p>InnoDB permits a foreign key to reference any index column or group of &gt; columns. However, in the referenced table, there must be an index &gt; where the referenced columns are listed as the first columns in the &gt; same order.
+</p>
+<p>Note that last point above about first (left-most) columns and the lack of a Primary Key requirement (though highly advised).
+</p>
+<p>Upon successful creation of a <em>referencing</em> (child) table, any keys that were automatically created for you are visible with a command such as the following:
+</p>
+
 <div class="code-box lang-SQL">
 	<div>
 	<pre class="chroma"><span class="k">SHOW</span> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">someOther</span><span class="p">;</span></pre>
@@ -178,7 +206,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Other common cases of experiencing this error include, as mentioned above from the docs, but should be highlighted:</p><ul id="51358321-4555-4785-b9a0-9a51385e6833" class="bulleted-list"><li>Seemingly trivial differences in <code>INT</code> which is signed, pointing toward <code>INT UNSIGNED</code>.</li><li>Developers having trouble understanding multi-column (composite) KEYS and first (left-most) ordering requirements.</li></ul>
+</div>
+<p>Other common cases of experiencing this error include, as mentioned above from the docs, but should be highlighted:
+</p>
+  <ul id="51358321-4555-4785-b9a0-9a51385e6833" class="bulleted-list">
+    <li>Seemingly trivial differences in <code>INT</code> which is signed, pointing toward <code>INT UNSIGNED</code>.
+    </li>
+    <li>Developers having trouble understanding multi-column (composite) KEYS and first (left-most) ordering requirements.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

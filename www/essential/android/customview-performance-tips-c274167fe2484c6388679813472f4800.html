@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Do not allocate new objects in <strong>onDraw</strong></p>
+      
+<p>Do not allocate new objects in <strong>onDraw</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -139,7 +142,10 @@ protected void onDraw(Canvas canvas) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Instead of drawing drawables in canvas…</p>
+</div>
+<p>Instead of drawing drawables in canvas…
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">drawable.setBounds(boundsRect);
@@ -149,7 +155,10 @@ drawable.draw(canvas);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Use a Bitmap for faster drawing:</p>
+</div>
+<p>Use a Bitmap for faster drawing:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">canvas.drawBitmap(bitmap, srcRect, boundsRect, paint);</pre>
@@ -157,7 +166,10 @@ drawable.draw(canvas);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Do not redraw the entire view to update just a small part of it. Instead redraw the specific part of view.</p>
+</div>
+<p>Do not redraw the entire view to update just a small part of it. Instead redraw the specific part of view.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">invalidate(boundToBeRefreshed);</pre>
@@ -165,7 +177,16 @@ drawable.draw(canvas);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If your view is doing some continuous animation, for instance a watch-face showing each and every second, at least stop the animation at <code>onStop()</code> of the activity and start it back on <code>onStart()</code> of the activity.</p><p>Do not do any calculations inside the <code>onDraw</code> method of a view, you should instead finish drawing before calling <code>invalidate()</code>. By using this technique you can avoid frame dropping in your view.</p><p><strong>Rotations</strong></p><p>The basic operations of a view are translate, rotate, etc… Almost every developer has faced this problem when they use bitmap or gradients in their custom view. If the view is going to show a rotated view and the bitmap has to be rotated in that custom view, many of us will think that it will be expensive. Many think that rotating a bitmap is very expensive because in order to do that, you need to translate the bitmap’s pixel matrix. But the truth is that it is not that tough! Instead of rotating the bitmap, just rotate the canvas itself!</p>
+</div>
+<p>If your view is doing some continuous animation, for instance a watch-face showing each and every second, at least stop the animation at <code>onStop()</code> of the activity and start it back on <code>onStart()</code> of the activity.
+</p>
+<p>Do not do any calculations inside the <code>onDraw</code> method of a view, you should instead finish drawing before calling <code>invalidate()</code>. By using this technique you can avoid frame dropping in your view.
+</p>
+<p><strong>Rotations</strong>
+</p>
+<p>The basic operations of a view are translate, rotate, etc… Almost every developer has faced this problem when they use bitmap or gradients in their custom view. If the view is going to show a rotated view and the bitmap has to be rotated in that custom view, many of us will think that it will be expensive. Many think that rotating a bitmap is very expensive because in order to do that, you need to translate the bitmap’s pixel matrix. But the truth is that it is not that tough! Instead of rotating the bitmap, just rotate the canvas itself!
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Save the canvas state

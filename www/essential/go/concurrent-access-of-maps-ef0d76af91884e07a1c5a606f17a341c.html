@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Maps in Go are not safe for concurrency.</p><p>One option to ensure safe concurrent access is to use <code>sync.Mutex</code> or <code>sync.RWMutex</code> and lock around all map reads and writes.</p><p>As an example, a simple wrapper around a <code>map</code> that is safe for concurrent use as long as it&#x27;s done by <code>Get</code>, <code>Set</code> and <code>Add</code> methods:</p>
+      
+<p>Maps in Go are not safe for concurrency.
+</p>
+<p>One option to ensure safe concurrent access is to use <code>sync.Mutex</code> or <code>sync.RWMutex</code> and lock around all map reads and writes.
+</p>
+<p>As an example, a simple wrapper around a <code>map</code> that is safe for concurrent use as long as it&#x27;s done by <code>Get</code>, <code>Set</code> and <code>Add</code> methods:
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">main</span>
@@ -180,6 +187,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">Final value is: 2
@@ -188,7 +196,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>sync.RWMutex</code> can be faster because it allows multiple readers. On the downside you have to be more careful to ensure you&#x27;re not writing under <code>RLock</code>. The performance difference with <code>sync.Mutex</code> will be negligible unless there&#x27;s a high-contention on the lock or the locks are held for a long time.</p>
+</div>
+<p><code>sync.RWMutex</code> can be faster because it allows multiple readers. On the downside you have to be more careful to ensure you&#x27;re not writing under <code>RLock</code>. The performance difference with <code>sync.Mutex</code> will be negligible unless there&#x27;s a high-contention on the lock or the locks are held for a long time.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

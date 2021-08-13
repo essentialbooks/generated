@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>You can remove a submodule (e.g. <code>the_submodule</code>) by calling:</p>
+      
+<p>You can remove a submodule (e.g. <code>the_submodule</code>) by calling:
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">$ git submodule deinit the_submodule
@@ -136,7 +139,33 @@ $ git rm the_submodule</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="fb79538e-c5ad-4148-93a5-7a238c942f44" class="bulleted-list"><li><code>git submodule deinit the_submodule</code> deletes <code>the_submodule</code>s’ entry from .git/config. This excludes the_submodule from <code>git submodule update</code>, <code>git submodule sync</code> and <code>git submodule foreach</code> calls and deletes its local content <a href="https://git-scm.com/docs/git-submodule#git-submodule-deinit">(source)</a>. Also, this will not be shown as change in your parent repository. <code>git submodule init</code> and <code>git submodule update</code> will restore the submodule, again without commitable changes in your parent repository.</li><li><code>git rm the_submodule</code> will remove the submodule from the work tree. The files will be gone as well as the submodules’ entry in the <code>.gitmodules</code> file <a href="https://git-scm.com/docs/git-rm#_submodules">(source)</a>. If only <code>git rm the_submodule</code> (without prior <code>git submodule deinit the_submodule</code> is run, however, the submodules’ entry in your .git/config file will remain.</li></ul><p>Taken from <a href="http://stackoverflow.com/a/1260982/7598462">here</a>:</p><ol id="c58feaf3-086a-4021-9fe1-e60052fc3cae" class="numbered-list" start="1"><li>Delete the relevant section from the <code>.gitmodules</code> file.</li><li>Stage the <code>.gitmodules</code> changes <code>git add .gitmodules</code></li><li>Delete the relevant section from <code>.git/config</code>.</li><li>Run <code>git rm --cached path_to_submodule</code> (no trailing slash).</li><li>Run <code>rm -rf .git/modules/path_to_submodule</code></li><li>Commit <code>git commit -m &quot;Removed submodule &lt;name&gt;&quot;</code></li><li>Delete the now untracked submodule files</li><li><code>rm -rf path_to_submodule</code></li></ol>
+</div>
+  <ul id="fb79538e-c5ad-4148-93a5-7a238c942f44" class="bulleted-list">
+    <li><code>git submodule deinit the_submodule</code> deletes <code>the_submodule</code>s’ entry from .git/config. This excludes the_submodule from <code>git submodule update</code>, <code>git submodule sync</code> and <code>git submodule foreach</code> calls and deletes its local content <a href="https://git-scm.com/docs/git-submodule#git-submodule-deinit">(source)</a>. Also, this will not be shown as change in your parent repository. <code>git submodule init</code> and <code>git submodule update</code> will restore the submodule, again without commitable changes in your parent repository.
+    </li>
+    <li><code>git rm the_submodule</code> will remove the submodule from the work tree. The files will be gone as well as the submodules’ entry in the <code>.gitmodules</code> file <a href="https://git-scm.com/docs/git-rm#_submodules">(source)</a>. If only <code>git rm the_submodule</code> (without prior <code>git submodule deinit the_submodule</code> is run, however, the submodules’ entry in your .git/config file will remain.
+    </li>
+  </ul>
+<p>Taken from <a href="http://stackoverflow.com/a/1260982/7598462">here</a>:
+</p>
+  <ol id="c58feaf3-086a-4021-9fe1-e60052fc3cae" class="numbered-list" start="1">
+    <li>Delete the relevant section from the <code>.gitmodules</code> file.
+    </li>
+    <li>Stage the <code>.gitmodules</code> changes <code>git add .gitmodules</code>
+    </li>
+    <li>Delete the relevant section from <code>.git/config</code>.
+    </li>
+    <li>Run <code>git rm --cached path_to_submodule</code> (no trailing slash).
+    </li>
+    <li>Run <code>rm -rf .git/modules/path_to_submodule</code>
+    </li>
+    <li>Commit <code>git commit -m &quot;Removed submodule &lt;name&gt;&quot;</code>
+    </li>
+    <li>Delete the now untracked submodule files
+    </li>
+    <li><code>rm -rf path_to_submodule</code>
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

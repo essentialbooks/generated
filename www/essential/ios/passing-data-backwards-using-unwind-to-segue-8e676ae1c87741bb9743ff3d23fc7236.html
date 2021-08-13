@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>In contrast to segue that lets you pass data “forward” from current view controller to destination view controller:</p><p><em>(VC1) </em><em><strong>-&gt;</strong></em><em> (VC2)</em></p><p>Using “unwind” you can do the opposite, pass data from the destination or current view controller to its presenting view controller:</p><p><em>(VC1) </em><em><strong>&lt;-</strong></em><em> (VC2)</em></p><p><strong>NOTE</strong>: Pay attention that using unwind lets you pass the data first and afterwards the current view controller (VC2) will get deallocated.</p><p>Here’s how to do it:</p><p>First, you will need to add the following declaration at the presenting view controller (VC1) which is the view controller that we want to pass the data to:</p>
+      
+<p>In contrast to segue that lets you pass data “forward” from current view controller to destination view controller:
+</p>
+<p><em>(VC1) </em><em><strong>-&gt;</strong></em><em> (VC2)</em>
+</p>
+<p>Using “unwind” you can do the opposite, pass data from the destination or current view controller to its presenting view controller:
+</p>
+<p><em>(VC1) </em><em><strong>&lt;-</strong></em><em> (VC2)</em>
+</p>
+<p><strong>NOTE</strong>: Pay attention that using unwind lets you pass the data first and afterwards the current view controller (VC2) will get deallocated.
+</p>
+<p>Here’s how to do it:
+</p>
+<p>First, you will need to add the following declaration at the presenting view controller (VC1) which is the view controller that we want to pass the data to:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@IBAction func unwindToPresentingViewController(segue:UIStoryboardSegue)</pre>
@@ -135,7 +150,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The important thing is to use the prefix <code>unwind</code>, this “informs” Xcode that this is an unwind method giving you the option to use it in storyboard as well.</p><p>Afterwards you will need to implement the method, it looks almost the same as an actual segue:</p>
+</div>
+<p>The important thing is to use the prefix <code>unwind</code>, this “informs” Xcode that this is an unwind method giving you the option to use it in storyboard as well.
+</p>
+<p>Afterwards you will need to implement the method, it looks almost the same as an actual segue:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@IBAction func unwindToPresentingViewController(segue:UIStoryboardSegue)
@@ -150,7 +170,19 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now you have 2 options to invoke the unwind calls:</p><ol id="c65279e1-6785-42d8-b4df-7ed792c29b4b" class="numbered-list" start="1"><li>You can “hard code” invoke the: <code>self.performSegueWithIdentifier(&quot;YourCustomIdentifier&quot;, sender: self)</code> which will do the unwind for you whenever you will <code>performSegueWithIdentifier</code>.</li><li>You can link the unwind method using the <code>storyboard</code> to your “Exit” object: ctrl + drag the button you want to invoke the unwind method, to the “Exit” object:</li></ol><img class="img" src="/img/627dde453351baffcfd4f42b70672e00322d34dd.png"><p>Release and you will have the option to choose your custom unwind method:</p><img class="img" src="/img/d429bce7ac7a5c7e1bbb87c25ee1f7d5aa7c50d7.png">
+</div>
+<p>Now you have 2 options to invoke the unwind calls:
+</p>
+  <ol id="c65279e1-6785-42d8-b4df-7ed792c29b4b" class="numbered-list" start="1">
+    <li>You can “hard code” invoke the: <code>self.performSegueWithIdentifier(&quot;YourCustomIdentifier&quot;, sender: self)</code> which will do the unwind for you whenever you will <code>performSegueWithIdentifier</code>.
+    </li>
+    <li>You can link the unwind method using the <code>storyboard</code> to your “Exit” object: ctrl + drag the button you want to invoke the unwind method, to the “Exit” object:
+    </li>
+  </ol>
+<img class="img" src="/img/627dde453351baffcfd4f42b70672e00322d34dd.png">
+<p>Release and you will have the option to choose your custom unwind method:
+</p>
+<img class="img" src="/img/d429bce7ac7a5c7e1bbb87c25ee1f7d5aa7c50d7.png">
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

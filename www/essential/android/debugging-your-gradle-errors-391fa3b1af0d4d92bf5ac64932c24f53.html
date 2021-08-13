@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>The following is an excerpt from <a href="http://stackoverflow.com/questions/36698816/gradle-what-is-a-non-zero-exit-value-and-how-do-i-fix-it">Gradle - What is a non-zero exit value and how do I fix it?</a>, see it for the full discussion.</p><p>Let’s say you are developing an application and you get some Gradle error that appears that generally will look like so.</p>
+      
+<p>The following is an excerpt from <a href="http://stackoverflow.com/questions/36698816/gradle-what-is-a-non-zero-exit-value-and-how-do-i-fix-it">Gradle - What is a non-zero exit value and how do I fix it?</a>, see it for the full discussion.
+</p>
+<p>Let’s say you are developing an application and you get some Gradle error that appears that generally will look like so.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">:module:someTask FAILED
@@ -143,7 +148,29 @@ Total time: Y.ZZ secs</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You search here on StackOverflow for your problem, and people say to clean and rebuild your project, or enable <a href="http://developer.android.com/tools/building/multidex.html">MultiDex</a>, and when you try that, it just isn’t fixing the problem.</p><p><a href="http://stackoverflow.com/questions/21674091/how-to-add-stacktrace-or-debug-option-when-building-android-studio-project">There are ways to get more information</a>, but the Gradle output itself should point at the actual error in the few lines above that message between :<code>module:someTask FAILED</code> and the last <code>:module:someOtherTask</code> that passed. Therefore, if you ask a question about your error, please edit your questions to include more context to the error.</p><p>So, you get a “non-zero exit value.” Well, that number is a good indicator of what you should try to fix. Here are a few occur most frequently.</p><ul id="12548c35-04f6-4c58-97a9-4f86eb2cbb78" class="bulleted-list"><li><code>1</code> is a just a general error code and the error is likely in the Gradle output</li><li><code>2</code> seems to be related to overlapping dependencies or project misconfiguration.</li><li><code>3</code> seems to be from including too many dependencies, or a memory issue.</li></ul><p>The general solutions for the above (after attempting a Clean and Rebuild of the project) are:</p><ul id="9e43456a-2a33-4dba-a390-baaeb269cbac" class="bulleted-list"><li><code>1</code> - Address the error that is mentioned. Generally, this is a compile-time error, meaning some piece of code in your project is not valid. This includes both XML and Java for an Android project.</li><li><code>2</code> &amp; <code>3</code> - Many answers here tell you to enable <a href="http://developer.android.com/tools/building/multidex.html">multidex</a>. While it may fix the problem, it is most likely a workaround. If you don’t understand why you are using it (see the link), you probably don’t need it. General solutions involve cutting back your overuse of library dependencies (such as all of Google Play Services, when you only need to use one library, like Maps or Sign-In, for example).</li></ul>
+</div>
+<p>You search here on StackOverflow for your problem, and people say to clean and rebuild your project, or enable <a href="http://developer.android.com/tools/building/multidex.html">MultiDex</a>, and when you try that, it just isn’t fixing the problem.
+</p>
+<p><a href="http://stackoverflow.com/questions/21674091/how-to-add-stacktrace-or-debug-option-when-building-android-studio-project">There are ways to get more information</a>, but the Gradle output itself should point at the actual error in the few lines above that message between :<code>module:someTask FAILED</code> and the last <code>:module:someOtherTask</code> that passed. Therefore, if you ask a question about your error, please edit your questions to include more context to the error.
+</p>
+<p>So, you get a “non-zero exit value.” Well, that number is a good indicator of what you should try to fix. Here are a few occur most frequently.
+</p>
+  <ul id="12548c35-04f6-4c58-97a9-4f86eb2cbb78" class="bulleted-list">
+    <li><code>1</code> is a just a general error code and the error is likely in the Gradle output
+    </li>
+    <li><code>2</code> seems to be related to overlapping dependencies or project misconfiguration.
+    </li>
+    <li><code>3</code> seems to be from including too many dependencies, or a memory issue.
+    </li>
+  </ul>
+<p>The general solutions for the above (after attempting a Clean and Rebuild of the project) are:
+</p>
+  <ul id="9e43456a-2a33-4dba-a390-baaeb269cbac" class="bulleted-list">
+    <li><code>1</code> - Address the error that is mentioned. Generally, this is a compile-time error, meaning some piece of code in your project is not valid. This includes both XML and Java for an Android project.
+    </li>
+    <li><code>2</code> &amp; <code>3</code> - Many answers here tell you to enable <a href="http://developer.android.com/tools/building/multidex.html">multidex</a>. While it may fix the problem, it is most likely a workaround. If you don’t understand why you are using it (see the link), you probably don’t need it. General solutions involve cutting back your overuse of library dependencies (such as all of Google Play Services, when you only need to use one library, like Maps or Sign-In, for example).
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

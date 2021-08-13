@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>An image can be created using <a href="http://php.net/manual/en/function.imagepng.php#refsect1-function.imagepng-seealso"><code>image*</code></a><a href="http://php.net/manual/en/function.imagepng.php#refsect1-function.imagepng-seealso"> functions</a>, where <code>\*</code> is the file format.</p><p>They have this syntax in common:</p>
+      
+<p>An image can be created using <a href="http://php.net/manual/en/function.imagepng.php#refsect1-function.imagepng-seealso"><code>image*</code></a><a href="http://php.net/manual/en/function.imagepng.php#refsect1-function.imagepng-seealso"> functions</a>, where <code>\*</code> is the file format.
+</p>
+<p>They have this syntax in common:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">bool image___(resource $im [, mixed $to [ other parameters]] )</pre>
@@ -135,7 +140,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="4197317f-3ab0-4035-b431-757f0af2e2de" class="">Saving to a file<a class="header-anchor" href="#4197317f-3ab0-4035-b431-757f0af2e2de" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>If you want to save the image to a file, you can pass the filename, or an opened file stream, as <code>$to</code>. If you pass a stream, you don’t need to close it, because GD will automatically close it.</p><p>For example, to save a PNG file:</p>
+</div>
+  <h1 id="4197317f-3ab0-4035-b431-757f0af2e2de" class="">Saving to a file
+  <a class="header-anchor" href="#4197317f-3ab0-4035-b431-757f0af2e2de" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>If you want to save the image to a file, you can pass the filename, or an opened file stream, as <code>$to</code>. If you pass a stream, you don’t need to close it, because GD will automatically close it.
+</p>
+<p>For example, to save a PNG file:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">imagepng($image, &#34;/path/to/target/file.png&#34;);
@@ -147,7 +160,17 @@ imagepng($image2, $stream);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When using <code>fopen</code>, make sure to use the <code>b</code> flag rather than the <code>t</code> flag, because the file is a binary output.</p><p>Do <strong>not</strong> try to pass <code>fopen(&quot;php://temp&quot;, $f)</code> or <code>fopen(&quot;php://memory&quot;, $f)</code> to it. Since the stream is closed by the function after the call, you will be unable to use it further, such as to retrieve its contents.</p><h1 id="f25064a7-db3e-4a9d-8884-cef751a1a922" class="">Output as an HTTP response<a class="header-anchor" href="#f25064a7-db3e-4a9d-8884-cef751a1a922" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>If you want to directly return this image as the response of the image (e.g. to create dynamic badges), you don’t need to pass anything (or pass <code>null</code>) as the second argument. However, in the HTTP response, you need to specify your content type:</p>
+</div>
+<p>When using <code>fopen</code>, make sure to use the <code>b</code> flag rather than the <code>t</code> flag, because the file is a binary output.
+</p>
+<p>Do <strong>not</strong> try to pass <code>fopen(&quot;php://temp&quot;, $f)</code> or <code>fopen(&quot;php://memory&quot;, $f)</code> to it. Since the stream is closed by the function after the call, you will be unable to use it further, such as to retrieve its contents.
+</p>
+  <h1 id="f25064a7-db3e-4a9d-8884-cef751a1a922" class="">Output as an HTTP response
+  <a class="header-anchor" href="#f25064a7-db3e-4a9d-8884-cef751a1a922" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>If you want to directly return this image as the response of the image (e.g. to create dynamic badges), you don’t need to pass anything (or pass <code>null</code>) as the second argument. However, in the HTTP response, you need to specify your content type:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">header(&#34;Content-Type: $mimeType&#34;);</pre>
@@ -155,7 +178,18 @@ imagepng($image2, $stream);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>$mimeType</code> is the MIME type of the format you are returning. Examples include <code>image/png</code>, <code>image/gif</code> and <code>image/jpeg</code>.</p><h1 id="8d0e3f73-bcd6-4986-8f6e-ce465f423daf" class="">Writing into a variable<a class="header-anchor" href="#8d0e3f73-bcd6-4986-8f6e-ce465f423daf" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>There are two ways to write into a variable.</p><h2 id="2ba84803-d9b0-47cd-a7a8-3bc075b4f5f2" class="">Using OB (Output Buffering)<a class="header-anchor" href="#2ba84803-d9b0-47cd-a7a8-3bc075b4f5f2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+</div>
+<p><code>$mimeType</code> is the MIME type of the format you are returning. Examples include <code>image/png</code>, <code>image/gif</code> and <code>image/jpeg</code>.
+</p>
+  <h1 id="8d0e3f73-bcd6-4986-8f6e-ce465f423daf" class="">Writing into a variable
+  <a class="header-anchor" href="#8d0e3f73-bcd6-4986-8f6e-ce465f423daf" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>There are two ways to write into a variable.
+</p>
+  <h2 id="2ba84803-d9b0-47cd-a7a8-3bc075b4f5f2" class="">Using OB (Output Buffering)
+  <a class="header-anchor" href="#2ba84803-d9b0-47cd-a7a8-3bc075b4f5f2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ob_start();
@@ -165,7 +199,15 @@ $binary = ob_get_clean();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="6a664e9f-8b4f-49c2-8c4b-17ba9f198371" class="">Using stream wrappers<a class="header-anchor" href="#6a664e9f-8b4f-49c2-8c4b-17ba9f198371" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>You may have many reasons that you don’t want to use output buffering. For example, you may already have OB on. Therefore, an alternative is needed.</p><p>Using the <code>stream_wrapper_register</code> function, a new stream wrapper can be registered. Hence, you can pass a stream to the image output function, and retrieve it later.</p>
+</div>
+  <h2 id="6a664e9f-8b4f-49c2-8c4b-17ba9f198371" class="">Using stream wrappers
+  <a class="header-anchor" href="#6a664e9f-8b4f-49c2-8c4b-17ba9f198371" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>You may have many reasons that you don’t want to use output buffering. For example, you may already have OB on. Therefore, an alternative is needed.
+</p>
+<p>Using the <code>stream_wrapper_register</code> function, a new stream wrapper can be registered. Hence, you can pass a stream to the image output function, and retrieve it later.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;?php
@@ -196,7 +238,25 @@ echo base64_encode($myImage);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this example, the <code>GlobalStream</code> class writes any input into the reference variable (i.e. indirectly write to the global variable of the given name). The global variable can later be retrieved directly.</p><p>There are some special things to note:</p><ul id="011e18e4-11f8-4ee5-910d-f500ce7fe3df" class="bulleted-list"><li>A fully implemented stream wrapper class should look like <a href="http://php.net/manual/en/stream.streamwrapper.example-1.php">this</a>, but according to tests with the <code>__call</code> magic method, only <code>stream_open</code>, <code>stream_write</code> and <code>stream_close</code> are called from internal functions.</li><li>No flags are required in the <code>fopen</code> call, but you should at least pass an empty string. This is because the <code>fopen</code> function expects such parameter, and even if you don’t use it in your <code>stream_open</code> implementation, a dummy one is still required.</li><li>According to tests, <code>stream_write</code> is called multiple times. Remember to use <code>.=</code> (concatenation assignment), not <code>=</code> (direct variable assignment).</li></ul><h2 id="c58d8cde-2ad7-4266-b9b8-afd5d9b055ab" class="">Example usage<a class="header-anchor" href="#c58d8cde-2ad7-4266-b9b8-afd5d9b055ab" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>In the <code>&lt;img&gt;</code> HTML tag, an image can be directly provided rather than using an external link:</p>
+</div>
+<p>In this example, the <code>GlobalStream</code> class writes any input into the reference variable (i.e. indirectly write to the global variable of the given name). The global variable can later be retrieved directly.
+</p>
+<p>There are some special things to note:
+</p>
+  <ul id="011e18e4-11f8-4ee5-910d-f500ce7fe3df" class="bulleted-list">
+    <li>A fully implemented stream wrapper class should look like <a href="http://php.net/manual/en/stream.streamwrapper.example-1.php">this</a>, but according to tests with the <code>__call</code> magic method, only <code>stream_open</code>, <code>stream_write</code> and <code>stream_close</code> are called from internal functions.
+    </li>
+    <li>No flags are required in the <code>fopen</code> call, but you should at least pass an empty string. This is because the <code>fopen</code> function expects such parameter, and even if you don’t use it in your <code>stream_open</code> implementation, a dummy one is still required.
+    </li>
+    <li>According to tests, <code>stream_write</code> is called multiple times. Remember to use <code>.=</code> (concatenation assignment), not <code>=</code> (direct variable assignment).
+    </li>
+  </ul>
+  <h2 id="c58d8cde-2ad7-4266-b9b8-afd5d9b055ab" class="">Example usage
+  <a class="header-anchor" href="#c58d8cde-2ad7-4266-b9b8-afd5d9b055ab" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>In the <code>&lt;img&gt;</code> HTML tag, an image can be directly provided rather than using an external link:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">echo &#39;&lt;img src=&#34;data:image/png;base64,&#39; . base64_encode($binary) . &#39;&#34;&gt;&#39;;</pre>

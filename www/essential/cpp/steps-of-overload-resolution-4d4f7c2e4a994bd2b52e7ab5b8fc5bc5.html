@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>The steps of overload resolution are:</p><ol id="dbd30af5-40ed-45cd-b612-cc64ac0c5ace" class="numbered-list" start="1"><li>Find candidate functions via name lookup. Unqualified calls will perform both regular unqualified lookup as well as argument-dependent lookup (if applicable).</li><li>Filter the set of candidate functions to a set of <em>viable</em> functions. A viable function for which there exists an implicit conversion sequence between the arguments the function is called with and the parameters the function takes.</li></ol>
+      
+<p>The steps of overload resolution are:
+</p>
+  <ol id="dbd30af5-40ed-45cd-b612-cc64ac0c5ace" class="numbered-list" start="1">
+    <li>Find candidate functions via name lookup. Unqualified calls will perform both regular unqualified lookup as well as argument-dependent lookup (if applicable).
+    </li>
+    <li>Filter the set of candidate functions to a set of <em>viable</em> functions. A viable function for which there exists an implicit conversion sequence between the arguments the function is called with and the parameters the function takes.
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void f(char);          // (1)
@@ -143,7 +152,12 @@ f(4); // 1,2 are viable (even though 2 is deleted!)
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="876158fa-8d96-4f40-b5cb-a2c9543abffb" class="numbered-list" start="1"><li>Pick the best viable candidate. A viable function <code>F1</code> is a better function than another viable function <code>F2</code> if the implicit conversion sequence for each argument in <code>F1</code> is not worse than the corresponding implicit conversion sequence in <code>F2</code>, and…:</li></ol>
+</div>
+  <ol id="876158fa-8d96-4f40-b5cb-a2c9543abffb" class="numbered-list" start="1">
+    <li>Pick the best viable candidate. A viable function <code>F1</code> is a better function than another viable function <code>F2</code> if the implicit conversion sequence for each argument in <code>F1</code> is not worse than the corresponding implicit conversion sequence in <code>F2</code>, and…:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">3.1. For some argument, the implicit conversion sequence for that argument in `F1` is a better conversion sequence than for that argument in `F2`, or
@@ -194,7 +208,11 @@ f(4); // 1,2 are viable (even though 2 is deleted!)
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="24659d95-506b-4e2c-9c4a-e53fc8895f01"/><p>The ordering here is significant. The better conversion sequence check happens before the template vs non-template check. This leads to a common error with overloading on forwarding reference:</p>
+</div>
+<hr id="24659d95-506b-4e2c-9c4a-e53fc8895f01"/>
+<p>The ordering here is significant. The better conversion sequence check happens before the template vs non-template check. This leads to a common error with overloading on forwarding reference:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct A {
@@ -213,7 +231,10 @@ A b(a); // calls #2!
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If there’s no single best viable candidate at the end, the call is ambiguous:</p>
+</div>
+<p>If there’s no single best viable candidate at the end, the call is ambiguous:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">void f(double ) { }

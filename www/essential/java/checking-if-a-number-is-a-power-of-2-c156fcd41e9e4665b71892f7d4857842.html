@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>If an integer <code>x</code> is a power of 2, only one bit is set, whereas <code>x-1</code> has all bits set after that. For example: <code>4</code> is <code>100</code> and <code>3</code> is <code>011</code> as binary number, which satisfies the aforementioned condition. Zero is not a power of 2 and has to be checked explicitly.</p>
+      
+<p>If an integer <code>x</code> is a power of 2, only one bit is set, whereas <code>x-1</code> has all bits set after that. For example: <code>4</code> is <code>100</code> and <code>3</code> is <code>011</code> as binary number, which satisfies the aforementioned condition. Zero is not a power of 2 and has to be checked explicitly.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">boolean isPowerOfTwo(int x)
@@ -138,7 +141,79 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Usage for Left and Right Shift</strong></p><p>Let’s suppose, we have three kind of permissions, <strong>READ</strong>, <strong>WRITE</strong> and <strong>EXECUTE</strong>. Each permission can range from 0 to 7. (Let’s assume 4 bit number system)</p><blockquote id="4ab1e444-c743-467d-a6a2-29b453004359" class="">RESOURCE = READ WRITE EXECUTE (12 bit number)</blockquote><p>RESOURCE = 0100 0110 0101 = 4 6 5 (12 bit number)</p><p>How can we get the (12 bit number) permissions, set on above (12 bit number)?</p><blockquote id="f276d605-8956-4518-9dd2-ac0902fa9cd5" class="">0100 0110 0101</blockquote><p>0000 0000 0111 (&amp;)</p><p>0000 0000 0101 = 5</p><p>So, this is how we can get the <strong>EXECUTE</strong> permissions of the <strong>RESOURCE</strong>. Now, what if we want to get <strong>READ</strong> permissions of the <strong>RESOURCE</strong>?</p><blockquote id="c031f11d-7afc-4173-9276-0766de8fa37e" class="">0100 0110 0101</blockquote><p>0111 0000 0000 (&amp;)</p><p>0100 0000 0000 = 1024</p><p>Right? You are probably assuming this? But, permissions are resulted in 1024. We want to get only READ permissions for the resource. Don’t worry, that’s why we had the shift operators. If we see, READ permissions are 8 bits behind the actual result, so if apply some shift operator, which will bring READ permissions to the very right of the result? What if we do:</p><blockquote id="35647863-788e-41ae-ac8f-c0cf36f0c1a1" class="">0100 0000 0000 &gt;&gt; 8 =&gt; 0000 0000 0100 (Because it’s a positive number so replaced with 0’s, if you don’t care about sign, just use unsigned right shift operator)</blockquote><p>We now actually have the <strong>READ</strong> permissions which is 4.</p><p>Now, for example, we are given <strong>READ</strong>, <strong>WRITE</strong>, <strong>EXECUTE</strong> permissions for a <strong>RESOURCE</strong>, what can we do to make permissions for this <strong>RESOURCE</strong>?</p><p>Let’s first take the example of binary permissions. (Still assuming 4 bit number system)</p><blockquote id="f9e6ca8e-6328-4b48-8bc4-9c693d944714" class="">READ = 0001</blockquote><p>WRITE = 0100</p><p>EXECUTE = 0110</p><p>If you are thinking that we will simply do:</p><p><code>READ | WRITE | EXECUTE</code>, you are somewhat right but not exactly. See, what will happen if we will perform READ | WRITE | EXECUTE</p><p>0001 | 0100 | 0110 =&gt; 0111</p><p>But permissions are actually being represented (in our example) as 0001 0100 0110</p><p>So, in order to do this, we know that <strong>READ</strong> is placed 8 bits behind, <strong>WRITE</strong> is placed 4 bits behind and <strong>PERMISSIONS</strong> is placed at the last. The number system being used for <strong>RESOURCE</strong> permissions is actually 12 bit (in our example). It can(will) be different in different systems.</p><blockquote id="708d88f9-9faa-4bd7-943e-be11407339a4" class="">(READ &lt;&lt; 8) | (WRITE &lt;&lt; 4) | (EXECUTE)</blockquote><p>0000 0000 0001 &lt;&lt; 8 (READ)</p><p>0001 0000 0000 (Left shift by 8 bits)</p><p>0000 0000 0100 &lt;&lt; 4 (WRITE)</p><p>0000 0100 0000 (Left shift by 4 bits)</p><p>0000 0000 0001 (EXECUTE)</p><p>Now if we add the results of above shifting, it will be something like;</p><blockquote id="e5e3ef1c-c5ca-4923-bf3a-31e0f11ec0d6" class="">0001 0000 0000 (READ)</blockquote><p>0000 0100 0000 (WRITE)</p><p>0000 0000 0001 (EXECUTE)</p><p>0001 0100 0001 (PERMISSIONS)</p>
+</div>
+<p><strong>Usage for Left and Right Shift</strong>
+</p>
+<p>Let’s suppose, we have three kind of permissions, <strong>READ</strong>, <strong>WRITE</strong> and <strong>EXECUTE</strong>. Each permission can range from 0 to 7. (Let’s assume 4 bit number system)
+</p>
+<blockquote id="4ab1e444-c743-467d-a6a2-29b453004359" class="">RESOURCE = READ WRITE EXECUTE (12 bit number)
+</blockquote>
+<p>RESOURCE = 0100 0110 0101 = 4 6 5 (12 bit number)
+</p>
+<p>How can we get the (12 bit number) permissions, set on above (12 bit number)?
+</p>
+<blockquote id="f276d605-8956-4518-9dd2-ac0902fa9cd5" class="">0100 0110 0101
+</blockquote>
+<p>0000 0000 0111 (&amp;)
+</p>
+<p>0000 0000 0101 = 5
+</p>
+<p>So, this is how we can get the <strong>EXECUTE</strong> permissions of the <strong>RESOURCE</strong>. Now, what if we want to get <strong>READ</strong> permissions of the <strong>RESOURCE</strong>?
+</p>
+<blockquote id="c031f11d-7afc-4173-9276-0766de8fa37e" class="">0100 0110 0101
+</blockquote>
+<p>0111 0000 0000 (&amp;)
+</p>
+<p>0100 0000 0000 = 1024
+</p>
+<p>Right? You are probably assuming this? But, permissions are resulted in 1024. We want to get only READ permissions for the resource. Don’t worry, that’s why we had the shift operators. If we see, READ permissions are 8 bits behind the actual result, so if apply some shift operator, which will bring READ permissions to the very right of the result? What if we do:
+</p>
+<blockquote id="35647863-788e-41ae-ac8f-c0cf36f0c1a1" class="">0100 0000 0000 &gt;&gt; 8 =&gt; 0000 0000 0100 (Because it’s a positive number so replaced with 0’s, if you don’t care about sign, just use unsigned right shift operator)
+</blockquote>
+<p>We now actually have the <strong>READ</strong> permissions which is 4.
+</p>
+<p>Now, for example, we are given <strong>READ</strong>, <strong>WRITE</strong>, <strong>EXECUTE</strong> permissions for a <strong>RESOURCE</strong>, what can we do to make permissions for this <strong>RESOURCE</strong>?
+</p>
+<p>Let’s first take the example of binary permissions. (Still assuming 4 bit number system)
+</p>
+<blockquote id="f9e6ca8e-6328-4b48-8bc4-9c693d944714" class="">READ = 0001
+</blockquote>
+<p>WRITE = 0100
+</p>
+<p>EXECUTE = 0110
+</p>
+<p>If you are thinking that we will simply do:
+</p>
+<p><code>READ | WRITE | EXECUTE</code>, you are somewhat right but not exactly. See, what will happen if we will perform READ | WRITE | EXECUTE
+</p>
+<p>0001 | 0100 | 0110 =&gt; 0111
+</p>
+<p>But permissions are actually being represented (in our example) as 0001 0100 0110
+</p>
+<p>So, in order to do this, we know that <strong>READ</strong> is placed 8 bits behind, <strong>WRITE</strong> is placed 4 bits behind and <strong>PERMISSIONS</strong> is placed at the last. The number system being used for <strong>RESOURCE</strong> permissions is actually 12 bit (in our example). It can(will) be different in different systems.
+</p>
+<blockquote id="708d88f9-9faa-4bd7-943e-be11407339a4" class="">(READ &lt;&lt; 8) | (WRITE &lt;&lt; 4) | (EXECUTE)
+</blockquote>
+<p>0000 0000 0001 &lt;&lt; 8 (READ)
+</p>
+<p>0001 0000 0000 (Left shift by 8 bits)
+</p>
+<p>0000 0000 0100 &lt;&lt; 4 (WRITE)
+</p>
+<p>0000 0100 0000 (Left shift by 4 bits)
+</p>
+<p>0000 0000 0001 (EXECUTE)
+</p>
+<p>Now if we add the results of above shifting, it will be something like;
+</p>
+<blockquote id="e5e3ef1c-c5ca-4923-bf3a-31e0f11ec0d6" class="">0001 0000 0000 (READ)
+</blockquote>
+<p>0000 0100 0000 (WRITE)
+</p>
+<p>0000 0000 0001 (EXECUTE)
+</p>
+<p>0001 0100 0001 (PERMISSIONS)
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

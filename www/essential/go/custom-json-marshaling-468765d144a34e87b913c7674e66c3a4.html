@@ -127,7 +127,21 @@
 </div>
 
 
-      <h2 id="12ec5c24-ae51-4341-95ae-a5a0a81ed746" class="">Writing custom JSON marshalling<a class="header-anchor" href="#12ec5c24-ae51-4341-95ae-a5a0a81ed746" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Sometimes a type doesn’t have an obvious mapping to JSON.</p><p>How would you serialize <code>time.Time</code>? There are so many possibilities.</p><p>Go provides a default JSON mapping for <code>time.Time</code>. We can implement custom marshaller for user-defined types like structs.</p><p>For existing types we can define a new (but compatible) type.</p><p>Here’s a custom marshalling and unmarshaling for <code>time.Time</code> that only serializes year/month/date part:</p>
+      
+  <h2 id="12ec5c24-ae51-4341-95ae-a5a0a81ed746" class="">Writing custom JSON marshalling
+  <a class="header-anchor" href="#12ec5c24-ae51-4341-95ae-a5a0a81ed746" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Sometimes a type doesn’t have an obvious mapping to JSON.
+</p>
+<p>How would you serialize <code>time.Time</code>? There are so many possibilities.
+</p>
+<p>Go provides a default JSON mapping for <code>time.Time</code>. We can implement custom marshaller for user-defined types like structs.
+</p>
+<p>For existing types we can define a new (but compatible) type.
+</p>
+<p>Here’s a custom marshalling and unmarshaling for <code>time.Time</code> that only serializes year/month/date part:
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="kd">type</span> <span class="nx">Event</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -196,6 +210,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">Standard time JSON: {&#34;What&#34;:&#34;earthquake&#34;,&#34;When&#34;:&#34;2020-07-12T07:31:46.88184504Z&#34;}
@@ -207,7 +222,17 @@ Decoded custom time: &#34;2020-12-07&#34;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Notice that receiver type of <code>UnmashalJSON</code> is a pointer to the type.</p><p>This is necessary for changes to persist outside the function itself.</p><h2 id="a8cb605d-ab76-414e-ab48-95d6b34da712" class="">Marshaling structs with private fields<a class="header-anchor" href="#a8cb605d-ab76-414e-ab48-95d6b34da712" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Consider a struct with both exported and unexported fields:</p>
+</div>
+<p>Notice that receiver type of <code>UnmashalJSON</code> is a pointer to the type.
+</p>
+<p>This is necessary for changes to persist outside the function itself.
+</p>
+  <h2 id="a8cb605d-ab76-414e-ab48-95d6b34da712" class="">Marshaling structs with private fields
+  <a class="header-anchor" href="#a8cb605d-ab76-414e-ab48-95d6b34da712" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Consider a struct with both exported and unexported fields:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kd">type</span> <span class="nx">MyStruct</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -218,7 +243,14 @@ Decoded custom time: &#34;2020-12-07&#34;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Imagine you want to <code>Marshal()</code> this struct into valid JSON for storage in something like etcd.</p><p>However, since <code>uuid</code> in not exported, the <code>json.Marshal()</code> skips it.</p><p>To marshal private fields without making them public we can use a custom marshaller:</p>
+</div>
+<p>Imagine you want to <code>Marshal()</code> this struct into valid JSON for storage in something like etcd.
+</p>
+<p>However, since <code>uuid</code> in not exported, the <code>json.Marshal()</code> skips it.
+</p>
+<p>To marshal private fields without making them public we can use a custom marshaller:
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="kd">type</span> <span class="nx">MyStruct</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -258,6 +290,7 @@ Decoded custom time: &#34;2020-12-07&#34;
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma">Person in compact JSON: {&#34;Uuid&#34;:&#34;uid-john&#34;,&#34;Name&#34;:&#34;John&#34;}
@@ -266,7 +299,15 @@ Decoded custom time: &#34;2020-12-07&#34;
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="c853a6bc-35f3-4edf-9580-340594f9034f" class="">Custom marshaling behind the scenes<a class="header-anchor" href="#c853a6bc-35f3-4edf-9580-340594f9034f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>How does custom marshaling works?</p><p>Package JSON defines 2 interfaces: <a href="https://golang.org/pkg/encoding/json/#Marshaler"><code>Marshaler</code></a> and <a href="https://golang.org/pkg/encoding/json/#Unmarshaler"><code>Unmarshaler</code></a>.</p>
+</div>
+  <h2 id="c853a6bc-35f3-4edf-9580-340594f9034f" class="">Custom marshaling behind the scenes
+  <a class="header-anchor" href="#c853a6bc-35f3-4edf-9580-340594f9034f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>How does custom marshaling works?
+</p>
+<p>Package JSON defines 2 interfaces: <a href="https://golang.org/pkg/encoding/json/#Marshaler"><code>Marshaler</code></a> and <a href="https://golang.org/pkg/encoding/json/#Unmarshaler"><code>Unmarshaler</code></a>.
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kd">type</span> <span class="nx">Marshaler</span> <span class="kd">interface</span> <span class="p">{</span>
@@ -280,7 +321,11 @@ Decoded custom time: &#34;2020-12-07&#34;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>By implementing those functions we make our type conform to <code>Marshaler</code> or <code>Unmarshaler</code> interface.</p><p>JSON encoder / decoder checks if the value being encoded conforms to those interfaces and will call those functions instead of executing default logic.</p>
+</div>
+<p>By implementing those functions we make our type conform to <code>Marshaler</code> or <code>Unmarshaler</code> interface.
+</p>
+<p>JSON encoder / decoder checks if the value being encoded conforms to those interfaces and will call those functions instead of executing default logic.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,16 @@
 </div>
 
 
-      <p>A <strong>lambda expression</strong> provides a concise way to create simple function objects. A lambda expression is a prvalue whose result object is called <a href="https://en.wikipedia.org/wiki/Closure_(computer_programming)">closure object</a>, which behaves like a function object.</p><p>The name ‘lambda expression’ originates from <a href="https://en.wikipedia.org/wiki/Lambda_calculus">lambda calculus</a>, which is a mathematical formalism invented in the 1930s by Alonzo Church to investigate questions about logic and computability. Lambda calculus formed the basis of <a href="https://en.wikipedia.org/wiki/Lisp_(programming_language)">LISP</a>, a functional programming language. Compared to lambda calculus and LISP, C++ lambda expressions share the properties of being unnamed, and to capture variables from the surrounding context, but they lack the ability to operate on and return functions.</p><p>A lambda expression is often used as an argument to functions that take a callable object. That can be simpler than creating a named function, which would be only used when passed as the argument. In such cases, lambda expressions are generally preferred because they allow defining the function objects inline.</p><p>A lambda consists typically of three parts: a capture list <code>[]</code>, an optional parameter list <code>()</code> and a body <code>{}</code>, all of which can be empty:</p>
+      
+<p>A <strong>lambda expression</strong> provides a concise way to create simple function objects. A lambda expression is a prvalue whose result object is called <a href="https://en.wikipedia.org/wiki/Closure_(computer_programming)">closure object</a>, which behaves like a function object.
+</p>
+<p>The name ‘lambda expression’ originates from <a href="https://en.wikipedia.org/wiki/Lambda_calculus">lambda calculus</a>, which is a mathematical formalism invented in the 1930s by Alonzo Church to investigate questions about logic and computability. Lambda calculus formed the basis of <a href="https://en.wikipedia.org/wiki/Lisp_(programming_language)">LISP</a>, a functional programming language. Compared to lambda calculus and LISP, C++ lambda expressions share the properties of being unnamed, and to capture variables from the surrounding context, but they lack the ability to operate on and return functions.
+</p>
+<p>A lambda expression is often used as an argument to functions that take a callable object. That can be simpler than creating a named function, which would be only used when passed as the argument. In such cases, lambda expressions are generally preferred because they allow defining the function objects inline.
+</p>
+<p>A lambda consists typically of three parts: a capture list <code>[]</code>, an optional parameter list <code>()</code> and a body <code>{}</code>, all of which can be empty:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[](){}                // An empty lambda, which does and returns nothing</pre>
@@ -135,7 +144,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Capture list</strong></p><p><code>[]</code> is the <strong>capture list</strong>. By default, variables of the enclosing scope cannot be accessed by a lambda. <em>Capturing</em> a variable makes it accessible inside the lambda, either <a href="http://stackoverflow.com/documentation/c%2B%2B/572/lambdas/1856/capture-by-value#t=201607271323349545754">as a copy</a> or <a href="http://stackoverflow.com/documentation/c%2B%2B/572/lambdas/1951/capture-by-reference#t=201607271323349545754">as a reference</a>. Captured variables become a part of the lambda; in contrast to function arguments, they do not have to be passed when calling the lambda.</p>
+</div>
+<p><strong>Capture list</strong>
+</p>
+<p><code>[]</code> is the <strong>capture list</strong>. By default, variables of the enclosing scope cannot be accessed by a lambda. <em>Capturing</em> a variable makes it accessible inside the lambda, either <a href="http://stackoverflow.com/documentation/c%2B%2B/572/lambdas/1856/capture-by-value#t=201607271323349545754">as a copy</a> or <a href="http://stackoverflow.com/documentation/c%2B%2B/572/lambdas/1951/capture-by-reference#t=201607271323349545754">as a reference</a>. Captured variables become a part of the lambda; in contrast to function arguments, they do not have to be passed when calling the lambda.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int a = 0;                       // Define an integer variable
@@ -150,7 +164,12 @@ auto b = f();                    // Call the lambda function. a is taken from th
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Parameter list</strong></p><p><code>()</code> is the <strong>parameter list</strong>, which is almost the same as in regular functions. If the lambda takes no arguments, these parentheses can be omitted (except if you need to declare the lambda <code>mutable</code>). These two lambdas are equivalent:</p>
+</div>
+<p><strong>Parameter list</strong>
+</p>
+<p><code>()</code> is the <strong>parameter list</strong>, which is almost the same as in regular functions. If the lambda takes no arguments, these parentheses can be omitted (except if you need to declare the lambda <code>mutable</code>). These two lambdas are equivalent:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto call_foo  = [x](){ x.foo(); };
@@ -159,7 +178,10 @@ auto call_foo2 = [x]{ x.foo(); };</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The parameter list can use the placeholder type <code>auto</code> instead of actual types. By doing so, this argument behaves like a template parameter of a function template. Following lambdas are equivalent when you want to sort a vector in generic code:</p>
+</div>
+<p>The parameter list can use the placeholder type <code>auto</code> instead of actual types. By doing so, this argument behaves like a template parameter of a function template. Following lambdas are equivalent when you want to sort a vector in generic code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto sort_cpp11 = [](std::vector&lt;T&gt;::const_reference lhs, std::vector&lt;T&gt;::const_reference rhs) { return lhs &lt; rhs; }; 
@@ -168,7 +190,17 @@ auto sort_cpp14 = [](const auto &amp;lhs, const auto &amp;rhs) { return lhs &lt;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Function body</strong></p><p><code>{}</code> is the <strong>body</strong>, which is the same as in regular functions.</p><hr id="426a8365-4ed4-4f3c-9d7e-0d4a431df0cd"/><p><strong>Calling a lambda</strong></p><p>A lambda expression’s result object is a <a href="https://en.wikipedia.org/wiki/Closure_(computer_programming)">closure</a>, which can be called using the <code>operator()</code> (as with other function objects):</p>
+</div>
+<p><strong>Function body</strong>
+</p>
+<p><code>{}</code> is the <strong>body</strong>, which is the same as in regular functions.
+</p>
+<hr id="426a8365-4ed4-4f3c-9d7e-0d4a431df0cd"/>
+<p><strong>Calling a lambda</strong>
+</p>
+<p>A lambda expression’s result object is a <a href="https://en.wikipedia.org/wiki/Closure_(computer_programming)">closure</a>, which can be called using the <code>operator()</code> (as with other function objects):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int multiplier = 5;
@@ -181,7 +213,13 @@ std::out &lt;&lt; timesFive(2); // Still prints 2*5 == 10</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="0487f83b-9fcb-4be4-8c4a-5d56625af109"/><p><strong>Return Type</strong></p><p>By default, the return type of a lambda expression is deduced.</p>
+</div>
+<hr id="0487f83b-9fcb-4be4-8c4a-5d56625af109"/>
+<p><strong>Return Type</strong>
+</p>
+<p>By default, the return type of a lambda expression is deduced.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[](){ return true; };</pre>
@@ -189,7 +227,12 @@ std::out &lt;&lt; timesFive(2); // Still prints 2*5 == 10</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this case the return type is <code>bool</code>.</p><p>You can also manually specify the return type using the following syntax:</p>
+</div>
+<p>In this case the return type is <code>bool</code>.
+</p>
+<p>You can also manually specify the return type using the following syntax:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">[]() -&gt; bool { return true; };</pre>
@@ -197,7 +240,12 @@ std::out &lt;&lt; timesFive(2); // Still prints 2*5 == 10</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Mutable Lambda</strong></p><p>Objects captured by value in the lambda are by default immutable. This is because the <code>operator()</code> of the generated closure object is <code>const</code> by default.</p>
+</div>
+<p><strong>Mutable Lambda</strong>
+</p>
+<p>Objects captured by value in the lambda are by default immutable. This is because the <code>operator()</code> of the generated closure object is <code>const</code> by default.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto func = [c = 0](){++c; std::cout &lt;&lt; c;};  // fails to compile because ++c
@@ -207,7 +255,10 @@ std::out &lt;&lt; timesFive(2); // Still prints 2*5 == 10</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Modifying can be allowed by using the keyword <code>mutable</code>, which make the closer object’s <code>operator()</code> non-<code>const</code>:</p>
+</div>
+<p>Modifying can be allowed by using the keyword <code>mutable</code>, which make the closer object’s <code>operator()</code> non-<code>const</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto func = [c = 0]() mutable {++c; std::cout &lt;&lt; c;};</pre>
@@ -215,7 +266,10 @@ std::out &lt;&lt; timesFive(2); // Still prints 2*5 == 10</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If used together with the return type, <code>mutable</code> comes before it.</p>
+</div>
+<p>If used together with the return type, <code>mutable</code> comes before it.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">auto func = [c = 0]() mutable -&gt; int {++c; std::cout &lt;&lt; c; return c;};</pre>
@@ -223,7 +277,13 @@ std::out &lt;&lt; timesFive(2); // Still prints 2*5 == 10</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="dd6420c5-4d72-40bc-8c35-7000ff928a49"/><p><strong>An example to illustrate the usefulness of lambdas</strong></p><p>Before C++11:</p>
+</div>
+<hr id="dd6420c5-4d72-40bc-8c35-7000ff928a49"/>
+<p><strong>An example to illustrate the usefulness of lambdas</strong>
+</p>
+<p>Before C++11:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Generic functor used for comparison
@@ -250,7 +310,10 @@ std::vector&lt;int&gt;::iterator it = std::find_if(vec.begin(), vec.end(), isles
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since C++11:</p>
+</div>
+<p>Since C++11:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// Declare a vector

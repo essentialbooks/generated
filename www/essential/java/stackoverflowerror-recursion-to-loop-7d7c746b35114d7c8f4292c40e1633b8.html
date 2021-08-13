@@ -127,7 +127,13 @@
 </div>
 
 
-      <p>If a recursive call goes “too deep”, this results in a <code>StackOverflowError</code>. Java allocates a new frame for every method call on its thread’s stack. However, the space of each thread’s stack is limited. Too many frames on the stack leads to the Stack Overflow (SO).</p><h2 id="11d60c8e-5ef3-451f-b3c7-47007714d806" class="">Example<a class="header-anchor" href="#11d60c8e-5ef3-451f-b3c7-47007714d806" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+      
+<p>If a recursive call goes “too deep”, this results in a <code>StackOverflowError</code>. Java allocates a new frame for every method call on its thread’s stack. However, the space of each thread’s stack is limited. Too many frames on the stack leads to the Stack Overflow (SO).
+</p>
+  <h2 id="11d60c8e-5ef3-451f-b3c7-47007714d806" class="">Example
+  <a class="header-anchor" href="#11d60c8e-5ef3-451f-b3c7-47007714d806" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public static void recursion(int depth) {
@@ -139,7 +145,32 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Calling this method with large parameters (e.g. <code>recursion(50000)</code> probably will result in a stack overflow. The exact value depends on the thread stack size, which in turn depends on the thread construction, command-line parameters such as <code>-Xss</code>, or the default size for the JVM.</p><h1 id="7f3aae85-1177-4958-a174-dea2e4971124" class="">Workaround<a class="header-anchor" href="#7f3aae85-1177-4958-a174-dea2e4971124" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>A recursion can be converted to a loop by storing the data for each recursive call in a data structure. This data structure can be stored on the heap rather than on the thread stack.</p><p>In general the data required to restore the state of a method invocation can be stored in a stack and a while loop can be used to “simulate” the recursive calls. Data that may be required include:</p><ul id="f9698db4-bb0a-4597-a96a-b1b0b989fabe" class="bulleted-list"><li>the object the method was called for (instance methods only)</li><li>the method parameters</li><li>local variables</li><li>the current position in the execution or the method</li></ul><h2 id="b87641cb-d386-4f2a-a0f3-ab1d67290abc" class="">Example<a class="header-anchor" href="#b87641cb-d386-4f2a-a0f3-ab1d67290abc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>The following class allows recursive of a tree structure printing up to a specified depth.</p>
+</div>
+<p>Calling this method with large parameters (e.g. <code>recursion(50000)</code> probably will result in a stack overflow. The exact value depends on the thread stack size, which in turn depends on the thread construction, command-line parameters such as <code>-Xss</code>, or the default size for the JVM.
+</p>
+  <h1 id="7f3aae85-1177-4958-a174-dea2e4971124" class="">Workaround
+  <a class="header-anchor" href="#7f3aae85-1177-4958-a174-dea2e4971124" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>A recursion can be converted to a loop by storing the data for each recursive call in a data structure. This data structure can be stored on the heap rather than on the thread stack.
+</p>
+<p>In general the data required to restore the state of a method invocation can be stored in a stack and a while loop can be used to “simulate” the recursive calls. Data that may be required include:
+</p>
+  <ul id="f9698db4-bb0a-4597-a96a-b1b0b989fabe" class="bulleted-list">
+    <li>the object the method was called for (instance methods only)
+    </li>
+    <li>the method parameters
+    </li>
+    <li>local variables
+    </li>
+    <li>the current position in the execution or the method
+    </li>
+  </ul>
+  <h2 id="b87641cb-d386-4f2a-a0f3-ab1d67290abc" class="">Example
+  <a class="header-anchor" href="#b87641cb-d386-4f2a-a0f3-ab1d67290abc" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>The following class allows recursive of a tree structure printing up to a specified depth.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Node {
@@ -179,7 +210,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>e.g.</p>
+</div>
+<p>e.g.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Node n = new Node(10, new Node(20, new Node(50), new Node(1)), new Node(30, new Node(42), null));
@@ -189,7 +223,10 @@ System.out.println();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Prints</p>
+</div>
+<p>Prints
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">(((...)20(...))10((...)30))</pre>
@@ -197,7 +234,10 @@ System.out.println();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This could be converted to the following loop:</p>
+</div>
+<p>This could be converted to the following loop:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Frame {
@@ -221,6 +261,7 @@ System.out.println();</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">List&lt;Frame&gt; stack = new ArrayList&lt;&gt;();
@@ -268,7 +309,9 @@ System.out.println();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Note:</strong> This is just an example of the general approach. Often you can come up with a much better way to represent a frame and/or store the frame data.</p>
+</div>
+<p><strong>Note:</strong> This is just an example of the general approach. Often you can come up with a much better way to represent a frame and/or store the frame data.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

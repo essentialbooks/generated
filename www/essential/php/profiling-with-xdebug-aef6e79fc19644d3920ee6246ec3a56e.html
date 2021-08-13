@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>An extension to PHP called Xdebug is available to assist in <a href="https://xdebug.org/docs/profiler">profiling PHP applications</a>, as well as runtime debugging. When running the profiler, the output is written to a file in a binary format called “cachegrind”. Applications are available on each platform to analyze these files.</p><p>To enable profiling, install the extension and adjust php.ini settings. In our example we will run the profile optionally based on a request parameter. This allows us to keep settings static and turn on the profiler only as needed.</p>
+      
+<p>An extension to PHP called Xdebug is available to assist in <a href="https://xdebug.org/docs/profiler">profiling PHP applications</a>, as well as runtime debugging. When running the profiler, the output is written to a file in a binary format called “cachegrind”. Applications are available on each platform to analyze these files.
+</p>
+<p>To enable profiling, install the extension and adjust php.ini settings. In our example we will run the profile optionally based on a request parameter. This allows us to keep settings static and turn on the profiler only as needed.
+</p>
+
 <div class="code-box lang-PHP">
 	<div>
 	<pre class="chroma">// Set to 1 to turn it on for every request
@@ -143,7 +148,10 @@ xdebug.profiler_output_name = &#34;cachegrind.out.%p&#34;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Next use a web client to make a request to your application’s URL you wish to profile, e.g.</p>
+</div>
+<p>Next use a web client to make a request to your application’s URL you wish to profile, e.g.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">http://example.com/article/1?XDEBUG_PROFILE=1</pre>
@@ -151,7 +159,10 @@ xdebug.profiler_output_name = &#34;cachegrind.out.%p&#34;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As the page processes it will write to a file with a name similar to</p>
+</div>
+<p>As the page processes it will write to a file with a name similar to
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/tmp/cachegrind.out.12345</pre>
@@ -159,7 +170,36 @@ xdebug.profiler_output_name = &#34;cachegrind.out.%p&#34;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that it will write one file for each PHP request / process that is executed. So, for example, if you wish to analyze a form post, one profile will be written for the GET request to display the HTML form. The XDEBUG_PROFILE parameter will need to be passed into the subsequent POST request to analyze the second request which processes the form. Therefore when profiling it is sometimes easier to run curl to POST a form directly.</p><p>Once written the profile cache can be read by an application such as KCachegrind.</p><img class="img" src="/img/196fba890dbbef7fd632bea914aadbc0766302ae.png"><p>This will display information including:</p><ul id="1d2d16d4-c45b-4b14-8806-84648a6e7f50" class="bulleted-list"><li>Functions executed</li><li>Call time, both itself and inclusive of subsequent function calls</li><li>Number of times each function is called</li><li>Call graphs</li><li>Links to source code</li></ul><p>Obviously performance tuning is very specific to each application’s use cases. In general it’s good to look for:</p><ul id="d6a08c66-78e8-4214-868e-903ab9addc0e" class="bulleted-list"><li>Repeated calls to the same function you wouldn’t expect to see. For functions that process and query data these could be prime opportunities for your application to cache.</li><li>Slow-running functions. Where is the application spending most of its time? the best payoff in performance tuning is focusing on those parts of the application which consume the most time.</li></ul><p><em>Note</em>: Xdebug, and in particular its profiling features, are very resource intensive and slow down PHP execution. It is recommended to not run these in a production server environment.</p>
+</div>
+<p>Note that it will write one file for each PHP request / process that is executed. So, for example, if you wish to analyze a form post, one profile will be written for the GET request to display the HTML form. The XDEBUG_PROFILE parameter will need to be passed into the subsequent POST request to analyze the second request which processes the form. Therefore when profiling it is sometimes easier to run curl to POST a form directly.
+</p>
+<p>Once written the profile cache can be read by an application such as KCachegrind.
+</p>
+<img class="img" src="/img/196fba890dbbef7fd632bea914aadbc0766302ae.png">
+<p>This will display information including:
+</p>
+  <ul id="1d2d16d4-c45b-4b14-8806-84648a6e7f50" class="bulleted-list">
+    <li>Functions executed
+    </li>
+    <li>Call time, both itself and inclusive of subsequent function calls
+    </li>
+    <li>Number of times each function is called
+    </li>
+    <li>Call graphs
+    </li>
+    <li>Links to source code
+    </li>
+  </ul>
+<p>Obviously performance tuning is very specific to each application’s use cases. In general it’s good to look for:
+</p>
+  <ul id="d6a08c66-78e8-4214-868e-903ab9addc0e" class="bulleted-list">
+    <li>Repeated calls to the same function you wouldn’t expect to see. For functions that process and query data these could be prime opportunities for your application to cache.
+    </li>
+    <li>Slow-running functions. Where is the application spending most of its time? the best payoff in performance tuning is focusing on those parts of the application which consume the most time.
+    </li>
+  </ul>
+<p><em>Note</em>: Xdebug, and in particular its profiling features, are very resource intensive and slow down PHP execution. It is recommended to not run these in a production server environment.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

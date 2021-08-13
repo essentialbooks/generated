@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>For connection, here is a snippet to help you understand:</p>
+      
+<p>For connection, here is a snippet to help you understand:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">//Allows you to enumerate and communicate with connected USB devices.
@@ -145,7 +148,14 @@ if (device != null) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now you have to understand that in java the communication takes place using package javax.smarcard which is not available for Android so take a look here for getting an idea as to how you can communicate or send/receive APDU (smartcard command).</p><p>Now as told in the answer mentioned above</p><p>You cannot simply send an APDU (smartcard command) over the bulk-out endpoint and expect to receive a response APDU over the bulk-in endpoint. For getting the endpoints see the code snippet below :</p>
+</div>
+<p>Now you have to understand that in java the communication takes place using package javax.smarcard which is not available for Android so take a look here for getting an idea as to how you can communicate or send/receive APDU (smartcard command).
+</p>
+<p>Now as told in the answer mentioned above
+</p>
+<p>You cannot simply send an APDU (smartcard command) over the bulk-out endpoint and expect to receive a response APDU over the bulk-in endpoint. For getting the endpoints see the code snippet below :
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">UsbEndpoint epOut = null, epIn = null;
@@ -176,7 +186,12 @@ UsbDeviceConnection connection = mUsbManager.openDevice(device);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now you have the bulk-in and bulk-out endpoints to send and receive APDU command and APDU response blocks:</p><p>For sending commands, see the code snippet below:</p>
+</div>
+<p>Now you have the bulk-in and bulk-out endpoints to send and receive APDU command and APDU response blocks:
+</p>
+<p>For sending commands, see the code snippet below:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public void write(UsbDeviceConnection connection, UsbEndpoint epOut, byte[] command) {
@@ -191,7 +206,10 @@ UsbDeviceConnection connection = mUsbManager.openDevice(device);
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And for receive/ read a response see the code snippet below :</p>
+</div>
+<p>And for receive/ read a response see the code snippet below :
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public int read(UsbDeviceConnection connection, UsbEndpoint epIn) {
@@ -217,7 +235,16 @@ return byteCount;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now if you see this answer here the 1st command to be sent is :</p><p>PC_to_RDR_IccPowerOn command to activate the card.</p><p>which you can create by reading section 6.1.1 of the USB Device Class Specifications doc here.</p><p>Now let’s take an example of this command like the one here: <code>62000000000000000000</code> How you can send this is :</p>
+</div>
+<p>Now if you see this answer here the 1st command to be sent is :
+</p>
+<p>PC_to_RDR_IccPowerOn command to activate the card.
+</p>
+<p>which you can create by reading section 6.1.1 of the USB Device Class Specifications doc here.
+</p>
+<p>Now let’s take an example of this command like the one here: <code>62000000000000000000</code> How you can send this is :
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">write(connection, epOut, &#34;62000000000000000000&#34;);</pre>
@@ -225,7 +252,10 @@ return byteCount;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now after you have successfully sent the APDU command, you can read the response using :</p>
+</div>
+<p>Now after you have successfully sent the APDU command, you can read the response using :
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">read(connection, epIn);</pre>
@@ -233,7 +263,10 @@ return byteCount;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And receive something like</p>
+</div>
+<p>And receive something like
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">80 18000000 00 00 00 00 00 3BBF11008131FE45455041000000000000000000000000F1</pre>
@@ -241,7 +274,9 @@ return byteCount;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now the response received in the code here will be in the <code>result</code> variable of <code>read()</code> method from code</p>
+</div>
+<p>Now the response received in the code here will be in the <code>result</code> variable of <code>read()</code> method from code
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

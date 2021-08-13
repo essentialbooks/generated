@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>When Java annotations were first introduced there was no provision for annotating the target of an instance method or the hidden constructor parameter for an inner classes constructor. This was remedied in Java 8 with addition of <em>receiver parameter</em> declarations; see <a href="http://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8.4.1-220">JLS 8.4.1</a>.</p><blockquote id="37528584-3817-4ff6-99ae-fd1be45de5cb" class="">The receiver parameter is an optional syntactic device for an instance method or an inner class’s constructor. For an instance method, the receiver parameter represents the object for which the method is invoked. For an inner class’s constructor, the receiver parameter represents the immediately enclosing instance of the newly constructed object. Either way, the receiver parameter exists solely to allow the type of the represented object to be denoted in source code, so that the type may be annotated. The receiver parameter is not a formal parameter; more precisely, it is not a declaration of any kind of variable (§4.12.3), it is never bound to any value passed as an argument in a method invocation expression or qualified class instance creation expression, and it has no effect whatsoever at run time.</blockquote><p>The following example illustrates the syntax for both kinds of receiver parameter:</p>
+      
+<p>When Java annotations were first introduced there was no provision for annotating the target of an instance method or the hidden constructor parameter for an inner classes constructor. This was remedied in Java 8 with addition of <em>receiver parameter</em> declarations; see <a href="http://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8.4.1-220">JLS 8.4.1</a>.
+</p>
+<blockquote id="37528584-3817-4ff6-99ae-fd1be45de5cb" class="">The receiver parameter is an optional syntactic device for an instance method or an inner class’s constructor. For an instance method, the receiver parameter represents the object for which the method is invoked. For an inner class’s constructor, the receiver parameter represents the immediately enclosing instance of the newly constructed object. Either way, the receiver parameter exists solely to allow the type of the represented object to be denoted in source code, so that the type may be annotated. The receiver parameter is not a formal parameter; more precisely, it is not a declaration of any kind of variable (§4.12.3), it is never bound to any value passed as an argument in a method invocation expression or qualified class instance creation expression, and it has no effect whatsoever at run time.
+</blockquote>
+<p>The following example illustrates the syntax for both kinds of receiver parameter:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Outer {
@@ -144,7 +151,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The sole purpose of receiver parameters is to allow you to add annotations. For example, you might have a custom annotation <code>@IsOpen</code> whose purpose is to assert that a <code>Closeable</code> object has not been closed when a method is called. For example:</p>
+</div>
+<p>The sole purpose of receiver parameters is to allow you to add annotations. For example, you might have a custom annotation <code>@IsOpen</code> whose purpose is to assert that a <code>Closeable</code> object has not been closed when a method is called. For example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MyResource extends Closeable {
@@ -156,6 +166,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public void close() {
@@ -166,7 +177,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>At one level, the <code>@IsOpen</code> annotation on <code>this</code> could simply serve as documentation. However, we could potentially do more. For example:</p><ul id="4b32be51-8b00-4b22-87c8-51a8473f9ab8" class="bulleted-list"><li>An annotation processor could insert a runtime check that <code>this</code> is not in closed state when <code>update</code> is called.</li><li>A code checker could perform a static code analysis to find cases where <code>this</code> <em>could be</em> closed when <code>update</code> is called.</li></ul>
+</div>
+<p>At one level, the <code>@IsOpen</code> annotation on <code>this</code> could simply serve as documentation. However, we could potentially do more. For example:
+</p>
+  <ul id="4b32be51-8b00-4b22-87c8-51a8473f9ab8" class="bulleted-list">
+    <li>An annotation processor could insert a runtime check that <code>this</code> is not in closed state when <code>update</code> is called.
+    </li>
+    <li>A code checker could perform a static code analysis to find cases where <code>this</code> <em>could be</em> closed when <code>update</code> is called.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

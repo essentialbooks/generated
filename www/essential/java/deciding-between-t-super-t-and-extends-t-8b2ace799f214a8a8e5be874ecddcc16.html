@@ -127,7 +127,28 @@
 </div>
 
 
-      <p>The syntax for Java generics bounded wildcards, representing the unknown type by <code>?</code> is:</p><ul id="a84de673-9c15-4537-aa55-5bb731f6140e" class="bulleted-list"><li><code>? extends T</code> represents an upper bounded wildcard. The unknown type represents a type that must be a subtype of T, or type T itself.</li><li><code>? super T</code> represents a lower bounded wildcard. The unknown type represents a type that must be a supertype of T, or type T itself.</li></ul><p>As a rule of thumb, you should use</p><ul id="2301416e-c364-4a19-a92c-1d5660f60020" class="bulleted-list"><li><code>? extends T</code> if you only need “read” access (“input”)</li><li><code>? super T</code> if you need “write” access (“output”)</li><li><code>T</code> if you need both (“modify”)</li></ul><p>Using <code>extends</code> or <code>super</code> is usually <em>better</em> because it makes your code more flexible (as in: allowing the use of subtypes and supertypes), as you will see below.</p>
+      
+<p>The syntax for Java generics bounded wildcards, representing the unknown type by <code>?</code> is:
+</p>
+  <ul id="a84de673-9c15-4537-aa55-5bb731f6140e" class="bulleted-list">
+    <li><code>? extends T</code> represents an upper bounded wildcard. The unknown type represents a type that must be a subtype of T, or type T itself.
+    </li>
+    <li><code>? super T</code> represents a lower bounded wildcard. The unknown type represents a type that must be a supertype of T, or type T itself.
+    </li>
+  </ul>
+<p>As a rule of thumb, you should use
+</p>
+  <ul id="2301416e-c364-4a19-a92c-1d5660f60020" class="bulleted-list">
+    <li><code>? extends T</code> if you only need “read” access (“input”)
+    </li>
+    <li><code>? super T</code> if you need “write” access (“output”)
+    </li>
+    <li><code>T</code> if you need both (“modify”)
+    </li>
+  </ul>
+<p>Using <code>extends</code> or <code>super</code> is usually <em>better</em> because it makes your code more flexible (as in: allowing the use of subtypes and supertypes), as you will see below.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Shoe {}
@@ -147,7 +168,10 @@ class GrannySmith extends Apple {}
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The compiler will now be able to detect certain bad usage:</p>
+</div>
+<p>The compiler will now be able to detect certain bad usage:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class GenericsTest {
@@ -185,7 +209,15 @@ class GrannySmith extends Apple {}
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Choosing the right <code>T</code>, <code>? super T</code> or <code>? extends T</code> is <em>necessary</em> to allow the use with subtypes. The compiler can then ensure type safety; you should not need to cast (which is not type safe, and may cause programming errors) if you use them properly.</p><p>If it is not easy to understand, please remember <strong>PECS</strong> rule:</p><blockquote id="8df0e90c-f8f8-4b1b-91e5-b570238b4ad8" class="">Producer uses “Extends” and Consumer uses “Super”.</blockquote><p>(Producer has only write access, and Consumer has only read access)</p>
+</div>
+<p>Choosing the right <code>T</code>, <code>? super T</code> or <code>? extends T</code> is <em>necessary</em> to allow the use with subtypes. The compiler can then ensure type safety; you should not need to cast (which is not type safe, and may cause programming errors) if you use them properly.
+</p>
+<p>If it is not easy to understand, please remember <strong>PECS</strong> rule:
+</p>
+<blockquote id="8df0e90c-f8f8-4b1b-91e5-b570238b4ad8" class="">Producer uses “Extends” and Consumer uses “Super”.
+</blockquote>
+<p>(Producer has only write access, and Consumer has only read access)
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

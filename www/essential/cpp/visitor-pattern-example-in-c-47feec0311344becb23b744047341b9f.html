@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Instead of</p>
+      
+<p>Instead of
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct IShape
@@ -143,7 +146,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Visitors can be used:</p>
+</div>
+<p>Visitors can be used:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// The concrete shapes
@@ -169,7 +175,10 @@ struct IShape
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now the concrete shapes:</p>
+</div>
+<p>Now the concrete shapes:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct Point {
@@ -204,7 +213,10 @@ struct Square : IShape
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>then the visitors:</p>
+</div>
+<p>then the visitors:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">struct ShapePrinter : IShapeVisitor
@@ -239,7 +251,10 @@ struct ShapePerimeterComputer : IShapeVisitor
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And use it:</p>
+</div>
+<p>And use it:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">const Square square = {{-1., -1.}, 2.};
@@ -269,7 +284,10 @@ for (const auto* shape : shapes) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Expected output:</p>
+</div>
+<p>Expected output:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Square has an area of 4, and a perimeter of 8
@@ -278,7 +296,31 @@ Circle has an area of 3.14159, and a perimeter of 6.28319</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="http://coliru.stacked-crooked.com/a/4e5a6b0873c32410">Demo</a></p><p><strong>Explanation</strong>:</p><ul id="62af2f65-75de-479b-8895-92c7d7a4ff08" class="bulleted-list"><li>In <code>void Square::accept(IShapeVisitor&amp; visitor) const override { visitor.visit(*this); }</code>, the static type of <code>this</code> is known, and so the chosen (at compile time) overload is <code>void IVisitor::visit(const Square&amp;);</code>.</li><li>For <code>square.accept(visitor);</code> call, the dynamic dispatch through <code>virtual</code> is used to know which <code>accept</code> to call.</li></ul><p><strong>Pros</strong>:</p><ul id="e4dc6c29-067d-4538-b859-421124ac7f25" class="bulleted-list"><li>You may add new functionality (<code>SerializeAsXml</code>, …) to the class <code>IShape</code> just by adding a new visitor.</li></ul><p><strong>Cons</strong>:</p><ul id="173f0f52-77ff-43d9-b526-0f2e93e48b17" class="bulleted-list"><li>Adding a new concrete shape (<code>Triangle</code>, …) requires to modifying all visitors.</li></ul><p>The alternative of putting all functionalities as <code>virtual</code> methods in <code>IShape</code> has opposite pros and cons: Adding new functionality requires to modify all existing shapes, but adding a new shape doesn’t impact existing classes.</p>
+</div>
+<p><a href="http://coliru.stacked-crooked.com/a/4e5a6b0873c32410">Demo</a>
+</p>
+<p><strong>Explanation</strong>:
+</p>
+  <ul id="62af2f65-75de-479b-8895-92c7d7a4ff08" class="bulleted-list">
+    <li>In <code>void Square::accept(IShapeVisitor&amp; visitor) const override { visitor.visit(*this); }</code>, the static type of <code>this</code> is known, and so the chosen (at compile time) overload is <code>void IVisitor::visit(const Square&amp;);</code>.
+    </li>
+    <li>For <code>square.accept(visitor);</code> call, the dynamic dispatch through <code>virtual</code> is used to know which <code>accept</code> to call.
+    </li>
+  </ul>
+<p><strong>Pros</strong>:
+</p>
+  <ul id="e4dc6c29-067d-4538-b859-421124ac7f25" class="bulleted-list">
+    <li>You may add new functionality (<code>SerializeAsXml</code>, …) to the class <code>IShape</code> just by adding a new visitor.
+    </li>
+  </ul>
+<p><strong>Cons</strong>:
+</p>
+  <ul id="173f0f52-77ff-43d9-b526-0f2e93e48b17" class="bulleted-list">
+    <li>Adding a new concrete shape (<code>Triangle</code>, …) requires to modifying all visitors.
+    </li>
+  </ul>
+<p>The alternative of putting all functionalities as <code>virtual</code> methods in <code>IShape</code> has opposite pros and cons: Adding new functionality requires to modify all existing shapes, but adding a new shape doesn’t impact existing classes.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>This design pattern is useful for generating a sequence of asynchronous actions from a list of elements.</p><p>There are two variants :</p><ul id="b68c3818-7558-44f9-9151-c5a1ac61af66" class="bulleted-list"><li>the “then” reduction, which builds a chain that continues as long as the chain experiences success.</li><li>the “catch” reduction, which builds a chain that continues as long as the chain experiences error.</li></ul><p><strong>The “then” reduction</strong></p><p>This variant of the pattern builds a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then"><code>.then()</code></a> chain, and might be used for chaining animations, or making a sequence of dependent HTTP requests.</p>
+      
+<p>This design pattern is useful for generating a sequence of asynchronous actions from a list of elements.
+</p>
+<p>There are two variants :
+</p>
+  <ul id="b68c3818-7558-44f9-9151-c5a1ac61af66" class="bulleted-list">
+    <li>the “then” reduction, which builds a chain that continues as long as the chain experiences success.
+    </li>
+    <li>the “catch” reduction, which builds a chain that continues as long as the chain experiences error.
+    </li>
+  </ul>
+<p><strong>The “then” reduction</strong>
+</p>
+<p>This variant of the pattern builds a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then"><code>.then()</code></a> chain, and might be used for chaining animations, or making a sequence of dependent HTTP requests.
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">].</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">seq</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
@@ -145,7 +160,26 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Explanation:</p><ol id="279b7101-c402-4f6a-82d9-fab276cd65a5" class="numbered-list" start="1"><li>We call <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce"><code>.reduce()</code></a> on a source array, and provide <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve"><code>Promise.resolve()</code></a> as an initial value.</li><li>Every element reduced will add a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then"><code>.then()</code></a> to the initial value.</li><li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce"><code>reduce()</code></a>’s product will be Promise.resolve().then(…).then(…).</li><li>We manually append a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then"><code>.then(successHandler, errorHandler)</code></a> after the reduce, to execute <code>successHandler</code> once all the previous steps have resolved. If any step was to fail, then <code>errorHandler</code> would execute.</li></ol><p>Note: The “then” reduction is a sequential counterpart of <code>Promise.all()</code>.</p><p><strong>The “catch” reduction</strong></p><p>This variant of the pattern builds a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch"><code>.catch()</code></a> chain and might be used for sequentially probing a set of web servers for some mirrored resource until a working server is found.</p>
+</div>
+<p>Explanation:
+</p>
+  <ol id="279b7101-c402-4f6a-82d9-fab276cd65a5" class="numbered-list" start="1">
+    <li>We call <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce"><code>.reduce()</code></a> on a source array, and provide <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve"><code>Promise.resolve()</code></a> as an initial value.
+    </li>
+    <li>Every element reduced will add a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then"><code>.then()</code></a> to the initial value.
+    </li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce"><code>reduce()</code></a>’s product will be Promise.resolve().then(…).then(…).
+    </li>
+    <li>We manually append a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then"><code>.then(successHandler, errorHandler)</code></a> after the reduce, to execute <code>successHandler</code> once all the previous steps have resolved. If any step was to fail, then <code>errorHandler</code> would execute.
+    </li>
+  </ol>
+<p>Note: The “then” reduction is a sequential counterpart of <code>Promise.all()</code>.
+</p>
+<p><strong>The “catch” reduction</strong>
+</p>
+<p>This variant of the pattern builds a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch"><code>.catch()</code></a> chain and might be used for sequentially probing a set of web servers for some mirrored resource until a working server is found.
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">var</span> <span class="nx">working_resource</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="c1">// one of the values from the source array
@@ -168,7 +202,21 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Explanation:</p><ol id="c6857bf3-d650-4b8a-9c88-17f2401be5f1" class="numbered-list" start="1"><li>We call <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce"><code>.reduce()</code></a> on a source array, and provide <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/reject"><code>Promise.reject()</code></a> as an initial value.</li><li>Every element reduced will add a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch"><code>.catch()</code></a> to the initial value.</li><li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce"><code>reduce()</code></a>’s product will be <code>Promise.reject().catch(...).catch(...)</code>.</li><li>We manually append <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then"><code>.then(successHandler, errorHandler)</code></a> after the reduce, to execute <code>successHandler</code> once any of the previous steps has resolved. If all steps were to fail, then <code>errorHandler</code> would execute.</li></ol><p>Note: The “catch” reduction is a sequential counterpart of <code>Promise.any()</code> (as implemented in <a href="(http://bluebirdjs.com/docs/api/promise.any.html)"><code>bluebird.js</code></a>, but not currently in native ECMAScript).</p>
+</div>
+<p>Explanation:
+</p>
+  <ol id="c6857bf3-d650-4b8a-9c88-17f2401be5f1" class="numbered-list" start="1">
+    <li>We call <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce"><code>.reduce()</code></a> on a source array, and provide <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/reject"><code>Promise.reject()</code></a> as an initial value.
+    </li>
+    <li>Every element reduced will add a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch"><code>.catch()</code></a> to the initial value.
+    </li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce"><code>reduce()</code></a>’s product will be <code>Promise.reject().catch(...).catch(...)</code>.
+    </li>
+    <li>We manually append <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then"><code>.then(successHandler, errorHandler)</code></a> after the reduce, to execute <code>successHandler</code> once any of the previous steps has resolved. If all steps were to fail, then <code>errorHandler</code> would execute.
+    </li>
+  </ol>
+<p>Note: The “catch” reduction is a sequential counterpart of <code>Promise.any()</code> (as implemented in <a href="(http://bluebirdjs.com/docs/api/promise.any.html)"><code>bluebird.js</code></a>, but not currently in native ECMAScript).
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The following method will take a second or two depending on your connection to retrieve a web page and count the text length. Whatever thread calls it will block for that period of time. Also it rethrows an exception which is useful later on.</p>
+      
+<p>The following method will take a second or two depending on your connection to retrieve a web page and count the text length. Whatever thread calls it will block for that period of time. Also it rethrows an exception which is useful later on.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public static long blockingGetWebPageLength(String urlString) {
@@ -146,7 +149,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This converts it to a method that will return immediately by moving the blocking method call to another thread. By default the supplyAsync method will run the supplier on the common pool. For a blocking method this is probably not a good choice since one might exhaust the threads in that pool which is why I added the optional service parameter.</p>
+</div>
+<p>This converts it to a method that will return immediately by moving the blocking method call to another thread. By default the supplyAsync method will run the supplier on the common pool. For a blocking method this is probably not a good choice since one might exhaust the threads in that pool which is why I added the optional service parameter.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">static private ExecutorService service = Executors.newCachedThreadPool();
@@ -158,7 +164,10 @@ static public CompletableFuture&lt;Long&gt; asyncGetWebPageLength(String url) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To use the function in an asynchronous fashion one should use on of the methods that accepts a lamda to be called with the result of the of the supplier when it completes such as thenAccept. Also it is important to use exceptionally or handle method to log any exceptions that might have happened.</p>
+</div>
+<p>To use the function in an asynchronous fashion one should use on of the methods that accepts a lamda to be called with the result of the of the supplier when it completes such as thenAccept. Also it is important to use exceptionally or handle method to log any exceptions that might have happened.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public static void main(String[] args) {

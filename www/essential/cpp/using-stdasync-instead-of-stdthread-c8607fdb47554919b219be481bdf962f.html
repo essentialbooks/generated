@@ -127,7 +127,13 @@
 </div>
 
 
-      <p><code>std::async</code> is also able to make threads. Compared to <code>std::thread</code> it is considered less powerful but easier to use when you just want to run a function asynchronously.</p><h2 id="64f9ec2c-160b-4239-a996-6c10216f9123" class="">Asynchronously calling a function<a class="header-anchor" href="#64f9ec2c-160b-4239-a996-6c10216f9123" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+      
+<p><code>std::async</code> is also able to make threads. Compared to <code>std::thread</code> it is considered less powerful but easier to use when you just want to run a function asynchronously.
+</p>
+  <h2 id="64f9ec2c-160b-4239-a996-6c10216f9123" class="">Asynchronously calling a function
+  <a class="header-anchor" href="#64f9ec2c-160b-4239-a996-6c10216f9123" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;future&gt;
@@ -146,7 +152,15 @@ int main() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><h2 id="0bb5e0de-6075-4a55-8e78-d2da2b01a85a" class="">Common Pitfalls<a class="header-anchor" href="#0bb5e0de-6075-4a55-8e78-d2da2b01a85a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><ul id="08ec86e1-81ef-41d2-bcea-b8ec27872f42" class="bulleted-list"><li><code>std::async</code> returns a <code>std::future</code> that holds the return value that will be calculated by the function. When that <code>future</code> gets destroyed it waits until the thread completes, making your code effectively single threaded. This is easily overlooked when you don’t need the return value:</li></ul>
+</div>
+  <h2 id="0bb5e0de-6075-4a55-8e78-d2da2b01a85a" class="">Common Pitfalls
+  <a class="header-anchor" href="#0bb5e0de-6075-4a55-8e78-d2da2b01a85a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+  <ul id="08ec86e1-81ef-41d2-bcea-b8ec27872f42" class="bulleted-list">
+    <li><code>std::async</code> returns a <code>std::future</code> that holds the return value that will be calculated by the function. When that <code>future</code> gets destroyed it waits until the thread completes, making your code effectively single threaded. This is easily overlooked when you don’t need the return value:
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">std::async(std::launch::async, square, 5);
@@ -155,7 +169,15 @@ int main() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="5c6ccab6-c822-4ae6-addc-552532a629b4" class="bulleted-list"><li><code>std::async</code> works without a launch policy, so <code>std::async(square, 5);</code> compiles. When you do that the system gets to decide if it wants to create a thread or not. The idea was that the system chooses to make a thread unless it is already running more threads than it can run efficiently. Unfortunately implementations commonly just choose not to create a thread in that situation, ever, so you need to override that behavior with <code>std::launch::async</code> which forces the system to create a thread.</li><li>Beware of race conditions.</li></ul><p>More on async on <a href="http://stackoverflow.com/documentation/c%2B%2B/9840/futures-and-promises#t=201704281532312052997">Futures and Promises</a></p>
+</div>
+  <ul id="5c6ccab6-c822-4ae6-addc-552532a629b4" class="bulleted-list">
+    <li><code>std::async</code> works without a launch policy, so <code>std::async(square, 5);</code> compiles. When you do that the system gets to decide if it wants to create a thread or not. The idea was that the system chooses to make a thread unless it is already running more threads than it can run efficiently. Unfortunately implementations commonly just choose not to create a thread in that situation, ever, so you need to override that behavior with <code>std::launch::async</code> which forces the system to create a thread.
+    </li>
+    <li>Beware of race conditions.
+    </li>
+  </ul>
+<p>More on async on <a href="http://stackoverflow.com/documentation/c%2B%2B/9840/futures-and-promises#t=201704281532312052997">Futures and Promises</a>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>If you are building a function that may be heavy on the processor (either clientside or serverside) you may want to consider a <strong>memoizer</strong> which is a <em>cache of previous function executions and their returned values</em>. This allows you to check if the parameters of a function were passed before. Remember, pure functions are those that given an input, return a corresponding unique output and don’t cause side-effects outside their scope so, you should not add memoizers to functions that are unpredictable or depend on external resources (like AJAX calls or randomly returned values).</p><p>Let’s say I have a recursive factorial function:</p>
+      
+<p>If you are building a function that may be heavy on the processor (either clientside or serverside) you may want to consider a <strong>memoizer</strong> which is a <em>cache of previous function executions and their returned values</em>. This allows you to check if the parameters of a function were passed before. Remember, pure functions are those that given an input, return a corresponding unique output and don’t cause side-effects outside their scope so, you should not add memoizers to functions that are unpredictable or depend on external resources (like AJAX calls or randomly returned values).
+</p>
+<p>Let’s say I have a recursive factorial function:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">function</span> <span class="nx">fact</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
@@ -138,7 +143,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If I pass small values from 1 to 100 for example, there would be no problem, but once we start going deeper, we might blow up the call stack or make the process a bit painful for the Javascript engine we’re doing this in, especially if the engine doesn’t count with tail-call optimization (although Douglas Crockford says that native ES6 has tail-call optimization included).</p><p>We could hard code our own dictionary from 1 to god-knows-what number with their corresponding factorials but, I’m not sure if I advise that! Let’s create a memoizer, shall we?</p>
+</div>
+<p>If I pass small values from 1 to 100 for example, there would be no problem, but once we start going deeper, we might blow up the call stack or make the process a bit painful for the Javascript engine we’re doing this in, especially if the engine doesn’t count with tail-call optimization (although Douglas Crockford says that native ES6 has tail-call optimization included).
+</p>
+<p>We could hard code our own dictionary from 1 to god-knows-what number with their corresponding factorials but, I’m not sure if I advise that! Let’s create a memoizer, shall we?
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">var</span> <span class="nx">fact</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -178,7 +188,19 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we can start using it:</p><img class="img" src="/img/2b37e86980c55845d078f4bc3809ab017be5730d.png"><p>Now that I start to reflect on what I did, if I were to increment from 1 instead of decrement from <em>num</em>, I could have cached all of the factorials from 1 to <em>num</em> in the cache recursively, but I will leave that for you.</p><p>This is great but what if we have <strong>multiple parameters</strong>? This is a problem? Not quite, we can do some nice tricks like using JSON.stringify() on the arguments array or even a list of values that the function will depend on (for object-oriented approaches). This is done to generate a unique key with all the arguments and dependencies included.</p><p>We can also create a function that “memoizes” other functions, using the same scope concept as before (returning a new function that uses the original and has access to the cache object):</p><p>WARNING: ES6 syntax, if you don’t like it, replace … with nothing and use the <code>var args = Array.prototype.slice.call(null, arguments);</code> trick; replace const and let with var, and the other things you already know.</p>
+</div>
+<p>Now we can start using it:
+</p>
+<img class="img" src="/img/2b37e86980c55845d078f4bc3809ab017be5730d.png">
+<p>Now that I start to reflect on what I did, if I were to increment from 1 instead of decrement from <em>num</em>, I could have cached all of the factorials from 1 to <em>num</em> in the cache recursively, but I will leave that for you.
+</p>
+<p>This is great but what if we have <strong>multiple parameters</strong>? This is a problem? Not quite, we can do some nice tricks like using JSON.stringify() on the arguments array or even a list of values that the function will depend on (for object-oriented approaches). This is done to generate a unique key with all the arguments and dependencies included.
+</p>
+<p>We can also create a function that “memoizes” other functions, using the same scope concept as before (returning a new function that uses the original and has access to the cache object):
+</p>
+<p>WARNING: ES6 syntax, if you don’t like it, replace … with nothing and use the <code>var args = Array.prototype.slice.call(null, arguments);</code> trick; replace const and let with var, and the other things you already know.
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kd">function</span> <span class="nx">memoize</span><span class="p">(</span><span class="nx">func</span><span class="p">)</span> <span class="p">{</span>
@@ -205,7 +227,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now notice that this will work for multiple arguments but won’t be of much use in object-oriented methods I think, you may need an extra object for dependencies. Also, <code>func.apply(null, args)</code> can be replaced with <code>func(...args)</code> since array destructuring will send them separately instead of as an array form. Also, just for reference, passing an array as an argument to func won’t work unless you use <code>Function.prototype.apply</code> as I did.</p><p>To use the above method you just:</p>
+</div>
+<p>Now notice that this will work for multiple arguments but won’t be of much use in object-oriented methods I think, you may need an extra object for dependencies. Also, <code>func.apply(null, args)</code> can be replaced with <code>func(...args)</code> since array destructuring will send them separately instead of as an array form. Also, just for reference, passing an array as an argument to func won’t work unless you use <code>Function.prototype.apply</code> as I did.
+</p>
+<p>To use the above method you just:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kr">const</span> <span class="nx">newFunction</span> <span class="o">=</span> <span class="nx">memoize</span><span class="p">(</span><span class="nx">oldFunction</span><span class="p">);</span>

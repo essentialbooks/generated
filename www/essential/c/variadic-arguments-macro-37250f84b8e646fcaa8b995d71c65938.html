@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Macros with variadic args:</p><p>Let’s say you want to create some print-macro for debugging your code, let’s take this macro as an example:</p>
+      
+<p>Macros with variadic args:
+</p>
+<p>Let’s say you want to create some print-macro for debugging your code, let’s take this macro as an example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define debug_print(msg) printf(&#34;%s:%d %s&#34;, __FILE__, __LINE__, msg)</pre>
@@ -135,7 +140,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Some examples of usage:</p><p>The function <code>somefunc()</code> returns -1 if failed and 0 if succeeded, and it is called from plenty different places within the code:</p>
+</div>
+<p>Some examples of usage:
+</p>
+<p>The function <code>somefunc()</code> returns -1 if failed and 0 if succeeded, and it is called from plenty different places within the code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int retVal = somefunc();
@@ -157,7 +167,10 @@ if(retVal == -1)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>What happens if the implementation of <code>somefunc()</code> changes, and it now returns different values matching different possible error types? You still want use the debug macro and print the error value.</p>
+</div>
+<p>What happens if the implementation of <code>somefunc()</code> changes, and it now returns different values matching different possible error types? You still want use the debug macro and print the error value.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">debug_printf(retVal);      /* this would obviously fail */
@@ -166,7 +179,12 @@ debug_printf(&#34;%d&#34;,retVal); /* this would also fail */</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To solve this problem the <code>__VA_ARGS__</code> macro was introduced. This macro allows multiple parameters X-macro’s:</p><p>Example:</p>
+</div>
+<p>To solve this problem the <code>__VA_ARGS__</code> macro was introduced. This macro allows multiple parameters X-macro’s:
+</p>
+<p>Example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define debug_print(msg, ...) printf(msg, __VA_ARGS__) \
@@ -175,7 +193,10 @@ debug_printf(&#34;%d&#34;,retVal); /* this would also fail */</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Usage:</p>
+</div>
+<p>Usage:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int retVal = somefunc();
@@ -185,7 +206,10 @@ debug_print(&#34;retVal of somefunc() is-&gt; %d&#34;, retVal);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This macro allows you to pass multiple parameters and print them, but now it forbids you from sending any parameters at all.</p>
+</div>
+<p>This macro allows you to pass multiple parameters and print them, but now it forbids you from sending any parameters at all.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">debug_print(&#34;Hey&#34;);</pre>
@@ -193,7 +217,14 @@ debug_print(&#34;retVal of somefunc() is-&gt; %d&#34;, retVal);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This would raise some syntax error as the macro expects at least one more argument and the pre-processor would not ignore the lack of comma in the <code>debug_print()</code> macro. Also <code>debug_print(&quot;Hey&quot;,);</code> would raise a syntax error as you cant keep the argument passed to macro empty.</p><p>To solve this, <code>##__VA_ARGS__</code> macro was introduced, this macro states that if no variable arguments exist, the comma is deleted by the pre-processor from code.</p><p>Example:</p>
+</div>
+<p>This would raise some syntax error as the macro expects at least one more argument and the pre-processor would not ignore the lack of comma in the <code>debug_print()</code> macro. Also <code>debug_print(&quot;Hey&quot;,);</code> would raise a syntax error as you cant keep the argument passed to macro empty.
+</p>
+<p>To solve this, <code>##__VA_ARGS__</code> macro was introduced, this macro states that if no variable arguments exist, the comma is deleted by the pre-processor from code.
+</p>
+<p>Example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#define debug_print(msg, ...) printf(msg, ##__VA_ARGS__) \
@@ -202,7 +233,10 @@ debug_print(&#34;retVal of somefunc() is-&gt; %d&#34;, retVal);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Usage:</p>
+</div>
+<p>Usage:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">debug_print(&#34;Ret val of somefunc()?&#34;);

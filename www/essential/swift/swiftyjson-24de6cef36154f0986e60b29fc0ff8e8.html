@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>SwiftyJSON is a Swift framework built to remove the need for optional chaining in normal JSON serialization.</p><p>You can download it here: https://github.com/SwiftyJSON/SwiftyJSON</p><p>Without SwiftyJSON, your code would look like this to find the name of the first book in a JSON object:</p>
+      
+<p>SwiftyJSON is a Swift framework built to remove the need for optional chaining in normal JSON serialization.
+</p>
+<p>You can download it here: https://github.com/SwiftyJSON/SwiftyJSON
+</p>
+<p>Without SwiftyJSON, your code would look like this to find the name of the first book in a JSON object:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if let jsonObject = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as? [[String: AnyObject]],
@@ -138,7 +145,10 @@ let bookName = (jsonObject[0][&#34;book&#34;] as? [String: AnyObject])?[&#34;nam
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In SwiftyJSON, this is hugely simplified:</p>
+</div>
+<p>In SwiftyJSON, this is hugely simplified:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let json = JSON(data: data)
@@ -149,7 +159,12 @@ if let bookName = json[0][&#34;book&#34;][&#34;name&#34;].string {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It removes the need to check every field, as it will return nil if any of them are invalid.</p><p>To use SwiftyJSON, download the correct version from the Git repository - there is a branch for Swift 3. Simply drag the “SwiftyJSON.swift” into your project and import into your class:</p>
+</div>
+<p>It removes the need to check every field, as it will return nil if any of them are invalid.
+</p>
+<p>To use SwiftyJSON, download the correct version from the Git repository - there is a branch for Swift 3. Simply drag the “SwiftyJSON.swift” into your project and import into your class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import SwiftyJSON</pre>
@@ -157,7 +172,10 @@ if let bookName = json[0][&#34;book&#34;][&#34;name&#34;].string {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can create your JSON object using the following two initializers:</p>
+</div>
+<p>You can create your JSON object using the following two initializers:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let jsonObject = JSON(data: dataObject)</pre>
@@ -165,7 +183,10 @@ if let bookName = json[0][&#34;book&#34;][&#34;name&#34;].string {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>or</p>
+</div>
+<p>or
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let jsonObject = JSON(jsonObject) //This could be a string in a JSON format for example</pre>
@@ -173,7 +194,10 @@ if let bookName = json[0][&#34;book&#34;][&#34;name&#34;].string {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To access your data, use subscripts:</p>
+</div>
+<p>To access your data, use subscripts:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let firstObjectInAnArray = jsonObject[0]
@@ -182,7 +206,10 @@ let nameOfFirstObject = jsonObject[0][&#34;name&#34;]</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can then parse your value to a certain data type, which will return an optional value:</p>
+</div>
+<p>You can then parse your value to a certain data type, which will return an optional value:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let nameOfFirstObject = jsonObject[0][&#34;name&#34;].string //This will return the name as a string
@@ -192,7 +219,10 @@ let nameOfFirstObject = jsonObject[0][&#34;name&#34;].double //This will return 
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You can also compile your paths into a swift Array:</p>
+</div>
+<p>You can also compile your paths into a swift Array:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let convolutedPath = jsonObject[0][&#34;name&#34;][2][&#34;lastName&#34;][&#34;firstLetter&#34;].string</pre>
@@ -200,7 +230,10 @@ let nameOfFirstObject = jsonObject[0][&#34;name&#34;].double //This will return 
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Is the same as:</p>
+</div>
+<p>Is the same as:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let convolutedPath = jsonObject[0, &#34;name&#34;, 2, &#34;lastName&#34;, &#34;firstLetter&#34;].string</pre>
@@ -208,7 +241,10 @@ let nameOfFirstObject = jsonObject[0][&#34;name&#34;].double //This will return 
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>SwiftyJSON also has functionality to print its own errors:</p>
+</div>
+<p>SwiftyJSON also has functionality to print its own errors:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if let name = json[1337].string {
@@ -220,7 +256,10 @@ let nameOfFirstObject = jsonObject[0][&#34;name&#34;].double //This will return 
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If you need to write to your JSON object, you can use subscripts again:</p>
+</div>
+<p>If you need to write to your JSON object, you can use subscripts again:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var originalJSON:JSON = [&#34;name&#34;: &#34;Jack&#34;, &#34;age&#34;: 18]
@@ -230,7 +269,10 @@ originalJSON[&#34;surname&#34;] = &#34;Smith&#34; //This creates a new field cal
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Should you need the original String for the JSON, for example if you need to write it to a file, you can get the raw value out:</p>
+</div>
+<p>Should you need the original String for the JSON, for example if you need to write it to a file, you can get the raw value out:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">if let string = json.rawString() { //This is a String object

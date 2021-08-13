@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>As you use generic types with utility classes, you may often find that number types aren’t very helpful when specified as the object types, as they aren’t equal to their primitive counterparts.</p>
+      
+<p>As you use generic types with utility classes, you may often find that number types aren’t very helpful when specified as the object types, as they aren’t equal to their primitive counterparts.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">List&lt;Integer&gt; ints = new ArrayList&lt;Integer&gt;();</pre>
@@ -136,6 +139,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">List&lt;Integer&gt; ints = new ArrayList&lt;&gt;();</pre>
@@ -143,7 +147,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Fortunately, expressions that evaluate to <code>int</code> can be used in place of an <code>Integer</code> when it is needed.</p>
+</div>
+<p>Fortunately, expressions that evaluate to <code>int</code> can be used in place of an <code>Integer</code> when it is needed.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">for (int i = 0; i &lt; 10; i++)
@@ -152,7 +159,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>ints.add(i);</code> statement is equivalent to:</p>
+</div>
+<p>The <code>ints.add(i);</code> statement is equivalent to:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ints.add(Integer.valueOf(i));</pre>
@@ -160,7 +170,30 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And retains properties from <code>Integer#valueOf</code> such as having the same <code>Integer</code> objects cached by the JVM when it is within the number caching range.</p><p>This also applies to:</p><ul id="c08c75d9-9340-4349-8279-3f13cb63a9d7" class="bulleted-list"><li><code>byte</code> and <code>Byte</code></li><li><code>short</code> and <code>Short</code></li><li><code>float</code> and <code>Float</code></li><li><code>double</code> and <code>Double</code></li><li><code>long</code> and <code>Long</code></li><li><code>char</code> and <code>Character</code></li><li><code>boolean</code> and <code>Boolean</code></li></ul><p>Care must be taken, however, in ambiguous situations. Consider the following code:</p>
+</div>
+<p>And retains properties from <code>Integer#valueOf</code> such as having the same <code>Integer</code> objects cached by the JVM when it is within the number caching range.
+</p>
+<p>This also applies to:
+</p>
+  <ul id="c08c75d9-9340-4349-8279-3f13cb63a9d7" class="bulleted-list">
+    <li><code>byte</code> and <code>Byte</code>
+    </li>
+    <li><code>short</code> and <code>Short</code>
+    </li>
+    <li><code>float</code> and <code>Float</code>
+    </li>
+    <li><code>double</code> and <code>Double</code>
+    </li>
+    <li><code>long</code> and <code>Long</code>
+    </li>
+    <li><code>char</code> and <code>Character</code>
+    </li>
+    <li><code>boolean</code> and <code>Boolean</code>
+    </li>
+  </ul>
+<p>Care must be taken, however, in ambiguous situations. Consider the following code:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">List&lt;Integer&gt; ints = new ArrayList&lt;Integer&gt;();
@@ -172,7 +205,12 @@ ints.remove(1); // ints is now [1, 3]</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>java.util.List</code> interface contains both a <code>remove(int index)</code> (<code>List</code> interface method) and a <code>remove(Object o)</code> (method inherited from <code>java.util.Collection</code>). In this case no boxing takes place and <code>remove(int index)</code> is called.</p><p>One more example of strange Java code behavior caused by autoboxing Integers with values in range from <code>-128</code> to <code>127</code>:</p>
+</div>
+<p>The <code>java.util.List</code> interface contains both a <code>remove(int index)</code> (<code>List</code> interface method) and a <code>remove(Object o)</code> (method inherited from <code>java.util.Collection</code>). In this case no boxing takes place and <code>remove(int index)</code> is called.
+</p>
+<p>One more example of strange Java code behavior caused by autoboxing Integers with values in range from <code>-128</code> to <code>127</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Integer a = 127;
@@ -187,7 +225,12 @@ System.out.println(c == d); // false</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This happens because <code>&gt;=</code> operator implicitly calls <code>intValue()</code> which returns <code>int</code> while <code>==</code> compares <strong>references</strong>, not the <code>int</code> values.</p><p>By default, Java caches values in range <code>[-128, 127]</code>, so the operator <code>==</code> works because the <code>Integers</code> in this range reference to the same objects if their values are same. Maximal value of the cacheable range can be defined with <code>-XX:AutoBoxCacheMax</code> JVM option. So, if you run the program with <code>-XX:AutoBoxCacheMax=1000</code>, the following code will print <code>true</code>:</p>
+</div>
+<p>This happens because <code>&gt;=</code> operator implicitly calls <code>intValue()</code> which returns <code>int</code> while <code>==</code> compares <strong>references</strong>, not the <code>int</code> values.
+</p>
+<p>By default, Java caches values in range <code>[-128, 127]</code>, so the operator <code>==</code> works because the <code>Integers</code> in this range reference to the same objects if their values are same. Maximal value of the cacheable range can be defined with <code>-XX:AutoBoxCacheMax</code> JVM option. So, if you run the program with <code>-XX:AutoBoxCacheMax=1000</code>, the following code will print <code>true</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Integer a = 1000;

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>As we know that we should use <code>synchronized</code> keyword to make execution of a method or block exclusive. But few of us may not be aware of one more important aspect of using <code>synchronized</code> and <code>volatile</code> keyword: <em>apart from making a unit of code atomic, it also provides read / write barrier</em>. What is this read / write barrier? Let’s discuss this using an example:</p>
+      
+<p>As we know that we should use <code>synchronized</code> keyword to make execution of a method or block exclusive. But few of us may not be aware of one more important aspect of using <code>synchronized</code> and <code>volatile</code> keyword: <em>apart from making a unit of code atomic, it also provides read / write barrier</em>. What is this read / write barrier? Let’s discuss this using an example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Counter {
@@ -146,7 +149,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Let’s suppose a thread <em>A</em> calls <code>incrementCount()</code> first then another thread <em>B</em> calls <code>getCount()</code>. In this scenario there is no guarantee that B will see updated value of <code>count</code>. It may still see <code>count</code> as <code>10</code>, even it is also possible that it never sees updated value of <code>count</code> ever.</p><p>To understand this behavior we need to understand how Java memory model integrates with hardware architecture. In Java, each thread has it’s own thread stack. This stack contains: method call stack and local variable created in that thread. In a multi core system, it is quite possible that two threads are running concurrently in separate cores. In such scenario it is possible that part of a thread’s stack lies inside register / cache of a core. If inside a thread, an object is accessed using <code>synchronized</code> (or <code>volatile</code>) keyword, after <code>synchronized</code> block that thread syncs it’s local copy of that variable with the main memory. This creates a read / write barrier and makes sure that the thread is seeing the latest value of that object.</p><p>But in our case, since thread B has not used synchronized access to <code>count</code>, it might be refering value of <code>count</code> stored in register and may never see updates from thread A. To make sure that B sees latest value of count we need to make <code>getCount()</code> synchronized as well.</p>
+</div>
+<p>Let’s suppose a thread <em>A</em> calls <code>incrementCount()</code> first then another thread <em>B</em> calls <code>getCount()</code>. In this scenario there is no guarantee that B will see updated value of <code>count</code>. It may still see <code>count</code> as <code>10</code>, even it is also possible that it never sees updated value of <code>count</code> ever.
+</p>
+<p>To understand this behavior we need to understand how Java memory model integrates with hardware architecture. In Java, each thread has it’s own thread stack. This stack contains: method call stack and local variable created in that thread. In a multi core system, it is quite possible that two threads are running concurrently in separate cores. In such scenario it is possible that part of a thread’s stack lies inside register / cache of a core. If inside a thread, an object is accessed using <code>synchronized</code> (or <code>volatile</code>) keyword, after <code>synchronized</code> block that thread syncs it’s local copy of that variable with the main memory. This creates a read / write barrier and makes sure that the thread is seeing the latest value of that object.
+</p>
+<p>But in our case, since thread B has not used synchronized access to <code>count</code>, it might be refering value of <code>count</code> stored in register and may never see updates from thread A. To make sure that B sees latest value of count we need to make <code>getCount()</code> synchronized as well.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public synchronized Integer getCount() {
@@ -156,7 +166,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now when thread A is done with updating <code>count</code> it unlocks <code>Counter</code> instance, at the same time creates write barrier and flushes all changes done inside that block to the main memory. Similarly when thread B acquires lock on the same instance of <code>Counter</code>, it enters into read barrier and reads value of <code>count</code> from main memory and sees all updates.</p><img class="img" src="/img/4a0bc00947201a7a617dfaea7a3501f80eb454fc.png"><p>Same visibility effect goes for <code>volatile</code> read / writes as well. All variables updated prior to write to <code>volatile</code> will be flushed to main memory and all reads after <code>volatile</code> variable read will be from main memory.</p>
+</div>
+<p>Now when thread A is done with updating <code>count</code> it unlocks <code>Counter</code> instance, at the same time creates write barrier and flushes all changes done inside that block to the main memory. Similarly when thread B acquires lock on the same instance of <code>Counter</code>, it enters into read barrier and reads value of <code>count</code> from main memory and sees all updates.
+</p>
+<img class="img" src="/img/4a0bc00947201a7a617dfaea7a3501f80eb454fc.png">
+<p>Same visibility effect goes for <code>volatile</code> read / writes as well. All variables updated prior to write to <code>volatile</code> will be flushed to main memory and all reads after <code>volatile</code> variable read will be from main memory.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

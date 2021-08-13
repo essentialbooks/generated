@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>Java <code>ThreadLocal</code> is used to create thread local variables. It is known that threads of an Object share it’s variables, so the variable is not thread safe. We can use synchronization for thread safety but if we want to avoid synchronization,ThreadLocal allows us to create variables which are local to the thread, i.e. only that thread can read or write to those variables, so the other threads executing the same piece of code will not be able to access each others ThreadLocal variables.</p><p>This can be usedwe can use <code>ThreadLocal</code> variables. in situations where you have a thread pool like for example in a web service. For example, Creating a <code>SimpleDateFormat</code> object every time for every request is time consuming and a Static one cannot be created as <code>SimpleDateFormat</code> is not thread safe, so we can create a ThreadLocal so that we can perform thread safe operations without the overhead of creating <code>SimpleDateFormat</code> every time.</p><p>The below piece of code shows how it can be used:</p><p>Every thread has it’s own <code>ThreadLocal</code> variable and they can use it’s <code>get()</code> and <code>set()</code> methods to get the default value or change it’s value local to Thread.</p><p><code>ThreadLocal</code> instances are typically private static fields in classes that wish to associate state with a thread.</p><p>Here is a small example showing use of ThreadLocal in java program and proving that every thread has it’s own copy of <code>ThreadLocal</code> variable.</p>
+      
+<p>Java <code>ThreadLocal</code> is used to create thread local variables. It is known that threads of an Object share it’s variables, so the variable is not thread safe. We can use synchronization for thread safety but if we want to avoid synchronization,ThreadLocal allows us to create variables which are local to the thread, i.e. only that thread can read or write to those variables, so the other threads executing the same piece of code will not be able to access each others ThreadLocal variables.
+</p>
+<p>This can be usedwe can use <code>ThreadLocal</code> variables. in situations where you have a thread pool like for example in a web service. For example, Creating a <code>SimpleDateFormat</code> object every time for every request is time consuming and a Static one cannot be created as <code>SimpleDateFormat</code> is not thread safe, so we can create a ThreadLocal so that we can perform thread safe operations without the overhead of creating <code>SimpleDateFormat</code> every time.
+</p>
+<p>The below piece of code shows how it can be used:
+</p>
+<p>Every thread has it’s own <code>ThreadLocal</code> variable and they can use it’s <code>get()</code> and <code>set()</code> methods to get the default value or change it’s value local to Thread.
+</p>
+<p><code>ThreadLocal</code> instances are typically private static fields in classes that wish to associate state with a thread.
+</p>
+<p>Here is a small example showing use of ThreadLocal in java program and proving that every thread has it’s own copy of <code>ThreadLocal</code> variable.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"><span class="kn">package</span> <span class="nx">com</span><span class="p">.</span><span class="nx">examples</span><span class="p">.</span><span class="nx">threads</span><span class="p">;</span>
@@ -175,7 +188,51 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Output:</strong></p><p><code>Thread Name= 0 default Formatter = yyyyMMdd HHmm</code></p><p><code>Thread Name= 1 default Formatter = yyyyMMdd HHmm</code></p><p><code>Thread Name= 0 formatter = M/d/yy h:mm a</code></p><p><code>Thread Name= 2 default Formatter = yyyyMMdd HHmm</code></p><p><code>Thread Name= 1 formatter = M/d/yy h:mm a</code></p><p><code>Thread Name= 3 default Formatter = yyyyMMdd HHmm</code></p><p><code>Thread Name= 4 default Formatter = yyyyMMdd HHmm</code></p><p><code>Thread Name= 4 formatter = M/d/yy h:mm a</code></p><p><code>Thread Name= 5 default Formatter = yyyyMMdd HHmm</code></p><p><code>Thread Name= 2 formatter = M/d/yy h:mm a</code></p><p><code>Thread Name= 3 formatter = M/d/yy h:mm a</code></p><p><code>Thread Name= 6 default Formatter = yyyyMMdd HHmm</code></p><p><code>Thread Name= 5 formatter = M/d/yy h:mm a</code></p><p><code>Thread Name= 6 formatter = M/d/yy h:mm a</code></p><p><code>Thread Name= 7 default Formatter = yyyyMMdd HHmm</code></p><p><code>Thread Name= 8 default Formatter = yyyyMMdd HHmm</code></p><p><code>Thread Name= 8 formatter = M/d/yy h:mm a</code></p><p><code>Thread Name= 7 formatter = M/d/yy h:mm a</code></p><p><code>Thread Name= 9 default Formatter = yyyyMMdd HHmm</code></p><p><code>Thread Name= 9 formatter = M/d/yy h:mm a</code></p><p>As we can see from the output that Thread-0 has changed the value of formatter but still thread-2 default formatter is same as the initialized value.</p>
+</div>
+<p><strong>Output:</strong>
+</p>
+<p><code>Thread Name= 0 default Formatter = yyyyMMdd HHmm</code>
+</p>
+<p><code>Thread Name= 1 default Formatter = yyyyMMdd HHmm</code>
+</p>
+<p><code>Thread Name= 0 formatter = M/d/yy h:mm a</code>
+</p>
+<p><code>Thread Name= 2 default Formatter = yyyyMMdd HHmm</code>
+</p>
+<p><code>Thread Name= 1 formatter = M/d/yy h:mm a</code>
+</p>
+<p><code>Thread Name= 3 default Formatter = yyyyMMdd HHmm</code>
+</p>
+<p><code>Thread Name= 4 default Formatter = yyyyMMdd HHmm</code>
+</p>
+<p><code>Thread Name= 4 formatter = M/d/yy h:mm a</code>
+</p>
+<p><code>Thread Name= 5 default Formatter = yyyyMMdd HHmm</code>
+</p>
+<p><code>Thread Name= 2 formatter = M/d/yy h:mm a</code>
+</p>
+<p><code>Thread Name= 3 formatter = M/d/yy h:mm a</code>
+</p>
+<p><code>Thread Name= 6 default Formatter = yyyyMMdd HHmm</code>
+</p>
+<p><code>Thread Name= 5 formatter = M/d/yy h:mm a</code>
+</p>
+<p><code>Thread Name= 6 formatter = M/d/yy h:mm a</code>
+</p>
+<p><code>Thread Name= 7 default Formatter = yyyyMMdd HHmm</code>
+</p>
+<p><code>Thread Name= 8 default Formatter = yyyyMMdd HHmm</code>
+</p>
+<p><code>Thread Name= 8 formatter = M/d/yy h:mm a</code>
+</p>
+<p><code>Thread Name= 7 formatter = M/d/yy h:mm a</code>
+</p>
+<p><code>Thread Name= 9 default Formatter = yyyyMMdd HHmm</code>
+</p>
+<p><code>Thread Name= 9 formatter = M/d/yy h:mm a</code>
+</p>
+<p>As we can see from the output that Thread-0 has changed the value of formatter but still thread-2 default formatter is same as the initialized value.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

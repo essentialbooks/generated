@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>Take a use case, like a chat app or a collaborative grocery list app (that basically requires a list of objects to be synced across users). If you use firebase database and add a value event listener to the chat parent node or grocery list parent node, you will end with entire chat structure from the beginning of time (i meant beginning of your chat) every time a chat node is added (i.e. anyone says hi). That we don’t want to do, what we are interested in is only the new node or only the old node that got deleted or modified, the unchanged ones should not be returned.</p><p>In this case we can use <a href="https://firebase.google.com/docs/reference/android/com/google/firebase/database/ChildEventListener">ChildEvenListener</a>. Without any further adieu, here is code sample (see prev sections for sample JSON data):</p>
+      
+<p>Take a use case, like a chat app or a collaborative grocery list app (that basically requires a list of objects to be synced across users). If you use firebase database and add a value event listener to the chat parent node or grocery list parent node, you will end with entire chat structure from the beginning of time (i meant beginning of your chat) every time a chat node is added (i.e. anyone says hi). That we don’t want to do, what we are interested in is only the new node or only the old node that got deleted or modified, the unchanged ones should not be returned.
+</p>
+<p>In this case we can use <a href="https://firebase.google.com/docs/reference/android/com/google/firebase/database/ChildEventListener">ChildEvenListener</a>. Without any further adieu, here is code sample (see prev sections for sample JSON data):
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">userDBRef.addChildEventListener(new ChildEventListener() {
@@ -155,7 +160,13 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Method names are self explanatory. As you can see whenever a new user is added or some property of existing user is modified or user is deleted or removed appropriate callback method of child event listener is called with relevant data. So if you are keeping UI refreshed for say chat app, get the JSON from onChildAdded() parse into POJO and fit it in your UI. Just remember to remove your listener when user leaves the screen.</p><p>onChildChanged() gives the entire child value with changed properties (new ones).</p><p>onChiledRemoved() returns the removed child node.</p>
+</div>
+<p>Method names are self explanatory. As you can see whenever a new user is added or some property of existing user is modified or user is deleted or removed appropriate callback method of child event listener is called with relevant data. So if you are keeping UI refreshed for say chat app, get the JSON from onChildAdded() parse into POJO and fit it in your UI. Just remember to remove your listener when user leaves the screen.
+</p>
+<p>onChildChanged() gives the entire child value with changed properties (new ones).
+</p>
+<p>onChiledRemoved() returns the removed child node.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,28 @@
 </div>
 
 
-      <p>From the <a href="https://github.com/ReactiveX/RxJava">GitHub repo</a> of RxJava, <em>RxJava is a Java VM implementation of Reactive Extensions: a library for composing asynchronous and event-based programs by using observable sequences. It extends the observer pattern to support sequences of data/events and adds operators that allow you to compose sequences together declaratively while abstracting away concerns about things like low-level threading, synchronisation, thread-safety and concurrent data structures.</em></p><p><a href="http://square.github.io/retrofit/">Retrofit</a> is a type-safe HTTP client for Android and Java, using this, developers can make all network stuff much more easier. As an example, we are going to download some JSON and show it in RecyclerView as a list.</p><p><strong>Getting started:</strong></p><p>Add RxJava, RxAndroid and Retrofit dependencies in your app level build.gradle file: <code>compile &quot;io.reactivex:rxjava:1.1.6&quot;</code></p><p><code>compile &quot;io.reactivex:rxandroid:1.2.1&quot;</code></p><p><code>compile &quot;com.squareup.retrofit2:adapter-rxjava:2.0.2&quot;</code></p><p><code>compile &quot;com.google.code.gson:gson:2.6.2&quot;</code></p><p><code>compile &quot;com.squareup.retrofit2:retrofit:2.0.2&quot;</code></p><p><code>compile &quot;com.squareup.retrofit2:converter-gson:2.0.2&quot;</code></p><p><strong>Define ApiClient and ApiInterface to exchange data from server</strong></p>
+      
+<p>From the <a href="https://github.com/ReactiveX/RxJava">GitHub repo</a> of RxJava, <em>RxJava is a Java VM implementation of Reactive Extensions: a library for composing asynchronous and event-based programs by using observable sequences. It extends the observer pattern to support sequences of data/events and adds operators that allow you to compose sequences together declaratively while abstracting away concerns about things like low-level threading, synchronisation, thread-safety and concurrent data structures.</em>
+</p>
+<p><a href="http://square.github.io/retrofit/">Retrofit</a> is a type-safe HTTP client for Android and Java, using this, developers can make all network stuff much more easier. As an example, we are going to download some JSON and show it in RecyclerView as a list.
+</p>
+<p><strong>Getting started:</strong>
+</p>
+<p>Add RxJava, RxAndroid and Retrofit dependencies in your app level build.gradle file: <code>compile &quot;io.reactivex:rxjava:1.1.6&quot;</code>
+</p>
+<p><code>compile &quot;io.reactivex:rxandroid:1.2.1&quot;</code>
+</p>
+<p><code>compile &quot;com.squareup.retrofit2:adapter-rxjava:2.0.2&quot;</code>
+</p>
+<p><code>compile &quot;com.google.code.gson:gson:2.6.2&quot;</code>
+</p>
+<p><code>compile &quot;com.squareup.retrofit2:retrofit:2.0.2&quot;</code>
+</p>
+<p><code>compile &quot;com.squareup.retrofit2:converter-gson:2.0.2&quot;</code>
+</p>
+<p><strong>Define ApiClient and ApiInterface to exchange data from server</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class ApiClient {
@@ -161,7 +182,10 @@ public static String getBaseUrl() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>public interface ApiInterface {</p>
+</div>
+<p>public interface ApiInterface {
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@GET(&#34;repos/{org}/{repo}/issues&#34;)
@@ -172,7 +196,14 @@ Observable&lt;List&lt;Issue&gt;&gt; getIssues(@Path(&#34;org&#34;) String organi
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note the getRepos() is returning an Observable and not just a list of issues.</p><p><strong>Define the models</strong></p><p>An example for this is shown. You can use free services like <a href="http://www.jsonschema2pojo.org/">JsonSchema2Pojo</a> or this.</p>
+</div>
+<p>Note the getRepos() is returning an Observable and not just a list of issues.
+</p>
+<p><strong>Define the models</strong>
+</p>
+<p>An example for this is shown. You can use free services like <a href="http://www.jsonschema2pojo.org/">JsonSchema2Pojo</a> or this.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Comment {
@@ -190,7 +221,14 @@ private String htmlUrl;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Create Retrofit instance</strong></p><p><code>ApiInterface apiService = ApiClient.getInstance().create(ApiInterface.class);</code></p><p><strong>Then, Use this instance to fetch data from server</strong></p>
+</div>
+<p><strong>Create Retrofit instance</strong>
+</p>
+<p><code>ApiInterface apiService = ApiClient.getInstance().create(ApiInterface.class);</code>
+</p>
+<p><strong>Then, Use this instance to fetch data from server</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Observable&lt;List&lt;Issue&gt;&gt; issueObservable = apiService.getIssues(org, repo,                 pageNumber);
@@ -217,7 +255,9 @@ private String htmlUrl;
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, you have successfully fetched data from a server using Retrofit and RxJava.</p>
+</div>
+<p>Now, you have successfully fetched data from a server using Retrofit and RxJava.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

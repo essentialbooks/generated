@@ -127,7 +127,40 @@
 </div>
 
 
-      <p>A transaction is a sequential group of SQL statements such as select,insert,update or delete, which is performed as one single work unit.</p><p>In other words, a transaction will never be complete unless each individual operation within the group is successful. If any operation within the transaction fails, the entire transaction will fail.</p><p>Bank transaction will be best example for explaining this. Consider a transfer between two accounts. To achieve this you have to write SQL statements that do the following</p><ol id="6cc781e7-0ade-4217-a6e1-6081c696a309" class="numbered-list" start="1"><li>Check the availability of requested amount in the first account</li><li>Deduct requested amount from first account</li><li>Deposit it in second account</li></ol><p>If anyone these process fails, the whole should be reverted to their previous state.</p><p><em><strong>ACID : Properties of Transactions</strong></em></p><p>Transactions have the following four standard properties</p><ul id="f3da584c-175a-4869-8d22-19dbeba1e135" class="bulleted-list"><li><strong>Atomicity:</strong> ensures that all operations within the work unit are completed successfully; otherwise, the transaction is aborted at the point of failure, and previous operations are rolled back to their former state.</li><li><strong>Consistency:</strong> ensures that the database properly changes states upon a successfully committed transaction.</li><li><strong>Isolation:</strong> enables transactions to operate independently of and transparent to each other.</li><li><strong>Durability:</strong> ensures that the result or effect of a committed transaction persists in case of a system failure.</li></ul><p>Transactions begin with the statement <code>START TRANSACTION</code> or <code>BEGIN WORK</code> and end with either a <code>COMMIT</code> or a <code>ROLLBACK</code> statement. The SQL commands between the beginning and ending statements form the bulk of the transaction.</p>
+      
+<p>A transaction is a sequential group of SQL statements such as select,insert,update or delete, which is performed as one single work unit.
+</p>
+<p>In other words, a transaction will never be complete unless each individual operation within the group is successful. If any operation within the transaction fails, the entire transaction will fail.
+</p>
+<p>Bank transaction will be best example for explaining this. Consider a transfer between two accounts. To achieve this you have to write SQL statements that do the following
+</p>
+  <ol id="6cc781e7-0ade-4217-a6e1-6081c696a309" class="numbered-list" start="1">
+    <li>Check the availability of requested amount in the first account
+    </li>
+    <li>Deduct requested amount from first account
+    </li>
+    <li>Deposit it in second account
+    </li>
+  </ol>
+<p>If anyone these process fails, the whole should be reverted to their previous state.
+</p>
+<p><em><strong>ACID : Properties of Transactions</strong></em>
+</p>
+<p>Transactions have the following four standard properties
+</p>
+  <ul id="f3da584c-175a-4869-8d22-19dbeba1e135" class="bulleted-list">
+    <li><strong>Atomicity:</strong> ensures that all operations within the work unit are completed successfully; otherwise, the transaction is aborted at the point of failure, and previous operations are rolled back to their former state.
+    </li>
+    <li><strong>Consistency:</strong> ensures that the database properly changes states upon a successfully committed transaction.
+    </li>
+    <li><strong>Isolation:</strong> enables transactions to operate independently of and transparent to each other.
+    </li>
+    <li><strong>Durability:</strong> ensures that the result or effect of a committed transaction persists in case of a system failure.
+    </li>
+  </ul>
+<p>Transactions begin with the statement <code>START TRANSACTION</code> or <code>BEGIN WORK</code> and end with either a <code>COMMIT</code> or a <code>ROLLBACK</code> statement. The SQL commands between the beginning and ending statements form the bulk of the transaction.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">START TRANSACTION;
@@ -140,7 +173,27 @@ COMMIT;</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With <code>START TRANSACTION</code>, autocommit remains disabled until you end the transaction with <code>COMMIT</code> or <code>ROLLBACK</code>. The autocommit mode then reverts to its previous state.</p><p>The <code>FOR UPDATE</code> indicates (and locks) the row(s) for the duration of the transaction.</p><p>While the transaction remains uncommitted, this transaction will not be available for others users.</p><p><strong>General Procedures involved in Transaction</strong></p><ul id="e173e163-ae44-4888-8ec4-6e312da82d7d" class="bulleted-list"><li>Begin transaction by issuing SQL command <code>BEGIN WORK</code> or <code>START TRANSACTION</code>.</li><li>Run all your SQL statements.</li><li>Check whether everything is executed according to your requirement.</li><li>If yes, then issue <code>COMMIT</code> command, otherwise issue a <code>ROLLBACK</code> command to revert everything to the previous state.</li><li>Check for errors even after <code>COMMIT</code> if you are using, or might eventually use, Galera/PXC.</li></ul>
+</div>
+<p>With <code>START TRANSACTION</code>, autocommit remains disabled until you end the transaction with <code>COMMIT</code> or <code>ROLLBACK</code>. The autocommit mode then reverts to its previous state.
+</p>
+<p>The <code>FOR UPDATE</code> indicates (and locks) the row(s) for the duration of the transaction.
+</p>
+<p>While the transaction remains uncommitted, this transaction will not be available for others users.
+</p>
+<p><strong>General Procedures involved in Transaction</strong>
+</p>
+  <ul id="e173e163-ae44-4888-8ec4-6e312da82d7d" class="bulleted-list">
+    <li>Begin transaction by issuing SQL command <code>BEGIN WORK</code> or <code>START TRANSACTION</code>.
+    </li>
+    <li>Run all your SQL statements.
+    </li>
+    <li>Check whether everything is executed according to your requirement.
+    </li>
+    <li>If yes, then issue <code>COMMIT</code> command, otherwise issue a <code>ROLLBACK</code> command to revert everything to the previous state.
+    </li>
+    <li>Check for errors even after <code>COMMIT</code> if you are using, or might eventually use, Galera/PXC.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

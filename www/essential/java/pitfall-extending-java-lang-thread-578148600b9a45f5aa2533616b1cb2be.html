@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>The javadoc for the <code>Thread</code> class shows two ways to define and use a thread:</p><p>Using a custom thread class:</p>
+      
+<p>The javadoc for the <code>Thread</code> class shows two ways to define and use a thread:
+</p>
+<p>Using a custom thread class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class PrimeThread extends Thread {
@@ -148,7 +153,10 @@ p.start();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Using a <code>Runnable</code>:</p>
+</div>
+<p>Using a <code>Runnable</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class PrimeRun implements Runnable {
@@ -169,7 +177,20 @@ new Thread(p).start();</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>(Source: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html"><code>java.lang.Thread</code></a><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html"> javadoc</a>.)</p><p>The custom thread class approach works, but it has a few problems:</p><ol id="534aad5b-15de-44b5-8d2d-2bf65ca88b68" class="numbered-list" start="1"><li>It is awkward to use <code>PrimeThread</code> in a context that uses a classic thread pool, an executor, or the ForkJoin framework. (It is not impossible, because <code>PrimeThread</code> indirectly implements <code>Runnable</code>, but using a custom <code>Thread</code> class as a <code>Runnable</code> is certainly clumsy, and may not be viable … depending on other aspects of the class.)</li><li>There is more opportunity for mistakes in other methods. For example, if you declared a <code>PrimeThread.start()</code> without delegating to <code>Thread.start()</code>, you would end up with a “thread” that ran on the current thread.</li></ol><p>The approach of putting the thread logic into a <code>Runnable</code> avoids these problems. Indeed, if you use an anonymous class (Java 1.1 onwards) to implement the <code>Runnable</code> the result is more succinct, and more readable than the examples above.</p>
+</div>
+<p>(Source: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html"><code>java.lang.Thread</code></a><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html"> javadoc</a>.)
+</p>
+<p>The custom thread class approach works, but it has a few problems:
+</p>
+  <ol id="534aad5b-15de-44b5-8d2d-2bf65ca88b68" class="numbered-list" start="1">
+    <li>It is awkward to use <code>PrimeThread</code> in a context that uses a classic thread pool, an executor, or the ForkJoin framework. (It is not impossible, because <code>PrimeThread</code> indirectly implements <code>Runnable</code>, but using a custom <code>Thread</code> class as a <code>Runnable</code> is certainly clumsy, and may not be viable … depending on other aspects of the class.)
+    </li>
+    <li>There is more opportunity for mistakes in other methods. For example, if you declared a <code>PrimeThread.start()</code> without delegating to <code>Thread.start()</code>, you would end up with a “thread” that ran on the current thread.
+    </li>
+  </ol>
+<p>The approach of putting the thread logic into a <code>Runnable</code> avoids these problems. Indeed, if you use an anonymous class (Java 1.1 onwards) to implement the <code>Runnable</code> the result is more succinct, and more readable than the examples above.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">final long minPrime = ...
@@ -183,7 +204,10 @@ new Thread(new Runnable() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With a lambda expression (Java 8 onwards), the above example would become even more elegant:</p>
+</div>
+<p>With a lambda expression (Java 8 onwards), the above example would become even more elegant:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">final long minPrime = ...

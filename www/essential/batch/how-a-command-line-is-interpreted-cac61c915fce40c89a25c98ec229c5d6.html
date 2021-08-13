@@ -127,14 +127,322 @@
 </div>
 
 
-      <p>The parsing of a command line into a sequence of commands is complex, and varies subtly from command interpreter to command interpreter. There are, however, four main components:</p><p><strong>Variable substitution</strong><div class="indented"><p>A command line is scanned for variable specifications, and any found are replaced with the contents of those variables.</p></div></p><p><strong>Quoting</strong><div class="indented"><p>`Special characters can be quoted, to remove their special meanings.</p></div></p><p><strong>Syntax</strong><div class="indented"><p>Command lines are developed into a sequence of commands according to a syntax.</p></div></p><p><strong>Redirection</strong><div class="indented"><p>Redirection specifications are applied, and removed from the command line, before an individual command in a sequence is executed.</p></div></p><h1 id="063020ac-dfe7-4829-8733-3a286cfdc9f5" class=""><strong>Variable substitution</strong><a class="header-anchor" href="#063020ac-dfe7-4829-8733-3a286cfdc9f5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Command lines can contain variable specifications. These comprise a <code>%</code> character followed by a name, followed by a second <code>%</code> character unless the name is a digit in 0 ... 9 or an asterisk *.</p><p>Variable specifications are replaced with values as follows:</p><ul id="51da3151-a4a6-41d6-b34c-4156570179e0" class="bulleted-list"><li><code>%%</code>, such as <code>%PATH%</code> or <code>%USERNAME%</code>, is replaced with the value of the named environment variable. For example, <code>%PATH%</code> is replaced by the value of the PATH environment variable.<p>varname</p></li><li><code>%</code> for 0 &lt;= n &lt;= 9, such as <code>%0</code> or <code>%9</code>, is replaced with the value of the n-th parameter passed to the batch file when it was invoked, subject to any subsequent modifications by the <a href="/essential/batch/shift-4053d835d97844b3a5ac7ebe7f72554b">SHIFT</a> command. For example: <code>%2</code> is replaced by the value of the second batch file parameter.<p>n</p></li><li>%* is replaced with the values of all the command-line parameters except for %0, even those beyond index 9. <a href="/essential/batch/shift-4053d835d97844b3a5ac7ebe7f72554b">SHIFT</a> command has no impact on the result of %*. See also <a href="/essential/batch/command-line-arguments-6a6ffadba81b4cc6a979f7e1ee4ea4aa">command-line arguments</a>.</li></ul><h2 id="f87ea6c2-70b4-46f2-ae6e-e81f6323e2ce" class=""><strong>Special names</strong><a class="header-anchor" href="#f87ea6c2-70b4-46f2-ae6e-e81f6323e2ce" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Some variable names are not visible using <a href="/essential/batch/set-540c344e1358419fb62ff4cc35e604b8">SET</a> command. Rather, they are made available for reading using the <code>%</code> notation. To find out about them, type <code>help set</code>.</p><p>Special variable names and what they expand to:</p><div id="47fe8378-9c03-4543-afba-a2ddde529163" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th width="209">Name</th><th width="496">Replacement Value Used</th></tr></thead><tbody><tr id="678778a1-f7a2-4d5c-af86-f81c50239281"><td class="cell-title col-type-title">%CD%</td><td class="cell-t2[N col-type-text">The current directory, not ending in a slash character if it is not the root directory of the current drive</td></tr>
-<tr id="24f25496-a4eb-43a2-ab8a-dbdc349e67c4"><td class="cell-title col-type-title">%TIME%</td><td class="cell-t2[N col-type-text">The system time in HH:MM:SS.mm format.</td></tr>
-<tr id="46a6e1c8-5151-4377-889a-0e9f1d8cb6e3"><td class="cell-title col-type-title">%DATE%</td><td class="cell-t2[N col-type-text">The system date in a format specific to localization.</td></tr>
-<tr id="3d17d469-eb5f-433e-b683-b0e1b1cfded2"><td class="cell-title col-type-title">%RANDOM%</td><td class="cell-t2[N col-type-text">A generated pseudo-random number between 0 and 32767.</td></tr>
-<tr id="0739053d-8fe7-45b9-b11b-18a4706bb289"><td class="cell-title col-type-title">%ERRORLEVEL%</td><td class="cell-t2[N col-type-text">The error level returned by the last executed command, or by the last called batch script.</td></tr>
-<tr id="42d826a3-8643-4e33-b96b-0f1f3d45026c"><td class="cell-title col-type-title">%CMDEXTVERSION%</td><td class="cell-t2[N col-type-text">The version number of the Command Processor Extensions currently used by cmd.exe.</td></tr>
-<tr id="988332b2-d738-4d28-b2ab-7372e1544083"><td class="cell-title col-type-title">%CMDCMDLINE%</td><td class="cell-t2[N col-type-text">The content of the command line used when the current cmd.exe was started.</td></tr>
-</tbody></table></div><p>Links:</p><ul id="46609f94-0a28-41d7-96a7-5001f20afaee" class="bulleted-list"><li><a href="http://ss64.com/nt/syntax-variables.html">Windows Environment Variables at ss64.com</a></li><li><a href="http://technet.microsoft.com/en-us/library/bb490954.aspx">Command shell overview at Microsoft</a></li></ul><h1 id="f63088e4-9c0e-47e8-833a-dabe4af35bc0" class=""><strong>Quoting and escaping</strong><a class="header-anchor" href="#f63088e4-9c0e-47e8-833a-dabe4af35bc0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>You can prevent the special characters that control command syntax from having their special meanings as follows, except for the percent sign (<code>%</code>):</p><ul id="c121922e-9595-42fd-9baa-510b7842fe2a" class="bulleted-list"><li>You can surround a string containing a special character by quotation marks.</li><li>You can place caret (<code>^</code>), an escape character, immediately before the special characters. In a command located after a pipe (<code>|</code>), you need to use three carets (<code>^^^</code>) for this to work.</li></ul><p>The special characters that need quoting or escaping are usually <code>&lt;</code>, <code>&gt;</code>, <code>|</code>, <code>&amp;</code>, and <code>^</code>. In some circumstances, <code>!</code> and <code>\</code> may need to be escaped. A newline can be escaped using caret as well.</p><p>When you surround the string using quotation marks, they become part of the argument passed to the command invoked. By contrast, when you use caret as an escape character, the caret does not become part of the argument passed.</p><p>The percent sign (<code>%</code>) is a special case. On the command line, it does not need quoting or escaping unless two of them are used to indicate a variable, such as <code>%OS%</code>. But in a batch file, you have to use a double percent sign (<code>%%</code>) to yield a single percent sign (<code>%</code>). Enclosing the percent sign in quotation marks or preceding it with caret does not work.</p><p>Examples</p><ul id="51b96f03-2034-4497-953f-4db32f9ee2dd" class="bulleted-list"><li><code>echo &quot;Johnson &amp; son&quot;</code><p>Echoes the complete string rather than splitting the command line at the &amp; character. Quotes are echoed as well</p></li><li><code>echo Johnson ^&amp; son</code><p>As above, but using caret before the special character ampersand. No quotes are echoed.</p></li><li><code>echo Johnson &amp; son</code><p>Does not use an escape character and therefore, &quot;son&quot; is interpreted as a separate command, usually leading to an error message that command son is not found.</p></li><li><code>echo A ^^ B</code><p>Echoes <code>A ^ B</code>. Caret needs escaping as well or else it is interpreted as escaping a space.</p></li><li><code>echo &gt; NUL | echo A ^^^^ B</code><p>Echoes <code>A ^ B</code>. When after a pipe, a caret used for escaping needs to be tripled to work; the fourth caret is the one being escaped.</p></li><li><code>if 1 equ 1 ^echo Equal &amp;^echo Indeed, equal</code><p>Echoes the two strings. The caret at the end of the line escapes the newlines, leading to the three lines being treated as if they were a single line. The space before the first caret is necessary or else 1 gets joined with the following echo to yield <code>1echo</code>.</p></li><li><code>attrib File^ 1.txt</code><p>Does not show attributes of file named File <code>1.txt</code> since escaping of space does not work. Using quotes, as in <code>attrib &quot;File 1.txt&quot;</code>, works.</p></li><li><code>echo The ratio was 47%.</code><p>If run from a batch, the percent sign is ignored.</p></li><li><code>echo The ratio was 47%%.</code><p>If run from a batch, the percent sign is output once.</p></li><li><code>set /a modulo=14%%3</code><p>If run from a batch, sets modulo variable to 2, the remainder of dividing 14 by 3. Does not work with single <code>%</code>.</p></li><li><code>for %%i in (1,2,3) do echo %%i</code><p>If run from a batch, outputs 1, 2 and 3.</p></li><li><code>echo %temp%</code><p>Outputs the content of temp variable even if run from a batch file. Use of the percent sign in a batch to access environment variables and passed arguments needs no escaping.</p></li><li><code>echo ^%temp^%</code><p>Outputs literally %temp% when run from the command line.</p></li><li><code>echo %%temp%%</code><p>Outputs literally <code>%temp%</code> when run from a batch.</p></li><li><code>echo //comment line | findstr \//</code><ul id="b007f022-27fc-4306-99ff-50a3cc71ef13" class="bulleted-list"><li>Command <a href="/essential/batch/findstr-bf58a8295a724f53ae050c0932e819c9">FINDSTR</a> uses backslash (<code>\</code>) for escaping. Unlike caret, this is internal to the command and unknown to the command shell.</li></ul></li></ul><p>Links:<div class="indented"><ul id="2385cd70-387f-408e-b47e-b6a1de6191c5" class="bulleted-list"><li><a href="http://ss64.com/nt/syntax-esc.html">Syntax : Escape Characters, Delimiters and Quotes</a> at ss64</li><li><a href="http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/ntcmds_shelloverview.mspx">Command shell overview</a> at Microsoft</li><li><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> at Microsoft</li></ul></div></p><h1 id="d7d5296a-8751-44ee-8836-d3abe01cd26a" class=""><strong>Syntax</strong><a class="header-anchor" href="#d7d5296a-8751-44ee-8836-d3abe01cd26a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Command lines are developed into a sequence of commands according to a syntax. In that syntax, simple commandsmay be combined to form pipelines, which may in turn be combined to form compound commands, which finally may be turned into parenthesized commands.</p><p>A simple command is just a command name, a command tail, and some redirection specifications. An example of a simple command is <code>dir *.txt &gt; somefile</code>.</p><p>A pipeline is several simple commands joined together with the &quot;pipe&quot; metacharacter — <code>|</code>, also known as the &quot;vertical bar&quot;. The standard output of the simple command preceding each vertical bar is connected to the standard input of the simple command following it, via a pipe. The command interpreter runs all of the simple commands in the pipeline in parallel. An example of a pipeline (comprising two simple commands) is <code>dir *.txt | more</code>.</p><p>A compound command is a set of pipelines separated by conjunctions. The pipelines are executed sequentially, one after the other, and the conjunction controls whether the command interpreter executes the next pipeline or not. An example of a compound command (comprising two pipelines, which themselves are just simple commands) is move <code>file.txt file.bak &amp;&amp; dir &gt; file.txt</code>.</p><p>The conjunctions:</p><ul id="46611c81-de4b-42c6-97b6-bcca2a1a73bb" class="bulleted-list"><li><code><strong>&amp;</strong></code> - An unconditional conjunction. The next pipeline is always executed after the current one has completed executing.</li><li><code><strong>&amp;&amp;</strong></code> - A positive conditional conjunction. The next pipeline is executed if the current one completes executing with a zero exit status.</li><li><code><strong>||</strong></code> - A negative conditional conjunction. The next pipeline is executed if the current one completes executing with a non-zero exit status.</li></ul><p>A parenthesized command is a compound command enclosed in parentheses (i.e. ( and )). From the point of view of syntax, this turns a compound command into a simple command, whose overall output can be redirected.</p><p>For example: The command line <code>( pushd temp &amp; dir &amp; popd ) &gt; somefile.txt</code> causes the standard output of the entire compound command <code>( pushd temp &amp; dir &amp; popd )</code> to be redirected to <code>somefile.txt</code>.</p><p>Links:</p><ul id="a46a4b46-17e3-498c-a12a-85e0c7c24ab8" class="bulleted-list"><li><a href="http://ss64.com/nt/syntax-conditional.html">Conditional Execution at ss64.com</a></li><li><a href="http://ss64.com/nt/syntax-brackets.html">Using parenthesis/brackets to group expressions at ss64.com</a></li><li><a href="http://technet.microsoft.com/en-us/library/bb490954.aspx">Command shell overview at Microsoft</a></li></ul><h1 id="307ff269-9551-494d-9b25-60f707505244" class=""><strong>Redirection</strong><a class="header-anchor" href="#307ff269-9551-494d-9b25-60f707505244" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Redirection specifications are applied, and removed from the command line, before an individual command in a sequence is executed. Redirection specifications control where the standard input, standard output, and standard error file handles for a simple command point. They override any effects to those file handles that may have resulted from pipelining. (See the preceding section on command syntax.) Redirection signs <code>&gt;</code> and <code>&gt;&gt;</code> can be prefixed with 1 for the standard output (same as no prefix) or 2 for the standard error.</p><p>The redirection specifications are:</p><p><strong>&lt; filename </strong>Redirect standard input to read from the named file.</p><p><strong>&gt; filename </strong>Redirect standard output to write to the named file, overwriting its previous contents.</p><p><strong>&gt;&gt; filename </strong>Redirect standard output to write to the named file, appending to the end of its previous contents.</p><p><strong>&gt;&amp;h </strong>Redirect to handle h, where handle is any of 0—standard input, 1—standard output, 2—standard error, and more.</p><p><strong>&lt;&amp;h </strong>Redirect from handle h.</p><p>Examples:</p><ul id="b33896c0-3e7c-4b5d-ba25-cfb23292a38c" class="bulleted-list"><li><code>dir *.txt &gt;listing.log</code><p>Redirects the output of the <code>dir</code> command to listing.log file.</p></li><li><code>dir *.txt &gt; listing.log</code><p>As above; the space before the file name makes no difference. However, if you type this into the command window, auto-completion with tab after typing <code>&gt; l</code> actually works, while it does not work with <code>&gt;listing.log</code>.</p></li><li><code>dir *.txt 2&gt;NUL</code><p>Redirects errors of the <code>dir</code> command to nowhere.</p></li><li><code>dir *.txt &gt;&gt;listing.log</code><p>Redirects the output of the <code>dir</code> command to listing.log file, appending to the file. Thereby, the content of the file before the redirected command was executed does not get lost.</p></li><li><code>dir *.txt &gt;listing.log 2&gt;&amp;1</code><p>Redirects the output of the <code>dir</code> command to listing.log file, along with the error messages.</p></li><li><code>dir *.txt &gt;listing.log 2&gt;listing-errors.log</code><p>Redirects the output of the <code>dir</code> command to listing.log file, and the error messages to listing-errors.log file.</p></li><li><code>&gt;myfile.txt echo Hello</code><p>The redirection can precede the command.</p></li><li><code>echo Hello &amp; echo World &gt;myfile.txt</code><p>Only the 2nd <code>echo</code> gets redirected.</p></li><li><code>(echo Hello &amp; echo World) &gt;myfile.txt</code><p>Output of both echos gets redirected.</p></li><li><code>type con &gt;myfile.txt</code><p>Redirects console input (con) to the file. Thus, allows multi-line user input terminated by user pressing Control + Z. See also <a href="/essential/batch/user-input-5726d65b176c49ebb21d2daa271031f9">user input</a>.</p></li><li><code>(for %i in (1,2,3) do @echo %i) &gt; myfile.txt</code><p>Redirects the entire output of the loop to the file.</p></li><li><code>for %i in (1,2,3) do @echo %i &gt; myfile.txt</code><p>Starts redirection anew each time the body of the loop is entered, losing the output of all but the latest loop iteration.</p></li></ul><p>Links:</p><ul id="0601a846-653c-47e3-9ba5-cdef68415af9" class="bulleted-list"><li><a href="http://ss64.com/nt/syntax-redirection.html">Redirection at ss64.com</a></li><li><a href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-xp/bb490982%28v%3dtechnet.10%29">Using command redirection operators at Microsoft</a></li></ul>
+      
+<p>The parsing of a command line into a sequence of commands is complex, and varies subtly from command interpreter to command interpreter. There are, however, four main components:
+</p>
+<p><strong>Variable substitution</strong>
+<div class="indented">
+<p>A command line is scanned for variable specifications, and any found are replaced with the contents of those variables.
+</p>
+</div>
+</p>
+<p><strong>Quoting</strong>
+<div class="indented">
+<p>`Special characters can be quoted, to remove their special meanings.
+</p>
+</div>
+</p>
+<p><strong>Syntax</strong>
+<div class="indented">
+<p>Command lines are developed into a sequence of commands according to a syntax.
+</p>
+</div>
+</p>
+<p><strong>Redirection</strong>
+<div class="indented">
+<p>Redirection specifications are applied, and removed from the command line, before an individual command in a sequence is executed.
+</p>
+</div>
+</p>
+  <h1 id="063020ac-dfe7-4829-8733-3a286cfdc9f5" class=""><strong>Variable substitution</strong>
+  <a class="header-anchor" href="#063020ac-dfe7-4829-8733-3a286cfdc9f5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Command lines can contain variable specifications. These comprise a <code>%</code> character followed by a name, followed by a second <code>%</code> character unless the name is a digit in 0 ... 9 or an asterisk *.
+</p>
+<p>Variable specifications are replaced with values as follows:
+</p>
+  <ul id="51da3151-a4a6-41d6-b34c-4156570179e0" class="bulleted-list">
+    <li><code>%%</code>, such as <code>%PATH%</code> or <code>%USERNAME%</code>, is replaced with the value of the named environment variable. For example, <code>%PATH%</code> is replaced by the value of the PATH environment variable.
+    <p>varname
+    </p>
+    </li>
+    <li><code>%</code> for 0 &lt;= n &lt;= 9, such as <code>%0</code> or <code>%9</code>, is replaced with the value of the n-th parameter passed to the batch file when it was invoked, subject to any subsequent modifications by the <a href="/essential/batch/shift-4053d835d97844b3a5ac7ebe7f72554b">SHIFT</a> command. For example: <code>%2</code> is replaced by the value of the second batch file parameter.
+    <p>n
+    </p>
+    </li>
+    <li>%* is replaced with the values of all the command-line parameters except for %0, even those beyond index 9. <a href="/essential/batch/shift-4053d835d97844b3a5ac7ebe7f72554b">SHIFT</a> command has no impact on the result of %*. See also <a href="/essential/batch/command-line-arguments-6a6ffadba81b4cc6a979f7e1ee4ea4aa">command-line arguments</a>.
+    </li>
+  </ul>
+  <h2 id="f87ea6c2-70b4-46f2-ae6e-e81f6323e2ce" class=""><strong>Special names</strong>
+  <a class="header-anchor" href="#f87ea6c2-70b4-46f2-ae6e-e81f6323e2ce" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Some variable names are not visible using <a href="/essential/batch/set-540c344e1358419fb62ff4cc35e604b8">SET</a> command. Rather, they are made available for reading using the <code>%</code> notation. To find out about them, type <code>help set</code>.
+</p>
+<p>Special variable names and what they expand to:
+</p>
+<div id="47fe8378-9c03-4543-afba-a2ddde529163" class="collection-content">
+<h4 class="collection-title"></h4>
+<table class="collection-content">
+<thead>
+<tr>
+<th width="209">Name</th>
+<th width="496">Replacement Value Used</th>
+</tr>
+</thead>
+<tbody>
+<tr id="678778a1-f7a2-4d5c-af86-f81c50239281">
+<td class="cell-title col-type-title">%CD%</td>
+<td class="cell-t2[N col-type-text">The current directory, not ending in a slash character if it is not the root directory of the current drive</td>
+</tr>
+
+<tr id="24f25496-a4eb-43a2-ab8a-dbdc349e67c4">
+<td class="cell-title col-type-title">%TIME%</td>
+<td class="cell-t2[N col-type-text">The system time in HH:MM:SS.mm format.</td>
+</tr>
+
+<tr id="46a6e1c8-5151-4377-889a-0e9f1d8cb6e3">
+<td class="cell-title col-type-title">%DATE%</td>
+<td class="cell-t2[N col-type-text">The system date in a format specific to localization.</td>
+</tr>
+
+<tr id="3d17d469-eb5f-433e-b683-b0e1b1cfded2">
+<td class="cell-title col-type-title">%RANDOM%</td>
+<td class="cell-t2[N col-type-text">A generated pseudo-random number between 0 and 32767.</td>
+</tr>
+
+<tr id="0739053d-8fe7-45b9-b11b-18a4706bb289">
+<td class="cell-title col-type-title">%ERRORLEVEL%</td>
+<td class="cell-t2[N col-type-text">The error level returned by the last executed command, or by the last called batch script.</td>
+</tr>
+
+<tr id="42d826a3-8643-4e33-b96b-0f1f3d45026c">
+<td class="cell-title col-type-title">%CMDEXTVERSION%</td>
+<td class="cell-t2[N col-type-text">The version number of the Command Processor Extensions currently used by cmd.exe.</td>
+</tr>
+
+<tr id="988332b2-d738-4d28-b2ab-7372e1544083">
+<td class="cell-title col-type-title">%CMDCMDLINE%</td>
+<td class="cell-t2[N col-type-text">The content of the command line used when the current cmd.exe was started.</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+<p>Links:
+</p>
+  <ul id="46609f94-0a28-41d7-96a7-5001f20afaee" class="bulleted-list">
+    <li><a href="http://ss64.com/nt/syntax-variables.html">Windows Environment Variables at ss64.com</a>
+    </li>
+    <li><a href="http://technet.microsoft.com/en-us/library/bb490954.aspx">Command shell overview at Microsoft</a>
+    </li>
+  </ul>
+  <h1 id="f63088e4-9c0e-47e8-833a-dabe4af35bc0" class=""><strong>Quoting and escaping</strong>
+  <a class="header-anchor" href="#f63088e4-9c0e-47e8-833a-dabe4af35bc0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>You can prevent the special characters that control command syntax from having their special meanings as follows, except for the percent sign (<code>%</code>):
+</p>
+  <ul id="c121922e-9595-42fd-9baa-510b7842fe2a" class="bulleted-list">
+    <li>You can surround a string containing a special character by quotation marks.
+    </li>
+    <li>You can place caret (<code>^</code>), an escape character, immediately before the special characters. In a command located after a pipe (<code>|</code>), you need to use three carets (<code>^^^</code>) for this to work.
+    </li>
+  </ul>
+<p>The special characters that need quoting or escaping are usually <code>&lt;</code>, <code>&gt;</code>, <code>|</code>, <code>&amp;</code>, and <code>^</code>. In some circumstances, <code>!</code> and <code>\</code> may need to be escaped. A newline can be escaped using caret as well.
+</p>
+<p>When you surround the string using quotation marks, they become part of the argument passed to the command invoked. By contrast, when you use caret as an escape character, the caret does not become part of the argument passed.
+</p>
+<p>The percent sign (<code>%</code>) is a special case. On the command line, it does not need quoting or escaping unless two of them are used to indicate a variable, such as <code>%OS%</code>. But in a batch file, you have to use a double percent sign (<code>%%</code>) to yield a single percent sign (<code>%</code>). Enclosing the percent sign in quotation marks or preceding it with caret does not work.
+</p>
+<p>Examples
+</p>
+  <ul id="51b96f03-2034-4497-953f-4db32f9ee2dd" class="bulleted-list">
+    <li><code>echo &quot;Johnson &amp; son&quot;</code>
+    <p>Echoes the complete string rather than splitting the command line at the &amp; character. Quotes are echoed as well
+    </p>
+    </li>
+    <li><code>echo Johnson ^&amp; son</code>
+    <p>As above, but using caret before the special character ampersand. No quotes are echoed.
+    </p>
+    </li>
+    <li><code>echo Johnson &amp; son</code>
+    <p>Does not use an escape character and therefore, &quot;son&quot; is interpreted as a separate command, usually leading to an error message that command son is not found.
+    </p>
+    </li>
+    <li><code>echo A ^^ B</code>
+    <p>Echoes <code>A ^ B</code>. Caret needs escaping as well or else it is interpreted as escaping a space.
+    </p>
+    </li>
+    <li><code>echo &gt; NUL | echo A ^^^^ B</code>
+    <p>Echoes <code>A ^ B</code>. When after a pipe, a caret used for escaping needs to be tripled to work; the fourth caret is the one being escaped.
+    </p>
+    </li>
+    <li><code>if 1 equ 1 ^echo Equal &amp;^echo Indeed, equal</code>
+    <p>Echoes the two strings. The caret at the end of the line escapes the newlines, leading to the three lines being treated as if they were a single line. The space before the first caret is necessary or else 1 gets joined with the following echo to yield <code>1echo</code>.
+    </p>
+    </li>
+    <li><code>attrib File^ 1.txt</code>
+    <p>Does not show attributes of file named File <code>1.txt</code> since escaping of space does not work. Using quotes, as in <code>attrib &quot;File 1.txt&quot;</code>, works.
+    </p>
+    </li>
+    <li><code>echo The ratio was 47%.</code>
+    <p>If run from a batch, the percent sign is ignored.
+    </p>
+    </li>
+    <li><code>echo The ratio was 47%%.</code>
+    <p>If run from a batch, the percent sign is output once.
+    </p>
+    </li>
+    <li><code>set /a modulo=14%%3</code>
+    <p>If run from a batch, sets modulo variable to 2, the remainder of dividing 14 by 3. Does not work with single <code>%</code>.
+    </p>
+    </li>
+    <li><code>for %%i in (1,2,3) do echo %%i</code>
+    <p>If run from a batch, outputs 1, 2 and 3.
+    </p>
+    </li>
+    <li><code>echo %temp%</code>
+    <p>Outputs the content of temp variable even if run from a batch file. Use of the percent sign in a batch to access environment variables and passed arguments needs no escaping.
+    </p>
+    </li>
+    <li><code>echo ^%temp^%</code>
+    <p>Outputs literally %temp% when run from the command line.
+    </p>
+    </li>
+    <li><code>echo %%temp%%</code>
+    <p>Outputs literally <code>%temp%</code> when run from a batch.
+    </p>
+    </li>
+    <li><code>echo //comment line | findstr \//</code>
+      <ul id="b007f022-27fc-4306-99ff-50a3cc71ef13" class="bulleted-list">
+        <li>Command <a href="/essential/batch/findstr-bf58a8295a724f53ae050c0932e819c9">FINDSTR</a> uses backslash (<code>\</code>) for escaping. Unlike caret, this is internal to the command and unknown to the command shell.
+        </li>
+      </ul>
+    </li>
+  </ul>
+<p>Links:
+<div class="indented">
+  <ul id="2385cd70-387f-408e-b47e-b6a1de6191c5" class="bulleted-list">
+    <li><a href="http://ss64.com/nt/syntax-esc.html">Syntax : Escape Characters, Delimiters and Quotes</a> at ss64
+    </li>
+    <li><a href="http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/ntcmds_shelloverview.mspx">Command shell overview</a> at Microsoft
+    </li>
+    <li><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> at Microsoft
+    </li>
+  </ul>
+</div>
+</p>
+  <h1 id="d7d5296a-8751-44ee-8836-d3abe01cd26a" class=""><strong>Syntax</strong>
+  <a class="header-anchor" href="#d7d5296a-8751-44ee-8836-d3abe01cd26a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Command lines are developed into a sequence of commands according to a syntax. In that syntax, simple commandsmay be combined to form pipelines, which may in turn be combined to form compound commands, which finally may be turned into parenthesized commands.
+</p>
+<p>A simple command is just a command name, a command tail, and some redirection specifications. An example of a simple command is <code>dir *.txt &gt; somefile</code>.
+</p>
+<p>A pipeline is several simple commands joined together with the &quot;pipe&quot; metacharacter — <code>|</code>, also known as the &quot;vertical bar&quot;. The standard output of the simple command preceding each vertical bar is connected to the standard input of the simple command following it, via a pipe. The command interpreter runs all of the simple commands in the pipeline in parallel. An example of a pipeline (comprising two simple commands) is <code>dir *.txt | more</code>.
+</p>
+<p>A compound command is a set of pipelines separated by conjunctions. The pipelines are executed sequentially, one after the other, and the conjunction controls whether the command interpreter executes the next pipeline or not. An example of a compound command (comprising two pipelines, which themselves are just simple commands) is move <code>file.txt file.bak &amp;&amp; dir &gt; file.txt</code>.
+</p>
+<p>The conjunctions:
+</p>
+  <ul id="46611c81-de4b-42c6-97b6-bcca2a1a73bb" class="bulleted-list">
+    <li><code><strong>&amp;</strong></code> - An unconditional conjunction. The next pipeline is always executed after the current one has completed executing.
+    </li>
+    <li><code><strong>&amp;&amp;</strong></code> - A positive conditional conjunction. The next pipeline is executed if the current one completes executing with a zero exit status.
+    </li>
+    <li><code><strong>||</strong></code> - A negative conditional conjunction. The next pipeline is executed if the current one completes executing with a non-zero exit status.
+    </li>
+  </ul>
+<p>A parenthesized command is a compound command enclosed in parentheses (i.e. ( and )). From the point of view of syntax, this turns a compound command into a simple command, whose overall output can be redirected.
+</p>
+<p>For example: The command line <code>( pushd temp &amp; dir &amp; popd ) &gt; somefile.txt</code> causes the standard output of the entire compound command <code>( pushd temp &amp; dir &amp; popd )</code> to be redirected to <code>somefile.txt</code>.
+</p>
+<p>Links:
+</p>
+  <ul id="a46a4b46-17e3-498c-a12a-85e0c7c24ab8" class="bulleted-list">
+    <li><a href="http://ss64.com/nt/syntax-conditional.html">Conditional Execution at ss64.com</a>
+    </li>
+    <li><a href="http://ss64.com/nt/syntax-brackets.html">Using parenthesis/brackets to group expressions at ss64.com</a>
+    </li>
+    <li><a href="http://technet.microsoft.com/en-us/library/bb490954.aspx">Command shell overview at Microsoft</a>
+    </li>
+  </ul>
+  <h1 id="307ff269-9551-494d-9b25-60f707505244" class=""><strong>Redirection</strong>
+  <a class="header-anchor" href="#307ff269-9551-494d-9b25-60f707505244" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Redirection specifications are applied, and removed from the command line, before an individual command in a sequence is executed. Redirection specifications control where the standard input, standard output, and standard error file handles for a simple command point. They override any effects to those file handles that may have resulted from pipelining. (See the preceding section on command syntax.) Redirection signs <code>&gt;</code> and <code>&gt;&gt;</code> can be prefixed with 1 for the standard output (same as no prefix) or 2 for the standard error.
+</p>
+<p>The redirection specifications are:
+</p>
+<p><strong>&lt; filename </strong>Redirect standard input to read from the named file.
+</p>
+<p><strong>&gt; filename </strong>Redirect standard output to write to the named file, overwriting its previous contents.
+</p>
+<p><strong>&gt;&gt; filename </strong>Redirect standard output to write to the named file, appending to the end of its previous contents.
+</p>
+<p><strong>&gt;&amp;h </strong>Redirect to handle h, where handle is any of 0—standard input, 1—standard output, 2—standard error, and more.
+</p>
+<p><strong>&lt;&amp;h </strong>Redirect from handle h.
+</p>
+<p>Examples:
+</p>
+  <ul id="b33896c0-3e7c-4b5d-ba25-cfb23292a38c" class="bulleted-list">
+    <li><code>dir *.txt &gt;listing.log</code>
+    <p>Redirects the output of the <code>dir</code> command to listing.log file.
+    </p>
+    </li>
+    <li><code>dir *.txt &gt; listing.log</code>
+    <p>As above; the space before the file name makes no difference. However, if you type this into the command window, auto-completion with tab after typing <code>&gt; l</code> actually works, while it does not work with <code>&gt;listing.log</code>.
+    </p>
+    </li>
+    <li><code>dir *.txt 2&gt;NUL</code>
+    <p>Redirects errors of the <code>dir</code> command to nowhere.
+    </p>
+    </li>
+    <li><code>dir *.txt &gt;&gt;listing.log</code>
+    <p>Redirects the output of the <code>dir</code> command to listing.log file, appending to the file. Thereby, the content of the file before the redirected command was executed does not get lost.
+    </p>
+    </li>
+    <li><code>dir *.txt &gt;listing.log 2&gt;&amp;1</code>
+    <p>Redirects the output of the <code>dir</code> command to listing.log file, along with the error messages.
+    </p>
+    </li>
+    <li><code>dir *.txt &gt;listing.log 2&gt;listing-errors.log</code>
+    <p>Redirects the output of the <code>dir</code> command to listing.log file, and the error messages to listing-errors.log file.
+    </p>
+    </li>
+    <li><code>&gt;myfile.txt echo Hello</code>
+    <p>The redirection can precede the command.
+    </p>
+    </li>
+    <li><code>echo Hello &amp; echo World &gt;myfile.txt</code>
+    <p>Only the 2nd <code>echo</code> gets redirected.
+    </p>
+    </li>
+    <li><code>(echo Hello &amp; echo World) &gt;myfile.txt</code>
+    <p>Output of both echos gets redirected.
+    </p>
+    </li>
+    <li><code>type con &gt;myfile.txt</code>
+    <p>Redirects console input (con) to the file. Thus, allows multi-line user input terminated by user pressing Control + Z. See also <a href="/essential/batch/user-input-5726d65b176c49ebb21d2daa271031f9">user input</a>.
+    </p>
+    </li>
+    <li><code>(for %i in (1,2,3) do @echo %i) &gt; myfile.txt</code>
+    <p>Redirects the entire output of the loop to the file.
+    </p>
+    </li>
+    <li><code>for %i in (1,2,3) do @echo %i &gt; myfile.txt</code>
+    <p>Starts redirection anew each time the body of the loop is entered, losing the output of all but the latest loop iteration.
+    </p>
+    </li>
+  </ul>
+<p>Links:
+</p>
+  <ul id="0601a846-653c-47e3-9ba5-cdef68415af9" class="bulleted-list">
+    <li><a href="http://ss64.com/nt/syntax-redirection.html">Redirection at ss64.com</a>
+    </li>
+    <li><a href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-xp/bb490982%28v%3dtechnet.10%29">Using command redirection operators at Microsoft</a>
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

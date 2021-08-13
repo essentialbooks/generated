@@ -127,7 +127,154 @@
 </div>
 
 
-      <p>Searches for regular expressions or text strings in files. Similar to <code>grep</code> on Unix, but is much more limited in the regular expressions it supports.</p><p>Treats space in a regular expression as a disjunction AKA logical or unless prevented with <code>/c</code> option.</p><p>Examples:</p><ul id="d02d8eb0-3f73-49c5-a2df-dbb741afe464" class="bulleted-list"><li><code>findstr /s &quot;[0-9][0-9].*[0-9][0-9]&quot; *.h *.cpp</code><p>Searches recursively all files whose name ends with <code>.h</code> or <code>.cpp</code>, printing only lines that contain two consecutive decimal digits followed by anything followed by two consecutive decimal digits.</p></li><li><code>findstr &quot;a.*b a.*c&quot; File.txt</code><p>Outputs all lines in <code>File.txt</code> that match any of the  <em>two</em> regular expressions separated by the space. Thus, the effect is one of  <em>logical or</em> on regular expressions.</p></li><li><code>echo world | findstr &quot;hello wo.ld&quot;</code><ul id="7d0ecbbd-ac33-4745-9a82-5732494e9758" class="bulleted-list"><li>Does not match. Since the 1st item before the space does not look like a regex, <code>findstr</code> treats the whole search term as a plain search term.</li></ul></li><li><code>echo world | findstr /r &quot;hello wo.ld&quot;</code><p>Matches. The use of <code>/r</code> forces regex treatment.</p></li><li><code>findstr /r /c:&quot;ID: *[0-9]*&quot; File.txt</code><p>Outputs all lines in <code>File.txt</code> that match the single regular expression containing a space. The use of <code>/c</code> prevents the space from being treated as a logical or. The use of <code>/r</code> switches the regular expression treatment on, which was disabled by default by the use of <code>/c</code>. To test this, try the following:<div class="indented"><ul id="53137aab-ec73-4a37-b581-f4411916ab6d" class="bulleted-list"><li><code>echo ID: 12|findstr /r /c:&quot;ID: *[0-9]*$&quot;</code><p>Matches.</p></li><li><code>echo ID: 12|findstr /c:&quot;ID: *[0-9]*$&quot;</code><p>Does not match, as the search string is not interpreted as a regular expression.</p></li><li><code>echo ID: abc|findstr &quot;ID: *[0-9]*$&quot;</code><p>Matches despite the output of echo failing to match the complete regular expression: the search is interpreted as one for lines matching <code>ID:</code> or <code>*[0-9]*$</code>.</p></li></ul></div></p></li><li><code>findstr /ric:&quot;id: *[0-9]*&quot; File.txt</code><p>Does the same as the previous example, but in a case-insensitive manner.</p><p>While <code>findstr </code>enables this sort of accumulation of switches behind a single <code>/</code>, this is not possible with any command. For instance, <code>dir /bs</code> does not work, while <code>dir /b /s</code> does.</p><p>To test this, try the following:<div class="indented"><ul id="5e712739-0c00-4ea4-9322-c4748fcb71c5" class="bulleted-list"><li><code>echo ID: 12|findstr /ric:&quot;id: *[0-9]*$&quot;</code></li><li><code>echo ID: ab|findstr /ric:&quot;id: *[0-9]*$&quot;</code></li></ul></div></p></li><li><code>findstr /msric:&quot;id: *[0-9]*&quot; *.txt</code><p>Like above, but recursively for all files per /s, displaying only matching files rather than matching lines per /m.</p></li><li><code>echo hel lo | findstr /c:&quot;hel lo&quot; /c:world</code><p><code>/c</code> switch can be used multiple times to create logical or.</p></li><li><code>echo \hello\ | findstr &quot;\hello\&quot;</code><p>Does not match. Backslash before quotation marks and multiple other characters acts as an escape; thus, \&quot; matches &quot;.</p></li><li><code>echo \hello\ | findstr &quot;\\hello\\&quot;</code><p>Matches. Double backslash passed to <code>findstr</code> stands for a single backslash.</p></li><li><code>echo \hello\ | findstr \hello\</code><p>Matches. None of the single backslashes passed to <code>findstr</code> is followed by a character on which the backslash acts as an escape.</p></li><li><code>echo ^&quot;hey | findstr \^&quot;hey | more</code><p>To search for a quote (quotation mark), you need to escape it two times: once for the shell using caret (^), and once for <code>findstr</code> using backslash (<code>\</code>).</p></li><li><code>echo ^&quot;hey | findstr ^&quot;\^&quot;hey there^&quot; | more</code><p>To search for a quote and have the search term enclosed in quotes as well, the enclosing quotes need to be escaped for the shell using caret (<code>^</code>).</p></li><li><code>echo //comment line | findstr \//</code><p>If forward slash (<code>/</code>) is the 1st character in the search term, it needs to be escaped with a backslash (\). The escaping is needed even if the search term is enclosed in quotes.</p></li><li><code>findstr /f:FileList.txt def.*():</code><p>Search in the files stated in <code>FileList.txt</code>, one file per line. File names in <code>FileList.txt</code> can contain spaces and do not need to be surrounded with quotation marks for this to work.</p></li><li><code>findstr /g:SearchTermsFile.txt *.txt</code><p>Search for the search terms found in <code>SearchTermsFile.txt</code>, one search term per line. A space does not serve to separate two search terms; rather, each line is a complete search term. A line is matched if at least one of the search terms matches. If the first search term looks like a regex, the search will be a regex one, but if it looks like a plain search term, the whole search will be a plain one even if 2nd or later search terms look like regex.</p></li><li><code>findstr /xlg:File1.txt File2.txt</code><p>Outputs set intersection: lines present in both files.</p></li><li><code>findstr /xlvg:File2.txt File1.txt</code><p>Outputs set difference: <code>File1.txt</code> - <code>File2.txt</code>.</p></li><li><code>findstr /m Microsoft C:\Windows\system32\*.com</code><p>Works with binary files no less than text files.</p></li></ul><p>Limitations of the regular expressions of <code>findstr</code>, as compared to <code>grep</code>:</p><ul id="ec6de43f-f042-47c4-b7b0-d2962db0dd69" class="bulleted-list"><li>No support of groups -- &quot;\(&quot;, &quot;\)&quot;.</li><li>No support of greedy iterators -- &quot;*?&quot;.</li><li>No support of &quot;zero or one of the previous&quot; -- &quot;?&quot;.</li><li>And more.</li></ul><p>Bugs:</p><ul id="afe91bd4-1659-400d-b3b3-c0fe96d040c6" class="bulleted-list"><li><code>echo bb|findstr &quot;bb baaaa&quot;</code><p>Does not find anything in multiple Windows versions, but it should.</p></li></ul><p>Links:</p><ul id="7c1bc1ff-a520-48fb-972c-5d5e063ec95e" class="bulleted-list"><li><a href="http://ss64.com/nt/findstr.html">findstr at ss64.com</a></li><li><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr at Microsoft</a></li><li><a href="http://stackoverflow.com/questions/8844868/what-are-the-undocumented-features-and-limitations-of-the-windows-findstr-comman">What are the undocumented features and limitations of the Windows FINDSTR command?</a></li></ul><p></p>
+      
+<p>Searches for regular expressions or text strings in files. Similar to <code>grep</code> on Unix, but is much more limited in the regular expressions it supports.
+</p>
+<p>Treats space in a regular expression as a disjunction AKA logical or unless prevented with <code>/c</code> option.
+</p>
+<p>Examples:
+</p>
+  <ul id="d02d8eb0-3f73-49c5-a2df-dbb741afe464" class="bulleted-list">
+    <li><code>findstr /s &quot;[0-9][0-9].*[0-9][0-9]&quot; *.h *.cpp</code>
+    <p>Searches recursively all files whose name ends with <code>.h</code> or <code>.cpp</code>, printing only lines that contain two consecutive decimal digits followed by anything followed by two consecutive decimal digits.
+    </p>
+    </li>
+    <li><code>findstr &quot;a.*b a.*c&quot; File.txt</code>
+    <p>Outputs all lines in <code>File.txt</code> that match any of the  <em>two</em> regular expressions separated by the space. Thus, the effect is one of  <em>logical or</em> on regular expressions.
+    </p>
+    </li>
+    <li><code>echo world | findstr &quot;hello wo.ld&quot;</code>
+      <ul id="7d0ecbbd-ac33-4745-9a82-5732494e9758" class="bulleted-list">
+        <li>Does not match. Since the 1st item before the space does not look like a regex, <code>findstr</code> treats the whole search term as a plain search term.
+        </li>
+      </ul>
+    </li>
+    <li><code>echo world | findstr /r &quot;hello wo.ld&quot;</code>
+    <p>Matches. The use of <code>/r</code> forces regex treatment.
+    </p>
+    </li>
+    <li><code>findstr /r /c:&quot;ID: *[0-9]*&quot; File.txt</code>
+    <p>Outputs all lines in <code>File.txt</code> that match the single regular expression containing a space. The use of <code>/c</code> prevents the space from being treated as a logical or. The use of <code>/r</code> switches the regular expression treatment on, which was disabled by default by the use of <code>/c</code>. To test this, try the following:
+    <div class="indented">
+      <ul id="53137aab-ec73-4a37-b581-f4411916ab6d" class="bulleted-list">
+        <li><code>echo ID: 12|findstr /r /c:&quot;ID: *[0-9]*$&quot;</code>
+        <p>Matches.
+        </p>
+        </li>
+        <li><code>echo ID: 12|findstr /c:&quot;ID: *[0-9]*$&quot;</code>
+        <p>Does not match, as the search string is not interpreted as a regular expression.
+        </p>
+        </li>
+        <li><code>echo ID: abc|findstr &quot;ID: *[0-9]*$&quot;</code>
+        <p>Matches despite the output of echo failing to match the complete regular expression: the search is interpreted as one for lines matching <code>ID:</code> or <code>*[0-9]*$</code>.
+        </p>
+        </li>
+      </ul>
+    </div>
+    </p>
+    </li>
+    <li><code>findstr /ric:&quot;id: *[0-9]*&quot; File.txt</code>
+    <p>Does the same as the previous example, but in a case-insensitive manner.
+    </p>
+    <p>While <code>findstr </code>enables this sort of accumulation of switches behind a single <code>/</code>, this is not possible with any command. For instance, <code>dir /bs</code> does not work, while <code>dir /b /s</code> does.
+    </p>
+    <p>To test this, try the following:
+    <div class="indented">
+      <ul id="5e712739-0c00-4ea4-9322-c4748fcb71c5" class="bulleted-list">
+        <li><code>echo ID: 12|findstr /ric:&quot;id: *[0-9]*$&quot;</code>
+        </li>
+        <li><code>echo ID: ab|findstr /ric:&quot;id: *[0-9]*$&quot;</code>
+        </li>
+      </ul>
+    </div>
+    </p>
+    </li>
+    <li><code>findstr /msric:&quot;id: *[0-9]*&quot; *.txt</code>
+    <p>Like above, but recursively for all files per /s, displaying only matching files rather than matching lines per /m.
+    </p>
+    </li>
+    <li><code>echo hel lo | findstr /c:&quot;hel lo&quot; /c:world</code>
+    <p><code>/c</code> switch can be used multiple times to create logical or.
+    </p>
+    </li>
+    <li><code>echo \hello\ | findstr &quot;\hello\&quot;</code>
+    <p>Does not match. Backslash before quotation marks and multiple other characters acts as an escape; thus, \&quot; matches &quot;.
+    </p>
+    </li>
+    <li><code>echo \hello\ | findstr &quot;\\hello\\&quot;</code>
+    <p>Matches. Double backslash passed to <code>findstr</code> stands for a single backslash.
+    </p>
+    </li>
+    <li><code>echo \hello\ | findstr \hello\</code>
+    <p>Matches. None of the single backslashes passed to <code>findstr</code> is followed by a character on which the backslash acts as an escape.
+    </p>
+    </li>
+    <li><code>echo ^&quot;hey | findstr \^&quot;hey | more</code>
+    <p>To search for a quote (quotation mark), you need to escape it two times: once for the shell using caret (^), and once for <code>findstr</code> using backslash (<code>\</code>).
+    </p>
+    </li>
+    <li><code>echo ^&quot;hey | findstr ^&quot;\^&quot;hey there^&quot; | more</code>
+    <p>To search for a quote and have the search term enclosed in quotes as well, the enclosing quotes need to be escaped for the shell using caret (<code>^</code>).
+    </p>
+    </li>
+    <li><code>echo //comment line | findstr \//</code>
+    <p>If forward slash (<code>/</code>) is the 1st character in the search term, it needs to be escaped with a backslash (\). The escaping is needed even if the search term is enclosed in quotes.
+    </p>
+    </li>
+    <li><code>findstr /f:FileList.txt def.*():</code>
+    <p>Search in the files stated in <code>FileList.txt</code>, one file per line. File names in <code>FileList.txt</code> can contain spaces and do not need to be surrounded with quotation marks for this to work.
+    </p>
+    </li>
+    <li><code>findstr /g:SearchTermsFile.txt *.txt</code>
+    <p>Search for the search terms found in <code>SearchTermsFile.txt</code>, one search term per line. A space does not serve to separate two search terms; rather, each line is a complete search term. A line is matched if at least one of the search terms matches. If the first search term looks like a regex, the search will be a regex one, but if it looks like a plain search term, the whole search will be a plain one even if 2nd or later search terms look like regex.
+    </p>
+    </li>
+    <li><code>findstr /xlg:File1.txt File2.txt</code>
+    <p>Outputs set intersection: lines present in both files.
+    </p>
+    </li>
+    <li><code>findstr /xlvg:File2.txt File1.txt</code>
+    <p>Outputs set difference: <code>File1.txt</code> - <code>File2.txt</code>.
+    </p>
+    </li>
+    <li><code>findstr /m Microsoft C:\Windows\system32\*.com</code>
+    <p>Works with binary files no less than text files.
+    </p>
+    </li>
+  </ul>
+<p>Limitations of the regular expressions of <code>findstr</code>, as compared to <code>grep</code>:
+</p>
+  <ul id="ec6de43f-f042-47c4-b7b0-d2962db0dd69" class="bulleted-list">
+    <li>No support of groups -- &quot;\(&quot;, &quot;\)&quot;.
+    </li>
+    <li>No support of greedy iterators -- &quot;*?&quot;.
+    </li>
+    <li>No support of &quot;zero or one of the previous&quot; -- &quot;?&quot;.
+    </li>
+    <li>And more.
+    </li>
+  </ul>
+<p>Bugs:
+</p>
+  <ul id="afe91bd4-1659-400d-b3b3-c0fe96d040c6" class="bulleted-list">
+    <li><code>echo bb|findstr &quot;bb baaaa&quot;</code>
+    <p>Does not find anything in multiple Windows versions, but it should.
+    </p>
+    </li>
+  </ul>
+<p>Links:
+</p>
+  <ul id="7c1bc1ff-a520-48fb-972c-5d5e063ec95e" class="bulleted-list">
+    <li><a href="http://ss64.com/nt/findstr.html">findstr at ss64.com</a>
+    </li>
+    <li><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr at Microsoft</a>
+    </li>
+    <li><a href="http://stackoverflow.com/questions/8844868/what-are-the-undocumented-features-and-limitations-of-the-windows-findstr-comman">What are the undocumented features and limitations of the Windows FINDSTR command?</a>
+    </li>
+  </ul>
+<p>
+</p>
+
 <div class="code-box lang-Shell">
 	<div>
 	<pre class="chroma">$ findstr /?

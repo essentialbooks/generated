@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>This section explains how the tokenized input from Part 1 is processed - it is done using Context Free Grammars (CFGs). The grammar must be specified, and the tokens are processed according to the grammar. Under the hood, the parser uses an LALR parser.</p>
+      
+<p>This section explains how the tokenized input from Part 1 is processed - it is done using Context Free Grammars (CFGs). The grammar must be specified, and the tokens are processed according to the grammar. Under the hood, the parser uses an LALR parser.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"># Yacc example
@@ -188,7 +191,16 @@ while True:
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="a0bb006e-8205-4bb4-954d-5b28f662df7a"/><h1 id="edd3369b-a569-425e-8507-4c80412351ab" class="">Breakdown<a class="header-anchor" href="#edd3369b-a569-425e-8507-4c80412351ab" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><ul id="f4a1cc79-f9a9-4bd3-a5e5-bea2a851dd2d" class="bulleted-list"><li>Each grammar rule is defined by a function where the docstring to that function contains the appropriate context-free grammar specification. The statements that make up the function body implement the semantic actions of the rule. Each function accepts a single argument p that is a sequence containing the values of each grammar symbol in the corresponding rule. The values of <code>p[i]</code> are mapped to grammar symbols as shown here:</li></ul>
+</div>
+<hr id="a0bb006e-8205-4bb4-954d-5b28f662df7a"/>
+  <h1 id="edd3369b-a569-425e-8507-4c80412351ab" class="">Breakdown
+  <a class="header-anchor" href="#edd3369b-a569-425e-8507-4c80412351ab" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <ul id="f4a1cc79-f9a9-4bd3-a5e5-bea2a851dd2d" class="bulleted-list">
+    <li>Each grammar rule is defined by a function where the docstring to that function contains the appropriate context-free grammar specification. The statements that make up the function body implement the semantic actions of the rule. Each function accepts a single argument p that is a sequence containing the values of each grammar symbol in the corresponding rule. The values of <code>p[i]</code> are mapped to grammar symbols as shown here:
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def p_expression_plus(p):
@@ -201,7 +213,22 @@ while True:
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="5508759c-bb6d-4719-8698-1c018de16a2b" class="bulleted-list"><li>For tokens, the “value” of the corresponding <code>p[i]</code> is the same as the <code>p.value</code> attribute assigned in the lexer module. So, <code>PLUS</code> will have the value <code>\+</code>.</li><li>For non-terminals, the value is determined by whatever is placed in <code>p[0]</code>. If nothing is placed, the value is None. Also, <code>p[-1]</code> is not the same as <code>p[3]</code>, since <code>p</code> is not a simple list (<code>p[-1]</code> can specify embedded actions (not discussed here)).</li></ul><p>Note that the function can have any name, as long as it is preceeded by <code>p_</code>.</p><ul id="b6cb3b7c-3cea-44da-9481-a71b9fbf0f25" class="bulleted-list"><li>The <code>p_error(p)</code> rule is defined to catch syntax errors (same as <code>yyerror</code> in yacc/bison).</li><li>Multiple grammar rules can be combined into a single function, which is a good idea if productions have a similar structure.</li></ul>
+</div>
+  <ul id="5508759c-bb6d-4719-8698-1c018de16a2b" class="bulleted-list">
+    <li>For tokens, the “value” of the corresponding <code>p[i]</code> is the same as the <code>p.value</code> attribute assigned in the lexer module. So, <code>PLUS</code> will have the value <code>\+</code>.
+    </li>
+    <li>For non-terminals, the value is determined by whatever is placed in <code>p[0]</code>. If nothing is placed, the value is None. Also, <code>p[-1]</code> is not the same as <code>p[3]</code>, since <code>p</code> is not a simple list (<code>p[-1]</code> can specify embedded actions (not discussed here)).
+    </li>
+  </ul>
+<p>Note that the function can have any name, as long as it is preceeded by <code>p_</code>.
+</p>
+  <ul id="b6cb3b7c-3cea-44da-9481-a71b9fbf0f25" class="bulleted-list">
+    <li>The <code>p_error(p)</code> rule is defined to catch syntax errors (same as <code>yyerror</code> in yacc/bison).
+    </li>
+    <li>Multiple grammar rules can be combined into a single function, which is a good idea if productions have a similar structure.
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def p_binary_operators(p):
@@ -221,7 +248,12 @@ while True:
 	<div class="code-box-nav">
 		
 	</div>
-</div><ul id="6146c600-bc3a-43b4-93f8-55677e5ed0cf" class="bulleted-list"><li>Character literals can be used instead of tokens.</li></ul>
+</div>
+  <ul id="6146c600-bc3a-43b4-93f8-55677e5ed0cf" class="bulleted-list">
+    <li>Character literals can be used instead of tokens.
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def p_binary_operators(p):
@@ -241,7 +273,21 @@ while True:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Of course, the literals must be specified in the lexer module.</p><ul id="de4990c3-6351-440f-9d6d-aef962a4ed66" class="bulleted-list"><li>Empty productions have the form <code>&#x27;&#x27;&#x27;symbol : &#x27;&#x27;&#x27;</code></li><li>To explicitly set the start symbol, use <code>start = &#x27;foo&#x27;</code>, where <code>foo</code> is some non-terminal.</li><li>Setting precedence and associativity can be done using the precedence variable.</li></ul><h2 id="bd4d7bc5-aa43-43c0-b352-c9521434efdb" class=""><a class="header-anchor" href="#bd4d7bc5-aa43-43c0-b352-c9521434efdb" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2>
+</div>
+<p>Of course, the literals must be specified in the lexer module.
+</p>
+  <ul id="de4990c3-6351-440f-9d6d-aef962a4ed66" class="bulleted-list">
+    <li>Empty productions have the form <code>&#x27;&#x27;&#x27;symbol : &#x27;&#x27;&#x27;</code>
+    </li>
+    <li>To explicitly set the start symbol, use <code>start = &#x27;foo&#x27;</code>, where <code>foo</code> is some non-terminal.
+    </li>
+    <li>Setting precedence and associativity can be done using the precedence variable.
+    </li>
+  </ul>
+  <h2 id="bd4d7bc5-aa43-43c0-b352-c9521434efdb" class="">
+  <a class="header-anchor" href="#bd4d7bc5-aa43-43c0-b352-c9521434efdb" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">precedence = (
@@ -254,7 +300,13 @@ while True:
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Tokens are ordered from lowest to highest precedence. <code>nonassoc</code> means that those tokens do not associate. This means that something like <code>a &lt; b &lt; c</code> is illegal whereas <code>a &lt; b</code> is still legal.</p><ul id="996c9627-ee59-43e9-9443-243e1da3db3c" class="bulleted-list"><li><code>parser.out</code> is a debugging file that is created when the yacc program is executed for the first time. Whenever a shift/reduce conflict occurs, the parser always shifts.</li></ul>
+</div>
+<p>Tokens are ordered from lowest to highest precedence. <code>nonassoc</code> means that those tokens do not associate. This means that something like <code>a &lt; b &lt; c</code> is illegal whereas <code>a &lt; b</code> is still legal.
+</p>
+  <ul id="996c9627-ee59-43e9-9443-243e1da3db3c" class="bulleted-list">
+    <li><code>parser.out</code> is a debugging file that is created when the yacc program is executed for the first time. Whenever a shift/reduce conflict occurs, the parser always shifts.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

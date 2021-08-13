@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Since Java lambdas are closures, they can “capture” the values of variables in the enclosing lexical scope. While not all lambdas capture anything – simple lambdas like <code>s -&gt; s.length()</code> capture nothing and are called <em>stateless</em> – capturing lambdas require a temporary object to hold the captured variables. In this code snippet, the lambda <code>() -&gt; j</code> is a capturing lambda, and may cause an object to be allocated when it is evaluated:</p>
+      
+<p>Since Java lambdas are closures, they can “capture” the values of variables in the enclosing lexical scope. While not all lambdas capture anything – simple lambdas like <code>s -&gt; s.length()</code> capture nothing and are called <em>stateless</em> – capturing lambdas require a temporary object to hold the captured variables. In this code snippet, the lambda <code>() -&gt; j</code> is a capturing lambda, and may cause an object to be allocated when it is evaluated:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public static void main(String[] args) throws Exception {
@@ -140,7 +143,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Although it might not be immediately obvious since the <code>new</code> keyword doesn’t appear anywhere in the snippet, this code is liable to create 1,000,000,000 separate objects to represent the instances of the <code>() -&gt; j</code> lambda expression. However, it should also be noted that future versions of Java1 may be able to optimize this so that <em>at runtime</em> the lambda instances were reused, or were represented in some other way.</p><hr id="e24a362d-4cfb-4d83-a2e7-928c979ca820"/><p>1 - For instance, Java 9 introduces an optional “link” phase to the Java build sequence which will provide the opportunity for doing global optimizations like this.</p>
+</div>
+<p>Although it might not be immediately obvious since the <code>new</code> keyword doesn’t appear anywhere in the snippet, this code is liable to create 1,000,000,000 separate objects to represent the instances of the <code>() -&gt; j</code> lambda expression. However, it should also be noted that future versions of Java1 may be able to optimize this so that <em>at runtime</em> the lambda instances were reused, or were represented in some other way.
+</p>
+<hr id="e24a362d-4cfb-4d83-a2e7-928c979ca820"/>
+<p>1 - For instance, Java 9 introduces an optional “link” phase to the Java build sequence which will provide the opportunity for doing global optimizations like this.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

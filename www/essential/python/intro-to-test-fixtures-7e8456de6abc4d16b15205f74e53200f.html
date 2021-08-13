@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>More complicated tests sometimes need to have things set up before you run the code you want to test. It is possible to do this in the test function itself, but then you end up with large test functions doing so much that it is difficult to tell where the setup stops and the test begins. You can also get a lot of duplicate setup code between your various test functions.</p><p>Our code file:</p>
+      
+<p>More complicated tests sometimes need to have things set up before you run the code you want to test. It is possible to do this in the test function itself, but then you end up with large test functions doing so much that it is difficult to tell where the setup stops and the test begins. You can also get a lot of duplicate setup code between your various test functions.
+</p>
+<p>Our code file:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"># projectroot/module/stuff.py
@@ -139,7 +144,10 @@ class Stuff(object):
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Our test file:</p>
+</div>
+<p>Our test file:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"># projectroot/tests/test_stuff.py
@@ -150,6 +158,7 @@ from module import stuff</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def test_foo_updates():
@@ -169,7 +178,10 @@ def test_bar_updates():
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>These are pretty simple examples, but if our <code>Stuff</code> object needed a lot more setup, it would get unwieldy. We see that there is some duplicated code between our test cases, so let’s refactor that into a separate function first.</p>
+</div>
+<p>These are pretty simple examples, but if our <code>Stuff</code> object needed a lot more setup, it would get unwieldy. We see that there is some duplicated code between our test cases, so let’s refactor that into a separate function first.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"># projectroot/tests/test_stuff.py
@@ -196,7 +208,17 @@ def test_bar_updates():
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This looks better but we still have the <code>my_stuff = get_prepped_stuff()</code> call cluttering up our test functions.</p><h2 id="a4cc3c42-194e-4638-8ac7-6ac4920521a0" class="">py.test fixtures to the rescue!<a class="header-anchor" href="#a4cc3c42-194e-4638-8ac7-6ac4920521a0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Fixtures are much more powerful and flexible versions of test setup functions. They can do a lot more than we’re leveraging here, but we’ll take it one step at a time.</p><p>First we change <code>get_prepped_stuff</code> to a fixture called <code>prepped_stuff</code>. You want to name your fixtures with nouns rather than verbs because of how the fixtures will end up being used in the test functions themselves later. The <code>@pytest.fixture</code> indicates that this specific function should be handled as a fixture rather than a regular function.</p>
+</div>
+<p>This looks better but we still have the <code>my_stuff = get_prepped_stuff()</code> call cluttering up our test functions.
+</p>
+  <h2 id="a4cc3c42-194e-4638-8ac7-6ac4920521a0" class="">py.test fixtures to the rescue!
+  <a class="header-anchor" href="#a4cc3c42-194e-4638-8ac7-6ac4920521a0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Fixtures are much more powerful and flexible versions of test setup functions. They can do a lot more than we’re leveraging here, but we’ll take it one step at a time.
+</p>
+<p>First we change <code>get_prepped_stuff</code> to a fixture called <code>prepped_stuff</code>. You want to name your fixtures with nouns rather than verbs because of how the fixtures will end up being used in the test functions themselves later. The <code>@pytest.fixture</code> indicates that this specific function should be handled as a fixture rather than a regular function.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@pytest.fixture
@@ -208,7 +230,10 @@ def prepped_stuff():
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we should update the test functions so that they use the fixture. This is done by adding a parameter to their definition that exactly matches the fixture name. When py.test executes, it will run the fixture before running the test, then pass the return value of the fixture into the test function through that parameter. (Note that fixtures don’t <strong>need</strong> to return a value; they can do other setup things instead, like calling an external resource, arranging things on the filesystem, putting values in a database, whatever the tests need for setup)</p>
+</div>
+<p>Now we should update the test functions so that they use the fixture. This is done by adding a parameter to their definition that exactly matches the fixture name. When py.test executes, it will run the fixture before running the test, then pass the return value of the fixture into the test function through that parameter. (Note that fixtures don’t <strong>need</strong> to return a value; they can do other setup things instead, like calling an external resource, arranging things on the filesystem, putting values in a database, whatever the tests need for setup)
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def test_foo_updates(prepped_stuff):
@@ -226,7 +251,10 @@ def test_bar_updates(prepped_stuff):
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now you can see why we named it with a noun. but the <code>my_stuff = prepped_stuff</code> line is pretty much useless, so let’s just use <code>prepped_stuff</code> directly instead.</p>
+</div>
+<p>Now you can see why we named it with a noun. but the <code>my_stuff = prepped_stuff</code> line is pretty much useless, so let’s just use <code>prepped_stuff</code> directly instead.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def test_foo_updates(prepped_stuff):
@@ -242,7 +270,15 @@ def test_bar_updates(prepped_stuff):
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we’re using fixtures! We can go further by changing the scope of the fixture (so it only runs once per test module or test suite execution session instead of once per test function), building fixtures that use other fixtures, parametrizing the fixture (so that the fixture and all tests using that fixture are run multiple times, once for each parameter given to the fixture), fixtures that read values from the module that calls them… as mentioned earlier, fixtures have a lot more power and flexibility than a normal setup function.</p><h2 id="4f94bc72-ab08-487e-9c4a-a5649a59749a" class="">Cleaning up after the tests are done.<a class="header-anchor" href="#4f94bc72-ab08-487e-9c4a-a5649a59749a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Let’s say our code has grown and our Stuff object now needs special clean up.</p>
+</div>
+<p>Now we’re using fixtures! We can go further by changing the scope of the fixture (so it only runs once per test module or test suite execution session instead of once per test function), building fixtures that use other fixtures, parametrizing the fixture (so that the fixture and all tests using that fixture are run multiple times, once for each parameter given to the fixture), fixtures that read values from the module that calls them… as mentioned earlier, fixtures have a lot more power and flexibility than a normal setup function.
+</p>
+  <h2 id="4f94bc72-ab08-487e-9c4a-a5649a59749a" class="">Cleaning up after the tests are done.
+  <a class="header-anchor" href="#4f94bc72-ab08-487e-9c4a-a5649a59749a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Let’s say our code has grown and our Stuff object now needs special clean up.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma"># projectroot/module/stuff.py
@@ -258,7 +294,10 @@ def finish(self):
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We could add some code to call the clean up at the bottom of every test function, but fixtures provide a better way to do this. If you add a function to the fixture and register it as a <strong>finalizer</strong>, the code in the finalizer function will get called after the test using the fixture is done. If the scope of the fixture is larger than a single function (like module or session), the finalizer will be executed after all the tests in scope are completed, so after the module is done running or at the end of the entire test running session.</p>
+</div>
+<p>We could add some code to call the clean up at the bottom of every test function, but fixtures provide a better way to do this. If you add a function to the fixture and register it as a <strong>finalizer</strong>, the code in the finalizer function will get called after the test using the fixture is done. If the scope of the fixture is larger than a single function (like module or session), the finalizer will be executed after all the tests in scope are completed, so after the module is done running or at the end of the entire test running session.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@pytest.fixture
@@ -275,7 +314,10 @@ def prepped_stuff(request):  # we need to pass in the request to use finalizers
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Using the finalizer function inside a function can be a bit hard to understand at first glance, especially when you have more complicated fixtures. You can instead use a <strong>yield fixture</strong> to do the same thing with a more human readable execution flow. The only real difference is that instead of using <code>return</code> we use a <code>yield</code> at the part of the fixture where the setup is done and control should go to a test function, then add all the cleanup code after the <code>yield</code>. We also decorate it as a <code>yield_fixture</code> so that py.test knows how to handle it.</p>
+</div>
+<p>Using the finalizer function inside a function can be a bit hard to understand at first glance, especially when you have more complicated fixtures. You can instead use a <strong>yield fixture</strong> to do the same thing with a more human readable execution flow. The only real difference is that instead of using <code>return</code> we use a <code>yield</code> at the part of the fixture where the setup is done and control should go to a test function, then add all the cleanup code after the <code>yield</code>. We also decorate it as a <code>yield_fixture</code> so that py.test knows how to handle it.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@pytest.yield_fixture
@@ -291,7 +333,11 @@ def prepped_stuff():  # it doesn&#39;t need request now!
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And that concludes the Intro to Test Fixtures!</p><p>For more information, see the <a href="http://doc.pytest.org/en/latest/fixture.html">official py.test fixture documentation</a> and the <a href="http://doc.pytest.org/en/latest/yieldfixture.html">official yield fixture documentation</a></p>
+</div>
+<p>And that concludes the Intro to Test Fixtures!
+</p>
+<p>For more information, see the <a href="http://doc.pytest.org/en/latest/fixture.html">official py.test fixture documentation</a> and the <a href="http://doc.pytest.org/en/latest/yieldfixture.html">official yield fixture documentation</a>
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

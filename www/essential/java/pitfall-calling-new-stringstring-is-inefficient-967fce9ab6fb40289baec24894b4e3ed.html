@@ -127,7 +127,25 @@
 </div>
 
 
-      <p>Using <code>new String(String)</code> to duplicate a string is inefficient and almost always unnecessary.</p><ul id="236a0fab-2660-4e2f-ab23-3ed519fb5cdb" class="bulleted-list"><li>String objects are immutable, so there is no need to copy them to protect against changes.</li><li>In some older versions of Java, <code>String</code> objects can share backing arrays with other <code>String</code> objects. In those versions, it is possible to leak memory by creating a (small) substring of a (large) string and retaining it. However, from Java 7 onwards, <code>String</code> backing arrays are not shared.</li></ul><p>In the absence of any tangible benefit, calling <code>new String(String)</code> is simply wasteful:</p><ul id="daf68326-49b6-4254-8d76-4602ac0f7af4" class="bulleted-list"><li>Making the copy takes CPU time.</li><li>The copy uses more memory which increases the application’s memoru footprint and / or increases GC overheads.</li><li>Operations like <code>equals(Object)</code> and <code>hashCode()</code> can be slower if String objects are copied.</li></ul>
+      
+<p>Using <code>new String(String)</code> to duplicate a string is inefficient and almost always unnecessary.
+</p>
+  <ul id="236a0fab-2660-4e2f-ab23-3ed519fb5cdb" class="bulleted-list">
+    <li>String objects are immutable, so there is no need to copy them to protect against changes.
+    </li>
+    <li>In some older versions of Java, <code>String</code> objects can share backing arrays with other <code>String</code> objects. In those versions, it is possible to leak memory by creating a (small) substring of a (large) string and retaining it. However, from Java 7 onwards, <code>String</code> backing arrays are not shared.
+    </li>
+  </ul>
+<p>In the absence of any tangible benefit, calling <code>new String(String)</code> is simply wasteful:
+</p>
+  <ul id="daf68326-49b6-4254-8d76-4602ac0f7af4" class="bulleted-list">
+    <li>Making the copy takes CPU time.
+    </li>
+    <li>The copy uses more memory which increases the application’s memoru footprint and / or increases GC overheads.
+    </li>
+    <li>Operations like <code>equals(Object)</code> and <code>hashCode()</code> can be slower if String objects are copied.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

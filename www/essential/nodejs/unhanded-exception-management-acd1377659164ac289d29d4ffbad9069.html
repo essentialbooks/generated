@@ -127,7 +127,19 @@
 </div>
 
 
-      <p>Because Node.js runs on a single process uncaught exceptions are an issue to be aware of when developing applications.</p><h2 id="5f33e052-801b-4ac7-ba5e-970e02fb2dd3" class="">Silently Handling Exceptions<a class="header-anchor" href="#5f33e052-801b-4ac7-ba5e-970e02fb2dd3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>Most of the people let node.js server(s) silently swallow up the errors.</p><ul id="c0a8caa1-d6eb-4db7-81dc-764ff156cf41" class="bulleted-list"><li>Silently handling the exception</li></ul>
+      
+<p>Because Node.js runs on a single process uncaught exceptions are an issue to be aware of when developing applications.
+</p>
+  <h2 id="5f33e052-801b-4ac7-ba5e-970e02fb2dd3" class="">Silently Handling Exceptions
+  <a class="header-anchor" href="#5f33e052-801b-4ac7-ba5e-970e02fb2dd3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>Most of the people let node.js server(s) silently swallow up the errors.
+</p>
+  <ul id="c0a8caa1-d6eb-4db7-81dc-764ff156cf41" class="bulleted-list">
+    <li>Silently handling the exception
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">process.on(&#39;uncaughtException&#39;, function (err) {
@@ -137,7 +149,40 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>This is bad</strong>, it will work but:</p><ul id="6bf6f73f-62bc-4d61-a18e-6edfe85a3bd1" class="bulleted-list"><li>Root cause will remains unknown, as such will not contribute to resolution of what caused the Exception ( Error ).</li><li>In case of database connection ( pool ) gets closed for some reason this will result in constant propagation of errors, meaning that server will be running but it will not reconnect to db.</li></ul><hr id="a864d658-aad5-48d7-9174-81eb6603131b"/><h2 id="180fbdc1-066e-4028-862d-6937f073fac3" class="">Returning to Initial state<a class="header-anchor" href="#180fbdc1-066e-4028-862d-6937f073fac3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><p>In case of an “ uncaughtException “ it is good to restart the server and return it to its <strong>initial state</strong>, where we know it will work. Exception is logged, application is terminated but since it will be running in a container that will make sure that the server is running we will achieve restarting of the server ( returning to the initial working state ) .</p><ul id="09ce7285-23b6-434f-b01c-65083e00bb59" class="bulleted-list"><li>Installing the forever ( or other CLI tool to make sure that node server runs continuously )</li></ul><p>npm install forever -g</p><ul id="4c454ed3-9e76-43f6-8e2f-baf6652c86e1" class="bulleted-list"><li>Starting the server in forever</li></ul><p>forever start app.js</p><blockquote id="1cef5f06-41f8-4a88-8e69-1a985328bd71" class="">Reason why is it started and why we use forever is after the server is terminated forever process will start the server again.</blockquote><ul id="26b2acb6-bb12-4398-b830-c337617cff8b" class="bulleted-list"><li>Restarting the server</li></ul>
+</div>
+<p><strong>This is bad</strong>, it will work but:
+</p>
+  <ul id="6bf6f73f-62bc-4d61-a18e-6edfe85a3bd1" class="bulleted-list">
+    <li>Root cause will remains unknown, as such will not contribute to resolution of what caused the Exception ( Error ).
+    </li>
+    <li>In case of database connection ( pool ) gets closed for some reason this will result in constant propagation of errors, meaning that server will be running but it will not reconnect to db.
+    </li>
+  </ul>
+<hr id="a864d658-aad5-48d7-9174-81eb6603131b"/>
+  <h2 id="180fbdc1-066e-4028-862d-6937f073fac3" class="">Returning to Initial state
+  <a class="header-anchor" href="#180fbdc1-066e-4028-862d-6937f073fac3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+<p>In case of an “ uncaughtException “ it is good to restart the server and return it to its <strong>initial state</strong>, where we know it will work. Exception is logged, application is terminated but since it will be running in a container that will make sure that the server is running we will achieve restarting of the server ( returning to the initial working state ) .
+</p>
+  <ul id="09ce7285-23b6-434f-b01c-65083e00bb59" class="bulleted-list">
+    <li>Installing the forever ( or other CLI tool to make sure that node server runs continuously )
+    </li>
+  </ul>
+<p>npm install forever -g
+</p>
+  <ul id="4c454ed3-9e76-43f6-8e2f-baf6652c86e1" class="bulleted-list">
+    <li>Starting the server in forever
+    </li>
+  </ul>
+<p>forever start app.js
+</p>
+<blockquote id="1cef5f06-41f8-4a88-8e69-1a985328bd71" class="">Reason why is it started and why we use forever is after the server is terminated forever process will start the server again.
+</blockquote>
+  <ul id="26b2acb6-bb12-4398-b830-c337617cff8b" class="bulleted-list">
+    <li>Restarting the server
+    </li>
+  </ul>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">process.on(&#39;uncaughtException&#39;, function (err) {
@@ -147,6 +192,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">// some logging mechanisam
@@ -158,7 +204,12 @@ process.exit(1); // terminates process
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="25b96d3c-1948-43df-82d1-dc64ec90b7c1"/><p>On a side note there was a way also to handle exceptions with <strong>Clusters and Domains</strong>.</p><p>Domains are deprecated more information <a href="https://nodejs.org/api/domain.html">here</a>.</p>
+</div>
+<hr id="25b96d3c-1948-43df-82d1-dc64ec90b7c1"/>
+<p>On a side note there was a way also to handle exceptions with <strong>Clusters and Domains</strong>.
+</p>
+<p>Domains are deprecated more information <a href="https://nodejs.org/api/domain.html">here</a>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

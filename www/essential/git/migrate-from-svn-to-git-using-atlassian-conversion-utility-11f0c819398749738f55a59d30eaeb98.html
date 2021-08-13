@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Download the Atlassian conversion utility <a href="https://bitbucket.org/atlassian/svn-migration-scripts/downloads/svn-migration-scripts.jar">here</a>. This utility requires Java, so please ensure that you have the Java Runtime Environment <a href="https://www.java.com/en/download/installed.jsp">JRE</a> installed on the machine you plan to do the conversion.</p><p>Use the command <code>java -jar svn-migration-scripts.jar verify</code> to check if your machine is missing any of the programs necessary to complete the conversion. Specifically, this command checks for the Git, subversion, and <code>git-svn</code> utilities. It also verifies that you are performing the migration on a case-sensitive file system. Migration to Git should be done on a case-sensitive file system to avoid corrupting the repository.</p><p>Next, you need to generate an authors file. Subversion tracks changes by the committer’s username only. Git, however, uses two pieces of information to distinguish a user: a real name and an email address. The following command will generate a text file mapping the subversion usernames to their Git equivalents:</p>
+      
+<p>Download the Atlassian conversion utility <a href="https://bitbucket.org/atlassian/svn-migration-scripts/downloads/svn-migration-scripts.jar">here</a>. This utility requires Java, so please ensure that you have the Java Runtime Environment <a href="https://www.java.com/en/download/installed.jsp">JRE</a> installed on the machine you plan to do the conversion.
+</p>
+<p>Use the command <code>java -jar svn-migration-scripts.jar verify</code> to check if your machine is missing any of the programs necessary to complete the conversion. Specifically, this command checks for the Git, subversion, and <code>git-svn</code> utilities. It also verifies that you are performing the migration on a case-sensitive file system. Migration to Git should be done on a case-sensitive file system to avoid corrupting the repository.
+</p>
+<p>Next, you need to generate an authors file. Subversion tracks changes by the committer’s username only. Git, however, uses two pieces of information to distinguish a user: a real name and an email address. The following command will generate a text file mapping the subversion usernames to their Git equivalents:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">java -jar svn-migration-scripts.jar authors &lt;svn-repo&gt; authors.txt</pre>
@@ -135,7 +142,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>where <code>&lt;svn-repo&gt;</code> is the URL of the subversion repository you wish to convert. After running this command, the contributors’ identification information will be mapped in <code>authors.txt</code>. The email addresses will be of the form <code>&lt;username&gt;@mycompany.com</code>. In the authors file, you will need to manually change each person’s default name (which by default has become their username) to their actual names. Make sure to also check all of the email addresses for correctness before proceeding.</p><p>The following command will clone an svn repo as a Git one:</p>
+</div>
+<p>where <code>&lt;svn-repo&gt;</code> is the URL of the subversion repository you wish to convert. After running this command, the contributors’ identification information will be mapped in <code>authors.txt</code>. The email addresses will be of the form <code>&lt;username&gt;@mycompany.com</code>. In the authors file, you will need to manually change each person’s default name (which by default has become their username) to their actual names. Make sure to also check all of the email addresses for correctness before proceeding.
+</p>
+<p>The following command will clone an svn repo as a Git one:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">git svn clone --stdlayout --authors-file=authors.txt &lt;svn-repo&gt; &lt;git-repo-name&gt;</pre>
@@ -143,7 +155,20 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>where <code>&lt;svn-repo&gt;</code> is the same repository URL used above and <code>&lt;git-repo-name&gt;</code> is the folder name in the current directory to clone the repository into. There are a few considerations before using this command:</p><ul id="7a0d9d6b-1059-4e1a-ab1c-6833e12f5469" class="bulleted-list"><li>The <code>--stdlayout</code> flag from above tells Git that you’re using a standard layout with <code>trunk</code>, <code>branches</code>, and <code>tags</code> folders. Subversion repositories with non-standard layouts require you to specify the locations of the <code>trunk</code> folder, any/all <code>branch</code> folders, and the <code>tags</code> folder. This can be done by following this example: <code>git svn clone --trunk=/trunk --branches=/branches --branches=/bugfixes --tags=/tags --authors-file=authors.txt &lt;svn-repo&gt; &lt;git-repo-name&gt;</code>.</li><li>This command could take many hours to complete depending on the size of your repo.</li><li>To cut down the conversion time for large repositories, the conversion can be run directly on the server hosting the subversion repository in order to eliminate network overhead.</li></ul><p><code>git svn clone</code> imports the subversion branches (and trunk) as remote branches including subversion tags (remote branches prefixed with <code>tags/</code>). To convert these to actual branches and tags, run the following commands on a Linux machine in the order they are provided. After running them, <code>git branch -a</code> should show the correct branch names, and <code>git tag -l</code> should show the repository tags.</p>
+</div>
+<p>where <code>&lt;svn-repo&gt;</code> is the same repository URL used above and <code>&lt;git-repo-name&gt;</code> is the folder name in the current directory to clone the repository into. There are a few considerations before using this command:
+</p>
+  <ul id="7a0d9d6b-1059-4e1a-ab1c-6833e12f5469" class="bulleted-list">
+    <li>The <code>--stdlayout</code> flag from above tells Git that you’re using a standard layout with <code>trunk</code>, <code>branches</code>, and <code>tags</code> folders. Subversion repositories with non-standard layouts require you to specify the locations of the <code>trunk</code> folder, any/all <code>branch</code> folders, and the <code>tags</code> folder. This can be done by following this example: <code>git svn clone --trunk=/trunk --branches=/branches --branches=/bugfixes --tags=/tags --authors-file=authors.txt &lt;svn-repo&gt; &lt;git-repo-name&gt;</code>.
+    </li>
+    <li>This command could take many hours to complete depending on the size of your repo.
+    </li>
+    <li>To cut down the conversion time for large repositories, the conversion can be run directly on the server hosting the subversion repository in order to eliminate network overhead.
+    </li>
+  </ul>
+<p><code>git svn clone</code> imports the subversion branches (and trunk) as remote branches including subversion tags (remote branches prefixed with <code>tags/</code>). To convert these to actual branches and tags, run the following commands on a Linux machine in the order they are provided. After running them, <code>git branch -a</code> should show the correct branch names, and <code>git tag -l</code> should show the repository tags.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">git for-each-ref refs/remotes/origin/tags | cut -d / -f 5- | grep -v @ | while read tagname; do git tag $tagname origin/tags/$tagname; git branch -r -d origin/tags/$tagname; done
@@ -152,7 +177,9 @@ git for-each-ref refs/remotes | cut -d / -f 4- | grep -v @ | while read branchna
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The conversion from svn to Git is now complete! Simply <code>push</code> your local repo to a server and you can continue to contribute using Git as well as having a completely preserved version history from svn.</p>
+</div>
+<p>The conversion from svn to Git is now complete! Simply <code>push</code> your local repo to a server and you can continue to contribute using Git as well as having a completely preserved version history from svn.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

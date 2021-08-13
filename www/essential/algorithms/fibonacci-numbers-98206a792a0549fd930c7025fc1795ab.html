@@ -127,7 +127,16 @@
 </div>
 
 
-      <p><a href="https://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci Numbers</a> are a prime subject for dynamic programming as the traditional recursive approach makes a lot of repeated calculations. In these examples I will be using the base case of <code>f(0) = f(1) = 1</code>.</p><p>Here is an example recursive tree for <code>fibonacci(4)</code>, note the repeated computations:</p><img class="img" src="/img/4fff7a76140221a80aff5ba9da747fd9066ad9d3.png"><hr id="ec00a1cd-bf46-4e8b-9996-816ff882cb9b"/><p><strong>Non-Dynamic Programming</strong> <code>O(2^n)</code> Runtime Complexity, <code>O(n)</code> Stack complexity</p>
+      
+<p><a href="https://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci Numbers</a> are a prime subject for dynamic programming as the traditional recursive approach makes a lot of repeated calculations. In these examples I will be using the base case of <code>f(0) = f(1) = 1</code>.
+</p>
+<p>Here is an example recursive tree for <code>fibonacci(4)</code>, note the repeated computations:
+</p>
+<img class="img" src="/img/4fff7a76140221a80aff5ba9da747fd9066ad9d3.png">
+<hr id="ec00a1cd-bf46-4e8b-9996-816ff882cb9b"/>
+<p><strong>Non-Dynamic Programming</strong> <code>O(2^n)</code> Runtime Complexity, <code>O(n)</code> Stack complexity
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def fibonacci(n):
@@ -138,7 +147,15 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is the most intuitive way to write the problem. At most the stack space will be <code>O(n)</code> as you descend the first recursive branch making calls to <code>fibonacci(n-1)</code> until you hit the base case <code>n &lt; 2</code>.</p><p>The <code>O(2^n)</code> runtime complexity proof that can be seen here: https://stackoverflow.com/questions/360748/computational-complexity-of-fibonacci-sequence. The main point to note is that the runtime is exponential, which means the runtime for this will double for every subsequent term, <code>fibonacci(15)</code> will take twice as long as <code>fibonacci(14)</code>.</p><hr id="cf93aa75-53d0-43d7-a304-c3ff55fb0c4b"/><p><strong>Memoized</strong> <code>O(n)</code> Runtime Complexity, <code>O(n)</code> Space complexity, <code>O(n)</code> Stack complexity</p>
+</div>
+<p>This is the most intuitive way to write the problem. At most the stack space will be <code>O(n)</code> as you descend the first recursive branch making calls to <code>fibonacci(n-1)</code> until you hit the base case <code>n &lt; 2</code>.
+</p>
+<p>The <code>O(2^n)</code> runtime complexity proof that can be seen here: https://stackoverflow.com/questions/360748/computational-complexity-of-fibonacci-sequence. The main point to note is that the runtime is exponential, which means the runtime for this will double for every subsequent term, <code>fibonacci(15)</code> will take twice as long as <code>fibonacci(14)</code>.
+</p>
+<hr id="cf93aa75-53d0-43d7-a304-c3ff55fb0c4b"/>
+<p><strong>Memoized</strong> <code>O(n)</code> Runtime Complexity, <code>O(n)</code> Space complexity, <code>O(n)</code> Stack complexity
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">memo = []
@@ -156,7 +173,13 @@ def fibonacci(n):
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With the memoized approach we introduce an array that can be thought of as all the previous function calls. The location <code>memo[n]</code> is the result of the function call <code>fibonacci(n)</code>. This allows us to trade space complexity of <code>O(n)</code> for a <code>O(n)</code> runtime as we no longer need to compute duplicate function calls.</p><hr id="cf6360ec-5532-4248-ba0a-2afef656bf62"/><p><strong>Iterative Dynamic Programming</strong> <code>O(n)</code> Runtime complexity, <code>O(n)</code> Space complexity, No recursive stack</p>
+</div>
+<p>With the memoized approach we introduce an array that can be thought of as all the previous function calls. The location <code>memo[n]</code> is the result of the function call <code>fibonacci(n)</code>. This allows us to trade space complexity of <code>O(n)</code> for a <code>O(n)</code> runtime as we no longer need to compute duplicate function calls.
+</p>
+<hr id="cf6360ec-5532-4248-ba0a-2afef656bf62"/>
+<p><strong>Iterative Dynamic Programming</strong> <code>O(n)</code> Runtime complexity, <code>O(n)</code> Space complexity, No recursive stack
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def fibonacci(n):
@@ -170,7 +193,17 @@ def fibonacci(n):
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If we break the problem down into it’s core elements you will notice that in order to compute <code>fibonacci(n)</code> we need <code>fibonacci(n-1)</code> and <code>fibonacci(n-2)</code>. Also we can notice that our base case will appear at the end of that recursive tree as seen above.</p><p>With this information, it now makes sense to compute the solution backwards, starting at the base cases and working upwards. Now in order to calculate <code>fibonacci(n)</code> we first calculate <strong>all</strong> the fibonacci numbers up to and through <code>n</code>.</p><p>This main benefit here is that we now have eliminated the recursive stack while keeping the <code>O(n)</code> runtime. Unfortunately, we still have an <code>O(n)</code> space complexity but that can be changed as well.</p><hr id="b808cf5d-c168-4411-81b6-2b6afddaff17"/><p><strong>Advanced Iterative Dynamic Programming</strong> <code>O(n)</code> Runtime complexity, <code>O(1)</code> Space complexity, No recursive stack</p>
+</div>
+<p>If we break the problem down into it’s core elements you will notice that in order to compute <code>fibonacci(n)</code> we need <code>fibonacci(n-1)</code> and <code>fibonacci(n-2)</code>. Also we can notice that our base case will appear at the end of that recursive tree as seen above.
+</p>
+<p>With this information, it now makes sense to compute the solution backwards, starting at the base cases and working upwards. Now in order to calculate <code>fibonacci(n)</code> we first calculate <strong>all</strong> the fibonacci numbers up to and through <code>n</code>.
+</p>
+<p>This main benefit here is that we now have eliminated the recursive stack while keeping the <code>O(n)</code> runtime. Unfortunately, we still have an <code>O(n)</code> space complexity but that can be changed as well.
+</p>
+<hr id="b808cf5d-c168-4411-81b6-2b6afddaff17"/>
+<p><strong>Advanced Iterative Dynamic Programming</strong> <code>O(n)</code> Runtime complexity, <code>O(1)</code> Space complexity, No recursive stack
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">def fibonacci(n):
@@ -184,7 +217,21 @@ def fibonacci(n):
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As noted above, the iterative dynamic programming approach starts from the base cases and works to the end result. The key observation to make in order to get to the space complexity to <code>O(1)</code> (constant) is the same observation we made for the recursive stack - we only need <code>fibonacci(n-1)</code> and <code>fibonacci(n-2)</code> to build <code>fibonacci(n)</code>. This means that we only need to save the results for <code>fibonacci(n-1)</code> and <code>fibonacci(n-2)</code> at any point in our iteration.</p><p>To store these last 2 results I use an array of size 2 and simply flip which index I am assigning to by using <code>i % 2</code> which will alternate like so: <code>0, 1, 0, 1, 0, 1, ..., i % 2</code>.</p><p>I add both indexes of the array together because we know that addition is commutative (<code>5 + 6 = 11</code> and <code>6 + 5 == 11</code>). The result is then assigned to the older of the two spots (denoted by <code>i % 2</code>). The final result is then stored at the position <code>n%2</code></p><hr id="f0e03f08-c53f-4390-9619-9bf8d1475acf"/><h2 id="e5800f4e-374e-4d20-8e49-7330f266ea3a" class="">Notes<a class="header-anchor" href="#e5800f4e-374e-4d20-8e49-7330f266ea3a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h2><ul id="43f5cae2-7979-4e3e-afa2-881c3d195fc7" class="bulleted-list"><li>It is important to note that sometimes it may be best to come up with a iterative memoized solution for functions that perform large calculations repeatedly as you will build up a cache of the answer to the function calls and subsequent calls may be <code>O(1)</code> if it has already been computed.</li></ul>
+</div>
+<p>As noted above, the iterative dynamic programming approach starts from the base cases and works to the end result. The key observation to make in order to get to the space complexity to <code>O(1)</code> (constant) is the same observation we made for the recursive stack - we only need <code>fibonacci(n-1)</code> and <code>fibonacci(n-2)</code> to build <code>fibonacci(n)</code>. This means that we only need to save the results for <code>fibonacci(n-1)</code> and <code>fibonacci(n-2)</code> at any point in our iteration.
+</p>
+<p>To store these last 2 results I use an array of size 2 and simply flip which index I am assigning to by using <code>i % 2</code> which will alternate like so: <code>0, 1, 0, 1, 0, 1, ..., i % 2</code>.
+</p>
+<p>I add both indexes of the array together because we know that addition is commutative (<code>5 + 6 = 11</code> and <code>6 + 5 == 11</code>). The result is then assigned to the older of the two spots (denoted by <code>i % 2</code>). The final result is then stored at the position <code>n%2</code>
+</p>
+<hr id="f0e03f08-c53f-4390-9619-9bf8d1475acf"/>
+  <h2 id="e5800f4e-374e-4d20-8e49-7330f266ea3a" class="">Notes
+  <a class="header-anchor" href="#e5800f4e-374e-4d20-8e49-7330f266ea3a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h2>
+  <ul id="43f5cae2-7979-4e3e-afa2-881c3d195fc7" class="bulleted-list">
+    <li>It is important to note that sometimes it may be best to come up with a iterative memoized solution for functions that perform large calculations repeatedly as you will build up a cache of the answer to the function calls and subsequent calls may be <code>O(1)</code> if it has already been computed.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

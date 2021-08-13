@@ -127,7 +127,17 @@
 </div>
 
 
-      <p>This post shows how to use most of the functions in the <code>Regex</code> class, work with null safely related to the <code>Regex</code> functions, and how raw strings makes it easier to write and read regex patterns.</p><h1 id="1c6cd6e1-812b-4e35-bab7-0bcab619e004" class="">The RegEx class<a class="header-anchor" href="#1c6cd6e1-812b-4e35-bab7-0bcab619e004" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>To work with regular expressions in Kotlin, you need to use the <code>Regex(pattern: String)</code> class and invoke functions like <code>find(..)</code> or <code>replace(..)</code> on that regex object.</p><p>An example on how to use the <code>Regex</code> class that returns true if the <code>input</code> string contains c or d:</p>
+      
+<p>This post shows how to use most of the functions in the <code>Regex</code> class, work with null safely related to the <code>Regex</code> functions, and how raw strings makes it easier to write and read regex patterns.
+</p>
+  <h1 id="1c6cd6e1-812b-4e35-bab7-0bcab619e004" class="">The RegEx class
+  <a class="header-anchor" href="#1c6cd6e1-812b-4e35-bab7-0bcab619e004" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>To work with regular expressions in Kotlin, you need to use the <code>Regex(pattern: String)</code> class and invoke functions like <code>find(..)</code> or <code>replace(..)</code> on that regex object.
+</p>
+<p>An example on how to use the <code>Regex</code> class that returns true if the <code>input</code> string contains c or d:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">val regex = Regex(pattern = &#34;c|d&#34;)
@@ -136,7 +146,17 @@ val matched = regex.containsMatchIn(input = &#34;abc&#34;)    // matched: true</
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The essential thing to understand with all the <code>Regex</code> functions is that the result is based on matching the regex <code>pattern</code> and the <code>input</code> string. Some of the functions requires a full match, while the rest requires only a partial match. The <code>containsMatchIn(..)</code> function used in the example requires a partial match and is explained later in this post.</p><h1 id="de4a62ec-66af-4191-a41f-4aa313bce64a" class="">Null safety with regular expressions<a class="header-anchor" href="#de4a62ec-66af-4191-a41f-4aa313bce64a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Both <code>find(..)</code> and <code>matchEntire(..)</code> will return a <code>MatchResult?</code> object. The <code>?</code> character after <code>MatchResult</code> is necessary for Kotlin to handle <a href="https://kotlinlang.org/docs/reference/null-safety.html">null safely</a>.</p><p>An example that demonstrates how Kotlin handles null safely from a <code>Regex</code> function, when the <code>find(..)</code> function returns null:</p>
+</div>
+<p>The essential thing to understand with all the <code>Regex</code> functions is that the result is based on matching the regex <code>pattern</code> and the <code>input</code> string. Some of the functions requires a full match, while the rest requires only a partial match. The <code>containsMatchIn(..)</code> function used in the example requires a partial match and is explained later in this post.
+</p>
+  <h1 id="de4a62ec-66af-4191-a41f-4aa313bce64a" class="">Null safety with regular expressions
+  <a class="header-anchor" href="#de4a62ec-66af-4191-a41f-4aa313bce64a" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Both <code>find(..)</code> and <code>matchEntire(..)</code> will return a <code>MatchResult?</code> object. The <code>?</code> character after <code>MatchResult</code> is necessary for Kotlin to handle <a href="https://kotlinlang.org/docs/reference/null-safety.html">null safely</a>.
+</p>
+<p>An example that demonstrates how Kotlin handles null safely from a <code>Regex</code> function, when the <code>find(..)</code> function returns null:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">val matchResult = 
@@ -149,7 +169,12 @@ b.toUpperCase()                        // Accesses the function directly. =&gt; 
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With the <code>orEmpty()</code> function, <code>b</code> can’t be null and the <code>?</code> character is unnecessary when you call functions on <code>b</code>.</p><p>If you don’t care about this safe handling of null values, Kotlin allows you to work with null values like in Java with the <code>!!</code> characters:</p>
+</div>
+<p>With the <code>orEmpty()</code> function, <code>b</code> can’t be null and the <code>?</code> character is unnecessary when you call functions on <code>b</code>.
+</p>
+<p>If you don’t care about this safe handling of null values, Kotlin allows you to work with null values like in Java with the <code>!!</code> characters:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">a!!.toUpperCase()                      // =&gt; KotlinNullPointerException</pre>
@@ -157,7 +182,13 @@ b.toUpperCase()                        // Accesses the function directly. =&gt; 
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="0f663be4-425f-4d1f-9a61-ac86e5956571" class="">Raw strings in regex patterns<a class="header-anchor" href="#0f663be4-425f-4d1f-9a61-ac86e5956571" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Kotlin provides an improvement over Java with a <a href="https://kotlinlang.org/docs/reference/basic-types.html#string-literals">raw string</a> that makes it possible to write pure regex patterns without double backslashes, that are necessary with a Java string. A raw string is represented with a triple quote:</p>
+</div>
+  <h1 id="0f663be4-425f-4d1f-9a61-ac86e5956571" class="">Raw strings in regex patterns
+  <a class="header-anchor" href="#0f663be4-425f-4d1f-9a61-ac86e5956571" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Kotlin provides an improvement over Java with a <a href="https://kotlinlang.org/docs/reference/basic-types.html#string-literals">raw string</a> that makes it possible to write pure regex patterns without double backslashes, that are necessary with a Java string. A raw string is represented with a triple quote:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&#34;&#34;&#34;\d{3}-\d{3}-\d{4}&#34;&#34;&#34; // raw Kotlin string
@@ -166,7 +197,15 @@ b.toUpperCase()                        // Accesses the function directly. =&gt; 
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="138295d9-6c90-42ca-bc7d-f4b65671aa03" class="">find(input: CharSequence, startIndex: Int): MatchResult?<a class="header-anchor" href="#138295d9-6c90-42ca-bc7d-f4b65671aa03" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>The <code>input</code> string will be matched against the <code>pattern</code> in the <code>Regex</code> object. It returns a <code>Matchresult?</code> object with the first matched text after the <code>startIndex</code>, or <code>null</code> if the pattern didn’t match the <code>input</code> string. The result string is retrieved from the <code>MatchResult?</code> object’s <code>value</code> property. The <code>startIndex</code> parameter is optional with the default value 0.</p><p>To extract the first valid phone number from a string with contact details:</p>
+</div>
+  <h1 id="138295d9-6c90-42ca-bc7d-f4b65671aa03" class="">find(input: CharSequence, startIndex: Int): MatchResult?
+  <a class="header-anchor" href="#138295d9-6c90-42ca-bc7d-f4b65671aa03" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>The <code>input</code> string will be matched against the <code>pattern</code> in the <code>Regex</code> object. It returns a <code>Matchresult?</code> object with the first matched text after the <code>startIndex</code>, or <code>null</code> if the pattern didn’t match the <code>input</code> string. The result string is retrieved from the <code>MatchResult?</code> object’s <code>value</code> property. The <code>startIndex</code> parameter is optional with the default value 0.
+</p>
+<p>To extract the first valid phone number from a string with contact details:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">val phoneNumber :String? = Regex(pattern = &#34;&#34;&#34;\d{3}-\d{3}-\d{4}&#34;&#34;&#34;)
@@ -175,7 +214,17 @@ b.toUpperCase()                        // Accesses the function directly. =&gt; 
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>With no valid phone number in the <code>input</code> string, the variable <code>phoneNumber</code> will be <code>null</code>.</p><h1 id="2197be43-45b6-4a3f-ac66-a14151a16e5f" class="">findAll(input: CharSequence, startIndex: Int): Sequence<a class="header-anchor" href="#2197be43-45b6-4a3f-ac66-a14151a16e5f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Returns all the matches from the <code>input</code> string that matches the regex <code>pattern</code>.</p><p>To print out all numbers separated with space, from a text with letters and digits:</p>
+</div>
+<p>With no valid phone number in the <code>input</code> string, the variable <code>phoneNumber</code> will be <code>null</code>.
+</p>
+  <h1 id="2197be43-45b6-4a3f-ac66-a14151a16e5f" class="">findAll(input: CharSequence, startIndex: Int): Sequence
+  <a class="header-anchor" href="#2197be43-45b6-4a3f-ac66-a14151a16e5f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Returns all the matches from the <code>input</code> string that matches the regex <code>pattern</code>.
+</p>
+<p>To print out all numbers separated with space, from a text with letters and digits:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">val matchedResults = Regex(pattern = &#34;&#34;&#34;\d+&#34;&#34;&#34;).findAll(input = &#34;ab12cd34ef&#34;)
@@ -189,7 +238,17 @@ println(result) // =&gt; 12 34</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>matchedResults</code> variable is a sequence with <code>MatchResult</code> objects. With an <code>input</code> string without digits, the <code>findAll(..)</code> function will return an empty sequence.</p><h1 id="c092b5de-e5f0-4146-a416-f99e0f0568a5" class="">matchEntire(input: CharSequence): MatchResult?<a class="header-anchor" href="#c092b5de-e5f0-4146-a416-f99e0f0568a5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>If all the characters in the <code>input</code> string matches the regex <code>pattern</code>, a string equal to the <code>input</code> will be returned. Else, <code>null</code> will be returned.</p><p>Returns the input string if the whole input string is a number:</p>
+</div>
+<p>The <code>matchedResults</code> variable is a sequence with <code>MatchResult</code> objects. With an <code>input</code> string without digits, the <code>findAll(..)</code> function will return an empty sequence.
+</p>
+  <h1 id="c092b5de-e5f0-4146-a416-f99e0f0568a5" class="">matchEntire(input: CharSequence): MatchResult?
+  <a class="header-anchor" href="#c092b5de-e5f0-4146-a416-f99e0f0568a5" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>If all the characters in the <code>input</code> string matches the regex <code>pattern</code>, a string equal to the <code>input</code> will be returned. Else, <code>null</code> will be returned.
+</p>
+<p>Returns the input string if the whole input string is a number:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">val a = Regex(&#34;&#34;&#34;\d+&#34;&#34;&#34;).matchEntire(&#34;100&#34;)?.value             // a: 100
@@ -198,7 +257,15 @@ val b = Regex(&#34;&#34;&#34;\d+&#34;&#34;&#34;).matchEntire(&#34;100 dollars&#3
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="7b0508e1-cc50-40de-960b-7f1105be8d9f" class="">matches(input: CharSequence): Boolean<a class="header-anchor" href="#7b0508e1-cc50-40de-960b-7f1105be8d9f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Returns true if the whole input string matches the regex pattern. False otherwise.</p><p>Tests if two strings contains only digits:</p>
+</div>
+  <h1 id="7b0508e1-cc50-40de-960b-7f1105be8d9f" class="">matches(input: CharSequence): Boolean
+  <a class="header-anchor" href="#7b0508e1-cc50-40de-960b-7f1105be8d9f" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Returns true if the whole input string matches the regex pattern. False otherwise.
+</p>
+<p>Tests if two strings contains only digits:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">val regex = Regex(pattern = &#34;&#34;&#34;\d+&#34;&#34;&#34;)
@@ -208,7 +275,15 @@ regex.matches(input = &#34;50 dollars&#34;)     // =&gt; false</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="992943cc-4dae-49ff-8f75-82a1f9df34be" class="">containsMatchIn(input: CharSequence): Boolean<a class="header-anchor" href="#992943cc-4dae-49ff-8f75-82a1f9df34be" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Returns true if part of the input string matches the regex pattern. False otherwise.</p><p>Test if two strings contains at least one digit:</p>
+</div>
+  <h1 id="992943cc-4dae-49ff-8f75-82a1f9df34be" class="">containsMatchIn(input: CharSequence): Boolean
+  <a class="header-anchor" href="#992943cc-4dae-49ff-8f75-82a1f9df34be" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Returns true if part of the input string matches the regex pattern. False otherwise.
+</p>
+<p>Test if two strings contains at least one digit:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Regex(&#34;&#34;&#34;\d+&#34;&#34;&#34;).containsMatchIn(&#34;50 dollars&#34;)       // =&gt; true
@@ -217,7 +292,15 @@ Regex(&#34;&#34;&#34;\d+&#34;&#34;&#34;).containsMatchIn(&#34;Fifty dollars&#34;
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="395978a9-2447-4c35-ad35-c3c563ef2c99" class="">split(input: CharSequence, limit: Int): List<a class="header-anchor" href="#395978a9-2447-4c35-ad35-c3c563ef2c99" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Returns a new list without all the regex matches.</p><p>To return lists without digits:</p>
+</div>
+  <h1 id="395978a9-2447-4c35-ad35-c3c563ef2c99" class="">split(input: CharSequence, limit: Int): List
+  <a class="header-anchor" href="#395978a9-2447-4c35-ad35-c3c563ef2c99" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Returns a new list without all the regex matches.
+</p>
+<p>To return lists without digits:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">val a = Regex(&#34;&#34;&#34;\d+&#34;&#34;&#34;).split(&#34;ab12cd34ef&#34;)     // a: [ab, cd, ef]
@@ -226,7 +309,17 @@ val b = Regex(&#34;&#34;&#34;\d+&#34;&#34;&#34;).split(&#34;This is a test&#34;)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>There is one element in the list for each split. The first <code>input</code> string has three numbers. That results in a list with three elements.</p><h1 id="6e92fc6c-c9d9-4506-ba56-eb7f439121d2" class="">replace(input: CharSequence, replacement: String): String<a class="header-anchor" href="#6e92fc6c-c9d9-4506-ba56-eb7f439121d2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Replaces all matches of the regex <code>pattern</code> in the <code>input</code> string with the replacement string.</p><p>To replace all digits in a string with an x:</p>
+</div>
+<p>There is one element in the list for each split. The first <code>input</code> string has three numbers. That results in a list with three elements.
+</p>
+  <h1 id="6e92fc6c-c9d9-4506-ba56-eb7f439121d2" class="">replace(input: CharSequence, replacement: String): String
+  <a class="header-anchor" href="#6e92fc6c-c9d9-4506-ba56-eb7f439121d2" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Replaces all matches of the regex <code>pattern</code> in the <code>input</code> string with the replacement string.
+</p>
+<p>To replace all digits in a string with an x:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">val result = Regex(&#34;&#34;&#34;\d+&#34;&#34;&#34;).replace(&#34;ab12cd34ef&#34;, &#34;x&#34;) // result: abxcdxef</pre>

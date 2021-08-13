@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>In Java, there is a built-in language-level locking mechanism: the <code>synchronized</code> block, which can use any Java object as an intrinsic lock (i.e. every Java object may have a monitor associated with it).</p><p>Intrinsic locks provide atomicity to groups of statements. To understand what that means for us, let’s have a look at an example where <code>synchronized</code> is useful:</p>
+      
+<p>In Java, there is a built-in language-level locking mechanism: the <code>synchronized</code> block, which can use any Java object as an intrinsic lock (i.e. every Java object may have a monitor associated with it).
+</p>
+<p>Intrinsic locks provide atomicity to groups of statements. To understand what that means for us, let’s have a look at an example where <code>synchronized</code> is useful:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private static int t = 0;
@@ -149,7 +154,14 @@ public static void main(String[] args) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this case, if it weren’t for the <code>synchronized</code> block, there would have been multiple concurrency issues involved. The first one would be with the post increment operator (it isn’t atomic in itself), and the second would be that we would be observing the value of t after an arbitrary amount of other threads has had the chance to modify it. However, since we acquired an intrinsic lock, there will be no race conditions here and the output will contain numbers from 1 to 100 in their normal order.</p><p>Intrinsic locks in Java are <em>mutexes</em> (i.e. mutual execution locks). Mutual execution means that if one thread has acquired the lock, the second will be forced to wait for the first one to release it before it can acquire the lock for itself. Note: An operation that may put the thread into the wait (sleep) state is called a <em>blocking operation</em>. Thus, acquiring a lock is a blocking operation.</p><p>Intrinsic locks in Java are <em>reentrant</em>. This means that if a thread attempts to acquire a lock it already owns, it will not block and it will successfully acquire it. For instance, the following code will <em>not</em> block when called:</p>
+</div>
+<p>In this case, if it weren’t for the <code>synchronized</code> block, there would have been multiple concurrency issues involved. The first one would be with the post increment operator (it isn’t atomic in itself), and the second would be that we would be observing the value of t after an arbitrary amount of other threads has had the chance to modify it. However, since we acquired an intrinsic lock, there will be no race conditions here and the output will contain numbers from 1 to 100 in their normal order.
+</p>
+<p>Intrinsic locks in Java are <em>mutexes</em> (i.e. mutual execution locks). Mutual execution means that if one thread has acquired the lock, the second will be forced to wait for the first one to release it before it can acquire the lock for itself. Note: An operation that may put the thread into the wait (sleep) state is called a <em>blocking operation</em>. Thus, acquiring a lock is a blocking operation.
+</p>
+<p>Intrinsic locks in Java are <em>reentrant</em>. This means that if a thread attempts to acquire a lock it already owns, it will not block and it will successfully acquire it. For instance, the following code will <em>not</em> block when called:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public void bar(){
@@ -166,7 +178,16 @@ public void foo(){
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Beside <code>synchronized</code> blocks, there are also <code>synchronized</code> methods.</p><p>The following blocks of code are practically equivalent (even though the bytecode seems to be different):</p><ol id="df00778c-817a-48e2-8638-504bfbdd1b7d" class="numbered-list" start="1"><li><code>synchronized</code> block on <code>this</code>:</li></ol>
+</div>
+<p>Beside <code>synchronized</code> blocks, there are also <code>synchronized</code> methods.
+</p>
+<p>The following blocks of code are practically equivalent (even though the bytecode seems to be different):
+</p>
+  <ol id="df00778c-817a-48e2-8638-504bfbdd1b7d" class="numbered-list" start="1">
+    <li><code>synchronized</code> block on <code>this</code>:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public void foo() {
@@ -178,7 +199,12 @@ public void foo(){
 	<div class="code-box-nav">
 		
 	</div>
-</div><ol id="81de4f56-ef53-4d69-b9c5-699eac165cd9" class="numbered-list" start="1"><li><code>synchronized</code> method:</li></ol>
+</div>
+  <ol id="81de4f56-ef53-4d69-b9c5-699eac165cd9" class="numbered-list" start="1">
+    <li><code>synchronized</code> method:
+    </li>
+  </ol>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public synchronized void foo() {
@@ -188,7 +214,10 @@ public void foo(){
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Likewise for <code>static</code> methods, this:</p>
+</div>
+<p>Likewise for <code>static</code> methods, this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class MyClass {
@@ -203,7 +232,10 @@ public void foo(){
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>has the same effect as this:</p>
+</div>
+<p>has the same effect as this:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class MyClass {

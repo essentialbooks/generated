@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>An atomic operation is an operation that is executed “all at once”, without any chance of other threads observing or modifying state during the atomic operation’s execution.</p><p>Lets consider a <strong>BAD EXAMPLE</strong>.</p>
+      
+<p>An atomic operation is an operation that is executed “all at once”, without any chance of other threads observing or modifying state during the atomic operation’s execution.
+</p>
+<p>Lets consider a <strong>BAD EXAMPLE</strong>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private static int t = 0;
@@ -146,7 +151,14 @@ public static void main(String[] args) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this case, there are two issues. The first issue is that the post increment operator is <em>not</em> atomic. It is comprised of multiple operations: get the value, add 1 to the value, set the value. That’s why if we run the example, it is likely that we won’t see <code>t: 100</code> in the output - two threads may concurrently get the value, increment it, and set it: let’s say the value of t is 10, and two threads are incrementing t. Both threads will set the value of t to 11, since the second thread observes the value of t before the first thread had finished incrementing it.</p><p>The second issue is with how we are observing t. When we are printing the value of t, the value may have already been changed by a different thread after this thread’s increment operation.</p><p>To fix those issues, we’ll use the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html"><code>java.util.concurrent.atomic.AtomicInteger</code></a>, which has many atomic operations for us to use.</p>
+</div>
+<p>In this case, there are two issues. The first issue is that the post increment operator is <em>not</em> atomic. It is comprised of multiple operations: get the value, add 1 to the value, set the value. That’s why if we run the example, it is likely that we won’t see <code>t: 100</code> in the output - two threads may concurrently get the value, increment it, and set it: let’s say the value of t is 10, and two threads are incrementing t. Both threads will set the value of t to 11, since the second thread observes the value of t before the first thread had finished incrementing it.
+</p>
+<p>The second issue is with how we are observing t. When we are printing the value of t, the value may have already been changed by a different thread after this thread’s increment operation.
+</p>
+<p>To fix those issues, we’ll use the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html"><code>java.util.concurrent.atomic.AtomicInteger</code></a>, which has many atomic operations for us to use.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private static AtomicInteger t = new AtomicInteger(0);
@@ -165,7 +177,9 @@ public static void main(String[] args) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The <code>incrementAndGet</code> method of <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html"><code>AtomicInteger</code></a> atomically increments and returns the new value, thus eliminating the previous race condition. Please note that in this example the lines will still be out of order because we make no effort to sequence the <code>println</code> calls and that this falls outside the scope of this example, since it would require synchronization and the goal of this example is to show how to use <code>AtomicInteger</code> to eliminate race conditions concerning state.</p>
+</div>
+<p>The <code>incrementAndGet</code> method of <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html"><code>AtomicInteger</code></a> atomically increments and returns the new value, thus eliminating the previous race condition. Please note that in this example the lines will still be out of order because we make no effort to sequence the <code>println</code> calls and that this falls outside the scope of this example, since it would require synchronization and the goal of this example is to show how to use <code>AtomicInteger</code> to eliminate race conditions concerning state.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

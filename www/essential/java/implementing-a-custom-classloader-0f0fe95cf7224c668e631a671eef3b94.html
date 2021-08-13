@@ -127,7 +127,22 @@
 </div>
 
 
-      <p>Every custom loader must directly or indirectly extend the <code>java.lang.ClassLoader</code> class. The main <em>extension points</em> are the following methods:</p><ul id="1f641b78-5fbb-401b-b9a6-2a715ff8758e" class="bulleted-list"><li><code>findClass(String)</code> - overload this method if your classloader follows the standard delegation model for class loading.</li><li><code>loadClass(String, boolean)</code> - overload this method to implement an alternative delegation model.</li><li><code>findResource</code> and <code>findResources</code> - overload these methods to customize resource loading.</li></ul><p>The <code>defineClass</code> methods which are responsible for actually loading the class from a byte array are <code>final</code> to prevent overloading. Any custom behavior needs to be performed prior to calling <code>defineClass</code>.</p><p>Here is a simple that loads a specific class from a byte array:</p>
+      
+<p>Every custom loader must directly or indirectly extend the <code>java.lang.ClassLoader</code> class. The main <em>extension points</em> are the following methods:
+</p>
+  <ul id="1f641b78-5fbb-401b-b9a6-2a715ff8758e" class="bulleted-list">
+    <li><code>findClass(String)</code> - overload this method if your classloader follows the standard delegation model for class loading.
+    </li>
+    <li><code>loadClass(String, boolean)</code> - overload this method to implement an alternative delegation model.
+    </li>
+    <li><code>findResource</code> and <code>findResources</code> - overload these methods to customize resource loading.
+    </li>
+  </ul>
+<p>The <code>defineClass</code> methods which are responsible for actually loading the class from a byte array are <code>final</code> to prevent overloading. Any custom behavior needs to be performed prior to calling <code>defineClass</code>.
+</p>
+<p>Here is a simple that loads a specific class from a byte array:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class ByteArrayClassLoader extends ClassLoader {
@@ -152,7 +167,21 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Since we have only overridden the <code>findClass</code> method, this custom class loader is going to behave as follows when <code>loadClass</code> is called.</p><ol id="f04c1b2d-296d-4d5c-9008-25c325391698" class="numbered-list" start="1"><li>The classloader’s <code>loadClass</code> method calls <code>findLoadedClass</code> to see if a class with this name has already been loaded by this classloader. If that succeeds, the resulting <code>Class</code> object is returned to the requestor.</li><li>The <code>loadClass</code> method then delegates to the parent classloader by calling its <code>loadClass</code> call. If the parent can deal with the request, it will return a <code>Class</code> object which is then returned to the requestor.</li><li>If the parent classloader cannot load the class, <code>findClass</code> then calls our override <code>findClass</code> method, passing the name of the class to be loaded.</li><li>If the requested name matches <code>this.classname</code>, we call <code>defineClass</code> to load the actual class from the <code>this.classfile</code> byte array. The resulting <code>Class</code> object is then returned.</li><li>If the name did not match, we throw <code>ClassNotFoundException</code>.</li></ol>
+</div>
+<p>Since we have only overridden the <code>findClass</code> method, this custom class loader is going to behave as follows when <code>loadClass</code> is called.
+</p>
+  <ol id="f04c1b2d-296d-4d5c-9008-25c325391698" class="numbered-list" start="1">
+    <li>The classloader’s <code>loadClass</code> method calls <code>findLoadedClass</code> to see if a class with this name has already been loaded by this classloader. If that succeeds, the resulting <code>Class</code> object is returned to the requestor.
+    </li>
+    <li>The <code>loadClass</code> method then delegates to the parent classloader by calling its <code>loadClass</code> call. If the parent can deal with the request, it will return a <code>Class</code> object which is then returned to the requestor.
+    </li>
+    <li>If the parent classloader cannot load the class, <code>findClass</code> then calls our override <code>findClass</code> method, passing the name of the class to be loaded.
+    </li>
+    <li>If the requested name matches <code>this.classname</code>, we call <code>defineClass</code> to load the actual class from the <code>this.classfile</code> byte array. The resulting <code>Class</code> object is then returned.
+    </li>
+    <li>If the name did not match, we throw <code>ClassNotFoundException</code>.
+    </li>
+  </ol>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

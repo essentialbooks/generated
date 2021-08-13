@@ -127,7 +127,30 @@
 </div>
 
 
-      <p>JSON stands for “JavaScript Object Notation”, but it’s not JavaScript. Think of it as just a <em>data serialization format</em> that <em>happens</em> to be directly usable as a JavaScript literal. However, it is not advisable to directly run (i.e. through <code>eval()</code>) JSON that is fetched from an external source. Functionally, JSON isn’t very different from XML or YAML – some confusion can be avoided if JSON is just imagined as some serialization format that looks very much like JavaScript.</p><p>Even though the name implies just objects, and even though the majority of use cases through some kind of API always happen to be objects and arrays, JSON is not for just objects or arrays. The following primitive types are supported:</p><ul id="9b9b107c-aee1-4c77-9ecc-d8aee97bb536" class="bulleted-list"><li>String (e.g. <code>&quot;Hello World!&quot;</code>)</li><li>Number (e.g. <code>42</code>)</li><li>Boolean (e.g. <code>true</code>)</li><li>The value <code>null</code></li></ul><p><code>undefined</code> is not supported in the sense that an undefined property will be omitted from JSON upon serialization. Therefore, there is no way to deserialize JSON and end up with a property whose value is <code>undefined</code>.</p><p>The string <code>&quot;42&quot;</code> is valid JSON. JSON doesn’t always have to have an outer envelope of <code>&quot;{...}&quot;</code> or <code>&quot;[...]&quot;</code>.</p><p>While nome JSON is also valid JavaScript and some JavaScript is also valid JSON, there are some subtle differences between both languages and neither language is a subset of the other.</p><p>Take the following JSON string as an example:</p>
+      
+<p>JSON stands for “JavaScript Object Notation”, but it’s not JavaScript. Think of it as just a <em>data serialization format</em> that <em>happens</em> to be directly usable as a JavaScript literal. However, it is not advisable to directly run (i.e. through <code>eval()</code>) JSON that is fetched from an external source. Functionally, JSON isn’t very different from XML or YAML – some confusion can be avoided if JSON is just imagined as some serialization format that looks very much like JavaScript.
+</p>
+<p>Even though the name implies just objects, and even though the majority of use cases through some kind of API always happen to be objects and arrays, JSON is not for just objects or arrays. The following primitive types are supported:
+</p>
+  <ul id="9b9b107c-aee1-4c77-9ecc-d8aee97bb536" class="bulleted-list">
+    <li>String (e.g. <code>&quot;Hello World!&quot;</code>)
+    </li>
+    <li>Number (e.g. <code>42</code>)
+    </li>
+    <li>Boolean (e.g. <code>true</code>)
+    </li>
+    <li>The value <code>null</code>
+    </li>
+  </ul>
+<p><code>undefined</code> is not supported in the sense that an undefined property will be omitted from JSON upon serialization. Therefore, there is no way to deserialize JSON and end up with a property whose value is <code>undefined</code>.
+</p>
+<p>The string <code>&quot;42&quot;</code> is valid JSON. JSON doesn’t always have to have an outer envelope of <code>&quot;{...}&quot;</code> or <code>&quot;[...]&quot;</code>.
+</p>
+<p>While nome JSON is also valid JavaScript and some JavaScript is also valid JSON, there are some subtle differences between both languages and neither language is a subset of the other.
+</p>
+<p>Take the following JSON string as an example:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="p">{</span><span class="s2">&#34;color&#34;</span><span class="o">:</span> <span class="s2">&#34;blue&#34;</span><span class="p">}</span>
@@ -136,7 +159,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This can be directly inserted into JavaScript. It will be syntactically valid and will yield the correct value:</p>
+</div>
+<p>This can be directly inserted into JavaScript. It will be syntactically valid and will yield the correct value:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kr">const</span> <span class="nx">skin</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;color&#34;</span><span class="o">:</span> <span class="s2">&#34;blue&#34;</span><span class="p">};</span>
@@ -145,7 +171,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>However, we know that “color” is a valid identifier name and the quotes around the property name can be omitted:</p>
+</div>
+<p>However, we know that “color” is a valid identifier name and the quotes around the property name can be omitted:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kr">const</span> <span class="nx">skin</span> <span class="o">=</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s2">&#34;blue&#34;</span><span class="p">};</span>
@@ -154,7 +183,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We also know that we can use single quotes instead of double quotes:</p>
+</div>
+<p>We also know that we can use single quotes instead of double quotes:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="kr">const</span> <span class="nx">skin</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="o">:</span> <span class="s1">&#39;blue&#39;</span><span class="p">};</span>
@@ -163,7 +195,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But, if we were to take both of these literals and treat them as JSON, <strong>neither will be syntactically valid</strong> JSON:</p>
+</div>
+<p>But, if we were to take both of these literals and treat them as JSON, <strong>neither will be syntactically valid</strong> JSON:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s2">&#34;blue&#34;</span><span class="p">}</span>
@@ -173,7 +208,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>JSON strictly requires all property names to be double quoted and string values to be double quoted as well.</p><p>It’s common for JSON-newcomers to attempt to use code excerpts with JavaScript literals as JSON, and scratch their heads about the syntax errors they are getting from the JSON parser.</p><p>More confusion starts arising when <em>incorrect terminology</em> is applied in code or in conversation.</p><p>A common anti-pattern is to name variables that hold non-JSON values as “json”:</p>
+</div>
+<p>JSON strictly requires all property names to be double quoted and string values to be double quoted as well.
+</p>
+<p>It’s common for JSON-newcomers to attempt to use code excerpts with JavaScript literals as JSON, and scratch their heads about the syntax errors they are getting from the JSON parser.
+</p>
+<p>More confusion starts arising when <em>incorrect terminology</em> is applied in code or in conversation.
+</p>
+<p>A common anti-pattern is to name variables that hold non-JSON values as “json”:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
@@ -187,7 +231,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In the above example, <code>response.data</code> is a JSON string that is returned by some API. JSON stops at the HTTP response domain. The variable with the “json” misnomer holds just a JavaScript value (could be an object, an array, or even a simple number!)</p><p>A less confusing way to write the above is:</p>
+</div>
+<p>In the above example, <code>response.data</code> is a JSON string that is returned by some API. JSON stops at the HTTP response domain. The variable with the “json” misnomer holds just a JavaScript value (could be an object, an array, or even a simple number!)
+</p>
+<p>A less confusing way to write the above is:
+</p>
+
 <div class="code-box lang-JavaScript">
 	<div>
 	<pre class="chroma"><span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
@@ -201,7 +250,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Developers also tend to throw the phrase “JSON object” around a lot. This also leads to confusion. Because as mentioned above, a JSON string doesn’t have to hold an object as a value. “JSON string” is a better term. Just like “XML string” or “YAML string”. You get a string, you parse it, and you end up with a value.</p>
+</div>
+<p>Developers also tend to throw the phrase “JSON object” around a lot. This also leads to confusion. Because as mentioned above, a JSON string doesn’t have to hold an object as a value. “JSON string” is a better term. Just like “XML string” or “YAML string”. You get a string, you parse it, and you end up with a value.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

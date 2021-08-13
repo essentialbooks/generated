@@ -127,7 +127,12 @@
 </div>
 
 
-      <p>If you have an instance of a generic type but for some reason don’t know the specific type, you might want to determine the generic arguments that were used to create this instance.</p><p>Let’s say someone created an instance of <code>List&lt;T&gt;</code> like that and passes it to a method:</p>
+      
+<p>If you have an instance of a generic type but for some reason don’t know the specific type, you might want to determine the generic arguments that were used to create this instance.
+</p>
+<p>Let’s say someone created an instance of <code>List&lt;T&gt;</code> like that and passes it to a method:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="kt">var</span> <span class="n">myList</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
@@ -137,7 +142,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>where <code>ShowGenericArguments</code> has this signature:</p>
+</div>
+<p>where <code>ShowGenericArguments</code> has this signature:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">void</span> <span class="n">ShowGenericArguments</span><span class="p">(</span><span class="kt">object</span> <span class="n">o</span><span class="p">)</span>
@@ -146,7 +154,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>so at compile time you don’t have any idea what generic arguments have been used to create <code>o</code>. <a href="https://msdn.microsoft.com/en-us/library/system.type(v=vs.110).aspx">Reflection</a> provides a lot of methods to inspect generic types. At first, we can determine if the type of <code>o</code> is a generic type at all:</p>
+</div>
+<p>so at compile time you don’t have any idea what generic arguments have been used to create <code>o</code>. <a href="https://msdn.microsoft.com/en-us/library/system.type(v=vs.110).aspx">Reflection</a> provides a lot of methods to inspect generic types. At first, we can determine if the type of <code>o</code> is a generic type at all:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">void</span> <span class="n">ShowGenericArguments</span><span class="p">(</span><span class="kt">object</span> <span class="n">o</span><span class="p">)</span>
@@ -161,7 +172,14 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><a href="https://msdn.microsoft.com/en-us/library/system.type.isgenerictype(v=vs.110).aspx"><code>Type.IsGenericType</code></a> returns <code>true</code> if the type is a generic type and <code>false</code> if not.</p><p>But this is not all we want to know. <code>List&lt;&gt;</code> itself is a generic type, too. But we only want to examine instances of specific <em>constructed generic</em> types. A constructed generic type is for example a <code>List&lt;int&gt;</code> that has a specific type <em>argument</em> for all its generic <em>parameters</em>.</p><p>The <code>Type</code> class provides two more properties, <a href="https://msdn.microsoft.com/en-us/library/system.type.isconstructedgenerictype(v=vs.110).aspx"><code>IsConstructedGenericType</code></a> and <a href="https://msdn.microsoft.com/en-us/library/system.type.isgenerictypedefinition(v=vs.110).aspx"><code>IsGenericTypeDefinition</code></a>, to distinguish these constructed generic types from generic type definitions:</p>
+</div>
+<p><a href="https://msdn.microsoft.com/en-us/library/system.type.isgenerictype(v=vs.110).aspx"><code>Type.IsGenericType</code></a> returns <code>true</code> if the type is a generic type and <code>false</code> if not.
+</p>
+<p>But this is not all we want to know. <code>List&lt;&gt;</code> itself is a generic type, too. But we only want to examine instances of specific <em>constructed generic</em> types. A constructed generic type is for example a <code>List&lt;int&gt;</code> that has a specific type <em>argument</em> for all its generic <em>parameters</em>.
+</p>
+<p>The <code>Type</code> class provides two more properties, <a href="https://msdn.microsoft.com/en-us/library/system.type.isconstructedgenerictype(v=vs.110).aspx"><code>IsConstructedGenericType</code></a> and <a href="https://msdn.microsoft.com/en-us/library/system.type.isgenerictypedefinition(v=vs.110).aspx"><code>IsGenericTypeDefinition</code></a>, to distinguish these constructed generic types from generic type definitions:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">typeof</span><span class="p">(</span><span class="n">List</span><span class="p">&lt;&gt;).</span><span class="n">IsGenericType</span> <span class="c1">// true
@@ -176,7 +194,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To enumerate the generic arguments of an instance, we can use the <a href="https://msdn.microsoft.com/en-us/library/system.type.getgenericarguments(v=vs.110).aspx"><code>GetGenericArguments()</code></a> method that returns an <code>Type</code> array containing the generic type arguments:</p>
+</div>
+<p>To enumerate the generic arguments of an instance, we can use the <a href="https://msdn.microsoft.com/en-us/library/system.type.getgenericarguments(v=vs.110).aspx"><code>GetGenericArguments()</code></a> method that returns an <code>Type</code> array containing the generic type arguments:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="k">public</span> <span class="k">void</span> <span class="n">ShowGenericArguments</span><span class="p">(</span><span class="kt">object</span> <span class="n">o</span><span class="p">)</span>
@@ -193,7 +214,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>So the call from above (<code>ShowGenericArguments(myList)</code>) results in this output:</p>
+</div>
+<p>So the call from above (<code>ShowGenericArguments(myList)</code>) results in this output:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">Int32</span>

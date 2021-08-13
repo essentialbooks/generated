@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>In Go interfaces are satisfied implicitly. You don’t have to declare that a type is meant to implement a given interface.</p><p>It’s convenient but also makes it possible to not fully implement an interface by mistake and compiler has no way of detecting that.</p><p>There’s a way to a compile-type check for that:</p>
+      
+<p>In Go interfaces are satisfied implicitly. You don’t have to declare that a type is meant to implement a given interface.
+</p>
+<p>It’s convenient but also makes it possible to not fully implement an interface by mistake and compiler has no way of detecting that.
+</p>
+<p>There’s a way to a compile-type check for that:
+</p>
+
 <div class="code-box lang-go">
 	<div>
 	<pre class="chroma"><span class="kd">type</span> <span class="nx">MyReadCloser</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -147,6 +154,7 @@
 
 	</div>
 </div>
+
 <div class="code-box lang-output">
 	<div>
 	<pre class="chroma"># test
@@ -157,7 +165,14 @@ exit status 2</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Our intent was for <code>MyReadCloser</code> to implement <code>io.ReadCloser</code> interface.</p><p>However, we forgot to implement <code>Close</code> method.</p><p>This line caught this problem at compile time:</p>
+</div>
+<p>Our intent was for <code>MyReadCloser</code> to implement <code>io.ReadCloser</code> interface.
+</p>
+<p>However, we forgot to implement <code>Close</code> method.
+</p>
+<p>This line caught this problem at compile time:
+</p>
+
 <div class="code-box lang-Go">
 	<div>
 	<pre class="chroma"><span class="kd">var</span> <span class="nx">_</span> <span class="nx">io</span><span class="p">.</span><span class="nx">ReadCloser</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">MyReadCloser</span><span class="p">{}</span></pre>
@@ -165,7 +180,13 @@ exit status 2</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>We tried to assign <code>*MyReadCloser</code> type to variable of type <code>io.ReadCloser</code>.</p><p>Since <code>*MyReadCloser</code> doesn’t implement <code>Close</code> method, the compiler detected this is an invalid assignement at compile time.</p><p>We assigned the value to<a href="/essential/go/blank-identifier-1ac7536809074689b3f8041d7a2b1e4a"> blank identifier</a> <code>_</code> because we don’t actually use that variable for anything.</p>
+</div>
+<p>We tried to assign <code>*MyReadCloser</code> type to variable of type <code>io.ReadCloser</code>.
+</p>
+<p>Since <code>*MyReadCloser</code> doesn’t implement <code>Close</code> method, the compiler detected this is an invalid assignement at compile time.
+</p>
+<p>We assigned the value to<a href="/essential/go/blank-identifier-1ac7536809074689b3f8041d7a2b1e4a"> blank identifier</a> <code>_</code> because we don’t actually use that variable for anything.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Atomic variables can be accessed concurrently between different threads without creating race conditions.</p>
+      
+<p>Atomic variables can be accessed concurrently between different threads without creating race conditions.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/* a global static variable that is visible by all threads */
@@ -137,6 +140,7 @@ static unsigned _Atomic active = ATOMIC_VAR_INIT(0);</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">int myThread(void* a) {
@@ -149,7 +153,15 @@ static unsigned _Atomic active = ATOMIC_VAR_INIT(0);</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>All lvalue operations (operations that modify the object) that are allowed for the base type are allowed and will not lead to race conditions between different threads that access them.</p><ul id="367e7e74-75fa-4610-9f59-229016d129cd" class="bulleted-list"><li>Operations on atomic objects are generally orders of magnitude slower than normal arithmetic operations. This also includes simple load or store operations. So you should only use them for critical tasks.</li><li>Usual arithmetic operations and assignment such as <code>a = a+1;</code> are in fact three operations on <code>a</code>: first a load, then addition and finally a store. This is <em>not</em> race free. Only the operation <code>a += 1;</code> and <code>a++;</code> are.</li></ul>
+</div>
+<p>All lvalue operations (operations that modify the object) that are allowed for the base type are allowed and will not lead to race conditions between different threads that access them.
+</p>
+  <ul id="367e7e74-75fa-4610-9f59-229016d129cd" class="bulleted-list">
+    <li>Operations on atomic objects are generally orders of magnitude slower than normal arithmetic operations. This also includes simple load or store operations. So you should only use them for critical tasks.
+    </li>
+    <li>Usual arithmetic operations and assignment such as <code>a = a+1;</code> are in fact three operations on <code>a</code>: first a load, then addition and finally a store. This is <em>not</em> race free. Only the operation <code>a += 1;</code> and <code>a++;</code> are.
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

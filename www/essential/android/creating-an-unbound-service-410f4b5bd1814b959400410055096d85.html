@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>The first thing to do is to add the service to <code>AndroidManifest.xml</code>, inside the <code>&lt;application&gt;</code> tag:</p>
+      
+<p>The first thing to do is to add the service to <code>AndroidManifest.xml</code>, inside the <code>&lt;application&gt;</code> tag:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&lt;application ...&gt;
@@ -150,7 +153,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If your intend to manage your service class in a separate package (eg: .AllServices.RecordingService) then you will need to specify where your service is located. So, in above case we will modify:</p>
+</div>
+<p>If your intend to manage your service class in a separate package (eg: .AllServices.RecordingService) then you will need to specify where your service is located. So, in above case we will modify:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">android:name=&#34;.RecordingService&#34;</pre>
@@ -158,7 +164,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>to</p>
+</div>
+<p>to
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">android:name=&#34;.AllServices.RecordingService&#34;</pre>
@@ -166,7 +175,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>or the easiest way of doing so is to specify the full package name.</p><p>Then we create the actual service class:</p>
+</div>
+<p>or the easiest way of doing so is to specify the full package name.
+</p>
+<p>Then we create the actual service class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class RecordingService extends Service {
@@ -179,6 +193,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">private NotificationManager notificationManager = null;</pre>
@@ -187,6 +202,7 @@
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -230,6 +246,7 @@ public int onStartCommand(Intent intent, int flags, int startId){
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">@Override
@@ -246,6 +263,7 @@ public void onDestroy(){
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public void doSomething(){
@@ -257,7 +275,14 @@ public void onDestroy(){
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>All this service does is show a notification when it’s running, and it can display toasts when its <code>doSomething()</code> method is called.</p><p>As you’ll notice, it’s implemented as a <a href="https://en.wikipedia.org/wiki/Singleton_pattern">singleton</a>, keeping track of its own instance - but without the usual static singleton factory method because services are naturally singletons and are created by intents. The instance is useful to the outside to get a “handle” to the service when it’s running.</p><p>Last, we need to start and stop the service from an activity:</p>
+</div>
+<p>All this service does is show a notification when it’s running, and it can display toasts when its <code>doSomething()</code> method is called.
+</p>
+<p>As you’ll notice, it’s implemented as a <a href="https://en.wikipedia.org/wiki/Singleton_pattern">singleton</a>, keeping track of its own instance - but without the usual static singleton factory method because services are naturally singletons and are created by intents. The instance is useful to the outside to get a “handle” to the service when it’s running.
+</p>
+<p>Last, we need to start and stop the service from an activity:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public void startOrStopService(){
@@ -276,7 +301,12 @@ public void onDestroy(){
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In this example, the service is started and stopped by the same method, depending on it’s current state.</p><p>We can also invoke the <code>doSomething()</code> method from our activity:</p>
+</div>
+<p>In this example, the service is started and stopped by the same method, depending on it’s current state.
+</p>
+<p>We can also invoke the <code>doSomething()</code> method from our activity:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public void makeServiceDoSomething(){

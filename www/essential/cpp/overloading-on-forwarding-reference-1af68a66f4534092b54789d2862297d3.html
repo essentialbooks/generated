@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>You must be very careful when providing a forwarding reference overload as it may match too well:</p>
+      
+<p>You must be very careful when providing a forwarding reference overload as it may match too well:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{</span>
@@ -142,7 +145,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The intent here was that <code>A</code> is copyable, and that we have this other constructor that might initialize some other member. However:</p>
+</div>
+<p>The intent here was that <code>A</code> is copyable, and that we have this other constructor that might initialize some other member. However:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">A</span> <span class="n">a</span><span class="p">;</span>     <span class="c1">// calls #1
@@ -152,7 +158,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>There are two viable matches for the construction call:</p>
+</div>
+<p>There are two viable matches for the construction call:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="n">A</span><span class="p">(</span><span class="n">A</span> <span class="k">const</span><span class="o">&amp;</span> <span class="p">);</span> <span class="c1">// #2
@@ -162,7 +171,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Both are Exact Matches, but <code>#3</code> takes a reference to a less <em>cv</em>-qualified object than <code>#2</code> does, so it has the better standard conversion sequence and is the best viable function.</p><p>The solution here is to always constrain these constructors (e.g. using SFINAE):</p>
+</div>
+<p>Both are Exact Matches, but <code>#3</code> takes a reference to a less <em>cv</em>-qualified object than <code>#2</code> does, so it has the better standard conversion sequence and is the best viable function.
+</p>
+<p>The solution here is to always constrain these constructors (e.g. using SFINAE):
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span>
@@ -174,7 +188,9 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The type trait here is to exclude any <code>A</code> or class publicly and unambiguously derived from <code>A</code> from consideration, which would make this constructor ill-formed in the example described earlier (and hence removed from the overload set). As a result, the copy constructor is invoked - which is what we wanted.</p>
+</div>
+<p>The type trait here is to exclude any <code>A</code> or class publicly and unambiguously derived from <code>A</code> from consideration, which would make this constructor ill-formed in the example described earlier (and hence removed from the overload set). As a result, the copy constructor is invoked - which is what we wanted.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

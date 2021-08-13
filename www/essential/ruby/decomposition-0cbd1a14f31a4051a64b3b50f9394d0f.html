@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Any array can be quickly <strong>decomposed</strong> by assigning its elements into multiple variables. A simple example:</p>
+      
+<p>Any array can be quickly <strong>decomposed</strong> by assigning its elements into multiple variables. A simple example:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">arr = [1, 2, 3]
@@ -141,7 +144,10 @@ a, b, c = arr</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Preceding a variable with the <em>splat</em> operator (<code>\*</code>) puts into it an array of all the elements that haven’t been captured by other variables. If none are left, empty array is assigned. Only one splat can be used in a single assignment:</p>
+</div>
+<p>Preceding a variable with the <em>splat</em> operator (<code>\*</code>) puts into it an array of all the elements that haven’t been captured by other variables. If none are left, empty array is assigned. Only one splat can be used in a single assignment:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">a, *b = arr       # a = 1; b = [2, 3]
@@ -152,7 +158,10 @@ a, *b, *c = arr   # SyntaxError: unexpected *</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Decomposition is <em>safe</em> and never raises errors. <code>nil</code>s are assigned where there’s not enough elements, matching the behavior of <code>[]</code> operator when accessing an index out of bounds:</p>
+</div>
+<p>Decomposition is <em>safe</em> and never raises errors. <code>nil</code>s are assigned where there’s not enough elements, matching the behavior of <code>[]</code> operator when accessing an index out of bounds:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">arr[9000] # =&gt; nil
@@ -161,7 +170,10 @@ a, b, c, d = arr # a = 1; b = 2; c = 3; d = nil</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Decomposition tries to call <code>to_ary</code> implicitly on the object being assigned. By implementing this method in your type you get the ability to decompose it:</p>
+</div>
+<p>Decomposition tries to call <code>to_ary</code> implicitly on the object being assigned. By implementing this method in your type you get the ability to decompose it:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Foo
@@ -174,7 +186,10 @@ a, b = Foo.new # a = 1; b = 2</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If the object being decomposed doesn’t <code>respond_to?</code> <code>to_ary</code>, it’s treated as a single-element array:</p>
+</div>
+<p>If the object being decomposed doesn’t <code>respond_to?</code> <code>to_ary</code>, it’s treated as a single-element array:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">1.respond_to?(:to_ary) # =&gt; false
@@ -183,7 +198,10 @@ a, b = 1 # a = 1; b = nil</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Decomposition can also be <strong>nested</strong> by using a <code>()</code>-delimited decomposition expression in place of what otherwise would be a single element:</p>
+</div>
+<p>Decomposition can also be <strong>nested</strong> by using a <code>()</code>-delimited decomposition expression in place of what otherwise would be a single element:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">arr = [1, [2, 3, 4], 5, 6]
@@ -193,7 +211,12 @@ a, (b, *c), *d = arr # a = 1; b = 2; c = [3, 4]; d = [5, 6]
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is effectively the opposite of <em>splat</em>.</p><p>Actually, any decomposition expression can be delimited by <code>()</code>. But for the first level decomposition is optional.</p>
+</div>
+<p>This is effectively the opposite of <em>splat</em>.
+</p>
+<p>Actually, any decomposition expression can be delimited by <code>()</code>. But for the first level decomposition is optional.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">a, b = [1, 2]
@@ -202,7 +225,10 @@ a, (b, *c), *d = arr # a = 1; b = 2; c = [3, 4]; d = [5, 6]
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Edge case:</strong> <em>a single identifier</em> cannot be used as a destructuring pattern, be it outer or a nested one:</p>
+</div>
+<p><strong>Edge case:</strong> <em>a single identifier</em> cannot be used as a destructuring pattern, be it outer or a nested one:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">(a) = [1] # SyntaxError
@@ -211,7 +237,10 @@ a, (b) = [1, [2]] # SyntaxError</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>When assigning <strong>an array literal</strong> to a destructuring expression, outer <code>[]</code> can be omitted:</p>
+</div>
+<p>When assigning <strong>an array literal</strong> to a destructuring expression, outer <code>[]</code> can be omitted:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">a, b = [1, 2]
@@ -220,7 +249,10 @@ a, b =  1, 2  # exactly the same</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is known as <strong>parallel assignment</strong>, but it uses the same decomposition under the hood. This is particularly handy for exchanging variables’ values without employing additional temporary variables:</p>
+</div>
+<p>This is known as <strong>parallel assignment</strong>, but it uses the same decomposition under the hood. This is particularly handy for exchanging variables’ values without employing additional temporary variables:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">t = a; a = b; b = t # an obvious way
@@ -230,7 +262,9 @@ a, b = b, a         # an idiomatic way
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Values are captured when building the right-hand side of the assignment, so using the same variables as source and destination is relatively safe.</p>
+</div>
+<p>Values are captured when building the right-hand side of the assignment, so using the same variables as source and destination is relatively safe.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

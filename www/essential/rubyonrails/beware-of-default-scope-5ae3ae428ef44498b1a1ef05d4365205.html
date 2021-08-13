@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>ActiveRecord includes <code>default_scope</code>, to automatically scope a model by default.</p>
+      
+<p>ActiveRecord includes <code>default_scope</code>, to automatically scope a model by default.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Post
@@ -137,7 +140,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The above code will serve posts which are already published when you perform any query on the model.</p>
+</div>
+<p>The above code will serve posts which are already published when you perform any query on the model.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Post.all # will only list published posts</pre>
@@ -145,7 +151,15 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>That scope, while innocuous-looking, has multiple hidden side-effect that you may not want.</p><h3 id="720cbf88-96f7-459e-94e7-f76350494c16" class=""><code>default_scope</code> and <code>order</code><a class="header-anchor" href="#720cbf88-96f7-459e-94e7-f76350494c16" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h3><p>Since you declared an <code>order</code> in the <code>default_scope</code>, calling <code>order</code> on <code>Post</code> will be added as additional orders instead of overriding the default.</p>
+</div>
+<p>That scope, while innocuous-looking, has multiple hidden side-effect that you may not want.
+</p>
+  <h3 id="720cbf88-96f7-459e-94e7-f76350494c16" class=""><code>default_scope</code> and <code>order</code>
+  <a class="header-anchor" href="#720cbf88-96f7-459e-94e7-f76350494c16" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h3>
+<p>Since you declared an <code>order</code> in the <code>default_scope</code>, calling <code>order</code> on <code>Post</code> will be added as additional orders instead of overriding the default.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Post.order(updated_at: :desc)</pre>
@@ -154,6 +168,7 @@ end</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT &#34;posts&#34;.* FROM &#34;posts&#34; WHERE &#34;posts&#34;.&#34;published&#34; = &#39;t&#39; ORDER BY &#34;posts&#34;.&#34;created_at&#34; DESC, &#34;posts&#34;.&#34;updated_at&#34; DESC</pre>
@@ -161,7 +176,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is probably not the behavior you wanted; you can override this by excluding the <code>order</code> from the scope first</p>
+</div>
+<p>This is probably not the behavior you wanted; you can override this by excluding the <code>order</code> from the scope first
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Post.except(:order).order(updated_at: :desc)</pre>
@@ -170,6 +188,7 @@ end</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT &#34;posts&#34;.* FROM &#34;posts&#34; WHERE &#34;posts&#34;.&#34;published&#34; = &#39;t&#39; ORDER BY &#34;posts&#34;.&#34;updated_at&#34; DESC</pre>
@@ -177,7 +196,15 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="a5ad58fa-0d63-45a8-8b51-3c823029e0cd" class=""><code>default_scope</code> and model initialization<a class="header-anchor" href="#a5ad58fa-0d63-45a8-8b51-3c823029e0cd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>As with any other <code>ActiveRecord::Relation</code>, <code>default_scope</code> will alter the default state of models initialized from it.</p><p>In the above example, <code>Post</code> has <code>where(published: true)</code> set by default, and so new models from <code>Post</code> will also have it set.</p>
+</div>
+  <h1 id="a5ad58fa-0d63-45a8-8b51-3c823029e0cd" class=""><code>default_scope</code> and model initialization
+  <a class="header-anchor" href="#a5ad58fa-0d63-45a8-8b51-3c823029e0cd" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>As with any other <code>ActiveRecord::Relation</code>, <code>default_scope</code> will alter the default state of models initialized from it.
+</p>
+<p>In the above example, <code>Post</code> has <code>where(published: true)</code> set by default, and so new models from <code>Post</code> will also have it set.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Post.new # =&gt; &lt;Post published: true&gt;</pre>
@@ -185,7 +212,13 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="b9eb5de6-131e-4e7c-a611-adbfb9537024" class=""><code>unscoped</code><a class="header-anchor" href="#b9eb5de6-131e-4e7c-a611-adbfb9537024" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p><code>default_scope</code> can nominally be cleared by calling <code>unscoped</code> first, but this also has side-effects. Take, for example, an STI model:</p>
+</div>
+  <h1 id="b9eb5de6-131e-4e7c-a611-adbfb9537024" class=""><code>unscoped</code>
+  <a class="header-anchor" href="#b9eb5de6-131e-4e7c-a611-adbfb9537024" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p><code>default_scope</code> can nominally be cleared by calling <code>unscoped</code> first, but this also has side-effects. Take, for example, an STI model:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Post &lt; Document
@@ -195,7 +228,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>By default, queries against <code>Post</code> will be scoped to <code>type</code> columns containing <code>&#x27;Post&#x27;</code>. But <code>unscoped</code> will clear this along with your own <code>default_scope</code>, so if you use <code>unscoped</code> you have to remember to account for this as well.</p>
+</div>
+<p>By default, queries against <code>Post</code> will be scoped to <code>type</code> columns containing <code>&#x27;Post&#x27;</code>. But <code>unscoped</code> will clear this along with your own <code>default_scope</code>, so if you use <code>unscoped</code> you have to remember to account for this as well.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Post.unscoped.where(type: &#39;Post&#39;).order(updated_at: :desc)</pre>
@@ -203,7 +239,13 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><h1 id="339a7728-b0b1-47ee-b7f5-387f4e5949d3" class=""><code>unscoped</code> and Model Associations<a class="header-anchor" href="#339a7728-b0b1-47ee-b7f5-387f4e5949d3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Consider a relationship between <code>Post</code> and <code>User</code></p>
+</div>
+  <h1 id="339a7728-b0b1-47ee-b7f5-387f4e5949d3" class=""><code>unscoped</code> and Model Associations
+  <a class="header-anchor" href="#339a7728-b0b1-47ee-b7f5-387f4e5949d3" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Consider a relationship between <code>Post</code> and <code>User</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Post &lt; ApplicationRecord
@@ -218,7 +260,10 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>By getting an individual <code>User</code>, you can see the posts related to it:</p>
+</div>
+<p>By getting an individual <code>User</code>, you can see the posts related to it:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">user = User.find(1)
@@ -228,6 +273,7 @@ user.posts</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT &#34;posts&#34;.* FROM &#34;posts&#34; WHERE &#34;posts&#34;.&#34;published&#34; = &#39;t&#39; AND &#34;posts&#34;.&#34;user_id&#34; = ? ORDER BY &#34;posts&#34;.&#34;created_at&#34; DESC [[&#34;user_id&#34;, 1]]</pre>
@@ -235,7 +281,10 @@ user.posts</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>But you want to clear the <code>default_scope</code> from the <code>posts</code> relation, so you use <code>unscoped</code></p>
+</div>
+<p>But you want to clear the <code>default_scope</code> from the <code>posts</code> relation, so you use <code>unscoped</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">user.posts.unscoped</pre>
@@ -244,6 +293,7 @@ user.posts</pre>
 		
 	</div>
 </div>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">SELECT &#34;posts&#34;.* FROM &#34;posts&#34;</pre>
@@ -251,7 +301,17 @@ user.posts</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This wipes out the <code>user_id</code> condition as well as the <code>default_scope</code>.</p><h1 id="bc440993-bc95-4f39-b212-2e34f8c445de" class="">An example use-case for <code>default_scope</code><a class="header-anchor" href="#bc440993-bc95-4f39-b212-2e34f8c445de" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><p>Despite all of that, there are situations where using <code>default_scope</code> is justifiable.</p><p>Consider a multi-tenant system where multiple subdomains are served from the same application but with isolated data. One way to achieve this isolation is through <code>default_scope</code>. The downsides in other cases become upsides here.</p>
+</div>
+<p>This wipes out the <code>user_id</code> condition as well as the <code>default_scope</code>.
+</p>
+  <h1 id="bc440993-bc95-4f39-b212-2e34f8c445de" class="">An example use-case for <code>default_scope</code>
+  <a class="header-anchor" href="#bc440993-bc95-4f39-b212-2e34f8c445de" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+<p>Despite all of that, there are situations where using <code>default_scope</code> is justifiable.
+</p>
+<p>Consider a multi-tenant system where multiple subdomains are served from the same application but with isolated data. One way to achieve this isolation is through <code>default_scope</code>. The downsides in other cases become upsides here.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class ApplicationRecord &lt; ActiveRecord::Base
@@ -270,7 +330,11 @@ end</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>All you need to do is set <code>Tenant.current_id</code> to something early in the request, and any table that contains <code>tenant_id</code> will automatically become scoped without any additional code. Instantiating records will automatically inherit the tenant id they were created under.</p><p>The important thing about this use-case is that the scope is set once per request, and it doesn’t change. The only cases you will need <code>unscoped</code> here are special cases like background workers that run outside of a request scope.</p>
+</div>
+<p>All you need to do is set <code>Tenant.current_id</code> to something early in the request, and any table that contains <code>tenant_id</code> will automatically become scoped without any additional code. Instantiating records will automatically inherit the tenant id they were created under.
+</p>
+<p>The important thing about this use-case is that the scope is set once per request, and it doesn’t change. The only cases you will need <code>unscoped</code> here are special cases like background workers that run outside of a request scope.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

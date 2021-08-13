@@ -127,7 +127,10 @@
 </div>
 
 
-      <p><strong>Using some setters, without setting all needed properties in the constructor(s)</strong></p>
+      
+<p><strong>Using some setters, without setting all needed properties in the constructor(s)</strong>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public final class Person { // example of a bad immutability
@@ -144,7 +147,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>It’s easy to show that <code>Person</code> class is not immutable:</p>
+</div>
+<p>It’s easy to show that <code>Person</code> class is not immutable:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Person person = new Person(&#34;Joe&#34;);
@@ -153,7 +159,10 @@ person.setSurname(&#34;Average&#34;); // NOT OK, change surname field after crea
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To fix it, simply delete <code>setSurname()</code> and refactor the constructor as follows:</p>
+</div>
+<p>To fix it, simply delete <code>setSurname()</code> and refactor the constructor as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public Person(String name, String surname) {
@@ -164,7 +173,13 @@ person.setSurname(&#34;Average&#34;); // NOT OK, change surname field after crea
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="aa6106b0-0f00-4c7e-b19a-37336a181531"/><p><strong>Not marking instance variables as private and final</strong></p><p>Take a look at the following class:</p>
+</div>
+<hr id="aa6106b0-0f00-4c7e-b19a-37336a181531"/>
+<p><strong>Not marking instance variables as private and final</strong>
+</p>
+<p>Take a look at the following class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public final class Person {
@@ -181,7 +196,10 @@ person.setSurname(&#34;Average&#34;); // NOT OK, change surname field after crea
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The following snippet shows that the above class is not immutable:</p>
+</div>
+<p>The following snippet shows that the above class is not immutable:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Person person = new Person(&#34;Average Joe&#34;);
@@ -190,7 +208,15 @@ person.name = &#34;Magic Mike&#34;; // not OK, new name for person after creatio
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To fix it, simply mark name property as <code>private</code> and <code>final</code>.</p><hr id="e9acef36-c11f-4fe6-b6c0-ceb0d2511aaf"/><p><strong>Exposing a mutable object of the class in a getter</strong></p><p>Take a look at the following class:</p>
+</div>
+<p>To fix it, simply mark name property as <code>private</code> and <code>final</code>.
+</p>
+<hr id="e9acef36-c11f-4fe6-b6c0-ceb0d2511aaf"/>
+<p><strong>Exposing a mutable object of the class in a getter</strong>
+</p>
+<p>Take a look at the following class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import java.util.List;
@@ -211,7 +237,10 @@ public final class Names {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>Names</code> class seems immutable at the first sight, but it is not as the following code shows:</p>
+</div>
+<p><code>Names</code> class seems immutable at the first sight, but it is not as the following code shows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">List&lt;String&gt; namesList = new ArrayList&lt;String&gt;();
@@ -225,7 +254,12 @@ System.out.println(names.size()); // 2, NOT OK, now names also contains &#34;Mag
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This happened because a change to the reference List returned by <code>getNames()</code> can modify the actual list of <code>Names</code>.</p><p>To fix this, simply avoid returning references that reference class’s mutable objects <em>either</em> by making defensive copies, as follows:</p>
+</div>
+<p>This happened because a change to the reference List returned by <code>getNames()</code> can modify the actual list of <code>Names</code>.
+</p>
+<p>To fix this, simply avoid returning references that reference class’s mutable objects <em>either</em> by making defensive copies, as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public List&lt;String&gt; getNames() {
@@ -235,7 +269,10 @@ System.out.println(names.size()); // 2, NOT OK, now names also contains &#34;Mag
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><em>or</em> by designing getters in way that only other <em>immutable objects</em> and <em>primitives</em> are returned, as follows:</p>
+</div>
+<p><em>or</em> by designing getters in way that only other <em>immutable objects</em> and <em>primitives</em> are returned, as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public String getName(int index) {
@@ -248,7 +285,13 @@ public int size() {
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="fb53332d-3137-4c00-a2d6-88f7f85dd530"/><p><strong>Injecting constructor with object(s) that can be modified outside the immutable class</strong></p><p>This is a variation of the previous flaw. Take a look at the following class:</p>
+</div>
+<hr id="fb53332d-3137-4c00-a2d6-88f7f85dd530"/>
+<p><strong>Injecting constructor with object(s) that can be modified outside the immutable class</strong>
+</p>
+<p>This is a variation of the previous flaw. Take a look at the following class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">import java.util.List;
@@ -268,7 +311,10 @@ public final class NewNames {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As <code>Names</code> class before, also <code>NewNames</code> class seems immutable at the first sight, but it is not, in fact the following snippet proves the contrary:</p>
+</div>
+<p>As <code>Names</code> class before, also <code>NewNames</code> class seems immutable at the first sight, but it is not, in fact the following snippet proves the contrary:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">List&lt;String&gt; namesList = new ArrayList&lt;String&gt;();
@@ -281,7 +327,10 @@ System.out.println(names.size()); // 2, NOT OK, now names also contains &#34;Mag
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To fix this, as in the previous flaw, simply make defensive copies of the object without assigning it directly to the immutable class, i.e. constructor can be changed as follows:</p>
+</div>
+<p>To fix this, as in the previous flaw, simply make defensive copies of the object without assigning it directly to the immutable class, i.e. constructor can be changed as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public Names(List&lt;String&gt; names) {
@@ -291,7 +340,13 @@ System.out.println(names.size()); // 2, NOT OK, now names also contains &#34;Mag
 	<div class="code-box-nav">
 		
 	</div>
-</div><hr id="7469c228-f5ca-475b-a08c-b458c1d4b1c8"/><p><strong>Letting the methods of the class being overridden</strong></p><p>Take a look at the following class:</p>
+</div>
+<hr id="7469c228-f5ca-475b-a08c-b458c1d4b1c8"/>
+<p><strong>Letting the methods of the class being overridden</strong>
+</p>
+<p>Take a look at the following class:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class Person {
@@ -305,7 +360,10 @@ System.out.println(names.size()); // 2, NOT OK, now names also contains &#34;Mag
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>Person</code> class seems immutable at the first sight, but suppose a new subclass of <code>Person</code> is defined:</p>
+</div>
+<p><code>Person</code> class seems immutable at the first sight, but suppose a new subclass of <code>Person</code> is defined:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public class MutablePerson extends Person {
@@ -325,7 +383,10 @@ System.out.println(names.size()); // 2, NOT OK, now names also contains &#34;Mag
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>now <code>Person</code> (im)mutability can be exploited through polymorphism by using the new subclass:</p>
+</div>
+<p>now <code>Person</code> (im)mutability can be exploited through polymorphism by using the new subclass:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Person person = new MutablePerson(&#34;Average Joe&#34;);
@@ -336,7 +397,9 @@ System.out.println(person.getName()); // prints Magic Mike</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To fix this, <em>either</em> mark the class as <code>final</code> so it cannot be extended <em>or</em> declare all of its constructor(s) as <code>private</code>.</p>
+</div>
+<p>To fix this, <em>either</em> mark the class as <code>final</code> so it cannot be extended <em>or</em> declare all of its constructor(s) as <code>private</code>.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

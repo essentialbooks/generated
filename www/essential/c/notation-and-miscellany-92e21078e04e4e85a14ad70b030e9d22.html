@@ -127,7 +127,20 @@
 </div>
 
 
-      <p>The C standard says that there is very little difference between the <code>#include &lt;header.h&gt;</code> and <code>#include &quot;header.h&quot;</code> notations.</p><blockquote id="737ae608-6c97-403e-bf66-7b3d62ee19c5" class="">[#include &lt;header.h&gt;] searches a sequence of implementation-defined places for a header identified uniquely by the specified sequence between the \&lt; and \&gt; delimiters, and causes the replacement of that directive by the entire contents of the header. How the places are specified or the header identified is implementation-defined.</blockquote><blockquote id="c5cfd58d-3dd8-4b3c-8b56-614e80fb5427" class="">[#include &quot;header.h&quot;] causes the replacement of that directive by the entire contents of the source file identified by the specified sequence between the &quot;…&quot; delimiters. The named source file is searched for in an implementation-defined manner. If this search is not supported, or if the search fails, the directive is reprocessed as if it read [#include &lt;header.h&gt;] …</blockquote><p>So, the double quoted form may look in more places than the angle-bracketed form. The standard specifies by example that the standard headers should be included in angle-brackets, even though the compilation works if you use double quotes instead. Similarly, standards such as POSIX use the angle-bracketed format — and you should too. Reserve double-quoted headers for headers defined by the project. For externally-defined headers (including headers from other projects your project relies on), the angle-bracket notation is most appropriate.</p><p>Note that there should be a space between <code>#include</code> and the header, even though the compilers will accept no space there. Spaces are cheap.</p><p>A number of projects use a notation such as:</p>
+      
+<p>The C standard says that there is very little difference between the <code>#include &lt;header.h&gt;</code> and <code>#include &quot;header.h&quot;</code> notations.
+</p>
+<blockquote id="737ae608-6c97-403e-bf66-7b3d62ee19c5" class="">[#include &lt;header.h&gt;] searches a sequence of implementation-defined places for a header identified uniquely by the specified sequence between the \&lt; and \&gt; delimiters, and causes the replacement of that directive by the entire contents of the header. How the places are specified or the header identified is implementation-defined.
+</blockquote>
+<blockquote id="c5cfd58d-3dd8-4b3c-8b56-614e80fb5427" class="">[#include &quot;header.h&quot;] causes the replacement of that directive by the entire contents of the source file identified by the specified sequence between the &quot;…&quot; delimiters. The named source file is searched for in an implementation-defined manner. If this search is not supported, or if the search fails, the directive is reprocessed as if it read [#include &lt;header.h&gt;] …
+</blockquote>
+<p>So, the double quoted form may look in more places than the angle-bracketed form. The standard specifies by example that the standard headers should be included in angle-brackets, even though the compilation works if you use double quotes instead. Similarly, standards such as POSIX use the angle-bracketed format — and you should too. Reserve double-quoted headers for headers defined by the project. For externally-defined headers (including headers from other projects your project relies on), the angle-bracket notation is most appropriate.
+</p>
+<p>Note that there should be a space between <code>#include</code> and the header, even though the compilers will accept no space there. Spaces are cheap.
+</p>
+<p>A number of projects use a notation such as:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;openssl/ssl.h&gt;
@@ -137,7 +150,49 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You should consider whether to use that namespace control in your project (it is quite probably a good idea). You should steer clear of the names used by existing projects (in particular, both <code>sys</code> and <code>linux</code> would be bad choices).</p><p>If you use this, your code should be careful and consistent in the use of the notation.</p><p>Do not use <code>#include &quot;../include/header.h&quot;</code> notation.</p><p>Header files should seldom if ever define variables. Although you will keep global variables to a minimum, if you need a global variable, you will declare it in a header, and define it in one suitable source file, and that source file will include the header to cross-check the declaration and definition, and all source files that use the variable will use the header to declare it.</p><p>Corollary: you will not declare global variables in a source file — a source file will only contain definitions.</p><p>Header files should seldom declare <code>static</code> functions, with the notable exception of <code>static inline</code> functions which will be defined in headers if the function is needed in more than one source file.</p><ul id="d13fb2f1-87af-45e5-ab04-bd1516639d3f" class="bulleted-list"><li>Source files define global variables, and global functions.</li><li>Source files do not declare the existence of global variables or functions; they include the header that declares the variable or function.</li><li>Header files declare global variable and functions (and types and other supporting material).</li><li>Header files do not define variables or any functions except (<code>static</code>) <code>inline</code> functions.</li></ul><hr id="d25dcb32-6de0-40dc-a63f-0afd0d542106"/><h1 id="3b086e04-8da4-4bd1-808c-cc95788827ed" class="">Cross-references<a class="header-anchor" href="#3b086e04-8da4-4bd1-808c-cc95788827ed" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a></h1><ul id="685e33d2-132d-4a91-bd52-6b7d01197ad6" class="bulleted-list"><li><a href="http://stackoverflow.com/questions/3568052">Where to document functions in C?</a></li><li><a href="http://stackoverflow.com/questions/2027991">List of standard header files in C and C++</a></li><li><a href="http://stackoverflow.com/questions/6312597">Is </a><a href="http://stackoverflow.com/questions/6312597"><code>inline</code></a><a href="http://stackoverflow.com/questions/6312597"> without </a><a href="http://stackoverflow.com/questions/6312597"><code>static</code></a><a href="http://stackoverflow.com/questions/6312597"> or </a><a href="http://stackoverflow.com/questions/6312597"><code>extern</code></a><a href="http://stackoverflow.com/questions/6312597"> ever useful in C99?</a></li><li><a href="http://stackoverflow.com/questions/1433204">How do I use </a><a href="http://stackoverflow.com/questions/1433204"><code>extern</code></a><a href="http://stackoverflow.com/questions/1433204"> to share variables between source files?</a></li><li><a href="http://stackoverflow.com/questions/597318">What are the benefits of a relative path such as </a><a href="http://stackoverflow.com/questions/597318"><code>&quot;../include/header.h&quot;</code></a><a href="http://stackoverflow.com/questions/597318"> for a header?</a></li><li><a href="http://stackoverflow.com/questions/1869439">Header inclusion optimization</a></li><li><a href="http://stackoverflow.com/questions/26611481">Should I include every header?</a></li></ul>
+</div>
+<p>You should consider whether to use that namespace control in your project (it is quite probably a good idea). You should steer clear of the names used by existing projects (in particular, both <code>sys</code> and <code>linux</code> would be bad choices).
+</p>
+<p>If you use this, your code should be careful and consistent in the use of the notation.
+</p>
+<p>Do not use <code>#include &quot;../include/header.h&quot;</code> notation.
+</p>
+<p>Header files should seldom if ever define variables. Although you will keep global variables to a minimum, if you need a global variable, you will declare it in a header, and define it in one suitable source file, and that source file will include the header to cross-check the declaration and definition, and all source files that use the variable will use the header to declare it.
+</p>
+<p>Corollary: you will not declare global variables in a source file — a source file will only contain definitions.
+</p>
+<p>Header files should seldom declare <code>static</code> functions, with the notable exception of <code>static inline</code> functions which will be defined in headers if the function is needed in more than one source file.
+</p>
+  <ul id="d13fb2f1-87af-45e5-ab04-bd1516639d3f" class="bulleted-list">
+    <li>Source files define global variables, and global functions.
+    </li>
+    <li>Source files do not declare the existence of global variables or functions; they include the header that declares the variable or function.
+    </li>
+    <li>Header files declare global variable and functions (and types and other supporting material).
+    </li>
+    <li>Header files do not define variables or any functions except (<code>static</code>) <code>inline</code> functions.
+    </li>
+  </ul>
+<hr id="d25dcb32-6de0-40dc-a63f-0afd0d542106"/>
+  <h1 id="3b086e04-8da4-4bd1-808c-cc95788827ed" class="">Cross-references
+  <a class="header-anchor" href="#3b086e04-8da4-4bd1-808c-cc95788827ed" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M5.88.03c-.18.01-.36.03-.53.09-.27.1-.53.25-.75.47a.5.5 0 1 0 .69.69c.11-.11.24-.17.38-.22.35-.12.78-.07 1.06.22.39.39.39 1.04 0 1.44l-1.5 1.5c-.44.44-.8.48-1.06.47-.26-.01-.41-.13-.41-.13a.5.5 0 1 0-.5.88s.34.22.84.25c.5.03 1.2-.16 1.81-.78l1.5-1.5c.78-.78.78-2.04 0-2.81-.28-.28-.61-.45-.97-.53-.18-.04-.38-.04-.56-.03zm-2 2.31c-.5-.02-1.19.15-1.78.75l-1.5 1.5c-.78.78-.78 2.04 0 2.81.56.56 1.36.72 2.06.47.27-.1.53-.25.75-.47a.5.5 0 1 0-.69-.69c-.11.11-.24.17-.38.22-.35.12-.78.07-1.06-.22-.39-.39-.39-1.04 0-1.44l1.5-1.5c.4-.4.75-.45 1.03-.44.28.01.47.09.47.09a.5.5 0 1 0 .44-.88s-.34-.2-.84-.22z"></path></svg></a>
+  </h1>
+  <ul id="685e33d2-132d-4a91-bd52-6b7d01197ad6" class="bulleted-list">
+    <li><a href="http://stackoverflow.com/questions/3568052">Where to document functions in C?</a>
+    </li>
+    <li><a href="http://stackoverflow.com/questions/2027991">List of standard header files in C and C++</a>
+    </li>
+    <li><a href="http://stackoverflow.com/questions/6312597">Is </a><a href="http://stackoverflow.com/questions/6312597"><code>inline</code></a><a href="http://stackoverflow.com/questions/6312597"> without </a><a href="http://stackoverflow.com/questions/6312597"><code>static</code></a><a href="http://stackoverflow.com/questions/6312597"> or </a><a href="http://stackoverflow.com/questions/6312597"><code>extern</code></a><a href="http://stackoverflow.com/questions/6312597"> ever useful in C99?</a>
+    </li>
+    <li><a href="http://stackoverflow.com/questions/1433204">How do I use </a><a href="http://stackoverflow.com/questions/1433204"><code>extern</code></a><a href="http://stackoverflow.com/questions/1433204"> to share variables between source files?</a>
+    </li>
+    <li><a href="http://stackoverflow.com/questions/597318">What are the benefits of a relative path such as </a><a href="http://stackoverflow.com/questions/597318"><code>&quot;../include/header.h&quot;</code></a><a href="http://stackoverflow.com/questions/597318"> for a header?</a>
+    </li>
+    <li><a href="http://stackoverflow.com/questions/1869439">Header inclusion optimization</a>
+    </li>
+    <li><a href="http://stackoverflow.com/questions/26611481">Should I include every header?</a>
+    </li>
+  </ul>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

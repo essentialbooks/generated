@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Functions within a class can be overloaded for when they are accessed through a cv-qualified reference to that class; this is most commonly used to overload for <code>const</code>, but can be used to overload for <code>volatile</code> and <code>const volatile</code>, too. This is because all non-static member functions take <code>this</code> as a hidden parameter, which the cv-qualifiers are applied to. This is most commonly used to overload for <code>const</code>, but can also be used for <code>volatile</code> and <code>const volatile</code>.</p><p>This is necessary because a member function can only be called if it is at least as cv-qualified as the instance it’s called on. While a non-<code>const</code> instance can call both <code>const</code> and non-<code>const</code> members, a <code>const</code> instance can only call <code>const</code> members. This allows a function to have different behaviour depending on the calling instance’s cv-qualifiers, and allows the programmer to disallow functions for an undesired cv-qualifier(s) by not providing a version with that qualifier(s).</p><p>A class with some basic <code>print</code> method could be <code>const</code> overloaded like so:</p>
+      
+<p>Functions within a class can be overloaded for when they are accessed through a cv-qualified reference to that class; this is most commonly used to overload for <code>const</code>, but can be used to overload for <code>volatile</code> and <code>const volatile</code>, too. This is because all non-static member functions take <code>this</code> as a hidden parameter, which the cv-qualifiers are applied to. This is most commonly used to overload for <code>const</code>, but can also be used for <code>volatile</code> and <code>const volatile</code>.
+</p>
+<p>This is necessary because a member function can only be called if it is at least as cv-qualified as the instance it’s called on. While a non-<code>const</code> instance can call both <code>const</code> and non-<code>const</code> members, a <code>const</code> instance can only call <code>const</code> members. This allows a function to have different behaviour depending on the calling instance’s cv-qualifiers, and allows the programmer to disallow functions for an undesired cv-qualifier(s) by not providing a version with that qualifier(s).
+</p>
+<p>A class with some basic <code>print</code> method could be <code>const</code> overloaded like so:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">#include &lt;iostream&gt;
@@ -163,7 +170,10 @@ int main()
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is a key tenet of <code>const</code> correctness: By marking member functions as <code>const</code>, they are allowed to be called on <code>const</code> instances, which in turn allows functions to take instances as <code>const</code> pointers/references if they don’t need to modify them. This allows code to specify whether it modifies state by taking unmodified parameters as <code>const</code> and modified parameters without cv-qualifiers, making code both safer and more readable.</p>
+</div>
+<p>This is a key tenet of <code>const</code> correctness: By marking member functions as <code>const</code>, they are allowed to be called on <code>const</code> instances, which in turn allows functions to take instances as <code>const</code> pointers/references if they don’t need to modify them. This allows code to specify whether it modifies state by taking unmodified parameters as <code>const</code> and modified parameters without cv-qualifiers, making code both safer and more readable.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class ConstCorrect 
@@ -196,7 +206,13 @@ void const_incorrect_func(ConstCorrect&amp; cc)
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>A common usage of this is declaring accessors as <code>const</code>, and mutators as non-<code>const</code>.</p><hr id="72b81bad-9b7b-4533-a453-85860bb01007"/><p>No class members can be modified within a <code>const</code> member function. If there is some member that you really need to modify, such as locking a <code>std::mutex</code>, you can declare it as <a href="http://stackoverflow.com/documentation/c%2B%2B/2705/mutable-keyword#t=201608042103196324218"><code>mutable</code></a>:</p>
+</div>
+<p>A common usage of this is declaring accessors as <code>const</code>, and mutators as non-<code>const</code>.
+</p>
+<hr id="72b81bad-9b7b-4533-a453-85860bb01007"/>
+<p>No class members can be modified within a <code>const</code> member function. If there is some member that you really need to modify, such as locking a <code>std::mutex</code>, you can declare it as <a href="http://stackoverflow.com/documentation/c%2B%2B/2705/mutable-keyword#t=201608042103196324218"><code>mutable</code></a>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class Integer

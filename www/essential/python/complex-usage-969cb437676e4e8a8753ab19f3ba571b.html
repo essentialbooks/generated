@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>Let’s combine all of the examples above into one complex scenario: using <code>libc</code>’s <code>lfind</code> function.</p><p>For more details about the function, read <a href="https://linux.die.net/man/3/lfind">the man page</a>. I urge you to read it before going on.</p><p>First, we’ll define the proper prototypes:</p>
+      
+<p>Let’s combine all of the examples above into one complex scenario: using <code>libc</code>’s <code>lfind</code> function.
+</p>
+<p>For more details about the function, read <a href="https://linux.die.net/man/3/lfind">the man page</a>. I urge you to read it before going on.
+</p>
+<p>First, we’ll define the proper prototypes:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; compar_proto = CFUNCTYPE(c_int, POINTER(c_int), POINTER(c_int))
@@ -136,7 +143,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Then, let’s create the variables:</p>
+</div>
+<p>Then, let’s create the variables:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; key = c_int(12)
@@ -146,7 +156,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>And now we define the comparison function:</p>
+</div>
+<p>And now we define the comparison function:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; def compar(x, y):
@@ -155,7 +168,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Notice that <code>x</code>, and <code>y</code> are <code>POINTER(c_int)</code>, so we need to dereference them and take their values in order to actually compare the value stored in the memory.</p><p>Now we can combine everything together:</p>
+</div>
+<p>Notice that <code>x</code>, and <code>y</code> are <code>POINTER(c_int)</code>, so we need to dereference them and take their values in order to actually compare the value stored in the memory.
+</p>
+<p>Now we can combine everything together:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; lfind = lfind_proto(libc.lfind)
@@ -164,7 +182,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><code>ptr</code> is the returned void pointer. If <code>key</code> wasn’t found in <code>arr</code>, the value would be <code>None</code>, but in this case we got a valid value.</p><p>Now we can convert it and access the value:</p>
+</div>
+<p><code>ptr</code> is the returned void pointer. If <code>key</code> wasn’t found in <code>arr</code>, the value would be <code>None</code>, but in this case we got a valid value.
+</p>
+<p>Now we can convert it and access the value:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; cast(ptr, POINTER(c_int)).contents
@@ -173,7 +196,10 @@ c_long(12)</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Also, we can see that <code>ptr</code> points to the correct value inside <code>arr</code>:</p>
+</div>
+<p>Also, we can see that <code>ptr</code> points to the correct value inside <code>arr</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">&gt;&gt;&gt; addressof(arr) + 12 * sizeof(c_int) == ptr

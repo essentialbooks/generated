@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>It is often useful to define classes or structures that have a variable number and type of data members which are defined at compile time. The canonical example is <code>std::tuple</code>, but sometimes is it is necessary to define your own custom structures. Here is an example that defines the structure using compounding (rather than inheritance as with <code>std::tuple</code>. Start with the general (empty) definition, which also serves as the base-case for recrusion termination in the later specialisation:</p>
+      
+<p>It is often useful to define classes or structures that have a variable number and type of data members which are defined at compile time. The canonical example is <code>std::tuple</code>, but sometimes is it is necessary to define your own custom structures. Here is an example that defines the structure using compounding (rather than inheritance as with <code>std::tuple</code>. Start with the general (empty) definition, which also serves as the base-case for recrusion termination in the later specialisation:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -137,7 +140,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This already allows us to define an empty structure, <code>DataStructure&lt;&gt; data</code>, albeit that isn’t very useful yet.</p><p>Next comes the recursive case specialisation:</p>
+</div>
+<p>This already allows us to define an empty structure, <code>DataStructure&lt;&gt; data</code>, albeit that isn’t very useful yet.
+</p>
+<p>Next comes the recursive case specialisation:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="p">...</span> <span class="n">Rest</span><span class="o">&gt;</span>
@@ -156,7 +164,16 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This is now sufficient for us to create arbitrary data structures, like <code>DataStructure&lt;int, float, std::string&gt; data(1, 2.1, &quot;hello&quot;)</code>.</p><p>So what’s going on? First, note that this is a specialisation whose requirement is that at least one variadic template parameter (namely <code>T</code> above) exists, whilst not caring about the specific makeup of the pack <code>Rest</code>. Knowing that <code>T</code> exists allows the definition of its data member, <code>first</code>. The rest of the data is recursively packaged as <code>DataStructure&lt;Rest ... &gt; rest</code>. The constructor initiates both of those members, including a recursive constructor call to the <code>rest</code> member.</p><p>To understand this better, we can work through an example: suppose you have a declaration <code>DataStructure&lt;int, float&gt; data</code>. The declaration first matches against the specialisation, yielding a structure with <code>int first</code> and <code>DataStructure&lt;float&gt; rest</code> data members. The <code>rest</code> definition again matches this specialisation, creating its own <code>float first</code> and <code>DataStructure&lt;&gt; rest</code> members. Finally this last <code>rest</code> matches against the base-case defintion, producing an empty structure.</p><p>You can visualise this as follows:</p>
+</div>
+<p>This is now sufficient for us to create arbitrary data structures, like <code>DataStructure&lt;int, float, std::string&gt; data(1, 2.1, &quot;hello&quot;)</code>.
+</p>
+<p>So what’s going on? First, note that this is a specialisation whose requirement is that at least one variadic template parameter (namely <code>T</code> above) exists, whilst not caring about the specific makeup of the pack <code>Rest</code>. Knowing that <code>T</code> exists allows the definition of its data member, <code>first</code>. The rest of the data is recursively packaged as <code>DataStructure&lt;Rest ... &gt; rest</code>. The constructor initiates both of those members, including a recursive constructor call to the <code>rest</code> member.
+</p>
+<p>To understand this better, we can work through an example: suppose you have a declaration <code>DataStructure&lt;int, float&gt; data</code>. The declaration first matches against the specialisation, yielding a structure with <code>int first</code> and <code>DataStructure&lt;float&gt; rest</code> data members. The <code>rest</code> definition again matches this specialisation, creating its own <code>float first</code> and <code>DataStructure&lt;&gt; rest</code> members. Finally this last <code>rest</code> matches against the base-case defintion, producing an empty structure.
+</p>
+<p>You can visualise this as follows:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">DataStructure&lt;int, float&gt;
@@ -169,7 +186,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now we have the data structure, but its not terribly useful yet as we cannot easily access the individual data elements (for example to access the last member of <code>DataStructure&lt;int, float, std::string&gt; data</code> we would have to use <code>data.rest.rest.first</code>, which is not exactly user-friendly). So we add a <code>get</code> method to it (only needed in the specialisation as the base-case structure has no data to <code>get</code>):</p>
+</div>
+<p>Now we have the data structure, but its not terribly useful yet as we cannot easily access the individual data elements (for example to access the last member of <code>DataStructure&lt;int, float, std::string&gt; data</code> we would have to use <code>data.rest.rest.first</code>, which is not exactly user-friendly). So we add a <code>get</code> method to it (only needed in the specialisation as the base-case structure has no data to <code>get</code>):
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="p">...</span> <span class="n">Rest</span><span class="o">&gt;</span>
@@ -188,7 +208,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>As you can see this <code>get</code> member function is itself templated - this time on the index of the member that is needed (so usage can be things like <code>data.get&lt;1&gt;()</code>, similar to <code>std::tuple</code>). The actual work is done by a static function in a helper class, <code>GetHelper</code>. The reason we can’t define the required functionality directly in <code>DataStructure</code>‘s <code>get</code> is because (as we will shortly see) we would need to specialise on <code>idx</code> - but it isn’t possible to specialise a template member function without specialising the containing class template. Note also the use of a C++14-style <code>auto</code> here makes our lives significantly simpler as otherwise we would need quite a complicated expression for the return type.</p><p>So on to the helper class. This time we will need an empty forward declaration and two specialisations. First the declaration:</p>
+</div>
+<p>As you can see this <code>get</code> member function is itself templated - this time on the index of the member that is needed (so usage can be things like <code>data.get&lt;1&gt;()</code>, similar to <code>std::tuple</code>). The actual work is done by a static function in a helper class, <code>GetHelper</code>. The reason we can’t define the required functionality directly in <code>DataStructure</code>‘s <code>get</code> is because (as we will shortly see) we would need to specialise on <code>idx</code> - but it isn’t possible to specialise a template member function without specialising the containing class template. Note also the use of a C++14-style <code>auto</code> here makes our lives significantly simpler as otherwise we would need quite a complicated expression for the return type.
+</p>
+<p>So on to the helper class. This time we will need an empty forward declaration and two specialisations. First the declaration:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span><span class="o">&lt;</span><span class="n">size_t</span> <span class="n">idx</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -198,7 +223,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now the base-case (when <code>idx==0</code>). In this case we just return the <code>first</code> member:</p>
+</div>
+<p>Now the base-case (when <code>idx==0</code>). In this case we just return the <code>first</code> member:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="p">...</span> <span class="n">Rest</span><span class="o">&gt;</span>
@@ -214,7 +242,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In the recursive case, we decrement <code>idx</code> and invoke the <code>GetHelper</code> for the <code>rest</code> member:</p>
+</div>
+<p>In the recursive case, we decrement <code>idx</code> and invoke the <code>GetHelper</code> for the <code>rest</code> member:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="k">template</span><span class="o">&lt;</span><span class="n">size_t</span> <span class="n">idx</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="p">...</span> <span class="n">Rest</span><span class="o">&gt;</span>
@@ -230,7 +261,12 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To work through an example, suppose we have <code>DataStructure&lt;int, float&gt; data</code> and we need <code>data.get&lt;1&gt;()</code>. This invokes <code>GetHelper&lt;1, DataStructure&lt;int, float&gt;&gt;::get(data)</code> (the 2nd specialisation), which in turn invokes <code>GetHelper&lt;0, DataStructure&lt;float&gt;&gt;::get(data.rest)</code>, which finally returns (by the 1st specialisation as now <code>idx</code> is 0) <code>data.rest.first</code>.</p><p>So that’s it! Here is the whole functioning code, with some example use in the <code>main</code> function:</p>
+</div>
+<p>To work through an example, suppose we have <code>DataStructure&lt;int, float&gt; data</code> and we need <code>data.get&lt;1&gt;()</code>. This invokes <code>GetHelper&lt;1, DataStructure&lt;int, float&gt;&gt;::get(data)</code> (the 2nd specialisation), which in turn invokes <code>GetHelper&lt;0, DataStructure&lt;float&gt;&gt;::get(data.rest)</code>, which finally returns (by the 1st specialisation as now <code>idx</code> is 0) <code>data.rest.first</code>.
+</p>
+<p>So that’s it! Here is the whole functioning code, with some example use in the <code>main</code> function:
+</p>
+
 <div class="code-box lang-C++">
 	<div>
 	<pre class="chroma"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">

@@ -127,7 +127,10 @@
 </div>
 
 
-      <p>Consider the following C# code</p>
+      
+<p>Consider the following C# code
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Expression&lt;Func&lt;int, int&gt;&gt; expression = a =&gt; a + 1;</pre>
@@ -135,7 +138,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Because the C# compiler sees that the lambda expression is assigned to an Expression type rather than a delegate type it generates an expression tree roughly equivalent to this code</p>
+</div>
+<p>Because the C# compiler sees that the lambda expression is assigned to an Expression type rather than a delegate type it generates an expression tree roughly equivalent to this code
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">ParameterExpression parameterA = Expression.Parameter(typeof(int), &#34;a&#34;);
@@ -148,7 +154,12 @@ var expression = (Expression&lt;Func&lt;int, int&gt;&gt;)Expression.Lambda(
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The root of the tree is the lambda expression which contains a body and a list of parameters. The lambda has 1 parameter called “a”. The body is a single expression of CLR type BinaryExpression and NodeType of Add. This expression represents addition. It has two subexpressions denoted as Left and Right. Left is the ParameterExpression for the parameter “a” and Right is a ConstantExpression with the value 1.</p><p>The simplest usage of this expression is printing it:</p>
+</div>
+<p>The root of the tree is the lambda expression which contains a body and a list of parameters. The lambda has 1 parameter called “a”. The body is a single expression of CLR type BinaryExpression and NodeType of Add. This expression represents addition. It has two subexpressions denoted as Left and Right. Left is the ParameterExpression for the parameter “a” and Right is a ConstantExpression with the value 1.
+</p>
+<p>The simplest usage of this expression is printing it:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Console.WriteLine(expression); //prints a =&gt; (a + 1)</pre>
@@ -156,7 +167,12 @@ var expression = (Expression&lt;Func&lt;int, int&gt;&gt;)Expression.Lambda(
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Which prints the equivalent C# code.</p><p>The expression tree can be compiled into a C# delegate and executed by the CLR</p>
+</div>
+<p>Which prints the equivalent C# code.
+</p>
+<p>The expression tree can be compiled into a C# delegate and executed by the CLR
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">Func&lt;int, int&gt; lambda = expression.Compile();
@@ -165,7 +181,9 @@ Console.WriteLine(lambda(2)); //prints 3</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Usually expressions are translated to other languages like SQL, but can be also used to invoke private, protected and internal members of public or non-public types as alternative to Reflection.</p>
+</div>
+<p>Usually expressions are translated to other languages like SQL, but can be also used to invoke private, protected and internal members of public or non-public types as alternative to Reflection.
+</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?

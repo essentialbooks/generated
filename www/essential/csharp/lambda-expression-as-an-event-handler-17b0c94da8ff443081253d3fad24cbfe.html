@@ -127,7 +127,18 @@
 </div>
 
 
-      <p>Lambda expressions can be used to handle events, which is useful when:</p><ul id="3fae7839-f0b5-40da-b704-7447f84920fa" class="bulleted-list"><li>The handler is short.</li><li>The handler never needs to be unsubscribed.</li></ul><p>A good situation in which a lambda event handler might be used is given below:</p>
+      
+<p>Lambda expressions can be used to handle events, which is useful when:
+</p>
+  <ul id="3fae7839-f0b5-40da-b704-7447f84920fa" class="bulleted-list">
+    <li>The handler is short.
+    </li>
+    <li>The handler never needs to be unsubscribed.
+    </li>
+  </ul>
+<p>A good situation in which a lambda event handler might be used is given below:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">smtpClient</span><span class="p">.</span><span class="n">SendCompleted</span> <span class="p">+=</span> <span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Email sent&#34;</span><span class="p">);</span>
@@ -136,7 +147,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>If unsubscribing a registered event handler at some future point in the code is necessary, the event handler expression should be saved to a variable, and the registration/unregistration done through that variable:</p>
+</div>
+<p>If unsubscribing a registered event handler at some future point in the code is necessary, the event handler expression should be saved to a variable, and the registration/unregistration done through that variable:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">EventHandler</span> <span class="n">handler</span> <span class="p">=</span> <span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Email sent&#34;</span><span class="p">);</span>
@@ -148,7 +162,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>The reason that this is done rather than simply retyping the lambda expression verbatim to unsubscribe it (<code>-=</code>) is that the C# compiler won’t necessarily consider the two expressions equal:</p>
+</div>
+<p>The reason that this is done rather than simply retyping the lambda expression verbatim to unsubscribe it (<code>-=</code>) is that the C# compiler won’t necessarily consider the two expressions equal:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">EventHandler</span> <span class="n">handlerA</span> <span class="p">=</span> <span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Email sent&#34;</span><span class="p">);</span>
@@ -159,7 +176,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Note that if additional statements are added to the lambda expression, then the required surrounding curly braces may be accidentally omitted, without causing compile-time error. For example:</p>
+</div>
+<p>Note that if additional statements are added to the lambda expression, then the required surrounding curly braces may be accidentally omitted, without causing compile-time error. For example:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">smtpClient</span><span class="p">.</span><span class="n">SendCompleted</span> <span class="p">+=</span> <span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Email sent&#34;</span><span class="p">);</span> <span class="n">emailSendButton</span><span class="p">.</span><span class="n">Enabled</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
@@ -168,7 +188,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>This will compile, but will result in adding the lambda expression <code>(sender, args) =&gt; Console.WriteLine(&quot;Email sent&quot;);</code> as an event handler, and executing the statement <code>emailSendButton.Enabled = true;</code> immediately. To fix this, the contents of the lambda must be surrounded in curly braces. This can be avoided by using curly braces from the start, being cautious when adding additional statements to a lambda-event-handler, or surrounding the lambda in round brackets from the start:</p>
+</div>
+<p>This will compile, but will result in adding the lambda expression <code>(sender, args) =&gt; Console.WriteLine(&quot;Email sent&quot;);</code> as an event handler, and executing the statement <code>emailSendButton.Enabled = true;</code> immediately. To fix this, the contents of the lambda must be surrounded in curly braces. This can be avoided by using curly braces from the start, being cautious when adding additional statements to a lambda-event-handler, or surrounding the lambda in round brackets from the start:
+</p>
+
 <div class="code-box lang-C#">
 	<div>
 	<pre class="chroma"><span class="n">smtpClient</span><span class="p">.</span><span class="n">SendCompleted</span> <span class="p">+=</span> <span class="p">((</span><span class="n">sender</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Email sent&#34;</span><span class="p">));</span>

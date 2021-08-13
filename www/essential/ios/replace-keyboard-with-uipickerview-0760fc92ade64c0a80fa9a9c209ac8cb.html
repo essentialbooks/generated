@@ -127,7 +127,14 @@
 </div>
 
 
-      <p>In some cases, you want to show your users a <a href="http://stackoverflow.com/documentation/ios/4242/uipickerview"><code>UIPickerView</code></a> with predefined contents for a <code>UITextField</code> instead of a keyboard.</p><p><strong>Create a custom UIPickerView</strong></p><p>At first, you need a custom wrapper-class for <code>UIPickerView</code> conforming to the protocols <code>UIPickerViewDataSource</code> and <code>UIPickerViewDelegate</code>.</p>
+      
+<p>In some cases, you want to show your users a <a href="http://stackoverflow.com/documentation/ios/4242/uipickerview"><code>UIPickerView</code></a> with predefined contents for a <code>UITextField</code> instead of a keyboard.
+</p>
+<p><strong>Create a custom UIPickerView</strong>
+</p>
+<p>At first, you need a custom wrapper-class for <code>UIPickerView</code> conforming to the protocols <code>UIPickerViewDataSource</code> and <code>UIPickerViewDelegate</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">class MyPickerView: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate</pre>
@@ -135,7 +142,10 @@
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You need to implement the following methods for the DataSource and Delegate:</p>
+</div>
+<p>You need to implement the following methods for the DataSource and Delegate:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -&gt; Int {
@@ -161,7 +171,10 @@ public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComp
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>To handle the data, <code>MyPickerView</code> needs the properties <code>data</code>, <code>selectedValue</code> and <code>textFieldBeingEdited</code>:</p>
+</div>
+<p>To handle the data, <code>MyPickerView</code> needs the properties <code>data</code>, <code>selectedValue</code> and <code>textFieldBeingEdited</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/**
@@ -198,7 +211,12 @@ public var selectedValue: String {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Prepare your ViewController</strong></p><p>The <code>ViewController</code> that contains your textField, needs to have a property for your custom <code>UIPickerView</code>. (Assuming, that you already have another property or <code>@IBOutlet</code> containing your textField)</p>
+</div>
+<p><strong>Prepare your ViewController</strong>
+</p>
+<p>The <code>ViewController</code> that contains your textField, needs to have a property for your custom <code>UIPickerView</code>. (Assuming, that you already have another property or <code>@IBOutlet</code> containing your textField)
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/**
@@ -209,7 +227,10 @@ var picker: MyPickerView?</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In your <code>viewDidLoad()</code>, you need to initialize <code>picker</code> and configure it a bit:</p>
+</div>
+<p>In your <code>viewDidLoad()</code>, you need to initialize <code>picker</code> and configure it a bit:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">picker = MyPickerView()
@@ -221,7 +242,10 @@ picker?.data = [&#34;One&#34;, &#34;Two&#34;, &#34;Three&#34;, &#34;Four&#34;, &
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now, you can add the <code>MyPicker</code> as <code>inputView</code> of your <code>UITextField</code>:</p>
+</div>
+<p>Now, you can add the <code>MyPicker</code> as <code>inputView</code> of your <code>UITextField</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">textField.inputView = picker</pre>
@@ -229,7 +253,14 @@ picker?.data = [&#34;One&#34;, &#34;Two&#34;, &#34;Three&#34;, &#34;Four&#34;, &
 	<div class="code-box-nav">
 		
 	</div>
-</div><p><strong>Dismissing the picker-keyboard</strong></p><p>Now, you have replaced the keyboard by an <code>UIPickerView</code>, but there is no possibility to dismiss it. This can be done with a custom <code>.inputAccessoryView</code>:</p><p>Add the property <code>pickerAccessory</code> to your <code>ViewController</code>.</p>
+</div>
+<p><strong>Dismissing the picker-keyboard</strong>
+</p>
+<p>Now, you have replaced the keyboard by an <code>UIPickerView</code>, but there is no possibility to dismiss it. This can be done with a custom <code>.inputAccessoryView</code>:
+</p>
+<p>Add the property <code>pickerAccessory</code> to your <code>ViewController</code>.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/**
@@ -240,7 +271,10 @@ var pickerAccessory: UIToolbar?</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>In <code>viewDidLoad()</code>, you need to create an <code>UIToolbar</code> for the <code>inputAccessoryView</code>:</p>
+</div>
+<p>In <code>viewDidLoad()</code>, you need to create an <code>UIToolbar</code> for the <code>inputAccessoryView</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">pickerAccessory = UIToolbar()
@@ -255,7 +289,10 @@ pickerAccessory?.isTranslucent = false</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>You should set the frame of your toolbar. To fit in the design of iOS, it’s recommended to use a height of <code>44.0</code>:</p>
+</div>
+<p>You should set the frame of your toolbar. To fit in the design of iOS, it’s recommended to use a height of <code>44.0</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">var frame = pickerAccessory?.frame
@@ -265,7 +302,10 @@ pickerAccessory?.frame = frame!</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>For a good user experience, you should add two buttons (“Done” and “Cancel”), but it would also work with only one that dismisses the keyboard.</p>
+</div>
+<p>For a good user experience, you should add two buttons (“Done” and “Cancel”), but it would also work with only one that dismisses the keyboard.
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(ViewController.cancelBtnClicked(_:)))
@@ -280,7 +320,10 @@ pickerAccessory?.items = [cancelButton, flexSpace, doneButton]</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Now you can add the toolbar as <code>inputAccessoryView</code></p>
+</div>
+<p>Now you can add the toolbar as <code>inputAccessoryView</code>
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">textField.inputAccessoryView = pickerAccessory</pre>
@@ -288,7 +331,10 @@ pickerAccessory?.items = [cancelButton, flexSpace, doneButton]</pre>
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Before you can build your project, you need to implement the methods, the buttons are calling:</p>
+</div>
+<p>Before you can build your project, you need to implement the methods, the buttons are calling:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">/**
@@ -309,7 +355,15 @@ func doneBtnClicked(_ button: UIBarButtonItem?) {
 	<div class="code-box-nav">
 		
 	</div>
-</div><p>Run your project, tap the <code>textField</code> and you should see a picker like this instead of the keyboard:</p><img class="img" src="/img/e99365c5fd153cef0dd831f8697a1823a3dc5228.png"><p><strong>Select a value programmatically (optional)</strong></p><p>If you don’t want to have the first row selected automatically, you can set the selected row as in <code>UIPickerView</code>:</p>
+</div>
+<p>Run your project, tap the <code>textField</code> and you should see a picker like this instead of the keyboard:
+</p>
+<img class="img" src="/img/e99365c5fd153cef0dd831f8697a1823a3dc5228.png">
+<p><strong>Select a value programmatically (optional)</strong>
+</p>
+<p>If you don’t want to have the first row selected automatically, you can set the selected row as in <code>UIPickerView</code>:
+</p>
+
 <div class="code-box lang-Plain Text">
 	<div>
 	<pre class="chroma">picker?.selectRow(3, inComponent: 0, animated: false) //Will select the row at index 3</pre>
