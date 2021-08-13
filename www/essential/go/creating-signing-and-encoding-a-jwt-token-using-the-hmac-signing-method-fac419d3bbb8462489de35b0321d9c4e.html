@@ -8,21 +8,21 @@
 
   <meta name="twitter:card" value="summary">
   <meta name="twitter:site" content="@kjk">
-  <meta name="twitter:title" content="Example tests (self documenting tests)">
+  <meta name="twitter:title" content="Creating, signing, and encoding a JWT token using the HMAC signing method">
   
-  <meta name="twitter:description" content="Example tests (self documenting tests)">
+  <meta name="twitter:description" content="Creating, signing, and encoding a JWT token using the HMAC signing method">
   <meta name="twitter:creator" content="@kjk">
   <meta name="twitter:image" content="https://www.programming-books.io/covers/twitter/Go.png">
   
-  <meta property="og:title" content="Example tests (self documenting tests)">
+  <meta property="og:title" content="Creating, signing, and encoding a JWT token using the HMAC signing method">
   <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://www.programming-books.io/essential/go/example-tests-self-documenting-tests-9565bb562345459b8035f92f0ab3290b" />
+  <meta property="og:url" content="https://www.programming-books.io/essential/go/creating-signing-and-encoding-a-jwt-token-using-the-hmac-signing-method-fac419d3bbb8462489de35b0321d9c4e" />
   
-  <meta property="og:description" content="Example tests (self documenting tests)">
+  <meta property="og:description" content="Creating, signing, and encoding a JWT token using the HMAC signing method">
   <meta property="og:image" content="https://www.programming-books.io/covers/twitter/Go.png">
 
-  <title>Testing / Example tests (self documenting tests) / Essential Go</title>
-  <meta name="description" content="Testing / Example tests (self documenting tests) / Essential Go">
+  <title>JWT Authorization / Creating, signing, and encoding a JWT token using the HMAC signing method / Essential Go</title>
+  <meta name="description" content="JWT Authorization / Creating, signing, and encoding a JWT token using the HMAC signing method / Essential Go">
   <link rel="icon" href="/s/favicon.ico">
   <link href="/s/main.css" rel="stylesheet">
   <link href="/s/bundle.css" rel="stylesheet">
@@ -121,118 +121,44 @@
       
 
 <div style="display: flex; justify-content: space-between">
-  <h1 class="title">Example tests (self documenting tests)</h1>
-  <a class="edit-link" style="font-size: 80%" href="https://notion.so/9565bb562345459b8035f92f0ab3290b" rel="nofollow"
+  <h1 class="title">Creating, signing, and encoding a JWT token using the HMAC signing method</h1>
+  <a class="edit-link" style="font-size: 80%" href="https://notion.so/fac419d3bbb8462489de35b0321d9c4e" rel="nofollow"
   target="_blank">suggest change</a>
 </div>
 
 
       
-<p>This type of tests make sure that your code compiles properly and will appear in the generated documentation for your project. In addition to that, the example tests can assert that your test produces proper output.
-</p>
-<p><code>sum.go</code>:
-</p>
 
 <div class="code-box lang-Go">
 	<div>
-	<pre class="chroma"><span class="kn">package</span> <span class="nx">sum</span>
+	<pre class="chroma"><span class="c1">// Create a new token object, specifying signing method and the claims
+</span><span class="c1">// you would like it to contain.
+</span><span class="c1"></span><span class="nx">token</span> <span class="o">:=</span> <span class="nx">jwt</span><span class="p">.</span><span class="nf">NewWithClaims</span><span class="p">(</span><span class="nx">jwt</span><span class="p">.</span><span class="nx">SigningMethodHS256</span><span class="p">,</span> <span class="nx">jwt</span><span class="p">.</span><span class="nx">MapClaims</span><span class="p">{</span>
+    <span class="s">&#34;foo&#34;</span><span class="p">:</span> <span class="s">&#34;bar&#34;</span><span class="p">,</span>
+    <span class="s">&#34;nbf&#34;</span><span class="p">:</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">).</span><span class="nf">Unix</span><span class="p">(),</span>
+<span class="p">})</span>
 
-<span class="c1">// Sum calculates the sum of two integers
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sum</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span>
-<span class="p">}</span></pre>
+<span class="c1">// Sign and get the complete encoded token as a string using the secret
+</span><span class="c1"></span><span class="nx">tokenString</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">token</span><span class="p">.</span><span class="nf">SignedString</span><span class="p">(</span><span class="nx">hmacSampleSecret</span><span class="p">)</span>
+
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">tokenString</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span></pre>
 	</div>
 	<div class="code-box-nav">
 		
 	</div>
 </div>
-<p><code>sum_test.go</code>:
-</p>
-
-<div class="code-box lang-Go">
-	<div>
-	<pre class="chroma"><span class="kn">package</span> <span class="nx">sum</span>
-
-<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
-
-<span class="kd">func</span> <span class="nf">ExampleSum</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">x</span> <span class="o">:=</span> <span class="nf">Sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">Sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">Sum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-
-    <span class="c1">// Output:
-</span><span class="c1"></span>    <span class="c1">// 3
-</span><span class="c1"></span>    <span class="c1">// -2
-</span><span class="c1"></span>    <span class="c1">// 0
-</span><span class="c1"></span><span class="p">}</span></pre>
-	</div>
-	<div class="code-box-nav">
-		
-	</div>
-</div>
-<p>To execute your test, run <code>go test</code> in the folder containing those files OR put those two files in a sub-folder named <code>sum</code> and then from the parent folder execute <code>go test ./sum</code>. In both cases you will get an output similar to this:
+<p>Output:
 </p>
 
 <div class="code-box lang-Plain Text">
 	<div>
-	<pre class="chroma">ok      so/sum    0.005s</pre>
+	<pre class="chroma">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIiLCJuYmYiOjE0NDQ0Nzg0MDB9.u1riaD1rW97opCoAuRCTy4w58Br-Zk-bh7vLiRIsrpU &lt;nil&gt;</pre>
 	</div>
 	<div class="code-box-nav">
 		
 	</div>
 </div>
-<p>If you are wondering how this is testing your code, here is another example function, which actually fails the test:
-</p>
-
-<div class="code-box lang-Go">
-	<div>
-	<pre class="chroma"><span class="kd">func</span> <span class="nf">ExampleSum_fail</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">x</span> <span class="o">:=</span> <span class="nf">Sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
-
-    <span class="c1">// Output:
-</span><span class="c1"></span>    <span class="c1">// 5
-</span><span class="c1"></span><span class="p">}</span></pre>
-	</div>
-	<div class="code-box-nav">
-		
-	</div>
-</div>
-<p>When you run <code>go test</code>, you get the following output:
-</p>
-
-<div class="code-box lang-Shell">
-	<div>
-	<pre class="chroma">$ go <span class="nb">test</span>
---- FAIL: ExampleSum_fail <span class="o">(</span>0.00s<span class="o">)</span>
-got:
-<span class="m">3</span>
-want:
-<span class="m">5</span>
-FAIL
-<span class="nb">exit</span> status <span class="m">1</span>
-FAIL    so/sum    0.006s</pre>
-	</div>
-	<div class="code-box-nav">
-		
-	</div>
-</div>
-<p>If you want to see the documentation for your <code>sum</code> package – just run:
-</p>
-
-<div class="code-box lang-Shell">
-	<div>
-	<pre class="chroma">go doc -http<span class="o">=</span>:6060</pre>
-	</div>
-	<div class="code-box-nav">
-		
-	</div>
-</div>
-<p>and navigate to http://localhost:6060/pkg/FOLDER/sum/, where <em>FOLDER</em> is the folder containing the <code>sum</code> package (in this example <code>so</code>). The documentation for the sum method looks like this:
-</p>
-<img class="img" src="/essential/go/img/daeb90d9e2061d177e36f46d52c7133c997892b6.png">
-<p>enter image description here
+<p>(From the <a href="https://godoc.org/github.com/dgrijalva/jwt-go#ex-New--Hmac">documentation</a>, courtesy of Dave Grijalva.)
 </p>
 
       <div class="forum-link">

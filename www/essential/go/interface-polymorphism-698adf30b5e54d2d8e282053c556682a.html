@@ -8,21 +8,21 @@
 
   <meta name="twitter:card" value="summary">
   <meta name="twitter:site" content="@kjk">
-  <meta name="twitter:title" content="Example tests (self documenting tests)">
+  <meta name="twitter:title" content="Interface &amp; polymorphism">
   
-  <meta name="twitter:description" content="Example tests (self documenting tests)">
+  <meta name="twitter:description" content="Interface &amp; polymorphism">
   <meta name="twitter:creator" content="@kjk">
   <meta name="twitter:image" content="https://www.programming-books.io/covers/twitter/Go.png">
   
-  <meta property="og:title" content="Example tests (self documenting tests)">
+  <meta property="og:title" content="Interface &amp; polymorphism">
   <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://www.programming-books.io/essential/go/example-tests-self-documenting-tests-9565bb562345459b8035f92f0ab3290b" />
+  <meta property="og:url" content="https://www.programming-books.io/essential/go/interface-polymorphism-698adf30b5e54d2d8e282053c556682a" />
   
-  <meta property="og:description" content="Example tests (self documenting tests)">
+  <meta property="og:description" content="Interface &amp; polymorphism">
   <meta property="og:image" content="https://www.programming-books.io/covers/twitter/Go.png">
 
-  <title>Testing / Example tests (self documenting tests) / Essential Go</title>
-  <meta name="description" content="Testing / Example tests (self documenting tests) / Essential Go">
+  <title>Object oriented programming / Interface &amp; polymorphism / Essential Go</title>
+  <meta name="description" content="Object oriented programming / Interface &amp; polymorphism / Essential Go">
   <link rel="icon" href="/s/favicon.ico">
   <link href="/s/main.css" rel="stylesheet">
   <link href="/s/bundle.css" rel="stylesheet">
@@ -121,119 +121,92 @@
       
 
 <div style="display: flex; justify-content: space-between">
-  <h1 class="title">Example tests (self documenting tests)</h1>
-  <a class="edit-link" style="font-size: 80%" href="https://notion.so/9565bb562345459b8035f92f0ab3290b" rel="nofollow"
+  <h1 class="title">Interface &amp; polymorphism</h1>
+  <a class="edit-link" style="font-size: 80%" href="https://notion.so/698adf30b5e54d2d8e282053c556682a" rel="nofollow"
   target="_blank">suggest change</a>
 </div>
 
 
       
-<p>This type of tests make sure that your code compiles properly and will appear in the generated documentation for your project. In addition to that, the example tests can assert that your test produces proper output.
+<p>Interface defines a set of methods on a struct. It defines behavior.
 </p>
-<p><code>sum.go</code>:
+<p>Interface cannot define data.
+</p>
+<p>It allows functions to accept multiple implementation of the same functionality.
+</p>
+<p>This is similar (but not identical) to the notion of virtual methods in C++.
 </p>
 
-<div class="code-box lang-Go">
+<div class="code-box lang-go">
 	<div>
-	<pre class="chroma"><span class="kn">package</span> <span class="nx">sum</span>
+	<pre class="chroma"><span class="kn">package</span> <span class="nx">main</span>
 
-<span class="c1">// Sum calculates the sum of two integers
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sum</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span>
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">Runner</span> <span class="kd">interface</span> <span class="p">{</span>
+	<span class="nf">Run</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">Admin</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Username</span><span class="p">,</span> <span class="nx">Password</span> <span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">admin</span> <span class="nx">Admin</span><span class="p">)</span> <span class="nf">Run</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Admin ==&gt; Run()&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">User</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">ID</span>              <span class="kt">uint64</span>
+	<span class="nx">FullName</span><span class="p">,</span> <span class="nx">Email</span> <span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">user</span> <span class="nx">User</span><span class="p">)</span> <span class="nf">Run</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;User ==&gt; Run()&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// RunnerExample takes any type that fullfils the Runner interface
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">RunnerExample</span><span class="p">(</span><span class="nx">r</span> <span class="nx">Runner</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">r</span><span class="p">.</span><span class="nf">Run</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">admin</span> <span class="o">:=</span> <span class="nx">Admin</span><span class="p">{</span>
+		<span class="s">&#34;zola&#34;</span><span class="p">,</span>
+		<span class="s">&#34;supersecretpassword&#34;</span><span class="p">,</span>
+	<span class="p">}</span>
+
+	<span class="nx">user</span> <span class="o">:=</span> <span class="nx">User</span><span class="p">{</span>
+		<span class="mi">1</span><span class="p">,</span>
+		<span class="s">&#34;Zelalem Mekonen&#34;</span><span class="p">,</span>
+		<span class="s">&#34;zola.mk.27@gmail.com&#34;</span><span class="p">,</span>
+	<span class="p">}</span>
+
+	<span class="nf">RunnerExample</span><span class="p">(</span><span class="nx">admin</span><span class="p">)</span>
+
+	<span class="nf">RunnerExample</span><span class="p">(</span><span class="nx">user</span><span class="p">)</span>
 <span class="p">}</span></pre>
 	</div>
 	<div class="code-box-nav">
 		
+<div class="code-box-playground">
+	<a href="https://codeeval.dev/gist/834d151ef15e807742f004be6a050608" target="_blank">try online</a>
+</div>
+
 	</div>
 </div>
-<p><code>sum_test.go</code>:
-</p>
 
-<div class="code-box lang-Go">
+<div class="code-box lang-output">
 	<div>
-	<pre class="chroma"><span class="kn">package</span> <span class="nx">sum</span>
-
-<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
-
-<span class="kd">func</span> <span class="nf">ExampleSum</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">x</span> <span class="o">:=</span> <span class="nf">Sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">Sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">Sum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-
-    <span class="c1">// Output:
-</span><span class="c1"></span>    <span class="c1">// 3
-</span><span class="c1"></span>    <span class="c1">// -2
-</span><span class="c1"></span>    <span class="c1">// 0
-</span><span class="c1"></span><span class="p">}</span></pre>
+	<pre class="chroma">Admin ==&gt; Run()
+User ==&gt; Run()
+</pre>
 	</div>
 	<div class="code-box-nav">
 		
 	</div>
 </div>
-<p>To execute your test, run <code>go test</code> in the folder containing those files OR put those two files in a sub-folder named <code>sum</code> and then from the parent folder execute <code>go test ./sum</code>. In both cases you will get an output similar to this:
-</p>
-
-<div class="code-box lang-Plain Text">
-	<div>
-	<pre class="chroma">ok      so/sum    0.005s</pre>
-	</div>
-	<div class="code-box-nav">
-		
-	</div>
-</div>
-<p>If you are wondering how this is testing your code, here is another example function, which actually fails the test:
-</p>
-
-<div class="code-box lang-Go">
-	<div>
-	<pre class="chroma"><span class="kd">func</span> <span class="nf">ExampleSum_fail</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">x</span> <span class="o">:=</span> <span class="nf">Sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
-
-    <span class="c1">// Output:
-</span><span class="c1"></span>    <span class="c1">// 5
-</span><span class="c1"></span><span class="p">}</span></pre>
-	</div>
-	<div class="code-box-nav">
-		
-	</div>
-</div>
-<p>When you run <code>go test</code>, you get the following output:
-</p>
-
-<div class="code-box lang-Shell">
-	<div>
-	<pre class="chroma">$ go <span class="nb">test</span>
---- FAIL: ExampleSum_fail <span class="o">(</span>0.00s<span class="o">)</span>
-got:
-<span class="m">3</span>
-want:
-<span class="m">5</span>
-FAIL
-<span class="nb">exit</span> status <span class="m">1</span>
-FAIL    so/sum    0.006s</pre>
-	</div>
-	<div class="code-box-nav">
-		
-	</div>
-</div>
-<p>If you want to see the documentation for your <code>sum</code> package – just run:
-</p>
-
-<div class="code-box lang-Shell">
-	<div>
-	<pre class="chroma">go doc -http<span class="o">=</span>:6060</pre>
-	</div>
-	<div class="code-box-nav">
-		
-	</div>
-</div>
-<p>and navigate to http://localhost:6060/pkg/FOLDER/sum/, where <em>FOLDER</em> is the folder containing the <code>sum</code> package (in this example <code>so</code>). The documentation for the sum method looks like this:
-</p>
-<img class="img" src="/essential/go/img/daeb90d9e2061d177e36f46d52c7133c997892b6.png">
-<p>enter image description here
-</p>
 
       <div class="forum-link">
   Found a mistake? Have a question or improvement idea?
