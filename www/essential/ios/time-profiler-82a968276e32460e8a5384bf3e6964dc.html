@@ -130,24 +130,24 @@
       
 <p>The first instrument you’ll look at is the <code>Time Profiler</code>. At measured intervals, Instruments will halt the execution of the program and take a stack trace on each running thread. Think of it as pressing the pause button in Xcode’s debugger.Here’s a sneak preview of the Time Profiler :-
 </p>
-<img class="img" src="/img/c01aca20521104639f2e2ebd346b5bf98aa3f60b.png">
+<img class="img" src="/essential/ios/img/9ae9ef56f06ab100493313d42cc32830df0e890d.png">
 <p>This screen displays the <code>Call Tree</code>. The <code>Call Tree</code> shows the amount of time spent executing in various methods within an app. Each row is a different method that the program’s execution path has followed. The time spent in each method can be determined from the number of times the profiler is stopped in each method. For instance, if <strong>100</strong> samples are done at <strong>1 millisecond intervals</strong>, and a particular method is found to be at the top of the stack in 10 samples, then you can deduce that approximately <strong>10%</strong> of the total execution time — <strong>10 milliseconds</strong> — was spent in that method. It’s a fairly crude approximation, but it works!
 </p>
 <p>From <code>Xcode’s</code> menu bar, select <code>Product\Profile</code>, or <code>press ⌘I</code>. This will build the app and launch Instruments. You will be greeted with a selection window that looks like this:
 </p>
 <p>These are all different templates that come with Instruments.
 </p>
-<img class="img" src="/img/3be69ec4839af630523ec0185f9974d2d517a454.png">
+<img class="img" src="/essential/ios/img/9215f442d7f8a3e577e5e80100c79426e12c292c.png">
 <p>Select the <code>Time Profiler</code> instrument and click Choose. This will open up a new Instruments document. Click the red <strong>record button</strong> in the top left to start recording and launch the app. You may be asked for your password to authorize <strong>Instruments</strong> to analyze other processes — fear not, it’s safe to provide here! In the <strong>Instruments window</strong>, you can see the time counting up, and a little arrow moving from left to right above the <strong>graph</strong> in the center of the screen. This indicates that the app is running.
 </p>
 <p>Now, start using the app. Search for some images, and drill down into one or more of the search results. You have probably noticed that going into a search result is tediously slow, and scrolling through a list of search results is also incredibly annoying – it’s a terribly clunky app!
 </p>
 <p>Well, you’re in luck, for you’re about to embark on fixing it! However, you’re first going to get a quick run down on what you’re looking at in <strong>Instruments</strong>. First, make sure the view selector on the right hand side of the toolbar has both options selected, like so:
 </p>
-<img class="img" src="/img/d3085036bc9a836187615c424cb35d8d1d401dfa.png">
+<img class="img" src="/essential/ios/img/b4ac0199e85b6cb3960217d56846fe8a4868b794.png">
 <p>That will ensure that all panels are open. Now study the screenshot below and the explanation of each section beneath it:
 </p>
-<img class="img" src="/img/08b766a025edc4ba0c0379a7969f8ba72a7bd758.png">
+<img class="img" src="/essential/ios/img/eace9a81592e031bbf5e6d1020bb0a067e779a4e.png">
 <p><strong>1.</strong> These are the <strong>recording controls</strong>. The red ‘record’ button will stop &amp; start the app currently being profiled when it is clicked (it toggles between a record and stop icon). The pause button does exactly what you’d expect and pauses the current execution of the app.
 </p>
 <p><strong>2.</strong> This is the run timer. The timer counts how long the app being profiled has been running, and how many times it has been run. If you stop and then restart the app using the recording controls, that would start a new run and the display would then show Run 2 of 2.
@@ -168,7 +168,7 @@
 </p>
 <p>On the right hand side, select the <strong>Display Settings inspector</strong> <code>(or press ⌘+2)</code>. In the <strong>inspector</strong>, under the <code>Call Tree</code> section, select Separate by <strong>Thread</strong>, Invert <code>Call Tree</code>, Hide Missing Symbols and Hide System Libraries. It will look like this:
 </p>
-<img class="img" src="/img/462f3182c04003c9e95b4d450ffb3dc917fee2b4.png">
+<img class="img" src="/essential/ios/img/7f0c2e9cca0150edbcb46a5af87686158dde59d0.png">
 <p>Here’s what each option is doing to the data displayed in the table to the left:
 </p>
 <p><strong>Separate by Thread:</strong> Each thread should be considered separately. This enables you to understand which threads are responsible for the greatest amount of <strong>CPU</strong> use.
@@ -189,32 +189,32 @@
 </p>
 <p>Although some values may be slightly different, the order of the entries should be similar to the table below once you have enabled the options above:
 </p>
-<img class="img" src="/img/16fd7a91ffd70f4ebe00c5f657aa3e9b026fe356.png">
+<img class="img" src="/essential/ios/img/64f9a8259189ded454a6d3bdc70bc809242e1fc3.png">
 <p>Well, that certainly doesn’t look too good. The vast majority of time is spent in the method that applies the ‘tonal’ filter to the thumbnail photos. That shouldn’t come as too much of a shock to you, as the table loading and scrolling were the clunkiest parts of the UI, and that’s when the table cells are constantly being updated.
 </p>
 <p>To find out more about what’s going on within that method, double click its row in the table. Doing so will bring up the following view:
 </p>
-<img class="img" src="/img/6f1007bbe77a7d936b62f70d959a8ee84233cf9d.png">
+<img class="img" src="/essential/ios/img/6f1007bbe77a7d936b62f70d959a8ee84233cf9d.png">
 <p>Well that’s interesting, isn’t it! <code>applyTonalFilter()</code> is a method added to <code>UIImage</code> in an extension, and almost <strong>100</strong>% of the time spent in it is spent creating the CGImage output after applying the image filter.
 </p>
 <p>There’s not really much that can be done to speed this up: creating the image is quite an intensive process, and takes as long as it takes. Let’s try stepping back and seeing where <code>applyTonalFilter()</code> is called from. <strong>Click</strong> <code>Call Tree</code> in the breadcrumb trail at the top of the code view to get back to the previous screen:
 </p>
-<img class="img" src="/img/2fe5f404a8984e4bdcfb8d8f427386a1bfe45ece.png">
+<img class="img" src="/essential/ios/img/f61f24d9a801f97afe1aa47341123998256eddba.png">
 <p>Now click the small arrow to the left of the applyTonalFilter row at the top of the table. This will unfold the Call Tree to show the caller of applyTonalFilter. You may need to unfold the next row too; when profiling Swift, there will sometimes be duplicate rows in the Call Tree, prefixed with @objc. You’re interested in the first row that’s prefixed with your app’s target name (InstrumentsTutorial):
 </p>
 <p>In this case, this row refers to the results collection view’s <code>cellForItemAtIndexPath</code>. Double click the row to see the associated code from the project.
 </p>
-<img class="img" src="/img/ab27efb4d56bf20835fb12165e7415b65b0e6c69.png">
+<img class="img" src="/essential/ios/img/14af46e9a6249a117e629cd2e0616a9997c9e2a9.png">
 <p>Now you can see what the problem is. The method to apply the tonal filter takes a long time to execute, and it’s called directly from cellForItemAtIndexPath, which will block the <code>main thread</code> (and therefore the entire UI) each time it’s ask for a filtered image.
 </p>
 <p><strong>Allocations</strong>
 </p>
 <p>There are detailed information about all the <strong>objects</strong> that are being created and the memory that backs them; it also shows you <code>retain counts</code> of each object. To start afresh with a new <code>instruments profile</code>, quit the Instruments app. This time, build and run the app, and open the Debug Navigator in the Navigators area. Then click on <strong>Memory</strong> to display graphs of memory usage in the main window:
 </p>
-<img class="img" src="/img/feafb9cbbcb05002e32a40b51c7f270e2d491fe2.png">
+<img class="img" src="/essential/ios/img/0d0de35275f2540247667f52cc692a57ed66902a.png">
 <p>These graphs are useful for to get a quick idea about how your app is performing. But you’re going to need a bit more power. Click the <code>Profile in Instruments</code> button and then Transfer to bring this session into <strong>Instruments</strong>. The <strong>Allocations instrument</strong> will start up automatically.
 </p>
-<img class="img" src="/img/eedb91609215a3fa1be8d688fd0845f967fe7584.png">
+<img class="img" src="/essential/ios/img/15a09785cea2bad37a8ab7d0d00018a62b08d9d7.png">
 <p>This time you’ll notice two tracks. One is called Allocations, and one is called Leaks. The Allocations track will be discussed in detail later on; the Leaks track is generally more useful in Objective-C, and won’t be covered in this tutorial. So what bug are you going to track down next? There’s something hidden in the project that you probably don’t know is there. You’ve likely heard about memory leaks. But what you may not know is that there are actually two kinds of leaks:
 </p>
 <p><strong>True memory leaks</strong> are where an object is no longer referenced by anything but still allocated – that means the memory can never be re-used. Even with Swift and <code>ARC</code> helping manage memory, the most common kind of memory leak is a <code>retain cycle or strong reference cycle</code>. This is when two objects hold strong references to one another, so that each object keeps the other one from being deallocated. This means that their memory is never released!
@@ -227,13 +227,13 @@
 </p>
 <p>What you’re going to perform is a <code>generation analysis</code>. To do this, press the button called Mark Generation. You’ll find the button at the top of the Display Settings inspector:
 </p>
-<img class="img" src="/img/57914a46ef25a285f731e958ad4df4a3022dd373.png">
+<img class="img" src="/essential/ios/img/72b96bc2a31492e8ec16c46010ce11ee63e67818.png">
 <p><strong>Press it and you will see a red flag appear in the track, like so:</strong>
 </p>
-<img class="img" src="/img/60c619e9ad10d73a650cb486601cbaf2ba657c4f.png">
+<img class="img" src="/essential/ios/img/39db4356165ae32122eb89d4c5b4ad5d3f5e3b3f.png">
 <p>The purpose of <code>generation analysis</code> is to perform an action multiple times, and see if memory is growing in an <code>unbounded fashion</code>. <strong>Drill</strong> into a search, wait a few seconds for the images to load, and then go back to the main page. Then mark the generation again. Do this repeatedly for different searches. After a <strong>drilling</strong> into a few searches, <strong>Instruments</strong> will look like this:
 </p>
-<img class="img" src="/img/8604bf28a2c5ed1d8cede0ff5db88b3c4009e8cd.png">
+<img class="img" src="/essential/ios/img/80da0d93d6855c12fe45779c60fcdbc59db2bcce.png">
 <p>At this point, you should be getting suspicious. Notice how the blue graph is going up with each search that you <strong>drill</strong> into. Well, that certainly isn’t good. But wait, what about <code>memory warnings?</code> You know about those, right? <code>Memory warnings</code> are iOS’s way of telling an app that things are getting tight in the memory department, and you need to clear out some memory.
 </p>
 <p>It’s possible that this growth is not just due to your app; it could be something in the depths of <code>UIKit</code> that’s holding onto memory. Give the system frameworks and your app a chance to clear their <strong>memory</strong> first before pointing a finger at either one.
